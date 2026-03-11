@@ -1,0 +1,396 @@
+// ============================================================
+// MAPA-PRINCIPAL.JS - Mapa del mundo estilo Super Mario World
+// ============================================================
+// Vista desde arriba donde el jugador se mueve entre nodos
+// (niveles). Cada nodo es un lugar real de República Dominicana.
+// Los nodos se desbloquean al completar el anterior, como en
+// Super Mario World — esto motiva al jugador a seguir avanzando.
+// ============================================================
+
+import { ANCHO_JUEGO, ALTO_JUEGO } from '../motor/configuracion.js';
+
+export class MapaPrincipal {
+
+  constructor() {
+    // Nodos = lugares/niveles en el mapa
+    // Cada uno tiene posición, nombre, estado y conexiones
+    this.nodos = [];
+
+    // Caminos visibles entre nodos (líneas en el mapa)
+    this.caminosActivos = [];
+
+    // En qué nodo está parado el jugador ahora
+    this.jugadorNodoActual = 0;
+
+    // Animación del jugador en el mapa (rebote suave)
+    this.tiempoAnimacion = 0;
+
+    // Bloqueo de entrada
+    this.bloqueoEntrada = false;
+
+    // Animación de nodo desbloqueándose
+    this.nodoDesbloqueandose = null;
+    this.tiempoDesbloqueo = 0;
+  }
+
+  // --- Construir el mapa ---
+  iniciar(juego) {
+    this.juego = juego;
+    this.tiempoAnimacion = 0;
+
+    // --- Definir los nodos del Mundo Taíno ---
+    // Las posiciones simulan un camino por la geografía dominicana
+    this.nodos = [
+      {
+        id: 0,
+        x: 120, y: 380,
+        nombre: 'Cuevas del Pomier',
+        tipo: 'cueva',
+        completado: false,
+        bloqueado: false,
+        // Lista de IDs de nodos a los que se conecta
+        conectadoA: [1],
+        escena: 'cuevasPomier'
+      },
+      {
+        id: 1,
+        x: 300, y: 280,
+        nombre: 'Asentamiento Taino I',
+        tipo: 'aldea',
+        completado: false,
+        bloqueado: true,
+        conectadoA: [2],
+        escena: 'asentamientoTaino1'
+      },
+      {
+        id: 2,
+        x: 530, y: 200,
+        nombre: 'Asentamiento Taino II',
+        tipo: 'aldea',
+        completado: false,
+        bloqueado: true,
+        conectadoA: [3],
+        escena: 'asentamientoTaino2'
+      },
+      {
+        id: 3,
+        x: 780, y: 300,
+        nombre: 'La Isabela',
+        tipo: 'ciudad',
+        completado: false,
+        bloqueado: true,
+        conectadoA: [],
+        // Este nodo lleva al Mundo Colonial
+        escena: 'mundoColonial'
+      }
+    ];
+
+    // Construir los caminos a partir de las conexiones de cada nodo
+    this.caminosActivos = [];
+    for (const nodo of this.nodos) {
+      for (const destinoId of nodo.conectadoA) {
+        this.caminosActivos.push({
+          desdeId: nodo.id,
+          hastaId: destinoId
+        });
+      }
+    }
+
+    // Si hay datos de progreso guardados, aplicarlos
+    if (juego && juego.progreso) {
+      for (const nodo of this.nodos) {
+        if (juego.progreso.nodosCompletados &&
+            juego.progreso.nodosCompletados.includes(nodo.id)) {
+          nodo.completado = true;
+        }
+        if (juego.progreso.nodosDesbloqueados &&
+            juego.progreso.nodosDesbloqueados.includes(nodo.id)) {
+          nodo.bloqueado = false;
+        }
+      }
+    }
+
+    // El jugador empieza en el primer nodo desbloqueado no completado
+    // o en el último completado si todos están hechos
+    this.jugadorNodoActual = 0;
+    for (let i = this.nodos.length - 1; i >= 0; i--) {
+      if (!this.nodos[i].bloqueado) {
+        this.jugadorNodoActual = i;
+        break;
+      }
+    }
+  }
+
+  // --- Lógica de cada frame ---
+  actualizar(dt, entrada, _jugador, _companeros) {
+    this.tiempoAnimacion += dt * 2;
+
+    // Animación de desbloqueo (si hay un nodo desbloqueándose)
+    if (this.nodoDesbloqueandose !== null) {
+      this.tiempoDesbloqueo += dt;
+      if (this.tiempoDesbloqueo > 1.5) {
+        this.nodoDesbloqueandose = null;
+        this.tiempoDesbloqueo = 0;
+      }
+      return; // No procesar entrada durante la animación
+    }
+
+    const nodoActual = this.nodos[this.jugadorNodoActual];
+    if (!nodoActual) return;
+
+    // --- Volver al menú con Q/Escape ---
+    if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
+      if (this.juego && this.juego.cambiarEscena) {
+        this.juego.cambiarEscena('menuPrincipal');
+      }
+      this.bloqueoEntrada = true;
+      return;
+    }
+
+    // --- Movimiento entre nodos ---
+    // El jugador solo puede moverse a nodos conectados y desbloqueados
+    // Esto es como Super Mario World: sigues las líneas del mapa
+    if (!this.bloqueoEntrada) {
+      // Buscar nodos conectados AL nodo actual o que conectan A este
+      if (entrada.estaPresionada('derecha') || entrada.estaPresionada('arriba')) {
+        // Avanzar al siguiente nodo conectado
+        const siguiente = this._buscarNodoConectado(nodoActual, 'adelante');
+        if (siguiente !== null) {
+          this.jugadorNodoActual = siguiente;
+          this.bloqueoEntrada = true;
+        }
+      }
+
+      if (entrada.estaPresionada('izquierda') || entrada.estaPresionada('abajo')) {
+        // Retroceder al nodo anterior
+        const anterior = this._buscarNodoConectado(nodoActual, 'atras');
+        if (anterior !== null) {
+          this.jugadorNodoActual = anterior;
+          this.bloqueoEntrada = true;
+        }
+      }
+
+      // Entrar al nivel con acción (E o Enter)
+      if (entrada.estaPresionada('accion') && !nodoActual.bloqueado) {
+        if (this.juego && this.juego.cambiarEscena && nodoActual.escena) {
+          this.juego.cambiarEscena(nodoActual.escena);
+        }
+        this.bloqueoEntrada = true;
+      }
+    }
+
+    // Desbloquear cuando se sueltan las teclas
+    if (!entrada.estaPresionada('derecha') &&
+        !entrada.estaPresionada('izquierda') &&
+        !entrada.estaPresionada('arriba') &&
+        !entrada.estaPresionada('abajo') &&
+        !entrada.estaPresionada('accion') &&
+        !entrada.estaPresionada('cancelar')) {
+      this.bloqueoEntrada = false;
+    }
+  }
+
+  // --- Dibujar el mapa ---
+  // Recibimos textos (traducciones del idioma actual) y parámetros extra que ignoramos
+  dibujar(renderizador, ancho, alto, textos) {
+    const ctx = renderizador.ctx;
+
+    // --- Fondo del mapa ---
+    // Degradado verde/marrón que evoca la isla caribeña
+    const gradienteFondo = ctx.createLinearGradient(0, 0, ancho, alto);
+    gradienteFondo.addColorStop(0, '#2d5a27');
+    gradienteFondo.addColorStop(0.5, '#3a6b35');
+    gradienteFondo.addColorStop(1, '#5a4a2f');
+    ctx.fillStyle = gradienteFondo;
+    ctx.fillRect(0, 0, ancho, alto);
+
+    // Detalles del terreno (manchas de color para simular vegetación)
+    ctx.fillStyle = 'rgba(34, 80, 30, 0.4)';
+    ctx.fillRect(50, 100, 120, 80);
+    ctx.fillRect(400, 50, 100, 60);
+    ctx.fillRect(700, 150, 150, 90);
+
+    // Agua (un río que cruza el mapa)
+    ctx.fillStyle = 'rgba(40, 80, 140, 0.3)';
+    ctx.fillRect(0, 440, ancho, 100);
+
+    // --- Título del mundo ---
+    ctx.font = 'bold 24px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.textAlign = 'center';
+    ctx.fillText(textos.mundos.taino, ancho / 2, 35);
+
+    // --- Caminos entre nodos ---
+    // Líneas punteadas que conectan los lugares en el mapa
+    for (const camino of this.caminosActivos) {
+      const desde = this.nodos[camino.desdeId];
+      const hasta = this.nodos[camino.hastaId];
+      if (!desde || !hasta) continue;
+
+      // El camino se ve dorado si ambos nodos están desbloqueados
+      // y gris si el destino está bloqueado
+      const estaActivo = !hasta.bloqueado;
+      ctx.strokeStyle = estaActivo ? '#C8A84E' : '#555555';
+      ctx.lineWidth = estaActivo ? 3 : 2;
+      ctx.setLineDash(estaActivo ? [8, 6] : [4, 8]);
+
+      ctx.beginPath();
+      ctx.moveTo(desde.x, desde.y);
+      ctx.lineTo(hasta.x, hasta.y);
+      ctx.stroke();
+
+      ctx.setLineDash([]); // Restaurar línea sólida
+    }
+
+    // --- Nodos (niveles) ---
+    for (const nodo of this.nodos) {
+      const estaSeleccionado = nodo.id === this.jugadorNodoActual;
+      const estaDesbloqueandose = nodo.id === this.nodoDesbloqueandose;
+
+      // Radio del nodo — el seleccionado es un poco más grande
+      let radio = estaSeleccionado ? 22 : 18;
+
+      // Animación de desbloqueo: el nodo pulsa
+      if (estaDesbloqueandose) {
+        const pulso = Math.sin(this.tiempoDesbloqueo * 8) * 5;
+        radio += pulso;
+      }
+
+      // --- Color según estado ---
+      if (nodo.bloqueado) {
+        // Gris oscuro = no disponible todavía
+        ctx.fillStyle = '#3a3a3a';
+      } else if (nodo.completado) {
+        // Verde = ya lo completaste
+        ctx.fillStyle = '#44AA44';
+      } else {
+        // Dorado = disponible para jugar
+        ctx.fillStyle = '#C8A84E';
+      }
+
+      // Dibujar el círculo del nodo
+      ctx.beginPath();
+      ctx.arc(nodo.x, nodo.y, radio, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Borde del nodo
+      ctx.strokeStyle = estaSeleccionado ? '#FFD700' : '#222222';
+      ctx.lineWidth = estaSeleccionado ? 3 : 2;
+      ctx.stroke();
+
+      // --- Ícono según tipo de lugar ---
+      ctx.font = '14px monospace';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'center';
+
+      if (nodo.tipo === 'cueva') ctx.fillText('C', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'aldea') ctx.fillText('A', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'ciudad') ctx.fillText('I', nodo.x, nodo.y + 5);
+
+      // Marca de completado (palomita)
+      if (nodo.completado) {
+        ctx.font = 'bold 16px monospace';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText('v', nodo.x + radio + 5, nodo.y - 5);
+      }
+
+      // Candado si está bloqueado
+      if (nodo.bloqueado) {
+        ctx.font = '12px monospace';
+        ctx.fillStyle = '#888888';
+        ctx.fillText('[x]', nodo.x, nodo.y + radio + 15);
+      }
+
+      // Nombre del nodo debajo
+      ctx.font = nodo.bloqueado ? '11px monospace' : '12px monospace';
+      ctx.fillStyle = nodo.bloqueado ? '#666666' : '#FFFFFF';
+      ctx.fillText(nodo.nombre, nodo.x, nodo.y + radio + 28);
+    }
+
+    // --- Jugador sobre el nodo actual ---
+    const nodoActual = this.nodos[this.jugadorNodoActual];
+    if (nodoActual) {
+      const rebote = Math.sin(this.tiempoAnimacion) * 3;
+      const genero = this.juego ? this.juego.generoJugador || 'pepito' : 'pepito';
+      const colorJugador = genero === 'pepito' ? '#4488ff' : '#aa44ff';
+
+      // Cuerpo del jugador (versión pequeña)
+      ctx.fillStyle = colorJugador;
+      ctx.fillRect(nodoActual.x - 8, nodoActual.y - 40 + rebote, 16, 20);
+
+      // Cabeza
+      ctx.fillStyle = '#D2956A';
+      ctx.fillRect(nodoActual.x - 5, nodoActual.y - 50 + rebote, 10, 10);
+
+      // Flecha apuntando al nodo
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.moveTo(nodoActual.x, nodoActual.y - 24 + rebote);
+      ctx.lineTo(nodoActual.x - 5, nodoActual.y - 30 + rebote);
+      ctx.lineTo(nodoActual.x + 5, nodoActual.y - 30 + rebote);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // --- Nombre del nodo seleccionado ---
+    if (nodoActual && !nodoActual.bloqueado) {
+      ctx.font = 'bold 16px monospace';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillText(nodoActual.nombre, ancho / 2, alto - 55);
+
+      if (nodoActual.completado) {
+        ctx.font = '12px monospace';
+        ctx.fillStyle = '#44AA44';
+        ctx.fillText('(Completado)', ancho / 2, alto - 38);
+      }
+    }
+
+    // --- Instrucciones en la parte inferior ---
+    ctx.font = '12px monospace';
+    ctx.fillStyle = '#AAAAAA';
+    ctx.fillText(
+      'Flechas: moverse | Enter/E: entrar al nivel | Q: volver al menu',
+      ancho / 2,
+      alto - 15
+    );
+
+    ctx.textAlign = 'left';
+  }
+
+  // --- Desbloquear un nodo ---
+  // Se llama cuando el jugador completa el nivel anterior
+  desbloquearNodo(id) {
+    const nodo = this.nodos.find(n => n.id === id);
+    if (nodo && nodo.bloqueado) {
+      nodo.bloqueado = false;
+
+      // Activar la animación de desbloqueo
+      this.nodoDesbloqueandose = id;
+      this.tiempoDesbloqueo = 0;
+    }
+  }
+
+  // --- Buscar un nodo conectado al actual en una dirección ---
+  // 'adelante' busca nodos que este nodo apunta (conectadoA)
+  // 'atras' busca nodos que apuntan A este nodo
+  _buscarNodoConectado(nodoActual, direccion) {
+    if (direccion === 'adelante') {
+      // Buscar el primer nodo conectado que NO esté bloqueado
+      for (const destinoId of nodoActual.conectadoA) {
+        const destino = this.nodos[destinoId];
+        if (destino && !destino.bloqueado) {
+          return destinoId;
+        }
+      }
+    } else {
+      // Buscar un nodo que tenga a este en su lista de conectadoA
+      for (const nodo of this.nodos) {
+        if (nodo.conectadoA.includes(nodoActual.id) && !nodo.bloqueado) {
+          return nodo.id;
+        }
+      }
+    }
+
+    return null;
+  }
+}
