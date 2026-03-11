@@ -118,7 +118,26 @@ const fr = {
     navaja: 'Couteau suisse',
     brujula: 'Boussole',
     mapa: 'Carte Ancienne',
-    magnetometro: 'Magnétomètre'
+    magnetometro: 'Magnétomètre',
+    fragmentoMapa: 'Fragment de Carte',
+    artefactoTaino: 'Artefact Taïno',
+
+    descLinterna: 'Éclaire l\'obscurité des grottes. Augmente ton rayon de vision.',
+    descNavaja: 'Outil multifonction. Utile pour couper des lianes et ouvrir des serrures.',
+    descBrujula: 'Indique le nord. T\'aide à ne pas te perdre dans les grands espaces.',
+    descMapa: 'Une carte ancienne avec des marques mystérieuses de sites archéologiques.',
+    descFragmentoMapa: 'Un morceau de carte ancienne. Il semble montrer d\'autres grottes.',
+    descArtefactoTaino: 'Un cemí doré. Il doit être emmené au musée pour étude.',
+    descMagnetometro: 'Détecte les objets métalliques enterrés sous terre.'
+  },
+
+  inventario: {
+    titulo: 'Inventaire',
+    vacio: 'Ton sac est vide',
+    lleno: 'Sac plein',
+    usar: '[E] Utiliser',
+    cerrar: '[I] ou [Q] Fermer',
+    slots: 'slots'
   },
 
   // Les mondes représentent des couches thématiques de l'histoire dominicaine

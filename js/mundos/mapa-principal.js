@@ -349,7 +349,7 @@ export class MapaPrincipal {
     ctx.font = '12px monospace';
     ctx.fillStyle = '#AAAAAA';
     ctx.fillText(
-      'Flechas: moverse | Enter/E: entrar al nivel | Q: volver al menu',
+      'Flechas: moverse | E: entrar al nivel | I: inventario | Q: menu',
       ancho / 2,
       alto - 15
     );

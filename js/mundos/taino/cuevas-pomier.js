@@ -374,13 +374,50 @@ export class CuevasPomier {
         objeto.recogido = true;
         this.sfx.recoger();
 
+        // Obtener textos traducidos para nombre y descripción
+        const textos = this._obtenerTextos();
+        const objTextos = textos?.objetos || {};
+
         if (objeto.tipo === 'linterna') {
           this.radioLuz = 150;
+          // Agregar al inventario simple del jugador (para el getter tieneLinterna)
           jugador.agregarAlInventario({ nombre: 'linterna' });
+          // Agregar al inventario UI con info completa
+          if (this.juego && this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: 'linterna',
+              nombre: objTextos.linterna || 'Linterna',
+              descripcion: objTextos.descLinterna || 'Ilumina la oscuridad.',
+              tipo: 'herramienta',
+              esUsable: false
+            });
+          }
+        }
+
+        if (objeto.tipo === 'fragmentoMapa') {
+          jugador.agregarAlInventario({ nombre: 'fragmentoMapa' });
+          if (this.juego && this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: 'fragmentoMapa',
+              nombre: objTextos.fragmentoMapa || 'Fragmento de Mapa',
+              descripcion: objTextos.descFragmentoMapa || 'Un pedazo de mapa antiguo.',
+              tipo: 'clave',
+              esUsable: false
+            });
+          }
         }
 
         if (objeto.tipo === 'artefactoTaino') {
-          const textos = this._obtenerTextos();
+          jugador.agregarAlInventario({ nombre: 'artefactoTaino' });
+          if (this.juego && this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: 'artefactoTaino',
+              nombre: objTextos.artefactoTaino || 'Artefacto Taíno',
+              descripcion: objTextos.descArtefactoTaino || 'Un cemí dorado.',
+              tipo: 'clave',
+              esUsable: false
+            });
+          }
           this.misionActual = textos?.dialogos?.cueva?.misionArtefacto || 'Lleva el artefacto a la salida';
         }
       }
@@ -702,7 +739,7 @@ export class CuevasPomier {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD/Flechas: mover | Espacio: saltar | E: examinar | Q: salir', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | Espacio: saltar | E: examinar | I: inventario | Q: salir', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }

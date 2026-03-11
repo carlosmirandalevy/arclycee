@@ -20,6 +20,9 @@ import { CargadorRecursos } from './recursos.js';
 import { Sonido } from './sonido.js';
 import { SistemaGuardado } from './guardado.js';
 
+// --- Importar el inventario ---
+import { Inventario } from '../mecanicas/inventario.js';
+
 // --- Importar el sistema de idiomas ---
 import idiomas from '../idiomas/idiomas.js';
 
@@ -81,6 +84,18 @@ export class Juego {
       nodosCompletados: [],
       nodosDesbloqueados: [0]
     };
+
+    // --- Inventario ---
+    // El inventario vive en el juego (no en el jugador) porque es una
+    // UI global que se puede abrir en cualquier escena jugable.
+    this.inventario = new Inventario();
+
+    // Bloqueo para evitar que la tecla I abra y cierre en el mismo frame
+    this._bloqueoInventario = false;
+
+    // Rastrear si el inventario estaba abierto el frame anterior
+    // para dar un frame de gracia cuando se cierra
+    this._inventarioEstabaAbierto = false;
   }
 
   // --- ARRANQUE ---
@@ -235,6 +250,33 @@ export class Juego {
    * - companeros: las mascotas/robots que acompañan al jugador
    */
   actualizar(dt) {
+    // --- Inventario: abrir/cerrar con I ---
+    // Solo se puede abrir en escenas jugables (cuando hay jugador)
+    if (this.jugador) {
+      if (this.entrada.estaPresionada('inventario') && !this._bloqueoInventario) {
+        this.inventario.alternar();
+        this._bloqueoInventario = true;
+      }
+      if (!this.entrada.estaPresionada('inventario')) {
+        this._bloqueoInventario = false;
+      }
+
+      // Si el inventario está abierto, consume TODA la entrada
+      if (this.inventario.abierto) {
+        this.inventario.manejarEntrada(this.entrada, this.jugador);
+        this._inventarioEstabaAbierto = true;
+        return;
+      }
+
+      // Frame de gracia: si el inventario se ACABA de cerrar, no procesar
+      // la escena este frame. Evita que un Q de "cerrar inventario"
+      // también cierre la escena (salir del mapa/cueva).
+      if (this._inventarioEstabaAbierto) {
+        this._inventarioEstabaAbierto = false;
+        return;
+      }
+    }
+
     if (this.escenaActual && typeof this.escenaActual.actualizar === 'function') {
       this.escenaActual.actualizar(dt, this.entrada, this.jugador, this.companeros);
     }
@@ -249,10 +291,10 @@ export class Juego {
   dibujar() {
     this.renderizador.limpiar();
 
+    // Obtenemos los textos del idioma actual
+    const textos = this.idiomas.traducciones[this.idiomas.idiomaActual];
+
     if (this.escenaActual && typeof this.escenaActual.dibujar === 'function') {
-      // Obtenemos los textos del idioma actual para que la escena
-      // pueda mostrar todo en el idioma que eligió el jugador
-      const textos = this.idiomas.traducciones[this.idiomas.idiomaActual];
       this.escenaActual.dibujar(
         this.renderizador,
         ANCHO_JUEGO,
@@ -261,6 +303,12 @@ export class Juego {
         this.jugador,
         this.companeros
       );
+    }
+
+    // --- Inventario se dibuja ENCIMA de todo (overlay) ---
+    // Usa el contexto raw porque maneja su propio dibujo
+    if (this.inventario.abierto) {
+      this.inventario.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
     }
   }
 

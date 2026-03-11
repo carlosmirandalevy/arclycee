@@ -118,7 +118,26 @@ const en = {
     navaja: 'Swiss Knife',
     brujula: 'Compass',
     mapa: 'Ancient Map',
-    magnetometro: 'Magnetometer'
+    magnetometro: 'Magnetometer',
+    fragmentoMapa: 'Map Fragment',
+    artefactoTaino: 'Taíno Artifact',
+
+    descLinterna: 'Lights up the darkness of caves. Increases your vision radius.',
+    descNavaja: 'Multi-tool. Useful for cutting vines and picking locks.',
+    descBrujula: 'Points north. Helps you navigate large areas.',
+    descMapa: 'An ancient map with mysterious marks of archaeological sites.',
+    descFragmentoMapa: 'A piece of an ancient map. It seems to show the location of other caves.',
+    descArtefactoTaino: 'A golden cemí. It should be taken to the museum for study.',
+    descMagnetometro: 'Detects metallic objects buried underground.'
+  },
+
+  inventario: {
+    titulo: 'Inventory',
+    vacio: 'Your backpack is empty',
+    lleno: 'Backpack full',
+    usar: '[E] Use',
+    cerrar: '[I] or [Q] Close',
+    slots: 'slots'
   },
 
   // Los mundos representan capas temáticas de la historia dominicana

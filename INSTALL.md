@@ -46,6 +46,14 @@ firebase deploy
 | Inventario | I | Botón X |
 | Habilidad especial | F | Botón Y |
 
+**Dentro del inventario:**
+
+| Acción | Teclado |
+|---|---|
+| Navegar slots | Flechas o WASD |
+| Usar objeto | E o Enter |
+| Cerrar inventario | I o Q |
+
 ## Estructura del Proyecto
 
 ```

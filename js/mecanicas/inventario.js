@@ -11,11 +11,10 @@
 export class Inventario {
   constructor() {
     // Lista de objetos en el inventario
-    // Cada objeto tiene: {id, nombre, descripcion, tipo, cantidad, icono, esUsable}
+    // Cada objeto tiene: {id, nombre, descripcion, tipo, cantidad, color, esUsable}
     this.objetos = [];
 
     // Máximo 20 objetos para obligar al jugador a decidir qué guardar
-    // (un inventario infinito le quita emoción a encontrar cosas)
     this.capacidad = 20;
 
     // Estado de la UI: si el inventario está visible o no
@@ -23,14 +22,15 @@ export class Inventario {
 
     // Cuál slot tiene seleccionado el jugador (para navegar con flechas)
     this.seleccion = 0;
+
+    // Bloqueo de entrada para evitar pulsaciones repetidas
+    this.bloqueoEntrada = false;
   }
 
   // --- Agregar un objeto ---
   // Si ya tiene uno del mismo tipo, solo suma la cantidad (stackear).
   // Si no, lo agrega como nuevo si hay espacio.
-  // Retorna true si se agregó con éxito, false si no cabe.
   agregar(objeto) {
-    // Buscar si ya tiene uno igual para stackear
     const existente = this.objetos.find(o => o.id === objeto.id);
 
     if (existente) {
@@ -40,7 +40,6 @@ export class Inventario {
 
     if (this.estaLleno()) return false;
 
-    // Asegurar que tenga cantidad mínima de 1
     this.objetos.push({
       ...objeto,
       cantidad: objeto.cantidad || 1
@@ -49,7 +48,6 @@ export class Inventario {
   }
 
   // --- Remover un objeto por ID ---
-  // Busca el objeto y lo quita. Si tiene cantidad > 1, solo resta 1.
   remover(id) {
     const indice = this.objetos.findIndex(o => o.id === id);
     if (indice === -1) return false;
@@ -60,7 +58,6 @@ export class Inventario {
       this.objetos.splice(indice, 1);
     }
 
-    // Ajustar selección si quedó fuera de rango
     if (this.seleccion >= this.objetos.length) {
       this.seleccion = Math.max(0, this.objetos.length - 1);
     }
@@ -68,26 +65,16 @@ export class Inventario {
   }
 
   // --- Usar un objeto en el jugador ---
-  // Aplica el efecto del objeto (curar, equipar, etc.) y lo remueve.
-  // Solo funciona con objetos que tienen esUsable=true.
   usar(id, jugador) {
     const objeto = this.obtener(id);
     if (!objeto || !objeto.esUsable) return false;
 
-    // Aplicamos el efecto según el tipo de objeto
     switch (objeto.tipo) {
       case 'curacion':
-        // Los objetos de curación restauran vida
         jugador.curar(objeto.valor || 20);
         break;
       case 'comida':
-        // La comida restaura hambre
         jugador.hambre = Math.min(100, jugador.hambre + (objeto.valor || 15));
-        break;
-      case 'herramienta':
-        // Las herramientas se agregan al inventario del jugador directamente
-        // (como la linterna o brújula que se revisan con getters)
-        jugador.agregarAlInventario(objeto);
         break;
       default:
         return false;
@@ -97,31 +84,25 @@ export class Inventario {
     return true;
   }
 
-  // --- Verificar si está lleno ---
   estaLleno() {
     return this.objetos.length >= this.capacidad;
   }
 
-  // --- Obtener objeto por ID ---
   obtener(id) {
     return this.objetos.find(o => o.id === id) || null;
   }
 
+  tieneObjeto(id) {
+    return this.objetos.some(o => o.id === id);
+  }
+
   // --- Controles de UI ---
-  abrir() {
-    this.abierto = true;
-  }
-
-  cerrar() {
-    this.abierto = false;
-  }
-
-  alternar() {
-    this.abierto = !this.abierto;
-  }
+  abrir() { this.abierto = true; }
+  cerrar() { this.abierto = false; }
+  alternar() { this.abierto = !this.abierto; }
 
   // --- Mover la selección en la grilla ---
-  // La grilla tiene 5 columnas, así que "arriba" y "abajo" saltan de 5 en 5
+  // La grilla tiene 5 columnas, así que arriba/abajo saltan de 5 en 5
   moverSeleccion(direccion) {
     const columnas = 5;
 
@@ -141,89 +122,322 @@ export class Inventario {
     }
   }
 
+  // --- Manejar entrada cuando el inventario está abierto ---
+  // Retorna true si el inventario consumió la entrada (para bloquear el juego)
+  manejarEntrada(entrada, jugador) {
+    if (!this.abierto) return false;
+
+    // Cerrar con I o Q/Escape
+    if ((entrada.estaPresionada('inventario') || entrada.estaPresionada('cancelar'))
+        && !this.bloqueoEntrada) {
+      this.cerrar();
+      this.bloqueoEntrada = true;
+      return true;
+    }
+
+    // Navegar con flechas
+    if (entrada.estaPresionada('arriba') && !this.bloqueoEntrada) {
+      this.moverSeleccion('arriba');
+      this.bloqueoEntrada = true;
+    }
+    if (entrada.estaPresionada('abajo') && !this.bloqueoEntrada) {
+      this.moverSeleccion('abajo');
+      this.bloqueoEntrada = true;
+    }
+    if (entrada.estaPresionada('izquierda') && !this.bloqueoEntrada) {
+      this.moverSeleccion('izquierda');
+      this.bloqueoEntrada = true;
+    }
+    if (entrada.estaPresionada('derecha') && !this.bloqueoEntrada) {
+      this.moverSeleccion('derecha');
+      this.bloqueoEntrada = true;
+    }
+
+    // Usar objeto con acción (E/Enter)
+    if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
+      if (this.seleccion < this.objetos.length) {
+        const obj = this.objetos[this.seleccion];
+        if (obj.esUsable && jugador) {
+          this.usar(obj.id, jugador);
+        }
+      }
+      this.bloqueoEntrada = true;
+    }
+
+    // Desbloquear cuando se sueltan todas las teclas de navegación
+    if (!entrada.estaPresionada('arriba') &&
+        !entrada.estaPresionada('abajo') &&
+        !entrada.estaPresionada('izquierda') &&
+        !entrada.estaPresionada('derecha') &&
+        !entrada.estaPresionada('accion') &&
+        !entrada.estaPresionada('inventario') &&
+        !entrada.estaPresionada('cancelar')) {
+      this.bloqueoEntrada = false;
+    }
+
+    return true; // Siempre consume la entrada mientras esté abierto
+  }
+
   // --- Dibujar el inventario ---
-  // Dibuja una grilla semitransparente en el centro de la pantalla
-  // con los objetos representados como rectángulos de colores (placeholder).
-  // Muestra nombres en el idioma actual usando el objeto "idiomas".
-  dibujar(renderizador, anchoCanvas, altoCanvas, idiomas) {
+  // Recibe el contexto raw del canvas (no el Renderizador),
+  // dimensiones del canvas, y los textos traducidos del idioma actual
+  dibujar(ctx, anchoCanvas, altoCanvas, textos) {
     if (!this.abierto) return;
 
-    const ctx = renderizador;
     const columnas = 5;
     const filas = 4;
-    const tamanoSlot = 48;
+    const tamanoSlot = 52;
     const margen = 4;
     const anchoGrilla = columnas * (tamanoSlot + margen);
     const altoGrilla = filas * (tamanoSlot + margen);
 
-    // Posicionar la grilla en el centro de la pantalla
-    const inicioX = (anchoCanvas - anchoGrilla) / 2;
-    const inicioY = (altoCanvas - altoGrilla) / 2;
+    // Panel centrado con algo de padding
+    const panelAncho = anchoGrilla + 60;
+    const panelAlto = altoGrilla + 130;
+    const panelX = (anchoCanvas - panelAncho) / 2;
+    const panelY = (altoCanvas - panelAlto) / 2;
 
-    // Fondo semitransparente oscuro detrás de todo (para que se lea bien)
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    const inicioX = panelX + 30;
+    const inicioY = panelY + 50;
+
+    ctx.save();
+
+    // --- Fondo oscuro que cubre toda la pantalla ---
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
     ctx.fillRect(0, 0, anchoCanvas, altoCanvas);
 
-    // Título del inventario
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '16px monospace';
-    ctx.textAlign = 'center';
-    const titulo = idiomas?.inventario?.titulo || 'Inventario';
-    ctx.fillText(titulo, anchoCanvas / 2, inicioY - 15);
+    // --- Panel del inventario ---
+    ctx.fillStyle = 'rgba(30, 25, 20, 0.95)';
+    ctx.fillRect(panelX, panelY, panelAncho, panelAlto);
 
-    // Dibujar cada slot de la grilla
+    // Borde del panel
+    ctx.strokeStyle = '#C8A84E';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(panelX, panelY, panelAncho, panelAlto);
+
+    // Línea decorativa dorada debajo del título
+    ctx.strokeStyle = '#C8A84E';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(panelX + 10, panelY + 38);
+    ctx.lineTo(panelX + panelAncho - 10, panelY + 38);
+    ctx.stroke();
+
+    // --- Título ---
+    const tituloTexto = textos?.inventario?.titulo || 'Inventario';
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 18px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(tituloTexto, anchoCanvas / 2, panelY + 28);
+
+    // --- Contador de slots ---
+    ctx.font = '11px monospace';
+    ctx.fillStyle = '#888888';
+    ctx.textAlign = 'right';
+    const slotsTexto = textos?.inventario?.slots || 'slots';
+    ctx.fillText(`${this.objetos.length}/${this.capacidad} ${slotsTexto}`, panelX + panelAncho - 15, panelY + 28);
+
+    // --- Grilla de slots ---
     for (let i = 0; i < this.capacidad; i++) {
       const fila = Math.floor(i / columnas);
       const columna = i % columnas;
       const slotX = inicioX + columna * (tamanoSlot + margen);
       const slotY = inicioY + fila * (tamanoSlot + margen);
 
-      // Fondo del slot: dorado si está seleccionado, gris si no
-      ctx.fillStyle = (i === this.seleccion) ? '#ffcc00' : '#444444';
+      const estaSeleccionado = i === this.seleccion;
+      const tieneObjeto = i < this.objetos.length;
+
+      // Fondo del slot
+      if (estaSeleccionado) {
+        ctx.fillStyle = tieneObjeto ? 'rgba(200, 168, 78, 0.3)' : 'rgba(200, 168, 78, 0.15)';
+      } else {
+        ctx.fillStyle = tieneObjeto ? 'rgba(60, 50, 35, 0.8)' : 'rgba(40, 35, 25, 0.6)';
+      }
       ctx.fillRect(slotX, slotY, tamanoSlot, tamanoSlot);
 
       // Borde del slot
-      ctx.strokeStyle = '#888888';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = estaSeleccionado ? '#FFD700' : '#555544';
+      ctx.lineWidth = estaSeleccionado ? 2 : 1;
       ctx.strokeRect(slotX, slotY, tamanoSlot, tamanoSlot);
 
-      // Si hay un objeto en este slot, dibujarlo
-      if (i < this.objetos.length) {
+      // Si hay un objeto, dibujar su ícono
+      if (tieneObjeto) {
         const objeto = this.objetos[i];
-
-        // Icono del objeto (rectángulo de color como placeholder)
-        ctx.fillStyle = objeto.icono || '#66aaff';
-        ctx.fillRect(slotX + 8, slotY + 8, 32, 24);
+        this._dibujarIconoObjeto(ctx, slotX + 10, slotY + 8, objeto);
 
         // Cantidad (solo si tiene más de 1)
         if (objeto.cantidad > 1) {
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '10px monospace';
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 11px monospace';
           ctx.textAlign = 'right';
-          ctx.fillText(`x${objeto.cantidad}`, slotX + tamanoSlot - 4, slotY + tamanoSlot - 4);
+          ctx.fillText(`x${objeto.cantidad}`, slotX + tamanoSlot - 3, slotY + tamanoSlot - 4);
         }
       }
     }
 
-    // Mostrar info del objeto seleccionado debajo de la grilla
+    // --- Info del objeto seleccionado ---
+    const infoY = inicioY + altoGrilla + 10;
+
     if (this.seleccion < this.objetos.length) {
       const seleccionado = this.objetos[this.seleccion];
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '14px monospace';
-      ctx.textAlign = 'center';
 
       // Nombre del objeto
-      const nombreTexto = seleccionado.nombre || 'Desconocido';
-      ctx.fillText(nombreTexto, anchoCanvas / 2, inicioY + altoGrilla + 20);
+      ctx.fillStyle = '#FFD700';
+      ctx.font = 'bold 14px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(seleccionado.nombre || 'Desconocido', anchoCanvas / 2, infoY + 5);
 
-      // Descripción del objeto
+      // Descripción
       ctx.font = '11px monospace';
-      ctx.fillStyle = '#cccccc';
+      ctx.fillStyle = '#BBBBBB';
       const descTexto = seleccionado.descripcion || '';
-      ctx.fillText(descTexto, anchoCanvas / 2, inicioY + altoGrilla + 40);
+      // Dividir descripción en dos líneas si es muy larga
+      if (descTexto.length > 55) {
+        const mitad = descTexto.lastIndexOf(' ', 55);
+        ctx.fillText(descTexto.substring(0, mitad), anchoCanvas / 2, infoY + 22);
+        ctx.fillText(descTexto.substring(mitad + 1), anchoCanvas / 2, infoY + 36);
+      } else {
+        ctx.fillText(descTexto, anchoCanvas / 2, infoY + 22);
+      }
+
+      // Indicador de usable
+      if (seleccionado.esUsable) {
+        ctx.fillStyle = '#44CC44';
+        ctx.font = '11px monospace';
+        const usarTexto = textos?.inventario?.usar || '[E] Usar';
+        ctx.fillText(usarTexto, anchoCanvas / 2, infoY + 52);
+      }
+    } else {
+      // Slot vacío seleccionado
+      ctx.fillStyle = '#666666';
+      ctx.font = '12px monospace';
+      ctx.textAlign = 'center';
+      const vacioTexto = textos?.inventario?.vacio || 'Vacío';
+      ctx.fillText(vacioTexto, anchoCanvas / 2, infoY + 15);
     }
 
-    // Restaurar alineación de texto
-    ctx.textAlign = 'left';
+    // --- Instrucciones en la parte inferior ---
+    ctx.font = '11px monospace';
+    ctx.fillStyle = '#777777';
+    ctx.textAlign = 'center';
+    const cerrarTexto = textos?.inventario?.cerrar || '[I] o [Q] Cerrar';
+    ctx.fillText(`Flechas: navegar | ${cerrarTexto}`, anchoCanvas / 2, panelY + panelAlto - 10);
+
+    ctx.restore();
+  }
+
+  // --- Dibujar íconos de objetos según su ID ---
+  // Cada objeto tiene un dibujo único para reconocerlo de un vistazo
+  _dibujarIconoObjeto(ctx, x, y, objeto) {
+    const id = objeto.id;
+
+    if (id === 'linterna') {
+      // Cuerpo amarillo de la linterna
+      ctx.fillStyle = '#FFD700';
+      ctx.fillRect(x + 6, y + 8, 20, 10);
+      ctx.fillStyle = '#FFF8DC';
+      ctx.fillRect(x + 2, y + 10, 6, 6);
+      // Rayo de luz
+      ctx.fillStyle = 'rgba(255, 255, 200, 0.5)';
+      ctx.beginPath();
+      ctx.moveTo(x + 2, y + 8);
+      ctx.lineTo(x - 6, y + 4);
+      ctx.lineTo(x - 6, y + 22);
+      ctx.lineTo(x + 2, y + 18);
+      ctx.closePath();
+      ctx.fill();
+
+    } else if (id === 'fragmentoMapa') {
+      // Pergamino
+      ctx.fillStyle = '#D2B48C';
+      ctx.fillRect(x + 4, y + 4, 24, 24);
+      // Líneas de texto
+      ctx.fillStyle = '#8B7355';
+      ctx.fillRect(x + 7, y + 9, 18, 1);
+      ctx.fillRect(x + 7, y + 13, 14, 1);
+      ctx.fillRect(x + 7, y + 17, 18, 1);
+      ctx.fillRect(x + 7, y + 21, 10, 1);
+      // Borde enrollado
+      ctx.fillStyle = '#BFA679';
+      ctx.fillRect(x + 4, y + 4, 24, 3);
+      ctx.fillRect(x + 4, y + 25, 24, 3);
+
+    } else if (id === 'artefactoTaino') {
+      // Cemí dorado
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.arc(x + 16, y + 12, 8, 0, Math.PI * 2);
+      ctx.fill();
+      // Cuerpo
+      ctx.fillRect(x + 11, y + 18, 10, 8);
+      // Ojos
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(x + 12, y + 9, 3, 3);
+      ctx.fillRect(x + 18, y + 9, 3, 3);
+      // Boca
+      ctx.fillRect(x + 14, y + 15, 5, 1);
+
+    } else if (id === 'brujula') {
+      // Círculo de la brújula
+      ctx.strokeStyle = '#C8A84E';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(x + 16, y + 16, 10, 0, Math.PI * 2);
+      ctx.stroke();
+      // Aguja (roja al norte)
+      ctx.fillStyle = '#FF4444';
+      ctx.beginPath();
+      ctx.moveTo(x + 16, y + 6);
+      ctx.lineTo(x + 14, y + 16);
+      ctx.lineTo(x + 18, y + 16);
+      ctx.closePath();
+      ctx.fill();
+      // Aguja (blanca al sur)
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.moveTo(x + 16, y + 26);
+      ctx.lineTo(x + 14, y + 16);
+      ctx.lineTo(x + 18, y + 16);
+      ctx.closePath();
+      ctx.fill();
+
+    } else if (id === 'navaja') {
+      // Mango
+      ctx.fillStyle = '#CC3333';
+      ctx.fillRect(x + 8, y + 10, 16, 12);
+      // Hoja
+      ctx.fillStyle = '#CCCCCC';
+      ctx.beginPath();
+      ctx.moveTo(x + 8, y + 10);
+      ctx.lineTo(x + 16, y + 2);
+      ctx.lineTo(x + 18, y + 10);
+      ctx.closePath();
+      ctx.fill();
+      // Cruz suiza
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(x + 14, y + 13, 4, 1);
+      ctx.fillRect(x + 15, y + 12, 2, 3);
+
+    } else if (id === 'magnetometro') {
+      // Cuerpo del detector
+      ctx.fillStyle = '#555555';
+      ctx.fillRect(x + 14, y + 4, 4, 20);
+      // Cabeza del detector
+      ctx.fillStyle = '#888888';
+      ctx.beginPath();
+      ctx.arc(x + 16, y + 26, 6, 0, Math.PI);
+      ctx.fill();
+      // Pantalla
+      ctx.fillStyle = '#44FF44';
+      ctx.fillRect(x + 12, y + 6, 8, 5);
+
+    } else {
+      // Genérico: cuadrado con color del objeto
+      ctx.fillStyle = objeto.color || '#66aaff';
+      ctx.fillRect(x + 6, y + 6, 20, 20);
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x + 6, y + 6, 20, 20);
+    }
   }
 }

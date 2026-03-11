@@ -120,7 +120,26 @@ const es = {
     navaja: 'Navaja Suiza',
     brujula: 'Brújula',
     mapa: 'Mapa Antiguo',
-    magnetometro: 'Magnetómetro'
+    magnetometro: 'Magnetómetro',
+    fragmentoMapa: 'Fragmento de Mapa',
+    artefactoTaino: 'Artefacto Taíno',
+
+    descLinterna: 'Ilumina la oscuridad de las cuevas. Aumenta tu radio de visión.',
+    descNavaja: 'Herramienta multiusos. Útil para cortar lianas y abrir cerraduras.',
+    descBrujula: 'Señala el norte. Te ayuda a no perderte en lugares grandes.',
+    descMapa: 'Un mapa antiguo con marcas misteriosas de sitios arqueológicos.',
+    descFragmentoMapa: 'Un pedazo de mapa antiguo. Parece mostrar la ubicación de otras cuevas.',
+    descArtefactoTaino: 'Un cemí dorado. Debe ser llevado al museo para su estudio.',
+    descMagnetometro: 'Detecta objetos metálicos enterrados bajo la tierra.'
+  },
+
+  inventario: {
+    titulo: 'Inventario',
+    vacio: 'Tu mochila está vacía',
+    lleno: 'Mochila llena',
+    usar: '[E] Usar',
+    cerrar: '[I] o [Q] Cerrar',
+    slots: 'slots'
   },
 
   // Los mundos representan capas temáticas de la historia dominicana

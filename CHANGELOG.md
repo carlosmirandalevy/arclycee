@@ -1,5 +1,32 @@
 # Changelog
 
+## v0.3.0 — Inventario (2026-03-11)
+
+### Agregado
+
+**Sistema de inventario jugable** (`js/mecanicas/inventario.js`)
+- Grilla visual de 5x4 (20 slots) con panel oscuro centrado y borde dorado
+- Navegación con flechas, usar objetos con E, cerrar con I o Q
+- Íconos únicos dibujados por código para cada objeto: linterna (con rayo de luz), fragmento de mapa (pergamino con texto), artefacto taíno (Cemí dorado con cara), brújula (con aguja roja), navaja suiza (con cruz), magnetómetro (con pantalla verde)
+- Info del objeto seleccionado: nombre traducido, descripción de 2 líneas, indicador `[E] Usar` si es consumible
+- Contador de slots usados (`3/20 slots`)
+- Funciona como overlay global — se puede abrir en cualquier escena jugable (cueva, mapa)
+- Botón táctil X en móvil también abre el inventario
+
+**Integración con la cueva**
+- Recoger linterna, fragmento de mapa y artefacto taíno los agrega al inventario con nombre, descripción e ícono
+- Los objetos recogidos aparecen con sus textos traducidos según el idioma actual
+
+**Traducciones de inventario** (ES/FR/EN)
+- Nombres y descripciones de 7 objetos traducidos
+- Textos de UI: título, vacío, lleno, usar, cerrar, slots
+
+### Corregido
+- Frame de gracia al cerrar inventario con Q: evita que la escena interprete ese Q como "salir"
+- Controles actualizados en cueva y mapa para mostrar la tecla I
+
+---
+
 ## v0.2.0 — Cueva Viva + Diálogos (2026-03-11)
 
 ### Agregado
