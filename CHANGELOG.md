@@ -35,6 +35,7 @@
 
 ### Corregido
 - Progreso de nivel (desbloqueo de nodos) ahora se guarda ANTES de procesar la salida con Q, evitando que el jugador salga sin que se registre su avance
+- Viralata ahora tiene métodos `activar()`/`desactivar()` — el juego se congelaba al adoptar al perro porque el callback llamaba un método que no existía
 
 ---
 

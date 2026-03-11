@@ -146,6 +146,14 @@ export class Viralata {
     return [];
   }
 
+  activar() {
+    this.activo = true;
+  }
+
+  desactivar() {
+    this.activo = false;
+  }
+
   // --- Utilidad: calcular distancia entre dos puntos ---
   // Fórmula de Pitágoras: la distancia en línea recta entre dos puntos
   _calcularDistancia(x1, y1, x2, y2) {
