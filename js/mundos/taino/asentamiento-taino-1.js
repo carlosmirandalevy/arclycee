@@ -294,6 +294,25 @@ export class AsentamientoTaino1 {
       }
     }
 
+    // --- Verificar si habló con todos los NPCs ---
+    // IMPORTANTE: esto va ANTES de la salida con Q para que el progreso
+    // se guarde incluso si el jugador sale rápido después del último diálogo
+    this.npcsHablados = this.npcs.filter(n => n.dialogoHecho).length;
+    if (this.npcsHablados >= this.totalNPCs) {
+      const textos = this._obtenerTextos();
+      this.misionActual = textos?.dialogos?.aldea?.misionCompleta || '¡Aldea explorada!';
+
+      // Marcar nodo completado y desbloquear siguiente
+      if (this.juego && this.juego.progreso) {
+        if (!this.juego.progreso.nodosCompletados.includes(1)) {
+          this.juego.progreso.nodosCompletados.push(1);
+        }
+        if (!this.juego.progreso.nodosDesbloqueados.includes(2)) {
+          this.juego.progreso.nodosDesbloqueados.push(2);
+        }
+      }
+    }
+
     // --- Volver al mapa con Q ---
     if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
       if (this.juego && this.juego.cambiarEscena) {
@@ -313,23 +332,6 @@ export class AsentamientoTaino1 {
       for (const companero of companeros) {
         if (typeof companero.actualizar === 'function') {
           companero.actualizar(dt, jugador);
-        }
-      }
-    }
-
-    // --- Verificar si habló con todos los NPCs ---
-    this.npcsHablados = this.npcs.filter(n => n.dialogoHecho).length;
-    if (this.npcsHablados >= this.totalNPCs) {
-      const textos = this._obtenerTextos();
-      this.misionActual = textos?.dialogos?.aldea?.misionCompleta || '¡Aldea explorada!';
-
-      // Marcar nodo completado y desbloquear siguiente
-      if (this.juego && this.juego.progreso) {
-        if (!this.juego.progreso.nodosCompletados.includes(1)) {
-          this.juego.progreso.nodosCompletados.push(1);
-        }
-        if (!this.juego.progreso.nodosDesbloqueados.includes(2)) {
-          this.juego.progreso.nodosDesbloqueados.push(2);
         }
       }
     }

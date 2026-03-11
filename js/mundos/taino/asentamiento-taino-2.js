@@ -262,6 +262,23 @@ export class AsentamientoTaino2 {
       }
     }
 
+    // --- Verificar misión ---
+    // IMPORTANTE: va ANTES de la salida con Q para guardar progreso
+    this.npcsHablados = this.npcs.filter(n => n.dialogoHecho).length;
+    if (this.npcsHablados >= this.totalNPCs) {
+      const textos = this._obtenerTextos();
+      this.misionActual = textos?.dialogos?.aldea2?.misionCompleta || '¡Aldea explorada!';
+
+      if (this.juego && this.juego.progreso) {
+        if (!this.juego.progreso.nodosCompletados.includes(2)) {
+          this.juego.progreso.nodosCompletados.push(2);
+        }
+        if (!this.juego.progreso.nodosDesbloqueados.includes(3)) {
+          this.juego.progreso.nodosDesbloqueados.push(3);
+        }
+      }
+    }
+
     // --- Volver al mapa ---
     if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
       if (this.juego && this.juego.cambiarEscena) {
@@ -281,22 +298,6 @@ export class AsentamientoTaino2 {
       for (const companero of companeros) {
         if (typeof companero.actualizar === 'function') {
           companero.actualizar(dt, jugador);
-        }
-      }
-    }
-
-    // --- Verificar misión ---
-    this.npcsHablados = this.npcs.filter(n => n.dialogoHecho).length;
-    if (this.npcsHablados >= this.totalNPCs) {
-      const textos = this._obtenerTextos();
-      this.misionActual = textos?.dialogos?.aldea2?.misionCompleta || '¡Aldea explorada!';
-
-      if (this.juego && this.juego.progreso) {
-        if (!this.juego.progreso.nodosCompletados.includes(2)) {
-          this.juego.progreso.nodosCompletados.push(2);
-        }
-        if (!this.juego.progreso.nodosDesbloqueados.includes(3)) {
-          this.juego.progreso.nodosDesbloqueados.push(3);
         }
       }
     }

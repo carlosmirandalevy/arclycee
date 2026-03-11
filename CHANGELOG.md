@@ -33,6 +33,9 @@
 - 3 líneas de adopción de Viralata × 3 idiomas = 9 líneas nuevas
 - Textos de misión de aldea 2 traducidos
 
+### Corregido
+- Progreso de nivel (desbloqueo de nodos) ahora se guarda ANTES de procesar la salida con Q, evitando que el jugador salga sin que se registre su avance
+
 ---
 
 ## v0.5.0 — Asentamiento Taíno I + Sistema de Compañeros (2026-03-11)
