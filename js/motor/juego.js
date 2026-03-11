@@ -35,6 +35,7 @@ import { SeleccionPersonaje } from '../escenas/seleccion-personaje.js';
 import { IntroCinematica } from '../escenas/intro-cinematica.js';
 import { CuevasPomier } from '../mundos/taino/cuevas-pomier.js';
 import { MapaPrincipal } from '../mundos/mapa-principal.js';
+import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
 
 export class Juego {
 
@@ -202,6 +203,10 @@ export class Juego {
     // Mapa principal del Mundo Taíno — estilo Super Mario World
     const mapaPrincipal = new MapaPrincipal();
     this.registrarEscena('mapaPrincipal', mapaPrincipal);
+
+    // Asentamiento Taíno I — aldea top-down con bohíos y NPCs
+    const asentamientoTaino1 = new AsentamientoTaino1();
+    this.registrarEscena('asentamientoTaino1', asentamientoTaino1);
   }
 
   // --- BUCLE PRINCIPAL ---
@@ -350,7 +355,8 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    if (nombreEscena === 'cuevasPomier' && !this.jugador) {
+    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1'];
+    if (escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
     }
 

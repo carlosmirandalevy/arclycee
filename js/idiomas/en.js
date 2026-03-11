@@ -99,6 +99,27 @@ const en = {
       misionSalir: 'Find the cave exit',
       misionArtefacto: 'Bring the artifact to the exit',
       caida: 'You fell into the void! Returning to last safe point.'
+    },
+
+    // Village dialogues — teach about daily Taíno life
+    aldea: {
+      cacique1: 'Welcome to our yucayeque, young traveler!',
+      cacique2: 'I am Guacanagaríx, cacique of this village. My people have lived here for generations.',
+      cacique3: 'A yucayeque is our village — with bohíos for families and the caney where I live.',
+      cacique4: 'Talk to the villagers. Each one has much to teach you about our way of life.',
+
+      alfarera1: 'Hello! I\'m making a clay pot for cooking.',
+      alfarera2: 'The Taínos were great potters. Our vessels were decorated with faces and figures.',
+      alfarera3: 'With clay we made pots, plates, and burenes — the burén is for toasting casabe.',
+      alfarera4: 'Casabe is made from grated and pressed yuca. It\'s the bread of our people!',
+
+      pescador1: 'Good morning! The fishing has been good in the river today.',
+      pescador2: 'The Taínos fished with cotton nets, wicker traps, and bone hooks.',
+      pescador3: 'We also made canoes carved from a single ceiba tree trunk.',
+      pescador4: 'Some canoes could carry up to 50 people between the Caribbean islands!',
+
+      misionHablar: 'Talk to the 3 villagers',
+      misionCompleta: 'Village explored! Return to map (Q)'
     }
   },
 

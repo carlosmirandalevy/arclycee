@@ -99,6 +99,27 @@ const fr = {
       misionSalir: 'Cherche la sortie de la grotte',
       misionArtefacto: 'Apporte l\'artefact à la sortie',
       caida: 'Tu es tombé/e dans le vide ! Retour au dernier point sûr.'
+    },
+
+    // Dialogues du village taïno — enseignent la vie quotidienne
+    aldea: {
+      cacique1: 'Bienvenue dans notre yucayeque, jeune voyageur/euse !',
+      cacique2: 'Je suis Guacanagaríx, cacique de ce village. Mon peuple vit ici depuis des générations.',
+      cacique3: 'Un yucayeque est notre village — avec des bohíos pour les familles et le caney où je vis.',
+      cacique4: 'Parle aux villageois. Chacun a beaucoup à t\'apprendre sur notre mode de vie.',
+
+      alfarera1: 'Bonjour ! Je fabrique un pot en argile pour cuisiner.',
+      alfarera2: 'Les Taïnos étaient de grands potiers. Nos vases étaient décorés de visages et de figures.',
+      alfarera3: 'Avec l\'argile nous faisions des marmites, des assiettes et des burenes — le burén sert à griller le casabe.',
+      alfarera4: 'Le casabe est fait de yuca râpée et pressée. C\'est le pain de notre peuple !',
+
+      pescador1: 'Bonjour ! La pêche a été bonne dans la rivière aujourd\'hui.',
+      pescador2: 'Les Taïnos pêchaient avec des filets de coton, des nasses en osier et des hameçons en os.',
+      pescador3: 'Nous faisions aussi des pirogues taillées dans un seul tronc de ceiba.',
+      pescador4: 'Certaines pirogues pouvaient transporter jusqu\'à 50 personnes entre les îles des Caraïbes !',
+
+      misionHablar: 'Parle aux 3 villageois',
+      misionCompleta: 'Village exploré ! Retour à la carte (Q)'
     }
   },
 

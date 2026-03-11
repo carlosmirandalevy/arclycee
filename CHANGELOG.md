@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.5.0 — Asentamiento Taíno I + Sistema de Compañeros (2026-03-11)
+
+### Agregado
+
+**Asentamiento Taíno I** (`js/mundos/taino/asentamiento-taino-1.js`)
+- Nivel completo top-down (vista desde arriba) con aldea taína
+- 5 bohíos: 4 circulares + 1 caney rectangular (casa del cacique)
+- Batey (plaza ceremonial) con círculo de piedras decorativas
+- 3 NPCs educativos: Cacique Guacanagaríx, Anacaona (alfarera), Caonabó (pescador)
+- Cada NPC tiene 4 líneas de diálogo que enseñan sobre la vida taína: yucayeques, alfarería, casabe, pesca con canoas
+- 12 palmeras decorativas con renderizado por profundidad (las de abajo tapan al jugador)
+- Caminos de tierra conectando estructuras
+- Brújula coleccionable en el batey
+- Misión: hablar con los 3 aldeanos → marca nodo completado y desbloquea nodo 2
+- Colisión circular con bohíos
+
+**Sistema de compañeros funcional**
+- La Dra. Martínez ahora entrega a Magnoboot al terminar su diálogo (callback `alTerminar`)
+- Magnoboot se activa, aparece junto al jugador y lo sigue con lerp suave
+- Los compañeros se actualizan y dibujan en la cueva con offset de cámara correcto
+- Los compañeros persisten entre escenas vía `juego.companeros[]`
+- Compañeros también se renderizan y siguen al jugador en el Asentamiento (top-down)
+
+**Traducciones de la aldea** (ES/FR/EN)
+- 12 líneas de diálogo por NPC × 3 idiomas = 36 líneas nuevas
+- Textos de misión de la aldea traducidos
+
+---
+
 ## v0.4.0 — Cinemática con Audio y Sprite Mejorado (2026-03-11)
 
 ### Agregado

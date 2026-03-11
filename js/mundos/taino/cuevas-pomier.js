@@ -13,6 +13,7 @@
 import { ANCHO_JUEGO, ALTO_JUEGO, GRAVEDAD, VELOCIDAD_JUGADOR } from '../../motor/configuracion.js';
 import SistemaDialogos from '../../mecanicas/dialogos.js';
 import { SonidoProcedural } from '../../motor/sonido-procedural.js';
+import { Magnoboot } from '../../personajes/companeros/magnoboot.js';
 
 export class CuevasPomier {
 
@@ -464,7 +465,13 @@ export class CuevasPomier {
             { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoReconoce || '¿Encontraste petroglifos?' },
             { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoRegalo || 'Toma a Magnoboot.' },
             { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoDespedida || 'Cuida el patrimonio.' }
-          ]);
+          ], () => {
+            // Al terminar el diálogo, la arqueóloga le da Magnoboot al jugador
+            const magnoboot = new Magnoboot(jugador.x + 30, jugador.y + 5);
+            magnoboot.activar();
+            this.juego.companeros.push(magnoboot);
+            this.sfx.recoger();
+          });
         }
       }
     }
@@ -486,9 +493,14 @@ export class CuevasPomier {
       }
     }
 
-    // --- Eco-localización del Cemí Murciélago ---
+    // --- Actualizar compañeros ---
     if (companeros) {
       for (const companero of companeros) {
+        if (typeof companero.actualizar === 'function') {
+          companero.actualizar(dt, jugador);
+        }
+
+        // Eco-localización del Cemí Murciélago
         if (companero.tipo === 'cemiMurcielago' && companero.ecoLocalizacion) {
           for (const obj of this.objetos) {
             obj._reveladoPorEco = true;
@@ -702,6 +714,18 @@ export class CuevasPomier {
 
     // --- Dibujar al jugador con squash/stretch ---
     this._dibujarJugadorDetallado(ctx, jugador, offsetX, offsetY);
+
+    // --- Dibujar compañeros ---
+    if (companeros) {
+      for (const companero of companeros) {
+        if (companero.activo && typeof companero.dibujar === 'function') {
+          ctx.save();
+          ctx.translate(offsetX, offsetY);
+          companero.dibujar(ctx);
+          ctx.restore();
+        }
+      }
+    }
 
     // --- Partículas de impacto (encima del jugador) ---
     this._dibujarParticulasImpacto(ctx, offsetX, offsetY);

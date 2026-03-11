@@ -101,6 +101,27 @@ const es = {
       misionSalir: 'Busca la salida de la cueva',
       misionArtefacto: 'Lleva el artefacto a la salida',
       caida: '¡Caíste al vacío! Vuelves al último punto seguro.'
+    },
+
+    // Diálogos de la aldea taína — enseñan sobre la vida cotidiana
+    aldea: {
+      cacique1: '¡Bienvenido/a a nuestro yucayeque, joven viajero/a!',
+      cacique2: 'Soy Guacanagaríx, cacique de esta aldea. Mi pueblo ha vivido aquí por generaciones.',
+      cacique3: 'Un yucayeque es nuestra aldea — con bohíos para las familias y el caney donde vivo yo.',
+      cacique4: 'Habla con los aldeanos. Cada uno tiene mucho que enseñarte sobre nuestra forma de vida.',
+
+      alfarera1: '¡Hola! Estoy haciendo una vasija de barro para cocinar.',
+      alfarera2: 'Los taínos éramos grandes alfareros. Nuestras vasijas se decoraban con caras y figuras.',
+      alfarera3: 'Con el barro hacíamos ollas, platos y burenes — el burén es para tostar el casabe.',
+      alfarera4: 'El casabe se hace con yuca rallada y prensada. ¡Es el pan de nuestro pueblo!',
+
+      pescador1: '¡Buenos días! Hoy la pesca ha sido buena en el río.',
+      pescador2: 'Los taínos pescábamos con redes de algodón, nasas de mimbre y anzuelos de hueso.',
+      pescador3: 'También hacíamos canoas talladas en un solo tronco de ceiba.',
+      pescador4: '¡Algunas canoas podían llevar hasta 50 personas entre las islas del Caribe!',
+
+      misionHablar: 'Habla con los 3 aldeanos de la aldea',
+      misionCompleta: '¡Aldea explorada! Vuelve al mapa (Q)'
     }
   },
 
