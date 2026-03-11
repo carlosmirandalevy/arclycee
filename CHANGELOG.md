@@ -1,5 +1,40 @@
 # Changelog
 
+## v0.6.0 — Asentamiento Taíno II + Viralata (2026-03-11)
+
+### Agregado
+
+**Asentamiento Taíno II** (`js/mundos/taino/asentamiento-taino-2.js`)
+- Nivel top-down agrícola (1400x1000) con tema de agricultura, medicina y ceremonia
+- 6 conucos (montículos de cultivo) con plantas únicas dibujadas: yuca, maíz, batata, ají, tabaco
+- Río que cruza la aldea (los taínos cultivaban cerca del agua)
+- Dujo ceremonial (asiento tallado del cacique) en el centro del batey
+- 4 bohíos incluyendo un caney ceremonial
+- 3 NPCs educativos con 4 líneas de diálogo cada uno:
+  - Behique Yuisa (curandero): medicina natural, ceremonia de la cohoba, plantas curativas
+  - Guarionex (agricultor): conucos, técnicas de cultivo, importancia de la yuca
+  - Higüemota (música): areíto, maracas, güiros, tambores, tradición oral
+- Navaja Suiza coleccionable en el batey
+- Misión: hablar con los 3 aldeanos → marca nodo completado y desbloquea nodo 3 (La Isabela)
+- 14 palmeras decorativas con profundidad
+
+**Compañero Viralata** (perro callejero rastreador)
+- Perro callejero aparece en el Asentamiento Taíno I cerca de la entrada
+- Sprite con cola animada, oreja caída y indicador `[E] Adoptar`
+- 3 líneas de diálogo de adopción traducidas a ES/FR/EN
+- Al adoptar: crea instancia de Viralata, la activa y la agrega a `juego.companeros`
+- Sigue al jugador con lerp (0.06) detrás y a la izquierda
+- Mueve la cola cuando detecta objetos escondidos cerca (radio de olfato: 50px)
+- No aparece si el jugador ya lo adoptó (verifica `juego.companeros`)
+- Persiste entre escenas como Magnoboot
+
+**Traducciones** (ES/FR/EN)
+- 12 líneas de diálogo por NPC × 3 idiomas = 36 líneas nuevas para aldea 2
+- 3 líneas de adopción de Viralata × 3 idiomas = 9 líneas nuevas
+- Textos de misión de aldea 2 traducidos
+
+---
+
 ## v0.5.0 — Asentamiento Taíno I + Sistema de Compañeros (2026-03-11)
 
 ### Agregado

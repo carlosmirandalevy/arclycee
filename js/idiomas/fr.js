@@ -118,6 +118,31 @@ const fr = {
       pescador3: 'Nous faisions aussi des pirogues taillées dans un seul tronc de ceiba.',
       pescador4: 'Certaines pirogues pouvaient transporter jusqu\'à 50 personnes entre les îles des Caraïbes !',
 
+      perro1: 'Un chien errant ! Il a l\'air amical... il a faim et te regarde avec des yeux suppliants.',
+      perro2: 'Le chien remue la queue et s\'approche doucement. Il veut t\'accompagner !',
+      perro3: 'C\'est décidé ! Tu l\'appelleras Viralata. Son nez peut flairer les objets cachés. Il rejoint ton équipe !',
+
+      misionHablar: 'Parle aux 3 villageois',
+      misionCompleta: 'Village exploré ! Retour à la carte (Q)'
+    },
+
+    // Dialogues du deuxième village — agriculture, médecine et cérémonies
+    aldea2: {
+      behique1: 'Je suis Yuisa, le behique — guérisseur et guide spirituel de ce village.',
+      behique2: 'Les plantes de cette île ont de grands pouvoirs curatifs que les dieux nous ont enseignés.',
+      behique3: 'Nous utilisons le tabac dans la cérémonie de la cohoba, pour communiquer avec les cemíes.',
+      behique4: 'La goyave guérit la fièvre, le jagua protège la peau et l\'aloès soigne les blessures.',
+
+      agricultor1: 'Regarde nos conucos ! Chaque monticule de terre est un jardin de nourriture.',
+      agricultor2: 'Les conucos sont des monticules où nous plantons. Ainsi la terre draine mieux et les racines poussent fortes.',
+      agricultor3: 'Nous cultivons le yuca, le maïs, la patate douce, le piment et le tabac — tout ce dont nous avons besoin.',
+      agricultor4: 'Le yuca est le plus important. Avec lui nous faisons le casabe, qui est notre pain quotidien.',
+
+      musico1: 'Bienvenue au batey, le cœur de notre village !',
+      musico2: 'Ici nous célébrons l\'areíto — notre grande cérémonie de musique, danse et mémoire.',
+      musico3: 'Nous jouons des maracas en higüero, des güiros en calebasse et des tambours taillés dans des troncs de ceiba.',
+      musico4: 'Dans l\'areíto nous chantons l\'histoire de notre peuple — pour que les jeunes n\'oublient jamais d\'où ils viennent.',
+
       misionHablar: 'Parle aux 3 villageois',
       misionCompleta: 'Village exploré ! Retour à la carte (Q)'
     }

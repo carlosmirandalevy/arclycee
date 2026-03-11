@@ -36,6 +36,7 @@ import { IntroCinematica } from '../escenas/intro-cinematica.js';
 import { CuevasPomier } from '../mundos/taino/cuevas-pomier.js';
 import { MapaPrincipal } from '../mundos/mapa-principal.js';
 import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
+import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
 
 export class Juego {
 
@@ -207,6 +208,10 @@ export class Juego {
     // Asentamiento Taíno I — aldea top-down con bohíos y NPCs
     const asentamientoTaino1 = new AsentamientoTaino1();
     this.registrarEscena('asentamientoTaino1', asentamientoTaino1);
+
+    // Asentamiento Taíno II — aldea agrícola con conucos y areíto
+    const asentamientoTaino2 = new AsentamientoTaino2();
+    this.registrarEscena('asentamientoTaino2', asentamientoTaino2);
   }
 
   // --- BUCLE PRINCIPAL ---
@@ -355,7 +360,7 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1'];
+    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2'];
     if (escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
     }

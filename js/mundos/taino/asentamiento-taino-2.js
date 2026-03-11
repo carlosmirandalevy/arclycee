@@ -1,10 +1,11 @@
 // ============================================================
-// ASENTAMIENTO-TAINO-1.JS - Aldea taína (vista top-down)
+// ASENTAMIENTO-TAINO-2.JS - Aldea agrícola taína (top-down)
 // ============================================================
-// El primer asentamiento taíno que el jugador visita al salir
-// de las Cuevas del Pomier. Una aldea con bohíos (casas taínas),
-// un batey (plaza ceremonial) y NPCs que enseñan sobre la vida
-// cotidiana del pueblo taíno.
+// El segundo asentamiento taíno. Esta aldea se enfoca en la
+// agricultura (conucos), la medicina natural (behique) y las
+// ceremonias (areíto). El jugador aprende cómo los taínos
+// cultivaban yuca, usaban plantas medicinales y celebraban
+// sus tradiciones a través de música y danza.
 //
 // MODO: Top-down (vista desde arriba, sin gravedad)
 // ============================================================
@@ -12,28 +13,27 @@
 import { ANCHO_JUEGO, ALTO_JUEGO, VELOCIDAD_JUGADOR } from '../../motor/configuracion.js';
 import SistemaDialogos from '../../mecanicas/dialogos.js';
 import { SonidoProcedural } from '../../motor/sonido-procedural.js';
-import { Viralata } from '../../personajes/companeros/viralata.js';
 
-export class AsentamientoTaino1 {
+export class AsentamientoTaino2 {
 
   constructor() {
     // --- Dimensiones del nivel ---
-    this.anchoNivel = 1200;
-    this.altoNivel = 900;
+    this.anchoNivel = 1400;
+    this.altoNivel = 1000;
 
     // --- Cámara ---
     this.camaraX = 0;
     this.camaraY = 0;
 
-    // --- Estructuras de la aldea ---
-    // Bohíos = casas taínas circulares con techo de hojas de palma
+    // --- Estructuras ---
     this.bohios = [];
+    this.conucos = [];  // Montículos de cultivo taíno
 
     // --- NPCs ---
     this.npcs = [];
 
-    // --- Batey (plaza ceremonial) ---
-    this.batey = { x: 600, y: 450, radio: 80 };
+    // --- Batey para el areíto ---
+    this.batey = { x: 700, y: 500, radio: 90 };
 
     // --- Objetos coleccionables ---
     this.objetos = [];
@@ -44,13 +44,13 @@ export class AsentamientoTaino1 {
     // --- Sonidos ---
     this.sfx = new SonidoProcedural();
 
-    // --- Árboles decorativos ---
+    // --- Árboles ---
     this.arboles = [];
 
     // --- Bloqueo de entrada ---
     this.bloqueoEntrada = false;
 
-    // --- Tiempo total (para animaciones) ---
+    // --- Tiempo ---
     this.tiempoTotal = 0;
 
     // --- Misión ---
@@ -58,63 +58,67 @@ export class AsentamientoTaino1 {
     this.npcsHablados = 0;
     this.totalNPCs = 3;
 
-    // --- Perro callejero (Viralata) ---
-    // Aparece cerca de la entrada de la aldea, el jugador lo adopta
-    this.perroCallejero = null;
-    this.perroAdoptado = false;
-
     // --- Referencia al juego ---
     this.juego = null;
   }
 
-  // --- Construir la aldea ---
+  // --- Construir la aldea agrícola ---
   iniciar(juego) {
     this.juego = juego;
 
-    // Poner al jugador en modo top-down (vista de arriba)
+    // Poner al jugador en modo top-down
     if (juego.jugador) {
       juego.jugador.modoJuego = 'topdown';
       juego.jugador.x = 100;
-      juego.jugador.y = 700;
+      juego.jugador.y = 800;
       juego.jugador.direccion = 'arriba';
     }
 
-    // --- Bohíos (casas taínas) ---
-    // Los bohíos eran casas circulares con techo de hojas de palma (cana)
-    // El cacique vivía en un caney (bohío rectangular más grande)
+    // --- Bohíos ---
     this.bohios = [
-      { x: 200, y: 200, radio: 45, tipo: 'bohio', nombre: 'Bohío del Alfarero' },
-      { x: 450, y: 150, radio: 45, tipo: 'bohio', nombre: 'Bohío del Pescador' },
-      { x: 850, y: 200, radio: 45, tipo: 'bohio', nombre: 'Bohío de la Curandera' },
-      { x: 900, y: 500, radio: 55, tipo: 'caney', nombre: 'Caney del Cacique' },
-      { x: 300, y: 500, radio: 40, tipo: 'bohio', nombre: 'Bohío de Casabe' }
+      { x: 250, y: 250, radio: 45, tipo: 'bohio', nombre: 'Bohío del Behique' },
+      { x: 500, y: 180, radio: 40, tipo: 'bohio', nombre: 'Bohío de Semillas' },
+      { x: 1050, y: 300, radio: 45, tipo: 'bohio', nombre: 'Bohío del Agricultor' },
+      { x: 1100, y: 600, radio: 50, tipo: 'caney', nombre: 'Caney Ceremonial' }
     ];
 
-    // --- NPCs de la aldea ---
-    // Cada NPC enseña algo sobre la cultura taína
+    // --- Conucos (montículos de cultivo) ---
+    // Los taínos hacían montículos de tierra donde plantaban yuca,
+    // batata, maíz y otros cultivos. Esto mejoraba el drenaje y
+    // protegía las raíces de las inundaciones.
+    this.conucos = [
+      { x: 400, y: 350, ancho: 60, alto: 40, cultivo: 'yuca' },
+      { x: 500, y: 380, ancho: 50, alto: 35, cultivo: 'batata' },
+      { x: 600, y: 340, ancho: 55, alto: 38, cultivo: 'maiz' },
+      { x: 450, y: 430, ancho: 45, alto: 32, cultivo: 'aji' },
+      { x: 550, y: 460, ancho: 50, alto: 36, cultivo: 'yuca' },
+      { x: 350, y: 420, ancho: 48, alto: 34, cultivo: 'tabaco' }
+    ];
+
+    // --- NPCs ---
     this.npcs = [
       {
-        id: 'cacique',
-        x: 850, y: 560,
+        id: 'behique',
+        x: 280, y: 310,
         ancho: 28, alto: 32,
-        nombre: 'Cacique Guacanagaríx',
-        color: '#DAA520',
+        nombre: 'Behique Yuisa',
+        color: '#6B8E23',
         dialogoHecho: false
       },
       {
-        id: 'alfarera',
-        x: 230, y: 260,
+        id: 'agricultor',
+        x: 1020, y: 360,
         ancho: 28, alto: 32,
-        nombre: 'Anacaona (Alfarera)',
-        color: '#CD853F',
+        nombre: 'Guarionex (Agricultor)',
+        color: '#8B6914',
         dialogoHecho: false
       },
       {
-        id: 'pescador',
-        x: 480, y: 210,
+        id: 'musico',
+        x: 750, y: 570,
         ancho: 28, alto: 32,
-        nombre: 'Caonabó (Pescador)',
-        color: '#8B7355',
+        nombre: 'Higüemota (Música)',
+        color: '#B8860B',
         dialogoHecho: false
       }
     ];
@@ -122,21 +126,22 @@ export class AsentamientoTaino1 {
     // --- Objetos coleccionables ---
     this.objetos = [
       {
-        x: 600, y: 450,
+        x: 700, y: 500,
         ancho: 16, alto: 16,
-        tipo: 'brujula',
+        tipo: 'navaja',
         recogido: false
       }
     ];
 
-    // --- Árboles decorativos ---
+    // --- Árboles ---
     this.arboles = [];
-    const posicionesArboles = [
-      [50, 100], [150, 80], [700, 100], [1050, 150],
-      [1100, 400], [50, 600], [1100, 700], [500, 800],
-      [750, 750], [100, 400], [950, 350], [400, 650]
+    const posiciones = [
+      [50, 80], [200, 60], [900, 100], [1250, 180],
+      [1300, 500], [50, 700], [1300, 800], [600, 900],
+      [850, 850], [100, 450], [1200, 400], [350, 750],
+      [800, 150], [1100, 100]
     ];
-    for (const [ax, ay] of posicionesArboles) {
+    for (const [ax, ay] of posiciones) {
       this.arboles.push({
         x: ax, y: ay,
         tamano: 20 + Math.random() * 15,
@@ -145,19 +150,9 @@ export class AsentamientoTaino1 {
       });
     }
 
-    // --- Perro callejero cerca de la entrada ---
-    // Si el jugador ya tiene Viralata como compañero, no mostrarlo
-    const yaAdoptado = juego.companeros && juego.companeros.some(c => c instanceof Viralata);
-    this.perroAdoptado = yaAdoptado;
-    this.perroCallejero = {
-      x: 180, y: 650,
-      ancho: 22, alto: 14,
-      tiempoAnimCola: 0
-    };
-
     // Misión inicial
     const textos = this._obtenerTextos();
-    this.misionActual = textos?.dialogos?.aldea?.misionHablar || 'Habla con los aldeanos';
+    this.misionActual = textos?.dialogos?.aldea2?.misionHablar || 'Habla con los 3 aldeanos';
     this.npcsHablados = 0;
   }
 
@@ -167,7 +162,7 @@ export class AsentamientoTaino1 {
 
     this.tiempoTotal += dt;
 
-    // --- Si hay diálogo activo, solo actualizar diálogo ---
+    // --- Diálogo activo ---
     if (this.dialogos.estaActivo()) {
       this.dialogos.actualizar(dt);
       if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
@@ -181,7 +176,7 @@ export class AsentamientoTaino1 {
       return;
     }
 
-    // --- Movimiento del jugador (top-down) ---
+    // --- Movimiento top-down ---
     jugador.velocidadX = 0;
     jugador.velocidadY = 0;
     jugador.esAnimando = false;
@@ -207,17 +202,15 @@ export class AsentamientoTaino1 {
       jugador.esAnimando = true;
     }
 
-    // Aplicar movimiento con factor de tiempo
     const factorTiempo = dt * 60;
     jugador.x += jugador.velocidadX * factorTiempo;
     jugador.y += jugador.velocidadY * factorTiempo;
 
-    // Animación de caminar
     if (jugador.esAnimando) {
       jugador.cuadroAnimacion += 0.15;
     }
 
-    // --- Colisión con los bordes del nivel ---
+    // --- Bordes del nivel ---
     jugador.x = Math.max(0, Math.min(this.anchoNivel - jugador.ancho, jugador.x));
     jugador.y = Math.max(0, Math.min(this.altoNivel - jugador.alto, jugador.y));
 
@@ -229,7 +222,6 @@ export class AsentamientoTaino1 {
       const radioColision = bohio.radio + 10;
 
       if (dist < radioColision) {
-        // Empujar al jugador fuera del bohío
         const angulo = Math.atan2(dy, dx);
         jugador.x = bohio.x + Math.cos(angulo) * radioColision - jugador.ancho / 2;
         jugador.y = bohio.y + Math.sin(angulo) * radioColision - jugador.alto / 2;
@@ -241,31 +233,7 @@ export class AsentamientoTaino1 {
       if (this._estaCerca(jugador, npc, 45)) {
         if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
           this.bloqueoEntrada = true;
-          this._hablarConNPC(npc, jugador);
-        }
-      }
-    }
-
-    // --- Interacción con el perro callejero ---
-    if (this.perroCallejero && !this.perroAdoptado) {
-      this.perroCallejero.tiempoAnimCola += dt * 5;
-      if (this._estaCerca(jugador, this.perroCallejero, 45)) {
-        if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
-          this.bloqueoEntrada = true;
-          const textos = this._obtenerTextos();
-          const aldea = textos?.dialogos?.aldea;
-          this.dialogos.iniciarDialogo([
-            { personaje: '🐕 ???', texto: aldea?.perro1 || '¡Un perro callejero! Parece amigable...' },
-            { personaje: '🐕 ???', texto: aldea?.perro2 || 'El perro mueve la cola y te mira con ojos grandes.' },
-            { personaje: '🐕 Viralata', texto: aldea?.perro3 || '¡Decidido! Lo llamarás Viralata. ¡Ahora te acompaña!' }
-          ], () => {
-            // Adoptar al perro — crear compañero Viralata
-            this.perroAdoptado = true;
-            const viralata = new Viralata(jugador.x - 25, jugador.y + 10);
-            viralata.activar();
-            this.juego.companeros.push(viralata);
-            this.sfx.recoger();
-          });
+          this._hablarConNPC(npc);
         }
       }
     }
@@ -287,14 +255,14 @@ export class AsentamientoTaino1 {
             descripcion: textos?.objetos?.[`desc${obj.tipo.charAt(0).toUpperCase() + obj.tipo.slice(1)}`] || '',
             tipo: 'herramienta',
             cantidad: 1,
-            color: '#4488CC',
+            color: '#CC4444',
             esUsable: false
           });
         }
       }
     }
 
-    // --- Volver al mapa con Q ---
+    // --- Volver al mapa ---
     if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
       if (this.juego && this.juego.cambiarEscena) {
         this.juego.cambiarEscena('mapaPrincipal');
@@ -317,19 +285,18 @@ export class AsentamientoTaino1 {
       }
     }
 
-    // --- Verificar si habló con todos los NPCs ---
+    // --- Verificar misión ---
     this.npcsHablados = this.npcs.filter(n => n.dialogoHecho).length;
     if (this.npcsHablados >= this.totalNPCs) {
       const textos = this._obtenerTextos();
-      this.misionActual = textos?.dialogos?.aldea?.misionCompleta || '¡Aldea explorada!';
+      this.misionActual = textos?.dialogos?.aldea2?.misionCompleta || '¡Aldea explorada!';
 
-      // Marcar nodo completado y desbloquear siguiente
       if (this.juego && this.juego.progreso) {
-        if (!this.juego.progreso.nodosCompletados.includes(1)) {
-          this.juego.progreso.nodosCompletados.push(1);
+        if (!this.juego.progreso.nodosCompletados.includes(2)) {
+          this.juego.progreso.nodosCompletados.push(2);
         }
-        if (!this.juego.progreso.nodosDesbloqueados.includes(2)) {
-          this.juego.progreso.nodosDesbloqueados.push(2);
+        if (!this.juego.progreso.nodosDesbloqueados.includes(3)) {
+          this.juego.progreso.nodosDesbloqueados.push(3);
         }
       }
     }
@@ -351,12 +318,12 @@ export class AsentamientoTaino1 {
     const offsetX = -this.camaraX;
     const offsetY = -this.camaraY;
 
-    // --- Fondo: césped verde ---
-    ctx.fillStyle = '#3a7a2e';
+    // --- Fondo: césped verde más claro (zona abierta, agrícola) ---
+    ctx.fillStyle = '#4a8a3a';
     ctx.fillRect(0, 0, ancho, alto);
 
-    // Textura del césped (manchas de color)
-    ctx.fillStyle = 'rgba(50, 140, 40, 0.3)';
+    // Textura del césped
+    ctx.fillStyle = 'rgba(60, 150, 50, 0.25)';
     for (let gx = -1; gx < ancho / 60 + 1; gx++) {
       for (let gy = -1; gy < alto / 60 + 1; gy++) {
         const px = gx * 60 + (offsetX % 60);
@@ -365,43 +332,66 @@ export class AsentamientoTaino1 {
       }
     }
 
-    // --- Caminos de tierra entre los bohíos ---
+    // --- Río que cruza la aldea (los taínos cultivaban cerca del agua) ---
+    ctx.fillStyle = 'rgba(40, 100, 160, 0.4)';
+    ctx.beginPath();
+    ctx.moveTo(0 + offsetX, 650 + offsetY);
+    ctx.quadraticCurveTo(400 + offsetX, 600 + offsetY, 700 + offsetX, 680 + offsetY);
+    ctx.quadraticCurveTo(1000 + offsetX, 750 + offsetY, 1400 + offsetX, 700 + offsetY);
+    ctx.lineTo(1400 + offsetX, 730 + offsetY);
+    ctx.quadraticCurveTo(1000 + offsetX, 780 + offsetY, 700 + offsetX, 710 + offsetY);
+    ctx.quadraticCurveTo(400 + offsetX, 630 + offsetY, 0 + offsetX, 680 + offsetY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Borde del río
+    ctx.strokeStyle = 'rgba(30, 80, 130, 0.5)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // --- Caminos de tierra ---
     ctx.strokeStyle = '#8B7355';
-    ctx.lineWidth = 20;
+    ctx.lineWidth = 16;
     ctx.lineCap = 'round';
 
-    // Camino principal de entrada al batey
+    // Entrada al batey
     ctx.beginPath();
-    ctx.moveTo(100 + offsetX, 800 + offsetY);
-    ctx.lineTo(600 + offsetX, 450 + offsetY);
+    ctx.moveTo(100 + offsetX, 900 + offsetY);
+    ctx.lineTo(700 + offsetX, 500 + offsetY);
     ctx.stroke();
 
     // Caminos a los bohíos
-    ctx.lineWidth = 14;
+    ctx.lineWidth = 12;
     ctx.beginPath();
-    ctx.moveTo(600 + offsetX, 450 + offsetY);
-    ctx.lineTo(200 + offsetX, 200 + offsetY);
+    ctx.moveTo(700 + offsetX, 500 + offsetY);
+    ctx.lineTo(250 + offsetX, 250 + offsetY);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(600 + offsetX, 450 + offsetY);
-    ctx.lineTo(450 + offsetX, 150 + offsetY);
+    ctx.moveTo(700 + offsetX, 500 + offsetY);
+    ctx.lineTo(500 + offsetX, 180 + offsetY);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(600 + offsetX, 450 + offsetY);
-    ctx.lineTo(850 + offsetX, 200 + offsetY);
+    ctx.moveTo(700 + offsetX, 500 + offsetY);
+    ctx.lineTo(1050 + offsetX, 300 + offsetY);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(600 + offsetX, 450 + offsetY);
-    ctx.lineTo(900 + offsetX, 500 + offsetY);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(600 + offsetX, 450 + offsetY);
-    ctx.lineTo(300 + offsetX, 500 + offsetY);
+    ctx.moveTo(700 + offsetX, 500 + offsetY);
+    ctx.lineTo(1100 + offsetX, 600 + offsetY);
     ctx.stroke();
 
-    // --- Batey (plaza ceremonial) ---
-    // El batey era un espacio plano donde los taínos jugaban al batu
-    // (juego de pelota) y hacían ceremonias llamadas areítos
+    // Camino a los conucos
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.moveTo(700 + offsetX, 500 + offsetY);
+    ctx.lineTo(480 + offsetX, 400 + offsetY);
+    ctx.stroke();
+
+    // --- Conucos (montículos de cultivo) ---
+    for (const conuco of this.conucos) {
+      this._dibujarConuco(ctx, conuco.x + offsetX, conuco.y + offsetY, conuco);
+    }
+
+    // --- Batey ---
     const bx = this.batey.x + offsetX;
     const by = this.batey.y + offsetY;
 
@@ -410,14 +400,13 @@ export class AsentamientoTaino1 {
     ctx.arc(bx, by, this.batey.radio, 0, Math.PI * 2);
     ctx.fill();
 
-    // Borde del batey con piedras
     ctx.strokeStyle = '#8B7355';
     ctx.lineWidth = 4;
     ctx.stroke();
 
-    // Piedras decorativas alrededor del batey
-    for (let i = 0; i < 12; i++) {
-      const angulo = (i / 12) * Math.PI * 2;
+    // Piedras alrededor del batey
+    for (let i = 0; i < 16; i++) {
+      const angulo = (i / 16) * Math.PI * 2;
       const px = bx + Math.cos(angulo) * (this.batey.radio + 8);
       const py = by + Math.sin(angulo) * (this.batey.radio + 8);
       ctx.fillStyle = '#777777';
@@ -426,7 +415,11 @@ export class AsentamientoTaino1 {
       ctx.fill();
     }
 
-    // --- Árboles (detrás de los bohíos, solo los de la parte superior) ---
+    // Dujo ceremonial en el centro del batey
+    // El dujo era un asiento de madera tallado usado por el cacique
+    this._dibujarDujo(ctx, bx, by - 20);
+
+    // --- Árboles detrás del jugador ---
     for (const arbol of this.arboles) {
       if (arbol.y < jugador.y) {
         this._dibujarArbol(ctx, arbol.x + offsetX, arbol.y + offsetY, arbol);
@@ -444,35 +437,22 @@ export class AsentamientoTaino1 {
       const ox = obj.x + offsetX;
       const oy = obj.y + offsetY;
 
-      // Brillo pulsante
       const brillo = 0.5 + Math.sin(this.tiempoTotal * 3) * 0.3;
-      ctx.fillStyle = `rgba(68, 136, 204, ${brillo})`;
+      ctx.fillStyle = `rgba(204, 68, 68, ${brillo})`;
       ctx.beginPath();
       ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
       ctx.fill();
 
-      // Ícono brújula
-      ctx.fillStyle = '#FFFFFF';
-      ctx.beginPath();
-      ctx.arc(ox + 8, oy + 8, 6, 0, Math.PI * 2);
-      ctx.fill();
+      // Ícono navaja
       ctx.fillStyle = '#CC3333';
-      ctx.beginPath();
-      ctx.moveTo(ox + 8, oy + 2);
-      ctx.lineTo(ox + 10, oy + 8);
-      ctx.lineTo(ox + 6, oy + 8);
-      ctx.closePath();
-      ctx.fill();
+      ctx.fillRect(ox + 4, oy + 3, 8, 10);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(ox + 6, oy + 1, 4, 3);
     }
 
     // --- NPCs ---
     for (const npc of this.npcs) {
       this._dibujarNPC(ctx, npc, offsetX, offsetY, jugador);
-    }
-
-    // --- Perro callejero (antes de ser adoptado) ---
-    if (this.perroCallejero && !this.perroAdoptado) {
-      this._dibujarPerroCallejero(ctx, offsetX, offsetY, jugador);
     }
 
     // --- Jugador ---
@@ -490,7 +470,7 @@ export class AsentamientoTaino1 {
       }
     }
 
-    // --- Árboles delante del jugador (los de abajo tapan al jugador) ---
+    // --- Árboles delante del jugador ---
     for (const arbol of this.arboles) {
       if (arbol.y >= jugador.y) {
         this._dibujarArbol(ctx, arbol.x + offsetX, arbol.y + offsetY, arbol);
@@ -504,12 +484,10 @@ export class AsentamientoTaino1 {
       tamano: 10, color: '#FFFFFF'
     });
 
-    // NPCs hablados
     renderizador.dibujarTexto(`🗣️ ${this.npcsHablados}/${this.totalNPCs}`, 15, 42, {
       tamano: 11, color: '#FFD700'
     });
 
-    // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
     });
@@ -531,19 +509,122 @@ export class AsentamientoTaino1 {
   // DIBUJO DE ELEMENTOS
   // ============================================================
 
-  // --- Dibujar un bohío taíno ---
-  // Los bohíos eran casas circulares hechas de madera y hojas de palma.
-  // El caney era rectangular y más grande — la casa del cacique.
+  // --- Dibujar un conuco (montículo de cultivo taíno) ---
+  _dibujarConuco(ctx, x, y, conuco) {
+    // Montículo de tierra
+    ctx.fillStyle = '#7a5a30';
+    ctx.beginPath();
+    ctx.ellipse(x + conuco.ancho / 2, y + conuco.alto / 2,
+      conuco.ancho / 2, conuco.alto / 2, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Capa de tierra más clara encima
+    ctx.fillStyle = '#8B6914';
+    ctx.beginPath();
+    ctx.ellipse(x + conuco.ancho / 2, y + conuco.alto / 2 - 3,
+      conuco.ancho / 2 - 4, conuco.alto / 2 - 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Plantitas según el tipo de cultivo
+    const cx = x + conuco.ancho / 2;
+    const cy = y + conuco.alto / 2 - 5;
+
+    if (conuco.cultivo === 'yuca') {
+      // Hojas verdes alargadas (la yuca tiene hojas en forma de mano)
+      ctx.fillStyle = '#3a8a20';
+      for (let i = 0; i < 5; i++) {
+        const angulo = (i / 5) * Math.PI * 2;
+        ctx.fillRect(
+          cx + Math.cos(angulo) * 6 - 2,
+          cy + Math.sin(angulo) * 4 - 6,
+          4, 8
+        );
+      }
+    } else if (conuco.cultivo === 'maiz') {
+      // Tallos verticales con hojitas
+      ctx.fillStyle = '#4a9a30';
+      ctx.fillRect(cx - 1, cy - 12, 2, 14);
+      ctx.fillRect(cx - 6, cy - 10, 2, 12);
+      ctx.fillRect(cx + 5, cy - 8, 2, 10);
+      // Mazorca
+      ctx.fillStyle = '#DAA520';
+      ctx.fillRect(cx - 2, cy - 6, 4, 5);
+    } else if (conuco.cultivo === 'batata') {
+      // Hojas en forma de corazón (bajas y extendidas)
+      ctx.fillStyle = '#2a7a18';
+      ctx.beginPath();
+      ctx.arc(cx - 5, cy - 2, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx + 5, cy - 3, 5, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (conuco.cultivo === 'aji') {
+      // Plantita con frutos rojos (el ají picante taíno)
+      ctx.fillStyle = '#3a8a20';
+      ctx.fillRect(cx - 1, cy - 8, 2, 10);
+      ctx.fillStyle = '#CC2222';
+      ctx.beginPath();
+      ctx.arc(cx - 4, cy - 4, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(cx + 4, cy - 6, 3, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (conuco.cultivo === 'tabaco') {
+      // Hojas grandes y anchas
+      ctx.fillStyle = '#5a9a40';
+      ctx.beginPath();
+      ctx.ellipse(cx, cy - 4, 8, 5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#4a8a30';
+      ctx.beginPath();
+      ctx.ellipse(cx, cy - 8, 6, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Etiqueta del cultivo (sutil)
+    ctx.font = '8px monospace';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.textAlign = 'center';
+    ctx.fillText(conuco.cultivo, x + conuco.ancho / 2, y + conuco.alto + 10);
+    ctx.textAlign = 'left';
+  }
+
+  // --- Dibujar el dujo (asiento ceremonial) ---
+  _dibujarDujo(ctx, x, y) {
+    // Base del asiento
+    ctx.fillStyle = '#6B3410';
+    ctx.fillRect(x - 10, y, 20, 8);
+
+    // Patas
+    ctx.fillRect(x - 10, y + 8, 4, 6);
+    ctx.fillRect(x + 6, y + 8, 4, 6);
+
+    // Respaldo con cara tallada
+    ctx.fillRect(x - 8, y - 12, 16, 12);
+    ctx.fillStyle = '#8B4513';
+    ctx.fillRect(x - 6, y - 10, 12, 8);
+
+    // Ojos tallados en el respaldo
+    ctx.fillStyle = '#FFD700';
+    ctx.fillRect(x - 4, y - 8, 3, 3);
+    ctx.fillRect(x + 1, y - 8, 3, 3);
+
+    // Etiqueta
+    ctx.font = '8px monospace';
+    ctx.fillStyle = 'rgba(255, 215, 0, 0.6)';
+    ctx.textAlign = 'center';
+    ctx.fillText('Dujo', x, y + 22);
+    ctx.textAlign = 'left';
+  }
+
+  // --- Dibujar bohío (reutiliza patrón de Asentamiento 1) ---
   _dibujarBohio(ctx, x, y, bohio) {
     const r = bohio.radio;
 
     if (bohio.tipo === 'caney') {
-      // Caney: casa rectangular del cacique, más grande y elaborada
-      // Base de madera
       ctx.fillStyle = '#8B6914';
       ctx.fillRect(x - r, y - r * 0.6, r * 2, r * 1.2);
 
-      // Techo triangular de hojas (cana)
       ctx.fillStyle = '#5a7a2e';
       ctx.beginPath();
       ctx.moveTo(x - r - 10, y - r * 0.6);
@@ -552,7 +633,6 @@ export class AsentamientoTaino1 {
       ctx.closePath();
       ctx.fill();
 
-      // Líneas del techo (hojas de palma)
       ctx.strokeStyle = '#4a6a20';
       ctx.lineWidth = 1;
       for (let i = -r; i <= r; i += 12) {
@@ -562,24 +642,19 @@ export class AsentamientoTaino1 {
         ctx.stroke();
       }
 
-      // Puerta
       ctx.fillStyle = '#3a2a0a';
       ctx.fillRect(x - 8, y - r * 0.6 + r * 0.4, 16, r * 0.8);
     } else {
-      // Bohío circular: la casa común taína
-      // Base circular de madera
       ctx.fillStyle = '#8B6914';
       ctx.beginPath();
       ctx.arc(x, y, r * 0.7, 0, Math.PI * 2);
       ctx.fill();
 
-      // Techo cónico de hojas (se ve como un círculo más grande)
       ctx.fillStyle = '#5a7a2e';
       ctx.beginPath();
       ctx.arc(x, y, r, 0, Math.PI * 2);
       ctx.fill();
 
-      // Capas del techo (anillos concéntricos simulando hojas)
       ctx.strokeStyle = '#4a6a20';
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -589,20 +664,17 @@ export class AsentamientoTaino1 {
       ctx.arc(x, y, r * 0.4, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Punta central del techo
       ctx.fillStyle = '#8B6914';
       ctx.beginPath();
       ctx.arc(x, y, 4, 0, Math.PI * 2);
       ctx.fill();
 
-      // Puerta (abertura oscura)
       ctx.fillStyle = '#3a2a0a';
       ctx.beginPath();
       ctx.arc(x, y + r * 0.5, 8, 0, Math.PI);
       ctx.fill();
     }
 
-    // Nombre del bohío
     ctx.font = '9px monospace';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.textAlign = 'center';
@@ -610,16 +682,15 @@ export class AsentamientoTaino1 {
     ctx.textAlign = 'left';
   }
 
-  // --- Dibujar un NPC ---
+  // --- Dibujar NPC ---
   _dibujarNPC(ctx, npc, offsetX, offsetY, jugador) {
     const nx = npc.x + offsetX;
     const ny = npc.y + offsetY;
 
-    // Cuerpo
     ctx.fillStyle = npc.color;
     ctx.fillRect(nx, ny, npc.ancho, npc.alto);
 
-    // Cabeza (tono piel taíno)
+    // Cabeza
     ctx.fillStyle = '#C68642';
     ctx.fillRect(nx + 4, ny - 10, 20, 12);
 
@@ -632,43 +703,52 @@ export class AsentamientoTaino1 {
     ctx.fillRect(nx + 17, ny - 5, 2, 2);
 
     // Decoración según NPC
-    if (npc.id === 'cacique') {
-      // Corona de plumas (el cacique usaba un guanín dorado)
-      ctx.fillStyle = '#FFD700';
-      for (let i = 0; i < 5; i++) {
-        const px = nx + 4 + i * 4;
-        ctx.fillRect(px, ny - 16, 3, 6);
+    if (npc.id === 'behique') {
+      // Collar de huesos y plumas (el behique era el chamán/curandero)
+      ctx.fillStyle = '#EEEEEE';
+      for (let i = 0; i < 4; i++) {
+        ctx.fillRect(nx + 6 + i * 4, ny - 2, 3, 4);
       }
-    } else if (npc.id === 'alfarera') {
-      // Vasija en las manos
-      ctx.fillStyle = '#B8860B';
-      ctx.beginPath();
-      ctx.arc(nx + 14, ny + npc.alto - 4, 6, 0, Math.PI * 2);
-      ctx.fill();
-    } else if (npc.id === 'pescador') {
-      // Caña de pescar
-      ctx.strokeStyle = '#8B7355';
-      ctx.lineWidth = 2;
+      // Pluma en la cabeza
+      ctx.fillStyle = '#22AA22';
+      ctx.fillRect(nx + 12, ny - 18, 3, 8);
+    } else if (npc.id === 'agricultor') {
+      // Herramienta de cavar (coa — palo de labranza taíno)
+      ctx.strokeStyle = '#6B3410';
+      ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(nx + npc.ancho, ny + 5);
-      ctx.lineTo(nx + npc.ancho + 15, ny - 10);
+      ctx.lineTo(nx + npc.ancho + 12, ny + npc.alto);
       ctx.stroke();
-      // Hilo
-      ctx.strokeStyle = '#CCCCCC';
-      ctx.lineWidth = 1;
+      // Punta
+      ctx.fillStyle = '#555555';
       ctx.beginPath();
-      ctx.moveTo(nx + npc.ancho + 15, ny - 10);
-      ctx.lineTo(nx + npc.ancho + 15, ny + 5);
+      ctx.moveTo(nx + npc.ancho + 10, ny + npc.alto);
+      ctx.lineTo(nx + npc.ancho + 14, ny + npc.alto);
+      ctx.lineTo(nx + npc.ancho + 12, ny + npc.alto + 6);
+      ctx.closePath();
+      ctx.fill();
+    } else if (npc.id === 'musico') {
+      // Maraca (instrumento taíno)
+      ctx.fillStyle = '#B8860B';
+      ctx.beginPath();
+      ctx.arc(nx - 6, ny + 10, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#6B3410';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(nx - 6, ny + 16);
+      ctx.lineTo(nx - 6, ny + 26);
       ctx.stroke();
     }
 
-    // Nombre flotante
+    // Nombre
     ctx.font = '10px monospace';
     ctx.fillStyle = '#FFFFFF';
     ctx.textAlign = 'center';
     ctx.fillText(npc.nombre, nx + npc.ancho / 2, ny - 20);
 
-    // Indicador de interacción
+    // Interacción
     if (this._estaCerca(jugador, npc, 45) && !npc.dialogoHecho) {
       const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
       ctx.font = '11px monospace';
@@ -676,7 +756,6 @@ export class AsentamientoTaino1 {
       ctx.fillText('[E] Hablar', nx + npc.ancho / 2, ny - 32);
     }
 
-    // Palomita si ya habló con el NPC
     if (npc.dialogoHecho) {
       ctx.font = 'bold 14px monospace';
       ctx.fillStyle = '#44CC44';
@@ -686,28 +765,24 @@ export class AsentamientoTaino1 {
     ctx.textAlign = 'left';
   }
 
-  // --- Dibujar al jugador (top-down, sprite detallado) ---
+  // --- Dibujar jugador (top-down) ---
   _dibujarJugador(ctx, jugador, offsetX, offsetY) {
     const px = jugador.x + offsetX;
     const py = jugador.y + offsetY;
     const genero = jugador.genero || 'pepito';
 
-    // Sombra
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
     ctx.beginPath();
     ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cuerpo
     const colorCuerpo = genero === 'pepito' ? '#4488ff' : '#aa44ff';
     ctx.fillStyle = colorCuerpo;
     ctx.fillRect(px + 4, py + 10, 20, 16);
 
-    // Cabeza
     ctx.fillStyle = '#D2956A';
     ctx.fillRect(px + 6, py, 16, 14);
 
-    // Cabello
     ctx.fillStyle = genero === 'pepito' ? '#2a1a0a' : '#1a0a00';
     if (genero === 'pepito') {
       ctx.fillRect(px + 5, py - 2, 18, 6);
@@ -717,7 +792,6 @@ export class AsentamientoTaino1 {
       ctx.fillRect(px + 21, py + 2, 4, 10);
     }
 
-    // Ojos (miran en la dirección del movimiento)
     ctx.fillStyle = '#FFFFFF';
     let ojoDx = 0, ojoDy = 0;
     if (jugador.direccion === 'izquierda') ojoDx = -1;
@@ -731,37 +805,31 @@ export class AsentamientoTaino1 {
     ctx.fillRect(px + 10 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
     ctx.fillRect(px + 17 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
 
-    // Piernas (animadas al caminar)
     ctx.fillStyle = '#2a5599';
     const pasoAnim = jugador.esAnimando ? Math.sin(jugador.cuadroAnimacion * 5) * 3 : 0;
     ctx.fillRect(px + 6, py + 26 + pasoAnim, 7, 8);
     ctx.fillRect(px + 15, py + 26 - pasoAnim, 7, 8);
 
-    // Zapatos
     ctx.fillStyle = '#4a3520';
     ctx.fillRect(px + 5, py + 32 + pasoAnim, 8, 3);
     ctx.fillRect(px + 15, py + 32 - pasoAnim, 8, 3);
   }
 
-  // --- Dibujar un árbol ---
+  // --- Dibujar árbol ---
   _dibujarArbol(ctx, x, y, arbol) {
-    // Sombra
     ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
     ctx.beginPath();
     ctx.ellipse(x, y + arbol.tamano * 0.5, arbol.tamano * 0.8, arbol.tamano * 0.3, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Tronco
     ctx.fillStyle = arbol.colorTronco;
     ctx.fillRect(x - 3, y - arbol.tamano * 0.3, 6, arbol.tamano * 0.8);
 
-    // Copa (palmera tropical)
     ctx.fillStyle = arbol.colorCopa;
     ctx.beginPath();
     ctx.arc(x, y - arbol.tamano * 0.3, arbol.tamano * 0.6, 0, Math.PI * 2);
     ctx.fill();
 
-    // Hojas de palma (líneas radiales)
     ctx.strokeStyle = arbol.colorCopa;
     ctx.lineWidth = 3;
     for (let i = 0; i < 6; i++) {
@@ -776,82 +844,31 @@ export class AsentamientoTaino1 {
     }
   }
 
-  // --- Dibujar el perro callejero antes de ser adoptado ---
-  _dibujarPerroCallejero(ctx, offsetX, offsetY, jugador) {
-    const perro = this.perroCallejero;
-    const px = perro.x + offsetX;
-    const py = perro.y + offsetY;
-
-    // Cuerpo (marrón)
-    ctx.fillStyle = '#8B4513';
-    ctx.fillRect(px, py, 22, 14);
-
-    // Cabeza
-    ctx.fillStyle = '#A0522D';
-    ctx.fillRect(px + 16, py - 4, 10, 12);
-
-    // Ojito
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(px + 22, py - 1, 2, 2);
-
-    // Nariz
-    ctx.fillStyle = '#333333';
-    ctx.fillRect(px + 25, py + 2, 2, 2);
-
-    // Oreja caída
-    ctx.fillStyle = '#6B3410';
-    ctx.fillRect(px + 17, py - 7, 5, 5);
-
-    // Patitas
-    ctx.fillStyle = '#6B3410';
-    ctx.fillRect(px + 2, py + 14, 4, 5);
-    ctx.fillRect(px + 14, py + 14, 4, 5);
-
-    // Cola (siempre moviéndose — el perro es amigable)
-    ctx.strokeStyle = '#8B4513';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(px, py + 2);
-    const movCola = Math.sin(perro.tiempoAnimCola) * 5;
-    ctx.lineTo(px - 8, py - 3 + movCola);
-    ctx.stroke();
-
-    // Indicador de interacción
-    if (this._estaCerca(jugador, perro, 45)) {
-      const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
-      ctx.font = '11px monospace';
-      ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
-      ctx.textAlign = 'center';
-      ctx.fillText('[E] Adoptar', px + 11, py - 14);
-      ctx.textAlign = 'left';
-    }
-  }
-
-  // --- Hablar con un NPC ---
-  _hablarConNPC(npc, jugador) {
+  // --- Hablar con NPC ---
+  _hablarConNPC(npc) {
     const textos = this._obtenerTextos();
-    const aldea = textos?.dialogos?.aldea;
+    const aldea2 = textos?.dialogos?.aldea2;
 
-    if (npc.id === 'cacique') {
+    if (npc.id === 'behique') {
       this.dialogos.iniciarDialogo([
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique1 || '¡Bienvenido a nuestra aldea!' },
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique2 || 'Soy el cacique de este yucayeque.' },
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique3 || 'Nuestro pueblo vive en armonía con la tierra.' },
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
+        { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique1 || 'Soy el behique, el curandero de la aldea.' },
+        { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique2 || 'Las plantas de esta tierra tienen poderes curativos.' },
+        { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique3 || 'Usamos tabaco en las ceremonias de cohoba.' },
+        { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique4 || 'La guayaba, la jagua y la sábila curan muchos males.' }
       ], () => { npc.dialogoHecho = true; });
-    } else if (npc.id === 'alfarera') {
+    } else if (npc.id === 'agricultor') {
       this.dialogos.iniciarDialogo([
-        { personaje: '🏺 Anacaona', texto: aldea?.alfarera1 || '¡Hola! Estoy haciendo una vasija de barro.' },
-        { personaje: '🏺 Anacaona', texto: aldea?.alfarera2 || 'Los taínos éramos grandes alfareros.' },
-        { personaje: '🏺 Anacaona', texto: aldea?.alfarera3 || 'Hacíamos ollas, platos y burenes para cocinar el casabe.' },
-        { personaje: '🏺 Anacaona', texto: aldea?.alfarera4 || 'El casabe se hace con yuca rallada — ¡es delicioso!' }
+        { personaje: '🌱 Guarionex', texto: aldea2?.agricultor1 || '¡Mira nuestros conucos!' },
+        { personaje: '🌱 Guarionex', texto: aldea2?.agricultor2 || 'Hacemos montículos de tierra para plantar.' },
+        { personaje: '🌱 Guarionex', texto: aldea2?.agricultor3 || 'Cultivamos yuca, maíz, batata, ají y tabaco.' },
+        { personaje: '🌱 Guarionex', texto: aldea2?.agricultor4 || 'La yuca es lo más importante — con ella hacemos el casabe.' }
       ], () => { npc.dialogoHecho = true; });
-    } else if (npc.id === 'pescador') {
+    } else if (npc.id === 'musico') {
       this.dialogos.iniciarDialogo([
-        { personaje: '🐟 Caonabó', texto: aldea?.pescador1 || '¡Buenos días! Hoy la pesca ha sido buena.' },
-        { personaje: '🐟 Caonabó', texto: aldea?.pescador2 || 'Los taínos pescábamos con redes, nasas y anzuelos de hueso.' },
-        { personaje: '🐟 Caonabó', texto: aldea?.pescador3 || 'También usábamos canoas talladas en un solo tronco de árbol.' },
-        { personaje: '🐟 Caonabó', texto: aldea?.pescador4 || '¡Algunas canoas podían llevar hasta 50 personas!' }
+        { personaje: '🎵 Higüemota', texto: aldea2?.musico1 || '¡Bienvenido al batey!' },
+        { personaje: '🎵 Higüemota', texto: aldea2?.musico2 || 'Aquí celebramos el areíto — nuestra ceremonia de música y danza.' },
+        { personaje: '🎵 Higüemota', texto: aldea2?.musico3 || 'Usamos maracas, güiros y tambores hechos de troncos.' },
+        { personaje: '🎵 Higüemota', texto: aldea2?.musico4 || 'En el areíto contamos la historia de nuestro pueblo cantando.' }
       ], () => { npc.dialogoHecho = true; });
     }
   }

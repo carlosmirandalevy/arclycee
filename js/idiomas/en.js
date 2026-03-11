@@ -118,6 +118,31 @@ const en = {
       pescador3: 'We also made canoes carved from a single ceiba tree trunk.',
       pescador4: 'Some canoes could carry up to 50 people between the Caribbean islands!',
 
+      perro1: 'A stray dog! It looks friendly... it\'s hungry and staring at you with pleading eyes.',
+      perro2: 'The dog wags its tail and approaches slowly. It seems like it wants to come with you!',
+      perro3: 'It\'s decided! You\'ll call him Viralata. His nose can sniff out hidden objects. He joins your team!',
+
+      misionHablar: 'Talk to the 3 villagers',
+      misionCompleta: 'Village explored! Return to map (Q)'
+    },
+
+    // Second village dialogues — agriculture, medicine, and ceremonies
+    aldea2: {
+      behique1: 'I am Yuisa, the behique — healer and spiritual guide of this village.',
+      behique2: 'The plants of this island have great healing powers that the gods taught us.',
+      behique3: 'We use tobacco in the cohoba ceremony, to communicate with the cemíes.',
+      behique4: 'Guava cures fever, jagua protects the skin, and aloe heals wounds.',
+
+      agricultor1: 'Look at our conucos! Each mound of earth is a garden of food.',
+      agricultor2: 'Conucos are raised mounds where we plant. This way the soil drains better and roots grow strong.',
+      agricultor3: 'We grow yuca, corn, sweet potato, hot peppers, and tobacco — everything we need to live.',
+      agricultor4: 'Yuca is the most important. With it we make casabe, which is our daily bread.',
+
+      musico1: 'Welcome to the batey, the heart of our village!',
+      musico2: 'Here we celebrate the areíto — our great ceremony of music, dance, and memory.',
+      musico3: 'We play maracas made from higüero, güiros from gourds, and drums carved from ceiba trunks.',
+      musico4: 'In the areíto we sing the history of our people — so the young never forget where they come from.',
+
       misionHablar: 'Talk to the 3 villagers',
       misionCompleta: 'Village explored! Return to map (Q)'
     }

@@ -65,7 +65,7 @@ arclycee/
 │   ├── motor/              ← Motor del juego (loop, render, input, audio, save)
 │   ├── escenas/            ← Pantallas (menú, selección, intro)
 │   ├── mundos/             ← Niveles y mapas del mundo
-│   │   └── taino/          ← Mundo Taíno (Cuevas del Pomier, Asentamiento)
+│   │   └── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí
 │   ├── mecanicas/          ← Combate, diálogos, inventario, misiones

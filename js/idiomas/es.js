@@ -120,6 +120,31 @@ const es = {
       pescador3: 'También hacíamos canoas talladas en un solo tronco de ceiba.',
       pescador4: '¡Algunas canoas podían llevar hasta 50 personas entre las islas del Caribe!',
 
+      perro1: '¡Un perro callejero! Parece amigable... tiene hambre y te mira con ojos suplicantes.',
+      perro2: 'El perro mueve la cola y se acerca despacio. ¡Parece que quiere acompañarte!',
+      perro3: '¡Decidido! Lo llamarás Viralata. Su nariz puede oler objetos escondidos. ¡Ahora te acompaña!',
+
+      misionHablar: 'Habla con los 3 aldeanos de la aldea',
+      misionCompleta: '¡Aldea explorada! Vuelve al mapa (Q)'
+    },
+
+    // Diálogos de la segunda aldea — agricultura, medicina y ceremonias
+    aldea2: {
+      behique1: 'Soy Yuisa, el behique — curandero y guía espiritual de esta aldea.',
+      behique2: 'Las plantas de esta isla tienen grandes poderes curativos que los dioses nos enseñaron.',
+      behique3: 'El tabaco lo usamos en la ceremonia de la cohoba, para comunicarnos con los cemíes.',
+      behique4: 'La guayaba cura la fiebre, la jagua protege la piel y la sábila sana las heridas.',
+
+      agricultor1: '¡Mira nuestros conucos! Cada montículo de tierra es un jardín de comida.',
+      agricultor2: 'Los conucos son montículos donde plantamos. Así la tierra drena mejor y las raíces crecen fuertes.',
+      agricultor3: 'Cultivamos yuca, maíz, batata, ají picante y tabaco — todo lo que necesitamos para vivir.',
+      agricultor4: 'La yuca es lo más importante. Con ella hacemos el casabe, que es nuestro pan de cada día.',
+
+      musico1: '¡Bienvenido/a al batey, el corazón de nuestra aldea!',
+      musico2: 'Aquí celebramos el areíto — nuestra gran ceremonia de música, danza y memoria.',
+      musico3: 'Tocamos maracas de higüero, güiros de calabaza y tambores tallados en troncos de ceiba.',
+      musico4: 'En el areíto cantamos la historia de nuestro pueblo — así los jóvenes nunca olvidan de dónde vienen.',
+
       misionHablar: 'Habla con los 3 aldeanos de la aldea',
       misionCompleta: '¡Aldea explorada! Vuelve al mapa (Q)'
     }

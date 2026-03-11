@@ -12,7 +12,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Ruta pacifista**: resuelve conflictos hablando, negociando o educando — sin necesidad de pelear
 - **3 idiomas**: Español, Français, English
 - **Mapas reales** con LeafletJS mostrando sitios arqueológicos reales de RD
-- **Sistema de compañeros**: Magnoboot (robot excavador) sigue al jugador tras hablar con la arqueóloga; Viralata y Cemí Murciélago disponibles más adelante
+- **Sistema de compañeros**: Magnoboot (robot excavador) sigue al jugador tras hablar con la arqueóloga; Viralata (perro rastreador) se adopta en la aldea; Cemí Murciélago disponible más adelante
 - **Sonidos procedurales**: efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
 - **Inventario visual**: mochila de 20 slots con grilla navegable, íconos únicos y descripciones traducidas
@@ -24,7 +24,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 | Mundo | Descripción |
 |---|---|
-| Taíno | Cuevas del Pomier, petroglifos, Asentamiento Taíno I (aldea con bohíos y NPCs educativos) |
+| Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura y areíto) |
 | Colonial | La Isabela, Zona Colonial, sitios históricos |
 | Acuático | Naufragios, exploración submarina |
 | Jurídico | Tráfico de reliquias, leyes de protección patrimonial |
