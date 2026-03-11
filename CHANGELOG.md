@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.4.0 — Cinemática con Audio y Sprite Mejorado (2026-03-11)
+
+### Agregado
+
+**Sonidos procedurales en la cinemática de introducción**
+- Paso 0: acorde grave misterioso (E2 + B2) que establece el tono narrativo
+- Paso 1: pasos del personaje caminando por la obra de construcción
+- Paso 2: acorde de descubrimiento cuando la reliquia brilla
+- Paso 3: rumble de terremoto (sawtooth filtrado) + crujidos de roca rompiéndose
+- Paso 4: viento de caída (ruido bandpass ascendente) + ráfagas cortas
+- Paso 5: impacto grave al llegar al fondo + ruido de escombros
+
+**Sprite detallado del personaje en la cinemática**
+- Personaje caminando (pasos 1-2) con cabeza, cabello, ojos con pupilas, torso con ropa, brazos y piernas animadas, zapatos
+- Personaje cayendo (paso 4) con ojos mirando hacia abajo
+- Estilo visual consistente con el sprite del jugador en la cueva
+
+---
+
 ## v0.3.0 — Inventario (2026-03-11)
 
 ### Agregado
