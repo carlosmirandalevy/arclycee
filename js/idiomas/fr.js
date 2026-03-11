@@ -76,6 +76,29 @@ const fr = {
     cemiMurcielago: {
       presentacion: 'Une chauve-souris spectrale apparaît parmi les ombres de la grotte...',
       vinculo: "Tu ressens une connexion ancestrale avec l'esprit Cemí."
+    },
+
+    cueva: {
+      espirituIntro1: 'Jeune descendant/e... les cemíes t\'ont amené/e ici pour une raison.',
+      espirituIntro2: 'Ces grottes gardent la mémoire de notre peuple taïno.',
+      espirituIntro3: 'Cherche les pétroglyphes sacrés. Ils te montreront le chemin.',
+      espirituIntro4: 'Fais attention aux graffitis... quelqu\'un a profané ce lieu.',
+
+      petroSol: 'C\'est le pétroglyphe du Soleil. Les Taïnos l\'adoraient comme source de toute vie. Sa chaleur nourrissait les conucos et sa lumière guidait les pêcheurs.',
+      petroMurcielago: 'Le Cemí Chauve-souris... Les Taïnos croyaient que les esprits des morts se transformaient en chauves-souris et habitaient les grottes.',
+      petroCara: 'Un visage sculpté dans la roche. Il peut représenter un cacique ou un esprit ancestral qui protégeait la grotte.',
+      petroEspiral: 'La spirale symbolise l\'eau et le mouvement éternel. La mer était sacrée pour les Taïnos — elle apportait la subsistance.',
+      petroRana: 'La grenouille représentait la fertilité et la pluie. Sans pluie pas de récolte, sans récolte pas de peuple.',
+
+      arqueologoIntro: 'Halte-là ! Qui es-tu ?',
+      arqueologoReconoce: 'Attends... tu as trouvé des pétroglyphes ? Incroyable ! Je suis la Dre Martínez, archéologue.',
+      arqueologoRegalo: 'Tiens, tu en auras besoin dehors. C\'est Magnoboot, un robot excavateur qui t\'aidera.',
+      arqueologoDespedida: 'Prends soin du patrimoine. Chaque pièce que tu trouves appartient au peuple dominicain.',
+
+      misionExplorar: 'Explore la grotte et trouve les pétroglyphes',
+      misionSalir: 'Cherche la sortie de la grotte',
+      misionArtefacto: 'Apporte l\'artefact à la sortie',
+      caida: 'Tu es tombé/e dans le vide ! Retour au dernier point sûr.'
     }
   },
 

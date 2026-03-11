@@ -73,12 +73,17 @@ arclycee/
     └── idea-original.md    ← Documento de diseño del juego
 ```
 
+## Audio
+
+El juego genera efectos de sonido proceduralmente usando la Web Audio API — no necesita archivos de audio. Los sonidos se crean automáticamente al saltar, aterrizar, caminar, recoger objetos y descubrir petroglifos. También hay goteos de agua ambientales.
+
+**Nota**: El navegador bloquea el audio hasta la primera interacción del usuario (click o tecla). Una vez que presionas cualquier tecla, los sonidos comenzarán a funcionar.
+
 ## Generar Assets
 
-No hay sprites incluidos todavía — el juego usa placeholders de colores. Para generar arte:
+No hay sprites incluidos todavía — el juego usa placeholders programáticos detallados. Para generar arte:
 
 1. Lee `datos/instrucciones-assets.md`
 2. Usa los prompts con MidJourney o Nano Banana Pro para sprites
-3. Usa jsfxr.app para efectos de sonido
-4. Usa Suno AI para música
-5. Coloca los archivos en las carpetas indicadas en el documento
+3. Usa Suno AI para música
+4. Coloca los archivos en las carpetas indicadas en el documento

@@ -1,5 +1,59 @@
 # Changelog
 
+## v0.2.0 — Cueva Viva + Diálogos (2026-03-11)
+
+### Agregado
+
+**Sonido procedural** (`js/motor/sonido-procedural.js`)
+- Efectos de sonido generados por código con Web Audio API (cero archivos de audio)
+- Sonidos: salto (boing ascendente), aterrizaje (golpe grave), pasos (grava filtrada), recoger objeto (dos notas alegres), descubrir petroglifo (acorde misterioso), daño (distorsión grave), goteo de agua (plink ambiental), bleep de diálogo (estilo Undertale)
+
+**Sistema de diálogos integrado en la cueva**
+- Diálogo de introducción: el Espíritu Taína habla 4 líneas al caer a la cueva
+- Cada petroglifo muestra un diálogo educativo con texto cultural detallado (no texto plano)
+- NPC Arqueóloga (Dra. Martínez) cerca de la salida con 4 líneas de diálogo y entrega de Magnoboot
+- Movimiento del jugador bloqueado durante diálogos
+- Todos los textos traducidos a ES/FR/EN (20+ strings nuevas por idioma)
+
+**Partículas y ambiente**
+- Goteos de agua cayendo del techo con gravedad
+- Motas de polvo flotantes con movimiento aleatorio
+- Partículas de impacto (polvo) al aterrizar en plataformas
+
+**Parallax de profundidad**
+- Capa lejana (20% velocidad): formaciones rocosas grandes
+- Capa media (50% velocidad): estalactitas y estalagmitas triangulares
+
+**Personaje mejorado**
+- Sprite programático detallado: cabeza, cabello (corto/largo según género), ojos con pupilas, torso con línea de ropa, brazos y piernas animadas, zapatos
+- Squash al saltar (se aplasta) y stretch al aterrizar (se estira) para feedback visual
+- Animación de piernas y brazos al caminar
+
+**Plataformas mejoradas**
+- Textura de roca con variaciones de color cada 24px
+- Musgo verde en plataformas grandes
+- Bordes de luz y sombra más detallados
+
+**Objetos coleccionables con íconos**
+- Linterna: cilindro amarillo con rayo de luz
+- Fragmento de mapa: pergamino con líneas de texto
+- Artefacto taíno: Cemí dorado con ojos
+
+**NPC Arqueóloga**
+- Sprite de la Dra. Martínez con bata blanca, gafas, pelo recogido
+- Indicador `[E] Hablar` parpadeante al acercarse
+- Nombre flotante encima del personaje
+
+**HUD mejorado**
+- Contador de petroglifos descubiertos (🗿 3/5)
+- Texto de misión traducido dinámicamente
+- Mensaje de caída ahora usa diálogo en vez de texto plano
+
+### Corregido
+- Orden de creación del jugador en `juego.js`: ahora se crea ANTES de llamar `iniciar()` en la escena, evitando null reference al posicionar al jugador
+
+---
+
 ## v0.1.0 — Scaffold y Mundo Taíno (2026-03-11)
 
 ### Agregado

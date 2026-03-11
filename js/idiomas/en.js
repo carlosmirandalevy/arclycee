@@ -76,6 +76,29 @@ const en = {
     cemiMurcielago: {
       presentacion: 'A spectral bat appears among the shadows of the cave...',
       vinculo: 'You feel an ancestral connection with the Cemí spirit.'
+    },
+
+    cueva: {
+      espirituIntro1: 'Young descendant... the cemíes brought you here for a reason.',
+      espirituIntro2: 'These caves hold the memory of our Taíno people.',
+      espirituIntro3: 'Find the sacred petroglyphs. They will show you the way.',
+      espirituIntro4: 'Beware of the graffiti... someone has desecrated this place.',
+
+      petroSol: 'This is the Sun petroglyph. The Taínos worshipped the sun as the source of all life. Its warmth fed the conucos and its light guided the fishermen.',
+      petroMurcielago: 'The Bat Cemí... The Taínos believed that the spirits of the dead became bats and dwelled in caves.',
+      petroCara: 'A face carved in the rock. It may represent a cacique or an ancestral spirit that protected the cave.',
+      petroEspiral: 'The spiral symbolizes water and eternal movement. The sea was sacred to the Taínos — it provided sustenance.',
+      petroRana: 'The frog represented fertility and rain. Without rain there is no harvest, without harvest there is no people.',
+
+      arqueologoIntro: 'Hold it right there! Who are you?',
+      arqueologoReconoce: 'Wait... you found petroglyphs? Amazing! I\'m Dr. Martínez, archaeologist.',
+      arqueologoRegalo: 'Here, you\'ll need this out there. It\'s Magnoboot, an excavator robot that will help you.',
+      arqueologoDespedida: 'Protect the heritage. Every piece you find belongs to the Dominican people.',
+
+      misionExplorar: 'Explore the cave and find the petroglyphs',
+      misionSalir: 'Find the cave exit',
+      misionArtefacto: 'Bring the artifact to the exit',
+      caida: 'You fell into the void! Returning to last safe point.'
     }
   },
 

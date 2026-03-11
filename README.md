@@ -13,6 +13,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **3 idiomas**: Español, Français, English
 - **Mapas reales** con LeafletJS mostrando sitios arqueológicos reales de RD
 - **Sistema de compañeros**: Magnoboot (robot excavador), Viralata (perro rastreador), Cemí Murciélago (espíritu con poderes progresivos)
+- **Sonidos procedurales**: efectos generados por código con Web Audio API (sin archivos de audio)
+- **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Múltiples finales** según tus decisiones
 - **Desktop y móvil** con controles táctiles virtuales
@@ -30,6 +32,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 ## Tecnologías
 
 - **HTML5 Canvas + JavaScript vanilla** — código legible y educativo
+- **Web Audio API** — sonidos procedurales generados por código (salto, pasos, goteo, acordes)
 - **Kaplay.js** — solo para tilemap, sprites y touch input
 - **LeafletJS** — mapas interactivos con sitios arqueológicos reales
 - **CSS3** — estilos responsivos para desktop y móvil

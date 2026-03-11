@@ -300,16 +300,17 @@ export class Juego {
     this.escenaActual = this.escenas[nombreEscena];
     this.nombreEscenaActual = nombreEscena;
 
+    // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
+    // la escena, para que la escena pueda posicionarlo y configurarlo
+    if (nombreEscena === 'cuevasPomier' && !this.jugador) {
+      this.jugador = new Jugador(60, 350, this.generoJugador);
+    }
+
     // Preparar la nueva escena.
     // Le pasamos referencia a este juego para que pueda acceder
     // a los sistemas compartidos y cambiar a otras escenas.
     if (typeof this.escenaActual.iniciar === 'function') {
       this.escenaActual.iniciar(this);
-    }
-
-    // Si entramos a un nivel jugable, creamos al jugador si no existe
-    if (nombreEscena === 'cuevasPomier' && !this.jugador) {
-      this.jugador = new Jugador(60, 350, this.generoJugador);
     }
   }
 

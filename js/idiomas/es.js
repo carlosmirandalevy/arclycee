@@ -77,6 +77,30 @@ const es = {
     cemiMurcielago: {
       presentacion: 'Un murciélago espectral aparece entre las sombras de la cueva...',
       vinculo: 'Sientes una conexión ancestral con el espíritu Cemí.'
+    },
+
+    // Diálogos específicos de la cueva — narran la experiencia de exploración
+    cueva: {
+      espirituIntro1: 'Joven descendiente... los cemíes te han traído aquí por una razón.',
+      espirituIntro2: 'Estas cuevas guardan la memoria de nuestro pueblo taíno.',
+      espirituIntro3: 'Busca los petroglifos sagrados. Ellos te mostrarán el camino.',
+      espirituIntro4: 'Ten cuidado con los graffitis... alguien ha profanado este lugar.',
+
+      petroSol: 'Este es el petroglifo del Sol. Los taínos lo adoraban como fuente de toda vida. Su calor alimentaba los conucos y su luz guiaba a los pescadores.',
+      petroMurcielago: 'El Cemí Murciélago... Los taínos creían que los espíritus de los muertos se convertían en murciélagos y habitaban las cuevas.',
+      petroCara: 'Un rostro tallado en la roca. Puede representar un cacique o un espíritu ancestral que protegía la cueva.',
+      petroEspiral: 'La espiral simboliza el agua y el movimiento eterno. El mar era sagrado para los taínos — de él venía el sustento.',
+      petroRana: 'La rana representaba la fertilidad y la lluvia. Sin lluvia no hay cosecha, sin cosecha no hay pueblo.',
+
+      arqueologoIntro: '¡Alto ahí! ¿Quién eres tú?',
+      arqueologoReconoce: 'Espera... ¿encontraste petroglifos? ¡Increíble! Soy la Dra. Martínez, arqueóloga.',
+      arqueologoRegalo: 'Toma, necesitarás esto allá afuera. Es Magnoboot, un robot excavador que te ayudará.',
+      arqueologoDespedida: 'Cuida el patrimonio. Cada pieza que encuentres pertenece al pueblo dominicano.',
+
+      misionExplorar: 'Explora la cueva y encuentra los petroglifos',
+      misionSalir: 'Busca la salida de la cueva',
+      misionArtefacto: 'Lleva el artefacto a la salida',
+      caida: '¡Caíste al vacío! Vuelves al último punto seguro.'
     }
   },
 
