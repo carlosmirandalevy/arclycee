@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Documentation du Projet</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <style>
+    /* ============================================================
+       STYLES DE LA DOCUMENTATION
+       Design sombre inspiré de l'esthétique du jeu.
+       ============================================================ */
+
+    :root {
+      --fondo: #0e0e1a;
+      --fondo-seccion: #14142a;
+      --fondo-tarjeta: #1a1a35;
+      --fondo-codigo: #0a0a18;
+      --texto: #d4d4e0;
+      --texto-tenue: #8888aa;
+      --dorado: #DAA520;
+      --dorado-claro: #FFD700;
+      --verde: #44cc44;
+      --rojo: #cc4444;
+      --azul: #4488cc;
+      --morado: #8844cc;
+      --borde: #2a2a4a;
+      --acento-taino: #8B6914;
+      --acento-colonial: #6B4423;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      line-height: 1.7;
+    }
+
+    /* --- Hero / Couverture --- */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(180deg, #1a1a2e 0%, var(--fondo) 100%);
+      border-bottom: 2px solid var(--dorado);
+    }
+    .hero img {
+      width: 120px;
+      height: 120px;
+      border-radius: 24px;
+      border: 3px solid var(--dorado);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--dorado-claro);
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+    .hero .subtitulo {
+      font-size: 1.25rem;
+      color: var(--texto-tenue);
+      margin-top: 8px;
+    }
+    .hero .descripcion {
+      max-width: 700px;
+      margin: 24px auto 0;
+      font-size: 1.05rem;
+      color: var(--texto);
+    }
+    .hero .badges {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--borde);
+      background: var(--fondo-tarjeta);
+    }
+    .badge.tech { color: var(--azul); border-color: var(--azul); }
+    .badge.edu { color: var(--verde); border-color: var(--verde); }
+    .badge.lang { color: var(--morado); border-color: var(--morado); }
+
+    /* --- Navigation --- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14, 14, 26, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--borde);
+      padding: 0 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    nav a {
+      display: inline-block;
+      padding: 14px 18px;
+      color: var(--texto-tenue);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active { color: var(--dorado); }
+
+    /* --- Conteneur --- */
+    .contenedor {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--borde);
+    }
+    section:last-child { border-bottom: none; }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--dorado);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    h2 .icono { font-size: 1.5rem; }
+
+    h3 {
+      font-size: 1.4rem;
+      color: #e0d0a0;
+      margin: 32px 0 12px;
+    }
+    h4 {
+      font-size: 1.1rem;
+      color: var(--dorado);
+      margin: 20px 0 8px;
+    }
+
+    p { margin-bottom: 12px; }
+    p.intro {
+      font-size: 1.05rem;
+      color: var(--texto-tenue);
+      margin-bottom: 24px;
+    }
+
+    /* --- Cartes de monde --- */
+    .mundo-card {
+      background: var(--fondo-tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mundo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .mundo-card.taino::before { background: var(--acento-taino); }
+    .mundo-card.colonial::before { background: var(--acento-colonial); }
+
+    .mundo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .mundo-titulo {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+    .mundo-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tag.topdown { background: #1a3a2a; color: #44cc88; }
+    .tag.plataforma { background: #3a1a2a; color: #cc4488; }
+    .tag.unesco { background: #2a2a1a; color: var(--dorado); }
+
+    .mundo-desc {
+      color: var(--texto-tenue);
+      margin-bottom: 16px;
+    }
+
+    /* --- Canvas de prévisualisation --- */
+    .preview-container {
+      margin: 20px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--borde);
+      background: #000;
+    }
+    .preview-container canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+    }
+    .preview-label {
+      background: var(--fondo-codigo);
+      color: var(--texto-tenue);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-family: monospace;
+    }
+
+    /* --- Listes de contenu --- */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    @media (max-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .item-card {
+      background: var(--fondo-seccion);
+      border: 1px solid var(--borde);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .item-card h5 {
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .item-card p {
+      color: var(--texto-tenue);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .item-card .item-icon {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    /* --- NPC cards --- */
+    .npc-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--fondo-seccion);
+      border: 1px solid var(--borde);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .npc-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+    .npc-info h5 {
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+    .npc-info .npc-role {
+      color: var(--dorado);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .npc-info p {
+      color: var(--texto-tenue);
+      font-size: 0.88rem;
+      margin: 0;
+    }
+
+    /* --- Tableau de mécaniques --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--borde);
+      font-size: 0.92rem;
+    }
+    th {
+      color: var(--dorado);
+      font-weight: 600;
+      background: var(--fondo-codigo);
+    }
+    td { color: var(--texto); }
+    tr:hover td { background: rgba(218, 165, 32, 0.05); }
+
+    /* --- Compagnons --- */
+    .companero-card {
+      background: var(--fondo-tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .companero-visual {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .companero-visual canvas {
+      image-rendering: pixelated;
+    }
+
+    /* --- Diagramme de flux --- */
+    .flujo {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 24px 0;
+    }
+    .flujo-nodo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .flujo-icono {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      border: 2px solid var(--borde);
+      background: var(--fondo-tarjeta);
+    }
+    .flujo-icono.taino { border-color: var(--acento-taino); }
+    .flujo-icono.colonial { border-color: var(--acento-colonial); }
+    .flujo-texto {
+      flex: 1;
+      padding: 12px 0;
+    }
+    .flujo-texto strong { color: #fff; }
+    .flujo-texto span { color: var(--texto-tenue); font-size: 0.9rem; }
+    .flujo-flecha {
+      width: 48px;
+      display: flex;
+      justify-content: center;
+      color: var(--texto-tenue);
+      font-size: 1.2rem;
+      padding: 4px 0;
+    }
+
+    /* --- Contrôles --- */
+    .tecla {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--fondo-codigo);
+      border: 1px solid var(--borde);
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #fff;
+    }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--texto-tenue);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--borde);
+    }
+    footer a {
+      color: var(--dorado);
+      text-decoration: none;
+    }
+    footer .equipo {
+      margin-top: 12px;
+      font-size: 0.85rem;
+    }
+
+    /* --- Combat diagram --- */
+    .combat-flow {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+    .combat-option {
+      background: var(--fondo-codigo);
+      border: 1px solid var(--borde);
+      border-radius: 8px;
+      padding: 12px 16px;
+      flex: 1;
+      min-width: 200px;
+    }
+    .combat-option h5 {
+      color: var(--dorado);
+      margin-bottom: 4px;
+    }
+    .combat-option p {
+      color: var(--texto-tenue);
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    .combat-option .efecto {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--verde);
+    }
+    .combat-option .contra {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--rojo);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       SÉLECTEUR DE LANGUE
+       ============================================================ -->
+  <div style="background:var(--fondo-codigo);text-align:center;padding:8px 0;border-bottom:1px solid var(--borde);">
+    <strong style="color:var(--dorado);margin-right:12px;">🌐</strong>
+    <a href="docs.html" style="color:var(--texto-tenue);text-decoration:none;padding:4px 12px;font-size:0.85rem;">ES</a>
+    <a href="docs-en.html" style="color:var(--texto-tenue);text-decoration:none;padding:4px 12px;font-size:0.85rem;">EN</a>
+    <a href="docs-fr.html" style="color:#fff;text-decoration:none;padding:4px 12px;background:var(--dorado);border-radius:4px;font-size:0.85rem;font-weight:600;">FR</a>
+  </div>
+
+  <!-- ============================================================
+       HERO / COUVERTURE
+       ============================================================ -->
+  <div class="hero">
+    <img src="resources/cemi-logo-just-icon.png" alt="Logo ArcLycée — Cemí">
+    <h1>ArcLycée</h1>
+    <p class="subtitulo">Aventure Archéologique Dominicaine</p>
+    <p class="descripcion">
+      Un jeu vidéo RPG 2D éducatif pour explorer le patrimoine archéologique de la
+      République dominicaine. Créé par 8 élèves du cours de Robotique du
+      Lycée Français de Saint-Domingue — 2026.
+    </p>
+    <div class="badges">
+      <span class="badge tech">HTML5 Canvas + JS Vanilla</span>
+      <span class="badge edu">Éducatif</span>
+      <span class="badge lang">ES / FR / EN</span>
+      <span class="badge tech">Web Audio API</span>
+      <span class="badge edu">Route Pacifiste</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav>
+    <a href="#historia">Histoire</a>
+    <a href="#flujo">Déroulement du Jeu</a>
+    <a href="#mundos">Mondes</a>
+    <a href="#companeros">Compagnons</a>
+    <a href="#combate">Combat</a>
+    <a href="#mecanicas">Mécaniques</a>
+    <a href="#controles">Contrôles</a>
+    <a href="#tech">Technologies</a>
+    <a href="#equipo">Équipe</a>
+  </nav>
+
+  <div class="contenedor">
+
+    <!-- ============================================================
+         HISTOIRE
+         ============================================================ -->
+    <section id="historia">
+      <h2><span class="icono">📖</span> L'Histoire</h2>
+      <p class="intro">Une aventure à travers 5000 ans d'histoire dominicaine.</p>
+
+      <p>
+        Tu joues en tant que <strong>Pepito ou Pepita</strong>, un(e) jeune de 14 ans d'ascendance taïno,
+        espagnole et africaine. Un jour, en te promenant près d'un chantier de construction à Saint-Domingue,
+        tu découvres une relique mystérieuse qui brille d'une lumière étrange. En la touchant, le sol cède
+        sous tes pieds et tu tombes dans les <strong>Cuevas del Pomier</strong> — un système de grottes réel
+        contenant des milliers de pétroglyphes taïnos.
+      </p>
+      <p>
+        Ainsi commence ton aventure en tant qu'archéologue accidentel(le). Avec l'aide de trois compagnons
+        — un robot excavateur, un chien errant et un esprit cemí — tu parcourras des mondes allant
+        des villages taïnos à la Zone Coloniale de Saint-Domingue, affrontant des conflits
+        entre le développement moderne et la préservation du patrimoine.
+      </p>
+      <p>
+        <strong>Tout ne se résout pas en combattant.</strong> Inspiré par Undertale, le jeu offre une
+        route pacifiste complète : tu peux convaincre tes adversaires par le dialogue, la négociation et l'activisme
+        citoyen. Chaque conflit a une solution qui ne nécessite pas de violence.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         DÉROULEMENT DU JEU
+         ============================================================ -->
+    <section id="flujo">
+      <h2><span class="icono">🗺️</span> Déroulement du Jeu</h2>
+      <p class="intro">Progression à travers les mondes, style Super Mario World.</p>
+
+      <div class="flujo">
+        <div class="flujo-nodo">
+          <div class="flujo-icono taino">🕳️</div>
+          <div class="flujo-texto">
+            <strong>Cuevas del Pomier</strong><br>
+            <span>Plateforme dans l'obscurité. Tu découvres des pétroglyphes taïnos et tu reçois Magnoboot.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono taino">🏘️</div>
+          <div class="flujo-texto">
+            <strong>Asentamiento Taíno I</strong><br>
+            <span>Village avec bohíos. Tu apprends la vie taïno et tu adoptes Viralata.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono taino">🌾</div>
+          <div class="flujo-texto">
+            <strong>Asentamiento Taíno II</strong><br>
+            <span>Agriculture et cérémonies. Tu rencontres le behique et tu obtiens le Cemí Murciélago.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono colonial">⚓</div>
+          <div class="flujo-texto">
+            <strong>La Isabela</strong><br>
+            <span>Première ville européenne d'Amérique (1494). Combat avec Soldado Diego. Roberto Cassá te remet la carte coloniale.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono colonial">🏛️</div>
+          <div class="flujo-texto">
+            <strong>Zona Colonial</strong><br>
+            <span>Patrimoine UNESCO. Musée de la Cathédrale, Panthéon National, combat d'activisme avec Constructor Méndez.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono" style="border-color: #4488cc;">🌊</div>
+          <div class="flujo-texto">
+            <strong>Monde Aquatique</strong> <span class="tag" style="background:#1a2a3a;color:#4488cc;">PROCHAINEMENT</span><br>
+            <span>Un pêcheur offre sa pirogue. Tu explores l'épave de La Pinta et d'autres sites sous-marins historiques.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono" style="border-color: #cc8844;">⚖️</div>
+          <div class="flujo-texto">
+            <strong>Monde Juridique</strong> <span class="tag" style="background:#2a2a1a;color:#cc8844;">PROCHAINEMENT</span><br>
+            <span>Un faux archéologue vend des pièces falsifiées. Vol, poursuite à l'aéroport et lois patrimoniales.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono" style="border-color: #44ccaa;">🔬</div>
+          <div class="flujo-texto">
+            <strong>Laboratoire / Musée</strong> <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PROCHAINEMENT</span><br>
+            <span>Authentification de pièces avec de la science réelle. Exposition finale au musée. Fins multiples.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MONDES
+         ============================================================ -->
+    <section id="mundos">
+      <h2><span class="icono">🌍</span> Mondes et Niveaux</h2>
+      <p class="intro">Chaque monde est basé sur un lieu réel de la République dominicaine.</p>
+
+      <!-- Cuevas del Pomier -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🕳️ Cuevas del Pomier</div>
+          <div class="mundo-meta">
+            <span class="tag plataforma">Plateforme 2D</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Les Cuevas del Pomier (San Cristóbal) constituent le plus grand système d'art rupestre des Caraïbes,
+          avec plus de 6 000 pétroglyphes taïnos. C'est le premier niveau du jeu : une grotte obscure où
+          tu découvres le patrimoine taïno tout en esquivant les dangers.
+        </p>
+        <div class="preview-container">
+          <canvas id="preview-cuevas" width="480" height="270"></canvas>
+          <div class="preview-label">Cuevas del Pomier — 3000×540px — Plateforme dans l'obscurité</div>
+        </div>
+
+        <h4>Mécaniques</h4>
+        <ul>
+          <li><strong>Système d'obscurité</strong> : rayon de lumière de 80px qui s'agrandit avec la lampe torche</li>
+          <li><strong>5 pétroglyphes</strong> : soleil, chauve-souris, visage, spirale, grenouille — chacun avec un dialogue éducatif</li>
+          <li><strong>3 graffitis vandales</strong> : montrent le problème réel des dégâts infligés aux grottes</li>
+          <li><strong>Plateformes avec mousse</strong>, gouttes d'eau, particules de poussière, parallaxe de profondeur</li>
+        </ul>
+
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🔬</div>
+          <div class="npc-info">
+            <h5>Dra. Martínez</h5>
+            <div class="npc-role">Archéologue</div>
+            <p>Apparaît près de la sortie. Elle te remet Magnoboot, ton premier compagnon robot excavateur.</p>
+          </div>
+        </div>
+
+        <h4>Objets</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🔦 Lampe torche</h5><p>Agrandit ton rayon de lumière dans l'obscurité.</p></div>
+          <div class="item-card"><h5>🗺️ Fragment de Carte</h5><p>Parchemin avec des indices sur l'île.</p></div>
+          <div class="item-card"><h5>🗿 Artefact Taïno</h5><p>Un cemí doré aux yeux sculptés.</p></div>
+        </div>
+      </div>
+
+      <!-- Asentamiento Taíno I -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🏘️ Asentamiento Taíno I</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Un village taïno avec des bohíos circulaires, un caney (maison du cacique) et un batey (place cérémonielle).
+          Tu apprends la vie quotidienne : pêche, poterie, cassave et la structure sociale du yucayeque.
+        </p>
+        <div class="preview-container">
+          <canvas id="preview-aldea1" width="480" height="270"></canvas>
+          <div class="preview-label">Asentamiento Taíno I — 1200×900px — Village avec bohíos</div>
+        </div>
+
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">👑</div>
+          <div class="npc-info">
+            <h5>Cacique Guacanagaríx</h5>
+            <div class="npc-role">Chef du village</div>
+            <p>Enseigne les yucayeques, l'organisation sociale taïno et le rôle du cacique.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🏺</div>
+          <div class="npc-info">
+            <h5>Anacaona</h5>
+            <div class="npc-role">Potière</div>
+            <p>Experte en céramique taïno. Enseigne la poterie et la préparation de la cassave.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐟</div>
+          <div class="npc-info">
+            <h5>Caonabó</h5>
+            <div class="npc-role">Pêcheur</div>
+            <p>Parle de la pêche en pirogue, des filets et des hameçons en os.</p>
+          </div>
+        </div>
+
+        <h4>Compagnon obtenu</h4>
+        <p>🐕 <strong>Viralata</strong> — chien errant que tu adoptes près de l'entrée du village.</p>
+      </div>
+
+      <!-- Asentamiento Taíno II -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🌾 Asentamiento Taíno II</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Village agricole avec des conucos (buttes de culture), une rivière, un dujo cérémoniel et un caney
+          pour les rituels. Tu apprends l'agriculture, la médecine naturelle et la cérémonie de l'areíto.
+        </p>
+        <div class="preview-container">
+          <canvas id="preview-aldea2" width="480" height="270"></canvas>
+          <div class="preview-label">Asentamiento Taíno II — 1400×1000px — Agriculture et cérémonie</div>
+        </div>
+
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🌿</div>
+          <div class="npc-info">
+            <h5>Behique Yuisa</h5>
+            <div class="npc-role">Chaman / Guérisseur</div>
+            <p>Médecine naturelle, cérémonie de la cohoba, plantes curatives. Il t'accorde le Cemí Murciélago.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🌽</div>
+          <div class="npc-info">
+            <h5>Guarionex</h5>
+            <div class="npc-role">Agriculteur</div>
+            <p>Expert en conucos : techniques de culture du manioc, maïs, patate douce, piment et tabac.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎵</div>
+          <div class="npc-info">
+            <h5>Higüemota</h5>
+            <div class="npc-role">Musicienne</div>
+            <p>Enseigne l'areíto, les instruments taïnos : maracas, güiros, tambours et la tradition orale.</p>
+          </div>
+        </div>
+
+        <h4>Compagnon obtenu</h4>
+        <p>🦇 <strong>Cemí Murciélago</strong> — esprit protecteur avec 6 niveaux de pouvoir.</p>
+      </div>
+
+      <!-- La Isabela -->
+      <div class="mundo-card colonial">
+        <div class="mundo-header">
+          <div class="mundo-titulo">⚓ La Isabela</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Les ruines de La Isabela (Puerto Plata), fondée en 1494 par Christophe Colomb comme première
+          ville européenne permanente en Amérique. Ici tu livres ton premier combat et tu rencontres Roberto Cassá.
+        </p>
+        <div class="preview-container">
+          <canvas id="preview-isabela" width="480" height="270"></canvas>
+          <div class="preview-label">La Isabela — 1600×1100px — Ruines coloniales avec côte</div>
+        </div>
+
+        <h4>Bâtiments</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>⛪ Église</h5><p>Ruines avec arc et croix. Première église européenne en Amérique.</p></div>
+          <div class="item-card"><h5>🏠 Casa de Colón</h5><p>Résidence de l'Amiral avec toit en tuiles.</p></div>
+          <div class="item-card"><h5>🏭 Alhóndiga</h5><p>Entrepôt de provisions de la colonie.</p></div>
+          <div class="item-card"><h5>🏰 Tour de Guet</h5><p>Tour avec créneaux pour surveiller la mer.</p></div>
+          <div class="item-card"><h5>✝️ Cimetière</h5><p>Cimetière colonial avec croix de pierre.</p></div>
+        </div>
+
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">⚔️</div>
+          <div class="npc-info">
+            <h5>Soldado Diego</h5>
+            <div class="npc-role">Gardien — Combat</div>
+            <p>Garde les ruines. Initie le premier combat du jeu. Peut être pacifié par la diplomatie.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">📜</div>
+          <div class="npc-info">
+            <h5>Fray Ramón Pané</h5>
+            <div class="npc-role">Premier chroniqueur des Indes</div>
+            <p>A écrit le premier ouvrage sur les coutumes taïnos. Parle de son travail historique.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🪶</div>
+          <div class="npc-info">
+            <h5>Guatiguaná</h5>
+            <div class="npc-role">Chef taïno</div>
+            <p>Parle de la résistance indigène et de la survivance de la culture taïno.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">📚</div>
+          <div class="npc-info">
+            <h5>Roberto Cassá</h5>
+            <div class="npc-role">Historien dominicain</div>
+            <p>Te remet la Carte Coloniale en échange de l'arquebuse. Sa première apparition en tant que mentor.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zona Colonial -->
+      <div class="mundo-card colonial">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🏛️ Zona Colonial de Santo Domingo</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+            <span class="tag unesco">Patrimoine UNESCO</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          La Zona Colonial de Santo Domingo, déclarée Patrimoine de l'Humanité par l'UNESCO en 1990.
+          Elle contient les premières constructions européennes permanentes en Amérique. Ici tu affrontes Constructor
+          Méndez avec des outils d'activisme citoyen.
+        </p>
+        <div class="preview-container">
+          <canvas id="preview-colonial" width="480" height="270"></canvas>
+          <div class="preview-label">Zona Colonial — 1800×1200px — Patrimoine UNESCO</div>
+        </div>
+
+        <h4>Monuments Historiques</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>⛪ Catedral Primada de América</h5><p>Première cathédrale du Nouveau Monde (1512-1540). Style gothique isabélin avec rosace et tours jumelles.</p></div>
+          <div class="item-card"><h5>🏛️ Museo de la Catedral</h5><p>15 salles dans la Real Cárcel restaurée. Trésors du XVIe au XXe siècle : porte-paix de Colomb, Aigle Bicéphale, Chœur Bas.</p></div>
+          <div class="item-card"><h5>🏥 Hospital San Nicolás de Bari</h5><p>Premier hôpital d'Amérique (1503). Ruines avec arcs en plein cintre.</p></div>
+          <div class="item-card"><h5>🏚️ Monasterio San Francisco</h5><p>Premier monastère d'Amérique (1508). Cloître à colonnes, aujourd'hui ruines pour concerts.</p></div>
+          <div class="item-card"><h5>🇩🇴 Panteón Nacional</h5><p>Façade néoclassique avec colonnes et flamme éternelle. Gardes du Premier Régiment.</p></div>
+          <div class="item-card"><h5>🛤️ Calle de las Damas</h5><p>Première rue pavée d'Amérique (1502). Réverbères coloniaux à lumière scintillante.</p></div>
+          <div class="item-card"><h5>☀️ Reloj de Sol</h5><p>L'un des plus anciens d'Amérique (XVIe siècle). Gnomon qui tourne lentement.</p></div>
+        </div>
+
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🏗️</div>
+          <div class="npc-info">
+            <h5>Constructor Méndez</h5>
+            <div class="npc-role">Antagoniste — Combat d'activisme</div>
+            <p>Veut démolir des ruines historiques pour construire un hôtel. On l'affronte avec des outils
+            d'activisme citoyen (réseaux sociaux, manifestations, dénonciation, voie légale). S'il est pacifié,
+            il reconçoit l'hôtel pour protéger les ruines.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🏛️</div>
+          <div class="npc-info">
+            <h5>Fabiola Herrera</h5>
+            <div class="npc-role">Directrice du Bénévolat — Museo de la Catedral</div>
+            <p>Mathématicienne de formation, elle a travaillé dans des projets technologiques toute sa vie, jusqu'à ce qu'elle découvre
+            sa véritable mission : transformer le rêve du Museo de la Catedral en réalité.
+            Elle coordonne les bénévoles et gère les 15 salles d'exposition. Elle parle des trésors du musée
+            et de sa philosophie : « Un musée est un voyage à travers un passé plein d'art et de dévotion. »</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🔬</div>
+          <div class="npc-info">
+            <h5>Dra. Pérez</h5>
+            <div class="npc-role">Archéologue</div>
+            <p>Du Museo del Hombre Dominicano. Explique comment utiliser Magnoboot pour détecter des trésors enfouis.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎙️</div>
+          <div class="npc-info">
+            <h5>Don Rafael</h5>
+            <div class="npc-role">Guide touristique certifié</div>
+            <p>Raconte l'histoire de chaque monument : Cathédrale, Hôpital, Calle de las Damas.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">📐</div>
+          <div class="npc-info">
+            <h5>María</h5>
+            <div class="npc-role">Étudiante en Architecture — UASD</div>
+            <p>Étudie les techniques coloniales : le corail fossilisé comme matériau de construction.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">📚</div>
+          <div class="npc-info">
+            <h5>Roberto Cassá</h5>
+            <div class="npc-role">Historien mentor — 7 dialogues rotatifs</div>
+            <p>Réapparaît en tant que mentor récurrent. Chaque conversation couvre un sujet différent : le conflit
+            avec le constructeur, des données historiques approfondies, l'UNESCO, Calle de las Damas, le Reloj de Sol
+            et un indice sur le Monde Aquatique.</p>
+          </div>
+        </div>
+
+        <h4>Garde Présidentielle du Panthéon</h4>
+        <p>4 gardes du Premier Régiment Dominicain surveillent le Panteón Nacional. Toutes les 45 secondes,
+        ils effectuent un <strong>changement de garde cérémoniel</strong> : les relèves entrent en marchant depuis
+        l'extérieur de l'écran, se retrouvent devant le Panthéon, échangent leurs positions et les sortants
+        repartent en marchant. Les jambes sont animées avec la même formule que le joueur.</p>
+
+        <h4>Zones de Fouille</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🪙 Pièce Coloniale</h5><p>Pièce d'or avec couronne, enterrée dans les rues.</p></div>
+          <div class="item-card"><h5>🧱 Carreau Ancien</h5><p>Carreau décoré avec des motifs géométriques.</p></div>
+          <div class="item-card"><h5>🔑 Clé en Fer</h5><p>Clé forgée avec anneau et dents.</p></div>
+        </div>
+      </div>
+
+      <!-- Monde Aquatique -->
+      <div class="mundo-card" style="border-left: 3px solid var(--azul);">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🌊 Monde Aquatique</div>
+          <div class="mundo-meta">
+            <span class="tag" style="background:#1a2a3a;color:#4488cc;">PROCHAINEMENT</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          En retournant à La Isabela, un pêcheur propose à Pepito de monter dans une pirogue. Il l'emmène au-dessus
+          de l'épave de La Pinta (dont les bois ont servi à construire la Fortaleza Navidad). Après avoir
+          exploré le site sous-marin, un archéologue amateur lui remet une carte des grands
+          naufrages historiques. Avec sa pirogue, il visite différents naufrages et dans chacun apprend leur
+          histoire, rapportant les connaissances au Museo de las Atarazanas Reales.
+        </p>
+
+        <h4>Niveaux prévus</h4>
+        <ul>
+          <li><strong>Épave de La Pinta</strong> — exploration sous-marine du navire de Colomb</li>
+          <li><strong>Naufrages historiques</strong> — divers sites sous-marins avec artefacts</li>
+          <li><strong>Récifs coralliens</strong> — biodiversité marine et menaces environnementales</li>
+        </ul>
+
+        <h4>Personnages prévus</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🎣</div>
+          <div class="npc-info">
+            <h5>Pêcheur</h5>
+            <div class="npc-role">Guide vers le monde aquatique</div>
+            <p>Offre sa pirogue et emmène Pepito vers la première épave.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🤿</div>
+          <div class="npc-info">
+            <h5>Archéologue amateur</h5>
+            <div class="npc-role">Remet la carte des naufrages</div>
+            <p>Explorateur sous-marin qui connaît les sites historiques immergés.</p>
+          </div>
+        </div>
+
+        <h4>Mécaniques prévues</h4>
+        <ul>
+          <li>Exploration sous-marine avec oxygène limité</li>
+          <li>Courants marins et vie marine interactive</li>
+          <li>Collecte d'artefacts pour le Museo de las Atarazanas Reales</li>
+        </ul>
+      </div>
+
+      <!-- Monde Juridique -->
+      <div class="mundo-card" style="border-left: 3px solid #cc8844;">
+        <div class="mundo-header">
+          <div class="mundo-titulo">⚖️ Monde Juridique</div>
+          <div class="mundo-meta">
+            <span class="tag" style="background:#2a2a1a;color:#cc8844;">PROCHAINEMENT</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          À la fin de son parcours, Pepito a appris de toutes les pièces déposées dans les musées.
+          Il rencontre un faux archéologue qui veut lui vendre des pièces falsifiées. Ils négocient le prix.
+          Plus tard, on lui vole les pièces dans son hôtel. Le voleur tente de sortir les pièces du pays,
+          mais il est arrêté à l'aéroport. Grâce à la plainte policière, les pièces sont rendues à Pepito,
+          qui décide de les donner à un musée.
+        </p>
+
+        <h4>Niveaux prévus</h4>
+        <ul>
+          <li><strong>Marché noir</strong> — rencontre avec le faux archéologue et négociation</li>
+          <li><strong>Hôtel / Vol</strong> — enquête sur le vol des pièces</li>
+          <li><strong>Aéroport</strong> — poursuite et capture du trafiquant</li>
+          <li><strong>Commissariat / Tribunal</strong> — procédure judiciaire et protection patrimoniale</li>
+        </ul>
+
+        <h4>Personnages prévus</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🎭</div>
+          <div class="npc-info">
+            <h5>Faux archéologue</h5>
+            <div class="npc-role">Antagoniste — Vendeur de fausses reliques</div>
+            <p>Tente de vendre des pièces falsifiées. Enseigne le problème réel du trafic d'antiquités.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">👮</div>
+          <div class="npc-info">
+            <h5>Police patrimoniale</h5>
+            <div class="npc-role">Allié de la loi</div>
+            <p>Explique les lois de protection du patrimoine culturel dominicain.</p>
+          </div>
+        </div>
+
+        <h4>Thèmes éducatifs</h4>
+        <ul>
+          <li>Lois de protection du patrimoine culturel</li>
+          <li>Trafic illégal d'antiquités</li>
+          <li>Comment identifier les pièces falsifiées</li>
+          <li>Le rôle des Douanes et de la police spécialisée</li>
+        </ul>
+      </div>
+
+      <!-- Laboratoire / Musée -->
+      <div class="mundo-card" style="border-left: 3px solid #44ccaa;">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🔬 Laboratoire / Musée</div>
+          <div class="mundo-meta">
+            <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PROCHAINEMENT</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Le monde final où Pepito apporte les pièces récupérées à un laboratoire pour les authentifier.
+          Sont-elles originales ou des copies ? En utilisant des outils scientifiques réels (carbone 14, analyse
+          des matériaux, comparaison avec des registres), le joueur apprend comment les professionnels vérifient
+          l'authenticité des artefacts archéologiques. Les pièces authentifiées sont exposées au musée.
+        </p>
+
+        <h4>Niveaux prévus</h4>
+        <ul>
+          <li><strong>Laboratoire d'authentification</strong> — tests scientifiques avec des outils réels</li>
+          <li><strong>Musée final</strong> — exposition de toutes les pièces collectées au cours de l'aventure</li>
+        </ul>
+
+        <h4>Mécaniques prévues</h4>
+        <ul>
+          <li>Mini-jeux d'analyse scientifique (carbone 14, microscope, rayons X)</li>
+          <li>Comparaison de pièces avec des bases de données de référence</li>
+          <li>Catalogage et exposition d'artefacts</li>
+          <li>Fins multiples selon les décisions prises au cours du jeu</li>
+        </ul>
+
+        <h4>Fins possibles</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🏆 Fin complète</h5><p>Tous les sites découverts, toutes les reliques sauvées.</p></div>
+          <div class="item-card"><h5>🏛️ Fin du musée</h5><p>Toutes les pièces authentiques exposées au musée.</p></div>
+          <div class="item-card"><h5>💀 Fin sombre</h5><p>Tu succombes à la tentation et tu vends tout à une entreprise sans scrupules.</p></div>
+          <div class="item-card"><h5>🌍 Fin écologique</h5><p>Tu protèges les sites et tu arrêtes la pollution.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COMPAGNONS
+         ============================================================ -->
+    <section id="companeros">
+      <h2><span class="icono">🤝</span> Compagnons</h2>
+      <p class="intro">Trois alliés uniques qui t'accompagnent tout au long de l'aventure.</p>
+
+      <div class="companero-card">
+        <div class="companero-visual">
+          <canvas id="sprite-magnoboot" width="64" height="64"></canvas>
+        </div>
+        <div>
+          <h3>🤖 Magnoboot</h3>
+          <p><strong>Robot excavateur avec détection de métaux</strong></p>
+          <p>Obtenu auprès de la Dra. Martínez dans les Cuevas del Pomier. Il peut détecter des objets enfouis
+          grâce à son impulsion radar (touche F). L'impulsion déploie un cercle de détection de 100px pendant 1,5
+          seconde. Il possède un système d'énergie (100 max, 10 par utilisation). Dans la Zona Colonial, il révèle
+          des zones de fouille contenant des trésors coloniaux.</p>
+        </div>
+      </div>
+
+      <div class="companero-card">
+        <div class="companero-visual">
+          <canvas id="sprite-viralata" width="64" height="64"></canvas>
+        </div>
+        <div>
+          <h3>🐕 Viralata</h3>
+          <p><strong>Chien errant pisteur</strong></p>
+          <p>Chien errant que tu adoptes dans l'Asentamiento Taíno I. Il a un « rayon d'odorat » de 50px
+          — quand il détecte des objets cachés à proximité, il remue la queue avec enthousiasme. Il suit le joueur
+          avec un lerp fluide, en retrait et sur la gauche. Il persiste entre les scènes.</p>
+        </div>
+      </div>
+
+      <div class="companero-card">
+        <div class="companero-visual">
+          <canvas id="sprite-cemi" width="64" height="64"></canvas>
+        </div>
+        <div>
+          <h3>🦇 Cemí Murciélago</h3>
+          <p><strong>Esprit protecteur avec 6 niveaux de pouvoir</strong></p>
+          <p>Accordé par le Behique Yuisa dans l'Asentamiento Taíno II. Il gagne des pouvoirs en trouvant
+          des botijas (jarres) :</p>
+          <table>
+            <tr><th>Niveau</th><th>Botijas</th><th>Pouvoir</th></tr>
+            <tr><td>1</td><td>1</td><td>Écho-Localisation</td></tr>
+            <tr><td>3</td><td>3</td><td>Rafale d'Ailes</td></tr>
+            <tr><td>5</td><td>5</td><td>Ouïe du Passé</td></tr>
+            <tr><td>8</td><td>8</td><td>Cri Étourdissant</td></tr>
+            <tr><td>10</td><td>10</td><td>Vision de Cemí</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         COMBAT
+         ============================================================ -->
+    <section id="combate">
+      <h2><span class="icono">⚔️</span> Système de Combat</h2>
+      <p class="intro">Inspiré par Undertale : tu peux combattre OU convaincre l'ennemi de se calmer.</p>
+
+      <h3>Mécanique de Base</h3>
+      <p>
+        Chaque ennemi possède deux jauges émotionnelles :
+      </p>
+      <ul>
+        <li><strong style="color: var(--verde);">Patience (0-100)</strong> : augmente en parlant ou en négociant. Quand elle atteint 100, l'ennemi se rend pacifiquement.</li>
+        <li><strong style="color: var(--rojo);">Hostilité (0-100)</strong> : diminue avec la diplomatie. Quand elle est sous 30, l'ennemi peut parler au lieu d'attaquer.</li>
+      </ul>
+
+      <h3>Options Génériques</h3>
+      <table>
+        <tr><th>Action</th><th>Effet</th><th>Risque</th></tr>
+        <tr><td>Attaquer</td><td>Dégâts directs à l'ennemi</td><td>Augmente hostilité +5</td></tr>
+        <tr><td>Parler</td><td>Patience +12-25, Hostilité -8-20</td><td>Aucun</td></tr>
+        <tr><td>Négocier</td><td>Patience +20, Hostilité -20 (si réussi)</td><td>55 % de succès, si échec +5 hostilité</td></tr>
+        <tr><td>Objet</td><td>Utiliser un objet de l'inventaire</td><td>Aucun</td></tr>
+        <tr><td>Fuir</td><td>Échapper au combat</td><td>Dépend de la vitesse de l'ennemi</td></tr>
+      </table>
+
+      <h3>Combat Spécial : Constructor Méndez</h3>
+      <p>
+        Dans la Zona Colonial, le combat contre Constructor Méndez utilise des <strong>options d'activisme
+        citoyen</strong> au lieu des options génériques. Chaque action représente un outil réel de
+        défense du patrimoine, et le constructeur répond avec sa propre contre-stratégie :
+      </p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>📱 Réseaux Sociaux</h5>
+          <p>Tu publies des photos des ruines menacées sur les réseaux.</p>
+          <div class="efecto">+10-16 Patience, -6-12 Hostilité</div>
+          <div class="contra">Contre : Méndez paie des influenceurs pour promouvoir son hôtel.</div>
+        </div>
+        <div class="combat-option">
+          <h5>📢 Manifestations</h5>
+          <p>Tu organises une manifestation devant le chantier.</p>
+          <div class="efecto">+14-22 Patience, -10-16 Hostilité</div>
+          <div class="contra">Contre : Méndez finance des fêtes et des concerts pour la communauté.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🏛️ Dénoncer</h5>
+          <p>Tu signales la démolition aux autorités.</p>
+          <div class="efecto">+16-26 Patience, -12-20 Hostilité</div>
+          <div class="contra">Contre : Méndez négocie des permis et des exceptions avec les politiciens.</div>
+        </div>
+        <div class="combat-option">
+          <h5>⚖️ Voie Légale</h5>
+          <p>Tu déposes un recours juridique pour arrêter les travaux.</p>
+          <div class="efecto">+20-30 Patience, -15-24 Hostilité</div>
+          <div class="contra">Contre : Méndez temporise avec des manœuvres judiciaires tout en continuant à construire.</div>
+        </div>
+      </div>
+      <p>
+        <strong>Résolution pacifique :</strong> Méndez découvre le statut UNESCO, réunit son équipe avec
+        des historiens et reconçoit l'hôtel pour qu'il protège et mette en valeur les ruines. « Ce sera plus cher, mais
+        cela lui donnera une valeur unique. Et en plus... c'est la bonne chose à faire. »
+      </p>
+    </section>
+
+    <!-- ============================================================
+         MÉCANIQUES
+         ============================================================ -->
+    <section id="mecanicas">
+      <h2><span class="icono">⚙️</span> Mécaniques du Jeu</h2>
+
+      <h3>Inventaire</h3>
+      <p>Sac à dos de 20 emplacements (5x4) avec des icônes uniques dessinées par code. Chaque objet a un nom,
+      une description traduite et un type (outil, consommable, clé, trésor). Navigation avec les flèches,
+      utilisation avec E, fermeture avec I.</p>
+
+      <h3>Dialogues</h3>
+      <p>Système de dialogues avec effet machine à écrire, nom du personnage en doré, et support
+      d'options de réponse. Les dialogues bloquent le mouvement et s'avancent avec E. Chaque texte
+      est traduit en espagnol, français et anglais.</p>
+
+      <h3>Toasts</h3>
+      <p>Messages flottants non intrusifs qui apparaissent à la collecte d'objets ou à l'accomplissement de missions.
+      Animation d'entrée par le haut, fond sombre avec bordure dorée, maximum 4 simultanés.</p>
+
+      <h3>Détection avec Magnoboot</h3>
+      <p>Impulsion radar (touche F) qui déploie des cercles concentriques. Si l'impulsion touche une zone de
+      fouille enfouie, elle la révèle. Ensuite tu peux creuser avec E pour récupérer l'objet caché.</p>
+
+      <h3>Carte de Risque</h3>
+      <p>Overlay semi-transparent avec des zones colorées : vert (protégé), jaune (en danger),
+      rouge (menacé). Bordures pointillées pour distinguer les niveaux de risque patrimonial.</p>
+
+      <h3>Météo Dynamique</h3>
+      <table>
+        <tr><th>Météo</th><th>Probabilité</th><th>Effet</th></tr>
+        <tr><td>Ensoleillé</td><td>45 %</td><td>Normal</td></tr>
+        <tr><td>Nuageux</td><td>25 %</td><td>Visuel uniquement</td></tr>
+        <tr><td>Pluie</td><td>20 %</td><td>-15 % vitesse</td></tr>
+        <tr><td>Orage</td><td>7 %</td><td>-25 % vitesse</td></tr>
+        <tr><td>Ouragan</td><td>2 %</td><td>-35 % vitesse, poussée de vent, débris</td></tr>
+        <tr><td>Tremblement de terre</td><td>1 %</td><td>Trébuchements aléatoires, secousse de l'écran</td></tr>
+      </table>
+
+      <h3>Easter Eggs</h3>
+      <p>8 objets secrets personnalisés pour chaque membre de l'équipe :</p>
+      <div class="grid-2">
+        <div class="item-card"><h5>🥄 Cuillère Légendaire</h5><p>Elian — +10 endurance</p></div>
+        <div class="item-card"><h5>🍟 Frites du Sprinter</h5><p>Théo — +50 % vitesse 30s</p></div>
+        <div class="item-card"><h5>🥙 Shawarma Archéologique</h5><p>Carlos Guillermo — +50 PV</p></div>
+        <div class="item-card"><h5>🔦 Sabre Laser</h5><p>Jules — arme lumineuse spéciale</p></div>
+        <div class="item-card"><h5>🍣 Sushi du Farceur</h5><p>Alberto — les ennemis rient 10s</p></div>
+        <div class="item-card"><h5>🎸 Guitare Épique</h5><p>Rafael — révèle des quêtes secrètes</p></div>
+        <div class="item-card"><h5>🤾 Ballon Intelligent</h5><p>Tom — active des interrupteurs à distance</p></div>
+        <div class="item-card"><h5>🍔 Hamburger Légendaire</h5><p>Nael — restauration totale PV</p></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTRÔLES
+         ============================================================ -->
+    <section id="controles">
+      <h2><span class="icono">🎮</span> Contrôles</h2>
+
+      <h3>Exploration</h3>
+      <table>
+        <tr><th>Action</th><th>Clavier</th><th>Mobile</th></tr>
+        <tr><td>Se déplacer</td><td><span class="tecla">ZQSD</span> ou <span class="tecla">Flèches</span></td><td>D-pad virtuel</td></tr>
+        <tr><td>Sauter (grottes)</td><td><span class="tecla">Espace</span></td><td>Bouton SAUT</td></tr>
+        <tr><td>Interagir</td><td><span class="tecla">E</span> ou <span class="tecla">Entrée</span></td><td>Bouton A</td></tr>
+        <tr><td>Inventaire</td><td><span class="tecla">I</span></td><td>Bouton X</td></tr>
+        <tr><td>Détecter les métaux</td><td><span class="tecla">F</span></td><td>Bouton Y</td></tr>
+        <tr><td>Retour à la carte</td><td><span class="tecla">M</span></td><td>—</td></tr>
+      </table>
+
+      <h3>En Combat</h3>
+      <table>
+        <tr><th>Action</th><th>Clavier</th></tr>
+        <tr><td>Choisir une option</td><td><span class="tecla">←</span> <span class="tecla">→</span></td></tr>
+        <tr><td>Confirmer</td><td><span class="tecla">E</span> ou <span class="tecla">Entrée</span></td></tr>
+      </table>
+
+      <h3>Secret</h3>
+      <p>
+        <strong>Code Konami :</strong>
+        <span class="tecla">↑</span><span class="tecla">↑</span><span class="tecla">↓</span><span class="tecla">↓</span><span class="tecla">←</span><span class="tecla">→</span><span class="tecla">←</span><span class="tecla">→</span>
+        — ouvre un sélecteur secret de niveaux.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         TECHNOLOGIES
+         ============================================================ -->
+    <section id="tech">
+      <h2><span class="icono">💻</span> Technologies</h2>
+
+      <table>
+        <tr><th>Technologie</th><th>Usage</th></tr>
+        <tr><td>HTML5 Canvas</td><td>Rendu du jeu — tout est dessiné par code, sans sprites externes</td></tr>
+        <tr><td>JavaScript ES Modules</td><td>Architecture modulaire sans frameworks ni bundlers</td></tr>
+        <tr><td>Web Audio API</td><td>Sons procéduraux (saut, pas, gouttes, accords) — aucun fichier audio</td></tr>
+        <tr><td>LeafletJS</td><td>Cartes interactives avec des sites archéologiques réels de RD</td></tr>
+        <tr><td>Kaplay.js</td><td>Chargé pour utilisation future — tilemap, sprites et gestion d'entrée tactile avancée</td></tr>
+        <tr><td>CSS3</td><td>Écran de chargement, contrôles tactiles responsifs</td></tr>
+      </table>
+
+      <h3>Principes de Conception</h3>
+      <ul>
+        <li><strong>Lisibilité avant tout</strong> : code commenté en espagnol, lisible par des élèves de 13 ans</li>
+        <li><strong>Sans dépendances lourdes</strong> : uniquement LeafletJS pour les cartes, tout le reste est vanilla</li>
+        <li><strong>Son procédural</strong> : les effets sont générés avec Web Audio API, sans fichiers</li>
+        <li><strong>Sprites programmatiques</strong> : tous les personnages et bâtiments sont dessinés avec Canvas 2D</li>
+        <li><strong>3 langues</strong> : espagnol, français et anglais — toute chaîne visible est traduite</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         ÉQUIPE
+         ============================================================ -->
+    <section id="equipo">
+      <h2><span class="icono">👥</span> Équipe</h2>
+      <p class="intro">Cours de Robotique du Lycée Français de Saint-Domingue — 2026</p>
+
+      <div class="grid-2">
+        <div class="item-card"><h5>Elian</h5><p>Easter egg : Cuillère Légendaire</p></div>
+        <div class="item-card"><h5>Théo</h5><p>Easter egg : Frites du Sprinter</p></div>
+        <div class="item-card"><h5>Carlos Guillermo</h5><p>Easter egg : Shawarma Archéologique</p></div>
+        <div class="item-card"><h5>Jules</h5><p>Easter egg : Sabre Laser Ancien</p></div>
+        <div class="item-card"><h5>Alberto</h5><p>Easter egg : Sushi du Farceur</p></div>
+        <div class="item-card"><h5>Rafael</h5><p>Easter egg : Guitare Épique</p></div>
+        <div class="item-card"><h5>Tom</h5><p>Easter egg : Ballon Intelligent</p></div>
+        <div class="item-card"><h5>Nael</h5><p>Easter egg : Hamburger Légendaire</p></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <p>ArcLycée v0.8.1 — Aventure Archéologique Dominicaine</p>
+    <p class="equipo">
+      Lycée Français de Saint-Domingue — Cours de Robotique 2026<br>
+      <a href="index.html">Jouer à ArcLycée</a>
+    </p>
+  </footer>
+
+  <!-- ============================================================
+       GÉNÉRATEUR DE PRÉVISUALISATIONS
+       Dessine une scène représentative de chaque monde en miniature
+       en utilisant les mêmes techniques Canvas que le jeu réel.
+       ============================================================ -->
+  <script>
+    // Attendre que le DOM soit prêt
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- Utilitaires de dessin ---
+      function dibujarCielo(ctx, w, h, color1, color2) {
+        const grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, color1);
+        grad.addColorStop(1, color2);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      function dibujarArbol(ctx, x, y, escala) {
+        const s = escala || 1;
+        ctx.fillStyle = '#5a3a1a';
+        ctx.fillRect(x - 2 * s, y, 4 * s, 10 * s);
+        ctx.fillStyle = '#2a6a2a';
+        ctx.beginPath();
+        ctx.arc(x, y - 2 * s, 8 * s, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function dibujarPalmera(ctx, x, y, s) {
+        ctx.fillStyle = '#6a4a2a';
+        ctx.fillRect(x - 2 * s, y, 4 * s, 16 * s);
+        ctx.fillStyle = '#3a8a3a';
+        for (let i = 0; i < 5; i++) {
+          const angulo = (i / 5) * Math.PI * 2 - Math.PI / 2;
+          ctx.beginPath();
+          ctx.moveTo(x, y - 2 * s);
+          ctx.quadraticCurveTo(
+            x + Math.cos(angulo) * 10 * s,
+            y - 2 * s + Math.sin(angulo) * 6 * s,
+            x + Math.cos(angulo) * 14 * s,
+            y + Math.sin(angulo) * 8 * s
+          );
+          ctx.lineWidth = 2 * s;
+          ctx.strokeStyle = '#3a8a3a';
+          ctx.stroke();
+        }
+      }
+
+      // --- 1. Cuevas del Pomier ---
+      (() => {
+        const c = document.getElementById('preview-cuevas');
+        const ctx = c.getContext('2d');
+        const w = c.width, h = c.height;
+
+        // Fondo de cueva oscuro
+        ctx.fillStyle = '#0a0808';
+        ctx.fillRect(0, 0, w, h);
+
+        // Techo de cueva irregular
+        ctx.fillStyle = '#1a1210';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        for (let x = 0; x <= w; x += 20) {
+          ctx.lineTo(x, 15 + Math.sin(x * 0.05) * 10 + Math.random() * 8);
+        }
+        ctx.lineTo(w, 0);
+        ctx.fill();
+
+        // Plataformas
+        const plataformas = [
+          [30, 200, 100, 12], [160, 170, 80, 10], [280, 190, 90, 12],
+          [100, 140, 70, 10], [350, 150, 60, 10], [50, 100, 90, 12],
+          [200, 120, 80, 10], [380, 110, 70, 10]
+        ];
+        for (const [px, py, pw, ph] of plataformas) {
+          // Roca con textura
+          ctx.fillStyle = '#3a3028';
+          ctx.fillRect(px, py, pw, ph);
+          ctx.fillStyle = '#4a4038';
+          for (let i = 0; i < pw; i += 12) {
+            ctx.fillRect(px + i, py, 11, ph - 2);
+          }
+          // Musgo verde
+          if (pw > 70) {
+            ctx.fillStyle = '#2a5a2a';
+            ctx.fillRect(px + 5, py - 2, pw - 10, 3);
+          }
+        }
+
+        // Suelo
+        ctx.fillStyle = '#2a2018';
+        ctx.fillRect(0, 230, w, 40);
+
+        // Petroglifos brillando
+        const petros = [[80, 85], [220, 65], [380, 55], [150, 140], [320, 120]];
+        for (const [px, py] of petros) {
+          // Brillo
+          ctx.fillStyle = 'rgba(218, 165, 32, 0.15)';
+          ctx.beginPath();
+          ctx.arc(px, py, 14, 0, Math.PI * 2);
+          ctx.fill();
+          // Símbolo
+          ctx.fillStyle = '#DAA520';
+          ctx.font = '14px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('☀', px, py + 5);
+        }
+
+        // Círculo de luz del jugador
+        const grad = ctx.createRadialGradient(240, 195, 0, 240, 195, 60);
+        grad.addColorStop(0, 'rgba(255, 220, 100, 0.25)');
+        grad.addColorStop(1, 'rgba(255, 220, 100, 0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(240, 195, 60, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Jugador
+        ctx.fillStyle = '#D2956A';
+        ctx.fillRect(236, 184, 8, 8);
+        ctx.fillStyle = '#4488CC';
+        ctx.fillRect(234, 192, 12, 10);
+        ctx.fillStyle = '#2a2a6a';
+        ctx.fillRect(235, 202, 5, 6);
+        ctx.fillRect(240, 202, 5, 6);
+
+        // Goteos de agua
+        ctx.fillStyle = 'rgba(100, 150, 255, 0.5)';
+        for (let i = 0; i < 8; i++) {
+          const gx = 50 + i * 55;
+          const gy = 30 + Math.random() * 40;
+          ctx.fillRect(gx, gy, 2, 4);
+        }
+
+        // Overlay de oscuridad (viñeta)
+        const vgrad = ctx.createRadialGradient(240, 195, 50, 240, 195, 200);
+        vgrad.addColorStop(0, 'rgba(0,0,0,0)');
+        vgrad.addColorStop(1, 'rgba(0,0,0,0.7)');
+        ctx.fillStyle = vgrad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Graffiti (problema real)
+        ctx.fillStyle = '#cc3333';
+        ctx.font = '8px monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('TAGS', 420, 165);
+
+        ctx.textAlign = 'left';
+      })();
+
+      // --- 2. Asentamiento Taíno I ---
+      (() => {
+        const c = document.getElementById('preview-aldea1');
+        const ctx = c.getContext('2d');
+        const w = c.width, h = c.height;
+
+        // Cielo y pasto
+        dibujarCielo(ctx, w, h, '#87CEEB', '#4a8a3a');
+        ctx.fillStyle = '#4a8a3a';
+        ctx.fillRect(0, h * 0.3, w, h * 0.7);
+
+        // Caminos de tierra
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(w * 0.1, h * 0.5, w * 0.8, 8);
+        ctx.fillRect(w * 0.45, h * 0.3, 8, h * 0.5);
+
+        // Batey (plaza ceremonial)
+        ctx.fillStyle = '#a09070';
+        ctx.beginPath();
+        ctx.arc(w * 0.5, h * 0.55, 40, 0, Math.PI * 2);
+        ctx.fill();
+        // Piedras del batey
+        ctx.strokeStyle = '#807060';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(w * 0.5, h * 0.55, 38, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Bohíos (casas circulares)
+        function dibujarBohio(x, y, radio) {
+          // Base circular
+          ctx.fillStyle = '#8B6914';
+          ctx.beginPath();
+          ctx.arc(x, y, radio, 0, Math.PI * 2);
+          ctx.fill();
+          // Techo cónico (palmeras)
+          ctx.fillStyle = '#5a8a2a';
+          ctx.beginPath();
+          ctx.arc(x, y - 2, radio + 4, Math.PI, 0);
+          ctx.fill();
+          // Puerta
+          ctx.fillStyle = '#3a2a0a';
+          ctx.fillRect(x - 4, y + radio - 8, 8, 8);
+        }
+
+        dibujarBohio(w * 0.2, h * 0.4, 18);
+        dibujarBohio(w * 0.35, h * 0.7, 16);
+        dibujarBohio(w * 0.7, h * 0.35, 18);
+        dibujarBohio(w * 0.8, h * 0.6, 16);
+
+        // Caney (casa rectangular del cacique)
+        ctx.fillStyle = '#8B6914';
+        ctx.fillRect(w * 0.42, h * 0.35, 40, 25);
+        ctx.fillStyle = '#5a8a2a';
+        ctx.beginPath();
+        ctx.moveTo(w * 0.42, h * 0.35);
+        ctx.lineTo(w * 0.42 + 20, h * 0.35 - 12);
+        ctx.lineTo(w * 0.42 + 40, h * 0.35);
+        ctx.fill();
+
+        // Palmeras
+        for (const [px, py] of [[60, 100], [420, 80], [350, 200], [100, 220], [440, 180]]) {
+          dibujarPalmera(ctx, px, py, 0.7);
+        }
+
+        // NPCs (puntos de color)
+        // Cacique
+        ctx.fillStyle = '#FFD700';
+        ctx.beginPath();
+        ctx.arc(w * 0.65, h * 0.68, 5, 0, Math.PI * 2);
+        ctx.fill();
+        // Anacaona
+        ctx.fillStyle = '#CC6644';
+        ctx.beginPath();
+        ctx.arc(w * 0.18, h * 0.32, 5, 0, Math.PI * 2);
+        ctx.fill();
+        // Caonabó
+        ctx.fillStyle = '#4488AA';
+        ctx.beginPath();
+        ctx.arc(w * 0.38, h * 0.28, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Jugador
+        ctx.fillStyle = '#D2956A';
+        ctx.fillRect(w * 0.48, h * 0.52, 6, 6);
+        ctx.fillStyle = '#4488CC';
+        ctx.fillRect(w * 0.47, h * 0.55, 8, 8);
+
+        // Viralata (perro)
+        ctx.fillStyle = '#8B6914';
+        ctx.fillRect(w * 0.44, h * 0.56, 6, 4);
+        ctx.fillRect(w * 0.43, h * 0.55, 3, 3);
+      })();
+
+      // --- 3. Asentamiento Taíno II ---
+      (() => {
+        const c = document.getElementById('preview-aldea2');
+        const ctx = c.getContext('2d');
+        const w = c.width, h = c.height;
+
+        dibujarCielo(ctx, w, h, '#87CEEB', '#3a7a2a');
+        ctx.fillStyle = '#3a7a2a';
+        ctx.fillRect(0, h * 0.25, w, h * 0.75);
+
+        // Río
+        ctx.fillStyle = '#3388BB';
+        ctx.beginPath();
+        ctx.moveTo(0, h * 0.45);
+        for (let x = 0; x <= w; x += 20) {
+          ctx.lineTo(x, h * 0.45 + Math.sin(x * 0.03) * 8);
+        }
+        ctx.lineTo(w, h * 0.52);
+        for (let x = w; x >= 0; x -= 20) {
+          ctx.lineTo(x, h * 0.52 + Math.sin(x * 0.03) * 8);
+        }
+        ctx.fill();
+
+        // Conucos (montículos de cultivo)
+        function dibujarConuco(x, y, planta) {
+          ctx.fillStyle = '#6a5a3a';
+          ctx.beginPath();
+          ctx.arc(x, y, 12, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#2a8a2a';
+          ctx.font = '12px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(planta, x, y + 4);
+        }
+        dibujarConuco(80, h * 0.35, '🌿');
+        dibujarConuco(140, h * 0.38, '🌽');
+        dibujarConuco(200, h * 0.33, '🌱');
+        dibujarConuco(350, h * 0.63, '🌶');
+        dibujarConuco(410, h * 0.66, '🌿');
+        dibujarConuco(260, h * 0.65, '🌿');
+
+        // Bohíos
+        ctx.fillStyle = '#8B6914';
+        ctx.beginPath();
+        ctx.arc(100, h * 0.7, 16, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#5a8a2a';
+        ctx.beginPath();
+        ctx.arc(100, h * 0.68, 20, Math.PI, 0);
+        ctx.fill();
+
+        ctx.fillStyle = '#8B6914';
+        ctx.beginPath();
+        ctx.arc(400, h * 0.8, 16, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#5a8a2a';
+        ctx.beginPath();
+        ctx.arc(400, h * 0.78, 20, Math.PI, 0);
+        ctx.fill();
+
+        // Dujo ceremonial
+        ctx.fillStyle = '#a08040';
+        ctx.fillRect(230, h * 0.78, 20, 12);
+        ctx.fillStyle = '#806030';
+        ctx.fillRect(228, h * 0.76, 24, 4);
+
+        // Palmeras
+        for (const [px, py] of [[40, 160], [460, 100], [300, 85], [180, 200]]) {
+          dibujarPalmera(ctx, px, py, 0.6);
+        }
+
+        // NPCs
+        ctx.fillStyle = '#3a8a3a';
+        ctx.beginPath();
+        ctx.arc(w * 0.2, h * 0.62, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.textAlign = 'left';
+      })();
+
+      // --- 4. La Isabela ---
+      (() => {
+        const c = document.getElementById('preview-isabela');
+        const ctx = c.getContext('2d');
+        const w = c.width, h = c.height;
+
+        // Cielo
+        dibujarCielo(ctx, w, h, '#6BB5E0', '#87CEEB');
+
+        // Mar
+        ctx.fillStyle = '#2277AA';
+        ctx.fillRect(0, 0, w, h * 0.15);
+        // Olas
+        ctx.strokeStyle = '#55AADD';
+        ctx.lineWidth = 1;
+        for (let y = 5; y < h * 0.15; y += 8) {
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += 4) {
+            ctx.lineTo(x, y + Math.sin(x * 0.1 + y) * 2);
+          }
+          ctx.stroke();
+        }
+
+        // Costa (arena)
+        ctx.fillStyle = '#D4C090';
+        ctx.fillRect(0, h * 0.12, w, 20);
+
+        // Terreno
+        ctx.fillStyle = '#5a8a4a';
+        ctx.fillRect(0, h * 0.2, w, h * 0.8);
+
+        // Caminos de piedra
+        ctx.fillStyle = '#9a8a6a';
+        ctx.fillRect(w * 0.1, h * 0.5, w * 0.8, 6);
+        ctx.fillRect(w * 0.4, h * 0.25, 6, h * 0.5);
+
+        // Iglesia (ruinas)
+        ctx.fillStyle = '#b8a888';
+        ctx.fillRect(w * 0.2, h * 0.3, 60, 40);
+        ctx.fillStyle = '#a09070';
+        // Arco
+        ctx.beginPath();
+        ctx.arc(w * 0.2 + 30, h * 0.3 + 30, 10, Math.PI, 0);
+        ctx.fill();
+        // Cruz
+        ctx.strokeStyle = '#DAA520';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.2 + 30, h * 0.3 - 12);
+        ctx.lineTo(w * 0.2 + 30, h * 0.3 - 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(w * 0.2 + 25, h * 0.3 - 8);
+        ctx.lineTo(w * 0.2 + 35, h * 0.3 - 8);
+        ctx.stroke();
+
+        // Casa de Colón
+        ctx.fillStyle = '#c0a880';
+        ctx.fillRect(w * 0.45, h * 0.25, 45, 30);
+        ctx.fillStyle = '#8B4513';
+        ctx.beginPath();
+        ctx.moveTo(w * 0.45, h * 0.25);
+        ctx.lineTo(w * 0.45 + 22, h * 0.25 - 10);
+        ctx.lineTo(w * 0.45 + 45, h * 0.25);
+        ctx.fill();
+
+        // Torre de vigía
+        ctx.fillStyle = '#a09070';
+        ctx.fillRect(w * 0.15, h * 0.6, 30, 40);
+        ctx.fillStyle = '#807060';
+        // Almenas
+        for (let i = 0; i < 4; i++) {
+          ctx.fillRect(w * 0.15 + i * 8, h * 0.57, 6, 6);
+        }
+
+        // Cementerio
+        ctx.fillStyle = '#707070';
+        ctx.fillRect(w * 0.7, h * 0.6, 45, 30);
+        ctx.fillStyle = '#888888';
+        for (let i = 0; i < 3; i++) {
+          ctx.fillRect(w * 0.7 + 8 + i * 14, h * 0.6 + 5, 3, 10);
+          ctx.fillRect(w * 0.7 + 5 + i * 14, h * 0.6 + 8, 9, 2);
+        }
+
+        // Árboles tropicales
+        for (const [px, py] of [[40, 180], [420, 150], [380, 230], [100, 230]]) {
+          dibujarPalmera(ctx, px, py, 0.5);
+        }
+
+        // Soldado NPC
+        ctx.fillStyle = '#8B0000';
+        ctx.fillRect(w * 0.38, h * 0.48, 8, 10);
+        ctx.fillStyle = '#808080';
+        ctx.fillRect(w * 0.375, h * 0.46, 10, 5);
+      })();
+
+      // --- 5. Zona Colonial ---
+      (() => {
+        const c = document.getElementById('preview-colonial');
+        const ctx = c.getContext('2d');
+        const w = c.width, h = c.height;
+
+        // Cielo
+        dibujarCielo(ctx, w, h, '#6BB5E0', '#87CEEB');
+
+        // Terreno urbano
+        ctx.fillStyle = '#5a7a4a';
+        ctx.fillRect(0, h * 0.15, w, h * 0.85);
+
+        // Calles empedradas
+        ctx.fillStyle = '#807060';
+        ctx.fillRect(w * 0.05, h * 0.5, w * 0.9, 8);
+        ctx.fillRect(w * 0.25, h * 0.2, 6, h * 0.65);
+        ctx.fillRect(w * 0.55, h * 0.2, 6, h * 0.65);
+
+        // Catedral Primada
+        ctx.fillStyle = '#d4c8a0';
+        ctx.fillRect(w * 0.08, h * 0.2, 70, 50);
+        // Torres
+        ctx.fillStyle = '#c8bc96';
+        ctx.fillRect(w * 0.08 - 3, h * 0.12, 14, 16);
+        ctx.fillRect(w * 0.08 + 60, h * 0.12, 14, 16);
+        // Cruz
+        ctx.strokeStyle = '#DAA520';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.08 + 4, h * 0.08);
+        ctx.lineTo(w * 0.08 + 4, h * 0.12);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(w * 0.08 + 0, h * 0.10);
+        ctx.lineTo(w * 0.08 + 8, h * 0.10);
+        ctx.stroke();
+        // Rosetón
+        ctx.strokeStyle = '#DAA520';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(w * 0.08 + 35, h * 0.27, 8, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Museo de la Catedral
+        ctx.fillStyle = '#d8c8a8';
+        ctx.fillRect(w * 0.22, h * 0.22, 45, 35);
+        ctx.fillStyle = '#2a1a08';
+        ctx.fillRect(w * 0.22 + 18, h * 0.22 + 20, 10, 15);
+        ctx.fillStyle = '#DAA520';
+        ctx.font = '5px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('MUSEO', w * 0.22 + 22, h * 0.21);
+
+        // Hospital (ruinas)
+        ctx.fillStyle = '#b8a888';
+        ctx.fillRect(w * 0.4, h * 0.2, 55, 40);
+        ctx.fillStyle = '#CC3333';
+        ctx.fillRect(w * 0.4 + 24, h * 0.22, 6, 12);
+        ctx.fillRect(w * 0.4 + 21, h * 0.25, 12, 6);
+
+        // Monasterio
+        ctx.fillStyle = '#a89878';
+        ctx.fillRect(w * 0.62, h * 0.22, 50, 42);
+        ctx.fillStyle = '#5a8a5a';
+        ctx.fillRect(w * 0.62 + 10, h * 0.22 + 10, 30, 22);
+
+        // Panteón
+        ctx.fillStyle = '#c8c0a8';
+        ctx.fillRect(w * 0.78, h * 0.38, 50, 40);
+        // Frontón
+        ctx.fillStyle = '#d0c8b0';
+        ctx.beginPath();
+        ctx.moveTo(w * 0.78 - 3, h * 0.38 + 4);
+        ctx.lineTo(w * 0.78 + 25, h * 0.38 - 10);
+        ctx.lineTo(w * 0.78 + 53, h * 0.38 + 4);
+        ctx.fill();
+        // Llama
+        ctx.fillStyle = '#FF6600';
+        ctx.beginPath();
+        ctx.arc(w * 0.78 + 25, h * 0.38 - 14, 4, 0, Math.PI * 2);
+        ctx.fill();
+        // Columnas
+        ctx.fillStyle = '#d8d0b8';
+        for (let i = 0; i < 4; i++) {
+          ctx.fillRect(w * 0.78 + 6 + i * 12, h * 0.38 + 5, 4, 30);
+        }
+
+        // Guardias
+        ctx.fillStyle = '#3a4a2a';
+        ctx.fillRect(w * 0.78 + 18, h * 0.38 + 42, 6, 8);
+        ctx.fillRect(w * 0.78 + 28, h * 0.38 + 42, 6, 8);
+
+        // Calle de las Damas
+        ctx.fillStyle = '#706050';
+        ctx.fillRect(w * 0.07, h * 0.62, 80, 16);
+        // Faroles
+        ctx.fillStyle = '#FFDD44';
+        ctx.beginPath();
+        ctx.arc(w * 0.07, h * 0.61, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(w * 0.07 + 80, h * 0.61, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Reloj de Sol
+        ctx.fillStyle = '#d8d0b0';
+        ctx.beginPath();
+        ctx.arc(w * 0.15, h * 0.59, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#8a7a60';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(w * 0.15, h * 0.59, 5, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Mapa de riesgo (overlay)
+        ctx.fillStyle = 'rgba(68, 204, 68, 0.1)';
+        ctx.fillRect(w * 0.05, h * 0.18, w * 0.2, h * 0.55);
+        ctx.fillStyle = 'rgba(204, 204, 68, 0.1)';
+        ctx.fillRect(w * 0.35, h * 0.18, w * 0.3, h * 0.55);
+        ctx.fillStyle = 'rgba(204, 68, 68, 0.1)';
+        ctx.fillRect(w * 0.7, h * 0.18, w * 0.25, h * 0.55);
+
+        // Constructor NPC
+        ctx.fillStyle = '#8B4513';
+        ctx.fillRect(w * 0.33, h * 0.5, 8, 10);
+
+        // Cassá NPC
+        ctx.fillStyle = '#2a4a6a';
+        ctx.fillRect(w * 0.12, h * 0.65, 8, 10);
+
+        // Fabiola NPC
+        ctx.fillStyle = '#6a3a6a';
+        ctx.fillRect(w * 0.25, h * 0.35, 8, 10);
+
+        // Árboles
+        for (const [px, py] of [[30, 230], [200, 230], [350, 230], [460, 180]]) {
+          dibujarPalmera(ctx, px, py, 0.4);
+        }
+
+        // Etiquetas
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.font = '7px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('Catedral', w * 0.08 + 35, h * 0.2 + 58);
+        ctx.fillText('Museo', w * 0.22 + 22, h * 0.22 + 44);
+        ctx.fillText('Hospital', w * 0.4 + 27, h * 0.2 + 48);
+        ctx.fillText('Monasterio', w * 0.62 + 25, h * 0.22 + 50);
+        ctx.fillText('Panteón', w * 0.78 + 25, h * 0.38 + 48);
+
+        ctx.textAlign = 'left';
+      })();
+
+      // --- Sprites de compagnons ---
+      // Magnoboot
+      (() => {
+        const c = document.getElementById('sprite-magnoboot');
+        const ctx = c.getContext('2d');
+        ctx.scale(2, 2);
+        // Cuerpo
+        ctx.fillStyle = '#A8A8B0';
+        ctx.fillRect(8, 12, 16, 14);
+        // Cabeza
+        ctx.fillStyle = '#B8B8C0';
+        ctx.fillRect(10, 6, 12, 8);
+        // Ojos
+        ctx.fillStyle = '#00DDDD';
+        ctx.fillRect(12, 8, 3, 3);
+        ctx.fillRect(17, 8, 3, 3);
+        // Antena
+        ctx.fillStyle = '#888888';
+        ctx.fillRect(15, 2, 2, 5);
+        ctx.fillStyle = '#FF4444';
+        ctx.beginPath();
+        ctx.arc(16, 2, 2, 0, Math.PI * 2);
+        ctx.fill();
+        // Brazos
+        ctx.fillStyle = '#909098';
+        ctx.fillRect(5, 14, 4, 8);
+        ctx.fillRect(23, 14, 4, 8);
+        // Ruedas
+        ctx.fillStyle = '#444444';
+        ctx.fillRect(10, 26, 5, 4);
+        ctx.fillRect(17, 26, 5, 4);
+      })();
+
+      // Viralata
+      (() => {
+        const c = document.getElementById('sprite-viralata');
+        const ctx = c.getContext('2d');
+        ctx.scale(2, 2);
+        // Cuerpo
+        ctx.fillStyle = '#8B6914';
+        ctx.fillRect(10, 16, 14, 8);
+        // Cabeza
+        ctx.fillStyle = '#9B7924';
+        ctx.fillRect(6, 12, 8, 7);
+        // Ojo
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(8, 14, 2, 2);
+        // Nariz
+        ctx.fillStyle = '#333333';
+        ctx.fillRect(6, 16, 2, 2);
+        // Orejas
+        ctx.fillStyle = '#7B5904';
+        ctx.fillRect(7, 10, 3, 4);
+        ctx.fillRect(11, 11, 3, 3);
+        // Patas
+        ctx.fillStyle = '#8B6914';
+        ctx.fillRect(11, 24, 3, 5);
+        ctx.fillRect(19, 24, 3, 5);
+        // Cola
+        ctx.fillStyle = '#8B6914';
+        ctx.fillRect(24, 14, 4, 3);
+      })();
+
+      // Cemí Murciélago
+      (() => {
+        const c = document.getElementById('sprite-cemi');
+        const ctx = c.getContext('2d');
+        ctx.scale(2, 2);
+        // Cuerpo
+        ctx.fillStyle = '#6a2a8a';
+        ctx.beginPath();
+        ctx.arc(16, 18, 7, 0, Math.PI * 2);
+        ctx.fill();
+        // Alas
+        ctx.fillStyle = '#5a1a7a';
+        ctx.beginPath();
+        ctx.moveTo(9, 16);
+        ctx.quadraticCurveTo(2, 10, 4, 20);
+        ctx.lineTo(9, 18);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(23, 16);
+        ctx.quadraticCurveTo(30, 10, 28, 20);
+        ctx.lineTo(23, 18);
+        ctx.fill();
+        // Ojos
+        ctx.fillStyle = '#FF4444';
+        ctx.beginPath();
+        ctx.arc(13, 16, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(19, 16, 2, 0, Math.PI * 2);
+        ctx.fill();
+        // Orejas puntiagudas
+        ctx.fillStyle = '#6a2a8a';
+        ctx.beginPath();
+        ctx.moveTo(12, 12);
+        ctx.lineTo(10, 6);
+        ctx.lineTo(14, 11);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(20, 12);
+        ctx.lineTo(22, 6);
+        ctx.lineTo(18, 11);
+        ctx.fill();
+      })();
+
+    });
+  </script>
+
+</body>
+</html>
