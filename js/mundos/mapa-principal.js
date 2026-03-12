@@ -184,13 +184,12 @@ export class MapaPrincipal {
       return;
     }
 
-    // --- Movimiento entre nodos ---
-    // El jugador solo puede moverse a nodos conectados y desbloqueados
-    // Esto es como Super Mario World: sigues las líneas del mapa
+    // --- Movimiento libre por el mapa ---
+    // El jugador camina libremente entre todos los nodos (conectados o no).
+    // Si intenta entrar a un nivel bloqueado, le avisamos con un mensaje.
     if (!this.bloqueoEntrada) {
-      // Buscar nodos conectados AL nodo actual o que conectan A este
       if (entrada.estaPresionada('derecha') || entrada.estaPresionada('arriba')) {
-        // Avanzar al siguiente nodo conectado
+        // Avanzar al siguiente nodo (sin importar si está bloqueado)
         const siguiente = this._buscarNodoConectado(nodoActual, 'adelante');
         if (siguiente !== null) {
           this.jugadorNodoActual = siguiente;
@@ -208,8 +207,13 @@ export class MapaPrincipal {
       }
 
       // Entrar al nivel con acción (E o Enter)
-      if (entrada.estaPresionada('accion') && !nodoActual.bloqueado) {
-        if (this.juego && this.juego.cambiarEscena && nodoActual.escena) {
+      if (entrada.estaPresionada('accion')) {
+        if (nodoActual.bloqueado) {
+          // Mostrar mensaje de nivel bloqueado
+          if (this.juego && this.juego.mostrarToast) {
+            this.juego.mostrarToast(`🔒 ${nodoActual.nombre} — completa el nivel anterior para desbloquear`);
+          }
+        } else if (this.juego && this.juego.cambiarEscena && nodoActual.escena) {
           this.juego.cambiarEscena(nodoActual.escena);
         }
         this.bloqueoEntrada = true;
@@ -396,12 +400,16 @@ export class MapaPrincipal {
     }
 
     // --- Nombre del nodo seleccionado ---
-    if (nodoActual && !nodoActual.bloqueado) {
+    if (nodoActual) {
       ctx.font = 'bold 16px monospace';
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = nodoActual.bloqueado ? '#888888' : '#FFFFFF';
       ctx.fillText(nodoActual.nombre, ancho / 2, alto - 55);
 
-      if (nodoActual.completado) {
+      if (nodoActual.bloqueado) {
+        ctx.font = '12px monospace';
+        ctx.fillStyle = '#cc4444';
+        ctx.fillText('🔒 Bloqueado — completa el nivel anterior', ancho / 2, alto - 38);
+      } else if (nodoActual.completado) {
         ctx.font = '12px monospace';
         ctx.fillStyle = '#44AA44';
         ctx.fillText('(Completado)', ancho / 2, alto - 38);
@@ -436,19 +444,19 @@ export class MapaPrincipal {
   // --- Buscar un nodo conectado al actual en una dirección ---
   // 'adelante' busca nodos que este nodo apunta (conectadoA)
   // 'atras' busca nodos que apuntan A este nodo
+  // El jugador puede moverse a cualquier nodo conectado (incluso bloqueados)
+  // para explorar el mapa libremente.
   _buscarNodoConectado(nodoActual, direccion) {
     if (direccion === 'adelante') {
-      // Buscar el primer nodo conectado que NO esté bloqueado
       for (const destinoId of nodoActual.conectadoA) {
         const destino = this.nodos[destinoId];
-        if (destino && !destino.bloqueado) {
+        if (destino) {
           return destinoId;
         }
       }
     } else {
-      // Buscar un nodo que tenga a este en su lista de conectadoA
       for (const nodo of this.nodos) {
-        if (nodo.conectadoA.includes(nodoActual.id) && !nodo.bloqueado) {
+        if (nodo.conectadoA.includes(nodoActual.id)) {
           return nodo.id;
         }
       }

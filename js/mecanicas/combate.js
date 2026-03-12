@@ -8,9 +8,29 @@
 // Esto enseña que no siempre pelear es la mejor solución.
 // ============================================================
 
+import { SonidoProcedural } from '../motor/sonido-procedural.js';
+
 // --- Las opciones que el jugador puede elegir en combate ---
 // Cada opción tiene consecuencias diferentes para fomentar estrategia
 const OPCIONES_COMBATE = ['atacar', 'hablar', 'negociar', 'objeto', 'huir'];
+
+// --- Mapa de sonidos por acción personalizada ---
+// Cada id de opción personalizada tiene su sonido temático.
+// Si un id no está en el mapa, no suena nada (silencioso).
+const SONIDOS_POR_ACCION = {
+  redesSociales: 'combateRedesSociales',
+  protestas: 'combateProtestas',
+  denuncia: 'combateDenuncia',
+  legal: 'combateViaLegal',
+  atrapar: 'combateAtrapar',
+  pescar: 'combatePescar',
+  protegerCoral: 'combateProtegerCoral',
+  alertarBuzos: 'combateAlertarBuzos',
+  ley318: 'combateLey318',
+  evidenciaForense: 'combateEvidenciaForense',
+  interpol: 'combateInterpol',
+  unesco: 'combateUnesco',
+};
 
 export class SistemaCombate {
   constructor() {
@@ -37,6 +57,9 @@ export class SistemaCombate {
 
     // Resultado del último combate (para que el juego sepa qué pasó)
     this._resultado = null;
+
+    // Sonidos procedurales de combate
+    this._sfx = new SonidoProcedural();
 
     // Bloqueo de entrada para evitar que una tecla se procese varias veces
     this._bloqueoEntrada = false;
@@ -89,10 +112,15 @@ export class SistemaCombate {
   seleccionarOpcion(direccion) {
     if (!this.turnoJugador) return;
 
+    const anterior = this.opcionSeleccionada;
     if (direccion === 'izquierda') {
       this.opcionSeleccionada = Math.max(0, this.opcionSeleccionada - 1);
     } else if (direccion === 'derecha') {
       this.opcionSeleccionada = Math.min(this._opcionesActivas.length - 1, this.opcionSeleccionada + 1);
+    }
+    // Solo sonar si la selección realmente cambió
+    if (this.opcionSeleccionada !== anterior) {
+      this._sfx.combateNavegar();
     }
   }
 
@@ -143,6 +171,7 @@ export class SistemaCombate {
   // --- Atacar: la opción directa ---
   // Hace daño basado en la fuerza del jugador. Simple pero efectivo.
   _ejecutarAtaque(jugador) {
+    this._sfx.combateAtacar();
     const dano = jugador.fuerza * 5 + Math.floor(Math.random() * 5);
     this.enemigo.vida -= dano;
 
@@ -158,6 +187,7 @@ export class SistemaCombate {
   // Baja la hostilidad y sube la paciencia directamente.
   // Es la ruta pacifista principal — cada intento ayuda.
   _ejecutarHablar() {
+    this._sfx.combateHablar();
     const reduccionHostilidad = 8 + Math.floor(Math.random() * 12);
     const gananciaPatience = 12 + Math.floor(Math.random() * 13);
 
@@ -173,6 +203,7 @@ export class SistemaCombate {
   // Reduce más la hostilidad que hablar, pero si falla puede subir.
   // Tener ciertos objetos en el inventario mejora las probabilidades.
   _ejecutarNegociar(jugador) {
+    this._sfx.combateNegociar();
     // Base 55% de éxito, sube con inteligencia del jugador
     const probabilidadExito = 55 + jugador.nivelInteligencia * 5;
     const tirada = Math.random() * 100;
@@ -195,6 +226,7 @@ export class SistemaCombate {
   // --- Usar objeto: abrir inventario durante combate ---
   // Marca que el jugador quiere usar un objeto (la UI se encarga del resto)
   _ejecutarObjeto(inventario) {
+    this._sfx.combateObjeto();
     if (inventario) {
       inventario.abrir();
     }
@@ -205,6 +237,7 @@ export class SistemaCombate {
   // La probabilidad depende de la velocidad del enemigo.
   // Enemigos rápidos son más difíciles de esquivar.
   _ejecutarHuir(jugador) {
+    this._sfx.combateHuir();
     const velocidadEnemigo = this.enemigo.velocidad || 3;
     // Más lento el enemigo = más fácil huir
     const probabilidadHuida = 70 - velocidadEnemigo * 10;
@@ -232,6 +265,12 @@ export class SistemaCombate {
     const opciones = this.enemigo.opcionesPersonalizadas;
     const opcion = opciones[this.opcionSeleccionada];
     this._ultimaAccion = opcion;
+
+    // Reproducir el sonido temático de esta acción
+    const metodoSonido = SONIDOS_POR_ACCION[opcion.id];
+    if (metodoSonido && this._sfx[metodoSonido]) {
+      this._sfx[metodoSonido]();
+    }
 
     // Calcular efecto con rango aleatorio [min, max]
     const ganancia = opcion.paciencia[0]
@@ -275,17 +314,20 @@ export class SistemaCombate {
 
       this._mensaje = (resp.mensaje || `${this.enemigo?.nombre || 'Enemigo'} contraataca.`)
         + ` -${danoContra} HP`;
+      this._sfx.combateContraataque();
 
     } else if (this.hostilidad < 30 && Math.random() > 0.3) {
       // El enemigo se calma y habla (la paciencia sube sola)
       const ganancia = 10 + Math.floor(Math.random() * 10);
       this.paciencia = Math.min(100, this.paciencia + ganancia);
       this._mensaje = `${this.enemigo?.nombre || 'Enemigo'} duda... Convencido +${ganancia}`;
+      this._sfx.combateEnemigoDuda();
     } else {
       // El enemigo ataca (con daño reducido para ser justo)
       const danoEnemigo = (this.enemigo.fuerza || 2) * 2 + Math.floor(Math.random() * 3);
       jugador.recibirDano(danoEnemigo);
       this._mensaje = `${this.enemigo?.nombre || 'Enemigo'} ataca. -${danoEnemigo} HP`;
+      this._sfx.combateContraataque();
     }
 
     this.turnoJugador = true;
@@ -299,6 +341,7 @@ export class SistemaCombate {
     // El enemigo fue derrotado
     if (this.enemigo && this.enemigo.vida <= 0) {
       this._mensaje = '¡Victoria!';
+      this._sfx.combateVictoria();
       this.terminar('victoria');
       return;
     }
@@ -306,6 +349,7 @@ export class SistemaCombate {
     // El enemigo fue pacificado (paciencia al máximo)
     if (this.paciencia >= 100) {
       this._mensaje = '¡Lo convenciste! El enemigo se rinde pacíficamente.';
+      this._sfx.combatePacificado();
       this.terminar('pacificado');
       return;
     }
@@ -313,6 +357,7 @@ export class SistemaCombate {
     // El jugador fue derrotado
     if (jugador && jugador.vida <= 0) {
       this._mensaje = 'Fuiste derrotado...';
+      this._sfx.combateDerrota();
       this.terminar('derrota');
       return;
     }

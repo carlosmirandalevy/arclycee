@@ -823,40 +823,70 @@ export class Juego {
     ctx.font = '14px monospace';
     ctx.fillText('(Código Konami activado)', ancho / 2, 85);
 
-    // Lista de niveles
-    const inicioY = 130;
-    const altoOpcion = 40;
+    // Lista de niveles — con scroll si hay muchos
+    const altoOpcion = 32;
+    const maxVisibles = 10;
+    const inicioY = 120;
 
-    for (let i = 0; i < this._listaNiveles.length; i++) {
-      const y = inicioY + i * altoOpcion;
+    // Calcular scroll para mantener la selección visible
+    const totalNiveles = this._listaNiveles.length;
+    let scrollOffset = 0;
+    if (totalNiveles > maxVisibles) {
+      // Centrar la selección en la lista visible
+      scrollOffset = Math.max(0,
+        Math.min(this._nivelSeleccionado - Math.floor(maxVisibles / 2),
+          totalNiveles - maxVisibles));
+    }
+
+    const visibleDesde = scrollOffset;
+    const visibleHasta = Math.min(totalNiveles, scrollOffset + maxVisibles);
+
+    // Indicador de scroll arriba
+    if (visibleDesde > 0) {
+      ctx.fillStyle = '#888888';
+      ctx.font = '12px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('▲ más niveles', ancho / 2, inicioY - 5);
+    }
+
+    for (let i = visibleDesde; i < visibleHasta; i++) {
+      const y = inicioY + (i - visibleDesde) * altoOpcion;
       const nivel = this._listaNiveles[i];
       const seleccionado = (i === this._nivelSeleccionado);
 
       // Fondo de la opción seleccionada
       if (seleccionado) {
         ctx.fillStyle = 'rgba(255, 215, 0, 0.2)';
-        ctx.fillRect(ancho / 2 - 200, y - 5, 400, 35);
+        ctx.fillRect(ancho / 2 - 200, y - 3, 400, 28);
 
         // Borde dorado
         ctx.strokeStyle = '#FFD700';
         ctx.lineWidth = 2;
-        ctx.strokeRect(ancho / 2 - 200, y - 5, 400, 35);
+        ctx.strokeRect(ancho / 2 - 200, y - 3, 400, 28);
       }
 
       // Número y nombre
       ctx.fillStyle = seleccionado ? '#FFD700' : '#FFFFFF';
-      ctx.font = seleccionado ? 'bold 20px monospace' : '18px monospace';
+      ctx.font = seleccionado ? 'bold 16px monospace' : '14px monospace';
       ctx.textAlign = 'center';
 
       const flecha = seleccionado ? '▸ ' : '  ';
-      ctx.fillText(`${flecha}${i + 1}. ${nivel.nombre}`, ancho / 2, y + 20);
+      ctx.fillText(`${flecha}${i + 1}. ${nivel.nombre}`, ancho / 2, y + 16);
+    }
+
+    // Indicador de scroll abajo
+    if (visibleHasta < totalNiveles) {
+      ctx.fillStyle = '#888888';
+      ctx.font = '12px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('▼ más niveles', ancho / 2, inicioY + maxVisibles * altoOpcion + 10);
     }
 
     // Instrucciones
     ctx.fillStyle = '#888888';
-    ctx.font = '16px monospace';
+    ctx.font = '14px monospace';
     ctx.textAlign = 'center';
-    const yInstrucciones = inicioY + this._listaNiveles.length * altoOpcion + 30;
+    const yInstrucciones = inicioY + Math.min(totalNiveles, maxVisibles) * altoOpcion + 25;
     ctx.fillText('↑↓: elegir  |  E: ir al nivel  |  Q: cerrar', ancho / 2, yInstrucciones);
   }
 
