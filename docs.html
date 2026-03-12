@@ -456,6 +456,16 @@
 <body>
 
   <!-- ============================================================
+       SELECTOR DE IDIOMA
+       ============================================================ -->
+  <div style="background:var(--fondo-codigo);text-align:center;padding:8px 0;border-bottom:1px solid var(--borde);">
+    <strong style="color:var(--dorado);margin-right:12px;">🌐</strong>
+    <a href="docs.html" style="color:#fff;text-decoration:none;padding:4px 12px;background:var(--dorado);border-radius:4px;font-size:0.85rem;font-weight:600;">ES</a>
+    <a href="docs-en.html" style="color:var(--texto-tenue);text-decoration:none;padding:4px 12px;font-size:0.85rem;">EN</a>
+    <a href="docs-fr.html" style="color:var(--texto-tenue);text-decoration:none;padding:4px 12px;font-size:0.85rem;">FR</a>
+  </div>
+
+  <!-- ============================================================
        HERO / PORTADA
        ============================================================ -->
   <div class="hero">
@@ -572,7 +582,23 @@
           <div class="flujo-icono" style="border-color: #4488cc;">🌊</div>
           <div class="flujo-texto">
             <strong>Mundo Acuático</strong> <span class="tag" style="background:#1a2a3a;color:#4488cc;">PRÓXIMAMENTE</span><br>
-            <span>Exploración submarina, naufragios, arrecifes de coral y amenazas medioambientales.</span>
+            <span>Un pescador ofrece su canoa. Exploras el naufragio de La Pinta y otros sitios submarinos históricos.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono" style="border-color: #cc8844;">⚖️</div>
+          <div class="flujo-texto">
+            <strong>Mundo Jurídico</strong> <span class="tag" style="background:#2a2a1a;color:#cc8844;">PRÓXIMAMENTE</span><br>
+            <span>Un falso arqueólogo vende piezas falsas. Robo, persecución en el aeropuerto y leyes patrimoniales.</span>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono" style="border-color: #44ccaa;">🔬</div>
+          <div class="flujo-texto">
+            <strong>Laboratorio / Museo</strong> <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PRÓXIMAMENTE</span><br>
+            <span>Autenticación de piezas con ciencia real. Exhibición final en el museo. Múltiples finales.</span>
           </div>
         </div>
       </div>
@@ -882,6 +908,144 @@
           <div class="item-card"><h5>🪙 Moneda Colonial</h5><p>Moneda de oro con corona, enterrada en las calles.</p></div>
           <div class="item-card"><h5>🧱 Azulejo Antiguo</h5><p>Azulejo decorado con patrones geométricos.</p></div>
           <div class="item-card"><h5>🔑 Llave de Hierro</h5><p>Llave forjada con anillo y dientes.</p></div>
+        </div>
+      </div>
+
+      <!-- Mundo Acuático -->
+      <div class="mundo-card" style="border-left: 3px solid var(--azul);">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🌊 Mundo Acuático</div>
+          <div class="mundo-meta">
+            <span class="tag" style="background:#1a2a3a;color:#4488cc;">PRÓXIMAMENTE</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Al regresar a La Isabela, un pescador ofrece a Pepito subirse a una canoa. Lo lleva sobre
+          el naufragio de La Pinta (con cuyas maderas se construyó la Fortaleza Navidad). Después de
+          explorar el sitio submarino, un arqueólogo aficionado le entrega un mapa de los grandes
+          naufragios históricos. Con su canoa, visita diferentes naufragios y en cada uno aprende su
+          historia, llevando los conocimientos al Museo de las Atarazanas Reales.
+        </p>
+
+        <h4>Niveles planificados</h4>
+        <ul>
+          <li><strong>Naufragio de La Pinta</strong> — exploración submarina del barco de Colón</li>
+          <li><strong>Naufragios históricos</strong> — varios sitios submarinos con artefactos</li>
+          <li><strong>Arrecifes de coral</strong> — biodiversidad marina y amenazas medioambientales</li>
+        </ul>
+
+        <h4>Personajes planificados</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🎣</div>
+          <div class="npc-info">
+            <h5>Pescador</h5>
+            <div class="npc-role">Guía al mundo acuático</div>
+            <p>Ofrece su canoa y lleva a Pepito al primer naufragio.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🤿</div>
+          <div class="npc-info">
+            <h5>Arqueólogo aficionado</h5>
+            <div class="npc-role">Entrega el mapa de naufragios</div>
+            <p>Explorador submarino que conoce los sitios históricos sumergidos.</p>
+          </div>
+        </div>
+
+        <h4>Mecánicas planificadas</h4>
+        <ul>
+          <li>Exploración submarina con oxígeno limitado</li>
+          <li>Corrientes marinas y vida marina interactiva</li>
+          <li>Recolección de artefactos para el Museo de las Atarazanas Reales</li>
+        </ul>
+      </div>
+
+      <!-- Mundo Jurídico -->
+      <div class="mundo-card" style="border-left: 3px solid #cc8844;">
+        <div class="mundo-header">
+          <div class="mundo-titulo">⚖️ Mundo Jurídico</div>
+          <div class="mundo-meta">
+            <span class="tag" style="background:#2a2a1a;color:#cc8844;">PRÓXIMAMENTE</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Al final de su recorrido, Pepito ha aprendido de todas las piezas depositadas en los museos.
+          Se encuentra con un falso arqueólogo que quiere venderle piezas falsas. Negocian el precio.
+          Más tarde, le roban las piezas en su hotel. El ladrón intenta sacar las piezas del país,
+          pero lo detienen en el aeropuerto. Con la denuncia policial, devuelven las piezas a Pepito,
+          quien decide donarlas a un museo.
+        </p>
+
+        <h4>Niveles planificados</h4>
+        <ul>
+          <li><strong>Mercado negro</strong> — encuentro con el falso arqueólogo y negociación</li>
+          <li><strong>Hotel / Robo</strong> — investigación del robo de piezas</li>
+          <li><strong>Aeropuerto</strong> — persecución y captura del traficante</li>
+          <li><strong>Comisaría / Tribunal</strong> — proceso legal y protección patrimonial</li>
+        </ul>
+
+        <h4>Personajes planificados</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🎭</div>
+          <div class="npc-info">
+            <h5>Falso arqueólogo</h5>
+            <div class="npc-role">Antagonista — Vendedor de falsas reliquias</div>
+            <p>Intenta vender piezas falsificadas. Enseña sobre el problema real del tráfico de antigüedades.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">👮</div>
+          <div class="npc-info">
+            <h5>Policía patrimonial</h5>
+            <div class="npc-role">Aliado de la ley</div>
+            <p>Explica las leyes de protección del patrimonio cultural dominicano.</p>
+          </div>
+        </div>
+
+        <h4>Temas educativos</h4>
+        <ul>
+          <li>Leyes de protección del patrimonio cultural</li>
+          <li>Tráfico ilegal de antigüedades</li>
+          <li>Cómo identificar piezas falsas</li>
+          <li>El rol de Aduanas y la policía especializada</li>
+        </ul>
+      </div>
+
+      <!-- Laboratorio / Museo -->
+      <div class="mundo-card" style="border-left: 3px solid #44ccaa;">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🔬 Laboratorio / Museo</div>
+          <div class="mundo-meta">
+            <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PRÓXIMAMENTE</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          El mundo final donde Pepito lleva las piezas recuperadas a un laboratorio para autenticarlas.
+          ¿Son originales o copias? Utilizando herramientas científicas reales (carbono-14, análisis
+          de materiales, comparación con registros), el jugador aprende cómo los profesionales verifican
+          la autenticidad de los artefactos arqueológicos. Las piezas autenticadas se exhiben en el museo.
+        </p>
+
+        <h4>Niveles planificados</h4>
+        <ul>
+          <li><strong>Laboratorio de autenticación</strong> — pruebas científicas con herramientas reales</li>
+          <li><strong>Museo final</strong> — exhibición de todas las piezas recolectadas durante la aventura</li>
+        </ul>
+
+        <h4>Mecánicas planificadas</h4>
+        <ul>
+          <li>Mini-juegos de análisis científico (carbono-14, microscopio, rayos X)</li>
+          <li>Comparación de piezas con bases de datos de referencia</li>
+          <li>Catalogación y exhibición de artefactos</li>
+          <li>Múltiples finales según las decisiones tomadas durante el juego</li>
+        </ul>
+
+        <h4>Finales posibles</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🏆 Final completo</h5><p>Todos los yacimientos descubiertos, todas las reliquias salvadas.</p></div>
+          <div class="item-card"><h5>🏛️ Final del museo</h5><p>Todas las piezas auténticas exhibidas en el museo.</p></div>
+          <div class="item-card"><h5>💀 Final oscuro</h5><p>Sucumbes a la tentación y vendes todo a una compañía sin escrúpulos.</p></div>
+          <div class="item-card"><h5>🌍 Final ecológico</h5><p>Proteges los yacimientos y detienes la contaminación.</p></div>
         </div>
       </div>
     </section>

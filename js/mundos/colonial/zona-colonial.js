@@ -1412,6 +1412,39 @@ export class ZonaColonial {
       ctx.fillRect(nx - 6, ny + 12, 8, 12);
       ctx.fillStyle = '#EEEECC';
       ctx.fillRect(nx - 4, ny + 14, 4, 8);
+
+    } else if (npc.id === 'fabiola') {
+      // Fabiola Herrera — pelo largo castaño oscuro hasta los hombros,
+      // con raya al lado. Basado en su foto real.
+      // Tono de piel claro (redibujar sobre el genérico)
+      ctx.fillStyle = '#E8C8A8';
+      ctx.fillRect(nx + 4, ny - 10, 20, 12);
+      // Ojos oscuros
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(nx + 8, ny - 6, 4, 4);
+      ctx.fillRect(nx + 16, ny - 6, 4, 4);
+      ctx.fillStyle = '#2a1a0a';
+      ctx.fillRect(nx + 9, ny - 5, 2, 2);
+      ctx.fillRect(nx + 17, ny - 5, 2, 2);
+
+      // Pelo largo castaño oscuro — cae a ambos lados de la cabeza
+      ctx.fillStyle = '#1a0e08';
+      // Parte superior del pelo (volumen arriba)
+      ctx.fillRect(nx + 2, ny - 14, 24, 8);
+      // Lado izquierdo del pelo (cae hasta los hombros)
+      ctx.fillRect(nx + 1, ny - 10, 6, 22);
+      // Lado derecho del pelo (cae hasta los hombros)
+      ctx.fillRect(nx + 21, ny - 10, 6, 22);
+      // Mechón frontal (flequillo al lado)
+      ctx.fillRect(nx + 3, ny - 12, 10, 4);
+
+      // Labios (rojo — rasgo distintivo de su foto)
+      ctx.fillStyle = '#CC2222';
+      ctx.fillRect(nx + 10, ny - 1, 8, 2);
+
+      // Blusa blanca (lleva ropa clara en su foto)
+      ctx.fillStyle = '#EEEEDD';
+      ctx.fillRect(nx + 2, ny + 2, 24, 8);
     }
 
     // Nombre
