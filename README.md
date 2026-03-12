@@ -46,6 +46,10 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 Elian · Théo · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Nael
 
+## Documentación
+
+Abre [`docs.html`](docs.html) en el navegador para ver la documentación completa del proyecto: historia, flujo del juego, mundos, NPCs, mecánicas, compañeros y previsualizaciones generadas de cada nivel.
+
 ## Licencia
 
 Proyecto educativo del Liceo Francés de Santo Domingo.

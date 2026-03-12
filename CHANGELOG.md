@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.8.2 — Documentación HTML + Museo de la Catedral (2026-03-12)
+
+### Agregado
+
+**Página de documentación** (`docs.html`)
+- Documentación completa del proyecto accesible desde el navegador
+- Diseño oscuro inspirado en la estética del juego
+- Secciones: Historia, Flujo del Juego, Mundos, Compañeros, Combate, Mecánicas, Controles, Tecnologías, Equipo
+- Previsualizaciones de cada mundo generadas en canvas (Cuevas, Asentamiento I, II, La Isabela, Zona Colonial)
+- Sprites de los 3 compañeros dibujados en canvas (Magnoboot, Viralata, Cemí Murciélago)
+- Detalle de todos los NPCs con avatar, rol y descripción
+- Diagrama visual del flujo de progresión del juego
+- Tabla de combate con las 4 opciones de activismo ciudadano y contra-respuestas
+- Lista de los 8 easter eggs del equipo
+- Navegación sticky con scroll suave
+- Totalmente responsive
+
+---
+
 ## v0.8.1 — Museo de la Catedral + Fabiola Herrera (2026-03-12)
 
 ### Agregado

@@ -66,7 +66,8 @@ firebase deploy
 
 ```
 arclycee/
-├── index.html              ← Punto de entrada
+├── index.html              ← Punto de entrada del juego
+├── docs.html               ← Documentación completa del proyecto
 ├── estilos/
 │   └── principal.css       ← Estilos del juego
 ├── js/
