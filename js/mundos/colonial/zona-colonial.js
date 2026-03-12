@@ -227,7 +227,7 @@ export class ZonaColonial {
       },
       {
         // Fabiola Herrera — Directora del Voluntariado del Museo de la Catedral.
-        // Economista jubilada e innovadora que transformó el sueño del Museo
+        // Matemática y tecnóloga que transformó el sueño del Museo
         // en la realidad que es hoy. Trabaja incansablemente coordinando
         // voluntarios, gestionando las 15 salas y la tienda del museo.
         id: 'fabiola',
@@ -1677,8 +1677,8 @@ export class ZonaColonial {
       this.dialogos.iniciarDialogo([
         { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola1 || '¡Bienvenido al Museo de la Catedral! Soy Fabiola Herrera, directora del voluntariado.' },
         { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola2 || 'Este museo está en la antigua Real Cárcel de Santo Domingo. La restauramos para preservar siglos de historia y fe.' },
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola3 || 'Tenemos 15 salas con tesoros del siglo XVI al XX: el Sagrario, cruces pectorales, el Águila Bicéfala, el Coro Alto...' },
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola4 || 'Yo era economista, pero descubrí que mi verdadera misión era transformar este sueño en realidad.' },
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola3 || 'Tenemos 15 salas con tesoros del siglo XVI al XX: el portapaz de Colón, cruces pectorales, el Águila Bicéfala, el Coro Bajo de la Catedral...' },
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola4 || 'Yo soy matemática, trabajé proyectos de tecnología toda mi vida, pero un día descubrí que mi verdadera misión era transformar este sueño en realidad.' },
         { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola5 || 'Un museo no es solo un espacio de exhibición. Es un viaje que transporta al visitante a un pasado lleno de arte y devoción.' },
         { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola6 || 'Cada objeto aquí cuenta una historia. La Piedra Pentagonal, las esculturas restauradas con su pátina original... ¡todo habla!' }
       ], () => { npc.dialogoHecho = true; });

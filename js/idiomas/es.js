@@ -210,8 +210,8 @@ const es = {
       // Fabiola Herrera — Directora del Voluntariado, Museo de la Catedral
       fabiola1: '¡Bienvenido al Museo de la Catedral! Soy Fabiola Herrera, directora del voluntariado.',
       fabiola2: 'Este museo está en la antigua Real Cárcel de Santo Domingo. La restauramos para preservar siglos de historia y fe.',
-      fabiola3: 'Tenemos 15 salas con tesoros del siglo XVI al XX: el Sagrario, cruces pectorales, el Águila Bicéfala, el Coro Alto...',
-      fabiola4: 'Yo era economista, pero descubrí que mi verdadera misión era transformar este sueño en realidad.',
+      fabiola3: 'Tenemos 15 salas con tesoros del siglo XVI al XX: el portapaz de Colón, cruces pectorales, el Águila Bicéfala, el Coro Bajo de la Catedral...',
+      fabiola4: 'Yo soy matemática, trabajé proyectos de tecnología toda mi vida, pero un día descubrí que mi verdadera misión era transformar este sueño en realidad.',
       fabiola5: 'Un museo no es solo un espacio de exhibición. Es un viaje que transporta al visitante a un pasado lleno de arte y devoción.',
       fabiola6: 'Cada objeto aquí cuenta una historia. La Piedra Pentagonal, las esculturas restauradas con su pátina original... ¡todo habla!',
 
