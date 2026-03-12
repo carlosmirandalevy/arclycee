@@ -26,9 +26,10 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - Una escena activa a la vez, se cambia con `juego.cambiarEscena('nombre')`
 
 ### Mundos (`js/mundos/`)
-- Top-down (asentamientos, La Isabela) o plataforma (cuevas)
+- Top-down (asentamientos, La Isabela, Mundo Acuático) o plataforma (cuevas)
 - Los mundos top-down setean `jugador.modoJuego = 'topdown'`
 - Salida: tecla M (mapa) o caminar al borde inferior — NO usar Q/Esc para salir de mundos
+- Mundo Acuático (`js/mundos/acuatico/`): velocidad × 0.7 para simular nado, medusas como peligros pasivos (daño + lentitud), depth-sorted rendering
 
 ### Compañeros (`js/personajes/companeros/`)
 - Patrón: propiedad `tipo` (string), flag `activo`, métodos `activar()`/`desactivar()`
@@ -75,6 +76,8 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **NPC mentor**: `esMentor: true` excluye del conteo de misión, siempre muestra [E] Hablar, nunca muestra checkmark
 - **Animación de marcha**: `cuadroAnimacion` + `esAnimando` flag, piernas con `Math.sin(cuadro * 5) * 3`
 - **Guardias invisibles**: `if (!guardia.activo && !this._cambioEnCurso) return` al inicio de `_dibujarGuardia()`
+- **Medusas pasivas**: movimiento sinusoidal entre waypoints, contacto = daño + `efectoLentitud` (segundos), cooldown con `invulnerabilidad`
+- **Depth sorting**: entidades se ordenan por Y antes de dibujar para efecto de profundidad (usado en Mundo Acuático)
 
 ## Qué NO hacer
 

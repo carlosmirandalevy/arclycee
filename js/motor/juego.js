@@ -42,6 +42,7 @@ import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
 import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
+import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
 
 export class Juego {
 
@@ -139,7 +140,8 @@ export class Juego {
       { nombre: 'Asentamiento Taíno I',  escena: 'asentamientoTaino1' },
       { nombre: 'Asentamiento Taíno II', escena: 'asentamientoTaino2' },
       { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
-      { nombre: 'Zona Colonial',        escena: 'zonaColonial' }
+      { nombre: 'Zona Colonial',        escena: 'zonaColonial' },
+      { nombre: 'Naufragio La Pinta (Acuático)', escena: 'mundoAcuatico' }
     ];
   }
 
@@ -270,6 +272,10 @@ export class Juego {
     // Zona Colonial de Santo Domingo — Patrimonio de la Humanidad
     const zonaColonial = new ZonaColonial();
     this.registrarEscena('zonaColonial', zonaColonial);
+
+    // Mundo Acuático — Naufragio de La Pinta (primer nivel submarino)
+    const mundoAcuatico = new MundoAcuatico();
+    this.registrarEscena('mundoAcuatico', mundoAcuatico);
   }
 
   // --- BUCLE PRINCIPAL ---
@@ -502,7 +508,7 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial'];
+    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico'];
     if (escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
     }

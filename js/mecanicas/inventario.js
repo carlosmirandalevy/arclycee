@@ -537,6 +537,60 @@ export class Inventario {
       ctx.fillRect(x + 24, y + 9, 3, 8);
       ctx.fillRect(x + 20, y + 9, 3, 5);
 
+    } else if (id === 'clavoBronce') {
+      // Clavo de bronce de La Pinta — forma de clavo con cabeza ancha
+      ctx.fillStyle = '#B87333';
+      // Cabeza del clavo
+      ctx.fillRect(x + 10, y + 5, 12, 4);
+      // Vástago
+      ctx.fillRect(x + 14, y + 9, 4, 16);
+      // Punta
+      ctx.beginPath();
+      ctx.moveTo(x + 14, y + 25);
+      ctx.lineTo(x + 16, y + 29);
+      ctx.lineTo(x + 18, y + 25);
+      ctx.closePath();
+      ctx.fill();
+      // Reflejo metálico
+      ctx.fillStyle = '#D4956B';
+      ctx.fillRect(x + 11, y + 6, 4, 2);
+
+    } else if (id === 'mapaNaufragios') {
+      // Mapa de naufragios — pergamino azulado con siluetas de barcos
+      ctx.fillStyle = '#4488cc';
+      ctx.fillRect(x + 4, y + 4, 24, 24);
+      // Bordes enrollados
+      ctx.fillStyle = '#336699';
+      ctx.fillRect(x + 4, y + 4, 24, 3);
+      ctx.fillRect(x + 4, y + 25, 24, 3);
+      // Siluetas de barcos hundidos
+      ctx.fillStyle = '#223355';
+      // Barco 1
+      ctx.beginPath();
+      ctx.moveTo(x + 9, y + 16);
+      ctx.lineTo(x + 12, y + 12);
+      ctx.lineTo(x + 15, y + 16);
+      ctx.closePath();
+      ctx.fill();
+      // Barco 2
+      ctx.beginPath();
+      ctx.moveTo(x + 18, y + 20);
+      ctx.lineTo(x + 21, y + 15);
+      ctx.lineTo(x + 24, y + 20);
+      ctx.closePath();
+      ctx.fill();
+      // Olas
+      ctx.strokeStyle = '#5599dd';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + 7, y + 14);
+      ctx.quadraticCurveTo(x + 10, y + 12, x + 13, y + 14);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + 16, y + 18);
+      ctx.quadraticCurveTo(x + 19, y + 16, x + 22, y + 18);
+      ctx.stroke();
+
     } else {
       // Genérico: cuadrado con color del objeto
       ctx.fillStyle = objeto.color || '#66aaff';

@@ -77,7 +77,8 @@ arclycee/
 │   ├── escenas/            ← Pantallas (menú, selección, intro)
 │   ├── mundos/             ← Niveles y mapas del mundo
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
-│   │   └── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
+│   │   ├── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
+│   │   └── acuatico/       ← Mundo Acuático (Naufragio de La Pinta)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí
 │   ├── mecanicas/          ← Combate, diálogos, inventario, misiones

@@ -30,7 +30,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 |---|---|
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura y areíto) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
-| Acuático | Naufragios (La Pinta, sitios históricos), exploración submarina, fauna marina (4 tortugas, ballenas jorobadas, delfines, manatí antillano, pez loro), combate contra pez león invasor, Museo de las Atarazanas Reales |
+| Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey en peligro de extinción), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león invasor, arqueóloga submarina con mapa de naufragios |
 | Jurídico | Tráfico de reliquias, leyes de protección patrimonial |
 | Laboratorio | Autenticación de piezas, museos |
 

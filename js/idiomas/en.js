@@ -267,6 +267,50 @@ const en = {
 
       misionExplorar: 'Explore the Zona Colonial',
       misionCompleta: 'Zona Colonial explored! Return to map (M)'
+    },
+
+    // Aquatic World — La Pinta Shipwreck
+    acuatico: {
+      pescador1: 'Welcome to the ocean floor, kid! I\'m Manuel, a fisherman from Montecristi.',
+      pescador2: 'Down here lie the remains of La Pinta, one of Columbus\'s three ships.',
+      pescador3: 'La Pinta\'s timbers were used to build Fort Navidad — the first European structure in the Americas.',
+      pescador4: 'Watch out for jellyfish! Their sting hurts and slows you down.',
+
+      tortuga1: 'I\'m a hawksbill turtle. My species has been swimming these seas for 100 million years.',
+      tortuga2: 'We\'re critically endangered. They hunt us for our shells, used in jewelry.',
+      tortuga3: 'Coral reefs are our home. If the coral dies, so do we.',
+      tortuga4: 'Hawksbill turtles eat sea sponges that are toxic to other animals. We\'re the reef\'s guardians!',
+
+      arqueologa1: 'I\'m an underwater archaeologist. I study Caribbean shipwrecks.',
+      arqueologa2: 'There are over 400 recorded shipwrecks off the coasts of this island.',
+      arqueologa3: 'Each shipwreck is a time capsule. Nails, ceramics, and coins tell us the story.',
+      arqueologa4: 'Take this shipwreck map. It will help you find other underwater sites.',
+      arqueologaRepite: 'Use the shipwreck map to find more underwater remains. The Caribbean Sea hides many secrets!',
+
+      pezLeonIntro1: 'A lionfish! This invasive species from the Indo-Pacific is destroying Caribbean reefs.',
+      pezLeonIntro2: 'It eats up to 30 native species and has no natural predators here. We must act!',
+      pezLeonPaz1: 'Controlled fishing will maintain the reef\'s balance.',
+      pezLeonPaz2: 'Did you know lionfish meat is delicious and nutritious? Eating me is ecological!',
+      pezLeonDerrota: 'The lionfish retreats... but more will come if the invasion isn\'t controlled.',
+
+      combatePista: 'Use ecological actions to control the invasive species',
+      accionAtrapar: 'Capture',
+      accionAtraparMsg: 'You try to catch the lionfish with a net!',
+      respuestaAtrapar: 'The lionfish flares its venomous spines to defend itself.',
+      accionEducar: 'Educate',
+      accionEducarMsg: 'You explain the impact of invasive species on the ecosystem!',
+      respuestaEducar: 'The reef ecosystem responds: parrotfish approach to clean the coral.',
+      accionProteger: 'Protect Coral',
+      accionProtegerMsg: 'You set up barriers to protect the coral from the lionfish\'s appetite!',
+      respuestaProteger: 'The lionfish attacks a group of parrotfish cleaning the coral.',
+      accionAlertar: 'Alert Fishermen',
+      accionAlertarMsg: 'You notify local fishermen to organize controlled fishing!',
+      respuestaAlertar: 'The lionfish tries to flee to deeper waters.',
+
+      medusaPicadura: 'Jellyfish sting! Movement slowed',
+
+      misionExplorar: 'Explore the wreck of La Pinta',
+      misionCompleta: 'Shipwreck explored! Return to map (M)'
     }
   },
 
@@ -310,7 +354,12 @@ const en = {
     azulejoAntiguo: 'Colonial Tile',
     descAzulejoAntiguo: 'A decorated ceramic tile from the colonial period. Technique brought from Spain.',
     llaveHierro: 'Iron Key',
-    descLlaveHierro: 'A colonial wrought-iron key. It might open some old door.'
+    descLlaveHierro: 'A colonial wrought-iron key. It might open some old door.',
+
+    clavoBronce: 'Bronze Nail',
+    descClavoBronce: 'A bronze nail from La Pinta\'s hull. It resisted saltwater corrosion.',
+    mapaNaufragios: 'Shipwreck Map',
+    descMapaNaufragios: 'Map showing shipwreck locations in the Dominican Caribbean. Gift from the underwater archaeologist.'
   },
 
   inventario: {

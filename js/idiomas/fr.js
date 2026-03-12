@@ -267,6 +267,50 @@ const fr = {
 
       misionExplorar: 'Explore la Zone Coloniale',
       misionCompleta: 'Zone Coloniale explorée ! Retour à la carte (M)'
+    },
+
+    // Monde Aquatique — Épave de La Pinta
+    acuatico: {
+      pescador1: 'Bienvenue au fond de la mer, gamin ! Je suis Manuel, pêcheur de Montecristi.',
+      pescador2: 'Ici reposent les restes de La Pinta, l\'une des trois caravelles de Colomb.',
+      pescador3: 'Les bois de La Pinta ont servi à construire le Fort Navidad — la première structure européenne en Amérique.',
+      pescador4: 'Attention aux méduses ! Leur piqûre fait mal et te ralentit.',
+
+      tortuga1: 'Je suis une tortue imbriquée. Mon espèce nage dans ces mers depuis 100 millions d\'années.',
+      tortuga2: 'Nous sommes en danger critique d\'extinction. On nous chasse pour notre carapace, utilisée en bijouterie.',
+      tortuga3: 'Les récifs coralliens sont notre maison. Si le corail meurt, nous aussi.',
+      tortuga4: 'Les tortues imbriquées mangent des éponges marines toxiques pour d\'autres animaux. Nous sommes les gardiennes du récif !',
+
+      arqueologa1: 'Je suis archéologue sous-marine. J\'étudie les épaves des Caraïbes dominicaines.',
+      arqueologa2: 'Il y a plus de 400 épaves répertoriées au large des côtes de cette île.',
+      arqueologa3: 'Chaque épave est une capsule temporelle. Les clous, céramiques et monnaies nous racontent l\'histoire.',
+      arqueologa4: 'Prends cette carte des épaves. Elle t\'aidera à trouver d\'autres sites sous-marins.',
+      arqueologaRepite: 'Utilise la carte des épaves pour trouver d\'autres vestiges sous-marins. La mer des Caraïbes cache bien des secrets !',
+
+      pezLeonIntro1: 'Un poisson-lion ! Cette espèce invasive de l\'Indo-Pacifique détruit les récifs des Caraïbes.',
+      pezLeonIntro2: 'Il mange jusqu\'à 30 espèces indigènes et n\'a aucun prédateur naturel ici. Il faut agir !',
+      pezLeonPaz1: 'La pêche contrôlée maintiendra l\'équilibre du récif.',
+      pezLeonPaz2: 'Savais-tu que la chair du poisson-lion est délicieuse et nutritive ? Me manger est écologique !',
+      pezLeonDerrota: 'Le poisson-lion se retire... mais d\'autres viendront si l\'invasion n\'est pas contrôlée.',
+
+      combatePista: 'Utilise des actions écologiques pour contrôler l\'envahisseur',
+      accionAtrapar: 'Capturer',
+      accionAtraparMsg: 'Tu essaies d\'attraper le poisson-lion avec un filet !',
+      respuestaAtrapar: 'Le poisson-lion hérisse ses épines venimeuses pour se défendre.',
+      accionEducar: 'Éduquer',
+      accionEducarMsg: 'Tu expliques l\'impact des espèces invasives sur l\'écosystème !',
+      respuestaEducar: 'L\'écosystème du récif réagit : les poissons-perroquets s\'approchent pour nettoyer le corail.',
+      accionProteger: 'Protéger le Corail',
+      accionProtegerMsg: 'Tu places des barrières pour protéger le corail de la voracité du poisson-lion !',
+      respuestaProteger: 'Le poisson-lion attaque un groupe de poissons-perroquets qui nettoyaient le corail.',
+      accionAlertar: 'Alerter les Pêcheurs',
+      accionAlertarMsg: 'Tu préviens les pêcheurs locaux pour organiser une pêche contrôlée !',
+      respuestaAlertar: 'Le poisson-lion tente de fuir vers les eaux plus profondes.',
+
+      medusaPicadura: 'Piqûre de méduse ! Mouvement ralenti',
+
+      misionExplorar: 'Explore l\'épave de La Pinta',
+      misionCompleta: 'Épave explorée ! Retour à la carte (M)'
     }
   },
 
@@ -310,7 +354,12 @@ const fr = {
     azulejoAntiguo: 'Carreau Colonial',
     descAzulejoAntiguo: 'Carreau de céramique décorée de l\'époque coloniale. Technique venue d\'Espagne.',
     llaveHierro: 'Clé en Fer',
-    descLlaveHierro: 'Clé coloniale en fer forgé. Elle pourrait ouvrir une porte ancienne.'
+    descLlaveHierro: 'Clé coloniale en fer forgé. Elle pourrait ouvrir une porte ancienne.',
+
+    clavoBronce: 'Clou en Bronze',
+    descClavoBronce: 'Clou en bronze de la coque de La Pinta. Il résistait à la corrosion de l\'eau salée.',
+    mapaNaufragios: 'Carte des Épaves',
+    descMapaNaufragios: 'Carte indiquant l\'emplacement des épaves dans les Caraïbes dominicaines. Cadeau de l\'archéologue sous-marine.'
   },
 
   inventario: {

@@ -246,6 +246,9 @@ const es = {
       cassaPista3: 'Los océanos guardan tesoros y peligros. Ballenas, tortugas, arrecifes... y amenazas que debemos enfrentar.',
       cassaPista4: 'Cuando estés listo, el Mundo Acuático te espera. ¡Buena suerte, joven arqueólogo!',
 
+      // Combo pista → Mundo Acuático (el texto final que adelanta el siguiente mundo)
+      // Esto aparece cuando Cassá habla de los océanos
+
       // Guardias del Panteón Nacional — Primer Regimiento de la Guardia Presidencial
       guardia1: 'Los guardias no pueden hablar mientras montan guardia. Es parte del protocolo militar.',
       guardia2: 'Son miembros del Primer Regimiento Dominicano de la Guardia Presidencial.',
@@ -270,6 +273,59 @@ const es = {
 
       misionExplorar: 'Explora la Zona Colonial',
       misionCompleta: '¡Zona Colonial explorada! Vuelve al mapa (M)'
+    },
+
+    // Mundo Acuático — Naufragio de La Pinta
+    // Un pescador lleva a Pepito a explorar los restos submarinos
+    // de La Pinta, donde aprende sobre fauna marina y especies invasoras
+    acuatico: {
+      // Pescador Manuel — introduce la historia del naufragio
+      pescador1: '¡Bienvenido al fondo del mar, muchacho! Soy Manuel, pescador de Montecristi.',
+      pescador2: 'Aquí abajo están los restos de La Pinta, una de las tres carabelas de Colón.',
+      pescador3: 'Los maderos de La Pinta se usaron para construir el Fuerte Navidad — la primera estructura europea en América.',
+      pescador4: '¡Cuidado con las medusas! Su picadura duele y te hace nadar más lento.',
+
+      // Tortuga carey — educación sobre especies en peligro
+      tortuga1: 'Soy una tortuga carey. Mi especie lleva 100 millones de años nadando en estos mares.',
+      tortuga2: 'Estamos en peligro crítico de extinción. Nos cazan por nuestro caparazón, que usan para joyería.',
+      tortuga3: 'Los arrecifes de coral son nuestro hogar. Si el coral muere, nosotros también.',
+      tortuga4: 'Las tortugas carey comemos esponjas marinas que son tóxicas para otros animales. ¡Somos las guardianas del arrecife!',
+
+      // Arqueóloga submarina — da el mapa de naufragios
+      arqueologa1: 'Soy arqueóloga submarina. Estudio los naufragios del Caribe dominicano.',
+      arqueologa2: 'Hay más de 400 naufragios registrados en las costas de esta isla.',
+      arqueologa3: 'Cada naufragio es una cápsula del tiempo. Los clavos, cerámicas y monedas nos cuentan la historia.',
+      arqueologa4: 'Toma este mapa de naufragios. Te ayudará a encontrar otros sitios submarinos.',
+      arqueologaRepite: 'Usa el mapa de naufragios para encontrar más restos submarinos. ¡El mar Caribe esconde muchos secretos!',
+
+      // Pez león — especie invasora (combate)
+      pezLeonIntro1: '¡Un pez león! Esta especie invasora del Indo-Pacífico está destruyendo los arrecifes del Caribe.',
+      pezLeonIntro2: 'Come hasta 30 especies nativas y no tiene depredadores naturales aquí. ¡Hay que actuar!',
+      pezLeonPaz1: 'La pesca controlada mantendrá el equilibrio del arrecife.',
+      pezLeonPaz2: '¿Sabías que la carne de pez león es deliciosa y nutritiva? ¡Cocinarme es ecológico!',
+      pezLeonDerrota: 'El pez león se retira... pero volverán más si no se controla la invasión.',
+
+      // Opciones de combate ecológico
+      combatePista: 'Usa acciones ecológicas para controlar al invasor',
+      accionAtrapar: 'Atrapar',
+      accionAtraparMsg: '¡Intentas atrapar al pez león con una red!',
+      respuestaAtrapar: 'El pez león eriza sus espinas venenosas para defenderse.',
+      accionEducar: 'Educar',
+      accionEducarMsg: '¡Explicas el impacto de las especies invasoras en el ecosistema!',
+      respuestaEducar: 'El ecosistema del arrecife responde: los peces loro se acercan a limpiar el coral.',
+      accionProteger: 'Proteger Coral',
+      accionProtegerMsg: '¡Colocas barreras para proteger el coral de la voracidad del pez león!',
+      respuestaProteger: 'El pez león ataca un grupo de peces loro que limpiaban el coral.',
+      accionAlertar: 'Alertar Pescadores',
+      accionAlertarMsg: '¡Avisas a los pescadores locales para organizar una pesca controlada!',
+      respuestaAlertar: 'El pez león intenta huir hacia aguas más profundas.',
+
+      // Medusa
+      medusaPicadura: '🪼 ¡Picadura de medusa! Movimiento reducido',
+
+      // Misión
+      misionExplorar: 'Explora el naufragio de La Pinta',
+      misionCompleta: '¡Naufragio explorado! Vuelve al mapa (M)'
     }
   },
 
@@ -313,7 +369,12 @@ const es = {
     azulejoAntiguo: 'Azulejo Colonial',
     descAzulejoAntiguo: 'Azulejo de cerámica decorada del periodo colonial. Técnica traída de España.',
     llaveHierro: 'Llave de Hierro',
-    descLlaveHierro: 'Llave colonial de hierro forjado. Podría abrir alguna puerta antigua.'
+    descLlaveHierro: 'Llave colonial de hierro forjado. Podría abrir alguna puerta antigua.',
+
+    clavoBronce: 'Clavo de Bronce',
+    descClavoBronce: 'Clavo de bronce del casco de La Pinta. Resistía la corrosión del agua salada.',
+    mapaNaufragios: 'Mapa de Naufragios',
+    descMapaNaufragios: 'Mapa con la ubicación de naufragios en el Caribe dominicano. Regalo de la arqueóloga submarina.'
   },
 
   inventario: {

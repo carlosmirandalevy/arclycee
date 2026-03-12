@@ -1,5 +1,85 @@
 # Changelog
 
+## v0.9.0 — Mundo Acuático: Naufragio de La Pinta (2026-03-12)
+
+### Agregado
+
+**Mundo Acuático — Naufragio de La Pinta** (`js/mundos/acuatico/mundo-acuatico.js`)
+- Primer nivel jugable del Mundo Acuático: exploración submarina del naufragio de La Pinta
+- Nivel top-down 1600x1100 con tratamiento visual submarino completo:
+  - Degradado azul profundo (`#0a1a3a` → `#1a3a5a`)
+  - Fondo arenoso con textura sutil
+  - 20 algas marinas animadas (balanceo con `Math.sin`)
+  - 25 partículas de burbujas ascendentes
+  - 4 rayos de luz diagonales desde la superficie (oscilantes)
+  - Tinte de agua overlay `rgba(20, 60, 120, 0.15)`
+- 6 estructuras del naufragio con colisión:
+  - Casco principal de La Pinta (madera oscura con algas y agujero)
+  - Fragmento del casco (con coral creciendo)
+  - Mástil roto (con grietas y restos de cuerda animados)
+  - Ancla de hierro oxidado (con brazos curvos y puntas)
+  - Arrecife de coral (formas irregulares multicolor)
+  - Canoa del pescador (cerca de la entrada)
+- 4 NPCs con sprites detallados:
+  - Pescador Manuel: traje de neopreno, máscara de buceo, historia de La Pinta
+  - Tortuga Carey: caparazón con patrón carey, aletas, educación sobre extinción
+  - Arqueóloga Submarina: escafandra, tanque de oxígeno, libreta impermeable, da mapa de naufragios
+  - Pez León: rayas rojas/blancas, espinas venenosas, cola, combate ecológico
+- Depth sorting de entidades (NPCs + jugador + compañeros ordenados por Y)
+- Jugador con máscara de buceo + aletas + burbujitas al nadar
+
+**Medusas — Peligros pasivos** (4 medusas)
+- Movimiento sinusoidal entre waypoints
+- Sprite semi-transparente: campana pulsante + tentáculos ondulantes + centro luminoso
+- Contacto = 5 HP daño + 2 segundos de lentitud (velocidad × 0.4)
+- 1.5 segundos de invulnerabilidad tras picadura
+- Indicador visual ⚠ sobre cada medusa
+- Efecto visual de lentitud: aura morada parpadeante alrededor del jugador
+- Toast de notificación: "🪼 ¡Picadura de medusa! Movimiento reducido"
+
+**Movimiento submarino**
+- Velocidad base × 0.7 (sensación de nadar)
+- Velocidad × 0.4 durante efecto de lentitud por medusa
+- Animación de nado más lenta (0.12 vs 0.15)
+
+**Combate ecológico — Pez León** (especie invasora)
+- 4 opciones personalizadas de combate ecológico:
+  - Atrapar: captura con red → eriza espinas venenosas
+  - Educar: impacto de invasoras → peces loro limpian coral
+  - Proteger Coral: barreras → ataca peces loro
+  - Alertar Pescadores: pesca controlada → intenta huir
+- Resolución pacífica: pesca controlada, carne de pez león comestible
+- Pista personalizada: "Usa acciones ecológicas para controlar al invasor"
+
+**Objetos coleccionables** (2 nuevos)
+- `clavoBronce`: clavo de bronce del casco de La Pinta (aparece tras combate)
+- `mapaNaufragios`: mapa de naufragios del Caribe (dado por la arqueóloga vía diálogo)
+- Íconos de inventario: clavo con cabeza ancha (#B87333), mapa azulado con siluetas de barcos (#4488cc)
+
+**Integración con el mapa del mundo** (`mapa-principal.js`)
+- Nodo 5: "Naufragio La Pinta" (tipo `naufragio`, ícono ⚓)
+- Conectado desde nodo 4 (Zona Colonial)
+- Título del mundo cambia a "Mundo Acuático" al seleccionar nodo 5+
+- Lógica de título actualizada para 3 mundos (Taíno < 3, Colonial 3-4, Acuático 5+)
+
+**Desbloqueo automático** (`zona-colonial.js`)
+- Completar la Zona Colonial desbloquea automáticamente el nodo 5
+
+**Registro de escena** (`juego.js`)
+- `MundoAcuatico` importado y registrado como `'mundoAcuatico'`
+- Añadido a `escenasJugables` (crea jugador al entrar)
+- Añadido al selector de niveles Konami: "Naufragio La Pinta (Acuático)"
+
+**Traducciones** (ES/FR/EN)
+- ~35 strings nuevas por idioma en `dialogos.acuatico`:
+  - 4 líneas × 4 NPCs = 16 diálogos
+  - Pre/post combate = 5 líneas
+  - 4 acciones de combate (nombre + mensaje + respuesta) = 12 strings
+  - Pista de combate, misión, medusa = 3 strings
+- 2 objetos nuevos con nombre y descripción × 3 idiomas
+
+---
+
 ## v0.8.3 — Menú Documentación + Mundo Acuático + Corrección Guanín (2026-03-12)
 
 ### Agregado

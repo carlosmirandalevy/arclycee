@@ -705,6 +705,10 @@ export class ZonaColonial {
         if (!this.juego.progreso.nodosCompletados.includes(4)) {
           this.juego.progreso.nodosCompletados.push(4);
         }
+        // Desbloquear el naufragio de La Pinta (nodo 5, Mundo Acuático)
+        if (!this.juego.progreso.nodosDesbloqueados.includes(5)) {
+          this.juego.progreso.nodosDesbloqueados.push(5);
+        }
       }
     }
 

@@ -93,8 +93,20 @@ export class MapaPrincipal {
         tipo: 'ciudad',
         completado: false,
         bloqueado: true,
-        conectadoA: [],
+        conectadoA: [5],
         escena: 'zonaColonial'
+      },
+      // --- Mundo Acuático ---
+      // Se desbloquea al completar la Zona Colonial
+      {
+        id: 5,
+        x: 620, y: 460,
+        nombre: 'Naufragio La Pinta',
+        tipo: 'naufragio',
+        completado: false,
+        bloqueado: true,
+        conectadoA: [],
+        escena: 'mundoAcuatico'
       }
     ];
 
@@ -230,10 +242,13 @@ export class MapaPrincipal {
     // --- Título del mundo ---
     // Cambia según la zona en la que está el jugador
     const nodoJugador = this.nodos[this.jugadorNodoActual];
-    const esColonial = nodoJugador && nodoJugador.id >= 4;
-    const tituloMundo = esColonial
-      ? (textos?.mundos?.colonial || 'Mundo Colonial')
-      : (textos?.mundos?.taino || 'Mundo Taíno');
+    const esAcuatico = nodoJugador && nodoJugador.id >= 5;
+    const esColonial = nodoJugador && nodoJugador.id >= 3 && nodoJugador.id < 5;
+    const tituloMundo = esAcuatico
+      ? (textos?.mundos?.acuatico || 'Mundo Acuático')
+      : esColonial
+        ? (textos?.mundos?.colonial || 'Mundo Colonial')
+        : (textos?.mundos?.taino || 'Mundo Taíno');
 
     ctx.font = 'bold 24px monospace';
     ctx.fillStyle = '#FFD700';
@@ -317,6 +332,7 @@ export class MapaPrincipal {
       if (nodo.tipo === 'cueva') ctx.fillText('⛏', nodo.x, nodo.y + 5);
       if (nodo.tipo === 'aldea') ctx.fillText('🏘', nodo.x, nodo.y + 5);
       if (nodo.tipo === 'ciudad') ctx.fillText('🏛', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'naufragio') ctx.fillText('⚓', nodo.x, nodo.y + 5);
 
       // Marca de completado (palomita)
       if (nodo.completado) {
