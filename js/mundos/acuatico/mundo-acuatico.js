@@ -451,6 +451,10 @@ export class MundoAcuatico {
         if (!this.juego.progreso.nodosCompletados.includes(5)) {
           this.juego.progreso.nodosCompletados.push(5);
         }
+        // Desbloquear el Mundo Jurídico (nodo 6)
+        if (!this.juego.progreso.nodosDesbloqueados.includes(6)) {
+          this.juego.progreso.nodosDesbloqueados.push(6);
+        }
       }
     }
 

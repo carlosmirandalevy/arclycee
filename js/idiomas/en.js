@@ -312,6 +312,67 @@ const en = {
 
       misionExplorar: 'Explore the wreck of La Pinta',
       misionCompleta: 'Shipwreck explored! Return to map (M)'
+    },
+
+    // Legal World — Las Américas Airport (Act 4)
+    juridico: {
+      draMartinez1: 'I was waiting for you! The shipwreck map revealed something disturbing.',
+      draMartinez2: 'Someone is smuggling archaeological artifacts out of the country through this airport.',
+      draMartinez3: 'We need solid evidence. Talk to the Customs Agent and the INTERPOL Inspector.',
+      draMartinez4: 'Attorney Carmen Vidal will advise you on heritage protection laws.',
+      draMartinezRepite: 'Talk to Agent Montero at customs. She can give you the records.',
+      draMartinezPostCombate: 'You did it! The artifacts will be returned to the Museum of the Dominican Man.',
+
+      agente1: 'I\'m Agent Rosa Montero, Customs. I\'ve detected suspicious activity.',
+      agente2: 'Law 318-68 prohibits exporting any Dominican cultural heritage property.',
+      agente3: 'Fines range from 500 to 10,000 minimum wages, plus 2 to 10 years in prison.',
+      agente4: 'I\'ve prepared a customs registry with the anomalies. Look for it near the X-ray machine.',
+      agenteRepite: 'The customs registry is near the X-ray machine. Pick it up as evidence.',
+      agentePostCombate: 'This case will set a precedent. Law 318 is being applied with full force.',
+
+      inspector1: 'Inspector Ramírez, INTERPOL. We\'re tracking an antiquities trafficking network.',
+      inspector2: 'INTERPOL has a database of stolen artworks with over 52,000 records.',
+      inspector3: 'International cooperation is key. An artifact stolen in DR can appear at a European auction.',
+      inspector4: 'With your evidence and Law 318, we can issue an international alert against Torres.',
+      inspectorRepite: 'Gather all possible evidence before confronting the suspect.',
+      inspectorPostCombate: 'INTERPOL has issued the alert. This trafficker won\'t escape international justice.',
+
+      carmen1_1: 'I\'m Attorney Carmen Vidal, heritage law specialist.',
+      carmen1_2: 'Law 318-68 declares all archaeological objects found on Dominican soil as national heritage.',
+      carmen1_3: 'No one can export, sell, or destroy heritage property without State authorization.',
+      carmen2_1: 'The 1970 UNESCO Convention is the international framework against cultural property trafficking.',
+      carmen2_2: 'Over 140 countries ratified it. It requires returning stolen cultural property to its country of origin.',
+      carmen3_1: 'To report heritage trafficking, file a complaint with the Ministry of Culture.',
+      carmen3_2: 'You can also go to the Attorney General\'s Office. They activate the judicial process.',
+      carmen4_1: 'The Ministry of Culture guards national heritage through the Monumental Heritage Directorate.',
+      carmen4_2: 'They maintain the cultural property registry and authorize — or deny — any export.',
+      carmen5_1: 'In 2014, DR recovered Taíno artifacts that had been illegally sold to European collectors.',
+      carmen5_2: 'Thanks to INTERPOL and Law 318, the pieces returned to the Museum of the Dominican Man.',
+
+      traficante1: 'What do you want, kid? I\'m waiting for my flight.',
+      traficante2: 'Artifacts? I don\'t know what you\'re talking about. This suitcase has... souvenirs.',
+      traficantePaz1: 'The evidence is overwhelming. Torres surrenders to the authorities.',
+      traficantePaz2: 'The artifacts will be returned to the Museum of the Dominican Man.',
+      traficanteDerrota: 'Torres is arrested. The case goes to court.',
+      traficantePostCombate: 'You got me... but this is bigger than me. There\'s a whole network.',
+
+      etiquetaEvidencia: 'Evidence:',
+      combatePista: 'Use laws and evidence to build a legal case',
+      accionLey318: 'Law 318',
+      accionLey318Msg: 'You cite Heritage Law 318-68!',
+      respuestaLey318: 'Torres shows forged export permits.',
+      accionForense: 'Evidence',
+      accionForenseMsg: 'You present forensic evidence of authenticity!',
+      respuestaForense: 'Torres claims they are artisan replicas.',
+      accionInterpol: 'INTERPOL',
+      accionInterpolMsg: 'You activate the INTERPOL international alert!',
+      respuestaInterpol: 'Torres threatens to flee to another jurisdiction.',
+      accionUnesco: 'UNESCO 1970',
+      accionUnescoMsg: 'You invoke the 1970 UNESCO Convention!',
+      respuestaUnesco: 'Torres tries to bribe his way out.',
+
+      misionExplorar: 'Investigate the artifact trafficking',
+      misionCompleta: 'Case solved! Return to map (M)'
     }
   },
 
@@ -360,7 +421,12 @@ const en = {
     clavoBronce: 'Bronze Nail',
     descClavoBronce: 'A bronze nail from La Pinta\'s hull. It resisted saltwater corrosion.',
     mapaNaufragios: 'Shipwreck Map',
-    descMapaNaufragios: 'Map showing shipwreck locations in the Dominican Caribbean. Gift from the underwater archaeologist.'
+    descMapaNaufragios: 'Map showing shipwreck locations in the Dominican Caribbean. Gift from the underwater archaeologist.',
+
+    registroAduanal: 'Customs Registry',
+    descRegistroAduanal: 'Official customs document with anomalies detected in Torres\'s shipments.',
+    ordenJudicial: 'Court Order',
+    descOrdenJudicial: 'Court order authorizing the confiscation of trafficked artifacts.'
   },
 
   inventario: {

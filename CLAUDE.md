@@ -53,8 +53,8 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - El turno enemigo usa `_ultimaAccion.respuestaEnemigo` para contra-respuestas específicas
 - `pistaPersonalizada` en el enemigo cambia el texto de ayuda inferior
 - `etiquetaConvencimiento` en el enemigo personaliza el nombre del medidor verde (ej: "Controlado:" para pez león)
-- `tipoSprite` en el enemigo selecciona el sprite de combate: `'soldado'`, `'constructor'`, `'pezLeon'`
-- Sprites de enemigos: `_dibujarSoldado()`, `_dibujarConstructor()`, `_dibujarPezLeon()` — cada uno con diseño único
+- `tipoSprite` en el enemigo selecciona el sprite de combate: `'soldado'`, `'constructor'`, `'pezLeon'`, `'traficante'`
+- Sprites de enemigos: `_dibujarSoldado()`, `_dibujarConstructor()`, `_dibujarPezLeon()`, `_dibujarTraficante()` — cada uno con diseño único
 
 ### Guardado (`js/motor/guardado.js`, `juego.js`)
 - `juego.guardarPartida()` — guarda en localStorage, muestra toast
@@ -92,6 +92,8 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Depth sorting**: entidades se ordenan por Y antes de dibujar para efecto de profundidad (usado en Mundo Acuático)
 - **Sprites en selección de personaje**: `_dibujarPersonaje()` usa el sprite detallado del juego escalado ×2.5 (no placeholders simples)
 - **Combate pez león**: 4 opciones ecológicas (atrapar, pescar, proteger coral, alertar buzos) con contra-respuestas realistas
+- **Mundo Jurídico** (`js/mundos/juridico/`): aeropuerto interior, velocidad normal, combate legal con opciones de Ley 318/Evidencia/INTERPOL/UNESCO, mentora con diálogo rotativo (5 temas legales)
+- **Combate traficante**: 4 opciones legales (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), etiqueta "Evidencia:" en vez de "Convencido:"
 
 ## Qué NO hacer
 

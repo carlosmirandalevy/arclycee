@@ -1,5 +1,65 @@
 # Changelog
 
+## v0.11.0 — Mundo Jurídico: Aeropuerto Las Américas (2026-03-12)
+
+### Agregado
+
+**Mundo Jurídico — Aeropuerto Las Américas** (`js/mundos/juridico/mundo-juridico.js`)
+- Acto 4: el mapa de naufragios revela una red de tráfico de artefactos arqueológicos
+- Nivel top-down 1800x1200, interior de aeropuerto con velocidad normal
+- 8 estructuras con colisión: Mostrador de Aduanas, Máquina de Rayos X, 3 Barreras de Seguridad, Carrusel de Equipaje, Puerta de Embarque, Oficina de INTERPOL
+- 5 NPCs educativos:
+  - Dra. Martínez: arqueóloga que alerta sobre el tráfico
+  - Agente Rosa Montero: agente aduanal que explica procedimientos
+  - Inspector Ramírez: inspector de aduanas con información sobre contrabando
+  - Lcda. Carmen Vidal: abogada mentora con diálogo rotativo (5 temas legales)
+  - Rodrigo Torres: traficante antagonista con combate legal
+- Misión: hablar con los 3 NPCs principales + derrotar al traficante → completa el nodo
+
+**Combate legal — Traficante Rodrigo Torres** (`combate.js`)
+- 4 opciones legales personalizadas:
+  - Ley 318: citar la ley dominicana de patrimonio cultural (1968)
+  - Evidencia: presentar pruebas forenses de procedencia
+  - INTERPOL: contactar la red internacional contra tráfico de arte
+  - UNESCO 1970: invocar la convención contra importación ilícita
+- Etiqueta personalizada: "Evidencia:" en vez de "Convencido:"
+- Sprite de traficante: `_dibujarTraficante()` con diseño único
+- Contra-respuestas del traficante para cada acción legal
+
+**Lcda. Carmen Vidal — NPC mentora recurrente**
+- Flag `esMentor: true` — no cuenta para completar la misión
+- 5 conversaciones rotativas que ciclan con `_carmenConversacion % 5`:
+  1. Presentación y marco legal dominicano
+  2. Ley 318-68 de Patrimonio Cultural
+  3. Convención UNESCO 1970
+  4. Rol de INTERPOL en delitos contra patrimonio
+  5. Procesos judiciales y repatriación de artefactos
+
+**Objetos coleccionables** (2 nuevos)
+- `registroAduanal`: registro de aduanas con evidencia de contrabando
+- `ordenJudicial`: orden judicial para decomiso de artefactos
+- Íconos de inventario: registro marrón (#8B4513), orden gris (#2F4F4F)
+
+**Integración con el mapa del mundo** (`mapa-principal.js`)
+- Nodo 6: "Aeropuerto Las Américas" (tipo jurídico)
+- Conectado desde nodo 5 (Naufragio La Pinta)
+- Título del mundo cambia a "Mundo Jurídico" al seleccionar nodo 6+
+- Se desbloquea automáticamente al completar el Mundo Acuático
+
+**Registro de escena** (`juego.js`)
+- `MundoJuridico` importado y registrado como `'mundoJuridico'`
+- Añadido a `escenasJugables` (crea jugador al entrar)
+- Añadido al selector de niveles Konami: "Aeropuerto Las Américas (Jurídico)"
+
+**Traducciones** (ES/FR/EN)
+- Diálogos de 5 NPCs × 3 idiomas
+- 5 conversaciones de Carmen Vidal × 3 idiomas
+- 4 acciones de combate (nombre + mensaje + respuesta) × 3 idiomas
+- 2 objetos nuevos con nombre y descripción × 3 idiomas
+- Textos de misión y pistas de combate
+
+---
+
 ## v0.10.0 — Guardado automático + combate ecológico pez león + sprites de enemigos (2026-03-12)
 
 ### Agregado

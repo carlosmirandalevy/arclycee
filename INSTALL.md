@@ -78,7 +78,8 @@ arclycee/
 │   ├── mundos/             ← Niveles y mapas del mundo
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
 │   │   ├── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
-│   │   └── acuatico/       ← Mundo Acuático (Naufragio de La Pinta)
+│   │   ├── acuatico/       ← Mundo Acuático (Naufragio de La Pinta)
+│   │   └── juridico/       ← Mundo Jurídico (Aeropuerto Las Américas)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí
 │   ├── mecanicas/          ← Combate, diálogos, inventario, misiones

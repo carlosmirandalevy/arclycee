@@ -105,8 +105,20 @@ export class MapaPrincipal {
         tipo: 'naufragio',
         completado: false,
         bloqueado: true,
-        conectadoA: [],
+        conectadoA: [6],
         escena: 'mundoAcuatico'
+      },
+      // --- Mundo Jurídico ---
+      // Se desbloquea al completar el Mundo Acuático
+      {
+        id: 6,
+        x: 720, y: 340,
+        nombre: 'Aeropuerto Las Américas',
+        tipo: 'juridico',
+        completado: false,
+        bloqueado: true,
+        conectadoA: [],
+        escena: 'mundoJuridico'
       }
     ];
 
@@ -242,13 +254,16 @@ export class MapaPrincipal {
     // --- Título del mundo ---
     // Cambia según la zona en la que está el jugador
     const nodoJugador = this.nodos[this.jugadorNodoActual];
-    const esAcuatico = nodoJugador && nodoJugador.id >= 5;
+    const esJuridico = nodoJugador && nodoJugador.id >= 6;
+    const esAcuatico = nodoJugador && nodoJugador.id === 5;
     const esColonial = nodoJugador && nodoJugador.id >= 3 && nodoJugador.id < 5;
-    const tituloMundo = esAcuatico
-      ? (textos?.mundos?.acuatico || 'Mundo Acuático')
-      : esColonial
-        ? (textos?.mundos?.colonial || 'Mundo Colonial')
-        : (textos?.mundos?.taino || 'Mundo Taíno');
+    const tituloMundo = esJuridico
+      ? (textos?.mundos?.juridico || 'Mundo Jurídico')
+      : esAcuatico
+        ? (textos?.mundos?.acuatico || 'Mundo Acuático')
+        : esColonial
+          ? (textos?.mundos?.colonial || 'Mundo Colonial')
+          : (textos?.mundos?.taino || 'Mundo Taíno');
 
     ctx.font = 'bold 24px monospace';
     ctx.fillStyle = '#FFD700';
@@ -333,6 +348,7 @@ export class MapaPrincipal {
       if (nodo.tipo === 'aldea') ctx.fillText('🏘', nodo.x, nodo.y + 5);
       if (nodo.tipo === 'ciudad') ctx.fillText('🏛', nodo.x, nodo.y + 5);
       if (nodo.tipo === 'naufragio') ctx.fillText('⚓', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'juridico') ctx.fillText('⚖️', nodo.x, nodo.y + 5);
 
       // Marca de completado (palomita)
       if (nodo.completado) {

@@ -327,6 +327,76 @@ const es = {
       // Misión
       misionExplorar: 'Explora el naufragio de La Pinta',
       misionCompleta: '¡Naufragio explorado! Vuelve al mapa (M)'
+    },
+
+    // Mundo Jurídico — Aeropuerto Las Américas (Acto 4)
+    // El jugador usa leyes de protección patrimonial para detener
+    // una red de tráfico de artefactos arqueológicos
+    juridico: {
+      // Dra. Martínez — conecta con el Mundo Acuático
+      draMartinez1: '¡Te estaba esperando! El mapa de naufragios reveló algo inquietante.',
+      draMartinez2: 'Alguien está sacando artefactos arqueológicos del país a través de este aeropuerto.',
+      draMartinez3: 'Necesitamos evidencia sólida. Habla con la Agente de Aduanas y el Inspector de INTERPOL.',
+      draMartinez4: 'La Licenciada Carmen Vidal te asesorará sobre las leyes de protección patrimonial.',
+      draMartinezRepite: 'Habla con la Agente Montero en aduanas. Ella puede darte los registros.',
+      draMartinezPostCombate: '¡Lo lograste! Los artefactos serán devueltos al Museo del Hombre Dominicano.',
+
+      // Agente Rosa Montero — enseña la Ley 318
+      agente1: 'Soy la Agente Rosa Montero, de Aduanas. He detectado movimientos sospechosos.',
+      agente2: 'La Ley 318-68 prohíbe sacar del país cualquier bien del patrimonio cultural dominicano.',
+      agente3: 'Las multas van desde 500 hasta 10,000 salarios mínimos, más prisión de 2 a 10 años.',
+      agente4: 'He preparado un registro aduanal con las anomalías. Búscalo cerca de la máquina de rayos X.',
+      agenteRepite: 'El registro aduanal está cerca de la máquina de rayos X. Recógelo como evidencia.',
+      agentePostCombate: 'Este caso sentará un precedente. La Ley 318 se aplica con todo su peso.',
+
+      // Inspector Ramírez — cooperación internacional
+      inspector1: 'Inspector Ramírez, INTERPOL. Estamos rastreando una red de tráfico de antigüedades.',
+      inspector2: 'INTERPOL tiene una base de datos de obras de arte robadas con más de 52,000 registros.',
+      inspector3: 'La cooperación entre países es clave. Un artefacto robado en RD puede aparecer en una subasta en Europa.',
+      inspector4: 'Con tu evidencia y la Ley 318, podemos activar una alerta internacional contra Torres.',
+      inspectorRepite: 'Reúne toda la evidencia posible antes de confrontar al sospechoso.',
+      inspectorPostCombate: 'INTERPOL ya emitió la alerta. Este traficante no escapará de la justicia internacional.',
+
+      // Lcda. Carmen Vidal — mentora legal (5 conversaciones rotativas)
+      carmen1_1: 'Soy la Licenciada Carmen Vidal, especialista en derecho patrimonial.',
+      carmen1_2: 'La Ley 318-68 declara patrimonio nacional todo objeto arqueológico encontrado en suelo dominicano.',
+      carmen1_3: 'Nadie puede exportar, vender ni destruir bienes patrimoniales sin autorización del Estado.',
+      carmen2_1: 'La Convención UNESCO de 1970 es el marco internacional contra el tráfico de bienes culturales.',
+      carmen2_2: 'Más de 140 países la ratificaron. Obliga a devolver bienes culturales robados a su país de origen.',
+      carmen3_1: 'Para denunciar tráfico de patrimonio, se presenta una denuncia ante el Ministerio de Cultura.',
+      carmen3_2: 'También puedes ir a la Procuraduría General. Ellos activan la cadena judicial.',
+      carmen4_1: 'El Ministerio de Cultura custodia el patrimonio nacional a través de la Dirección de Patrimonio Monumental.',
+      carmen4_2: 'Ellos mantienen el registro de bienes culturales y autorizan — o niegan — cualquier exportación.',
+      carmen5_1: 'En 2014, RD recuperó artefactos taínos que habían sido vendidos ilegalmente a coleccionistas europeos.',
+      carmen5_2: 'Gracias a INTERPOL y la Ley 318, las piezas volvieron al Museo del Hombre Dominicano.',
+
+      // Traficante Rodrigo Torres
+      traficante1: '¿Qué quieres, muchacho? Estoy esperando mi vuelo.',
+      traficante2: '¿Artefactos? No sé de qué hablas. Esta maleta tiene... souvenirs.',
+      traficantePaz1: 'La evidencia es abrumadora. Torres se rinde ante las autoridades.',
+      traficantePaz2: 'Los artefactos serán devueltos al Museo del Hombre Dominicano.',
+      traficanteDerrota: 'Torres es detenido. El caso pasa a los tribunales.',
+      traficantePostCombate: 'Me atraparon... pero esto es más grande que yo. Hay toda una red.',
+
+      // Opciones de combate legal
+      etiquetaEvidencia: 'Evidencia:',
+      combatePista: 'Usa las leyes y la evidencia para construir un caso legal',
+      accionLey318: 'Ley 318',
+      accionLey318Msg: '¡Citas la Ley 318-68 de Patrimonio Cultural!',
+      respuestaLey318: 'Torres muestra permisos de exportación falsificados.',
+      accionForense: 'Evidencia',
+      accionForenseMsg: '¡Presentas la evidencia forense de autenticidad!',
+      respuestaForense: 'Torres alega que son réplicas artesanales.',
+      accionInterpol: 'INTERPOL',
+      accionInterpolMsg: '¡Activas la alerta internacional de INTERPOL!',
+      respuestaInterpol: 'Torres amenaza con huir a otra jurisdicción.',
+      accionUnesco: 'UNESCO 1970',
+      accionUnescoMsg: '¡Invocas la Convención UNESCO de 1970!',
+      respuestaUnesco: 'Torres intenta sobornar para que lo dejen ir.',
+
+      // Misión
+      misionExplorar: 'Investiga el tráfico de artefactos',
+      misionCompleta: '¡Caso resuelto! Vuelve al mapa (M)'
     }
   },
 
@@ -375,7 +445,12 @@ const es = {
     clavoBronce: 'Clavo de Bronce',
     descClavoBronce: 'Clavo de bronce del casco de La Pinta. Resistía la corrosión del agua salada.',
     mapaNaufragios: 'Mapa de Naufragios',
-    descMapaNaufragios: 'Mapa con la ubicación de naufragios en el Caribe dominicano. Regalo de la arqueóloga submarina.'
+    descMapaNaufragios: 'Mapa con la ubicación de naufragios en el Caribe dominicano. Regalo de la arqueóloga submarina.',
+
+    registroAduanal: 'Registro Aduanal',
+    descRegistroAduanal: 'Documento oficial de aduanas con las anomalías detectadas en los envíos de Torres.',
+    ordenJudicial: 'Orden Judicial',
+    descOrdenJudicial: 'Orden del tribunal que autoriza la confiscación de los artefactos traficados.'
   },
 
   inventario: {

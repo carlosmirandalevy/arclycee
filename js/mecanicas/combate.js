@@ -586,6 +586,10 @@ export class SistemaCombate {
         this._dibujarConstructor(ctx, x, y, ancho, alto);
         break;
 
+      case 'traficante':
+        this._dibujarTraficante(ctx, x, y, ancho, alto);
+        break;
+
       case 'soldado':
       default:
         this._dibujarSoldado(ctx, x, y, ancho, alto);
@@ -756,5 +760,114 @@ export class SistemaCombate {
     // --- Boca ---
     ctx.fillStyle = '#661111';
     ctx.fillRect(cx - 22, cy + 1, 6, 2);
+  }
+
+  // --- Sprite: Traficante Rodrigo Torres (Aeropuerto Las Américas) ---
+  // Hombre de negocios con traje oscuro, gafas de sol, maletín
+  // sospechoso y un reloj de oro. Aspecto nervioso pero arrogante.
+  _dibujarTraficante(ctx, x, y, ancho, alto) {
+    const cx = x + ancho / 2;
+
+    // --- Cuerpo: traje oscuro de negocios ---
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(x + 2, y + 14, ancho - 4, alto - 14);
+
+    // Solapa del traje (triángulos)
+    ctx.fillStyle = '#111122';
+    ctx.beginPath();
+    ctx.moveTo(x + 8, y + 14);
+    ctx.lineTo(cx - 2, y + 28);
+    ctx.lineTo(x + 2, y + 28);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(x + ancho - 8, y + 14);
+    ctx.lineTo(cx + 2, y + 28);
+    ctx.lineTo(x + ancho - 2, y + 28);
+    ctx.closePath();
+    ctx.fill();
+
+    // Camisa blanca (visible entre solapas)
+    ctx.fillStyle = '#EEEEEE';
+    ctx.fillRect(cx - 3, y + 16, 6, 14);
+
+    // Corbata roja
+    ctx.fillStyle = '#8a2a2a';
+    ctx.fillRect(cx - 2, y + 16, 4, 16);
+    // Nudo de la corbata
+    ctx.fillStyle = '#6a1a1a';
+    ctx.beginPath();
+    ctx.moveTo(cx, y + 16);
+    ctx.lineTo(cx - 3, y + 20);
+    ctx.lineTo(cx + 3, y + 20);
+    ctx.closePath();
+    ctx.fill();
+
+    // --- Cabeza ---
+    ctx.fillStyle = '#D2956A';
+    ctx.fillRect(x + 8, y, 24, 18);
+
+    // Pelo peinado hacia atrás (slicked-back)
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(x + 6, y - 4, 28, 8);
+    // Patillas
+    ctx.fillRect(x + 7, y + 2, 3, 6);
+    ctx.fillRect(x + ancho - 10, y + 2, 3, 6);
+
+    // --- Gafas de sol oscuras ---
+    ctx.fillStyle = '#111111';
+    ctx.fillRect(x + 11, y + 5, 8, 5);
+    ctx.fillRect(x + 21, y + 5, 8, 5);
+    // Puente de las gafas
+    ctx.fillStyle = '#333333';
+    ctx.lineWidth = 1;
+    ctx.fillRect(x + 19, y + 7, 2, 2);
+    // Patillas de las gafas
+    ctx.fillRect(x + 10, y + 6, 2, 2);
+    ctx.fillRect(x + 29, y + 6, 2, 2);
+
+    // Reflejo en los lentes
+    ctx.fillStyle = 'rgba(100, 150, 200, 0.3)';
+    ctx.fillRect(x + 12, y + 6, 3, 2);
+    ctx.fillRect(x + 22, y + 6, 3, 2);
+
+    // --- Boca: expresión nerviosa (línea torcida) ---
+    ctx.strokeStyle = '#8a5a4a';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x + 14, y + 14);
+    ctx.lineTo(x + 18, y + 13);
+    ctx.lineTo(x + 22, y + 15);
+    ctx.stroke();
+
+    // --- Maletín sospechoso (mano izquierda) ---
+    ctx.fillStyle = '#5a3a1a';
+    ctx.fillRect(x - 8, y + alto - 18, 14, 10);
+    // Asa del maletín
+    ctx.fillStyle = '#8B4513';
+    ctx.fillRect(x - 4, y + alto - 20, 6, 3);
+    // Cerradura
+    ctx.fillStyle = '#FFD700';
+    ctx.fillRect(x - 3, y + alto - 12, 3, 2);
+
+    // --- Reloj de oro (muñeca derecha) ---
+    ctx.fillStyle = '#FFD700';
+    ctx.fillRect(x + ancho + 1, y + alto - 12, 5, 4);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(x + ancho + 2, y + alto - 11, 3, 2);
+
+    // --- Hombros anchos ---
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(x - 2, y + 14, 6, 8);
+    ctx.fillRect(x + ancho - 4, y + 14, 6, 8);
+
+    // --- Botones del traje ---
+    ctx.fillStyle = '#333344';
+    ctx.beginPath();
+    ctx.arc(cx, y + 32, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx, y + 38, 1.5, 0, Math.PI * 2);
+    ctx.fill();
   }
 }

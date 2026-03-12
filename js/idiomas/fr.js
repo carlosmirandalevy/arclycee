@@ -312,6 +312,67 @@ const fr = {
 
       misionExplorar: 'Explore l\'épave de La Pinta',
       misionCompleta: 'Épave explorée ! Retour à la carte (M)'
+    },
+
+    // Monde Juridique — Aéroport Las Américas (Acte 4)
+    juridico: {
+      draMartinez1: 'Je t\'attendais ! La carte des épaves a révélé quelque chose d\'inquiétant.',
+      draMartinez2: 'Quelqu\'un fait sortir des artefacts archéologiques du pays par cet aéroport.',
+      draMartinez3: 'Il nous faut des preuves solides. Parle à l\'Agent des Douanes et à l\'Inspecteur d\'INTERPOL.',
+      draMartinez4: 'Maître Carmen Vidal te conseillera sur les lois de protection du patrimoine.',
+      draMartinezRepite: 'Parle à l\'Agent Montero aux douanes. Elle peut te donner les registres.',
+      draMartinezPostCombate: 'Tu as réussi ! Les artefacts seront rendus au Musée de l\'Homme Dominicain.',
+
+      agente1: 'Je suis l\'Agent Rosa Montero, des Douanes. J\'ai détecté des mouvements suspects.',
+      agente2: 'La Loi 318-68 interdit l\'exportation de tout bien du patrimoine culturel dominicain.',
+      agente3: 'Les amendes vont de 500 à 10 000 salaires minimums, plus 2 à 10 ans de prison.',
+      agente4: 'J\'ai préparé un registre douanier avec les anomalies. Cherche-le près de la machine à rayons X.',
+      agenteRepite: 'Le registre douanier est près de la machine à rayons X. Récupère-le comme preuve.',
+      agentePostCombate: 'Cette affaire fera jurisprudence. La Loi 318 s\'applique dans toute sa rigueur.',
+
+      inspector1: 'Inspecteur Ramírez, INTERPOL. Nous traquons un réseau de trafic d\'antiquités.',
+      inspector2: 'INTERPOL possède une base de données d\'œuvres d\'art volées avec plus de 52 000 entrées.',
+      inspector3: 'La coopération internationale est essentielle. Un artefact volé en RD peut apparaître aux enchères en Europe.',
+      inspector4: 'Avec tes preuves et la Loi 318, nous pouvons lancer une alerte internationale contre Torres.',
+      inspectorRepite: 'Rassemble toutes les preuves possibles avant d\'affronter le suspect.',
+      inspectorPostCombate: 'INTERPOL a émis l\'alerte. Ce trafiquant n\'échappera pas à la justice internationale.',
+
+      carmen1_1: 'Je suis Maître Carmen Vidal, spécialiste en droit du patrimoine.',
+      carmen1_2: 'La Loi 318-68 déclare patrimoine national tout objet archéologique trouvé en sol dominicain.',
+      carmen1_3: 'Personne ne peut exporter, vendre ni détruire des biens patrimoniaux sans l\'autorisation de l\'État.',
+      carmen2_1: 'La Convention UNESCO de 1970 est le cadre international contre le trafic de biens culturels.',
+      carmen2_2: 'Plus de 140 pays l\'ont ratifiée. Elle oblige à restituer les biens culturels volés à leur pays d\'origine.',
+      carmen3_1: 'Pour signaler un trafic de patrimoine, on dépose une plainte au Ministère de la Culture.',
+      carmen3_2: 'Tu peux aussi aller au Parquet Général. Ils activent la chaîne judiciaire.',
+      carmen4_1: 'Le Ministère de la Culture protège le patrimoine national à travers la Direction du Patrimoine Monumental.',
+      carmen4_2: 'Ils tiennent le registre des biens culturels et autorisent — ou refusent — toute exportation.',
+      carmen5_1: 'En 2014, la RD a récupéré des artefacts taïnos vendus illégalement à des collectionneurs européens.',
+      carmen5_2: 'Grâce à INTERPOL et la Loi 318, les pièces sont retournées au Musée de l\'Homme Dominicain.',
+
+      traficante1: 'Qu\'est-ce que tu veux, gamin ? J\'attends mon vol.',
+      traficante2: 'Des artefacts ? Je ne vois pas de quoi tu parles. Cette valise contient... des souvenirs.',
+      traficantePaz1: 'Les preuves sont accablantes. Torres se rend aux autorités.',
+      traficantePaz2: 'Les artefacts seront rendus au Musée de l\'Homme Dominicain.',
+      traficanteDerrota: 'Torres est arrêté. L\'affaire passe devant les tribunaux.',
+      traficantePostCombate: 'Vous m\'avez eu... mais c\'est plus grand que moi. Il y a tout un réseau.',
+
+      etiquetaEvidencia: 'Preuve :',
+      combatePista: 'Utilise les lois et les preuves pour construire un dossier juridique',
+      accionLey318: 'Loi 318',
+      accionLey318Msg: 'Tu cites la Loi 318-68 sur le Patrimoine Culturel !',
+      respuestaLey318: 'Torres montre des permis d\'exportation falsifiés.',
+      accionForense: 'Preuve',
+      accionForenseMsg: 'Tu présentes les preuves forensiques d\'authenticité !',
+      respuestaForense: 'Torres prétend que ce sont des répliques artisanales.',
+      accionInterpol: 'INTERPOL',
+      accionInterpolMsg: 'Tu actives l\'alerte internationale d\'INTERPOL !',
+      respuestaInterpol: 'Torres menace de fuir vers une autre juridiction.',
+      accionUnesco: 'UNESCO 1970',
+      accionUnescoMsg: 'Tu invoques la Convention UNESCO de 1970 !',
+      respuestaUnesco: 'Torres essaie de corrompre pour qu\'on le laisse partir.',
+
+      misionExplorar: 'Enquête sur le trafic d\'artefacts',
+      misionCompleta: 'Affaire résolue ! Retour à la carte (M)'
     }
   },
 
@@ -360,7 +421,12 @@ const fr = {
     clavoBronce: 'Clou en Bronze',
     descClavoBronce: 'Clou en bronze de la coque de La Pinta. Il résistait à la corrosion de l\'eau salée.',
     mapaNaufragios: 'Carte des Épaves',
-    descMapaNaufragios: 'Carte indiquant l\'emplacement des épaves dans les Caraïbes dominicaines. Cadeau de l\'archéologue sous-marine.'
+    descMapaNaufragios: 'Carte indiquant l\'emplacement des épaves dans les Caraïbes dominicaines. Cadeau de l\'archéologue sous-marine.',
+
+    registroAduanal: 'Registre Douanier',
+    descRegistroAduanal: 'Document officiel des douanes avec les anomalies détectées dans les envois de Torres.',
+    ordenJudicial: 'Ordonnance du Tribunal',
+    descOrdenJudicial: 'Ordonnance du tribunal autorisant la confiscation des artefacts trafiqués.'
   },
 
   inventario: {

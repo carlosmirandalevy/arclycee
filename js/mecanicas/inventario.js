@@ -555,6 +555,43 @@ export class Inventario {
       ctx.fillStyle = '#D4956B';
       ctx.fillRect(x + 11, y + 6, 4, 2);
 
+    } else if (id === 'registroAduanal') {
+      // Registro aduanal — documento oficial con sello rojo
+      ctx.fillStyle = '#D2B48C';
+      ctx.fillRect(x + 4, y + 4, 24, 24);
+      // Líneas de texto
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(x + 7, y + 9, 18, 1);
+      ctx.fillRect(x + 7, y + 13, 14, 1);
+      ctx.fillRect(x + 7, y + 17, 18, 1);
+      // Sello rojo oficial
+      ctx.fillStyle = '#CC3333';
+      ctx.beginPath();
+      ctx.arc(x + 22, y + 22, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FF6666';
+      ctx.beginPath();
+      ctx.arc(x + 22, y + 22, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+    } else if (id === 'ordenJudicial') {
+      // Orden judicial — documento con borde dorado y martillo
+      ctx.fillStyle = '#708090';
+      ctx.fillRect(x + 4, y + 4, 24, 24);
+      // Borde dorado
+      ctx.strokeStyle = '#DAA520';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 4, y + 4, 24, 24);
+      // Líneas de texto
+      ctx.fillStyle = '#2F4F4F';
+      ctx.fillRect(x + 7, y + 9, 18, 1);
+      ctx.fillRect(x + 7, y + 13, 14, 1);
+      ctx.fillRect(x + 7, y + 17, 18, 1);
+      // Martillo de juez (mini)
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(x + 14, y + 20, 8, 3);
+      ctx.fillRect(x + 16, y + 18, 4, 6);
+
     } else if (id === 'mapaNaufragios') {
       // Mapa de naufragios — pergamino azulado con siluetas de barcos
       ctx.fillStyle = '#4488cc';
