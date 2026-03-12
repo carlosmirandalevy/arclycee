@@ -322,10 +322,10 @@ export class SistemaCombate {
     if (!this.enCombate) return;
 
     // --- Turno del enemigo con pausa ---
-    // Esperamos 0.8 segundos para que el jugador lea su mensaje
+    // Esperamos 1.8 segundos para que el jugador lea su mensaje de acción
     if (this._esperandoEnemigo) {
       this._tiempoEsperaEnemigo += dt;
-      if (this._tiempoEsperaEnemigo >= 0.8) {
+      if (this._tiempoEsperaEnemigo >= 1.8) {
         this.turnoEnemigo(jugador);
       }
       return;
