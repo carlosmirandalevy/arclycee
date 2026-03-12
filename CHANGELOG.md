@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.11.1 — Corrección combate + Inspector accesible (2026-03-12)
+
+### Corregido
+- **Mensajes de acción en combate desaparecían demasiado rápido**: la pausa antes del turno enemigo era de 0.8s, insuficiente para leer. Ahora es 2.5s para mensajes largos (pez león, traficante) y 1.8s para mensajes cortos (genéricos)
+- **Inspector Ramírez inaccesible**: estaba dentro de la Oficina de INTERPOL (estructura con colisión), el jugador no podía entrar. Movido al frente de la oficina
+
+---
+
 ## v0.11.0 — Mundo Jurídico: Aeropuerto Las Américas (2026-03-12)
 
 ### Agregado
