@@ -519,7 +519,7 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico', 'mundoJuridico'];
+    const escenasJugables = ['mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico', 'mundoJuridico'];
     if (escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
     }
