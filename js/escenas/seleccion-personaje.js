@@ -99,7 +99,7 @@ export class SeleccionPersonaje {
     const personajeAncho = 60;
     const personajeAlto = 80;
 
-    // --- Dibujar a Pepito (placeholder más grande) ---
+    // --- Dibujar a Pepito (sprite detallado del juego) ---
     this._dibujarPersonaje(ctx, {
       x: pepitoX,
       y: personajeY,
@@ -112,7 +112,7 @@ export class SeleccionPersonaje {
       peloPuntas: true
     });
 
-    // --- Dibujar a Pepita (placeholder más grande) ---
+    // --- Dibujar a Pepita (sprite detallado del juego) ---
     this._dibujarPersonaje(ctx, {
       x: pepitaX,
       y: personajeY,
@@ -157,9 +157,9 @@ export class SeleccionPersonaje {
     ctx.textAlign = 'left';
   }
 
-  // --- Dibujar un personaje placeholder con detalles ---
-  // Usamos rectángulos y cuadrados para construir una silueta simple
-  // que da la idea del personaje sin necesitar sprites reales
+  // --- Dibujar un personaje con el sprite detallado del juego ---
+  // Usa el mismo diseño que se ve en los mundos top-down y las cuevas,
+  // escalado ×2.5 para que se aprecie bien en la pantalla de selección
   _dibujarPersonaje(ctx, opciones) {
     const { x, y, ancho, alto, color, nombre, seleccionado, animacion, peloPuntas } = opciones;
     const yAnimado = y + animacion;
@@ -168,46 +168,88 @@ export class SeleccionPersonaje {
     if (seleccionado) {
       ctx.strokeStyle = '#FFD700';
       ctx.lineWidth = 3;
-      ctx.strokeRect(x - 10, yAnimado - 10, ancho + 20, alto + 20);
+      ctx.strokeRect(x - 10, yAnimado - 20, ancho + 20, alto + 40);
 
       // Brillo sutil detrás del personaje seleccionado
       ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
-      ctx.fillRect(x - 10, yAnimado - 10, ancho + 20, alto + 20);
+      ctx.fillRect(x - 10, yAnimado - 20, ancho + 20, alto + 40);
     }
 
-    // Cuerpo principal
-    ctx.fillStyle = color;
-    ctx.fillRect(x, yAnimado, ancho, alto);
+    // Escalar el sprite del juego (originalmente ~28×35) al tamaño de la selección
+    const escala = 2.5;
+    // Centrar el sprite escalado dentro del área del personaje
+    const spriteAncho = 28 * escala;
+    const spriteAlto = 36 * escala;
+    const sx = x + (ancho - spriteAncho) / 2;
+    const sy = yAnimado + (alto - spriteAlto) / 2;
 
-    // Cabeza (un cuadrado encima del cuerpo)
-    const cabezaTamano = ancho * 0.6;
-    const cabezaX = x + (ancho - cabezaTamano) / 2;
-    const cabezaY = yAnimado - cabezaTamano * 0.7;
-    ctx.fillStyle = '#D2956A';
-    ctx.fillRect(cabezaX, cabezaY, cabezaTamano, cabezaTamano);
+    ctx.save();
+    ctx.translate(sx, sy);
+    ctx.scale(escala, escala);
 
-    // Pelo: corto con puntas para Pepito, largo para Pepita
-    ctx.fillStyle = '#1a1a1a';
-    if (peloPuntas) {
-      // Pelo corto: solo la parte de arriba de la cabeza
-      ctx.fillRect(cabezaX - 2, cabezaY - 4, cabezaTamano + 4, 10);
+    const esPepito = peloPuntas;
+    const colorCuerpo = esPepito ? '#4488ff' : '#aa44ff';
+    const colorCuerpoOscuro = esPepito ? '#3366cc' : '#8833cc';
+    const colorPiel = '#D2956A';
+
+    // --- Sombra ---
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.beginPath();
+    ctx.ellipse(14, 37, 12, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // --- Piernas (animación de idle sutil) ---
+    const animPiernas = seleccionado ? Math.sin(this.tiempoAnimacion * 2) * 1.5 : 0;
+    ctx.fillStyle = '#2a5599';
+    ctx.fillRect(6, 26 + animPiernas, 7, 8);
+    ctx.fillRect(15, 26 - animPiernas, 7, 8);
+
+    // --- Zapatos ---
+    ctx.fillStyle = '#4a3520';
+    ctx.fillRect(5, 32 + animPiernas, 8, 3);
+    ctx.fillRect(15, 32 - animPiernas, 8, 3);
+
+    // --- Cuerpo (torso) ---
+    ctx.fillStyle = colorCuerpo;
+    ctx.fillRect(4, 10, 20, 16);
+
+    // Detalle de ropa: línea más oscura al centro
+    ctx.fillStyle = colorCuerpoOscuro;
+    ctx.fillRect(13, 12, 2, 12);
+
+    // --- Brazos ---
+    const animBrazos = seleccionado ? Math.sin(this.tiempoAnimacion * 2) * 1 : 0;
+    ctx.fillStyle = colorPiel;
+    ctx.fillRect(0, 14 + animBrazos, 4, 10);
+    ctx.fillRect(24, 14 - animBrazos, 4, 10);
+
+    // --- Cabeza ---
+    ctx.fillStyle = colorPiel;
+    ctx.fillRect(6, 0, 16, 14);
+
+    // --- Cabello ---
+    ctx.fillStyle = esPepito ? '#2a1a0a' : '#1a0a00';
+    if (esPepito) {
+      ctx.fillRect(5, -2, 18, 6);
     } else {
-      // Pelo largo: cubre los lados de la cabeza y baja más
-      ctx.fillRect(cabezaX - 4, cabezaY - 4, cabezaTamano + 8, 10);
-      ctx.fillRect(cabezaX - 4, cabezaY, 5, cabezaTamano + 8);
-      ctx.fillRect(cabezaX + cabezaTamano - 1, cabezaY, 5, cabezaTamano + 8);
+      ctx.fillRect(4, -2, 20, 6);
+      ctx.fillRect(3, 2, 4, 10);
+      ctx.fillRect(21, 2, 4, 10);
     }
 
-    // Ojos blancos con pupilas negras
+    // --- Ojos ---
     ctx.fillStyle = '#FFFFFF';
-    const ojoCentroX = cabezaX + cabezaTamano / 2;
-    const ojoCentroY = cabezaY + cabezaTamano * 0.4;
-    ctx.fillRect(ojoCentroX - 8, ojoCentroY, 5, 5);
-    ctx.fillRect(ojoCentroX + 3, ojoCentroY, 5, 5);
-
+    ctx.fillRect(9, 4, 3, 3);
+    ctx.fillRect(16, 4, 3, 3);
     ctx.fillStyle = '#000000';
-    ctx.fillRect(ojoCentroX - 6, ojoCentroY + 1, 2, 2);
-    ctx.fillRect(ojoCentroX + 5, ojoCentroY + 1, 2, 2);
+    ctx.fillRect(10, 5, 1.5, 1.5);
+    ctx.fillRect(17, 5, 1.5, 1.5);
+
+    // --- Boca (sonrisa) ---
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(11, 10, 6, 1);
+
+    ctx.restore();
 
     // Nombre debajo del personaje
     ctx.font = seleccionado ? 'bold 18px monospace' : '16px monospace';

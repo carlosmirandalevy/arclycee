@@ -418,6 +418,12 @@ export class MenuPrincipal {
           const idiomaActual = this.codigosIdioma[this.idiomaIndice];
           const archivoDoc = archivosDoc[idiomaActual] || 'docs.html';
           window.open(archivoDoc, '_blank');
+          // Al abrir una pestaña nueva, el navegador le da el foco a esa pestaña.
+          // Cuando el jugador vuelve, las teclas pueden quedar "atascadas" porque
+          // el evento keyup se perdió. Refocalizamos la ventana del juego después
+          // de un instante para que el teclado vuelva a funcionar correctamente.
+          this.bloqueoEntrada = true;
+          setTimeout(() => window.focus(), 100);
         }
         break;
 

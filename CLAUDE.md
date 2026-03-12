@@ -41,6 +41,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - `Entrada.estaPresionada(accion)` — SIEMPRE usar este método, no acceder propiedades directas
 - Patrón de bloqueo: `bloqueoEntrada = true` cuando se actúa, `= false` cuando se suelta la tecla
 - `bloqueoEntrada` debe empezar en `true` al entrar a escenas donde la tecla de activación podría estar presionada
+- `Entrada` escucha `window.blur` y limpia teclas presionadas al perder foco (evita teclas "pegadas" al cambiar de pestaña)
 
 ### Combate (`js/mecanicas/combate.js`)
 - Estilo Undertale con ruta pacifista (paciencia 100 = victoria pacífica)
@@ -78,6 +79,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Guardias invisibles**: `if (!guardia.activo && !this._cambioEnCurso) return` al inicio de `_dibujarGuardia()`
 - **Medusas pasivas**: movimiento sinusoidal entre waypoints, contacto = daño + `efectoLentitud` (segundos), cooldown con `invulnerabilidad`
 - **Depth sorting**: entidades se ordenan por Y antes de dibujar para efecto de profundidad (usado en Mundo Acuático)
+- **Sprites en selección de personaje**: `_dibujarPersonaje()` usa el sprite detallado del juego escalado ×2.5 (no placeholders simples)
 
 ## Qué NO hacer
 

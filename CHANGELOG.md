@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.9.2 — Sprites detallados en selección + fix teclado (2026-03-12)
+
+### Mejorado
+- **Pantalla de selección de personaje**: sprites reescritos con el diseño detallado del juego (cabeza, cabello, ojos con pupilas, torso con ropa, brazos, piernas animadas, zapatos, sombra) escalado ×2.5, reemplazando el placeholder simple anterior
+- **Animación idle en selección**: el personaje seleccionado mueve piernas y brazos suavemente con `Math.sin`
+
+### Corregido
+- **Teclado se quedaba "pegado" al abrir documentación**: al abrir `docs.html` en nueva pestaña, el foco se iba a esa pestaña y los eventos `keyup` se perdían. Ahora `Entrada` escucha `window.blur` y limpia todas las teclas presionadas al perder foco
+- **Refoco automático tras documentación**: `menu-principal.js` llama `window.focus()` 100ms después de `window.open()` para que el teclado vuelva a funcionar al regresar
+
+---
+
 ## v0.9.1 — Corrección medusa + tortuga nadadora (2026-03-12)
 
 ### Corregido

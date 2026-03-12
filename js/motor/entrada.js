@@ -64,8 +64,17 @@ export class Entrada {
       }
     };
 
+    // Cuando la ventana pierde el foco (ej: el jugador abre otra pestaña),
+    // limpiamos todas las teclas presionadas. Sin esto, las teclas quedan
+    // "pegadas" porque el evento keyup se dispara en la otra pestaña y
+    // esta ventana nunca lo recibe.
+    this.funcionPerderFoco = () => {
+      this.teclasPresionadas.clear();
+    };
+
     window.addEventListener('keydown', this.funcionTeclaAbajo);
     window.addEventListener('keyup', this.funcionTeclaArriba);
+    window.addEventListener('blur', this.funcionPerderFoco);
   }
 
   // --- CONTROLES TÁCTILES ---
@@ -183,6 +192,9 @@ export class Entrada {
     }
     if (this.funcionTeclaArriba) {
       window.removeEventListener('keyup', this.funcionTeclaArriba);
+    }
+    if (this.funcionPerderFoco) {
+      window.removeEventListener('blur', this.funcionPerderFoco);
     }
 
     // Quitar botones táctiles del DOM
