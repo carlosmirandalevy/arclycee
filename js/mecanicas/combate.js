@@ -267,7 +267,12 @@ export class SistemaCombate {
       this.hostilidad = Math.min(100, this.hostilidad + subeHostilidad);
       this.paciencia = Math.max(0, this.paciencia - bajaPatience);
 
-      this._mensaje = resp.mensaje || `${this.enemigo?.nombre || 'Enemigo'} contraataca.`;
+      // La contra-respuesta también causa daño al jugador
+      const danoContra = (this.enemigo.fuerza || 2) + Math.floor(Math.random() * 3);
+      jugador.recibirDano(danoContra);
+
+      this._mensaje = (resp.mensaje || `${this.enemigo?.nombre || 'Enemigo'} contraataca.`)
+        + ` -${danoContra} HP`;
 
     } else if (this.hostilidad < 30 && Math.random() > 0.3) {
       // El enemigo se calma y habla (la paciencia sube sola)
