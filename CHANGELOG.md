@@ -79,6 +79,7 @@
 - Guardias de relevo: ahora invisibles hasta que comienza la ceremonia de cambio
 - Guardias marchando: entran desde fuera de pantalla horizontalmente (no se deslizan verticalmente)
 - Cassá reubicado de la Catedral a Calle de las Damas (más apropiado temáticamente)
+- Versión en el menú principal actualizada de v0.1 a v0.8
 
 ---
 
