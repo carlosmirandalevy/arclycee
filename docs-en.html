@@ -98,8 +98,10 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--borde);
       padding: 0 20px;
-      overflow-x: auto;
-      white-space: nowrap;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
     }
     nav a {
       display: inline-block;
@@ -109,8 +111,14 @@
       font-size: 0.9rem;
       font-weight: 500;
       transition: color 0.2s;
+      white-space: nowrap;
     }
     nav a:hover, nav a.active { color: var(--dorado); }
+
+    @media (max-width: 600px) {
+      nav { padding: 4px 8px; gap: 0; }
+      nav a { padding: 10px 10px; font-size: 0.8rem; }
+    }
 
     /* --- Container --- */
     .contenedor {
@@ -643,7 +651,7 @@
           <div class="npc-info">
             <h5>Dra. Martínez</h5>
             <div class="npc-role">Archaeologist</div>
-            <p>Appears near the exit. She gives you Magnoboot, your first companion — a digging robot.</p>
+            <p>Appears near the exit. Explains that the Taínos adorned their cemíes with guanín — an alloy of gold, silver, and copper — especially on the eyes and sensory organs. She gives you Magnoboot, your first companion — a digging robot.</p>
           </div>
         </div>
 
@@ -651,7 +659,7 @@
         <div class="grid-2">
           <div class="item-card"><h5>🔦 Flashlight</h5><p>Expands your light radius in the darkness.</p></div>
           <div class="item-card"><h5>🗺️ Map Fragment</h5><p>Parchment with clues about the island.</p></div>
-          <div class="item-card"><h5>🗿 Taíno Artifact</h5><p>A golden cemí with carved eyes.</p></div>
+          <div class="item-card"><h5>🗿 Taíno Artifact</h5><p>A cemí with golden guanín details on the eyes and sensory organs.</p></div>
         </div>
       </div>
 
@@ -927,35 +935,83 @@
           history, bringing the knowledge to the Museo de las Atarazanas Reales.
         </p>
 
-        <h4>Planned levels</h4>
+        <h4>Planned Levels</h4>
         <ul>
-          <li><strong>La Pinta Shipwreck</strong> — underwater exploration of Columbus's ship</li>
-          <li><strong>Historical shipwrecks</strong> — various underwater sites with artifacts</li>
-          <li><strong>Coral reefs</strong> — marine biodiversity and environmental threats</li>
+          <li><strong>La Pinta Shipwreck</strong> — underwater exploration of Columbus's ship (whose timbers built Fortaleza Navidad)</li>
+          <li><strong>Historic Shipwrecks</strong> — multiple underwater sites with colonial artifacts</li>
+          <li><strong>Coral Reefs</strong> — Dominican marine biodiversity and environmental threats</li>
+          <li><strong>Museo de las Atarazanas Reales</strong> — final destination where acquired knowledge is deposited</li>
         </ul>
 
-        <h4>Planned characters</h4>
+        <h4>Marine Wildlife</h4>
+        <p>The aquatic world features the real biodiversity of the Dominican Caribbean:</p>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="item-card">
+            <h5>🐢 Sea Turtles (4 species)</h5>
+            <p><strong>Carey</strong> (Hawksbill) — critically endangered, nests on Dominican beaches.<br>
+            <strong>Tinglar</strong> (Leatherback) — the world's largest, up to 2 meters.<br>
+            <strong>Green Turtle</strong> — herbivore, maintains seagrass meadows.<br>
+            <strong>Caguama</strong> (Loggerhead) — large-headed, crushes shells with its jaw.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐋 Humpback Whales</h5>
+            <p>Migrate from December to March to Hispaniola's north coast to mate and give birth. Samaná Bay is one of the world's best spots to observe them.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐬 Bottlenose Dolphins</h5>
+            <p>Common Caribbean species. Intelligent and sociable, seen off Dominican coasts year-round.</p>
+          </div>
+          <div class="item-card">
+            <h5>🦭 Antillean Manatee</h5>
+            <p>Pre-Columbian endangered species. The Taínos knew and depicted it in their art. Lives in shallow coastal waters and estuaries.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐠 Parrotfish</h5>
+            <p>Vital for coral reef health: eats algae that smother coral and produces white beach sand by digesting coral fragments.</p>
+          </div>
+        </div>
+
+        <h4>Threats &amp; Enemies</h4>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🦁 Lionfish</h5>
+            <p>Invasive species devastating Caribbean ecosystems. With no natural predators, it devours juvenile fish and crustaceans. <strong>Combat encounter</strong> — the player learns about the ecological damage of invasive species.</p>
+          </div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🪼 Jellyfish</h5>
+            <p>Dodge obstacle: touching them causes damage + slow effect. The player must navigate around them in shipwreck zones.</p>
+          </div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🏴‍☠️ Underwater Looters</h5>
+            <p>Traffickers who steal artifacts from shipwrecks to sell them illegally. They connect to the Juridical World conflict.</p>
+          </div>
+        </div>
+
+        <h4>Planned Characters</h4>
         <div class="npc-card">
           <div class="npc-avatar">🎣</div>
           <div class="npc-info">
             <h5>Fisherman</h5>
             <div class="npc-role">Guide to the aquatic world</div>
-            <p>Offers his canoe and takes Pepito to the first shipwreck.</p>
+            <p>Offers his canoe at La Isabela and takes Pepito to the first shipwreck.</p>
           </div>
         </div>
         <div class="npc-card">
           <div class="npc-avatar">🤿</div>
           <div class="npc-info">
-            <h5>Amateur archaeologist</h5>
-            <div class="npc-role">Gives the shipwreck map</div>
-            <p>Underwater explorer who knows the submerged historical sites.</p>
+            <h5>Amateur Archaeologist</h5>
+            <div class="npc-role">Delivers the shipwreck map</div>
+            <p>Underwater explorer who knows the submerged historic sites.</p>
           </div>
         </div>
 
-        <h4>Planned mechanics</h4>
+        <h4>Planned Mechanics</h4>
         <ul>
           <li>Underwater exploration with limited oxygen</li>
-          <li>Ocean currents and interactive marine life</li>
+          <li>Ocean currents that push the player</li>
+          <li>Interactive wildlife: turtles, dolphins and manatees as friendly guides</li>
+          <li>Combat against lionfish (invasive species)</li>
+          <li>Dodge jellyfish (damage + slow effect)</li>
           <li>Artifact collection for the Museo de las Atarazanas Reales</li>
         </ul>
       </div>

@@ -420,7 +420,7 @@ export class CuevasPomier {
             this.juego.inventario.agregar({
               id: 'artefactoTaino',
               nombre: nombreObjeto,
-              descripcion: objTextos.descArtefactoTaino || 'Un cemí dorado.',
+              descripcion: objTextos.descArtefactoTaino || 'Un cemí con detalles dorados.',
               tipo: 'clave',
               esUsable: false
             });
@@ -474,6 +474,7 @@ export class CuevasPomier {
           this.dialogos.iniciarDialogo([
             { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoIntro || '¡Alto ahí!' },
             { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoReconoce || '¿Encontraste petroglifos?' },
+            { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoGuanin || 'Los taínos adornaban sus cemíes con guanín, una aleación de oro, plata y cobre.' },
             { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoRegalo || 'Toma a Magnoboot.' },
             { personaje: '🔬 Dra. Martínez', texto: cueva?.arqueologoDespedida || 'Cuida el patrimonio.' }
           ], () => {
@@ -1156,7 +1157,7 @@ export class CuevasPomier {
       ctx.fillRect(ox + 3, oy + 7, 8, 1);
       ctx.fillRect(ox + 3, oy + 10, 10, 1);
     } else if (tipo === 'artefactoTaino') {
-      // Cemí dorado
+      // Cemí con detalles dorados de guanín
       ctx.fillStyle = '#FFD700';
       ctx.beginPath();
       ctx.arc(ox + 8, oy + 6, 5, 0, Math.PI * 2);

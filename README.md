@@ -30,7 +30,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 |---|---|
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura y areíto) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
-| Acuático | Naufragios, exploración submarina |
+| Acuático | Naufragios (La Pinta, sitios históricos), exploración submarina, fauna marina (4 tortugas, ballenas jorobadas, delfines, manatí antillano, pez loro), combate contra pez león invasor, Museo de las Atarazanas Reales |
 | Jurídico | Tráfico de reliquias, leyes de protección patrimonial |
 | Laboratorio | Autenticación de piezas, museos |
 
@@ -48,7 +48,7 @@ Elian · Théo · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Nael
 
 ## Documentación
 
-Abre [`docs.html`](docs.html) en el navegador para ver la documentación completa del proyecto: historia, flujo del juego, mundos, NPCs, mecánicas, compañeros y previsualizaciones generadas de cada nivel.
+Disponible en 3 idiomas: [`docs.html`](docs.html) (ES), [`docs-en.html`](docs-en.html) (EN), [`docs-fr.html`](docs-fr.html) (FR). También accesible desde el menú principal del juego (opción "Documentación").
 
 ## Licencia
 

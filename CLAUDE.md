@@ -50,6 +50,11 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - El turno enemigo usa `_ultimaAccion.respuestaEnemigo` para contra-respuestas específicas
 - `pistaPersonalizada` en el enemigo cambia el texto de ayuda inferior
 
+### Menú principal (`js/escenas/menu-principal.js`)
+- 6 opciones: nuevoJuego, continuarJuego, idioma, documentacion, opciones, creditos
+- `documentacion` abre `docs.html`, `docs-en.html` o `docs-fr.html` según `codigosIdioma[idiomaIndice]`
+- Idioma se cambia con flechas horizontales cuando la opción está seleccionada
+
 ### Idiomas (`js/idiomas/`)
 - 3 idiomas: `es.js`, `fr.js`, `en.js`
 - Acceso: `juego.idiomas.traducciones[juego.idiomas.idiomaActual]`
@@ -78,3 +83,4 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - No usar Q/Esc para salir de mundos (solo M o borde inferior)
 - No crear archivos de documentación sin que se pida
 - No usar `entrada.izquierda` — siempre `entrada.estaPresionada('izquierda')`
+- No llamar "cemí dorado" al artefacto taíno — históricamente los cemíes tenían detalles de guanín (aleación oro/plata/cobre), no eran de oro puro

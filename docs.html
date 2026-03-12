@@ -98,8 +98,10 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--borde);
       padding: 0 20px;
-      overflow-x: auto;
-      white-space: nowrap;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
     }
     nav a {
       display: inline-block;
@@ -109,8 +111,14 @@
       font-size: 0.9rem;
       font-weight: 500;
       transition: color 0.2s;
+      white-space: nowrap;
     }
     nav a:hover, nav a.active { color: var(--dorado); }
+
+    @media (max-width: 600px) {
+      nav { padding: 4px 8px; gap: 0; }
+      nav a { padding: 10px 10px; font-size: 0.8rem; }
+    }
 
     /* --- Contenedor --- */
     .contenedor {
@@ -643,7 +651,7 @@
           <div class="npc-info">
             <h5>Dra. Martínez</h5>
             <div class="npc-role">Arqueóloga</div>
-            <p>Aparece cerca de la salida. Te entrega a Magnoboot, tu primer compañero robot excavador.</p>
+            <p>Aparece cerca de la salida. Explica que los taínos adornaban sus cemíes con guanín — una aleación de oro, plata y cobre — especialmente en los ojos y órganos sensoriales. Te entrega a Magnoboot, tu primer compañero robot excavador.</p>
           </div>
         </div>
 
@@ -651,7 +659,7 @@
         <div class="grid-2">
           <div class="item-card"><h5>🔦 Linterna</h5><p>Agranda tu radio de luz en la oscuridad.</p></div>
           <div class="item-card"><h5>🗺️ Fragmento de Mapa</h5><p>Pergamino con pistas sobre la isla.</p></div>
-          <div class="item-card"><h5>🗿 Artefacto Taíno</h5><p>Un cemí dorado con ojos tallados.</p></div>
+          <div class="item-card"><h5>🗿 Artefacto Taíno</h5><p>Un cemí con detalles dorados de guanín en los ojos y órganos sensoriales.</p></div>
         </div>
       </div>
 
@@ -929,10 +937,55 @@
 
         <h4>Niveles planificados</h4>
         <ul>
-          <li><strong>Naufragio de La Pinta</strong> — exploración submarina del barco de Colón</li>
-          <li><strong>Naufragios históricos</strong> — varios sitios submarinos con artefactos</li>
-          <li><strong>Arrecifes de coral</strong> — biodiversidad marina y amenazas medioambientales</li>
+          <li><strong>Naufragio de La Pinta</strong> — exploración submarina del barco de Colón (con cuyas maderas se construyó la Fortaleza Navidad)</li>
+          <li><strong>Naufragios históricos</strong> — varios sitios submarinos con artefactos coloniales</li>
+          <li><strong>Arrecifes de coral</strong> — biodiversidad marina dominicana y amenazas medioambientales</li>
+          <li><strong>Museo de las Atarazanas Reales</strong> — destino final donde se depositan los conocimientos adquiridos</li>
         </ul>
+
+        <h4>Fauna marina</h4>
+        <p>El mundo acuático presenta la biodiversidad real del Caribe dominicano:</p>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="item-card">
+            <h5>🐢 Tortugas marinas (4 especies)</h5>
+            <p><strong>Carey</strong> (Hawksbill) — en peligro crítico, anida en playas dominicanas.<br>
+            <strong>Tinglar</strong> (Leatherback) — la más grande del mundo, hasta 2 metros.<br>
+            <strong>Tortuga Verde</strong> (Green) — herbívora, mantiene los pastos marinos.<br>
+            <strong>Caguama</strong> (Loggerhead) — de cabeza grande, rompe conchas con su mandíbula.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐋 Ballenas jorobadas</h5>
+            <p>Migran de diciembre a marzo a la costa norte de La Hispaniola para aparearse y dar a luz. La Bahía de Samaná es uno de los mejores sitios del mundo para observarlas.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐬 Delfines nariz de botella</h5>
+            <p>Especie común del Caribe. Inteligentes y sociables, se ven en las costas dominicanas todo el año.</p>
+          </div>
+          <div class="item-card">
+            <h5>🦭 Manatí antillano</h5>
+            <p>Especie precolombina en peligro de extinción. Los taínos lo conocían y lo representaban en su arte. Vive en aguas costeras poco profundas y estuarios.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐠 Pez loro (Parrotfish)</h5>
+            <p>Vital para la salud de los arrecifes de coral: come algas que sofocan el coral y produce la arena blanca de las playas al digerir fragmentos de coral.</p>
+          </div>
+        </div>
+
+        <h4>Amenazas y enemigos</h4>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🦁 Pez león (Lionfish)</h5>
+            <p>Especie invasora devastando los ecosistemas caribeños. Sin depredadores naturales, devora peces juveniles y crustáceos. <strong>Encuentro de combate</strong> — el jugador aprende sobre el daño ecológico de las especies invasoras.</p>
+          </div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🪼 Aguas vivas (Medusas)</h5>
+            <p>Obstáculo de esquivar: tocarlas causa daño + efecto de lentitud. El jugador debe navegar entre ellas en las zonas de naufragio.</p>
+          </div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🏴‍☠️ Saqueadores submarinos</h5>
+            <p>Traficantes que roban artefactos de los naufragios para venderlos ilegalmente. Conectan con el conflicto del Mundo Jurídico.</p>
+          </div>
+        </div>
 
         <h4>Personajes planificados</h4>
         <div class="npc-card">
@@ -940,7 +993,7 @@
           <div class="npc-info">
             <h5>Pescador</h5>
             <div class="npc-role">Guía al mundo acuático</div>
-            <p>Ofrece su canoa y lleva a Pepito al primer naufragio.</p>
+            <p>Ofrece su canoa en La Isabela y lleva a Pepito al primer naufragio.</p>
           </div>
         </div>
         <div class="npc-card">
@@ -955,7 +1008,10 @@
         <h4>Mecánicas planificadas</h4>
         <ul>
           <li>Exploración submarina con oxígeno limitado</li>
-          <li>Corrientes marinas y vida marina interactiva</li>
+          <li>Corrientes marinas que empujan al jugador</li>
+          <li>Fauna interactiva: tortugas, delfines y manatíes como guías amigables</li>
+          <li>Combate contra pez león (especie invasora)</li>
+          <li>Esquivar medusas (daño + efecto de lentitud)</li>
           <li>Recolección de artefactos para el Museo de las Atarazanas Reales</li>
         </ul>
       </div>

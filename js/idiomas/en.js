@@ -8,7 +8,8 @@ const en = {
     continuarJuego: 'Continue Game',
     opciones: 'Options',
     idioma: 'Language',
-    creditos: 'Credits'
+    creditos: 'Credits',
+    documentacion: 'Documentation'
   },
 
   seleccion: {
@@ -92,6 +93,7 @@ const en = {
 
       arqueologoIntro: 'Hold it right there! Who are you?',
       arqueologoReconoce: 'Wait... you found petroglyphs? Amazing! I\'m Dr. Martínez, archaeologist.',
+      arqueologoGuanin: 'Fascinating! No fully golden cemí has ever been found, but the Taínos adorned their cemíes with guanín — an alloy of gold, silver, and copper — especially on the eyes and sensory organs.',
       arqueologoRegalo: 'Here, you\'ll need this out there. It\'s Magnoboot, an excavator robot that will help you.',
       arqueologoDespedida: 'Protect the heritage. Every piece you find belongs to the Dominican people.',
 
@@ -293,7 +295,7 @@ const en = {
     descBrujula: 'Points north. Helps you navigate large areas.',
     descMapa: 'An ancient map with mysterious marks of archaeological sites.',
     descFragmentoMapa: 'A piece of an ancient map. It seems to show the location of other caves.',
-    descArtefactoTaino: 'A golden cemí. It should be taken to the museum for study.',
+    descArtefactoTaino: 'A cemí with golden details. It should be taken to the museum for study.',
     descMagnetometro: 'Detects metallic objects buried underground.',
 
     arcabuz: 'Colonial Arquebus',

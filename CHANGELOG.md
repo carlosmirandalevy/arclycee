@@ -1,5 +1,42 @@
 # Changelog
 
+## v0.8.3 — Menú Documentación + Mundo Acuático + Corrección Guanín (2026-03-12)
+
+### Agregado
+
+**Opción "Documentación" en el menú principal** (`menu-principal.js`)
+- Nueva opción entre "Idioma" y "Opciones" que abre la documentación en una nueva pestaña
+- Abre automáticamente el archivo correcto según el idioma activo: `docs.html` (ES), `docs-en.html` (EN), `docs-fr.html` (FR)
+- Traducción del label en los 3 idiomas: "Documentación" / "Documentation" / "Documentation"
+
+**Fauna marina del Mundo Acuático** (documentación, 3 idiomas)
+- 5 especies amigables/educativas:
+  - 4 tortugas marinas: Carey (Hawksbill), Tinglar (Leatherback), Tortuga Verde, Caguama (Loggerhead)
+  - Ballenas jorobadas (migran dic-mar a Samaná)
+  - Delfines nariz de botella
+  - Manatí antillano (especie precolombina en peligro)
+  - Pez loro (vital para arrecifes y formación de arena blanca)
+- 3 amenazas/enemigos:
+  - Pez león: especie invasora, encuentro de combate
+  - Aguas vivas (medusas): obstáculo de esquivar con daño + lentitud
+  - Saqueadores submarinos: traficantes conectados al Mundo Jurídico
+- Nivel adicional: Museo de las Atarazanas Reales como destino final
+- Mecánicas expandidas: corrientes marinas, fauna interactiva como guías, combate contra pez león
+
+**Navegación responsive en documentación** (3 archivos HTML)
+- Nav cambiado de `overflow-x: auto` a flexbox con `flex-wrap: wrap`
+- Media query `@media (max-width: 600px)` con padding y fuente reducidos
+
+### Corregido
+
+**Artefacto Taíno — corrección histórica** (guanín, no oro)
+- Descripción: "Un cemí dorado" → "Un cemí con detalles dorados" (y equivalentes EN/FR)
+- Nueva línea de diálogo de la Dra. Martínez (`arqueologoGuanin`): explica que nunca se ha hallado un cemí completamente dorado, pero los taínos adornaban sus cemíes con guanín — una aleación de oro, plata y cobre — especialmente en los ojos y órganos sensoriales
+- Traducciones en ES/FR/EN
+- Documentación actualizada: NPC card de Dra. Martínez y item card del artefacto en los 3 idiomas
+
+---
+
 ## v0.8.2 — Documentación HTML + Museo de la Catedral (2026-03-12)
 
 ### Agregado

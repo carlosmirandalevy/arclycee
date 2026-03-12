@@ -12,11 +12,11 @@ import { ANCHO_JUEGO, ALTO_JUEGO, CLAVE_GUARDADO } from '../motor/configuracion.
 export class MenuPrincipal {
 
   constructor() {
-    // Las 5 opciones que puede elegir el jugador en el menú.
+    // Las 6 opciones que puede elegir el jugador en el menú.
     // 'idioma' es una opción directa del menú (no un submenú)
     // porque el jugador necesita poder cambiar el idioma fácilmente
     // sin tener que entrar a "opciones" primero.
-    this.opciones = ['nuevoJuego', 'continuarJuego', 'idioma', 'opciones', 'creditos'];
+    this.opciones = ['nuevoJuego', 'continuarJuego', 'idioma', 'documentacion', 'opciones', 'creditos'];
 
     // Índice de la opción resaltada (empieza en 0 = "Nuevo Juego")
     this.seleccion = 0;
@@ -408,6 +408,17 @@ export class MenuPrincipal {
         this.idiomaIndice++;
         if (this.idiomaIndice >= this.codigosIdioma.length) this.idiomaIndice = 0;
         this._aplicarIdioma();
+        break;
+
+      case 'documentacion':
+        // Abrir la documentación en una nueva ventana según el idioma activo
+        // Mapa de idioma → archivo de documentación correspondiente
+        {
+          const archivosDoc = { es: 'docs.html', fr: 'docs-fr.html', en: 'docs-en.html' };
+          const idiomaActual = this.codigosIdioma[this.idiomaIndice];
+          const archivoDoc = archivosDoc[idiomaActual] || 'docs.html';
+          window.open(archivoDoc, '_blank');
+        }
         break;
 
       case 'opciones':

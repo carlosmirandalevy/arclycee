@@ -98,8 +98,10 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--borde);
       padding: 0 20px;
-      overflow-x: auto;
-      white-space: nowrap;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
     }
     nav a {
       display: inline-block;
@@ -109,8 +111,14 @@
       font-size: 0.9rem;
       font-weight: 500;
       transition: color 0.2s;
+      white-space: nowrap;
     }
     nav a:hover, nav a.active { color: var(--dorado); }
+
+    @media (max-width: 600px) {
+      nav { padding: 4px 8px; gap: 0; }
+      nav a { padding: 10px 10px; font-size: 0.8rem; }
+    }
 
     /* --- Conteneur --- */
     .contenedor {
@@ -643,7 +651,7 @@
           <div class="npc-info">
             <h5>Dra. Martínez</h5>
             <div class="npc-role">Archéologue</div>
-            <p>Apparaît près de la sortie. Elle te remet Magnoboot, ton premier compagnon robot excavateur.</p>
+            <p>Apparaît près de la sortie. Explique que les Taïnos ornaient leurs cemíes de guanín — un alliage d'or, d'argent et de cuivre — surtout sur les yeux et les organes sensoriels. Elle te remet Magnoboot, ton premier compagnon robot excavateur.</p>
           </div>
         </div>
 
@@ -651,7 +659,7 @@
         <div class="grid-2">
           <div class="item-card"><h5>🔦 Lampe torche</h5><p>Agrandit ton rayon de lumière dans l'obscurité.</p></div>
           <div class="item-card"><h5>🗺️ Fragment de Carte</h5><p>Parchemin avec des indices sur l'île.</p></div>
-          <div class="item-card"><h5>🗿 Artefact Taïno</h5><p>Un cemí doré aux yeux sculptés.</p></div>
+          <div class="item-card"><h5>🗿 Artefact Taïno</h5><p>Un cemí aux détails dorés de guanín sur les yeux et les organes sensoriels.</p></div>
         </div>
       </div>
 
@@ -927,35 +935,83 @@
           histoire, rapportant les connaissances au Museo de las Atarazanas Reales.
         </p>
 
-        <h4>Niveaux prévus</h4>
+        <h4>Niveaux planifiés</h4>
         <ul>
-          <li><strong>Épave de La Pinta</strong> — exploration sous-marine du navire de Colomb</li>
-          <li><strong>Naufrages historiques</strong> — divers sites sous-marins avec artefacts</li>
-          <li><strong>Récifs coralliens</strong> — biodiversité marine et menaces environnementales</li>
+          <li><strong>Épave de La Pinta</strong> — exploration sous-marine du navire de Colomb (dont le bois a servi à construire la Fortaleza Navidad)</li>
+          <li><strong>Épaves historiques</strong> — plusieurs sites sous-marins avec des artefacts coloniaux</li>
+          <li><strong>Récifs coralliens</strong> — biodiversité marine dominicaine et menaces environnementales</li>
+          <li><strong>Museo de las Atarazanas Reales</strong> — destination finale où les connaissances acquises sont déposées</li>
         </ul>
 
-        <h4>Personnages prévus</h4>
+        <h4>Faune marine</h4>
+        <p>Le monde aquatique présente la biodiversité réelle des Caraïbes dominicaines :</p>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="item-card">
+            <h5>🐢 Tortues marines (4 espèces)</h5>
+            <p><strong>Carey</strong> (Imbriquée) — en danger critique, nidifie sur les plages dominicaines.<br>
+            <strong>Tinglar</strong> (Luth) — la plus grande du monde, jusqu'à 2 mètres.<br>
+            <strong>Tortue verte</strong> — herbivore, entretient les herbiers marins.<br>
+            <strong>Caguama</strong> (Caouanne) — à grosse tête, brise les coquillages avec sa mâchoire.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐋 Baleines à bosse</h5>
+            <p>Migrent de décembre à mars vers la côte nord d'Hispaniola pour s'accoupler et mettre bas. La baie de Samaná est l'un des meilleurs endroits au monde pour les observer.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐬 Dauphins à gros nez</h5>
+            <p>Espèce commune des Caraïbes. Intelligents et sociables, ils sont visibles au large des côtes dominicaines toute l'année.</p>
+          </div>
+          <div class="item-card">
+            <h5>🦭 Lamantin des Antilles</h5>
+            <p>Espèce précolombienne en danger d'extinction. Les Taïnos le connaissaient et le représentaient dans leur art. Vit dans les eaux côtières peu profondes et les estuaires.</p>
+          </div>
+          <div class="item-card">
+            <h5>🐠 Poisson-perroquet</h5>
+            <p>Vital pour la santé des récifs : mange les algues qui étouffent le corail et produit le sable blanc des plages en digérant des fragments de corail.</p>
+          </div>
+        </div>
+
+        <h4>Menaces et ennemis</h4>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🦁 Poisson-lion (Rascasse volante)</h5>
+            <p>Espèce invasive dévastant les écosystèmes caribéens. Sans prédateurs naturels, il dévore poissons juvéniles et crustacés. <strong>Rencontre de combat</strong> — le joueur apprend les dégâts écologiques des espèces invasives.</p>
+          </div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🪼 Méduses</h5>
+            <p>Obstacle à esquiver : les toucher cause des dégâts + effet de ralentissement. Le joueur doit naviguer autour d'elles dans les zones d'épaves.</p>
+          </div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);">
+            <h5>🏴‍☠️ Pilleurs sous-marins</h5>
+            <p>Trafiquants qui volent des artefacts des épaves pour les vendre illégalement. Ils sont liés au conflit du Monde Juridique.</p>
+          </div>
+        </div>
+
+        <h4>Personnages planifiés</h4>
         <div class="npc-card">
           <div class="npc-avatar">🎣</div>
           <div class="npc-info">
             <h5>Pêcheur</h5>
             <div class="npc-role">Guide vers le monde aquatique</div>
-            <p>Offre sa pirogue et emmène Pepito vers la première épave.</p>
+            <p>Propose sa pirogue à La Isabela et emmène Pepito vers la première épave.</p>
           </div>
         </div>
         <div class="npc-card">
           <div class="npc-avatar">🤿</div>
           <div class="npc-info">
             <h5>Archéologue amateur</h5>
-            <div class="npc-role">Remet la carte des naufrages</div>
+            <div class="npc-role">Remet la carte des épaves</div>
             <p>Explorateur sous-marin qui connaît les sites historiques immergés.</p>
           </div>
         </div>
 
-        <h4>Mécaniques prévues</h4>
+        <h4>Mécaniques planifiées</h4>
         <ul>
           <li>Exploration sous-marine avec oxygène limité</li>
-          <li>Courants marins et vie marine interactive</li>
+          <li>Courants marins qui poussent le joueur</li>
+          <li>Faune interactive : tortues, dauphins et lamantins comme guides amicaux</li>
+          <li>Combat contre le poisson-lion (espèce invasive)</li>
+          <li>Esquiver les méduses (dégâts + effet de ralentissement)</li>
           <li>Collecte d'artefacts pour le Museo de las Atarazanas Reales</li>
         </ul>
       </div>

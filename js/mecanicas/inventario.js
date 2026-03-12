@@ -363,7 +363,7 @@ export class Inventario {
       ctx.fillRect(x + 4, y + 25, 24, 3);
 
     } else if (id === 'artefactoTaino') {
-      // Cemí dorado
+      // Cemí con detalles dorados (guanín en ojos y órganos sensoriales)
       ctx.fillStyle = '#FFD700';
       ctx.beginPath();
       ctx.arc(x + 16, y + 12, 8, 0, Math.PI * 2);

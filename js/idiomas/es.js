@@ -8,7 +8,8 @@ const es = {
     continuarJuego: 'Continuar Juego',
     opciones: 'Opciones',
     idioma: 'Idioma',
-    creditos: 'Créditos'
+    creditos: 'Créditos',
+    documentacion: 'Documentación'
   },
 
   seleccion: {
@@ -94,6 +95,7 @@ const es = {
 
       arqueologoIntro: '¡Alto ahí! ¿Quién eres tú?',
       arqueologoReconoce: 'Espera... ¿encontraste petroglifos? ¡Increíble! Soy la Dra. Martínez, arqueóloga.',
+      arqueologoGuanin: '¡Fascinante! Nunca se ha hallado un cemí completamente dorado, pero los taínos adornaban sus cemíes con guanín — una aleación de oro, plata y cobre — especialmente en los ojos y los órganos sensoriales.',
       arqueologoRegalo: 'Toma, necesitarás esto allá afuera. Es Magnoboot, un robot excavador que te ayudará.',
       arqueologoDespedida: 'Cuida el patrimonio. Cada pieza que encuentres pertenece al pueblo dominicano.',
 
@@ -296,7 +298,7 @@ const es = {
     descBrujula: 'Señala el norte. Te ayuda a no perderte en lugares grandes.',
     descMapa: 'Un mapa antiguo con marcas misteriosas de sitios arqueológicos.',
     descFragmentoMapa: 'Un pedazo de mapa antiguo. Parece mostrar la ubicación de otras cuevas.',
-    descArtefactoTaino: 'Un cemí dorado. Debe ser llevado al museo para su estudio.',
+    descArtefactoTaino: 'Un cemí con detalles dorados. Debe ser llevado al museo para su estudio.',
     descMagnetometro: 'Detecta objetos metálicos enterrados bajo la tierra.',
 
     arcabuz: 'Arcabuz Colonial',

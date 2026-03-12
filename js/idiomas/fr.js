@@ -8,7 +8,8 @@ const fr = {
     continuarJuego: 'Continuer la Partie',
     opciones: 'Options',
     idioma: 'Langue',
-    creditos: 'Crédits'
+    creditos: 'Crédits',
+    documentacion: 'Documentation'
   },
 
   seleccion: {
@@ -92,6 +93,7 @@ const fr = {
 
       arqueologoIntro: 'Halte-là ! Qui es-tu ?',
       arqueologoReconoce: 'Attends... tu as trouvé des pétroglyphes ? Incroyable ! Je suis la Dre Martínez, archéologue.',
+      arqueologoGuanin: 'Fascinant ! Aucun cemí entièrement en or n\'a jamais été trouvé, mais les Taïnos ornaient leurs cemíes de guanín — un alliage d\'or, d\'argent et de cuivre — surtout sur les yeux et les organes sensoriels.',
       arqueologoRegalo: 'Tiens, tu en auras besoin dehors. C\'est Magnoboot, un robot excavateur qui t\'aidera.',
       arqueologoDespedida: 'Prends soin du patrimoine. Chaque pièce que tu trouves appartient au peuple dominicain.',
 
@@ -293,7 +295,7 @@ const fr = {
     descBrujula: 'Indique le nord. T\'aide à ne pas te perdre dans les grands espaces.',
     descMapa: 'Une carte ancienne avec des marques mystérieuses de sites archéologiques.',
     descFragmentoMapa: 'Un morceau de carte ancienne. Il semble montrer d\'autres grottes.',
-    descArtefactoTaino: 'Un cemí doré. Il doit être emmené au musée pour étude.',
+    descArtefactoTaino: 'Un cemí aux détails dorés. Il doit être emmené au musée pour étude.',
     descMagnetometro: 'Détecte les objets métalliques enterrés sous terre.',
 
     arcabuz: 'Arquebuse Coloniale',
