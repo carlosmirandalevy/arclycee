@@ -32,6 +32,11 @@ import idiomas from '../idiomas/idiomas.js';
 // --- Importar al jugador ---
 import { Jugador } from '../personajes/pepito.js';
 
+// --- Importar compañeros (para restaurar partidas guardadas) ---
+import { Magnoboot } from '../personajes/companeros/magnoboot.js';
+import { Viralata } from '../personajes/companeros/viralata.js';
+import { CemiMurcielago } from '../personajes/companeros/cemi-murcielago.js';
+
 // --- Importar todas las escenas ---
 import { MenuPrincipal } from '../escenas/menu-principal.js';
 import { SeleccionPersonaje } from '../escenas/seleccion-personaje.js';
@@ -519,6 +524,138 @@ export class Juego {
     if (typeof this.escenaActual.iniciar === 'function') {
       this.escenaActual.iniciar(this);
     }
+
+    // --- Auto-guardado al volver al mapa ---
+    // Cuando el jugador regresa al mapa del mundo (después de completar
+    // un nivel o presionar M), guardamos automáticamente. Así nunca
+    // pierde su progreso. No guardamos al entrar a menús ni cinemáticas.
+    if (nombreEscena === 'mapaPrincipal' && this.jugador) {
+      this.guardarPartida();
+    }
+  }
+
+  // --- GUARDADO Y CARGA DE PARTIDA ---
+  // El juego se guarda automáticamente cuando el jugador vuelve al mapa
+  // desde un nivel. También se puede guardar manualmente desde opciones.
+  // La carga restaura el estado completo: progreso, inventario,
+  // compañeros, vida, idioma y la escena donde estaba el jugador.
+
+  /**
+   * Guarda la partida actual en localStorage.
+   * Se llama automáticamente al volver al mapa del mundo y al
+   * completar un nodo. El jugador verá un toast confirmando.
+   */
+  guardarPartida() {
+    const datos = this.guardado.crearDatosGuardado(this);
+    const exito = this.guardado.guardarLocal(datos);
+    if (exito) {
+      this.mostrarToast('💾 Partida guardada');
+    }
+    return exito;
+  }
+
+  /**
+   * Carga una partida guardada y restaura el estado del juego.
+   * Se llama desde "Continuar Juego" en el menú principal.
+   * Reconstruye el jugador, los compañeros, el inventario y
+   * lleva al jugador a la escena donde estaba (o al mapa).
+   */
+  cargarPartida() {
+    const datos = this.guardado.cargarLocal();
+    if (!datos) {
+      this.mostrarToast('No hay partida guardada');
+      return false;
+    }
+
+    // --- Restaurar género del personaje ---
+    this.generoJugador = datos.generoJugador || 'pepito';
+
+    // --- Restaurar progreso del mapa ---
+    if (datos.progreso) {
+      this.progreso.nodosCompletados = datos.progreso.nodosCompletados || [];
+      this.progreso.nodosDesbloqueados = datos.progreso.nodosDesbloqueados || [0];
+    }
+
+    // --- Restaurar idioma ---
+    if (datos.idioma && this.idiomas) {
+      this.idiomas.cambiarIdioma(datos.idioma);
+    }
+
+    // --- Crear al jugador con el género correcto ---
+    this.jugador = new Jugador(60, 350, this.generoJugador);
+
+    // --- Restaurar vida ---
+    if (datos.vida !== undefined) {
+      this.jugador.vida = datos.vida;
+    }
+
+    // --- Restaurar inventario simple del jugador ---
+    if (datos.inventarioJugador) {
+      this.jugador.inventario = datos.inventarioJugador;
+    }
+
+    // --- Restaurar inventario UI ---
+    if (datos.inventario && this.inventario) {
+      this.inventario.objetos = datos.inventario;
+    }
+
+    // --- Restaurar compañeros ---
+    // Recreamos las instancias de clase a partir de los datos guardados
+    this._restaurarCompaneros(datos.companeros || []);
+
+    // --- Ir a la escena guardada ---
+    // Si estaba en un nivel, lo llevamos al mapa para que no empiece
+    // a mitad de un nivel sin contexto. Si estaba en el mapa, al mapa.
+    const escenaDestino = datos.escena === 'mapaPrincipal'
+      ? 'mapaPrincipal'
+      : 'mapaPrincipal'; // Siempre al mapa — más seguro que retomar a mitad de nivel
+    this.cambiarEscena(escenaDestino);
+
+    this.mostrarToast('📂 Partida cargada');
+    return true;
+  }
+
+  /**
+   * Recrea los compañeros a partir de los datos guardados.
+   * Cada compañero se instancia con su clase real (Magnoboot, Viralata,
+   * CemiMurcielago) para que tenga su sprite y comportamiento completo.
+   */
+  _restaurarCompaneros(datosCompaneros) {
+    // No borramos los compañeros existentes si no hay datos,
+    // para evitar perder compañeros por un guardado incompleto
+    if (datosCompaneros.length === 0) return;
+
+    this.companeros = [];
+
+    for (const datos of datosCompaneros) {
+      const companero = this._crearCompaneroBasico(datos.tipo, datos.activo);
+      if (companero) {
+        this.companeros.push(companero);
+      }
+    }
+  }
+
+  /**
+   * Crea un compañero real a partir de su tipo guardado.
+   * Usamos las clases importadas (Magnoboot, Viralata, CemiMurcielago)
+   * para que el compañero tenga su sprite y comportamiento completo.
+   */
+  _crearCompaneroBasico(tipo, activo) {
+    let companero = null;
+
+    if (tipo === 'magnoboot') {
+      companero = new Magnoboot();
+    } else if (tipo === 'viralata') {
+      companero = new Viralata();
+    } else if (tipo === 'cemiMurcielago') {
+      companero = new CemiMurcielago();
+    }
+
+    if (companero && activo) {
+      companero.activar();
+    }
+
+    return companero;
   }
 
   // --- MENSAJES FLOTANTES (TOASTS) ---

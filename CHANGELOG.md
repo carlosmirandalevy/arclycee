@@ -1,5 +1,61 @@
 # Changelog
 
+## v0.10.0 — Guardado automático + combate ecológico pez león + sprites de enemigos (2026-03-12)
+
+### Agregado
+
+**Sistema de guardado funcional** (`juego.js`, `guardado.js`)
+- `guardarPartida()`: guarda en localStorage al volver al mapa del mundo
+- `cargarPartida()`: restaura estado completo desde "Continuar Juego" en el menú
+- Auto-guardado automático cada vez que el jugador regresa al mapa
+- Toast de confirmación: "💾 Partida guardada" / "📂 Partida cargada"
+- Datos guardados: progreso del mapa (nodos completados/desbloqueados), inventario UI + jugador, compañeros (tipo + activo), vida, género, idioma, timestamp
+- Compañeros restaurados como instancias reales (Magnoboot, Viralata, CemiMurcielago)
+- `crearDatosGuardado()` reescrito para serializar correctamente inventario (objetos, no clase) y compañeros (tipo + estado, no instancias)
+
+**Sprites de enemigos en combate** (`combate.js`)
+- Sistema de dispatch `tipoSprite` — cada enemigo muestra su propio sprite
+- `_dibujarSoldado()`: uniforme rojo oscuro con casco de conquistador (morión)
+- `_dibujarConstructor()`: camisa amarilla con casco de construcción
+- `_dibujarPezLeon()`: cuerpo con rayas rojas/blancas, aletas pectorales en abanico con varillas y membrana semitransparente, espinas dorsales venenosas con puntas brillantes, cola en V, ojo con banda oscura, boca
+
+### Cambiado
+
+**Medidor de combate renombrado**: "Paciencia" → "Convencido"
+- Etiqueta personalizable por enemigo vía `etiquetaConvencimiento`
+- Personas: "Convencido:" (Soldado Diego, Constructor Méndez)
+- Pez León: "Controlado:" (porque es control ecológico, no convencimiento)
+- Mensajes de feedback: "Convencido +X" en vez de "Paciencia +X"
+- Pista genérica: "Usa Hablar o Negociar para convencer al oponente"
+- Traducciones actualizadas en ES/FR/EN
+
+**Combate ecológico del pez león rediseñado** (`mundo-acuatico.js`)
+- 4 nuevas opciones realistas (reemplazando "Educar" y "Alertar Pescadores"):
+  - 🥅 Atrapar: captura con red para acuario (seguro, moderado)
+  - 🎣 Pescar: arpón para comer — estrategia REAL del Caribe (fuerte)
+  - 🪸 Proteger Coral: barreras para peces herbívoros (defensivo, lento)
+  - 🤿 Alertar Buzos: organizar jornada de remoción grupal (alto riesgo/recompensa)
+- 4 contra-respuestas ecológicas del pez león:
+  - vs Atrapar: eriza espinas venenosas (picadura)
+  - vs Pescar: se reproduce rápidamente (más juveniles)
+  - vs Proteger: devora peces herbívoros → algas invaden coral
+  - vs Alertar: caza peces loro jóvenes → coral sin limpiar
+- Resolución pacífica: pesca controlada, carne comestible, torneos de caza reales
+
+**Documentación actualizada** (docs.html, docs-en.html, docs-fr.html)
+- Sección de combate: "Paciencia" → "Convencimiento/Convincing/Conviction"
+- Nueva sección: Combate Ecológico del Pez León con 4 opciones y contra-respuestas
+- Nueva sección: Sprites de Enemigos (soldado, constructor, pez león)
+- Nueva sección: Guardado Automático en mecánicas
+- Mundo Acuático: NPCs actualizados de "planificados" a implementados (Manuel, Tortuga, Arqueóloga, Pez León)
+- Mundo Acuático: mecánicas actualizadas de "planificadas" a implementadas
+
+### Corregido
+- Constructor Méndez ahora muestra casco de construcción en combate (no casco de conquistador)
+- Versión en menú principal actualizada a v0.10
+
+---
+
 ## v0.9.2 — Sprites detallados en selección + fix teclado (2026-03-12)
 
 ### Mejorado

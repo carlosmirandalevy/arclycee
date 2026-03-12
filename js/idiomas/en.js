@@ -251,7 +251,7 @@ const en = {
       guardia5: 'Inside the Pantheon burns a flame that never goes out — an eternal symbol of the sacrifice of the nation\'s founders.',
 
       // Constructor Méndez combat — citizen activism options
-      combatePista: 'Use citizen activism to fill the Patience bar',
+      combatePista: 'Use citizen activism to convince the Constructor',
       accionRedes: 'Social Media',
       accionRedesMsg: 'You post photos of the endangered ruins online!',
       respuestaRedes: 'Méndez hires influencers to promote his hotel.',
@@ -294,18 +294,19 @@ const en = {
       pezLeonDerrota: 'The lionfish retreats... but more will come if the invasion isn\'t controlled.',
 
       combatePista: 'Use ecological actions to control the invasive species',
+      etiquetaControl: 'Controlled:',
       accionAtrapar: 'Capture',
-      accionAtraparMsg: 'You try to catch the lionfish with a net!',
-      respuestaAtrapar: 'The lionfish flares its venomous spines to defend itself.',
-      accionEducar: 'Educate',
-      accionEducarMsg: 'You explain the impact of invasive species on the ecosystem!',
-      respuestaEducar: 'The reef ecosystem responds: parrotfish approach to clean the coral.',
+      accionAtraparMsg: 'You try to catch the lionfish with a net for the aquarium!',
+      respuestaAtrapar: 'The lionfish flares its venomous spines. Watch out for the sting!',
+      accionPescar: 'Fish',
+      accionPescarMsg: 'You ready the spear! Lionfish is edible and fishing them helps the reef.',
+      respuestaPescar: 'It reproduces fast! While you catch one, more juveniles appear.',
       accionProteger: 'Protect Coral',
-      accionProtegerMsg: 'You set up barriers to protect the coral from the lionfish\'s appetite!',
-      respuestaProteger: 'The lionfish attacks a group of parrotfish cleaning the coral.',
-      accionAlertar: 'Alert Fishermen',
-      accionAlertarMsg: 'You notify local fishermen to organize controlled fishing!',
-      respuestaAlertar: 'The lionfish tries to flee to deeper waters.',
+      accionProtegerMsg: 'You set up barriers to protect the coral and herbivorous fish!',
+      respuestaProteger: 'The lionfish devours herbivorous fish. Without them, algae invade the coral.',
+      accionAlertar: 'Alert Divers',
+      accionAlertarMsg: 'You alert other divers to organize a group removal effort!',
+      respuestaAlertar: 'The lionfish hunts juvenile parrotfish. Without them the coral won\'t be cleaned!',
 
       medusaPicadura: 'Jellyfish sting! Movement slowed',
 

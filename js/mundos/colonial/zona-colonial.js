@@ -1621,7 +1621,8 @@ export class ZonaColonial {
               fuerza: 3,
               velocidad: 1,
               hostilidad: 70,
-              pistaPersonalizada: zc?.combatePista || 'Usa activismo para llenar la barra de Paciencia',
+              tipoSprite: 'constructor',
+              pistaPersonalizada: zc?.combatePista || 'Usa activismo ciudadano para convencer al Constructor',
               opcionesPersonalizadas: [
                 {
                   // --- Redes Sociales: seguro pero efecto moderado ---

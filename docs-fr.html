@@ -987,32 +987,50 @@
           </div>
         </div>
 
-        <h4>Personnages planifiés</h4>
+        <h4>Personnages</h4>
         <div class="npc-card">
           <div class="npc-avatar">🎣</div>
           <div class="npc-info">
-            <h5>Pêcheur</h5>
-            <div class="npc-role">Guide vers le monde aquatique</div>
-            <p>Propose sa pirogue à La Isabela et emmène Pepito vers la première épave.</p>
+            <h5>Pêcheur Manuel</h5>
+            <div class="npc-role">Histoire de La Pinta</div>
+            <p>Plongeur en combinaison et masque. Raconte comment La Pinta a été démantelée pour construire la Fortaleza Navidad.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐢</div>
+          <div class="npc-info">
+            <h5>Tortue Imbriquée</h5>
+            <div class="npc-role">Éducation sur les espèces en danger</div>
+            <p>Nage en circuit ovale autour du récif. Enseigne sur la tortue imbriquée et son statut de conservation.</p>
           </div>
         </div>
         <div class="npc-card">
           <div class="npc-avatar">🤿</div>
           <div class="npc-info">
-            <h5>Archéologue amateur</h5>
+            <h5>Archéologue Sous-marine</h5>
             <div class="npc-role">Remet la carte des épaves</div>
-            <p>Explorateur sous-marin qui connaît les sites historiques immergés.</p>
+            <p>Avec scaphandre et carnet imperméable. Documente les plus de 400 épaves de l'île et remet la carte des épaves.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐟</div>
+          <div class="npc-info">
+            <h5>Poisson-lion</h5>
+            <div class="npc-role">Combat écologique</div>
+            <p>Espèce invasive avec sprite détaillé : rayures rouges/blanches, nageoires en éventail, épines venimeuses. Combat avec 4 options écologiques.</p>
           </div>
         </div>
 
-        <h4>Mécaniques planifiées</h4>
+        <h4>Mécaniques implémentées</h4>
         <ul>
-          <li>Exploration sous-marine avec oxygène limité</li>
-          <li>Courants marins qui poussent le joueur</li>
-          <li>Faune interactive : tortues, dauphins et lamantins comme guides amicaux</li>
-          <li>Combat contre le poisson-lion (espèce invasive)</li>
-          <li>Esquiver les méduses (dégâts + effet de ralentissement)</li>
-          <li>Collecte d'artefacts pour le Museo de las Atarazanas Reales</li>
+          <li>Déplacement sous-marin (vitesse × 0.7 pour simuler la nage)</li>
+          <li>4 méduses comme dangers passifs (dégâts + effet de ralentissement × 0.4 pendant 2 secondes)</li>
+          <li>Combat écologique contre le poisson-lion avec 4 options (capturer, pêcher, protéger corail, alerter plongeurs)</li>
+          <li>Tortue imbriquée nageant en circuit ovale (animation Math.cos/Math.sin)</li>
+          <li>25 particules de bulles + 20 algues animées + 4 rayons de lumière</li>
+          <li>Tri par profondeur : entités triées par Y pour effet de profondeur</li>
+          <li>Teinte d'eau overlay (rgba bleu) + fond sableux texturé</li>
+          <li>Objets : clou de bronze (post-combat) et carte des épaves (de l'archéologue)</li>
         </ul>
       </div>
 
@@ -1173,7 +1191,7 @@
         Chaque ennemi possède deux jauges émotionnelles :
       </p>
       <ul>
-        <li><strong style="color: var(--verde);">Patience (0-100)</strong> : augmente en parlant ou en négociant. Quand elle atteint 100, l'ennemi se rend pacifiquement.</li>
+        <li><strong style="color: var(--verde);">Conviction (0-100)</strong> : augmente en parlant ou en négociant. Quand elle atteint 100, l'ennemi est convaincu et le conflit se résout pacifiquement. Le libellé change selon l'ennemi : « Convaincu » pour les personnes, « Contrôlé » pour le poisson-lion.</li>
         <li><strong style="color: var(--rojo);">Hostilité (0-100)</strong> : diminue avec la diplomatie. Quand elle est sous 30, l'ennemi peut parler au lieu d'attaquer.</li>
       </ul>
 
@@ -1181,8 +1199,8 @@
       <table>
         <tr><th>Action</th><th>Effet</th><th>Risque</th></tr>
         <tr><td>Attaquer</td><td>Dégâts directs à l'ennemi</td><td>Augmente hostilité +5</td></tr>
-        <tr><td>Parler</td><td>Patience +12-25, Hostilité -8-20</td><td>Aucun</td></tr>
-        <tr><td>Négocier</td><td>Patience +20, Hostilité -20 (si réussi)</td><td>55 % de succès, si échec +5 hostilité</td></tr>
+        <tr><td>Parler</td><td>Convaincu +12-25, Hostilité -8-20</td><td>Aucun</td></tr>
+        <tr><td>Négocier</td><td>Convaincu +20, Hostilité -20 (si réussi)</td><td>55 % de succès, si échec +5 hostilité</td></tr>
         <tr><td>Objet</td><td>Utiliser un objet de l'inventaire</td><td>Aucun</td></tr>
         <tr><td>Fuir</td><td>Échapper au combat</td><td>Dépend de la vitesse de l'ennemi</td></tr>
       </table>
@@ -1197,25 +1215,25 @@
         <div class="combat-option">
           <h5>📱 Réseaux Sociaux</h5>
           <p>Tu publies des photos des ruines menacées sur les réseaux.</p>
-          <div class="efecto">+10-16 Patience, -6-12 Hostilité</div>
+          <div class="efecto">+10-16 Convaincu, -6-12 Hostilité</div>
           <div class="contra">Contre : Méndez paie des influenceurs pour promouvoir son hôtel.</div>
         </div>
         <div class="combat-option">
           <h5>📢 Manifestations</h5>
           <p>Tu organises une manifestation devant le chantier.</p>
-          <div class="efecto">+14-22 Patience, -10-16 Hostilité</div>
+          <div class="efecto">+14-22 Convaincu, -10-16 Hostilité</div>
           <div class="contra">Contre : Méndez finance des fêtes et des concerts pour la communauté.</div>
         </div>
         <div class="combat-option">
           <h5>🏛️ Dénoncer</h5>
           <p>Tu signales la démolition aux autorités.</p>
-          <div class="efecto">+16-26 Patience, -12-20 Hostilité</div>
+          <div class="efecto">+16-26 Convaincu, -12-20 Hostilité</div>
           <div class="contra">Contre : Méndez négocie des permis et des exceptions avec les politiciens.</div>
         </div>
         <div class="combat-option">
           <h5>⚖️ Voie Légale</h5>
           <p>Tu déposes un recours juridique pour arrêter les travaux.</p>
-          <div class="efecto">+20-30 Patience, -15-24 Hostilité</div>
+          <div class="efecto">+20-30 Convaincu, -15-24 Hostilité</div>
           <div class="contra">Contre : Méndez temporise avec des manœuvres judiciaires tout en continuant à construire.</div>
         </div>
       </div>
@@ -1224,6 +1242,52 @@
         des historiens et reconçoit l'hôtel pour qu'il protège et mette en valeur les ruines. « Ce sera plus cher, mais
         cela lui donnera une valeur unique. Et en plus... c'est la bonne chose à faire. »
       </p>
+      <h3>Combat Écologique : Poisson-lion</h3>
+      <p>
+        Dans le Monde Aquatique, le combat contre le poisson-lion utilise des <strong>options de contrôle
+        écologique</strong>. Le poisson-lion est une espèce invasive réelle de l'Indo-Pacifique qui dévaste
+        les récifs des Caraïbes. La jauge affiche « Contrôlé » au lieu de « Convaincu » car on contrôle
+        une espèce, pas une personne. Chaque action du joueur déclenche une contre-réponse écologique :
+      </p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>🥅 Capturer</h5>
+          <p>Tu essaies d'attraper le poisson-lion avec un filet pour l'aquarium.</p>
+          <div class="efecto">+12-18 Contrôlé, -8-14 Hostilité</div>
+          <div class="contra">Contre : Hérisse ses épines venimeuses. Attention à la piqûre !</div>
+        </div>
+        <div class="combat-option">
+          <h5>🎣 Pêcher</h5>
+          <p>Tu prépares le harpon. Le poisson-lion est comestible et le pêcher aide le récif.</p>
+          <div class="efecto">+15-22 Contrôlé, -10-16 Hostilité</div>
+          <div class="contra">Contre : Se reproduit rapidement. Pendant que tu en pêches un, des juvéniles apparaissent.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🪸 Protéger le Corail</h5>
+          <p>Tu places des barrières pour protéger le corail et les poissons herbivores.</p>
+          <div class="efecto">+10-15 Contrôlé, -6-10 Hostilité</div>
+          <div class="contra">Contre : Dévore les poissons herbivores. Sans eux, les algues envahissent le corail.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🤿 Alerter les Plongeurs</h5>
+          <p>Tu alertes d'autres plongeurs pour organiser une journée de retrait.</p>
+          <div class="efecto">+18-25 Contrôlé, -12-18 Hostilité</div>
+          <div class="contra">Contre : Chasse les jeunes poissons-perroquets. Sans eux le corail ne sera pas nettoyé !</div>
+        </div>
+      </div>
+      <p>
+        <strong>Résolution pacifique :</strong> La pêche contrôlée maintient l'équilibre du récif.
+        La chair du poisson-lion est délicieuse et nutritive — le cuisiner est écologique. Les tournois
+        de chasse au poisson-lion sont une stratégie réelle utilisée dans les Caraïbes dominicaines.
+      </p>
+
+      <h3>Sprites des Ennemis</h3>
+      <p>Chaque ennemi a son propre sprite détaillé sur l'écran de combat :</p>
+      <ul>
+        <li><strong>Soldat Diego</strong> : uniforme rouge foncé avec casque de conquistador (morion)</li>
+        <li><strong>Constructeur Méndez</strong> : chemise jaune avec casque de chantier</li>
+        <li><strong>Poisson-lion</strong> : corps rayé rouge/blanc, nageoires pectorales en éventail, épines dorsales venimeuses à pointes brillantes, queue en V, bande sombre à travers l'œil</li>
+      </ul>
     </section>
 
     <!-- ============================================================
@@ -1241,6 +1305,12 @@
       <p>Système de dialogues avec effet machine à écrire, nom du personnage en doré, et support
       d'options de réponse. Les dialogues bloquent le mouvement et s'avancent avec E. Chaque texte
       est traduit en espagnol, français et anglais.</p>
+
+      <h3>Sauvegarde Automatique</h3>
+      <p>Le jeu sauvegarde automatiquement dans localStorage chaque fois que le joueur retourne à la carte
+      du monde. Données sauvegardées : progression de la carte (nœuds complétés/débloqués), inventaire complet,
+      compagnons actifs, vie, genre du personnage et langue. « Continuer la Partie » dans le menu principal
+      restaure tout l'état et ramène le joueur à la carte du monde.</p>
 
       <h3>Toasts</h3>
       <p>Messages flottants non intrusifs qui apparaissent à la collecte d'objets ou à l'accomplissement de missions.

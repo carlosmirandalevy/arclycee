@@ -9,8 +9,9 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 ### Características
 
 - **RPG 2D** con vista top-down y secciones de plataforma (cuevas, museos)
-- **Ruta pacifista**: resuelve conflictos hablando, negociando o educando — sin necesidad de pelear
-- **Activismo ciudadano**: combate temático con redes sociales, protestas, denuncias y vías legales
+- **Ruta pacifista**: resuelve conflictos convenciendo al oponente — sin necesidad de pelear
+- **Activismo ciudadano**: combate contra Constructor Méndez con redes sociales, protestas, denuncias y vías legales
+- **Control ecológico**: combate contra el pez león invasor con captura, pesca, protección de coral y alertas a buzos
 - **3 idiomas**: Español, Français, English
 - **Mapas reales** con LeafletJS mostrando sitios arqueológicos reales de RD
 - **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
@@ -19,6 +20,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **NPC mentor recurrente**: Roberto Cassá con 7 conversaciones rotativas sobre historia y patrimonio
 - **Guardia Presidencial**: cambio de guardia ceremonial animado en el Panteón Nacional
 - **Inventario visual**: mochila de 20 slots con grilla navegable, íconos únicos y descripciones traducidas
+- **Guardado automático**: el progreso se guarda al volver al mapa del mundo (localStorage)
+- **Sprites de enemigos**: cada enemigo tiene su sprite único en combate (soldado, constructor, pez león)
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
 - **Múltiples finales** según tus decisiones
@@ -30,7 +33,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 |---|---|
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura y areíto) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
-| Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey en peligro de extinción), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león invasor, arqueóloga submarina con mapa de naufragios |
+| Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león (atrapar, pescar, proteger coral, alertar buzos), arqueóloga submarina con mapa de naufragios |
 | Jurídico | Tráfico de reliquias, leyes de protección patrimonial |
 | Laboratorio | Autenticación de piezas, museos |
 

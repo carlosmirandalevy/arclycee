@@ -1275,56 +1275,66 @@ export class MundoAcuatico {
               fuerza: 3,
               velocidad: 3,
               hostilidad: 50,
+              tipoSprite: 'pezLeon',
+              etiquetaConvencimiento: ac?.etiquetaControl || 'Controlado:',
               pistaPersonalizada: ac?.combatePista || 'Usa acciones ecológicas para controlar al invasor',
               opcionesPersonalizadas: [
                 {
-                  // --- Atrapar: captura directa ---
+                  // --- Atrapar: capturar con red para acuario/estudio ---
+                  // Opción segura con efecto moderado. La captura individual
+                  // es un método real usado por buzos en el Caribe.
                   id: 'atrapar',
                   nombre: ac?.accionAtrapar || 'Atrapar',
                   paciencia: [12, 18],
                   hostilidad: [8, 14],
-                  mensaje: ac?.accionAtraparMsg || '¡Intentas atrapar al pez león con una red!',
+                  mensaje: ac?.accionAtraparMsg || '¡Intentas atrapar al pez león con una red para llevarlo al acuario!',
                   respuestaEnemigo: {
-                    mensaje: ac?.respuestaAtrapar || 'El pez león eriza sus espinas venenosas para defenderse.',
+                    mensaje: ac?.respuestaAtrapar || 'El pez león eriza sus espinas venenosas. ¡Cuidado con la picadura!',
                     hostilidad: [6, 10],
                     paciencia: [3, 6]
                   }
                 },
                 {
-                  // --- Educar: informar sobre el problema ecológico ---
-                  id: 'educar',
-                  nombre: ac?.accionEducar || 'Educar',
-                  paciencia: [10, 15],
-                  hostilidad: [6, 10],
-                  mensaje: ac?.accionEducarMsg || '¡Explicas el impacto de las especies invasoras en el ecosistema!',
-                  respuestaEnemigo: {
-                    mensaje: ac?.respuestaEducar || 'El ecosistema del arrecife responde: los peces loro se acercan a limpiar el coral.',
-                    hostilidad: [4, 7],
-                    paciencia: [2, 5]
-                  }
-                },
-                {
-                  // --- Proteger Coral: defender el ecosistema ---
-                  id: 'protegerCoral',
-                  nombre: ac?.accionProteger || 'Proteger Coral',
+                  // --- Pescar: pescarlo para comer (ceviche, frito) ---
+                  // La pesca de pez león es una estrategia REAL de control
+                  // en el Caribe. Su carne es deliciosa y libre de ciguatera.
+                  id: 'pescar',
+                  nombre: ac?.accionPescar || 'Pescar',
                   paciencia: [15, 22],
                   hostilidad: [10, 16],
-                  mensaje: ac?.accionProtegerMsg || '¡Colocas barreras para proteger el coral de la voracidad del pez león!',
+                  mensaje: ac?.accionPescarMsg || '¡Preparas el arpón! El pez león es comestible y pescarlo ayuda al arrecife.',
                   respuestaEnemigo: {
-                    mensaje: ac?.respuestaProteger || 'El pez león ataca un grupo de peces loro que limpiaban el coral.',
+                    mensaje: ac?.respuestaPescar || '¡Se reproduce rápidamente! Mientras pescas uno, aparecen más juveniles.',
                     hostilidad: [8, 12],
                     paciencia: [4, 8]
                   }
                 },
                 {
-                  // --- Alertar Pescadores: organizar la pesca controlada ---
-                  id: 'alertarPescadores',
-                  nombre: ac?.accionAlertar || 'Alertar Pescadores',
+                  // --- Proteger Coral: barrera defensiva ---
+                  // Acción lenta pero segura. Protege el ecosistema mientras
+                  // se organizan otras acciones de control.
+                  id: 'protegerCoral',
+                  nombre: ac?.accionProteger || 'Proteger Coral',
+                  paciencia: [10, 15],
+                  hostilidad: [6, 10],
+                  mensaje: ac?.accionProtegerMsg || '¡Colocas barreras para proteger el coral y los peces herbívoros!',
+                  respuestaEnemigo: {
+                    mensaje: ac?.respuestaProteger || 'El pez león devora peces herbívoros. Sin ellos, las algas invaden el coral.',
+                    hostilidad: [4, 7],
+                    paciencia: [2, 5]
+                  }
+                },
+                {
+                  // --- Alertar Buzos: organizar remoción grupal ---
+                  // Acción fuerte con contra-respuesta fuerte. Los torneos
+                  // de caza de pez león son una estrategia REAL en el Caribe.
+                  id: 'alertarBuzos',
+                  nombre: ac?.accionAlertar || 'Alertar Buzos',
                   paciencia: [18, 25],
                   hostilidad: [12, 18],
-                  mensaje: ac?.accionAlertarMsg || '¡Avisas a los pescadores locales para organizar una pesca controlada!',
+                  mensaje: ac?.accionAlertarMsg || '¡Alertas a otros buzos para organizar una jornada de remoción!',
                   respuestaEnemigo: {
-                    mensaje: ac?.respuestaAlertar || 'El pez león intenta huir hacia aguas más profundas.',
+                    mensaje: ac?.respuestaAlertar || 'El pez león caza peces loro jóvenes. ¡Sin ellos el coral no se limpiará!',
                     hostilidad: [10, 14],
                     paciencia: [5, 10]
                   }

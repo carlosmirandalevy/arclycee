@@ -144,35 +144,70 @@ export class SistemaGuardado {
    * NO guardamos todo el juego — solo lo necesario para reconstruirlo.
    */
   crearDatosGuardado(juego) {
+    // --- Serializar compañeros ---
+    // Los compañeros son instancias de clase (Magnoboot, Viralata, etc.)
+    // que no se pueden guardar directamente en JSON. Guardamos solo
+    // su tipo y si están activos, para poder recrearlos al cargar.
+    const companerosSerializados = [];
+    if (juego.companeros) {
+      for (const comp of juego.companeros) {
+        companerosSerializados.push({
+          tipo: comp.tipo,
+          activo: comp.activo
+        });
+      }
+    }
+
+    // --- Serializar inventario ---
+    // juego.inventario es una instancia de Inventario (clase con UI).
+    // Lo que necesitamos guardar son los objetos dentro de ella.
+    const objetosInventario = [];
+    if (juego.inventario && juego.inventario.objetos) {
+      for (const obj of juego.inventario.objetos) {
+        objetosInventario.push({ ...obj });
+      }
+    }
+
+    // --- También guardamos el inventario simple del jugador ---
+    // (array en jugador.inventario que algunas escenas usan directamente)
+    const inventarioJugador = [];
+    if (juego.jugador && juego.jugador.inventario) {
+      for (const obj of juego.jugador.inventario) {
+        inventarioJugador.push({ ...obj });
+      }
+    }
+
     return {
-      // Dónde está el jugador en el mundo
-      posicion: {
-        x: juego.jugador ? juego.jugador.x : 0,
-        y: juego.jugador ? juego.jugador.y : 0
+      // --- Escena actual ---
+      // Para saber a dónde llevar al jugador cuando cargue la partida
+      escena: juego.nombreEscenaActual || 'mapaPrincipal',
+
+      // --- Género del personaje (pepito/pepita) ---
+      generoJugador: juego.generoJugador || 'pepito',
+
+      // --- Vida del jugador ---
+      vida: juego.jugador ? juego.jugador.vida : 100,
+
+      // --- Progreso del mapa ---
+      // Qué nodos completó y cuáles están desbloqueados
+      progreso: {
+        nodosCompletados: [...(juego.progreso.nodosCompletados || [])],
+        nodosDesbloqueados: [...(juego.progreso.nodosDesbloqueados || [])]
       },
 
-      // Qué objetos tiene en la mochila
-      inventario: juego.inventario ? [...juego.inventario] : [],
+      // --- Inventario UI (objetos con nombre, descripción, ícono) ---
+      inventario: objetosInventario,
 
-      // Qué misiones ya completó (para no repetirlas)
-      misionesCompletadas: juego.misionesCompletadas
-        ? [...juego.misionesCompletadas]
-        : [],
+      // --- Inventario simple del jugador ---
+      inventarioJugador: inventarioJugador,
 
-      // En qué reino/mundo está (cueva, mapa exterior, etc.)
-      reino: juego.reinoActual || 'inicio',
+      // --- Compañeros (tipo + estado) ---
+      companeros: companerosSerializados,
 
-      // Qué compañeros tiene el jugador en su equipo
-      companeros: juego.companeros ? [...juego.companeros] : [],
+      // --- Idioma activo ---
+      idioma: juego.idiomas ? juego.idiomas.idiomaActual : 'es',
 
-      // Nivel del cemí (espíritu guía del jugador)
-      nivelCemi: juego.nivelCemi || 1,
-
-      // Configuración del jugador
-      idioma: juego.idioma || 'es',
-      estiloArte: juego.estiloArte || 'pixel',
-
-      // Cuándo se guardó (para mostrar "Guardado: hace 5 minutos")
+      // --- Cuándo se guardó ---
       marcaTiempo: Date.now()
     };
   }

@@ -251,7 +251,7 @@ const fr = {
       guardia5: 'À l\'intérieur du Panthéon brûle une flamme qui ne s\'éteint jamais — symbole éternel du sacrifice des pères de la nation.',
 
       // Combat Constructeur Méndez — options d'activisme citoyen
-      combatePista: 'Utilise l\'activisme citoyen pour remplir la barre de Patience',
+      combatePista: 'Utilise l\'activisme citoyen pour convaincre le Constructeur',
       accionRedes: 'Réseaux Sociaux',
       accionRedesMsg: 'Tu publies des photos des ruines menacées en ligne !',
       respuestaRedes: 'Méndez paie des influenceurs pour promouvoir son hôtel.',
@@ -294,18 +294,19 @@ const fr = {
       pezLeonDerrota: 'Le poisson-lion se retire... mais d\'autres viendront si l\'invasion n\'est pas contrôlée.',
 
       combatePista: 'Utilise des actions écologiques pour contrôler l\'envahisseur',
+      etiquetaControl: 'Contrôlé :',
       accionAtrapar: 'Capturer',
-      accionAtraparMsg: 'Tu essaies d\'attraper le poisson-lion avec un filet !',
-      respuestaAtrapar: 'Le poisson-lion hérisse ses épines venimeuses pour se défendre.',
-      accionEducar: 'Éduquer',
-      accionEducarMsg: 'Tu expliques l\'impact des espèces invasives sur l\'écosystème !',
-      respuestaEducar: 'L\'écosystème du récif réagit : les poissons-perroquets s\'approchent pour nettoyer le corail.',
+      accionAtraparMsg: 'Tu essaies d\'attraper le poisson-lion avec un filet pour l\'aquarium !',
+      respuestaAtrapar: 'Le poisson-lion hérisse ses épines venimeuses. Attention à la piqûre !',
+      accionPescar: 'Pêcher',
+      accionPescarMsg: 'Tu prépares le harpon ! Le poisson-lion est comestible et le pêcher aide le récif.',
+      respuestaPescar: 'Il se reproduit vite ! Pendant que tu en pêches un, des juvéniles apparaissent.',
       accionProteger: 'Protéger le Corail',
-      accionProtegerMsg: 'Tu places des barrières pour protéger le corail de la voracité du poisson-lion !',
-      respuestaProteger: 'Le poisson-lion attaque un groupe de poissons-perroquets qui nettoyaient le corail.',
-      accionAlertar: 'Alerter les Pêcheurs',
-      accionAlertarMsg: 'Tu préviens les pêcheurs locaux pour organiser une pêche contrôlée !',
-      respuestaAlertar: 'Le poisson-lion tente de fuir vers les eaux plus profondes.',
+      accionProtegerMsg: 'Tu places des barrières pour protéger le corail et les poissons herbivores !',
+      respuestaProteger: 'Le poisson-lion dévore les poissons herbivores. Sans eux, les algues envahissent le corail.',
+      accionAlertar: 'Alerter les Plongeurs',
+      accionAlertarMsg: 'Tu alertes d\'autres plongeurs pour organiser une journée de retrait !',
+      respuestaAlertar: 'Le poisson-lion chasse les jeunes poissons-perroquets. Sans eux le corail ne sera pas nettoyé !',
 
       medusaPicadura: 'Piqûre de méduse ! Mouvement ralenti',
 

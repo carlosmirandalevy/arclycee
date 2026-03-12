@@ -15,11 +15,12 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 ## Arquitectura
 
 ### Motor del juego (`js/motor/`)
-- `juego.js` — game loop, manejo de escenas, inventario overlay, combate overlay, toasts
+- `juego.js` — game loop, manejo de escenas, inventario overlay, combate overlay, toasts, guardado/carga
 - `entrada.js` — input unificado (teclado + táctil) vía `estaPresionada(accion)`
 - `configuracion.js` — constantes globales y mapeo de teclas (`TECLAS_POR_DEFECTO`)
 - `renderizado.js` — wrapper de Canvas 2D
 - `sonido-procedural.js` — efectos con Web Audio API
+- `guardado.js` — `SistemaGuardado` con `guardarLocal()`, `cargarLocal()`, `crearDatosGuardado(juego)`
 
 ### Escenas (`js/escenas/`)
 - Ciclo de vida: `iniciar(juego)`, `actualizar(dt, entrada, jugador, companeros)`, `dibujar(renderizador, ancho, alto, textos, jugador, companeros)`
@@ -44,13 +45,23 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - `Entrada` escucha `window.blur` y limpia teclas presionadas al perder foco (evita teclas "pegadas" al cambiar de pestaña)
 
 ### Combate (`js/mecanicas/combate.js`)
-- Estilo Undertale con ruta pacifista (paciencia 100 = victoria pacífica)
+- Estilo Undertale con ruta pacifista (convencimiento 100 = victoria pacífica)
 - Se inicia desde escenas vía `juego.combate.iniciar({...})`
 - Resultado se verifica FUERA del bloque `if (enCombate)` porque al terminar `enCombate` ya es false
 - **Opciones personalizadas por enemigo**: `enemigo.opcionesPersonalizadas` — array de acciones con `{id, nombre, paciencia: [min, max], hostilidad: [min, max], mensaje, respuestaEnemigo}`
 - Cuando hay opciones personalizadas, `_ejecutarPersonalizada()` reemplaza el switch genérico
 - El turno enemigo usa `_ultimaAccion.respuestaEnemigo` para contra-respuestas específicas
 - `pistaPersonalizada` en el enemigo cambia el texto de ayuda inferior
+- `etiquetaConvencimiento` en el enemigo personaliza el nombre del medidor verde (ej: "Controlado:" para pez león)
+- `tipoSprite` en el enemigo selecciona el sprite de combate: `'soldado'`, `'constructor'`, `'pezLeon'`
+- Sprites de enemigos: `_dibujarSoldado()`, `_dibujarConstructor()`, `_dibujarPezLeon()` — cada uno con diseño único
+
+### Guardado (`js/motor/guardado.js`, `juego.js`)
+- `juego.guardarPartida()` — guarda en localStorage, muestra toast
+- `juego.cargarPartida()` — restaura estado completo, va al mapa
+- Auto-guardado al volver al mapa del mundo (`cambiarEscena('mapaPrincipal')`)
+- `crearDatosGuardado(juego)` serializa: escena, género, vida, progreso, inventario (objetos), compañeros (tipo+activo), idioma
+- Compañeros se restauran como instancias reales vía `_crearCompaneroBasico(tipo, activo)` usando imports de Magnoboot/Viralata/CemiMurcielago
 
 ### Menú principal (`js/escenas/menu-principal.js`)
 - 6 opciones: nuevoJuego, continuarJuego, idioma, documentacion, opciones, creditos
@@ -80,6 +91,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Medusas pasivas**: movimiento sinusoidal entre waypoints, contacto = daño + `efectoLentitud` (segundos), cooldown con `invulnerabilidad`
 - **Depth sorting**: entidades se ordenan por Y antes de dibujar para efecto de profundidad (usado en Mundo Acuático)
 - **Sprites en selección de personaje**: `_dibujarPersonaje()` usa el sprite detallado del juego escalado ×2.5 (no placeholders simples)
+- **Combate pez león**: 4 opciones ecológicas (atrapar, pescar, proteger coral, alertar buzos) con contra-respuestas realistas
 
 ## Qué NO hacer
 

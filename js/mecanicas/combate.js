@@ -3,8 +3,8 @@
 // ============================================================
 // Inspirado en Undertale: puedes pelear O convencer al enemigo
 // de que deje de atacar. Hay un medidor de "hostilidad" que baja
-// cuando hablas o negocias, y un medidor de "paciencia" que sube.
-// Si la paciencia llega a 100, el enemigo se calma y ganas sin violencia.
+// cuando hablas o negocias, y un medidor de "convencimiento" que sube.
+// Si el convencimiento llega a 100, el enemigo se convence y ganas sin violencia.
 // Esto enseña que no siempre pelear es la mejor solución.
 // ============================================================
 
@@ -162,7 +162,7 @@ export class SistemaCombate {
     this.hostilidad = Math.max(0, this.hostilidad - reduccionHostilidad);
     this.paciencia = Math.min(100, this.paciencia + gananciaPatience);
 
-    this._mensaje = `Hablas con calma. Paciencia +${gananciaPatience}`;
+    this._mensaje = `Hablas con calma. Convencido +${gananciaPatience}`;
 
     this.verificarFinCombate();
   }
@@ -180,7 +180,7 @@ export class SistemaCombate {
       const ganancia = 20 + Math.floor(Math.random() * 15);
       this.hostilidad = Math.max(0, this.hostilidad - ganancia);
       this.paciencia = Math.min(100, this.paciencia + ganancia);
-      this._mensaje = `¡Negociación exitosa! Paciencia +${ganancia}`;
+      this._mensaje = `¡Negociación exitosa! Convencido +${ganancia}`;
     } else {
       // Falló la negociación: el enemigo se ofende un poco
       this.hostilidad = Math.min(100, this.hostilidad + 5);
@@ -240,7 +240,7 @@ export class SistemaCombate {
     this.paciencia = Math.min(100, this.paciencia + ganancia);
     this.hostilidad = Math.max(0, this.hostilidad - reduccion);
 
-    this._mensaje = opcion.mensaje || `Paciencia +${ganancia}`;
+    this._mensaje = opcion.mensaje || `Convencido +${ganancia}`;
 
     this.verificarFinCombate();
   }
@@ -278,7 +278,7 @@ export class SistemaCombate {
       // El enemigo se calma y habla (la paciencia sube sola)
       const ganancia = 10 + Math.floor(Math.random() * 10);
       this.paciencia = Math.min(100, this.paciencia + ganancia);
-      this._mensaje = `${this.enemigo?.nombre || 'Enemigo'} duda... Paciencia +${ganancia}`;
+      this._mensaje = `${this.enemigo?.nombre || 'Enemigo'} duda... Convencido +${ganancia}`;
     } else {
       // El enemigo ataca (con daño reducido para ser justo)
       const danoEnemigo = (this.enemigo.fuerza || 2) * 2 + Math.floor(Math.random() * 3);
@@ -370,31 +370,15 @@ export class SistemaCombate {
     ctx.fillRect(0, 0, anchoCanvas, altoCanvas);
 
     // --- Zona del enemigo (parte superior) ---
-    // Dibujar un soldado si el nombre lo indica, si no un cuadrado rojo
+    // Cada enemigo puede traer su propio sprite vía tipoSprite.
+    // Si no tiene tipo, dibujamos el sprite genérico de soldado/persona.
     const enemigoAncho = 40;
     const enemigoAlto = 50;
     const enemigoX = anchoCanvas / 2 - enemigoAncho / 2;
     const enemigoY = 50;
 
-    // Cuerpo del enemigo
-    ctx.fillStyle = '#8B0000';
-    ctx.fillRect(enemigoX, enemigoY + 10, enemigoAncho, enemigoAlto - 10);
-
-    // Cabeza
-    ctx.fillStyle = '#D2956A';
-    ctx.fillRect(enemigoX + 10, enemigoY, 20, 16);
-
-    // Casco
-    ctx.fillStyle = '#808080';
-    ctx.fillRect(enemigoX + 6, enemigoY - 6, 28, 10);
-
-    // Ojos
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(enemigoX + 14, enemigoY + 5, 4, 4);
-    ctx.fillRect(enemigoX + 22, enemigoY + 5, 4, 4);
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(enemigoX + 15, enemigoY + 6, 2, 2);
-    ctx.fillRect(enemigoX + 23, enemigoY + 6, 2, 2);
+    const tipoSprite = this.enemigo?.tipoSprite || 'soldado';
+    this._dibujarSpriteEnemigo(ctx, enemigoX, enemigoY, enemigoAncho, enemigoAlto, tipoSprite);
 
     // Nombre del enemigo
     ctx.fillStyle = '#ffffff';
@@ -423,9 +407,12 @@ export class SistemaCombate {
     ctx.font = '12px monospace';
     ctx.textAlign = 'left';
 
-    // Medidor de paciencia (verde = bueno, sube al hablar)
+    // Medidor de convencimiento (verde = bueno, sube al hablar/negociar)
+    // Antes se llamaba "Paciencia" pero realmente estamos convenciendo
+    // al oponente, no esperando a que se calme.
+    const etiquetaConv = this.enemigo?.etiquetaConvencimiento || 'Convencido:';
     ctx.fillStyle = '#aaaaaa';
-    ctx.fillText('Paciencia:', 30, medidorY);
+    ctx.fillText(etiquetaConv, 30, medidorY);
     ctx.fillStyle = '#333333';
     ctx.fillRect(140, medidorY - 10, 100, 12);
     ctx.fillStyle = '#44cc44';
@@ -503,7 +490,7 @@ export class SistemaCombate {
     ctx.fillStyle = '#777777';
     ctx.textAlign = 'center';
     const pista = this.enemigo?.pistaPersonalizada
-      || 'Usa Hablar o Negociar para llenar la barra de Paciencia';
+      || 'Usa Hablar o Negociar para convencer al oponente';
     ctx.fillText(pista, anchoCanvas / 2, medidorY + 85);
 
     // --- Opciones de combate (parte inferior) ---
@@ -583,5 +570,191 @@ export class SistemaCombate {
   // --- Getter para saber el resultado del último combate ---
   get resultado() {
     return this._resultado;
+  }
+
+  // --- Dibujar el sprite del enemigo según su tipo ---
+  // Cada enemigo puede traer tipoSprite: 'soldado', 'constructor',
+  // 'pezLeon', etc. Si no trae tipo, usamos el sprite genérico.
+  _dibujarSpriteEnemigo(ctx, x, y, ancho, alto, tipo) {
+    switch (tipo) {
+
+      case 'pezLeon':
+        this._dibujarPezLeon(ctx, x, y, ancho, alto);
+        break;
+
+      case 'constructor':
+        this._dibujarConstructor(ctx, x, y, ancho, alto);
+        break;
+
+      case 'soldado':
+      default:
+        this._dibujarSoldado(ctx, x, y, ancho, alto);
+        break;
+    }
+  }
+
+  // --- Sprite: Soldado colonial (Diego en La Isabela) ---
+  _dibujarSoldado(ctx, x, y, ancho, alto) {
+    // Cuerpo del soldado (rojo oscuro — uniforme militar)
+    ctx.fillStyle = '#8B0000';
+    ctx.fillRect(x, y + 10, ancho, alto - 10);
+
+    // Cabeza
+    ctx.fillStyle = '#D2956A';
+    ctx.fillRect(x + 10, y, 20, 16);
+
+    // Casco de conquistador (morión)
+    ctx.fillStyle = '#808080';
+    ctx.fillRect(x + 6, y - 6, 28, 10);
+
+    // Ojos
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(x + 14, y + 5, 4, 4);
+    ctx.fillRect(x + 22, y + 5, 4, 4);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(x + 15, y + 6, 2, 2);
+    ctx.fillRect(x + 23, y + 6, 2, 2);
+  }
+
+  // --- Sprite: Constructor Méndez (Zona Colonial) ---
+  _dibujarConstructor(ctx, x, y, ancho, alto) {
+    // Cuerpo (camisa de constructor amarilla)
+    ctx.fillStyle = '#DDAA00';
+    ctx.fillRect(x, y + 10, ancho, alto - 10);
+
+    // Cabeza
+    ctx.fillStyle = '#D2956A';
+    ctx.fillRect(x + 10, y, 20, 16);
+
+    // Casco de construcción (amarillo)
+    ctx.fillStyle = '#FFD700';
+    ctx.fillRect(x + 6, y - 6, 28, 10);
+    ctx.fillStyle = '#CC9900';
+    ctx.fillRect(x + 8, y - 2, 24, 3);
+
+    // Ojos
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(x + 14, y + 5, 4, 4);
+    ctx.fillRect(x + 22, y + 5, 4, 4);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(x + 15, y + 6, 2, 2);
+    ctx.fillRect(x + 23, y + 6, 2, 2);
+  }
+
+  // --- Sprite: Pez León (especie invasora del Caribe) ---
+  // Cuerpo alargado con rayas rojas/blancas, aletas pectorales
+  // en abanico (lo que lo hace tan reconocible), y espinas
+  // dorsales venenosas que son su defensa principal.
+  _dibujarPezLeon(ctx, x, y, ancho, alto) {
+    const cx = x + ancho / 2;   // Centro horizontal
+    const cy = y + alto / 2;    // Centro vertical
+
+    // --- Cuerpo principal (forma ovalada horizontal) ---
+    ctx.fillStyle = '#CC3333';
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + 5, 22, 14, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // --- Rayas blancas verticales (patrón del pez león) ---
+    ctx.fillStyle = '#FFFFFF';
+    for (let i = -15; i <= 15; i += 6) {
+      ctx.fillRect(cx + i, cy - 6, 2, 22);
+    }
+
+    // --- Rayas rojas más oscuras entre las blancas ---
+    ctx.fillStyle = '#991111';
+    for (let i = -12; i <= 12; i += 6) {
+      ctx.fillRect(cx + i, cy - 4, 1.5, 18);
+    }
+
+    // --- Aletas pectorales en abanico (lo más icónico del pez león) ---
+    // Aleta izquierda — varillas con membrana semitransparente
+    ctx.strokeStyle = '#CC5555';
+    ctx.lineWidth = 1.5;
+    for (let a = 0; a < 5; a++) {
+      const angulo = Math.PI * 0.6 + a * 0.15;
+      const largo = 18 + a * 2;
+      ctx.beginPath();
+      ctx.moveTo(cx - 10, cy + 5);
+      ctx.lineTo(cx - 10 - Math.cos(angulo) * largo, cy + 5 + Math.sin(angulo) * largo);
+      ctx.stroke();
+    }
+    // Membrana entre varillas
+    ctx.fillStyle = 'rgba(200, 80, 80, 0.3)';
+    ctx.beginPath();
+    ctx.moveTo(cx - 10, cy + 5);
+    for (let a = 0; a < 5; a++) {
+      const angulo = Math.PI * 0.6 + a * 0.15;
+      const largo = 18 + a * 2;
+      ctx.lineTo(cx - 10 - Math.cos(angulo) * largo, cy + 5 + Math.sin(angulo) * largo);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // Aleta derecha (espejada)
+    for (let a = 0; a < 5; a++) {
+      const angulo = Math.PI * 0.4 - a * 0.15;
+      const largo = 18 + a * 2;
+      ctx.strokeStyle = '#CC5555';
+      ctx.beginPath();
+      ctx.moveTo(cx + 10, cy + 5);
+      ctx.lineTo(cx + 10 + Math.cos(angulo) * largo, cy + 5 + Math.sin(angulo) * largo);
+      ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(200, 80, 80, 0.3)';
+    ctx.beginPath();
+    ctx.moveTo(cx + 10, cy + 5);
+    for (let a = 0; a < 5; a++) {
+      const angulo = Math.PI * 0.4 - a * 0.15;
+      const largo = 18 + a * 2;
+      ctx.lineTo(cx + 10 + Math.cos(angulo) * largo, cy + 5 + Math.sin(angulo) * largo);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // --- Espinas dorsales venenosas (la defensa del pez león) ---
+    ctx.strokeStyle = '#FFAA44';
+    ctx.lineWidth = 1.5;
+    for (let i = -12; i <= 12; i += 4) {
+      ctx.beginPath();
+      ctx.moveTo(cx + i, cy - 8);
+      ctx.lineTo(cx + i + 1, cy - 22 - Math.abs(i) * 0.3);
+      ctx.stroke();
+      // Punta venenosa brillante
+      ctx.fillStyle = '#FFDD66';
+      ctx.fillRect(cx + i, cy - 23 - Math.abs(i) * 0.3, 2, 2);
+    }
+
+    // --- Cola en V ---
+    ctx.fillStyle = '#CC3333';
+    ctx.beginPath();
+    ctx.moveTo(cx + 22, cy);
+    ctx.lineTo(cx + 34, cy - 8);
+    ctx.lineTo(cx + 30, cy + 2);
+    ctx.lineTo(cx + 34, cy + 12);
+    ctx.lineTo(cx + 22, cy + 8);
+    ctx.closePath();
+    ctx.fill();
+    // Rayas en la cola
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(cx + 24, cy - 2, 1.5, 10);
+    ctx.fillRect(cx + 28, cy - 4, 1.5, 12);
+
+    // --- Ojo ---
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.arc(cx - 10, cy, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#000000';
+    ctx.beginPath();
+    ctx.arc(cx - 10, cy, 2, 0, Math.PI * 2);
+    ctx.fill();
+    // Banda oscura a través del ojo (marca del pez león)
+    ctx.fillStyle = '#661111';
+    ctx.fillRect(cx - 14, cy - 1, 8, 2);
+
+    // --- Boca ---
+    ctx.fillStyle = '#661111';
+    ctx.fillRect(cx - 22, cy + 1, 6, 2);
   }
 }

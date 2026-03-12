@@ -257,7 +257,7 @@ const es = {
       guardia5: 'Dentro del Panteón arde una llama que nunca se apaga — símbolo eterno del sacrificio de los padres de la nación.',
 
       // Combate con Constructor Méndez — opciones de activismo ciudadano
-      combatePista: 'Usa activismo ciudadano para llenar la barra de Paciencia',
+      combatePista: 'Usa activismo ciudadano para convencer al Constructor',
       accionRedes: 'Redes Sociales',
       accionRedesMsg: '¡Publicas fotos de las ruinas amenazadas en redes!',
       respuestaRedes: 'Méndez paga influencers para promover su hotel.',
@@ -305,20 +305,21 @@ const es = {
       pezLeonPaz2: '¿Sabías que la carne de pez león es deliciosa y nutritiva? ¡Cocinarme es ecológico!',
       pezLeonDerrota: 'El pez león se retira... pero volverán más si no se controla la invasión.',
 
-      // Opciones de combate ecológico
+      // Opciones de combate ecológico contra el pez león
       combatePista: 'Usa acciones ecológicas para controlar al invasor',
+      etiquetaControl: 'Controlado:',
       accionAtrapar: 'Atrapar',
-      accionAtraparMsg: '¡Intentas atrapar al pez león con una red!',
-      respuestaAtrapar: 'El pez león eriza sus espinas venenosas para defenderse.',
-      accionEducar: 'Educar',
-      accionEducarMsg: '¡Explicas el impacto de las especies invasoras en el ecosistema!',
-      respuestaEducar: 'El ecosistema del arrecife responde: los peces loro se acercan a limpiar el coral.',
+      accionAtraparMsg: '¡Intentas atrapar al pez león con una red para llevarlo al acuario!',
+      respuestaAtrapar: 'El pez león eriza sus espinas venenosas. ¡Cuidado con la picadura!',
+      accionPescar: 'Pescar',
+      accionPescarMsg: '¡Preparas el arpón! El pez león es comestible y pescarlo ayuda al arrecife.',
+      respuestaPescar: '¡Se reproduce rápidamente! Mientras pescas uno, aparecen más juveniles.',
       accionProteger: 'Proteger Coral',
-      accionProtegerMsg: '¡Colocas barreras para proteger el coral de la voracidad del pez león!',
-      respuestaProteger: 'El pez león ataca un grupo de peces loro que limpiaban el coral.',
-      accionAlertar: 'Alertar Pescadores',
-      accionAlertarMsg: '¡Avisas a los pescadores locales para organizar una pesca controlada!',
-      respuestaAlertar: 'El pez león intenta huir hacia aguas más profundas.',
+      accionProtegerMsg: '¡Colocas barreras para proteger el coral y los peces herbívoros!',
+      respuestaProteger: 'El pez león devora peces herbívoros. Sin ellos, las algas invaden el coral.',
+      accionAlertar: 'Alertar Buzos',
+      accionAlertarMsg: '¡Alertas a otros buzos para organizar una jornada de remoción!',
+      respuestaAlertar: 'El pez león caza peces loro jóvenes. ¡Sin ellos el coral no se limpiará!',
 
       // Medusa
       medusaPicadura: '🪼 ¡Picadura de medusa! Movimiento reducido',

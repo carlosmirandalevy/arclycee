@@ -987,32 +987,50 @@
           </div>
         </div>
 
-        <h4>Planned Characters</h4>
+        <h4>Characters</h4>
         <div class="npc-card">
           <div class="npc-avatar">🎣</div>
           <div class="npc-info">
-            <h5>Fisherman</h5>
-            <div class="npc-role">Guide to the aquatic world</div>
-            <p>Offers his canoe at La Isabela and takes Pepito to the first shipwreck.</p>
+            <h5>Fisherman Manuel</h5>
+            <div class="npc-role">La Pinta's history</div>
+            <p>Diver in wetsuit and mask. Tells how La Pinta was dismantled to build Fortaleza Navidad.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐢</div>
+          <div class="npc-info">
+            <h5>Hawksbill Turtle</h5>
+            <div class="npc-role">Endangered species education</div>
+            <p>Swims in an oval circuit around the reef. Teaches about the hawksbill turtle and its conservation status.</p>
           </div>
         </div>
         <div class="npc-card">
           <div class="npc-avatar">🤿</div>
           <div class="npc-info">
-            <h5>Amateur Archaeologist</h5>
+            <h5>Underwater Archaeologist</h5>
             <div class="npc-role">Delivers the shipwreck map</div>
-            <p>Underwater explorer who knows the submerged historic sites.</p>
+            <p>With diving suit and waterproof notebook. Documents the 400+ shipwrecks of the island and delivers the shipwreck map.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐟</div>
+          <div class="npc-info">
+            <h5>Lionfish</h5>
+            <div class="npc-role">Ecological combat</div>
+            <p>Invasive species with detailed sprite: red/white stripes, fan fins, venomous spines. Combat with 4 ecological options.</p>
           </div>
         </div>
 
-        <h4>Planned Mechanics</h4>
+        <h4>Implemented Mechanics</h4>
         <ul>
-          <li>Underwater exploration with limited oxygen</li>
-          <li>Ocean currents that push the player</li>
-          <li>Interactive wildlife: turtles, dolphins and manatees as friendly guides</li>
-          <li>Combat against lionfish (invasive species)</li>
-          <li>Dodge jellyfish (damage + slow effect)</li>
-          <li>Artifact collection for the Museo de las Atarazanas Reales</li>
+          <li>Underwater movement (speed × 0.7 to simulate swimming)</li>
+          <li>4 jellyfish as passive hazards (damage + slow effect × 0.4 for 2 seconds)</li>
+          <li>Ecological combat against lionfish with 4 options (capture, fish, protect coral, alert divers)</li>
+          <li>Hawksbill turtle swimming in oval circuit (Math.cos/Math.sin animation)</li>
+          <li>25 bubble particles + 20 animated seaweed + 4 light rays</li>
+          <li>Depth sorting: entities sorted by Y for depth effect</li>
+          <li>Water tint overlay (blue rgba) + sandy floor with texture</li>
+          <li>Items: bronze nail (post-combat) and shipwreck map (from archaeologist)</li>
         </ul>
       </div>
 
@@ -1173,7 +1191,7 @@
         Each enemy has two emotional meters:
       </p>
       <ul>
-        <li><strong style="color: var(--verde);">Patience (0-100)</strong>: rises when talking or negotiating. When it reaches 100, the enemy surrenders peacefully.</li>
+        <li><strong style="color: var(--verde);">Convincing (0-100)</strong>: rises when talking or negotiating. When it reaches 100, the enemy is convinced and the conflict resolves peacefully. The label changes per enemy: "Convinced" for people, "Controlled" for the lionfish.</li>
         <li><strong style="color: var(--rojo);">Hostility (0-100)</strong>: drops with diplomacy. When below 30, the enemy may talk instead of attacking.</li>
       </ul>
 
@@ -1181,8 +1199,8 @@
       <table>
         <tr><th>Action</th><th>Effect</th><th>Risk</th></tr>
         <tr><td>Attack</td><td>Direct damage to the enemy</td><td>Hostility +5</td></tr>
-        <tr><td>Talk</td><td>Patience +12-25, Hostility -8-20</td><td>None</td></tr>
-        <tr><td>Negotiate</td><td>Patience +20, Hostility -20 (if successful)</td><td>55% success, if fails +5 hostility</td></tr>
+        <tr><td>Talk</td><td>Convinced +12-25, Hostility -8-20</td><td>None</td></tr>
+        <tr><td>Negotiate</td><td>Convinced +20, Hostility -20 (if successful)</td><td>55% success, if fails +5 hostility</td></tr>
         <tr><td>Item</td><td>Use inventory item</td><td>None</td></tr>
         <tr><td>Flee</td><td>Escape from combat</td><td>Depends on enemy speed</td></tr>
       </table>
@@ -1197,25 +1215,25 @@
         <div class="combat-option">
           <h5>📱 Social Media</h5>
           <p>You post photos of the threatened ruins on social networks.</p>
-          <div class="efecto">+10-16 Patience, -6-12 Hostility</div>
+          <div class="efecto">+10-16 Convinced, -6-12 Hostility</div>
           <div class="contra">Counter: Méndez pays influencers to promote his hotel.</div>
         </div>
         <div class="combat-option">
           <h5>📢 Protests</h5>
           <p>You organize a demonstration in front of the construction site.</p>
-          <div class="efecto">+14-22 Patience, -10-16 Hostility</div>
+          <div class="efecto">+14-22 Convinced, -10-16 Hostility</div>
           <div class="contra">Counter: Méndez sponsors block parties and concerts for the community.</div>
         </div>
         <div class="combat-option">
           <h5>🏛️ Report</h5>
           <p>You report the demolition to the authorities.</p>
-          <div class="efecto">+16-26 Patience, -12-20 Hostility</div>
+          <div class="efecto">+16-26 Convinced, -12-20 Hostility</div>
           <div class="contra">Counter: Méndez negotiates permits and exceptions with politicians.</div>
         </div>
         <div class="combat-option">
           <h5>⚖️ Legal Action</h5>
           <p>You file a legal motion to stop the construction.</p>
-          <div class="efecto">+20-30 Patience, -15-24 Hostility</div>
+          <div class="efecto">+20-30 Convinced, -15-24 Hostility</div>
           <div class="contra">Counter: Méndez stalls with legal maneuvers while continuing to build.</div>
         </div>
       </div>
@@ -1224,6 +1242,52 @@
         historians, and redesigns the hotel to protect and highlight the ruins. "It will be more expensive, but
         it will give it unique value. And besides... it's the right thing to do."
       </p>
+      <h3>Ecological Combat: Lionfish</h3>
+      <p>
+        In the Aquatic World, the combat against the lionfish uses <strong>ecological control options</strong>.
+        The lionfish is a real invasive species from the Indo-Pacific that devastates Caribbean reefs.
+        The meter shows "Controlled" instead of "Convinced" because we're controlling a species, not convincing a person.
+        Each player action triggers an ecological counter-response from the lionfish:
+      </p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>🥅 Capture</h5>
+          <p>You try to catch the lionfish with a net for the aquarium.</p>
+          <div class="efecto">+12-18 Controlled, -8-14 Hostility</div>
+          <div class="contra">Counter: Flares its venomous spines. Watch out for the sting!</div>
+        </div>
+        <div class="combat-option">
+          <h5>🎣 Fish</h5>
+          <p>You ready the spear. Lionfish is edible and fishing them helps the reef.</p>
+          <div class="efecto">+15-22 Controlled, -10-16 Hostility</div>
+          <div class="contra">Counter: Reproduces rapidly. While you catch one, more juveniles appear.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🪸 Protect Coral</h5>
+          <p>You set up barriers to protect the coral and herbivorous fish.</p>
+          <div class="efecto">+10-15 Controlled, -6-10 Hostility</div>
+          <div class="contra">Counter: Devours herbivorous fish. Without them, algae invade the coral.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🤿 Alert Divers</h5>
+          <p>You alert other divers to organize a group removal effort.</p>
+          <div class="efecto">+18-25 Controlled, -12-18 Hostility</div>
+          <div class="contra">Counter: Hunts juvenile parrotfish. Without them the coral won't be cleaned!</div>
+        </div>
+      </div>
+      <p>
+        <strong>Peaceful resolution:</strong> Controlled fishing maintains the reef's balance.
+        Lionfish meat is delicious and nutritious — cooking it is ecological. Lionfish hunting
+        tournaments are a real strategy used in the Dominican Caribbean.
+      </p>
+
+      <h3>Enemy Sprites</h3>
+      <p>Each enemy has its own detailed sprite on the combat screen:</p>
+      <ul>
+        <li><strong>Soldier Diego</strong>: dark red uniform with conquistador helmet (morion)</li>
+        <li><strong>Constructor Méndez</strong>: yellow shirt with construction hard hat</li>
+        <li><strong>Lionfish</strong>: body with red/white stripes, fan-shaped pectoral fins, venomous dorsal spines with glowing tips, V-shaped tail, dark band across the eye</li>
+      </ul>
     </section>
 
     <!-- ============================================================
@@ -1241,6 +1305,12 @@
       <p>Dialogue system with typewriter effect, character name in gold, and support
       for response options. Dialogues block movement and are advanced with E. Each text
       is translated into Spanish, French, and English.</p>
+
+      <h3>Auto-Save</h3>
+      <p>The game saves automatically to localStorage every time the player returns to the world map.
+      Saved data includes: map progress (completed/unlocked nodes), full inventory, active companions,
+      health, character gender, and language. "Continue Game" in the main menu restores all state
+      and takes the player to the world map.</p>
 
       <h3>Toasts</h3>
       <p>Non-intrusive floating messages that appear when picking up items or completing missions.

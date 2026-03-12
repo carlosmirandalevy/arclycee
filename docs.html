@@ -987,32 +987,50 @@
           </div>
         </div>
 
-        <h4>Personajes planificados</h4>
+        <h4>Personajes</h4>
         <div class="npc-card">
           <div class="npc-avatar">🎣</div>
           <div class="npc-info">
-            <h5>Pescador</h5>
-            <div class="npc-role">Guía al mundo acuático</div>
-            <p>Ofrece su canoa en La Isabela y lleva a Pepito al primer naufragio.</p>
+            <h5>Pescador Manuel</h5>
+            <div class="npc-role">Historia de La Pinta</div>
+            <p>Buzo con traje de neopreno y máscara. Cuenta cómo La Pinta fue desmantelada para construir la Fortaleza Navidad.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐢</div>
+          <div class="npc-info">
+            <h5>Tortuga Carey</h5>
+            <div class="npc-role">Educación sobre especies en peligro</div>
+            <p>Nada en circuito ovalado alrededor del arrecife. Enseña sobre la tortuga carey y su estado de conservación.</p>
           </div>
         </div>
         <div class="npc-card">
           <div class="npc-avatar">🤿</div>
           <div class="npc-info">
-            <h5>Arqueólogo aficionado</h5>
+            <h5>Arqueóloga Submarina</h5>
             <div class="npc-role">Entrega el mapa de naufragios</div>
-            <p>Explorador submarino que conoce los sitios históricos sumergidos.</p>
+            <p>Con escafandra y libreta impermeable. Documenta los más de 400 naufragios de la isla y entrega el mapa de naufragios.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐟</div>
+          <div class="npc-info">
+            <h5>Pez León</h5>
+            <div class="npc-role">Combate ecológico</div>
+            <p>Especie invasora con sprite detallado: rayas rojas/blancas, aletas en abanico, espinas venenosas. Combate con 4 opciones ecológicas.</p>
           </div>
         </div>
 
-        <h4>Mecánicas planificadas</h4>
+        <h4>Mecánicas implementadas</h4>
         <ul>
-          <li>Exploración submarina con oxígeno limitado</li>
-          <li>Corrientes marinas que empujan al jugador</li>
-          <li>Fauna interactiva: tortugas, delfines y manatíes como guías amigables</li>
-          <li>Combate contra pez león (especie invasora)</li>
-          <li>Esquivar medusas (daño + efecto de lentitud)</li>
-          <li>Recolección de artefactos para el Museo de las Atarazanas Reales</li>
+          <li>Movimiento submarino (velocidad × 0.7 para simular nado)</li>
+          <li>4 medusas como peligros pasivos (daño + efecto de lentitud × 0.4 por 2 segundos)</li>
+          <li>Combate ecológico contra pez león con 4 opciones (atrapar, pescar, proteger coral, alertar buzos)</li>
+          <li>Tortuga carey nadando en circuito ovalado (animación con Math.cos/Math.sin)</li>
+          <li>25 partículas de burbujas ascendentes + 20 algas animadas + 4 rayos de luz</li>
+          <li>Depth sorting: entidades ordenadas por Y para efecto de profundidad</li>
+          <li>Tinte de agua overlay (rgba azul) + fondo arenoso con textura</li>
+          <li>Objetos: clavo de bronce (post-combate) y mapa de naufragios (de la arqueóloga)</li>
         </ul>
       </div>
 
@@ -1173,7 +1191,7 @@
         Cada enemigo tiene dos medidores emocionales:
       </p>
       <ul>
-        <li><strong style="color: var(--verde);">Paciencia (0-100)</strong>: sube al hablar o negociar. Al llegar a 100, el enemigo se rinde pacíficamente.</li>
+        <li><strong style="color: var(--verde);">Convencimiento (0-100)</strong>: sube al hablar o negociar. Al llegar a 100, el enemigo se convence y el conflicto se resuelve pacíficamente. La etiqueta cambia según el enemigo: "Convencido" para personas, "Controlado" para el pez león.</li>
         <li><strong style="color: var(--rojo);">Hostilidad (0-100)</strong>: baja con diplomacia. Cuando está bajo 30, el enemigo puede hablar en vez de atacar.</li>
       </ul>
 
@@ -1181,8 +1199,8 @@
       <table>
         <tr><th>Acción</th><th>Efecto</th><th>Riesgo</th></tr>
         <tr><td>Atacar</td><td>Daño directo al enemigo</td><td>Sube hostilidad +5</td></tr>
-        <tr><td>Hablar</td><td>Paciencia +12-25, Hostilidad -8-20</td><td>Ninguno</td></tr>
-        <tr><td>Negociar</td><td>Paciencia +20, Hostilidad -20 (si funciona)</td><td>55% éxito, si falla +5 hostilidad</td></tr>
+        <tr><td>Hablar</td><td>Convencido +12-25, Hostilidad -8-20</td><td>Ninguno</td></tr>
+        <tr><td>Negociar</td><td>Convencido +20, Hostilidad -20 (si funciona)</td><td>55% éxito, si falla +5 hostilidad</td></tr>
         <tr><td>Objeto</td><td>Usar ítem del inventario</td><td>Ninguno</td></tr>
         <tr><td>Huir</td><td>Escapar del combate</td><td>Depende de velocidad del enemigo</td></tr>
       </table>
@@ -1197,25 +1215,25 @@
         <div class="combat-option">
           <h5>📱 Redes Sociales</h5>
           <p>Publicas fotos de las ruinas amenazadas en redes.</p>
-          <div class="efecto">+10-16 Paciencia, -6-12 Hostilidad</div>
+          <div class="efecto">+10-16 Convencido, -6-12 Hostilidad</div>
           <div class="contra">Contra: Méndez paga influencers para promover su hotel.</div>
         </div>
         <div class="combat-option">
           <h5>📢 Protestas</h5>
           <p>Organizas una manifestación frente a la obra.</p>
-          <div class="efecto">+14-22 Paciencia, -10-16 Hostilidad</div>
+          <div class="efecto">+14-22 Convencido, -10-16 Hostilidad</div>
           <div class="contra">Contra: Méndez patrocina teteos y conciertos para la comunidad.</div>
         </div>
         <div class="combat-option">
           <h5>🏛️ Denunciar</h5>
           <p>Reportas la demolición ante las autoridades.</p>
-          <div class="efecto">+16-26 Paciencia, -12-20 Hostilidad</div>
+          <div class="efecto">+16-26 Convencido, -12-20 Hostilidad</div>
           <div class="contra">Contra: Méndez negocia permisos y excepciones con políticos.</div>
         </div>
         <div class="combat-option">
           <h5>⚖️ Vía Legal</h5>
           <p>Presentas un recurso legal para detener la obra.</p>
-          <div class="efecto">+20-30 Paciencia, -15-24 Hostilidad</div>
+          <div class="efecto">+20-30 Convencido, -15-24 Hostilidad</div>
           <div class="contra">Contra: Méndez dilata con maniobras legales mientras sigue construyendo.</div>
         </div>
       </div>
@@ -1224,6 +1242,52 @@
         historiadores y rediseña el hotel para que proteja y destaque las ruinas. "Será más caro, pero
         le dará un valor único. Y además... es lo correcto."
       </p>
+      <h3>Combate Ecológico: Pez León</h3>
+      <p>
+        En el Mundo Acuático, el combate contra el pez león usa <strong>opciones de control ecológico</strong>.
+        El pez león es una especie invasora real del Indo-Pacífico que devasta los arrecifes del Caribe.
+        El medidor muestra "Controlado" en vez de "Convencido" porque estamos controlando una especie, no convenciendo a una persona.
+        Cada acción del jugador provoca una contra-respuesta ecológica del pez león:
+      </p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>🥅 Atrapar</h5>
+          <p>Intentas atrapar al pez león con una red para llevarlo al acuario.</p>
+          <div class="efecto">+12-18 Controlado, -8-14 Hostilidad</div>
+          <div class="contra">Contra: Eriza sus espinas venenosas. ¡Cuidado con la picadura!</div>
+        </div>
+        <div class="combat-option">
+          <h5>🎣 Pescar</h5>
+          <p>Preparas el arpón. El pez león es comestible y pescarlo ayuda al arrecife.</p>
+          <div class="efecto">+15-22 Controlado, -10-16 Hostilidad</div>
+          <div class="contra">Contra: Se reproduce rápidamente. Mientras pescas uno, aparecen más juveniles.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🪸 Proteger Coral</h5>
+          <p>Colocas barreras para proteger el coral y los peces herbívoros.</p>
+          <div class="efecto">+10-15 Controlado, -6-10 Hostilidad</div>
+          <div class="contra">Contra: Devora peces herbívoros. Sin ellos, las algas invaden el coral.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🤿 Alertar Buzos</h5>
+          <p>Alertas a otros buzos para organizar una jornada de remoción.</p>
+          <div class="efecto">+18-25 Controlado, -12-18 Hostilidad</div>
+          <div class="contra">Contra: Caza peces loro jóvenes. ¡Sin ellos el coral no se limpiará!</div>
+        </div>
+      </div>
+      <p>
+        <strong>Resolución pacífica:</strong> La pesca controlada mantiene el equilibrio del arrecife.
+        La carne de pez león es deliciosa y nutritiva — cocinarlo es ecológico. Los torneos de
+        caza de pez león son una estrategia real usada en el Caribe dominicano.
+      </p>
+
+      <h3>Sprites de Enemigos</h3>
+      <p>Cada enemigo tiene su propio sprite detallado en la pantalla de combate:</p>
+      <ul>
+        <li><strong>Soldado Diego</strong>: uniforme rojo oscuro con casco de conquistador (morión)</li>
+        <li><strong>Constructor Méndez</strong>: camisa amarilla con casco de construcción</li>
+        <li><strong>Pez León</strong>: cuerpo con rayas rojas/blancas, aletas pectorales en abanico, espinas dorsales venenosas con puntas brillantes, cola en V, banda oscura a través del ojo</li>
+      </ul>
     </section>
 
     <!-- ============================================================
@@ -1241,6 +1305,12 @@
       <p>Sistema de diálogos con efecto máquina de escribir, nombre del personaje en dorado, y soporte
       para opciones de respuesta. Los diálogos bloquean el movimiento y se avanzan con E. Cada texto
       está traducido a español, francés e inglés.</p>
+
+      <h3>Guardado Automático</h3>
+      <p>El juego se guarda automáticamente en localStorage cada vez que el jugador vuelve al mapa
+      del mundo. Se guardan: progreso del mapa (nodos completados/desbloqueados), inventario completo,
+      compañeros activos, vida, género del personaje e idioma. "Continuar Juego" en el menú principal
+      restaura todo el estado y lleva al jugador al mapa del mundo.</p>
 
       <h3>Toasts</h3>
       <p>Mensajes flotantes no intrusivos que aparecen al recoger objetos o completar misiones.
