@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.9.1 — Corrección medusa + tortuga nadadora (2026-03-12)
+
+### Corregido
+- **Juego se congelaba al tocar medusa**: `sfx.danio()` no existía → corregido a `sfx.dano()`, que es el método real de sonido de daño
+- **Tortuga carey no se movía**: ahora nada en un circuito ovalado (120×60px) alrededor del arrecife de coral con `Math.cos`/`Math.sin` a velocidad lenta (0.4 rad/s)
+
+---
+
 ## v0.9.0 — Mundo Acuático: Naufragio de La Pinta (2026-03-12)
 
 ### Agregado

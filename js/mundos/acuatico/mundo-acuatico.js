@@ -153,7 +153,11 @@ export class MundoAcuatico {
         nombre: 'Tortuga Carey',
         color: '#6B8E23',
         dialogoHecho: false,
-        esCombate: false
+        esCombate: false,
+        // La tortuga nada en un circuito ovalado alrededor del arrecife
+        centroX: 850, centroY: 250,
+        radioX: 120, radioY: 60,
+        fase: 0
       },
       {
         id: 'arqueologa',
@@ -345,6 +349,14 @@ export class MundoAcuatico {
       }
     }
 
+    // --- Tortuga carey: nada en un circuito ovalado ---
+    const tortuga = this.npcs.find(n => n.id === 'tortugaCarey');
+    if (tortuga && tortuga.centroX !== undefined) {
+      tortuga.fase += dt * 0.4; // Velocidad de nado lenta y elegante
+      tortuga.x = tortuga.centroX + Math.cos(tortuga.fase) * tortuga.radioX;
+      tortuga.y = tortuga.centroY + Math.sin(tortuga.fase) * tortuga.radioY;
+    }
+
     // --- Medusas: movimiento y colisión ---
     for (const medusa of this.medusas) {
       // Movimiento sinusoidal entre puntoA y puntoB
@@ -363,7 +375,7 @@ export class MundoAcuatico {
           jugador.vida = Math.max(0, jugador.vida - 5);
           this.efectoLentitud = 2.0; // 2 segundos de lentitud
           this.invulnerabilidad = 1.5; // 1.5s de invulnerabilidad
-          this.sfx.danio();
+          this.sfx.dano();
 
           if (this.juego && this.juego.mostrarToast) {
             const textos = this._obtenerTextos();
