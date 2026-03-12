@@ -204,6 +204,14 @@ const en = {
       estudiante3: 'The San Francisco Monastery was the first in the Americas. Today its ruins host concerts.',
       estudiante4: 'The National Pantheon used to be a Jesuit church. Now it holds the remains of our national heroes.',
 
+      // Fabiola Herrera — Director of Volunteers, Cathedral Museum
+      fabiola1: 'Welcome to the Cathedral Museum! I\'m Fabiola Herrera, director of volunteers.',
+      fabiola2: 'This museum is housed in the old Royal Jail of Santo Domingo. We restored it to preserve centuries of history and faith.',
+      fabiola3: 'We have 15 rooms with treasures from the 16th to 20th century: the Tabernacle, pectoral crosses, the Double-Headed Eagle, the High Choir...',
+      fabiola4: 'I used to be an economist, but I discovered that my true mission was to turn this dream into reality.',
+      fabiola5: 'A museum is not just an exhibition space. It\'s a journey that transports visitors to a past filled with art and devotion.',
+      fabiola6: 'Every object here tells a story. The Pentagonal Stone, the restored sculptures with their original patina... everything speaks!',
+
       // Roberto Cassá — rotating conversations (recurring mentor)
       cassaZC1: 'We meet again! I came to research the Zona Colonial.',
       cassaZC2: 'This place has over 500 years of history. Every corner hides a secret.',

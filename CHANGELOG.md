@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.8.1 — Museo de la Catedral + Fabiola Herrera (2026-03-12)
+
+### Agregado
+
+**Museo de la Catedral** (edificio en Zona Colonial)
+- Nuevo edificio junto a la Catedral Primada: la restaurada Real Cárcel de Santo Domingo
+- Sprite detallado: mampostería colonial, puerta doble con arco, 3 ventanas con rejas de hierro forjado, letrero "MUSEO" y cruz dorada
+- 15 salas temáticas con tesoros del siglo XVI al XX: Sagrario, cruces pectorales, Águila Bicéfala, Coro Alto, Piedra Pentagonal
+
+**Fabiola Herrera — NPC del Museo** (6to NPC de Zona Colonial)
+- Directora del Voluntariado del Museo de la Catedral (persona real)
+- Economista jubilada e innovadora que transformó el sueño del museo en realidad
+- 6 líneas de diálogo: presentación, historia del edificio, tesoros del museo, su cambio de carrera, filosofía museística, objetos que hablan
+- Cuenta para completar la misión (totalNPCs: 4 → 5)
+
+**Traducciones** (ES/FR/EN)
+- 6 líneas de Fabiola × 3 idiomas = 18 líneas nuevas
+
+---
+
 ## v0.8.0 — Zona Colonial + Activismo Ciudadano + Favicon (2026-03-12)
 
 ### Agregado

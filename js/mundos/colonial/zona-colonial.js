@@ -69,7 +69,7 @@ export class ZonaColonial {
     // --- Misión ---
     this.misionActual = '';
     this.npcsHablados = 0;
-    this.totalNPCs = 4;
+    this.totalNPCs = 5;
 
     // --- Combate ---
     this.combateIniciado = false;
@@ -155,6 +155,17 @@ export class ZonaColonial {
         ancho: 24, alto: 24,
         tipo: 'relojSol',
         nombre: 'Reloj de Sol'
+      },
+      {
+        // Museo de la Catedral — alojado en la restaurada Real Cárcel
+        // de Santo Domingo, junto a la Catedral Primada. Contiene arte
+        // sacro y objetos religiosos de los siglos XVI al XX.
+        // 15 salas temáticas con tesoros: sagrario, cruces pectorales,
+        // el Águila Bicéfala, el Coro Alto y la Piedra Pentagonal.
+        x: 560, y: 280,
+        ancho: 90, alto: 70,
+        tipo: 'museo',
+        nombre: 'Museo de la Catedral'
       }
     ];
 
@@ -213,6 +224,19 @@ export class ZonaColonial {
         dialogoHecho: false,  // Nunca se pone true — siempre tiene algo que decir
         esCombate: false,
         esMentor: true        // Flag para excluirlo del conteo de misión
+      },
+      {
+        // Fabiola Herrera — Directora del Voluntariado del Museo de la Catedral.
+        // Economista jubilada e innovadora que transformó el sueño del Museo
+        // en la realidad que es hoy. Trabaja incansablemente coordinando
+        // voluntarios, gestionando las 15 salas y la tienda del museo.
+        id: 'fabiola',
+        x: 590, y: 370,
+        ancho: 28, alto: 32,
+        nombre: 'Fabiola Herrera',
+        color: '#6a3a6a',
+        dialogoHecho: false,
+        esCombate: false
       }
     ];
 
@@ -1210,6 +1234,79 @@ export class ZonaColonial {
         y + 2 + Math.sin(anguloGnomon) * 5
       );
       ctx.stroke();
+
+    } else if (edificio.tipo === 'museo') {
+      // Museo de la Catedral — alojado en la restaurada Real Cárcel
+      // de Santo Domingo. Fachada colonial con paredes gruesas de piedra,
+      // puertas de madera pesada y ventanas con rejas de hierro forjado.
+
+      // Muros de piedra restaurada (más claros que las ruinas)
+      ctx.fillStyle = '#d8c8a8';
+      ctx.fillRect(x, y, a, h);
+
+      // Piedras en los muros (mampostería colonial)
+      ctx.strokeStyle = '#c0b090';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < a; i += 14) {
+        for (let j = 0; j < h; j += 10) {
+          ctx.strokeRect(x + i + (j % 2 === 0 ? 0 : 7), y + j, 13, 9);
+        }
+      }
+
+      // Puerta principal (doble, de madera oscura con arco)
+      ctx.fillStyle = '#3a2510';
+      ctx.beginPath();
+      ctx.moveTo(x + a / 2 - 14, y + h);
+      ctx.lineTo(x + a / 2 - 14, y + h - 22);
+      ctx.quadraticCurveTo(x + a / 2, y + h - 32, x + a / 2 + 14, y + h - 22);
+      ctx.lineTo(x + a / 2 + 14, y + h);
+      ctx.closePath();
+      ctx.fill();
+      // Línea central de la puerta doble
+      ctx.strokeStyle = '#2a1a08';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + a / 2, y + h);
+      ctx.lineTo(x + a / 2, y + h - 28);
+      ctx.stroke();
+
+      // Ventanas con rejas de hierro (3 ventanas)
+      for (let i = 0; i < 3; i++) {
+        const vx = x + 12 + i * 28;
+        // Hueco de ventana
+        ctx.fillStyle = '#1a1a2e';
+        ctx.fillRect(vx, y + 10, 14, 18);
+        // Rejas (barras verticales de hierro forjado)
+        ctx.strokeStyle = '#555555';
+        ctx.lineWidth = 1;
+        for (let b = 0; b < 4; b++) {
+          ctx.beginPath();
+          ctx.moveTo(vx + 2 + b * 4, y + 10);
+          ctx.lineTo(vx + 2 + b * 4, y + 28);
+          ctx.stroke();
+        }
+      }
+
+      // Letrero del museo
+      ctx.fillStyle = '#2a1a08';
+      ctx.fillRect(x + a / 2 - 20, y - 6, 40, 10);
+      ctx.fillStyle = '#DAA520';
+      ctx.font = '6px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('MUSEO', x + a / 2, y + 1);
+      ctx.textAlign = 'left';
+
+      // Cruz dorada pequeña (vínculo con la Catedral)
+      ctx.strokeStyle = '#DAA520';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(x + a / 2, y - 14);
+      ctx.lineTo(x + a / 2, y - 6);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + a / 2 - 4, y - 11);
+      ctx.lineTo(x + a / 2 + 4, y - 11);
+      ctx.stroke();
     }
 
     // Nombre del edificio
@@ -1573,6 +1670,17 @@ export class ZonaColonial {
         { personaje: '📐 María', texto: zc?.estudiante2 || 'Estoy investigando las técnicas de construcción colonial. ¡Usaban coral fosilizado como material!' },
         { personaje: '📐 María', texto: zc?.estudiante3 || 'El Monasterio San Francisco fue el primero de América. Hoy sus ruinas son un escenario de conciertos.' },
         { personaje: '📐 María', texto: zc?.estudiante4 || 'El Panteón Nacional era una iglesia jesuita. Ahora guarda los restos de nuestros héroes nacionales.' }
+      ], () => { npc.dialogoHecho = true; });
+
+    } else if (npc.id === 'fabiola') {
+      // Fabiola Herrera — Directora del Voluntariado del Museo de la Catedral
+      this.dialogos.iniciarDialogo([
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola1 || '¡Bienvenido al Museo de la Catedral! Soy Fabiola Herrera, directora del voluntariado.' },
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola2 || 'Este museo está en la antigua Real Cárcel de Santo Domingo. La restauramos para preservar siglos de historia y fe.' },
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola3 || 'Tenemos 15 salas con tesoros del siglo XVI al XX: el Sagrario, cruces pectorales, el Águila Bicéfala, el Coro Alto...' },
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola4 || 'Yo era economista, pero descubrí que mi verdadera misión era transformar este sueño en realidad.' },
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola5 || 'Un museo no es solo un espacio de exhibición. Es un viaje que transporta al visitante a un pasado lleno de arte y devoción.' },
+        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola6 || 'Cada objeto aquí cuenta una historia. La Piedra Pentagonal, las esculturas restauradas con su pátina original... ¡todo habla!' }
       ], () => { npc.dialogoHecho = true; });
 
     } else if (npc.id === 'historiador') {

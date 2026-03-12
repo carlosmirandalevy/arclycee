@@ -207,6 +207,14 @@ const es = {
       estudiante3: 'El Monasterio San Francisco fue el primero de América. Hoy sus ruinas son un escenario de conciertos.',
       estudiante4: 'El Panteón Nacional era una iglesia jesuita. Ahora guarda los restos de nuestros héroes nacionales.',
 
+      // Fabiola Herrera — Directora del Voluntariado, Museo de la Catedral
+      fabiola1: '¡Bienvenido al Museo de la Catedral! Soy Fabiola Herrera, directora del voluntariado.',
+      fabiola2: 'Este museo está en la antigua Real Cárcel de Santo Domingo. La restauramos para preservar siglos de historia y fe.',
+      fabiola3: 'Tenemos 15 salas con tesoros del siglo XVI al XX: el Sagrario, cruces pectorales, el Águila Bicéfala, el Coro Alto...',
+      fabiola4: 'Yo era economista, pero descubrí que mi verdadera misión era transformar este sueño en realidad.',
+      fabiola5: 'Un museo no es solo un espacio de exhibición. Es un viaje que transporta al visitante a un pasado lleno de arte y devoción.',
+      fabiola6: 'Cada objeto aquí cuenta una historia. La Piedra Pentagonal, las esculturas restauradas con su pátina original... ¡todo habla!',
+
       // Roberto Cassá — conversaciones rotativas (mentor recurrente)
       cassaZC1: '¡Volvemos a encontrarnos! Vine a investigar la Zona Colonial.',
       cassaZC2: 'Este lugar tiene más de 500 años de historia. Cada esquina esconde un secreto.',

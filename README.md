@@ -29,7 +29,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Mundo | Descripción |
 |---|---|
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura y areíto) |
-| Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
+| Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
 | Acuático | Naufragios, exploración submarina |
 | Jurídico | Tráfico de reliquias, leyes de protección patrimonial |
 | Laboratorio | Autenticación de piezas, museos |

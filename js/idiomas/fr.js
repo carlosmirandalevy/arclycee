@@ -204,6 +204,14 @@ const fr = {
       estudiante3: 'Le Monastère San Francisco fut le premier d\'Amérique. Aujourd\'hui ses ruines accueillent des concerts.',
       estudiante4: 'Le Panthéon National était une église jésuite. Il abrite maintenant les restes de nos héros nationaux.',
 
+      // Fabiola Herrera — Directrice du Bénévolat, Musée de la Cathédrale
+      fabiola1: 'Bienvenue au Musée de la Cathédrale ! Je suis Fabiola Herrera, directrice du bénévolat.',
+      fabiola2: 'Ce musée est installé dans l\'ancienne Prison Royale de Santo Domingo. Nous l\'avons restaurée pour préserver des siècles d\'histoire et de foi.',
+      fabiola3: 'Nous avons 15 salles avec des trésors du XVIe au XXe siècle : le Tabernacle, des croix pectorales, l\'Aigle Bicéphale, le Chœur...',
+      fabiola4: 'J\'étais économiste, mais j\'ai découvert que ma vraie mission était de transformer ce rêve en réalité.',
+      fabiola5: 'Un musée n\'est pas qu\'un espace d\'exposition. C\'est un voyage qui transporte le visiteur dans un passé rempli d\'art et de dévotion.',
+      fabiola6: 'Chaque objet ici raconte une histoire. La Pierre Pentagonale, les sculptures restaurées avec leur patine originale... tout parle !',
+
       // Roberto Cassá — conversations rotatives (mentor récurrent)
       cassaZC1: 'On se retrouve ! Je suis venu étudier la Zone Coloniale.',
       cassaZC2: 'Cet endroit a plus de 500 ans d\'histoire. Chaque coin cache un secret.',
