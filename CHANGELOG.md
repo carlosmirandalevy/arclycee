@@ -1,5 +1,85 @@
 # Changelog
 
+## v0.7.0 — Mundo Colonial + Combate + Mejoras UI (2026-03-12)
+
+### Agregado
+
+**La Isabela — Mundo Colonial** (`js/mundos/colonial/la-isabela.js`)
+- Primer nivel del Mundo Colonial: las ruinas de La Isabela (1494)
+- Nivel top-down 1600x1100 con zona costera caribeña
+- 5 edificios coloniales dibujados: Iglesia (ruinas con arco y cruz), Casa de Colón (con techo), Alhóndiga, Torre de Vigía (con almenas), Cementerio Colonial (con cruces)
+- Caminos de piedra conectando los edificios
+- Mar al fondo con olas animadas
+- 14 árboles tropicales decorativos
+- 3 NPCs educativos:
+  - Soldado Diego: guardián que inicia combate, se pacifica mediante diplomacia
+  - Fray Ramón Pané: primer cronista de las Indias, enseña sobre su obra histórica
+  - Guatiguaná: líder taíno, habla sobre la resistencia y la pervivencia cultural
+- Magnetómetro coleccionable: aparece solo después de resolver el encuentro con el soldado
+- Misión: hablar con los 3 personajes → marca nodo completado
+
+**Sistema de combate funcional** (`js/mecanicas/combate.js`)
+- Combate estilo Undertale con ruta pacifista completamente jugable
+- 5 opciones: Atacar, Hablar, Negociar, Objeto, Huir
+- Medidores de Paciencia (verde, sube al dialogar) y Hostilidad (rojo, baja con diplomacia)
+- Paciencia al 100% = victoria pacífica; vida del enemigo a 0 = victoria por combate
+- Turno del enemigo con pausa de 0.8s para leer el mensaje de tu acción
+- Mensajes de feedback por turno (ej: "Hablas con calma. Paciencia +18")
+- Barra de vida del jugador con colores (verde → amarillo → rojo) y HP numérico
+- Sprite del enemigo con casco de conquistador
+- Pista visual: "Usa Hablar o Negociar para llenar la barra de Paciencia"
+- Indicador de turno: "Tu turno" / "turno del enemigo"
+- Bloqueo de entrada al iniciar para evitar capturar teclas del diálogo anterior
+
+**Compañero Cemí Murciélago** (`js/personajes/companeros/cemi-murcielago.js`)
+- Se obtiene del Behique Yuisa en el Asentamiento Taíno II
+- Propiedad `tipo: 'cemiMurcielago'` para identificación
+- Métodos `activar()`/`desactivar()` para el sistema de compañeros
+- Verificación de duplicados (no se otorga si ya lo tienes)
+- Diálogo adicional del Behique traducido a ES/FR/EN
+
+**Habilidad especial de Magnoboot** (tecla F)
+- Animación de detección de metal: pulso de radar con círculos concéntricos
+- Se activa con F cuando Magnoboot está en el equipo
+- Indicador `[F] Detectar Metal` en el HUD de niveles donde está activo
+
+**Mensajes flotantes (toasts)** (`juego.js`)
+- Sistema de notificaciones no intrusivas en la parte superior de la pantalla
+- Aparecen al recoger cualquier objeto: "✦ Magnetómetro — añadido al inventario"
+- Animación de entrada (baja desde arriba) y salida (desvanecimiento)
+- Fondo oscuro redondeado con borde dorado
+- Máximo 4 toasts simultáneos
+- Integrado en las 4 escenas con objetos: Cuevas, Asentamiento I, Asentamiento II, La Isabela
+
+**Selector de niveles secreto** (Konami Code)
+- Secuencia secreta: ↑↑↓↓←→←→ abre un selector de niveles
+- Permite saltar a cualquiera de las 8 escenas del juego
+- Navegación con flechas, E para confirmar, Q para cerrar
+- Funciona desde cualquier pantalla
+
+**Navegación mejorada — tecla M para mapa**
+- Nueva tecla M (mapa) para volver al mapa del mundo desde cualquier nivel
+- Salir también caminando al borde inferior del nivel
+- Q/Esc ya no salen de los mundos (evita salidas accidentales)
+- Actualizado en: Cuevas del Pomier, Asentamiento I, Asentamiento II, La Isabela
+
+**Traducciones** (ES/FR/EN)
+- Diálogos de La Isabela: soldado (4 líneas), cronista (4), taíno (4), misiones
+- Diálogo del Behique otorgando el Cemí Murciélago
+- Textos de misión actualizados de (Q) a (M)
+
+### Corregido
+- **Selección de personaje se saltaba**: E todavía presionada del menú activaba confirmar inmediatamente. Ahora `bloqueoEntrada` empieza en `true`
+- **Combate imposible de ganar**: paciencia al 100% no terminaba el combate porque el resultado se verificaba dentro del bloque `enCombate` (que ya era `false`). Movido fuera del bloque
+- **Hablar demasiado débil en combate**: daba 2-9 paciencia por turno, ahora da 12-25
+- **Daño enemigo excesivo**: reducido de `fuerza*3 + random(5)` a `fuerza*2 + random(3)`
+- **Vida del jugador no visible en combate**: añadida barra de HP del jugador en el lado derecho
+- **Magnetómetro inaccesible**: estaba dentro del bounding box de la iglesia; movido fuera y rediseñado como detector de metales
+- **Acentos faltantes**: corregidos ~40 textos sin tildes (Arqueológica, años, taína, española, ¿Dónde estoy?, y todos los textos del mapa LeafletJS)
+- Identificadores `tipo` añadidos a los 3 compañeros (magnoboot, viralata, cemiMurcielago)
+
+---
+
 ## v0.6.0 — Asentamiento Taíno II + Viralata (2026-03-11)
 
 ### Agregado

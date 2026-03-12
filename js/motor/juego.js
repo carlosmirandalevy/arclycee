@@ -23,6 +23,9 @@ import { SistemaGuardado } from './guardado.js';
 // --- Importar el inventario ---
 import { Inventario } from '../mecanicas/inventario.js';
 
+// --- Importar el sistema de combate ---
+import { SistemaCombate } from '../mecanicas/combate.js';
+
 // --- Importar el sistema de idiomas ---
 import idiomas from '../idiomas/idiomas.js';
 
@@ -37,6 +40,7 @@ import { CuevasPomier } from '../mundos/taino/cuevas-pomier.js';
 import { MapaPrincipal } from '../mundos/mapa-principal.js';
 import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
 import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
+import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 
 export class Juego {
 
@@ -92,12 +96,49 @@ export class Juego {
     // UI global que se puede abrir en cualquier escena jugable.
     this.inventario = new Inventario();
 
+    // --- Combate ---
+    // Sistema de combate estilo Undertale con opción pacifista
+    this.combate = new SistemaCombate();
+
     // Bloqueo para evitar que la tecla I abra y cierre en el mismo frame
     this._bloqueoInventario = false;
+
+    // Bloqueo para la tecla F (habilidad especial de compañeros)
+    this._bloqueoEspecial = false;
 
     // Rastrear si el inventario estaba abierto el frame anterior
     // para dar un frame de gracia cuando se cierra
     this._inventarioEstabaAbierto = false;
+
+    // --- Sistema de mensajes flotantes (toasts) ---
+    // Son mensajes temporales que aparecen arriba de la pantalla
+    // y desaparecen solos después de unos segundos.
+    // Se usan para notificar al jugador cuando recoge un objeto,
+    // completa una misión, etc. sin interrumpir el juego.
+    // Cada toast es: { texto, duracion, tiempoRestante, opacidad }
+    this._toasts = [];
+
+    // --- Código secreto para saltar a cualquier nivel ---
+    // Secuencia: ↑ ↑ ↓ ↓ ← → ← → (estilo Konami)
+    // Cuando se completa, aparece un selector de niveles
+    this._codigoSecreto = [
+      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'
+    ];
+    this._progresoSecreto = 0;       // Cuántas teclas van bien
+    this._selectorNiveles = false;    // ¿Está abierto el selector?
+    this._nivelSeleccionado = 0;      // Índice del nivel elegido
+    this._bloqueoSelector = true;     // Evitar input inmediato al abrir
+    this._listaNiveles = [
+      { nombre: 'Menú Principal',        escena: 'menuPrincipal' },
+      { nombre: 'Selección Personaje',   escena: 'seleccionPersonaje' },
+      { nombre: 'Intro Cinemática',      escena: 'introCinematica' },
+      { nombre: 'Cuevas del Pomier',     escena: 'cuevasPomier' },
+      { nombre: 'Mapa Principal',        escena: 'mapaPrincipal' },
+      { nombre: 'Asentamiento Taíno I',  escena: 'asentamientoTaino1' },
+      { nombre: 'Asentamiento Taíno II', escena: 'asentamientoTaino2' },
+      { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' }
+    ];
   }
 
   // --- ARRANQUE ---
@@ -137,6 +178,13 @@ export class Juego {
     // Activar la entrada (teclado + táctil)
     this.entrada.iniciarTeclado();
     this.entrada.iniciarTactil(document.body);
+
+    // Listener RAW para detectar la secuencia secreta (Konami code)
+    // Se escucha aparte del sistema de entrada porque necesitamos las
+    // teclas exactas, no las acciones mapeadas
+    window.addEventListener('keydown', (evento) => {
+      this._procesarCodigoSecreto(evento.key);
+    });
 
     // Calcular la escala inicial para que el juego quepa en la ventana
     this.redimensionar();
@@ -212,6 +260,10 @@ export class Juego {
     // Asentamiento Taíno II — aldea agrícola con conucos y areíto
     const asentamientoTaino2 = new AsentamientoTaino2();
     this.registrarEscena('asentamientoTaino2', asentamientoTaino2);
+
+    // La Isabela — primer asentamiento europeo (Mundo Colonial)
+    const laIsabela = new LaIsabela();
+    this.registrarEscena('mundoColonial', laIsabela);
   }
 
   // --- BUCLE PRINCIPAL ---
@@ -260,6 +312,50 @@ export class Juego {
    * - companeros: las mascotas/robots que acompañan al jugador
    */
   actualizar(dt) {
+    // --- Selector de niveles secreto ---
+    // Si está abierto, consume TODA la entrada
+    if (this._selectorNiveles) {
+      // Esperar a que se suelten las teclas antes de aceptar input
+      if (this._bloqueoSelector) {
+        if (!this.entrada.estaPresionada('arriba') &&
+            !this.entrada.estaPresionada('abajo') &&
+            !this.entrada.estaPresionada('accion') &&
+            !this.entrada.estaPresionada('cancelar')) {
+          this._bloqueoSelector = false;
+        }
+        return;
+      }
+
+      // Navegar con flechas
+      if (this.entrada.estaPresionada('arriba')) {
+        this._nivelSeleccionado = Math.max(0, this._nivelSeleccionado - 1);
+        this._bloqueoSelector = true;
+      } else if (this.entrada.estaPresionada('abajo')) {
+        this._nivelSeleccionado = Math.min(
+          this._listaNiveles.length - 1,
+          this._nivelSeleccionado + 1
+        );
+        this._bloqueoSelector = true;
+      }
+
+      // Confirmar con E/Enter
+      if (this.entrada.estaPresionada('accion')) {
+        const nivel = this._listaNiveles[this._nivelSeleccionado];
+        this._selectorNiveles = false;
+        this._bloqueoSelector = true;
+        this.cambiarEscena(nivel.escena);
+        return;
+      }
+
+      // Cerrar con Q/Esc
+      if (this.entrada.estaPresionada('cancelar')) {
+        this._selectorNiveles = false;
+        this._bloqueoSelector = true;
+      }
+
+      return;
+    }
+
     // --- Inventario: abrir/cerrar con I ---
     // Solo se puede abrir en escenas jugables (cuando hay jugador)
     if (this.jugador) {
@@ -287,9 +383,35 @@ export class Juego {
       }
     }
 
+    // --- Combate: si hay un combate activo, consume toda la entrada ---
+    if (this.combate.enCombate) {
+      this.combate.actualizar(dt, this.entrada, this.jugador, this.inventario);
+      return;
+    }
+
+    // --- Habilidad especial con F ---
+    // Si el jugador presiona F y tiene a Magnoboot, activa la detección
+    if (this.jugador) {
+      if (this.entrada.estaPresionada('especial') && !this._bloqueoEspecial) {
+        this._bloqueoEspecial = true;
+
+        // Buscar Magnoboot entre los compañeros
+        const magnoboot = this.companeros.find(c => c.tipo === 'magnoboot' && c.activo);
+        if (magnoboot && typeof magnoboot.iniciarDeteccion === 'function') {
+          magnoboot.iniciarDeteccion();
+        }
+      }
+      if (!this.entrada.estaPresionada('especial')) {
+        this._bloqueoEspecial = false;
+      }
+    }
+
     if (this.escenaActual && typeof this.escenaActual.actualizar === 'function') {
       this.escenaActual.actualizar(dt, this.entrada, this.jugador, this.companeros);
     }
+
+    // --- Actualizar toasts (siempre, incluso durante combate/inventario) ---
+    this._actualizarToasts(dt);
   }
 
   /**
@@ -315,10 +437,24 @@ export class Juego {
       );
     }
 
+    // --- Combate se dibuja ENCIMA de la escena (overlay) ---
+    if (this.combate.enCombate) {
+      this.combate.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.combate, this.jugador);
+    }
+
     // --- Inventario se dibuja ENCIMA de todo (overlay) ---
     // Usa el contexto raw porque maneja su propio dibujo
     if (this.inventario.abierto) {
       this.inventario.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
+    }
+
+    // --- Mensajes flotantes (toasts) encima de la UI ---
+    // Se dibujan sobre todo excepto el selector secreto
+    this._dibujarToasts(this.ctx, ANCHO_JUEGO);
+
+    // --- Selector de niveles secreto (se dibuja sobre ABSOLUTAMENTE todo) ---
+    if (this._selectorNiveles) {
+      this._dibujarSelectorNiveles(this.ctx, ANCHO_JUEGO, ALTO_JUEGO);
     }
   }
 
@@ -360,7 +496,7 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2'];
+    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial'];
     if (escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
     }
@@ -371,6 +507,202 @@ export class Juego {
     if (typeof this.escenaActual.iniciar === 'function') {
       this.escenaActual.iniciar(this);
     }
+  }
+
+  // --- MENSAJES FLOTANTES (TOASTS) ---
+  // Los toasts son notificaciones no intrusivas que aparecen en la
+  // parte superior de la pantalla y desaparecen solas. Se usan para
+  // informar al jugador de eventos sin pausar el juego (ej: recoger
+  // un objeto, completar una misión, desbloquear algo).
+
+  /**
+   * Muestra un mensaje flotante en pantalla.
+   * @param {string} texto - El mensaje a mostrar
+   * @param {number} duracion - Segundos que dura visible (por defecto 3)
+   */
+  mostrarToast(texto, duracion = 3) {
+    this._toasts.push({
+      texto,
+      duracion,
+      tiempoRestante: duracion
+    });
+
+    // Máximo 4 toasts a la vez para no saturar la pantalla
+    if (this._toasts.length > 4) {
+      this._toasts.shift(); // Quitar el más viejo
+    }
+  }
+
+  /**
+   * Reduce el tiempo de vida de cada toast y elimina los expirados.
+   * Se llama cada frame desde actualizar().
+   */
+  _actualizarToasts(dt) {
+    for (let i = this._toasts.length - 1; i >= 0; i--) {
+      this._toasts[i].tiempoRestante -= dt;
+      if (this._toasts[i].tiempoRestante <= 0) {
+        this._toasts.splice(i, 1);
+      }
+    }
+  }
+
+  /**
+   * Dibuja todos los toasts activos en la parte superior de la pantalla.
+   * Cada toast tiene una animación de entrada (baja desde arriba) y
+   * de salida (se desvanece al expirar). Están diseñados para no
+   * tapar la acción del juego.
+   */
+  _dibujarToasts(ctx, anchoCanvas) {
+    if (this._toasts.length === 0) return;
+
+    ctx.save();
+
+    for (let i = 0; i < this._toasts.length; i++) {
+      const toast = this._toasts[i];
+      const y = 50 + i * 36; // Cada toast se apila debajo del anterior
+
+      // --- Calcular opacidad ---
+      // Aparece rápido (0.3s), desaparece suave (último segundo)
+      const tiempoVivido = toast.duracion - toast.tiempoRestante;
+      let opacidad = 1;
+
+      // Fade in: primer 0.3 segundos
+      if (tiempoVivido < 0.3) {
+        opacidad = tiempoVivido / 0.3;
+      }
+      // Fade out: último segundo
+      if (toast.tiempoRestante < 1) {
+        opacidad = toast.tiempoRestante;
+      }
+
+      // --- Animación de entrada (baja desde arriba) ---
+      const desplazamiento = tiempoVivido < 0.3 ? (1 - tiempoVivido / 0.3) * -15 : 0;
+
+      // --- Medir el texto para ajustar el fondo ---
+      ctx.font = 'bold 13px monospace';
+      const medida = ctx.measureText(toast.texto);
+      const anchoTexto = medida.width + 30; // Padding de 15px a cada lado
+      const xCentro = anchoCanvas / 2;
+
+      // --- Fondo redondeado semitransparente ---
+      // Dibujamos un rectángulo con esquinas redondeadas manualmente
+      // para compatibilidad con navegadores que no soporten roundRect
+      const rx = xCentro - anchoTexto / 2;
+      const ry = y + desplazamiento - 12;
+      const rw = anchoTexto;
+      const rh = 26;
+      const radio = 8;
+
+      ctx.fillStyle = `rgba(20, 20, 20, ${0.8 * opacidad})`;
+      ctx.beginPath();
+      ctx.moveTo(rx + radio, ry);
+      ctx.lineTo(rx + rw - radio, ry);
+      ctx.arcTo(rx + rw, ry, rx + rw, ry + radio, radio);
+      ctx.lineTo(rx + rw, ry + rh - radio);
+      ctx.arcTo(rx + rw, ry + rh, rx + rw - radio, ry + rh, radio);
+      ctx.lineTo(rx + radio, ry + rh);
+      ctx.arcTo(rx, ry + rh, rx, ry + rh - radio, radio);
+      ctx.lineTo(rx, ry + radio);
+      ctx.arcTo(rx, ry, rx + radio, ry, radio);
+      ctx.closePath();
+      ctx.fill();
+
+      // Borde dorado sutil
+      ctx.strokeStyle = `rgba(255, 215, 0, ${0.5 * opacidad})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // --- Texto del toast ---
+      ctx.fillStyle = `rgba(255, 255, 255, ${opacidad})`;
+      ctx.textAlign = 'center';
+      ctx.fillText(toast.texto, xCentro, y + desplazamiento + 3);
+    }
+
+    ctx.restore();
+  }
+
+  // --- CÓDIGO SECRETO (KONAMI CODE) ---
+
+  /**
+   * Verifica si la tecla presionada continúa la secuencia secreta.
+   * Si la secuencia se completa, abre el selector de niveles.
+   * Si se presiona una tecla incorrecta, reinicia el progreso.
+   */
+  _procesarCodigoSecreto(tecla) {
+    // Si el selector ya está abierto, no procesar más la secuencia
+    if (this._selectorNiveles) return;
+
+    if (tecla === this._codigoSecreto[this._progresoSecreto]) {
+      this._progresoSecreto++;
+
+      // ¿Se completó la secuencia?
+      if (this._progresoSecreto >= this._codigoSecreto.length) {
+        this._progresoSecreto = 0;
+        this._selectorNiveles = true;
+        this._nivelSeleccionado = 0;
+        this._bloqueoSelector = true; // Evitar que la última tecla active algo
+      }
+    } else {
+      // Tecla incorrecta → reiniciar
+      // Pero si la tecla es el inicio de la secuencia, contar como primer paso
+      this._progresoSecreto = (tecla === this._codigoSecreto[0]) ? 1 : 0;
+    }
+  }
+
+  /**
+   * Dibuja el selector de niveles en pantalla.
+   * Aparece como un overlay oscuro con la lista de todas las escenas.
+   */
+  _dibujarSelectorNiveles(ctx, ancho, alto) {
+    // Fondo semitransparente
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+    ctx.fillRect(0, 0, ancho, alto);
+
+    // Título
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 28px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('🔓 SELECTOR DE NIVELES 🔓', ancho / 2, 60);
+
+    ctx.fillStyle = '#AAAAAA';
+    ctx.font = '14px monospace';
+    ctx.fillText('(Código Konami activado)', ancho / 2, 85);
+
+    // Lista de niveles
+    const inicioY = 130;
+    const altoOpcion = 40;
+
+    for (let i = 0; i < this._listaNiveles.length; i++) {
+      const y = inicioY + i * altoOpcion;
+      const nivel = this._listaNiveles[i];
+      const seleccionado = (i === this._nivelSeleccionado);
+
+      // Fondo de la opción seleccionada
+      if (seleccionado) {
+        ctx.fillStyle = 'rgba(255, 215, 0, 0.2)';
+        ctx.fillRect(ancho / 2 - 200, y - 5, 400, 35);
+
+        // Borde dorado
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(ancho / 2 - 200, y - 5, 400, 35);
+      }
+
+      // Número y nombre
+      ctx.fillStyle = seleccionado ? '#FFD700' : '#FFFFFF';
+      ctx.font = seleccionado ? 'bold 20px monospace' : '18px monospace';
+      ctx.textAlign = 'center';
+
+      const flecha = seleccionado ? '▸ ' : '  ';
+      ctx.fillText(`${flecha}${i + 1}. ${nivel.nombre}`, ancho / 2, y + 20);
+    }
+
+    // Instrucciones
+    ctx.fillStyle = '#888888';
+    ctx.font = '16px monospace';
+    ctx.textAlign = 'center';
+    const yInstrucciones = inicioY + this._listaNiveles.length * altoOpcion + 30;
+    ctx.fillText('↑↓: elegir  |  E: ir al nivel  |  Q: cerrar', ancho / 2, yInstrucciones);
   }
 
   // --- RESPONSIVO ---

@@ -42,9 +42,17 @@ firebase deploy
 | Mover | WASD o Flechas | D-pad virtual |
 | Saltar (en cuevas) | Espacio | Botón SALTO |
 | Interactuar / Confirmar | E o Enter | Botón A |
-| Cancelar / Salir | Q o Escape | Botón B |
+| Cancelar / Salir menú | Q o Escape | Botón B |
 | Inventario | I | Botón X |
 | Habilidad especial | F | Botón Y |
+| Volver al mapa | M | — |
+
+**En combate:**
+
+| Acción | Teclado |
+|---|---|
+| Elegir opción | Flechas ← → |
+| Confirmar acción | E o Enter |
 
 **Dentro del inventario:**
 
@@ -65,7 +73,8 @@ arclycee/
 │   ├── motor/              ← Motor del juego (loop, render, input, audio, save)
 │   ├── escenas/            ← Pantallas (menú, selección, intro)
 │   ├── mundos/             ← Niveles y mapas del mundo
-│   │   └── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
+│   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
+│   │   └── colonial/       ← Mundo Colonial (La Isabela)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí
 │   ├── mecanicas/          ← Combate, diálogos, inventario, misiones

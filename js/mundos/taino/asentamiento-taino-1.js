@@ -278,18 +278,24 @@ export class AsentamientoTaino1 {
         this.sfx.recoger();
 
         const textos = this._obtenerTextos();
+        const nombreObjeto = textos?.objetos?.[obj.tipo] || obj.tipo;
         jugador.agregarAlInventario({ nombre: obj.tipo });
 
         if (this.juego && this.juego.inventario) {
           this.juego.inventario.agregar({
             id: obj.tipo,
-            nombre: textos?.objetos?.[obj.tipo] || obj.tipo,
+            nombre: nombreObjeto,
             descripcion: textos?.objetos?.[`desc${obj.tipo.charAt(0).toUpperCase() + obj.tipo.slice(1)}`] || '',
             tipo: 'herramienta',
             cantidad: 1,
             color: '#4488CC',
             esUsable: false
           });
+        }
+
+        // Mostrar mensaje flotante indicando qué objeto se recogió
+        if (this.juego && this.juego.mostrarToast) {
+          this.juego.mostrarToast(`✦ ${nombreObjeto} — añadido al inventario`);
         }
       }
     }
@@ -313,8 +319,8 @@ export class AsentamientoTaino1 {
       }
     }
 
-    // --- Volver al mapa con Q ---
-    if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
+    // --- Volver al mapa con M o caminando al borde inferior ---
+    if (entrada.estaPresionada('mapa') && !this.bloqueoEntrada) {
       if (this.juego && this.juego.cambiarEscena) {
         this.juego.cambiarEscena('mapaPrincipal');
       }
@@ -322,8 +328,16 @@ export class AsentamientoTaino1 {
       return;
     }
 
+    // Salir por el borde inferior (por donde entró el jugador)
+    if (jugador.y >= this.altoNivel - jugador.alto - 5) {
+      if (this.juego && this.juego.cambiarEscena) {
+        this.juego.cambiarEscena('mapaPrincipal');
+      }
+      return;
+    }
+
     // --- Desbloquear entrada ---
-    if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('cancelar')) {
+    if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('mapa')) {
       this.bloqueoEntrada = false;
     }
 
@@ -523,7 +537,7 @@ export class AsentamientoTaino1 {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | I: inventario | Q: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | E: hablar | I: inventario | M: mapa', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }

@@ -239,7 +239,7 @@ export class MenuPrincipal {
     ctx.font = '16px monospace';
     ctx.fillStyle = '#CCCCCC';
     ctx.fillText(
-      'Aventura Arqueologica Dominicana',
+      'Aventura Arqueológica Dominicana',
       ancho / 2,
       150 + this.animacionTitulo
     );

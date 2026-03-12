@@ -259,8 +259,8 @@ export class CuevasPomier {
       return; // No procesar movimiento mientras hay diálogo
     }
 
-    // --- Salir de la cueva con Q/Escape ---
-    if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
+    // --- Salir de la cueva con M (mapa) ---
+    if (entrada.estaPresionada('mapa') && !this.bloqueoEntrada) {
       this.bloqueoEntrada = true;
       if (this.juego && this.juego.cambiarEscena) {
         this.juego.cambiarEscena('mapaPrincipal');
@@ -268,7 +268,7 @@ export class CuevasPomier {
       return;
     }
 
-    if (!entrada.estaPresionada('cancelar')) {
+    if (!entrada.estaPresionada('mapa')) {
       this.bloqueoEntrada = false;
     }
 
@@ -379,15 +379,19 @@ export class CuevasPomier {
         const textos = this._obtenerTextos();
         const objTextos = textos?.objetos || {};
 
+        // Variable para guardar el nombre traducido del objeto recogido
+        let nombreObjeto = '';
+
         if (objeto.tipo === 'linterna') {
           this.radioLuz = 150;
+          nombreObjeto = objTextos.linterna || 'Linterna';
           // Agregar al inventario simple del jugador (para el getter tieneLinterna)
           jugador.agregarAlInventario({ nombre: 'linterna' });
           // Agregar al inventario UI con info completa
           if (this.juego && this.juego.inventario) {
             this.juego.inventario.agregar({
               id: 'linterna',
-              nombre: objTextos.linterna || 'Linterna',
+              nombre: nombreObjeto,
               descripcion: objTextos.descLinterna || 'Ilumina la oscuridad.',
               tipo: 'herramienta',
               esUsable: false
@@ -396,11 +400,12 @@ export class CuevasPomier {
         }
 
         if (objeto.tipo === 'fragmentoMapa') {
+          nombreObjeto = objTextos.fragmentoMapa || 'Fragmento de Mapa';
           jugador.agregarAlInventario({ nombre: 'fragmentoMapa' });
           if (this.juego && this.juego.inventario) {
             this.juego.inventario.agregar({
               id: 'fragmentoMapa',
-              nombre: objTextos.fragmentoMapa || 'Fragmento de Mapa',
+              nombre: nombreObjeto,
               descripcion: objTextos.descFragmentoMapa || 'Un pedazo de mapa antiguo.',
               tipo: 'clave',
               esUsable: false
@@ -409,17 +414,23 @@ export class CuevasPomier {
         }
 
         if (objeto.tipo === 'artefactoTaino') {
+          nombreObjeto = objTextos.artefactoTaino || 'Artefacto Taíno';
           jugador.agregarAlInventario({ nombre: 'artefactoTaino' });
           if (this.juego && this.juego.inventario) {
             this.juego.inventario.agregar({
               id: 'artefactoTaino',
-              nombre: objTextos.artefactoTaino || 'Artefacto Taíno',
+              nombre: nombreObjeto,
               descripcion: objTextos.descArtefactoTaino || 'Un cemí dorado.',
               tipo: 'clave',
               esUsable: false
             });
           }
           this.misionActual = textos?.dialogos?.cueva?.misionArtefacto || 'Lleva el artefacto a la salida';
+        }
+
+        // Mostrar mensaje flotante indicando qué objeto se recogió
+        if (nombreObjeto && this.juego && this.juego.mostrarToast) {
+          this.juego.mostrarToast(`✦ ${nombreObjeto} — añadido al inventario`);
         }
       }
     }
@@ -763,7 +774,7 @@ export class CuevasPomier {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | Espacio: saltar | E: examinar | I: inventario | Q: salir', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | Espacio: saltar | E: examinar | I: inventario | M: mapa', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }

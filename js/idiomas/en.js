@@ -123,7 +123,7 @@ const en = {
       perro3: 'It\'s decided! You\'ll call him Viralata. His nose can sniff out hidden objects. He joins your team!',
 
       misionHablar: 'Talk to the 3 villagers',
-      misionCompleta: 'Village explored! Return to map (Q)'
+      misionCompleta: 'Village explored! Return to map (M)'
     },
 
     // Second village dialogues — agriculture, medicine, and ceremonies
@@ -143,8 +143,31 @@ const en = {
       musico3: 'We play maracas made from higüero, güiros from gourds, and drums carved from ceiba trunks.',
       musico4: 'In the areíto we sing the history of our people — so the young never forget where they come from.',
 
+      behiqueCemi: 'The Cemí Bat spirit has chosen you! It will guide you in the caves with its echo-location.',
+
       misionHablar: 'Talk to the 3 villagers',
-      misionCompleta: 'Village explored! Return to map (Q)'
+      misionCompleta: 'Village explored! Return to map (M)'
+    },
+
+    // La Isabela — first European settlement in the Americas (1494)
+    isabela: {
+      soldado1: 'Halt! This area is forbidden by order of the Viceroy!',
+      soldado2: 'No one may enter the ruins without permission from the Crown!',
+      soldadoPaz1: 'You\'re right... these ruins should be protected, not forbidden.',
+      soldadoPaz2: 'La Isabela was founded in 1494. It\'s the first European city in the Americas.',
+
+      cronista1: 'I am Fray Ramón Pané, the first chronicler of the Indies.',
+      cronista2: 'I write about Taíno customs so they are not lost to time.',
+      cronista3: 'My work is called "Account of the Antiquities of the Indians".',
+      cronista4: 'It\'s the first book written in the Americas. Protecting history is my duty.',
+
+      taino1: 'I am Guatiguaná. My people were among the first to resist the invaders.',
+      taino2: 'The Spanish forced us to search for gold. Many died from forced labor.',
+      taino3: 'But our culture did not die. It lives in words: hammock, canoe, tobacco, corn.',
+      taino4: 'Every time you say "hurricane" or eat casabe, the Taínos live on.',
+
+      misionHablar: 'Explore the ruins of La Isabela',
+      misionCompleta: 'La Isabela explored! Return to map (M)'
     }
   },
 

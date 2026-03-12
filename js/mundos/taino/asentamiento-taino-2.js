@@ -13,6 +13,7 @@
 import { ANCHO_JUEGO, ALTO_JUEGO, VELOCIDAD_JUGADOR } from '../../motor/configuracion.js';
 import SistemaDialogos from '../../mecanicas/dialogos.js';
 import { SonidoProcedural } from '../../motor/sonido-procedural.js';
+import { CemiMurcielago } from '../../personajes/companeros/cemi-murcielago.js';
 
 export class AsentamientoTaino2 {
 
@@ -246,18 +247,24 @@ export class AsentamientoTaino2 {
         this.sfx.recoger();
 
         const textos = this._obtenerTextos();
+        const nombreObjeto = textos?.objetos?.[obj.tipo] || obj.tipo;
         jugador.agregarAlInventario({ nombre: obj.tipo });
 
         if (this.juego && this.juego.inventario) {
           this.juego.inventario.agregar({
             id: obj.tipo,
-            nombre: textos?.objetos?.[obj.tipo] || obj.tipo,
+            nombre: nombreObjeto,
             descripcion: textos?.objetos?.[`desc${obj.tipo.charAt(0).toUpperCase() + obj.tipo.slice(1)}`] || '',
             tipo: 'herramienta',
             cantidad: 1,
             color: '#CC4444',
             esUsable: false
           });
+        }
+
+        // Mostrar mensaje flotante indicando qué objeto se recogió
+        if (this.juego && this.juego.mostrarToast) {
+          this.juego.mostrarToast(`✦ ${nombreObjeto} — añadido al inventario`);
         }
       }
     }
@@ -279,8 +286,8 @@ export class AsentamientoTaino2 {
       }
     }
 
-    // --- Volver al mapa ---
-    if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
+    // --- Volver al mapa con M o caminando al borde inferior ---
+    if (entrada.estaPresionada('mapa') && !this.bloqueoEntrada) {
       if (this.juego && this.juego.cambiarEscena) {
         this.juego.cambiarEscena('mapaPrincipal');
       }
@@ -288,8 +295,16 @@ export class AsentamientoTaino2 {
       return;
     }
 
+    // Salir por el borde inferior (por donde entró el jugador)
+    if (jugador.y >= this.altoNivel - jugador.alto - 5) {
+      if (this.juego && this.juego.cambiarEscena) {
+        this.juego.cambiarEscena('mapaPrincipal');
+      }
+      return;
+    }
+
     // --- Desbloquear entrada ---
-    if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('cancelar')) {
+    if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('mapa')) {
       this.bloqueoEntrada = false;
     }
 
@@ -498,9 +513,16 @@ export class AsentamientoTaino2 {
       this.dialogos.dibujar(ctx, ancho, alto);
     }
 
+    // --- Indicador de F para Magnoboot ---
+    if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
+      renderizador.dibujarTexto('[F] Detectar Metal', 15, 60, {
+        tamano: 10, color: '#44FFFF'
+      });
+    }
+
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | I: inventario | Q: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }
@@ -851,12 +873,28 @@ export class AsentamientoTaino2 {
     const aldea2 = textos?.dialogos?.aldea2;
 
     if (npc.id === 'behique') {
+      // El behique da el Cemí Murciélago al jugador después de hablar
+      const yaTieneCemi = this.juego.companeros.some(c => c.tipo === 'cemiMurcielago');
+
       this.dialogos.iniciarDialogo([
         { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique1 || 'Soy el behique, el curandero de la aldea.' },
         { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique2 || 'Las plantas de esta tierra tienen poderes curativos.' },
         { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique3 || 'Usamos tabaco en las ceremonias de cohoba.' },
-        { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique4 || 'La guayaba, la jagua y la sábila curan muchos males.' }
-      ], () => { npc.dialogoHecho = true; });
+        { personaje: '🌿 Behique Yuisa', texto: aldea2?.behique4 || 'La guayaba, la jagua y la sábila curan muchos males.' },
+        // Solo muestra la línea del Cemí si no lo tiene todavía
+        ...(yaTieneCemi ? [] : [
+          { personaje: '🦇 Behique Yuisa', texto: aldea2?.behiqueCemi || '¡El espíritu del Cemí Murciélago te ha elegido! Él te guiará en las cuevas.' }
+        ])
+      ], () => {
+        npc.dialogoHecho = true;
+        // Dar el Cemí Murciélago si no lo tiene
+        if (!yaTieneCemi) {
+          const cemi = new CemiMurcielago(this.juego.jugador.x - 20, this.juego.jugador.y - 25);
+          cemi.activar();
+          this.juego.companeros.push(cemi);
+          this.sfx.recoger();
+        }
+      });
     } else if (npc.id === 'agricultor') {
       this.dialogos.iniciarDialogo([
         { personaje: '🌱 Guarionex', texto: aldea2?.agricultor1 || '¡Mira nuestros conucos!' },

@@ -663,7 +663,7 @@ export class IntroCinematica {
     ctx.font = 'italic 22px monospace';
     ctx.fillStyle = `rgba(255, 255, 255, ${this.opacidad})`;
     ctx.textAlign = 'center';
-    ctx.fillText('...Donde estoy?', ancho / 2, alto / 2);
+    ctx.fillText('...¿Dónde estoy?', ancho / 2, alto / 2);
     ctx.textAlign = 'left';
   }
 

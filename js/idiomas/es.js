@@ -125,7 +125,7 @@ const es = {
       perro3: '¡Decidido! Lo llamarás Viralata. Su nariz puede oler objetos escondidos. ¡Ahora te acompaña!',
 
       misionHablar: 'Habla con los 3 aldeanos de la aldea',
-      misionCompleta: '¡Aldea explorada! Vuelve al mapa (Q)'
+      misionCompleta: '¡Aldea explorada! Vuelve al mapa (M)'
     },
 
     // Diálogos de la segunda aldea — agricultura, medicina y ceremonias
@@ -145,8 +145,31 @@ const es = {
       musico3: 'Tocamos maracas de higüero, güiros de calabaza y tambores tallados en troncos de ceiba.',
       musico4: 'En el areíto cantamos la historia de nuestro pueblo — así los jóvenes nunca olvidan de dónde vienen.',
 
+      behiqueCemi: '¡El espíritu del Cemí Murciélago te ha elegido! Él te guiará en las cuevas con su eco-localización.',
+
       misionHablar: 'Habla con los 3 aldeanos de la aldea',
-      misionCompleta: '¡Aldea explorada! Vuelve al mapa (Q)'
+      misionCompleta: '¡Aldea explorada! Vuelve al mapa (M)'
+    },
+
+    // La Isabela — primer asentamiento europeo en América (1494)
+    isabela: {
+      soldado1: '¡Alto! ¡Esta zona está prohibida por orden del Virrey!',
+      soldado2: '¡Nadie puede entrar a las ruinas sin permiso de la Corona!',
+      soldadoPaz1: 'Tienes razón... estas ruinas deben ser protegidas, no prohibidas.',
+      soldadoPaz2: 'La Isabela fue fundada en 1494. Es la primera ciudad europea en América.',
+
+      cronista1: 'Soy Fray Ramón Pané, el primer cronista de las Indias.',
+      cronista2: 'Escribo sobre las costumbres de los taínos para que no se pierdan.',
+      cronista3: 'Mi obra se llama "Relación acerca de las antigüedades de los indios".',
+      cronista4: 'Es el primer libro escrito en América. Proteger la historia es mi deber.',
+
+      taino1: 'Soy Guatiguaná. Mi pueblo fue de los primeros en resistir a los invasores.',
+      taino2: 'Los españoles nos obligaron a buscar oro. Muchos murieron de trabajo forzado.',
+      taino3: 'Pero nuestra cultura no murió. Vive en las palabras: hamaca, canoa, tabaco, maíz.',
+      taino4: 'Cada vez que dices "huracán" o comes casabe, los taínos seguimos vivos.',
+
+      misionHablar: 'Explora las ruinas de La Isabela',
+      misionCompleta: '¡La Isabela explorada! Vuelve al mapa (M)'
     }
   },
 

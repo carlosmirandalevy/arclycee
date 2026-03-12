@@ -31,7 +31,9 @@ export class SeleccionPersonaje {
     this.juego = juego;
     this.seleccion = 'pepito';
     this.tiempoAnimacion = 0;
-    this.bloqueoEntrada = false;
+    // Empieza bloqueado porque el jugador acaba de presionar E/Enter
+    // para elegir "Nuevo Juego" y la tecla todavía está presionada
+    this.bloqueoEntrada = true;
   }
 
   // --- Lógica de cada frame ---
@@ -138,7 +140,7 @@ export class SeleccionPersonaje {
     ctx.fillStyle = '#CCCCCC';
     ctx.textAlign = 'center';
     ctx.fillText(
-      '14 anos. Ascendencia taina, espanola y africana.',
+      '14 años. Ascendencia taína, española y africana.',
       ancho / 2,
       personajeY + personajeAlto + 70
     );

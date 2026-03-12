@@ -26,6 +26,9 @@ export class CemiMurcielago {
     this.x = x;
     this.y = y;
 
+    // Tipo de compañero para identificarlo
+    this.tipo = 'cemiMurcielago';
+
     // Empieza en nivel 0 sin poderes, los gana explorando
     this.nivel = 0;
     this.experiencia = 0;
@@ -143,6 +146,14 @@ export class CemiMurcielago {
 
     this.poderActivo = nombrePoder;
     return true;
+  }
+
+  activar() {
+    this.activo = true;
+  }
+
+  desactivar() {
+    this.activo = false;
   }
 
   // --- Listar poderes desbloqueados ---

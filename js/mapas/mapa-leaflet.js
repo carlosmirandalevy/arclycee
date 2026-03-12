@@ -131,17 +131,17 @@ export class MapaLeaflet {
     return marcador;
   }
 
-  // --- Agregar sitios arqueologicos tainos ---
-  // Los tainos fueron los habitantes originales de la isla
-  // antes de que llegaran los espanoles en 1492.
-  // Dejaron petroglifos (dibujos en piedra), ceramica,
+  // --- Agregar sitios arqueológicos taínos ---
+  // Los taínos fueron los habitantes originales de la isla
+  // antes de que llegaran los españoles en 1492.
+  // Dejaron petroglifos (dibujos en piedra), cerámica,
   // y muchos objetos en cuevas por toda la isla.
   agregarSitiosTainos() {
     this.agregarMarcador(
       18.4074, -70.1511,
       'Cuevas del Pomier',
-      'El conjunto de cuevas con arte rupestre mas importante del Caribe. '
-      + 'Tiene mas de 6,000 petroglifos y pictografias tainas. '
+      'El conjunto de cuevas con arte rupestre más importante del Caribe. '
+      + 'Tiene más de 6,000 petroglifos y pictografías taínas. '
       + 'Las cuevas fueron usadas como lugares ceremoniales.',
       'taino'
     );
@@ -149,27 +149,27 @@ export class MapaLeaflet {
     this.agregarMarcador(
       18.3230, -68.8224,
       'Parque Nacional del Este',
-      'Hogar de la Isla Saona y multiples cuevas con evidencia taina. '
-      + 'Los tainos usaban esta zona para pescar y realizar ceremonias. '
-      + 'Aqui se encontraron cemies (idolos religiosos).',
+      'Hogar de la Isla Saona y múltiples cuevas con evidencia taína. '
+      + 'Los taínos usaban esta zona para pescar y realizar ceremonias. '
+      + 'Aquí se encontraron cemíes (ídolos religiosos).',
       'taino'
     );
 
     this.agregarMarcador(
       18.4631, -69.6297,
       'Cuevas de las Maravillas',
-      'Cuevas con impresionantes formaciones geologicas y '
-      + 'petroglifos tainos. Tienen un museo subterraneo que '
-      + 'protege el arte rupestre con mas de 500 anos de antiguedad.',
+      'Cuevas con impresionantes formaciones geológicas y '
+      + 'petroglifos taínos. Tienen un museo subterráneo que '
+      + 'protege el arte rupestre con más de 500 años de antigüedad.',
       'taino'
     );
 
     this.agregarMarcador(
       18.9147, -69.4714,
       'Cueva de Fun Fun',
-      'Una de las cuevas mas grandes del Caribe. Los tainos '
+      'Una de las cuevas más grandes del Caribe. Los taínos '
       + 'la usaban como refugio y lugar sagrado. Para explorarla '
-      + 'hay que hacer rappel y caminar por un rio subterraneo.',
+      + 'hay que hacer rappel y caminar por un río subterráneo.',
       'taino'
     );
 
@@ -177,7 +177,7 @@ export class MapaLeaflet {
       19.0600, -69.9200,
       'Los Haitises',
       'Parque Nacional con mogotes (colinas de piedra caliza) y cuevas '
-      + 'que contienen arte rupestre taino. La Cueva de la Arena y la '
+      + 'que contienen arte rupestre taíno. La Cueva de la Arena y la '
       + 'Cueva de San Gabriel tienen petroglifos bien preservados.',
       'taino'
     );
@@ -185,9 +185,9 @@ export class MapaLeaflet {
     this.agregarMarcador(
       18.4800, -69.9400,
       'Parque Mirador del Este',
-      'Sitio donde se encontraron restos de un asentamiento taino. '
-      + 'Incluye herramientas de piedra, ceramica y restos de alimentos '
-      + 'que nos dicen como vivian los tainos cerca de los rios.',
+      'Sitio donde se encontraron restos de un asentamiento taíno. '
+      + 'Incluye herramientas de piedra, cerámica y restos de alimentos '
+      + 'que nos dicen cómo vivían los taínos cerca de los ríos.',
       'taino'
     );
 
@@ -195,21 +195,21 @@ export class MapaLeaflet {
       19.2200, -69.3100,
       'Cueva Padre Nuestro',
       'Sistema de cuevas con cenotes (pozos naturales de agua) '
-      + 'y petroglifos tainos. Los tainos creian que estas cuevas '
-      + 'eran la entrada al mundo de los espiritus.',
+      + 'y petroglifos taínos. Los taínos creían que estas cuevas '
+      + 'eran la entrada al mundo de los espíritus.',
       'taino'
     );
   }
 
-  // --- Agregar sitios arqueologicos coloniales ---
-  // Estos son lugares de la epoca colonial espanola (1492-1844).
-  // La Republica Dominicana tiene los primeros edificios europeos
+  // --- Agregar sitios arqueológicos coloniales ---
+  // Estos son lugares de la época colonial española (1492-1844).
+  // La República Dominicana tiene los primeros edificios europeos
   // de todo el continente americano.
   agregarSitiosColoniales() {
     this.agregarMarcador(
       18.4722, -69.8833,
       'Zona Colonial de Santo Domingo',
-      'La primera ciudad permanente fundada por europeos en America (1498). '
+      'La primera ciudad permanente fundada por europeos en América (1498). '
       + 'Tiene la primera catedral, el primer hospital, la primera '
       + 'universidad y el primer monasterio del Nuevo Mundo. '
       + 'Es Patrimonio de la Humanidad por la UNESCO.',
@@ -219,29 +219,29 @@ export class MapaLeaflet {
     this.agregarMarcador(
       19.8897, -71.0825,
       'La Isabela',
-      'El primer asentamiento europeo permanente en America, '
-      + 'fundado por Cristobal Colon en 1493. Aqui se construyo '
-      + 'la primera iglesia y se celebro la primera misa en el '
-      + 'Nuevo Mundo. Hoy es un parque arqueologico.',
+      'El primer asentamiento europeo permanente en América, '
+      + 'fundado por Cristóbal Colón en 1493. Aquí se construyó '
+      + 'la primera iglesia y se celebró la primera misa en el '
+      + 'Nuevo Mundo. Hoy es un parque arqueológico.',
       'colonial'
     );
 
     this.agregarMarcador(
       18.4735, -69.8834,
-      'Alcazar de Colon',
-      'Palacio construido en 1510 para Diego Colon, hijo de '
-      + 'Cristobal Colon. Es el edificio colonial mas importante '
+      'Alcázar de Colón',
+      'Palacio construido en 1510 para Diego Colón, hijo de '
+      + 'Cristóbal Colón. Es el edificio colonial más importante '
       + 'de Santo Domingo. Hoy es un museo con muebles y objetos '
-      + 'de la epoca colonial.',
+      + 'de la época colonial.',
       'colonial'
     );
 
     this.agregarMarcador(
       18.4860, -69.8790,
       'Fortaleza Ozama',
-      'La fortaleza militar mas antigua de America, construida '
+      'La fortaleza militar más antigua de América, construida '
       + 'entre 1502 y 1508 para proteger la ciudad de piratas. '
-      + 'Tiene una torre del homenaje con vistas al rio Ozama.',
+      + 'Tiene una torre del homenaje con vistas al río Ozama.',
       'colonial'
     );
 
@@ -249,17 +249,17 @@ export class MapaLeaflet {
       19.7580, -70.6980,
       'La Vega Vieja',
       'Ruinas de una de las primeras ciudades coloniales, fundada '
-      + 'en 1494. Aqui se encontro la primera Cruz del Nuevo Mundo '
-      + 'y restos de un fuerte espanol.',
+      + 'en 1494. Aquí se encontró la primera Cruz del Nuevo Mundo '
+      + 'y restos de un fuerte español.',
       'colonial'
     );
   }
 
   // --- Mostrar u ocultar una capa ---
-  // nombreCapa: cual capa alternar (ej: 'taino', 'colonial')
+  // nombreCapa: cuál capa alternar (ej: 'taino', 'colonial')
   //
-  // Si la capa esta visible, la ocultamos.
-  // Si esta oculta, la mostramos.
+  // Si la capa está visible, la ocultamos.
+  // Si está oculta, la mostramos.
   alternarCapa(nombreCapa) {
     if (!this.capas[nombreCapa]) {
       console.warn(`La capa "${nombreCapa}" no existe.`);
@@ -276,7 +276,7 @@ export class MapaLeaflet {
     }
   }
 
-  // --- Volar a una ubicacion especifica ---
+  // --- Volar a una ubicación específica ---
   // El mapa se mueve suavemente hasta las coordenadas indicadas.
   // Es como un "fly to" en Google Maps.
   centrarEn(lat, lng, zoom = 14) {

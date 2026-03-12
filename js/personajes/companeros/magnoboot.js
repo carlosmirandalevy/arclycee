@@ -13,6 +13,9 @@ export class Magnoboot {
     this.x = x;
     this.y = y;
 
+    // Tipo de compañero para identificarlo
+    this.tipo = 'magnoboot';
+
     // Empieza desactivado porque el jugador lo encuentra durante el juego
     this.activo = false;
 
@@ -21,6 +24,11 @@ export class Magnoboot {
 
     // Si es true, sigue al jugador automáticamente
     this.siguiendoJugador = true;
+
+    // --- Estado visual de detección ---
+    // Cuando el jugador presiona F, se activa un pulso visual
+    this.detectando = false;
+    this._tiempoDeteccion = 0;
   }
 
   // --- Actualizar posición cada frame ---
@@ -29,6 +37,15 @@ export class Magnoboot {
   // más cerca de 0 = más lento/suave, más cerca de 1 = más pegado
   actualizar(dt, jugador) {
     if (!this.activo) return;
+
+    // Animación de detección (dura 1.5 segundos)
+    if (this.detectando) {
+      this._tiempoDeteccion += dt;
+      if (this._tiempoDeteccion > 1.5) {
+        this.detectando = false;
+        this._tiempoDeteccion = 0;
+      }
+    }
 
     if (this.siguiendoJugador) {
       // Lerp: posición actual + (destino - actual) * velocidad
@@ -70,6 +87,30 @@ export class Magnoboot {
     ctx.fillStyle = '#44ffff';
     ctx.fillRect(this.x + 4, this.y + 6, 4, 4);
     ctx.fillRect(this.x + 12, this.y + 6, 4, 4);
+
+    // --- Pulso de detección ---
+    // Cuando el jugador presiona F, se dibuja un círculo expandiéndose
+    // como si fuera una onda de radar detectando metales
+    if (this.detectando) {
+      const progreso = this._tiempoDeteccion / 1.5;
+      const radio = progreso * 100;
+      const opacidad = 1 - progreso;
+
+      ctx.strokeStyle = `rgba(68, 255, 255, ${opacidad * 0.6})`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(this.x + 10, this.y + 12, radio, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Segundo anillo más pequeño
+      if (progreso > 0.2) {
+        const radio2 = (progreso - 0.2) * 100;
+        ctx.strokeStyle = `rgba(68, 255, 255, ${opacidad * 0.3})`;
+        ctx.beginPath();
+        ctx.arc(this.x + 10, this.y + 12, radio2, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
   }
 
   // --- Excavar en una posición ---
@@ -93,6 +134,14 @@ export class Magnoboot {
   // Escanea en un radio y retorna la lista de metales encontrados.
   // Esto se conectará con el sistema de objetos del mapa después.
   // Retorna array vacío por ahora (placeholder para cuando existan objetos)
+  // --- Activar la animación de detección ---
+  // Se llama cuando el jugador presiona F. Inicia el pulso visual.
+  iniciarDeteccion() {
+    if (!this.activo) return;
+    this.detectando = true;
+    this._tiempoDeteccion = 0;
+  }
+
   detectarMetal(radioDeteccion = 100) {
     if (!this.activo) return [];
 

@@ -12,6 +12,9 @@ export class Viralata {
     this.x = x;
     this.y = y;
 
+    // Tipo de compañero para identificarlo
+    this.tipo = 'viralata';
+
     // Empieza desactivado, el jugador lo adopta durante la historia
     this.activo = false;
 

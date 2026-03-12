@@ -78,7 +78,8 @@ export const TECLAS_POR_DEFECTO = {
   accion:     ['e', 'E', 'Enter'],         // Interactuar con cosas (E o Enter)
   cancelar:   ['q', 'Q', 'Escape'],       // Salir de menús (Q o Escape)
   inventario: ['i', 'I'],                 // Abrir mochila
-  especial:   ['f', 'F']                  // Habilidad especial
+  especial:   ['f', 'F'],                 // Habilidad especial
+  mapa:       ['m', 'M']                  // Volver al mapa del mundo
 };
 
 // --- Guardado ---

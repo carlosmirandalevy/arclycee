@@ -123,7 +123,7 @@ const fr = {
       perro3: 'C\'est décidé ! Tu l\'appelleras Viralata. Son nez peut flairer les objets cachés. Il rejoint ton équipe !',
 
       misionHablar: 'Parle aux 3 villageois',
-      misionCompleta: 'Village exploré ! Retour à la carte (Q)'
+      misionCompleta: 'Village exploré ! Retour à la carte (M)'
     },
 
     // Dialogues du deuxième village — agriculture, médecine et cérémonies
@@ -143,8 +143,31 @@ const fr = {
       musico3: 'Nous jouons des maracas en higüero, des güiros en calebasse et des tambours taillés dans des troncs de ceiba.',
       musico4: 'Dans l\'areíto nous chantons l\'histoire de notre peuple — pour que les jeunes n\'oublient jamais d\'où ils viennent.',
 
+      behiqueCemi: 'L\'esprit du Cemí Chauve-souris t\'a choisi ! Il te guidera dans les grottes avec son écho-localisation.',
+
       misionHablar: 'Parle aux 3 villageois',
-      misionCompleta: 'Village exploré ! Retour à la carte (Q)'
+      misionCompleta: 'Village exploré ! Retour à la carte (M)'
+    },
+
+    // La Isabela — premier établissement européen en Amérique (1494)
+    isabela: {
+      soldado1: 'Halte ! Cette zone est interdite par ordre du Vice-roi !',
+      soldado2: 'Personne ne peut entrer dans les ruines sans la permission de la Couronne !',
+      soldadoPaz1: 'Tu as raison... ces ruines doivent être protégées, pas interdites.',
+      soldadoPaz2: 'La Isabela a été fondée en 1494. C\'est la première ville européenne en Amérique.',
+
+      cronista1: 'Je suis Fray Ramón Pané, le premier chroniqueur des Indes.',
+      cronista2: 'J\'écris sur les coutumes des Taïnos pour qu\'elles ne soient pas perdues.',
+      cronista3: 'Mon œuvre s\'appelle « Relation sur les antiquités des Indiens ».',
+      cronista4: 'C\'est le premier livre écrit en Amérique. Protéger l\'histoire est mon devoir.',
+
+      taino1: 'Je suis Guatiguaná. Mon peuple fut parmi les premiers à résister aux envahisseurs.',
+      taino2: 'Les Espagnols nous ont forcés à chercher de l\'or. Beaucoup sont morts de travail forcé.',
+      taino3: 'Mais notre culture n\'est pas morte. Elle vit dans les mots : hamac, canoë, tabac, maïs.',
+      taino4: 'Chaque fois que tu dis « ouragan » ou manges du casabe, les Taïnos vivent encore.',
+
+      misionHablar: 'Explore les ruines de La Isabela',
+      misionCompleta: 'La Isabela explorée ! Retour à la carte (M)'
     }
   },
 

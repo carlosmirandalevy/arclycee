@@ -37,6 +37,19 @@ export class SistemaCombate {
 
     // Resultado del último combate (para que el juego sepa qué pasó)
     this._resultado = null;
+
+    // Bloqueo de entrada para evitar que una tecla se procese varias veces
+    this._bloqueoEntrada = false;
+
+    // --- Mensaje de feedback ---
+    // Muestra al jugador qué pasó en el último turno
+    this._mensaje = '';
+
+    // --- Temporizador del turno del enemigo ---
+    // El enemigo espera un momento antes de actuar para que el jugador
+    // pueda leer el resultado de su propia acción
+    this._tiempoEsperaEnemigo = 0;
+    this._esperandoEnemigo = false;
   }
 
   // --- Iniciar un combate ---
@@ -50,6 +63,10 @@ export class SistemaCombate {
     // La hostilidad inicial depende del enemigo (algunos son más calmados)
     this.hostilidad = enemigo.hostilidad || 80;
     this._resultado = null;
+    this._mensaje = '';
+    this._tiempoEsperaEnemigo = 0;
+    this._esperandoEnemigo = false;
+    this._bloqueoEntrada = true; // Empieza bloqueado para no capturar la E del diálogo
   }
 
   // --- Mover la selección del menú ---
@@ -65,7 +82,7 @@ export class SistemaCombate {
 
   // --- Ejecutar la opción seleccionada ---
   // Cada opción tiene un efecto diferente sobre el combate.
-  // Después de ejecutar, pasa al turno del enemigo.
+  // Después de ejecutar, pasa al turno del enemigo con una pausa.
   ejecutarOpcion(jugador, inventario) {
     if (!this.turnoJugador || !this.enCombate) return;
 
@@ -89,8 +106,10 @@ export class SistemaCombate {
         return; // Huir no pasa turno al enemigo si tiene éxito
     }
 
-    // Si el combate sigue, es turno del enemigo
+    // Si el combate sigue, esperar un momento antes del turno enemigo
     if (this.enCombate) {
+      this._esperandoEnemigo = true;
+      this._tiempoEsperaEnemigo = 0;
       this.turnoJugador = false;
     }
   }
@@ -104,16 +123,22 @@ export class SistemaCombate {
     // Atacar sube un poco la hostilidad (el enemigo se enoja más)
     this.hostilidad = Math.min(100, this.hostilidad + 5);
 
+    this._mensaje = `¡Atacas! -${dano} HP`;
+
     this.verificarFinCombate();
   }
 
   // --- Hablar: reducir hostilidad con palabras ---
-  // Baja la hostilidad una cantidad aleatoria. Es gratis pero impredecible.
-  // A veces funciona mucho, a veces casi nada (como en la vida real).
+  // Baja la hostilidad y sube la paciencia directamente.
+  // Es la ruta pacifista principal — cada intento ayuda.
   _ejecutarHablar() {
-    const reduccion = 5 + Math.floor(Math.random() * 15);
-    this.hostilidad = Math.max(0, this.hostilidad - reduccion);
-    this.paciencia = Math.min(100, this.paciencia + reduccion / 2);
+    const reduccionHostilidad = 8 + Math.floor(Math.random() * 12);
+    const gananciaPatience = 12 + Math.floor(Math.random() * 13);
+
+    this.hostilidad = Math.max(0, this.hostilidad - reduccionHostilidad);
+    this.paciencia = Math.min(100, this.paciencia + gananciaPatience);
+
+    this._mensaje = `Hablas con calma. Paciencia +${gananciaPatience}`;
 
     this.verificarFinCombate();
   }
@@ -122,18 +147,20 @@ export class SistemaCombate {
   // Reduce más la hostilidad que hablar, pero si falla puede subir.
   // Tener ciertos objetos en el inventario mejora las probabilidades.
   _ejecutarNegociar(jugador) {
-    // Base 50% de éxito, sube con inteligencia del jugador
-    const probabilidadExito = 50 + jugador.nivelInteligencia * 5;
+    // Base 55% de éxito, sube con inteligencia del jugador
+    const probabilidadExito = 55 + jugador.nivelInteligencia * 5;
     const tirada = Math.random() * 100;
 
     if (tirada < probabilidadExito) {
-      // Negociación exitosa: gran reducción de hostilidad
-      const reduccion = 15 + Math.floor(Math.random() * 20);
-      this.hostilidad = Math.max(0, this.hostilidad - reduccion);
-      this.paciencia = Math.min(100, this.paciencia + reduccion);
+      // Negociación exitosa: gran ganancia de paciencia
+      const ganancia = 20 + Math.floor(Math.random() * 15);
+      this.hostilidad = Math.max(0, this.hostilidad - ganancia);
+      this.paciencia = Math.min(100, this.paciencia + ganancia);
+      this._mensaje = `¡Negociación exitosa! Paciencia +${ganancia}`;
     } else {
       // Falló la negociación: el enemigo se ofende un poco
-      this.hostilidad = Math.min(100, this.hostilidad + 10);
+      this.hostilidad = Math.min(100, this.hostilidad + 5);
+      this._mensaje = 'La negociación falló...';
     }
 
     this.verificarFinCombate();
@@ -145,6 +172,7 @@ export class SistemaCombate {
     if (inventario) {
       inventario.abrir();
     }
+    this._mensaje = 'Buscas en tu mochila...';
   }
 
   // --- Huir: intentar escapar ---
@@ -157,11 +185,16 @@ export class SistemaCombate {
     const tirada = Math.random() * 100;
 
     if (tirada < probabilidadHuida) {
+      this._mensaje = '¡Escapaste!';
       this.terminar('huida');
-    }
-    // Si falla, el turno pasa al enemigo (pierdes tu turno intentando huir)
-    if (this.enCombate) {
-      this.turnoJugador = false;
+    } else {
+      this._mensaje = 'No pudiste escapar...';
+      // Si falla, el turno pasa al enemigo
+      if (this.enCombate) {
+        this._esperandoEnemigo = true;
+        this._tiempoEsperaEnemigo = 0;
+        this.turnoJugador = false;
+      }
     }
   }
 
@@ -172,16 +205,20 @@ export class SistemaCombate {
   turnoEnemigo(jugador) {
     if (this.turnoJugador || !this.enCombate) return;
 
-    if (this.hostilidad < 30 && Math.random() > 0.5) {
+    if (this.hostilidad < 30 && Math.random() > 0.3) {
       // El enemigo se calma y habla (la paciencia sube sola)
-      this.paciencia = Math.min(100, this.paciencia + 10);
+      const ganancia = 10 + Math.floor(Math.random() * 10);
+      this.paciencia = Math.min(100, this.paciencia + ganancia);
+      this._mensaje = `${this.enemigo?.nombre || 'Enemigo'} duda... Paciencia +${ganancia}`;
     } else {
-      // El enemigo ataca
-      const danoEnemigo = (this.enemigo.fuerza || 3) * 3 + Math.floor(Math.random() * 5);
+      // El enemigo ataca (con daño reducido para ser justo)
+      const danoEnemigo = (this.enemigo.fuerza || 2) * 2 + Math.floor(Math.random() * 3);
       jugador.recibirDano(danoEnemigo);
+      this._mensaje = `${this.enemigo?.nombre || 'Enemigo'} ataca. -${danoEnemigo} HP`;
     }
 
     this.turnoJugador = true;
+    this._esperandoEnemigo = false;
     this.verificarFinCombate(jugador);
   }
 
@@ -190,44 +227,71 @@ export class SistemaCombate {
   verificarFinCombate(jugador) {
     // El enemigo fue derrotado
     if (this.enemigo && this.enemigo.vida <= 0) {
+      this._mensaje = '¡Victoria!';
       this.terminar('victoria');
       return;
     }
 
     // El enemigo fue pacificado (paciencia al máximo)
     if (this.paciencia >= 100) {
+      this._mensaje = '¡Lo convenciste! El enemigo se rinde pacíficamente.';
       this.terminar('pacificado');
       return;
     }
 
     // El jugador fue derrotado
     if (jugador && jugador.vida <= 0) {
+      this._mensaje = 'Fuiste derrotado...';
       this.terminar('derrota');
       return;
     }
   }
 
   // --- Actualizar cada frame ---
-  // Maneja la entrada del jugador durante el combate
+  // Maneja la entrada del jugador y el temporizador del turno enemigo
   actualizar(dt, entrada, jugador, inventario) {
     if (!this.enCombate) return;
 
+    // --- Turno del enemigo con pausa ---
+    // Esperamos 0.8 segundos para que el jugador lea su mensaje
+    if (this._esperandoEnemigo) {
+      this._tiempoEsperaEnemigo += dt;
+      if (this._tiempoEsperaEnemigo >= 0.8) {
+        this.turnoEnemigo(jugador);
+      }
+      return;
+    }
+
     if (this.turnoJugador) {
       // Navegar opciones con izquierda/derecha
-      if (entrada.izquierda) this.seleccionarOpcion('izquierda');
-      if (entrada.derecha) this.seleccionarOpcion('derecha');
-      // Confirmar con acción
-      if (entrada.accion) this.ejecutarOpcion(jugador, inventario);
-    } else {
-      // Turno del enemigo (se ejecuta automáticamente)
-      this.turnoEnemigo(jugador);
+      // Usamos estaPresionada() que es el método de la clase Entrada
+      if (entrada.estaPresionada('izquierda') && !this._bloqueoEntrada) {
+        this.seleccionarOpcion('izquierda');
+        this._bloqueoEntrada = true;
+      }
+      if (entrada.estaPresionada('derecha') && !this._bloqueoEntrada) {
+        this.seleccionarOpcion('derecha');
+        this._bloqueoEntrada = true;
+      }
+      // Confirmar con acción (E o Enter)
+      if (entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
+        this.ejecutarOpcion(jugador, inventario);
+        this._bloqueoEntrada = true;
+      }
+      // Desbloquear cuando se sueltan las teclas
+      if (!entrada.estaPresionada('izquierda') &&
+          !entrada.estaPresionada('derecha') &&
+          !entrada.estaPresionada('accion')) {
+        this._bloqueoEntrada = false;
+      }
     }
   }
 
   // --- Dibujar la interfaz de combate ---
-  // Dibuja todo: el enemigo arriba, las stats del jugador abajo-izquierda,
-  // las opciones abajo-derecha, y los medidores de paciencia/hostilidad.
-  dibujar(renderizador, anchoCanvas, altoCanvas, idiomas) {
+  // Dibuja todo: el enemigo arriba, la vida del jugador, las opciones
+  // abajo, y los medidores de paciencia/hostilidad.
+  // Necesita el jugador para mostrar su barra de vida.
+  dibujar(renderizador, anchoCanvas, altoCanvas, idiomas, jugador) {
     if (!this.enCombate) return;
 
     const ctx = renderizador;
@@ -237,12 +301,31 @@ export class SistemaCombate {
     ctx.fillRect(0, 0, anchoCanvas, altoCanvas);
 
     // --- Zona del enemigo (parte superior) ---
-    ctx.fillStyle = '#ff4444';
+    // Dibujar un soldado si el nombre lo indica, si no un cuadrado rojo
     const enemigoAncho = 40;
-    const enemigoAlto = 40;
+    const enemigoAlto = 50;
     const enemigoX = anchoCanvas / 2 - enemigoAncho / 2;
-    const enemigoY = 60;
-    ctx.fillRect(enemigoX, enemigoY, enemigoAncho, enemigoAlto);
+    const enemigoY = 50;
+
+    // Cuerpo del enemigo
+    ctx.fillStyle = '#8B0000';
+    ctx.fillRect(enemigoX, enemigoY + 10, enemigoAncho, enemigoAlto - 10);
+
+    // Cabeza
+    ctx.fillStyle = '#D2956A';
+    ctx.fillRect(enemigoX + 10, enemigoY, 20, 16);
+
+    // Casco
+    ctx.fillStyle = '#808080';
+    ctx.fillRect(enemigoX + 6, enemigoY - 6, 28, 10);
+
+    // Ojos
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(enemigoX + 14, enemigoY + 5, 4, 4);
+    ctx.fillRect(enemigoX + 22, enemigoY + 5, 4, 4);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(enemigoX + 15, enemigoY + 6, 2, 2);
+    ctx.fillRect(enemigoX + 23, enemigoY + 6, 2, 2);
 
     // Nombre del enemigo
     ctx.fillStyle = '#ffffff';
@@ -252,8 +335,8 @@ export class SistemaCombate {
     ctx.fillText(nombreEnemigo, anchoCanvas / 2, enemigoY + enemigoAlto + 20);
 
     // Barra de vida del enemigo
-    const barraAncho = 120;
-    const barraAlto = 8;
+    const barraAncho = 150;
+    const barraAlto = 10;
     const barraX = anchoCanvas / 2 - barraAncho / 2;
     const barraY = enemigoY + enemigoAlto + 30;
     const vidaEnemigo = this.enemigo ? this.enemigo.vida / (this.enemigo.vidaMaxima || 100) : 1;
@@ -262,30 +345,98 @@ export class SistemaCombate {
     ctx.fillRect(barraX, barraY, barraAncho, barraAlto);
     ctx.fillStyle = '#ff4444';
     ctx.fillRect(barraX, barraY, barraAncho * Math.max(0, vidaEnemigo), barraAlto);
+    ctx.strokeStyle = '#555555';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(barraX, barraY, barraAncho, barraAlto);
 
     // --- Medidores de paciencia y hostilidad ---
-    const medidorY = 160;
-    ctx.font = '11px monospace';
+    const medidorY = 175;
+    ctx.font = '12px monospace';
     ctx.textAlign = 'left';
 
     // Medidor de paciencia (verde = bueno, sube al hablar)
     ctx.fillStyle = '#aaaaaa';
     ctx.fillText('Paciencia:', 30, medidorY);
     ctx.fillStyle = '#333333';
-    ctx.fillRect(120, medidorY - 10, 100, 10);
+    ctx.fillRect(140, medidorY - 10, 100, 12);
     ctx.fillStyle = '#44cc44';
-    ctx.fillRect(120, medidorY - 10, this.paciencia, 10);
+    ctx.fillRect(140, medidorY - 10, this.paciencia, 12);
+    ctx.strokeStyle = '#555555';
+    ctx.strokeRect(140, medidorY - 10, 100, 12);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '10px monospace';
+    ctx.fillText(`${Math.floor(this.paciencia)}%`, 245, medidorY);
 
     // Medidor de hostilidad (rojo = peligro, baja al hablar)
+    ctx.font = '12px monospace';
     ctx.fillStyle = '#aaaaaa';
-    ctx.fillText('Hostilidad:', 30, medidorY + 20);
+    ctx.fillText('Hostilidad:', 30, medidorY + 25);
     ctx.fillStyle = '#333333';
-    ctx.fillRect(120, medidorY + 10, 100, 10);
+    ctx.fillRect(140, medidorY + 15, 100, 12);
     ctx.fillStyle = '#cc4444';
-    ctx.fillRect(120, medidorY + 10, this.hostilidad, 10);
+    ctx.fillRect(140, medidorY + 15, this.hostilidad, 12);
+    ctx.strokeStyle = '#555555';
+    ctx.strokeRect(140, medidorY + 15, 100, 12);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '10px monospace';
+    ctx.fillText(`${Math.floor(this.hostilidad)}%`, 245, medidorY + 25);
+
+    // --- Vida del jugador (lado derecho) ---
+    if (jugador) {
+      const jpX = anchoCanvas - 270; // Posición X del bloque del jugador
+      const jpY = medidorY - 10;
+
+      // Nombre del jugador
+      ctx.font = '12px monospace';
+      ctx.fillStyle = '#aaaaaa';
+      ctx.textAlign = 'left';
+      ctx.fillText('Tu vida:', jpX, jpY + 10);
+
+      // Barra de vida del jugador (verde)
+      const vidaMax = jugador.vidaMaxima || 100;
+      const vidaActual = Math.max(0, jugador.vida || 0);
+      const porcentajeVida = vidaActual / vidaMax;
+
+      ctx.fillStyle = '#333333';
+      ctx.fillRect(jpX + 80, jpY, 100, 12);
+
+      // Color cambia según la vida: verde → amarillo → rojo
+      if (porcentajeVida > 0.5) {
+        ctx.fillStyle = '#44cc44';
+      } else if (porcentajeVida > 0.25) {
+        ctx.fillStyle = '#cccc44';
+      } else {
+        ctx.fillStyle = '#cc4444';
+      }
+      ctx.fillRect(jpX + 80, jpY, 100 * porcentajeVida, 12);
+
+      ctx.strokeStyle = '#555555';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(jpX + 80, jpY, 100, 12);
+
+      // Número de vida
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '10px monospace';
+      ctx.fillText(`${Math.floor(vidaActual)}/${vidaMax}`, jpX + 185, jpY + 10);
+    }
+
+    // --- Mensaje de feedback (centro de la pantalla) ---
+    // Muestra qué pasó en el último turno para que el jugador entienda
+    if (this._mensaje) {
+      ctx.font = '14px monospace';
+      ctx.fillStyle = '#FFD700';
+      ctx.textAlign = 'center';
+      ctx.fillText(this._mensaje, anchoCanvas / 2, medidorY + 65);
+    }
+
+    // --- Pista para el jugador ---
+    ctx.font = '11px monospace';
+    ctx.fillStyle = '#777777';
+    ctx.textAlign = 'center';
+    ctx.fillText('Usa Hablar o Negociar para llenar la barra de Paciencia', anchoCanvas / 2, medidorY + 85);
 
     // --- Opciones de combate (parte inferior) ---
-    const opcionesY = altoCanvas - 80;
+    const opcionesY = altoCanvas - 90;
     const opcionAncho = 90;
     const opcionesInicioX = (anchoCanvas - OPCIONES_COMBATE.length * (opcionAncho + 10)) / 2;
 
@@ -293,12 +444,18 @@ export class SistemaCombate {
       const opX = opcionesInicioX + i * (opcionAncho + 10);
 
       // Fondo de la opción: amarillo si seleccionada, gris si no
-      ctx.fillStyle = (i === this.opcionSeleccionada) ? '#ffcc00' : '#555555';
+      const seleccionada = (i === this.opcionSeleccionada) && this.turnoJugador;
+      ctx.fillStyle = seleccionada ? '#ffcc00' : '#555555';
       ctx.fillRect(opX, opcionesY, opcionAncho, 30);
 
+      // Borde
+      ctx.strokeStyle = seleccionada ? '#FFD700' : '#666666';
+      ctx.lineWidth = seleccionada ? 2 : 1;
+      ctx.strokeRect(opX, opcionesY, opcionAncho, 30);
+
       // Texto de la opción
-      ctx.fillStyle = (i === this.opcionSeleccionada) ? '#000000' : '#ffffff';
-      ctx.font = '12px monospace';
+      ctx.fillStyle = seleccionada ? '#000000' : '#ffffff';
+      ctx.font = seleccionada ? 'bold 12px monospace' : '12px monospace';
       ctx.textAlign = 'center';
 
       // Buscar traducción o usar el nombre por defecto
@@ -308,10 +465,19 @@ export class SistemaCombate {
 
     // Indicador de turno
     ctx.fillStyle = '#ffffff';
-    ctx.font = '12px monospace';
+    ctx.font = '13px monospace';
     ctx.textAlign = 'center';
-    const textoTurno = this.turnoJugador ? 'Tu turno' : 'Turno enemigo';
-    ctx.fillText(textoTurno, anchoCanvas / 2, altoCanvas - 30);
+    if (this.turnoJugador) {
+      ctx.fillText('< Tu turno — elige una acción >', anchoCanvas / 2, altoCanvas - 30);
+    } else {
+      ctx.fillStyle = '#ff8888';
+      ctx.fillText('... turno del enemigo ...', anchoCanvas / 2, altoCanvas - 30);
+    }
+
+    // --- Controles ---
+    ctx.font = '10px monospace';
+    ctx.fillStyle = '#444444';
+    ctx.fillText('Flechas: elegir | E: confirmar', anchoCanvas / 2, altoCanvas - 12);
 
     // Restaurar alineación
     ctx.textAlign = 'left';
@@ -327,6 +493,7 @@ export class SistemaCombate {
     this.opcionSeleccionada = 0;
     this.paciencia = 0;
     this.hostilidad = 100;
+    this._esperandoEnemigo = false;
     return resultado;
   }
 
