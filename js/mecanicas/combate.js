@@ -130,10 +130,12 @@ export class SistemaCombate {
       }
     }
 
-    // Si el combate sigue, esperar un momento antes del turno enemigo
+    // Si el combate sigue, esperar antes del turno enemigo.
+    // Mensajes largos (opciones personalizadas) necesitan más tiempo de lectura.
     if (this.enCombate) {
       this._esperandoEnemigo = true;
       this._tiempoEsperaEnemigo = 0;
+      this._pausaLectura = this._mensaje.length > 40 ? 2.5 : 1.8;
       this.turnoJugador = false;
     }
   }
@@ -322,10 +324,10 @@ export class SistemaCombate {
     if (!this.enCombate) return;
 
     // --- Turno del enemigo con pausa ---
-    // Esperamos 1.8 segundos para que el jugador lea su mensaje de acción
+    // Mensajes cortos (genéricos) esperan 1.8s, largos (personalizados) 2.5s
     if (this._esperandoEnemigo) {
       this._tiempoEsperaEnemigo += dt;
-      if (this._tiempoEsperaEnemigo >= 1.8) {
+      if (this._tiempoEsperaEnemigo >= (this._pausaLectura || 1.8)) {
         this.turnoEnemigo(jugador);
       }
       return;

@@ -161,7 +161,7 @@ export class MundoJuridico {
       },
       {
         id: 'inspector',
-        x: 1540, y: 760,
+        x: 1540, y: 830,
         ancho: 28, alto: 32,
         nombre: 'Inspector Ramírez',
         color: '#3a3a5a',
