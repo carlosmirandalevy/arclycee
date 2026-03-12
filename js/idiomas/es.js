@@ -168,8 +168,98 @@ const es = {
       taino3: 'Pero nuestra cultura no murió. Vive en las palabras: hamaca, canoa, tabaco, maíz.',
       taino4: 'Cada vez que dices "huracán" o comes casabe, los taínos seguimos vivos.',
 
+      // Roberto Cassá — historiador dominicano
+      cassa1: 'Soy Roberto Cassá, historiador. Estudio los orígenes de nuestra nación.',
+      cassaSinArcabuz: 'Busco artefactos coloniales de La Isabela. Si encuentras algo, tráemelo — tengo algo valioso que ofrecerte a cambio.',
+      cassaVeArcabuz: '¡Un arcabuz colonial! Estos se usaban en La Isabela desde 1494. Es una pieza invaluable.',
+      cassaIntercambio: 'Te propongo un intercambio: dame el arcabuz para el museo, y yo te doy mi mapa de sitios coloniales.',
+      cassaEntrega: '¡Trato hecho! Con este mapa podrás visitar la Zona Colonial de Santo Domingo y otros sitios históricos.',
+      cassaRepite: 'Usa el mapa colonial para visitar los sitios históricos. ¡Hay mucho por descubrir!',
+
       misionHablar: 'Explora las ruinas de La Isabela',
       misionCompleta: '¡La Isabela explorada! Vuelve al mapa (M)'
+    },
+
+    // Zona Colonial de Santo Domingo — Patrimonio de la Humanidad (UNESCO)
+    zonaColonial: {
+      constructor1: '¡Fuera de aquí, mocoso! ¡Estas piedras viejas van a caer para hacer espacio a mi hotel!',
+      constructor2: '¡Nadie va a impedirme construir! ¡Estos escombros no valen nada!',
+      constructorPaz1: 'Espera... ¿Patrimonio de la Humanidad? No tenía idea.',
+      constructorPaz2: 'Voy a reunir a mi equipo e inversionistas y traer historiadores para rediseñar el proyecto.',
+      constructorPaz3: 'Un hotel que proteja y destaque estas ruinas... será más caro, pero le dará un valor único.',
+      constructorPaz4: 'Incluso podría ser más rentable. Y además... es lo correcto.',
+      constructorDerrota1: 'Está bien, está bien... me hiciste pensar.',
+      constructorDerrota2: 'Hablaré con los inversionistas. Quizás podamos construir algo que respete la historia.',
+      constructorRepite: 'Ya hablé con los inversionistas. Vamos a rediseñar el hotel para proteger las ruinas. ¡Será único!',
+
+      arqueologa1: 'Soy la Dra. Pérez, arqueóloga del Museo del Hombre Dominicano.',
+      arqueologa2: 'La Zona Colonial tiene más de 500 años. Cada piedra cuenta una historia.',
+      arqueologa3: 'Hay tesoros enterrados bajo estas calles. Tu robot podría ayudar a encontrarlos.',
+      arqueologa4: 'Presiona F para que Magnoboot escanee el suelo. Si detecta algo, podrás excavarlo con E.',
+
+      guia1: '¡Bienvenido a la Zona Colonial! Soy Don Rafael, guía certificado.',
+      guia2: 'La Catedral Primada fue la primera de América. ¡Se empezó a construir en 1512!',
+      guia3: 'El Hospital San Nicolás de Bari fue el primer hospital del Nuevo Mundo, fundado en 1503.',
+      guia4: 'Y la Calle de las Damas es la primera calle empedrada de América. ¡Caminas sobre historia!',
+
+      estudiante1: '¡Hola! Soy María, estudio arquitectura en la UASD.',
+      estudiante2: 'Estoy investigando las técnicas de construcción colonial. ¡Usaban coral fosilizado como material!',
+      estudiante3: 'El Monasterio San Francisco fue el primero de América. Hoy sus ruinas son un escenario de conciertos.',
+      estudiante4: 'El Panteón Nacional era una iglesia jesuita. Ahora guarda los restos de nuestros héroes nacionales.',
+
+      // Roberto Cassá — conversaciones rotativas (mentor recurrente)
+      cassaZC1: '¡Volvemos a encontrarnos! Vine a investigar la Zona Colonial.',
+      cassaZC2: 'Este lugar tiene más de 500 años de historia. Cada esquina esconde un secreto.',
+
+      cassaConflicto1: '¿Viste al constructor? Pasa mucho: empresarios que quieren demoler para construir.',
+      cassaConflicto2: 'Pero la historia no se puede reemplazar. Un hotel nuevo se construye en meses... estas piedras tardaron siglos.',
+      cassaConflicto3: 'Lo mejor es cuando logran integrarse: modernidad y patrimonio conviviendo. Todos ganan.',
+
+      cassaDatos1: '¿Sabías que la Catedral Primada tiene los restos que se atribuyen a Cristóbal Colón?',
+      cassaDatos2: 'El Hospital San Nicolás de Bari atendía a españoles e indígenas por igual. Fue revolucionario para su época.',
+      cassaDatos3: 'Y la Calle de las Damas se llama así porque las damas de la corte de María de Toledo paseaban por ella.',
+
+      cassaPatrimonio1: 'La UNESCO declaró esta zona Patrimonio de la Humanidad en 1990.',
+      cassaPatrimonio2: 'Eso significa que pertenece a todos los pueblos del mundo, no solo a nosotros.',
+      cassaPatrimonio3: 'Proteger el patrimonio no es solo conservar piedras — es mantener viva la memoria de quiénes somos.',
+
+      cassaCalle1: '¿Ves esta calle? Es la Calle de las Damas — la primera calle empedrada de América.',
+      cassaCalle2: 'Fue trazada por orden de Nicolás de Ovando en 1502. Por aquí pasaban los gobernadores y sus familias.',
+      cassaCalle3: 'Se dice que las damas de la corte de María de Toledo paseaban aquí cada tarde. De ahí su nombre.',
+
+      cassaReloj1: '¿Has visto el Reloj de Sol? Es uno de los más antiguos de América.',
+      cassaReloj2: 'Fue construido en el siglo XVI para que los vecinos de la ciudad pudieran medir el tiempo.',
+      cassaReloj3: 'Antes de los relojes mecánicos, el sol era el único reloj. Esta columna proyectaba su sombra sobre las marcas horarias.',
+
+      cassaPista1: 'Has aprendido mucho sobre los taínos y los colonizadores...',
+      cassaPista2: 'Pero hay un mundo que aún no has explorado: el mar que rodea nuestra isla.',
+      cassaPista3: 'Los océanos guardan tesoros y peligros. Ballenas, tortugas, arrecifes... y amenazas que debemos enfrentar.',
+      cassaPista4: 'Cuando estés listo, el Mundo Acuático te espera. ¡Buena suerte, joven arqueólogo!',
+
+      // Guardias del Panteón Nacional — Primer Regimiento de la Guardia Presidencial
+      guardia1: 'Los guardias no pueden hablar mientras montan guardia. Es parte del protocolo militar.',
+      guardia2: 'Son miembros del Primer Regimiento Dominicano de la Guardia Presidencial.',
+      guardia3: 'Custodian la entrada del Panteón Nacional, donde reposan los restos de los héroes de la patria.',
+      guardia4: 'Cada cierto tiempo realizan el cambio de guardia: una ceremonia solemne donde dos guardias relevan a los anteriores.',
+      guardia5: 'Dentro del Panteón arde una llama que nunca se apaga — símbolo eterno del sacrificio de los padres de la nación.',
+
+      // Combate con Constructor Méndez — opciones de activismo ciudadano
+      combatePista: 'Usa activismo ciudadano para llenar la barra de Paciencia',
+      accionRedes: 'Redes Sociales',
+      accionRedesMsg: '¡Publicas fotos de las ruinas amenazadas en redes!',
+      respuestaRedes: 'Méndez paga influencers para promover su hotel.',
+      accionProtestas: 'Protestas',
+      accionProtestasMsg: '¡Organizas una manifestación frente a la obra!',
+      respuestaProtestas: 'Méndez patrocina un teteo y conciertos para la comunidad.',
+      accionDenuncia: 'Denunciar',
+      accionDenunciaMsg: '¡Denuncias la demolición ante las autoridades!',
+      respuestaDenuncia: 'Méndez negocia permisos y excepciones con políticos.',
+      accionLegal: 'Vía Legal',
+      accionLegalMsg: '¡Presentas un recurso legal para detener la obra!',
+      respuestaLegal: 'Méndez usa maniobras legales para dilatar mientras sigue construyendo.',
+
+      misionExplorar: 'Explora la Zona Colonial',
+      misionCompleta: '¡Zona Colonial explorada! Vuelve al mapa (M)'
     }
   },
 
@@ -199,7 +289,21 @@ const es = {
     descMapa: 'Un mapa antiguo con marcas misteriosas de sitios arqueológicos.',
     descFragmentoMapa: 'Un pedazo de mapa antiguo. Parece mostrar la ubicación de otras cuevas.',
     descArtefactoTaino: 'Un cemí dorado. Debe ser llevado al museo para su estudio.',
-    descMagnetometro: 'Detecta objetos metálicos enterrados bajo la tierra.'
+    descMagnetometro: 'Detecta objetos metálicos enterrados bajo la tierra.',
+
+    arcabuz: 'Arcabuz Colonial',
+    descArcabuz: 'Arma de fuego del siglo XV usada por los conquistadores. Pieza de museo.',
+    mapaColonial: 'Mapa Colonial',
+    descMapaColonial: 'Mapa con los sitios coloniales más importantes de la isla. Regalo de Roberto Cassá.',
+
+    planoColonial: 'Plano Arquitectónico',
+    descPlanoColonial: 'Plano original de la Catedral Primada de América. Documento histórico invaluable.',
+    monedaColonial: 'Moneda de la Corona',
+    descMonedaColonial: 'Moneda española del siglo XVI encontrada bajo las calles de la Zona Colonial.',
+    azulejoAntiguo: 'Azulejo Colonial',
+    descAzulejoAntiguo: 'Azulejo de cerámica decorada del periodo colonial. Técnica traída de España.',
+    llaveHierro: 'Llave de Hierro',
+    descLlaveHierro: 'Llave colonial de hierro forjado. Podría abrir alguna puerta antigua.'
   },
 
   inventario: {

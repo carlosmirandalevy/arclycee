@@ -41,6 +41,7 @@ import { MapaPrincipal } from '../mundos/mapa-principal.js';
 import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
 import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
+import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 
 export class Juego {
 
@@ -137,7 +138,8 @@ export class Juego {
       { nombre: 'Mapa Principal',        escena: 'mapaPrincipal' },
       { nombre: 'Asentamiento Taíno I',  escena: 'asentamientoTaino1' },
       { nombre: 'Asentamiento Taíno II', escena: 'asentamientoTaino2' },
-      { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' }
+      { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
+      { nombre: 'Zona Colonial',        escena: 'zonaColonial' }
     ];
   }
 
@@ -264,6 +266,10 @@ export class Juego {
     // La Isabela — primer asentamiento europeo (Mundo Colonial)
     const laIsabela = new LaIsabela();
     this.registrarEscena('mundoColonial', laIsabela);
+
+    // Zona Colonial de Santo Domingo — Patrimonio de la Humanidad
+    const zonaColonial = new ZonaColonial();
+    this.registrarEscena('zonaColonial', zonaColonial);
   }
 
   // --- BUCLE PRINCIPAL ---
@@ -496,7 +502,7 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial'];
+    const escenasJugables = ['cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial'];
     if (escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
     }

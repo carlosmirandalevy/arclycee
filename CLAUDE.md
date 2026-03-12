@@ -45,6 +45,10 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - Estilo Undertale con ruta pacifista (paciencia 100 = victoria pacífica)
 - Se inicia desde escenas vía `juego.combate.iniciar({...})`
 - Resultado se verifica FUERA del bloque `if (enCombate)` porque al terminar `enCombate` ya es false
+- **Opciones personalizadas por enemigo**: `enemigo.opcionesPersonalizadas` — array de acciones con `{id, nombre, paciencia: [min, max], hostilidad: [min, max], mensaje, respuestaEnemigo}`
+- Cuando hay opciones personalizadas, `_ejecutarPersonalizada()` reemplaza el switch genérico
+- El turno enemigo usa `_ultimaAccion.respuestaEnemigo` para contra-respuestas específicas
+- `pistaPersonalizada` en el enemigo cambia el texto de ayuda inferior
 
 ### Idiomas (`js/idiomas/`)
 - 3 idiomas: `es.js`, `fr.js`, `en.js`
@@ -62,6 +66,10 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - Inventario dual: `jugador.inventario` (array simple) + `juego.inventario` (UI con Inventario class)
 - Física: `factorTiempo = dt * 60` para movimiento independiente de framerate
 - Progreso: `juego.progreso.nodosCompletados` y `nodosDesbloqueados`
+- **Diálogo rotativo**: contador `_cassaConversacion` que incrementa tras cada diálogo, `indice = contador % array.length` para ciclar
+- **NPC mentor**: `esMentor: true` excluye del conteo de misión, siempre muestra [E] Hablar, nunca muestra checkmark
+- **Animación de marcha**: `cuadroAnimacion` + `esAnimando` flag, piernas con `Math.sin(cuadro * 5) * 3`
+- **Guardias invisibles**: `if (!guardia.activo && !this._cambioEnCurso) return` al inicio de `_dibujarGuardia()`
 
 ## Qué NO hacer
 

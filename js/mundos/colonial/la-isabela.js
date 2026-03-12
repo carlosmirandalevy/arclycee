@@ -54,7 +54,7 @@ export class LaIsabela {
     // --- Misión ---
     this.misionActual = '';
     this.npcsHablados = 0;
-    this.totalNPCs = 3;
+    this.totalNPCs = 4;
 
     // --- Combate ---
     // El soldado guardián inicia un combate la primera vez
@@ -141,19 +141,41 @@ export class LaIsabela {
         color: '#B8860B',
         dialogoHecho: false,
         esCombate: false
+      },
+      {
+        // Roberto Cassá — historiador dominicano real.
+        // Está investigando el sitio y quiere intercambiar
+        // información por artefactos coloniales.
+        id: 'historiador',
+        x: 1350, y: 450,
+        ancho: 28, alto: 32,
+        nombre: 'Roberto Cassá',
+        color: '#2a4a6a',
+        dialogoHecho: false,
+        esCombate: false
       }
     ];
 
     // --- Objetos coleccionables ---
     // El magnetómetro aparece junto a la iglesia DESPUÉS de resolver
-    // el encuentro con el soldado (está bajo escombros que Diego custodiaba)
+    // el encuentro con el soldado (está bajo escombros que Diego custodiaba).
+    // El arcabuz aparece junto a la Alhóndiga (almacén de armas coloniales).
     this.objetos = [
       {
         x: 440, y: 345,
         ancho: 16, alto: 16,
         tipo: 'magnetometro',
         recogido: false,
-        requiereCombate: true  // Solo aparece tras pacificar/vencer al soldado
+        requiereCombate: true
+      },
+      {
+        // Arcabuz — arma colonial que el jugador intercambiará con
+        // Roberto Cassá por un mapa de los sitios coloniales
+        x: 1010, y: 420,
+        ancho: 16, alto: 16,
+        tipo: 'arcabuz',
+        recogido: false,
+        requiereCombate: true  // Solo visible tras resolver el combate
       }
     ];
 
@@ -323,13 +345,13 @@ export class LaIsabela {
 
         // Mostrar mensaje flotante indicando qué objeto se recogió
         if (this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`✦ ${nombreObjeto} — añadido al inventario`);
+          this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
         }
       }
     }
 
     // --- Verificar misión ---
-    // IMPORTANTE: va ANTES de la salida con Q para guardar progreso
+    // IMPORTANTE: va ANTES de la salida para guardar progreso
     this.npcsHablados = this.npcs.filter(n => n.dialogoHecho).length;
     if (this.npcsHablados >= this.totalNPCs) {
       const textos = this._obtenerTextos();
@@ -338,6 +360,13 @@ export class LaIsabela {
       if (this.juego && this.juego.progreso) {
         if (!this.juego.progreso.nodosCompletados.includes(3)) {
           this.juego.progreso.nodosCompletados.push(3);
+        }
+        // Desbloquear la Zona Colonial (nodo 4) si el jugador
+        // tiene el mapa colonial que le dio Roberto Cassá
+        const tieneMapaColonial = this.juego.inventario &&
+          this.juego.inventario.objetos.some(o => o.id === 'mapaColonial');
+        if (tieneMapaColonial && !this.juego.progreso.nodosDesbloqueados.includes(4)) {
+          this.juego.progreso.nodosDesbloqueados.push(4);
         }
       }
     }
@@ -456,6 +485,11 @@ export class LaIsabela {
     ctx.moveTo(1050 + offsetX, 400 + offsetY);
     ctx.lineTo(1250 + offsetX, 580 + offsetY);
     ctx.stroke();
+    // Camino hacia Roberto Cassá (al este del mapa)
+    ctx.beginPath();
+    ctx.moveTo(1050 + offsetX, 400 + offsetY);
+    ctx.lineTo(1350 + offsetX, 460 + offsetY);
+    ctx.stroke();
 
     // --- Edificios coloniales (ruinas de piedra) ---
     for (const edificio of this.edificios) {
@@ -477,28 +511,43 @@ export class LaIsabela {
       const ox = obj.x + offsetX;
       const oy = obj.y + offsetY;
 
+      // Brillo pulsante alrededor del objeto
       const brillo = 0.5 + Math.sin(this.tiempoTotal * 3) * 0.3;
-      ctx.fillStyle = `rgba(68, 170, 204, ${brillo})`;
+      const colorBrillo = obj.tipo === 'arcabuz'
+        ? `rgba(200, 170, 50, ${brillo})`
+        : `rgba(68, 170, 204, ${brillo})`;
+      ctx.fillStyle = colorBrillo;
       ctx.beginPath();
       ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
       ctx.fill();
 
-      // Ícono magnetómetro (detector de metales)
-      // Mango vertical
-      ctx.strokeStyle = '#555555';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(ox + 8, oy + 2);
-      ctx.lineTo(ox + 8, oy + 12);
-      ctx.stroke();
-      // Disco detector (base)
-      ctx.fillStyle = '#44AACC';
-      ctx.beginPath();
-      ctx.ellipse(ox + 8, oy + 13, 6, 3, 0, 0, Math.PI * 2);
-      ctx.fill();
-      // Luz indicadora
-      ctx.fillStyle = '#44FF44';
-      ctx.fillRect(ox + 7, oy + 2, 3, 3);
+      if (obj.tipo === 'magnetometro') {
+        // Ícono magnetómetro (detector de metales)
+        ctx.strokeStyle = '#555555';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(ox + 8, oy + 2);
+        ctx.lineTo(ox + 8, oy + 12);
+        ctx.stroke();
+        ctx.fillStyle = '#44AACC';
+        ctx.beginPath();
+        ctx.ellipse(ox + 8, oy + 13, 6, 3, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#44FF44';
+        ctx.fillRect(ox + 7, oy + 2, 3, 3);
+
+      } else if (obj.tipo === 'arcabuz') {
+        // Ícono arcabuz (arma colonial — cañón largo + culata de madera)
+        // Cañón metálico
+        ctx.fillStyle = '#888888';
+        ctx.fillRect(ox + 2, oy + 7, 12, 3);
+        // Culata de madera
+        ctx.fillStyle = '#6B4226';
+        ctx.fillRect(ox + 1, oy + 6, 5, 5);
+        // Detalle de la mecha
+        ctx.fillStyle = '#CC8844';
+        ctx.fillRect(ox + 6, oy + 5, 2, 2);
+      }
     }
 
     // --- NPCs ---
@@ -758,6 +807,29 @@ export class LaIsabela {
       // Pluma
       ctx.fillStyle = '#CC4444';
       ctx.fillRect(nx + 12, ny - 18, 3, 8);
+
+    } else if (npc.id === 'historiador') {
+      // Roberto Cassá — traje de académico moderno
+      // Camisa azul claro (ya es el color del cuerpo '#2a4a6a')
+      // Lentes redondos
+      ctx.strokeStyle = '#CCCCCC';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(nx + 10, ny - 4, 4, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(nx + 18, ny - 4, 4, 0, Math.PI * 2);
+      ctx.stroke();
+      // Puente de los lentes
+      ctx.beginPath();
+      ctx.moveTo(nx + 14, ny - 4);
+      ctx.lineTo(nx + 14, ny - 4);
+      ctx.stroke();
+      // Libro bajo el brazo
+      ctx.fillStyle = '#8B0000';
+      ctx.fillRect(nx - 6, ny + 12, 8, 12);
+      ctx.fillStyle = '#EEEECC';
+      ctx.fillRect(nx - 4, ny + 14, 4, 8);
     }
 
     // Nombre
@@ -918,6 +990,69 @@ export class LaIsabela {
         { personaje: '🪶 Guatiguaná', texto: isabela?.taino3 || 'Pero nuestra cultura no murió. Vive en las palabras: hamaca, canoa, tabaco, maíz.' },
         { personaje: '🪶 Guatiguaná', texto: isabela?.taino4 || 'Cada vez que dices "huracán" o comes casabe, los taínos seguimos vivos.' }
       ], () => { npc.dialogoHecho = true; });
+
+    } else if (npc.id === 'historiador') {
+      // Roberto Cassá tiene diálogo condicional:
+      // - Si el jugador NO tiene el arcabuz, le dice que busque artefactos
+      // - Si TIENE el arcabuz, hace el intercambio por el mapa colonial
+      // - Si ya hizo el intercambio, repite información útil
+      const tieneArcabuz = this.juego && this.juego.inventario &&
+        this.juego.inventario.objetos.some(o => o.id === 'arcabuz');
+
+      if (npc.dialogoHecho) {
+        // Ya intercambió — repite información
+        this.dialogos.iniciarDialogo([
+          { personaje: '📚 Roberto Cassá', texto: isabela?.cassaRepite || 'Usa el mapa colonial para visitar los sitios históricos. ¡Hay mucho por descubrir!' }
+        ]);
+      } else if (tieneArcabuz) {
+        // ¡Tiene el arcabuz! — intercambio
+        this.dialogos.iniciarDialogo([
+          { personaje: '📚 Roberto Cassá', texto: isabela?.cassa1 || 'Soy Roberto Cassá, historiador. Estudio los orígenes de nuestra nación.' },
+          { personaje: '📚 Roberto Cassá', texto: isabela?.cassaVeArcabuz || '¡Un arcabuz colonial! Estos se usaban en La Isabela desde 1494.' },
+          { personaje: '📚 Roberto Cassá', texto: isabela?.cassaIntercambio || 'Te propongo un intercambio: dame el arcabuz para el museo, y yo te doy mi mapa de sitios coloniales.' },
+          { personaje: '📚 Roberto Cassá', texto: isabela?.cassaEntrega || '¡Trato hecho! Con este mapa podrás visitar la Zona Colonial de Santo Domingo y otros sitios históricos.' }
+        ], () => {
+          // --- Intercambio de objetos ---
+          // Quitar el arcabuz del inventario
+          if (this.juego.inventario) {
+            this.juego.inventario.remover('arcabuz');
+          }
+          // Quitar del inventario simple del jugador
+          if (jugador.inventario) {
+            const idx = jugador.inventario.findIndex(o => o.nombre === 'arcabuz');
+            if (idx !== -1) jugador.inventario.splice(idx, 1);
+          }
+
+          // Dar el mapa colonial
+          const textos2 = this._obtenerTextos();
+          const nombreMapa = textos2?.objetos?.mapaColonial || 'Mapa Colonial';
+          jugador.agregarAlInventario({ nombre: 'mapaColonial' });
+          if (this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: 'mapaColonial',
+              nombre: nombreMapa,
+              descripcion: textos2?.objetos?.descMapaColonial || 'Mapa con los sitios coloniales más importantes de la isla.',
+              tipo: 'clave',
+              cantidad: 1,
+              color: '#DAA520',
+              esUsable: false
+            });
+          }
+
+          // Toast de intercambio
+          if (this.juego.mostrarToast) {
+            this.juego.mostrarToast(`🔄 Arcabuz → ${nombreMapa}`);
+          }
+
+          npc.dialogoHecho = true;
+        });
+      } else {
+        // No tiene el arcabuz — le dice que busque
+        this.dialogos.iniciarDialogo([
+          { personaje: '📚 Roberto Cassá', texto: isabela?.cassa1 || 'Soy Roberto Cassá, historiador. Estudio los orígenes de nuestra nación.' },
+          { personaje: '📚 Roberto Cassá', texto: isabela?.cassaSinArcabuz || 'Busco artefactos coloniales de La Isabela. Si encuentras algo, tráemelo — tengo algo valioso que ofrecerte a cambio.' }
+        ]);
+      }
     }
   }
 

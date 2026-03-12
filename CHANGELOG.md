@@ -1,5 +1,87 @@
 # Changelog
 
+## v0.8.0 — Zona Colonial + Activismo Ciudadano + Favicon (2026-03-12)
+
+### Agregado
+
+**Zona Colonial de Santo Domingo** (`js/mundos/colonial/zona-colonial.js`)
+- Nuevo nivel completo: la Zona Colonial, Patrimonio de la Humanidad (UNESCO 1990)
+- Nivel top-down 1800x1200 con cuadrícula urbana colonial
+- 6 monumentos históricos dibujados:
+  - Catedral Primada de América (primera catedral del Nuevo Mundo)
+  - Hospital San Nicolás de Bari (primer hospital de América, 1503)
+  - Monasterio San Francisco (primero de América, hoy ruinas para conciertos)
+  - Calle de las Damas (primera calle empedrada de América, 1502)
+  - Panteón Nacional (antigua iglesia jesuita, hoy mausoleo de héroes)
+  - Reloj de Sol (siglo XVI, pedestal de piedra con disco horario y gnomon giratorio)
+- 5 NPCs educativos:
+  - Constructor Méndez: antagonista con combate de activismo ciudadano
+  - Dra. Pérez: arqueóloga del Museo del Hombre Dominicano
+  - Don Rafael: guía turístico certificado
+  - María: estudiante de arquitectura de la UASD
+  - Roberto Cassá: historiador mentor con diálogos rotativos
+- Zonas de excavación detectables con Magnoboot (pulso de radar revela objetos enterrados)
+- Mapa de riesgo con zonas coloreadas (verde/amarillo/rojo) y bordes punteados
+- Calles empedradas, árboles tropicales, colisiones con edificios
+- 4 objetos coleccionables con íconos: plano colonial, moneda colonial, azulejo antiguo, llave de hierro
+
+**Roberto Cassá — NPC mentor recurrente**
+- Flag `esMentor: true` — no cuenta para completar la misión, siempre muestra [E] Hablar
+- 7 conversaciones rotativas que ciclan con `_cassaConversacion % 7`:
+  1. Saludo de reencuentro
+  2. Comentario sobre el conflicto con el constructor
+  3. Datos históricos profundos (restos de Colón, hospital, origen de Calle de las Damas)
+  4. Patrimonio UNESCO y su significado
+  5. Historia de la Calle de las Damas (Ovando, María de Toledo)
+  6. El Reloj de Sol del siglo XVI
+  7. Pista sobre el Mundo Acuático
+- Toast de proximidad: "Roberto Cassá tiene mucho que contar. ¡Habla con él varias veces!"
+
+**Guardia Presidencial del Panteón Nacional**
+- 4 guardias: 2 activos montando guardia + 2 de relevo (invisibles hasta la ceremonia)
+- Uniformes militares dibujados con detalle (boina, uniforme verde oliva, botas)
+- Animación de piernas al marchar (misma fórmula que el jugador: `Math.sin(cuadro * 5) * 3`)
+- Cambio de guardia ceremonial cada 45 segundos con 4 fases:
+  1. Relevo entra marchando desde fuera de pantalla (derecha)
+  2. Se detienen frente a frente ante el Panteón
+  3. Intercambian posiciones
+  4. Guardia saliente marcha fuera de pantalla
+- Diálogo narrado: protocolo militar, historia del Panteón, la llama eterna
+
+**Combate de activismo ciudadano** (`js/mecanicas/combate.js`)
+- Sistema de opciones personalizadas por enemigo (`opcionesPersonalizadas`)
+- 4 acciones de activismo contra el Constructor Méndez:
+  - Redes Sociales: publicas fotos → Constructor paga influencers
+  - Protestas: organizas manifestación → Constructor patrocina teteos y conciertos
+  - Denunciar: reportas a autoridades → Constructor negocia excepciones con políticos
+  - Vía Legal: recurso legal → Constructor dilata con maniobras jurídicas
+- Cada acción tiene rangos [min, max] de paciencia y hostilidad
+- Acciones más fuertes tienen contra-respuestas más fuertes (riesgo/recompensa)
+- Pista personalizada: "Usa activismo ciudadano para llenar la barra de Paciencia"
+- Resolución pacífica: Constructor descubre estatus UNESCO → rediseña hotel protegiendo ruinas
+- Resolución por derrota: Constructor recapacita y habla con inversionistas
+
+**Favicon y Open Graph** (`resources/`)
+- Favicon generado desde el logo Cemí: `favicon.ico` (16+32px), `favicon-32.png`, `apple-touch-icon.png` (180x180)
+- Imagen para redes sociales: `og-share.png` (1200x630, fondo oscuro con logo y título)
+- Meta tags OG y Twitter Card en `index.html`
+
+**Traducciones** (ES/FR/EN)
+- Diálogos de Zona Colonial: constructor (pre-combate, paz x4, derrota x2, repite)
+- Diálogos de Cassá: 7 conversaciones × 2-4 líneas cada una
+- Diálogos de guardias: 5 líneas narradas
+- 4 acciones de combate + 4 mensajes del jugador + 4 contra-respuestas del constructor
+- 4 objetos nuevos con nombre y descripción (plano, moneda, azulejo, llave)
+- Íconos de inventario: plano con cuadrícula, moneda con corona, azulejo decorado, llave con dientes
+
+### Corregido
+- Constructor Méndez: resolución del conflicto reescrita — no abandona el hotel, sino que lo rediseña para proteger las ruinas (más realista y educativo)
+- Guardias de relevo: ahora invisibles hasta que comienza la ceremonia de cambio
+- Guardias marchando: entran desde fuera de pantalla horizontalmente (no se deslizan verticalmente)
+- Cassá reubicado de la Catedral a Calle de las Damas (más apropiado temáticamente)
+
+---
+
 ## v0.7.0 — Mundo Colonial + Combate + Mejoras UI (2026-03-12)
 
 ### Agregado

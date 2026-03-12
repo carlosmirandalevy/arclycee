@@ -431,6 +431,112 @@ export class Inventario {
       ctx.fillStyle = '#44FF44';
       ctx.fillRect(x + 12, y + 6, 8, 5);
 
+    } else if (id === 'arcabuz') {
+      // Arcabuz colonial — arma larga con culata de madera
+      // Cañón metálico
+      ctx.fillStyle = '#888888';
+      ctx.fillRect(x + 4, y + 14, 20, 4);
+      // Culata de madera
+      ctx.fillStyle = '#6B4226';
+      ctx.fillRect(x + 2, y + 12, 8, 8);
+      // Mecanismo de mecha
+      ctx.fillStyle = '#CC8844';
+      ctx.fillRect(x + 12, y + 11, 4, 3);
+      // Boca del cañón
+      ctx.fillStyle = '#555555';
+      ctx.fillRect(x + 24, y + 15, 3, 2);
+
+    } else if (id === 'mapaColonial') {
+      // Mapa colonial — pergamino con marcas de ubicación
+      ctx.fillStyle = '#DAA520';
+      ctx.fillRect(x + 4, y + 4, 24, 24);
+      // Bordes enrollados
+      ctx.fillStyle = '#B8860B';
+      ctx.fillRect(x + 4, y + 4, 24, 3);
+      ctx.fillRect(x + 4, y + 25, 24, 3);
+      // Marcas de sitios (puntos rojos)
+      ctx.fillStyle = '#CC3333';
+      ctx.beginPath();
+      ctx.arc(x + 12, y + 14, 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x + 20, y + 11, 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x + 16, y + 20, 2, 0, Math.PI * 2);
+      ctx.fill();
+      // Líneas de ruta
+      ctx.strokeStyle = '#8B4513';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + 12, y + 14);
+      ctx.lineTo(x + 20, y + 11);
+      ctx.lineTo(x + 16, y + 20);
+      ctx.stroke();
+
+    } else if (id === 'planoColonial') {
+      // Plano arquitectónico — pergamino con líneas de plano
+      ctx.fillStyle = '#F5DEB3';
+      ctx.fillRect(x + 4, y + 4, 24, 24);
+      ctx.strokeStyle = '#8B4513';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x + 4, y + 4, 24, 24);
+      // Líneas del plano (planta de edificio)
+      ctx.strokeStyle = '#4a4a8a';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x + 8, y + 8, 16, 12);
+      ctx.beginPath();
+      ctx.moveTo(x + 14, y + 8);
+      ctx.lineTo(x + 14, y + 20);
+      ctx.moveTo(x + 8, y + 14);
+      ctx.lineTo(x + 24, y + 14);
+      ctx.stroke();
+
+    } else if (id === 'monedaColonial') {
+      // Moneda de oro — círculo con corona
+      ctx.fillStyle = '#DAA520';
+      ctx.beginPath();
+      ctx.arc(x + 16, y + 16, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#B8860B';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(x + 16, y + 16, 10, 0, Math.PI * 2);
+      ctx.stroke();
+      // Corona estilizada
+      ctx.fillStyle = '#FFD700';
+      ctx.fillRect(x + 12, y + 12, 8, 2);
+      ctx.fillRect(x + 12, y + 10, 2, 4);
+      ctx.fillRect(x + 18, y + 10, 2, 4);
+      ctx.fillRect(x + 15, y + 9, 2, 5);
+
+    } else if (id === 'azulejoAntiguo') {
+      // Azulejo decorado — cuadrado con patrón geométrico
+      ctx.fillStyle = '#4a6a8a';
+      ctx.fillRect(x + 6, y + 6, 20, 20);
+      ctx.fillStyle = '#FFFFFF';
+      // Patrón decorativo
+      ctx.fillRect(x + 9, y + 9, 14, 14);
+      ctx.fillStyle = '#4a6a8a';
+      ctx.fillRect(x + 12, y + 12, 8, 8);
+      ctx.fillStyle = '#DAA520';
+      ctx.fillRect(x + 14, y + 14, 4, 4);
+
+    } else if (id === 'llaveHierro') {
+      // Llave de hierro forjado
+      ctx.fillStyle = '#888888';
+      // Anillo de la llave
+      ctx.strokeStyle = '#888888';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(x + 10, y + 10, 5, 0, Math.PI * 2);
+      ctx.stroke();
+      // Vástago
+      ctx.fillRect(x + 14, y + 9, 14, 3);
+      // Dientes
+      ctx.fillRect(x + 24, y + 9, 3, 8);
+      ctx.fillRect(x + 20, y + 9, 3, 5);
+
     } else {
       // Genérico: cuadrado con color del objeto
       ctx.fillStyle = objeto.color || '#66aaff';

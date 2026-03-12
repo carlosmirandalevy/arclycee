@@ -74,7 +74,7 @@ arclycee/
 │   ├── escenas/            ← Pantallas (menú, selección, intro)
 │   ├── mundos/             ← Niveles y mapas del mundo
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
-│   │   └── colonial/       ← Mundo Colonial (La Isabela)
+│   │   └── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí
 │   ├── mecanicas/          ← Combate, diálogos, inventario, misiones
@@ -87,7 +87,11 @@ arclycee/
 ├── datos/
 │   └── instrucciones-assets.md  ← Prompts para generar arte con IA
 └── resources/
-    └── idea-original.md    ← Documento de diseño del juego
+    ├── idea-original.md    ← Documento de diseño del juego
+    ├── favicon.ico          ← Favicon del juego (16+32px)
+    ├── favicon-32.png       ← Favicon PNG 32x32
+    ├── apple-touch-icon.png ← Ícono para iOS 180x180
+    └── og-share.png         ← Imagen para redes sociales 1200x630
 ```
 
 ## Audio

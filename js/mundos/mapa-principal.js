@@ -79,9 +79,22 @@ export class MapaPrincipal {
         tipo: 'ciudad',
         completado: false,
         bloqueado: true,
-        conectadoA: [],
-        // Este nodo lleva al Mundo Colonial
+        // La Isabela conecta con la Zona Colonial (primer nivel
+        // del Mundo Colonial que se desbloquea al obtener el mapa)
+        conectadoA: [4],
         escena: 'mundoColonial'
+      },
+      // --- Mundo Colonial ---
+      // Se desbloquea al obtener el Mapa Colonial de Roberto Cassá
+      {
+        id: 4,
+        x: 780, y: 460,
+        nombre: 'Zona Colonial',
+        tipo: 'ciudad',
+        completado: false,
+        bloqueado: true,
+        conectadoA: [],
+        escena: 'zonaColonial'
       }
     ];
 
@@ -215,10 +228,28 @@ export class MapaPrincipal {
     ctx.fillRect(0, 440, ancho, 100);
 
     // --- Título del mundo ---
+    // Cambia según la zona en la que está el jugador
+    const nodoJugador = this.nodos[this.jugadorNodoActual];
+    const esColonial = nodoJugador && nodoJugador.id >= 4;
+    const tituloMundo = esColonial
+      ? (textos?.mundos?.colonial || 'Mundo Colonial')
+      : (textos?.mundos?.taino || 'Mundo Taíno');
+
     ctx.font = 'bold 24px monospace';
     ctx.fillStyle = '#FFD700';
     ctx.textAlign = 'center';
-    ctx.fillText(textos.mundos.taino, ancho / 2, 35);
+    ctx.fillText(tituloMundo, ancho / 2, 35);
+
+    // --- Separador visual entre mundos ---
+    // Una línea sutil que divide la zona Taína (arriba) de la Colonial (abajo)
+    ctx.strokeStyle = 'rgba(200, 168, 78, 0.2)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([6, 8]);
+    ctx.beginPath();
+    ctx.moveTo(30, 390);
+    ctx.lineTo(ancho - 30, 390);
+    ctx.stroke();
+    ctx.setLineDash([]);
 
     // --- Caminos entre nodos ---
     // Líneas punteadas que conectan los lugares en el mapa
@@ -283,9 +314,9 @@ export class MapaPrincipal {
       ctx.fillStyle = '#FFFFFF';
       ctx.textAlign = 'center';
 
-      if (nodo.tipo === 'cueva') ctx.fillText('C', nodo.x, nodo.y + 5);
-      if (nodo.tipo === 'aldea') ctx.fillText('A', nodo.x, nodo.y + 5);
-      if (nodo.tipo === 'ciudad') ctx.fillText('I', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'cueva') ctx.fillText('⛏', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'aldea') ctx.fillText('🏘', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'ciudad') ctx.fillText('🏛', nodo.x, nodo.y + 5);
 
       // Marca de completado (palomita)
       if (nodo.completado) {

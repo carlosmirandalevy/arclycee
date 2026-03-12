@@ -50,6 +50,13 @@ export class SistemaCombate {
     // pueda leer el resultado de su propia acción
     this._tiempoEsperaEnemigo = 0;
     this._esperandoEnemigo = false;
+
+    // --- Opciones personalizadas por enemigo ---
+    // Si el enemigo trae opcionesPersonalizadas, se usan en vez de las genéricas.
+    // Cada opción: { id, nombre, paciencia: [min, max], hostilidad: [min, max],
+    //   mensaje, respuestaEnemigo: { mensaje, hostilidad: [min, max], paciencia: [min, max] } }
+    this._opcionesActivas = OPCIONES_COMBATE;
+    this._ultimaAccion = null;
   }
 
   // --- Iniciar un combate ---
@@ -67,6 +74,15 @@ export class SistemaCombate {
     this._tiempoEsperaEnemigo = 0;
     this._esperandoEnemigo = false;
     this._bloqueoEntrada = true; // Empieza bloqueado para no capturar la E del diálogo
+
+    // Si el enemigo trae opciones personalizadas, usarlas en vez de las genéricas
+    // Esto permite que cada enemigo tenga acciones de combate únicas
+    if (enemigo.opcionesPersonalizadas) {
+      this._opcionesActivas = enemigo.opcionesPersonalizadas.map(o => o.id);
+    } else {
+      this._opcionesActivas = OPCIONES_COMBATE;
+    }
+    this._ultimaAccion = null;
   }
 
   // --- Mover la selección del menú ---
@@ -76,7 +92,7 @@ export class SistemaCombate {
     if (direccion === 'izquierda') {
       this.opcionSeleccionada = Math.max(0, this.opcionSeleccionada - 1);
     } else if (direccion === 'derecha') {
-      this.opcionSeleccionada = Math.min(OPCIONES_COMBATE.length - 1, this.opcionSeleccionada + 1);
+      this.opcionSeleccionada = Math.min(this._opcionesActivas.length - 1, this.opcionSeleccionada + 1);
     }
   }
 
@@ -86,24 +102,32 @@ export class SistemaCombate {
   ejecutarOpcion(jugador, inventario) {
     if (!this.turnoJugador || !this.enCombate) return;
 
-    const opcion = OPCIONES_COMBATE[this.opcionSeleccionada];
+    // --- Opciones personalizadas ---
+    // Si el enemigo tiene acciones propias (ej: el Constructor con activismo),
+    // ejecutar la lógica personalizada en vez del switch genérico
+    if (this.enemigo?.opcionesPersonalizadas) {
+      this._ejecutarPersonalizada();
+    } else {
+      // --- Opciones genéricas ---
+      const opcion = OPCIONES_COMBATE[this.opcionSeleccionada];
 
-    switch (opcion) {
-      case 'atacar':
-        this._ejecutarAtaque(jugador);
-        break;
-      case 'hablar':
-        this._ejecutarHablar();
-        break;
-      case 'negociar':
-        this._ejecutarNegociar(jugador);
-        break;
-      case 'objeto':
-        this._ejecutarObjeto(inventario);
-        break;
-      case 'huir':
-        this._ejecutarHuir(jugador);
-        return; // Huir no pasa turno al enemigo si tiene éxito
+      switch (opcion) {
+        case 'atacar':
+          this._ejecutarAtaque(jugador);
+          break;
+        case 'hablar':
+          this._ejecutarHablar();
+          break;
+        case 'negociar':
+          this._ejecutarNegociar(jugador);
+          break;
+        case 'objeto':
+          this._ejecutarObjeto(inventario);
+          break;
+        case 'huir':
+          this._ejecutarHuir(jugador);
+          return; // Huir no pasa turno al enemigo si tiene éxito
+      }
     }
 
     // Si el combate sigue, esperar un momento antes del turno enemigo
@@ -198,6 +222,29 @@ export class SistemaCombate {
     }
   }
 
+  // --- Ejecutar acción personalizada ---
+  // Para enemigos con opciones propias (como el Constructor Méndez).
+  // Cada acción tiene sus propios valores de paciencia y hostilidad,
+  // simulando diferentes formas de activismo ciudadano.
+  _ejecutarPersonalizada() {
+    const opciones = this.enemigo.opcionesPersonalizadas;
+    const opcion = opciones[this.opcionSeleccionada];
+    this._ultimaAccion = opcion;
+
+    // Calcular efecto con rango aleatorio [min, max]
+    const ganancia = opcion.paciencia[0]
+      + Math.floor(Math.random() * (opcion.paciencia[1] - opcion.paciencia[0] + 1));
+    const reduccion = opcion.hostilidad[0]
+      + Math.floor(Math.random() * (opcion.hostilidad[1] - opcion.hostilidad[0] + 1));
+
+    this.paciencia = Math.min(100, this.paciencia + ganancia);
+    this.hostilidad = Math.max(0, this.hostilidad - reduccion);
+
+    this._mensaje = opcion.mensaje || `Paciencia +${ganancia}`;
+
+    this.verificarFinCombate();
+  }
+
   // --- Turno del enemigo ---
   // El enemigo decide qué hacer basado en su hostilidad.
   // Si está poco hostil (< 30), puede hablar en vez de atacar,
@@ -205,7 +252,24 @@ export class SistemaCombate {
   turnoEnemigo(jugador) {
     if (this.turnoJugador || !this.enCombate) return;
 
-    if (this.hostilidad < 30 && Math.random() > 0.3) {
+    // --- Contra-respuesta personalizada ---
+    // Si el enemigo tiene opciones personalizadas y el jugador acaba de usar una,
+    // el enemigo responde con su propia contra-estrategia (ej: influencers vs redes sociales)
+    if (this._ultimaAccion?.respuestaEnemigo) {
+      const resp = this._ultimaAccion.respuestaEnemigo;
+
+      // La contra-respuesta sube un poco la hostilidad y baja la paciencia
+      const subeHostilidad = resp.hostilidad[0]
+        + Math.floor(Math.random() * (resp.hostilidad[1] - resp.hostilidad[0] + 1));
+      const bajaPatience = resp.paciencia[0]
+        + Math.floor(Math.random() * (resp.paciencia[1] - resp.paciencia[0] + 1));
+
+      this.hostilidad = Math.min(100, this.hostilidad + subeHostilidad);
+      this.paciencia = Math.max(0, this.paciencia - bajaPatience);
+
+      this._mensaje = resp.mensaje || `${this.enemigo?.nombre || 'Enemigo'} contraataca.`;
+
+    } else if (this.hostilidad < 30 && Math.random() > 0.3) {
       // El enemigo se calma y habla (la paciencia sube sola)
       const ganancia = 10 + Math.floor(Math.random() * 10);
       this.paciencia = Math.min(100, this.paciencia + ganancia);
@@ -433,14 +497,18 @@ export class SistemaCombate {
     ctx.font = '11px monospace';
     ctx.fillStyle = '#777777';
     ctx.textAlign = 'center';
-    ctx.fillText('Usa Hablar o Negociar para llenar la barra de Paciencia', anchoCanvas / 2, medidorY + 85);
+    const pista = this.enemigo?.pistaPersonalizada
+      || 'Usa Hablar o Negociar para llenar la barra de Paciencia';
+    ctx.fillText(pista, anchoCanvas / 2, medidorY + 85);
 
     // --- Opciones de combate (parte inferior) ---
     const opcionesY = altoCanvas - 90;
-    const opcionAncho = 90;
-    const opcionesInicioX = (anchoCanvas - OPCIONES_COMBATE.length * (opcionAncho + 10)) / 2;
+    const numOpciones = this._opcionesActivas.length;
+    // El ancho de cada botón se adapta: más opciones = botones más pequeños
+    const opcionAncho = numOpciones <= 4 ? 110 : 90;
+    const opcionesInicioX = (anchoCanvas - numOpciones * (opcionAncho + 10)) / 2;
 
-    for (let i = 0; i < OPCIONES_COMBATE.length; i++) {
+    for (let i = 0; i < numOpciones; i++) {
       const opX = opcionesInicioX + i * (opcionAncho + 10);
 
       // Fondo de la opción: amarillo si seleccionada, gris si no
@@ -455,11 +523,19 @@ export class SistemaCombate {
 
       // Texto de la opción
       ctx.fillStyle = seleccionada ? '#000000' : '#ffffff';
-      ctx.font = seleccionada ? 'bold 12px monospace' : '12px monospace';
+      ctx.font = seleccionada ? 'bold 11px monospace' : '11px monospace';
       ctx.textAlign = 'center';
 
-      // Buscar traducción o usar el nombre por defecto
-      const nombreOpcion = idiomas?.[OPCIONES_COMBATE[i]] || OPCIONES_COMBATE[i];
+      // Para opciones personalizadas usar el nombre de la opción,
+      // para las genéricas buscar traducción en el sistema de idiomas
+      let nombreOpcion;
+      if (this.enemigo?.opcionesPersonalizadas) {
+        nombreOpcion = this.enemigo.opcionesPersonalizadas[i].nombre
+          || this._opcionesActivas[i];
+      } else {
+        nombreOpcion = idiomas?.[this._opcionesActivas[i]]
+          || this._opcionesActivas[i];
+      }
       ctx.fillText(nombreOpcion, opX + opcionAncho / 2, opcionesY + 20);
     }
 
@@ -494,6 +570,8 @@ export class SistemaCombate {
     this.paciencia = 0;
     this.hostilidad = 100;
     this._esperandoEnemigo = false;
+    this._opcionesActivas = OPCIONES_COMBATE;
+    this._ultimaAccion = null;
     return resultado;
   }
 

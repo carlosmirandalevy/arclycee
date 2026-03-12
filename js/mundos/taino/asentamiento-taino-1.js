@@ -295,7 +295,7 @@ export class AsentamientoTaino1 {
 
         // Mostrar mensaje flotante indicando qué objeto se recogió
         if (this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`✦ ${nombreObjeto} — añadido al inventario`);
+          this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
         }
       }
     }

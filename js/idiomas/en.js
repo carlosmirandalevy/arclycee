@@ -166,8 +166,97 @@ const en = {
       taino3: 'But our culture did not die. It lives in words: hammock, canoe, tobacco, corn.',
       taino4: 'Every time you say "hurricane" or eat casabe, the Taínos live on.',
 
+      cassa1: 'I am Roberto Cassá, historian. I study the origins of our nation.',
+      cassaSinArcabuz: 'I\'m looking for colonial artifacts from La Isabela. If you find something, bring it to me — I have something valuable to offer in return.',
+      cassaVeArcabuz: 'A colonial arquebus! These were used at La Isabela since 1494. It\'s an invaluable piece.',
+      cassaIntercambio: 'I propose a trade: give me the arquebus for the museum, and I\'ll give you my map of colonial sites.',
+      cassaEntrega: 'Deal! With this map you can visit the Zona Colonial of Santo Domingo and other historical sites.',
+      cassaRepite: 'Use the colonial map to visit historical sites. There\'s so much to discover!',
+
       misionHablar: 'Explore the ruins of La Isabela',
       misionCompleta: 'La Isabela explored! Return to map (M)'
+    },
+
+    // Zona Colonial de Santo Domingo — UNESCO World Heritage Site
+    zonaColonial: {
+      constructor1: 'Get out of here, kid! These old rocks are coming down to make room for my hotel!',
+      constructor2: 'Nobody is going to stop me from building! This rubble is worthless!',
+      constructorPaz1: 'Wait... World Heritage Site? I had no idea.',
+      constructorPaz2: 'I\'ll gather my team, investors, and bring in historians to redesign the project.',
+      constructorPaz3: 'A hotel that protects and highlights these ruins... it\'ll cost more, but it\'ll have a unique value.',
+      constructorPaz4: 'It might even be more profitable. And besides... it\'s the right thing to do.',
+      constructorDerrota1: 'Okay, okay... you made me think.',
+      constructorDerrota2: 'I\'ll talk to the investors. Maybe we can build something that respects the history.',
+      constructorRepite: 'I already talked to the investors. We\'re redesigning the hotel to protect the ruins. It\'ll be one of a kind!',
+
+      arqueologa1: 'I\'m Dr. Pérez, archaeologist from the Museum of the Dominican Man.',
+      arqueologa2: 'The Zona Colonial is over 500 years old. Every stone tells a story.',
+      arqueologa3: 'There are treasures buried under these streets. Your robot could help find them.',
+      arqueologa4: 'Press F to have Magnoboot scan the ground. If it detects something, you can dig it up with E.',
+
+      guia1: 'Welcome to the Zona Colonial! I\'m Don Rafael, certified guide.',
+      guia2: 'The Primada Cathedral was the first in the Americas. Construction began in 1512!',
+      guia3: 'Hospital San Nicolás de Bari was the first hospital in the New World, founded in 1503.',
+      guia4: 'And Calle de las Damas is the first paved street in the Americas. You\'re walking on history!',
+
+      estudiante1: 'Hi! I\'m María, I study architecture at UASD.',
+      estudiante2: 'I\'m researching colonial construction techniques. They used fossilized coral as building material!',
+      estudiante3: 'The San Francisco Monastery was the first in the Americas. Today its ruins host concerts.',
+      estudiante4: 'The National Pantheon used to be a Jesuit church. Now it holds the remains of our national heroes.',
+
+      // Roberto Cassá — rotating conversations (recurring mentor)
+      cassaZC1: 'We meet again! I came to research the Zona Colonial.',
+      cassaZC2: 'This place has over 500 years of history. Every corner hides a secret.',
+
+      cassaConflicto1: 'Did you see the builder? It happens a lot: businessmen wanting to demolish to build.',
+      cassaConflicto2: 'But history cannot be replaced. A new hotel is built in months... these stones took centuries.',
+      cassaConflicto3: 'The best outcome is when they integrate: modernity and heritage coexisting. Everyone wins.',
+
+      cassaDatos1: 'Did you know the Primada Cathedral holds the remains attributed to Christopher Columbus?',
+      cassaDatos2: 'Hospital San Nicolás de Bari treated Spaniards and indigenous people equally. Revolutionary for its time.',
+      cassaDatos3: 'Calle de las Damas got its name because the ladies of María de Toledo\'s court would stroll along it.',
+
+      cassaPatrimonio1: 'UNESCO declared this area a World Heritage Site in 1990.',
+      cassaPatrimonio2: 'That means it belongs to all peoples of the world, not just us.',
+      cassaPatrimonio3: 'Protecting heritage isn\'t just preserving stones — it\'s keeping alive the memory of who we are.',
+
+      cassaCalle1: 'See this street? It\'s the Calle de las Damas — the first paved street in the Americas.',
+      cassaCalle2: 'It was laid out by order of Nicolás de Ovando in 1502. Governors and their families walked this way.',
+      cassaCalle3: 'They say the ladies of María de Toledo\'s court would stroll here every afternoon. That\'s how it got its name.',
+
+      cassaReloj1: 'Have you seen the Sundial? It\'s one of the oldest in the Americas.',
+      cassaReloj2: 'It was built in the 16th century so the city\'s residents could tell the time.',
+      cassaReloj3: 'Before mechanical clocks, the sun was the only clock. This column cast its shadow over the hour markings.',
+
+      cassaPista1: 'You\'ve learned a lot about the Taínos and the colonizers...',
+      cassaPista2: 'But there\'s a world you haven\'t explored yet: the sea surrounding our island.',
+      cassaPista3: 'The oceans hold treasures and dangers. Whales, turtles, reefs... and threats we must face.',
+      cassaPista4: 'When you\'re ready, the Aquatic World awaits. Good luck, young archaeologist!',
+
+      // Panteón Nacional guards — First Regiment of the Presidential Guard
+      guardia1: 'The guards cannot speak while on duty. It\'s part of military protocol.',
+      guardia2: 'They are members of the First Dominican Regiment of the Presidential Guard.',
+      guardia3: 'They guard the entrance to the National Pantheon, where the remains of the nation\'s heroes rest.',
+      guardia4: 'At regular intervals they perform the changing of the guard: a solemn ceremony where two guards relieve the previous pair.',
+      guardia5: 'Inside the Pantheon burns a flame that never goes out — an eternal symbol of the sacrifice of the nation\'s founders.',
+
+      // Constructor Méndez combat — citizen activism options
+      combatePista: 'Use citizen activism to fill the Patience bar',
+      accionRedes: 'Social Media',
+      accionRedesMsg: 'You post photos of the endangered ruins online!',
+      respuestaRedes: 'Méndez hires influencers to promote his hotel.',
+      accionProtestas: 'Protests',
+      accionProtestasMsg: 'You organize a demonstration in front of the site!',
+      respuestaProtestas: 'Méndez sponsors a block party and concerts for the community.',
+      accionDenuncia: 'Denounce',
+      accionDenunciaMsg: 'You report the demolition to the authorities!',
+      respuestaDenuncia: 'Méndez negotiates permits and waivers with politicians.',
+      accionLegal: 'Legal Action',
+      accionLegalMsg: 'You file a legal injunction to stop construction!',
+      respuestaLegal: 'Méndez uses legal maneuvers to stall while continuing to build.',
+
+      misionExplorar: 'Explore the Zona Colonial',
+      misionCompleta: 'Zona Colonial explored! Return to map (M)'
     }
   },
 
@@ -197,7 +286,21 @@ const en = {
     descMapa: 'An ancient map with mysterious marks of archaeological sites.',
     descFragmentoMapa: 'A piece of an ancient map. It seems to show the location of other caves.',
     descArtefactoTaino: 'A golden cemí. It should be taken to the museum for study.',
-    descMagnetometro: 'Detects metallic objects buried underground.'
+    descMagnetometro: 'Detects metallic objects buried underground.',
+
+    arcabuz: 'Colonial Arquebus',
+    descArcabuz: 'A 15th century firearm used by the conquistadors. A museum piece.',
+    mapaColonial: 'Colonial Map',
+    descMapaColonial: 'Map showing the most important colonial sites on the island. A gift from Roberto Cassá.',
+
+    planoColonial: 'Architectural Blueprint',
+    descPlanoColonial: 'Original blueprint of the Primada Cathedral of the Americas. An invaluable historical document.',
+    monedaColonial: 'Crown Coin',
+    descMonedaColonial: 'A 16th century Spanish coin found under the streets of the Zona Colonial.',
+    azulejoAntiguo: 'Colonial Tile',
+    descAzulejoAntiguo: 'A decorated ceramic tile from the colonial period. Technique brought from Spain.',
+    llaveHierro: 'Iron Key',
+    descLlaveHierro: 'A colonial wrought-iron key. It might open some old door.'
   },
 
   inventario: {
