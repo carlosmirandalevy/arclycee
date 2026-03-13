@@ -47,6 +47,8 @@ firebase deploy
 | Habilidad especial | F | Botón Y |
 | Volver al mapa | M | — |
 
+**En móvil**: el control de movimiento puede ser un **joystick analógico** (por defecto) o una **cruceta de 4 botones**. Se cambia desde Opciones en el menú principal.
+
 **En combate:**
 
 | Acción | Teclado |

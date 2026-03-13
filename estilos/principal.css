@@ -142,6 +142,7 @@ html, body {
    ============================================ */
 
 /* --- D-pad (cruceta direccional) - inferior izquierda --- */
+/* Se usa cuando el jugador elige "D-Pad" en Opciones */
 .dpad-contenedor {
     position: fixed;
     bottom: 30px;
@@ -153,8 +154,14 @@ html, body {
     gap: 4px;
     pointer-events: auto;
     z-index: 800;
-    /* Solo visible en pantallas táctiles */
+    /* Solo visible en pantallas táctiles (media query más abajo) */
     display: none;
+}
+
+/* --- Joystick virtual - inferior izquierda --- */
+/* Se usa cuando el jugador elige "Joystick" en Opciones (por defecto) */
+.joystick-canvas {
+    pointer-events: auto;
 }
 
 /* Estilo base de los botones táctiles (d-pad y acciones) */
@@ -254,6 +261,9 @@ html, body {
 
 /* Mostrar controles en dispositivos con pantalla táctil */
 @media (pointer: coarse) and (max-width: 1024px) {
+    .joystick-canvas {
+        display: block !important;
+    }
     .dpad-contenedor {
         display: grid;
     }

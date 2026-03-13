@@ -9,7 +9,13 @@ const fr = {
     opciones: 'Options',
     idioma: 'Langue',
     creditos: 'Crédits',
-    documentacion: 'Documentation'
+    documentacion: 'Documentation',
+    controlesTactiles: 'Contrôles tactiles',
+    joystick: 'Joystick',
+    cruceta: 'Croix directionnelle',
+    descJoystick: 'Stick analogique — glissez pour bouger',
+    descCruceta: 'Boutons directionnels classiques',
+    opcionesVolver: 'Appuyez sur Q / Échap pour revenir'
   },
 
   seleccion: {

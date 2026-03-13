@@ -189,8 +189,16 @@ export class MundoLaboratorio {
     if (this.juego && this.juego.combate && this.juego.combate.enCombate) return;
 
     // --- Diálogo activo consume toda la entrada ---
-    if (this.dialogos && this.dialogos.activo) {
-      this.dialogos.actualizar(entrada);
+    if (this.dialogos.estaActivo()) {
+      this.dialogos.actualizar(dt);
+      if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
+        this.dialogos.avanzar();
+        this.sfx.dialogo();
+        this.bloqueoEntrada = true;
+      }
+      if (!entrada.estaPresionada('accion')) {
+        this.bloqueoEntrada = false;
+      }
       return;
     }
 
@@ -769,7 +777,7 @@ export class MundoLaboratorio {
     ctx.textAlign = 'left';
 
     // --- Diálogos ---
-    if (this.dialogos && this.dialogos.activo) {
+    if (this.dialogos.estaActivo()) {
       this.dialogos.dibujar(ctx, ancho, alto);
     }
   }
@@ -802,100 +810,105 @@ export class MundoLaboratorio {
   }
 
   _hablarMorban(npc, lab) {
+    const nombre = '🏛 Dr. Morbán';
     if (!npc.dialogoHecho) {
-      this.dialogos.iniciar([
-        lab?.morban1 || 'Bienvenido al Museo de las Atarazanas Reales. Soy el Dr. Fernando Morbán, director.',
-        lab?.morban2 || 'Este museo conserva los tesoros rescatados de los naufragios del Caribe.',
-        lab?.morban3 || 'Cada artefacto que llega debe ser autenticado. Sin autenticación, no tiene valor histórico.',
-        lab?.morban4 || 'Habla con la Dra. López en el laboratorio y con Ana en restauración. Ellas te enseñarán el proceso.'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.morban1 || 'Bienvenido al Museo de las Atarazanas Reales. Soy el Dr. Fernando Morbán, director.' },
+        { personaje: nombre, texto: lab?.morban2 || 'Este museo conserva los tesoros rescatados de los naufragios del Caribe.' },
+        { personaje: nombre, texto: lab?.morban3 || 'Cada artefacto que llega debe ser autenticado. Sin autenticación, no tiene valor histórico.' },
+        { personaje: nombre, texto: lab?.morban4 || 'Habla con la Dra. López en el laboratorio y con Ana en restauración. Ellas te enseñarán el proceso.' }
       ], () => {
         npc.dialogoHecho = true;
         this.sfx.descubrir();
         if (this.juego) this.juego.mostrarToast('🏛 Dr. Morbán: proceso de autenticación explicado');
       });
     } else {
-      this.dialogos.iniciar([
-        lab?.morbanRepite || 'Visita el laboratorio C-14 y el taller de restauración. La ciencia protege la historia.'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.morbanRepite || 'Visita el laboratorio C-14 y el taller de restauración. La ciencia protege la historia.' }
       ]);
     }
   }
 
   _hablarLopez(npc, lab) {
+    const nombre = '🔬 Dra. López';
     if (!npc.dialogoHecho) {
-      this.dialogos.iniciar([
-        lab?.lopez1 || 'Soy la Dra. López, especialista en datación por Carbono-14.',
-        lab?.lopez2 || 'El Carbono-14 es un átomo radiactivo que todos los seres vivos absorben. Cuando mueren, empieza a descomponerse.',
-        lab?.lopez3 || 'Midiendo cuánto C-14 queda en un objeto orgánico, calculamos su antigüedad con precisión.',
-        lab?.lopez4 || 'Así confirmamos si un artefacto tiene 500 años o si es una falsificación moderna. ¡La ciencia no miente!'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.lopez1 || 'Soy la Dra. López, especialista en datación por Carbono-14.' },
+        { personaje: nombre, texto: lab?.lopez2 || 'El Carbono-14 es un átomo radiactivo que todos los seres vivos absorben. Cuando mueren, empieza a descomponerse.' },
+        { personaje: nombre, texto: lab?.lopez3 || 'Midiendo cuánto C-14 queda en un objeto orgánico, calculamos su antigüedad con precisión.' },
+        { personaje: nombre, texto: lab?.lopez4 || 'Así confirmamos si un artefacto tiene 500 años o si es una falsificación moderna. ¡La ciencia no miente!' }
       ], () => {
         npc.dialogoHecho = true;
         this.sfx.descubrir();
         if (this.juego) this.juego.mostrarToast('🔬 Dra. López: datación por Carbono-14');
       });
     } else {
-      this.dialogos.iniciar([
-        lab?.lopezRepite || 'Recuerda: la datación C-14 funciona con materiales orgánicos — madera, hueso, tela. Los metales se analizan con otros métodos.'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.lopezRepite || 'Recuerda: la datación C-14 funciona con materiales orgánicos — madera, hueso, tela. Los metales se analizan con otros métodos.' }
       ]);
     }
   }
 
   _hablarAna(npc, lab) {
+    const nombre = '🔧 Restauradora Ana';
     if (!npc.dialogoHecho) {
-      this.dialogos.iniciar([
-        lab?.ana1 || 'Soy Ana, restauradora de artefactos. Mi trabajo es reparar sin alterar.',
-        lab?.ana2 || 'La regla de oro de la restauración: todo lo que hagas debe ser reversible.',
-        lab?.ana3 || 'Usamos adhesivos especiales, consolidantes y microscopios para no dañar la pieza original.',
-        lab?.ana4 || 'Un artefacto mal restaurado pierde su valor histórico para siempre. ¡La paciencia es clave!'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.ana1 || 'Soy Ana, restauradora de artefactos. Mi trabajo es reparar sin alterar.' },
+        { personaje: nombre, texto: lab?.ana2 || 'La regla de oro de la restauración: todo lo que hagas debe ser reversible.' },
+        { personaje: nombre, texto: lab?.ana3 || 'Usamos adhesivos especiales, consolidantes y microscopios para no dañar la pieza original.' },
+        { personaje: nombre, texto: lab?.ana4 || 'Un artefacto mal restaurado pierde su valor histórico para siempre. ¡La paciencia es clave!' }
       ], () => {
         npc.dialogoHecho = true;
         this.sfx.descubrir();
         if (this.juego) this.juego.mostrarToast('🔧 Ana: principios de restauración');
       });
     } else {
-      this.dialogos.iniciar([
-        lab?.anaRepite || 'Restaurar es como ser doctor de artefactos: primero, no hacer daño.'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.anaRepite || 'Restaurar es como ser doctor de artefactos: primero, no hacer daño.' }
       ]);
     }
   }
 
   _hablarCassa(npc, lab) {
+    const nombre = '📚 Roberto Cassá';
     // Diálogo rotativo — 5 temas sobre museos y patrimonio
     const conversaciones = [
       [
-        lab?.cassa1_1 || '¡Nos encontramos de nuevo! Este museo es uno de mis lugares favoritos.',
-        lab?.cassa1_2 || 'Las Atarazanas Reales eran los almacenes del puerto de Santo Domingo en el siglo XVI.'
+        { personaje: nombre, texto: lab?.cassa1_1 || '¡Nos encontramos de nuevo! Este museo es uno de mis lugares favoritos.' },
+        { personaje: nombre, texto: lab?.cassa1_2 || 'Las Atarazanas Reales eran los almacenes del puerto de Santo Domingo en el siglo XVI.' }
       ],
       [
-        lab?.cassa2_1 || '¿Sabías que este edificio fue restaurado en los años 70?',
-        lab?.cassa2_2 || 'La restauración respetó la estructura original. Así debería hacerse siempre.'
+        { personaje: nombre, texto: lab?.cassa2_1 || '¿Sabías que este edificio fue restaurado en los años 70?' },
+        { personaje: nombre, texto: lab?.cassa2_2 || 'La restauración respetó la estructura original. Así debería hacerse siempre.' }
       ],
       [
-        lab?.cassa3_1 || 'Los museos no son almacenes de objetos viejos. Son lugares vivos.',
-        lab?.cassa3_2 || 'Cada pieza aquí cuenta una historia que conecta el pasado con el presente.'
+        { personaje: nombre, texto: lab?.cassa3_1 || 'Los museos no son almacenes de objetos viejos. Son lugares vivos.' },
+        { personaje: nombre, texto: lab?.cassa3_2 || 'Cada pieza aquí cuenta una historia que conecta el pasado con el presente.' }
       ],
       [
-        lab?.cassa4_1 || 'La República Dominicana tiene más de 60 museos.',
-        lab?.cassa4_2 || 'Desde el Museo del Hombre Dominicano hasta el Memorial de la Resistencia. ¡Hay tanto por descubrir!'
+        { personaje: nombre, texto: lab?.cassa4_1 || 'La República Dominicana tiene más de 60 museos.' },
+        { personaje: nombre, texto: lab?.cassa4_2 || 'Desde el Museo del Hombre Dominicano hasta el Memorial de la Resistencia. ¡Hay tanto por descubrir!' }
       ],
       [
-        lab?.cassa5_1 || 'Has recorrido un largo camino, joven arqueólogo.',
-        lab?.cassa5_2 || 'Desde las cuevas del Pomier hasta este museo, has aprendido a proteger el patrimonio. ¡Estoy orgulloso!'
+        { personaje: nombre, texto: lab?.cassa5_1 || 'Has recorrido un largo camino, joven arqueólogo.' },
+        { personaje: nombre, texto: lab?.cassa5_2 || 'Desde las cuevas del Pomier hasta este museo, has aprendido a proteger el patrimonio. ¡Estoy orgulloso!' }
       ]
     ];
 
     const indice = this._cassaConversacion % conversaciones.length;
-    this.dialogos.iniciar(conversaciones[indice], () => {
+    this.dialogos.iniciarDialogo(conversaciones[indice], () => {
       this._cassaConversacion++;
     });
   }
 
   _hablarSospechoso(npc, lab) {
+    const nombre = '🕵 Visitante';
     if (!this._sospechosoHablado) {
-      this.dialogos.iniciar([
-        lab?.sospechoso1 || '¡Psst! ¿Quieres comprar una reliquia taína auténtica? Precio especial para ti.',
-        lab?.sospechoso2 || 'Espera... ¿me estás diciendo que necesita un certificado? Pero si yo la encontré en mi patio...',
-        lab?.sospechoso3 || 'Hmm, tienes razón. Sin autenticación científica, cualquiera puede vender falsificaciones.',
-        lab?.sospechoso4 || 'Mejor la llevo al museo para que la examinen. ¡Gracias por el consejo, chico!'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.sospechoso1 || '¡Psst! ¿Quieres comprar una reliquia taína auténtica? Precio especial para ti.' },
+        { personaje: nombre, texto: lab?.sospechoso2 || 'Espera... ¿me estás diciendo que necesita un certificado? Pero si yo la encontré en mi patio...' },
+        { personaje: nombre, texto: lab?.sospechoso3 || 'Hmm, tienes razón. Sin autenticación científica, cualquiera puede vender falsificaciones.' },
+        { personaje: nombre, texto: lab?.sospechoso4 || 'Mejor la llevo al museo para que la examinen. ¡Gracias por el consejo, chico!' }
       ], () => {
         this._sospechosoHablado = true;
         npc.dialogoHecho = true;
@@ -903,8 +916,8 @@ export class MundoLaboratorio {
         if (this.juego) this.juego.mostrarToast('🕵 Visitante convencido de autenticar su pieza');
       });
     } else {
-      this.dialogos.iniciar([
-        lab?.sospechosoRepite || 'Estoy esperando los resultados del laboratorio. ¡Ojalá sea auténtica!'
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.sospechosoRepite || 'Estoy esperando los resultados del laboratorio. ¡Ojalá sea auténtica!' }
       ]);
     }
   }

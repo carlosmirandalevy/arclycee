@@ -27,7 +27,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
 - **Múltiples finales** (4) según tus decisiones: completo, museo, ecológico u oscuro
 - **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas y efectos en jugador
-- **Desktop y móvil** con controles táctiles virtuales
+- **Desktop y móvil** con controles táctiles virtuales (joystick analógico o cruceta, configurable desde Opciones)
 
 ### Mundos
 
@@ -43,7 +43,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 - **HTML5 Canvas + JavaScript vanilla** — código legible y educativo
 - **Web Audio API** — sonidos procedurales generados por código (salto, pasos, goteo, acordes)
-- **Kaplay.js** — solo para tilemap, sprites y touch input
+- **Kaplay.js** — solo para touch input
 - **LeafletJS** — mapas interactivos con sitios arqueológicos reales
 - **CSS3** — estilos responsivos para desktop y móvil
 

@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.12.1 — Joystick táctil + corrección Laboratorio (2026-03-13)
+
+### Agregado
+
+**Joystick virtual** (`js/motor/entrada.js`)
+- Nuevo control de movimiento analógico para dispositivos táctiles
+- Stick circular que se arrastra con el dedo, reemplaza la cruceta de 4 botones
+- Zona muerta del 15% para evitar falsos positivos
+- Soporte diagonal natural (arriba+derecha al mismo tiempo)
+- Multitouch: el joystick y los botones de acción funcionan simultáneamente
+- El stick se ilumina dorado al tocarlo y vuelve al centro al soltar
+
+**Selector de controles táctiles** (`js/escenas/menu-principal.js`)
+- Nueva opción en el submenú Opciones: "Controles táctiles: < Joystick / Cruceta >"
+- Cambio con flechas izquierda/derecha o Enter
+- Preferencia guardada en localStorage (persiste entre sesiones)
+- Descripción del modo activo debajo del selector
+- Traducido a ES/FR/EN
+
+### Corregido
+
+**Mundo Laboratorio crasheaba al hablar con NPCs** (`js/mundos/laboratorio/mundo-laboratorio.js`)
+- `this.dialogos.iniciar()` no existía → corregido a `this.dialogos.iniciarDialogo()`
+- Diálogos pasaban strings planos en vez de objetos `{personaje, texto}` → corregido con nombre de personaje por NPC
+- `this.dialogos.activo` → `this.dialogos.estaActivo()` (propiedad no existía, el método sí)
+- `this.dialogos.actualizar(entrada)` → `actualizar(dt)` + manejo de input con `avanzar()` (mismo patrón que mundo-juridico.js)
+
+---
+
 ## v0.12.0 — Mundo Laboratorio + Finales + Clima (2026-03-13)
 
 ### Agregado

@@ -37,6 +37,11 @@ export class MenuPrincipal {
     // para no procesar la entrada del menú principal al mismo tiempo
     this.submenuActivo = null;
 
+    // Índice de la opción seleccionada dentro del submenú de opciones
+    this.seleccionOpciones = 0;
+    // Las opciones configurables (por ahora solo controles táctiles)
+    this.opcionesConfig = ['controlesTactiles'];
+
     // Índice del idioma seleccionado actualmente: 0=ES, 1=FR, 2=EN
     this.idiomaIndice = 0;
     this.codigosIdioma = ['es', 'fr', 'en'];
@@ -193,14 +198,54 @@ export class MenuPrincipal {
 
   // --- Procesar entrada dentro de un submenú ---
   _actualizarSubmenu(entrada) {
+    // En el submenú de opciones, permitimos navegar con flechas
+    if (this.submenuActivo === 'opciones') {
+      this._actualizarSubmenuOpciones(entrada);
+      return;
+    }
+
+    // En créditos (y otros submenús sin navegación), cerrar con cualquier tecla
     if ((entrada.estaPresionada('cancelar') || entrada.estaPresionada('accion')) && !this.bloqueoEntrada) {
-      // Volver al menú principal
       this.submenuActivo = null;
       this.bloqueoEntrada = true;
     }
 
     if (!entrada.estaPresionada('cancelar') &&
         !entrada.estaPresionada('accion')) {
+      this.bloqueoEntrada = false;
+    }
+  }
+
+  // --- Navegación dentro del submenú de opciones ---
+  // Las opciones se cambian con izquierda/derecha (como el selector de idioma)
+  _actualizarSubmenuOpciones(entrada) {
+    if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
+      // Salir del submenú de opciones
+      this.submenuActivo = null;
+      this.bloqueoEntrada = true;
+      return;
+    }
+
+    // Cambiar el valor de la opción seleccionada con izquierda/derecha
+    const opcionActual = this.opcionesConfig[this.seleccionOpciones];
+
+    if (opcionActual === 'controlesTactiles' && !this.bloqueoEntrada) {
+      if (entrada.estaPresionada('izquierda') || entrada.estaPresionada('derecha') || entrada.estaPresionada('accion')) {
+        // Alternar entre joystick y d-pad
+        const modoActual = this.juego.entrada.modoControlTactil;
+        const nuevoModo = modoActual === 'joystick' ? 'dpad' : 'joystick';
+        this.juego.entrada.cambiarModoTactil(nuevoModo);
+        this.bloqueoEntrada = true;
+      }
+    }
+
+    // Desbloquear cuando se sueltan todas las teclas
+    if (!entrada.estaPresionada('cancelar') &&
+        !entrada.estaPresionada('accion') &&
+        !entrada.estaPresionada('izquierda') &&
+        !entrada.estaPresionada('derecha') &&
+        !entrada.estaPresionada('arriba') &&
+        !entrada.estaPresionada('abajo')) {
       this.bloqueoEntrada = false;
     }
   }
@@ -348,14 +393,33 @@ export class MenuPrincipal {
       ctx.fillStyle = '#FFD700';
       ctx.fillText(textos.menu.opciones, ancho / 2, 130);
 
+      // --- Controles táctiles ---
+      const modoActual = this.juego.entrada.modoControlTactil;
+      const nombreModo = modoActual === 'joystick'
+        ? (textos.menu.joystick || 'Joystick')
+        : (textos.menu.cruceta || 'D-Pad');
+
+      ctx.font = 'bold 18px monospace';
+      ctx.fillStyle = '#FFD700';
+      const etiqueta = textos.menu.controlesTactiles || 'Controles táctiles';
+      ctx.fillText(`${etiqueta}:`, ancho / 2, 195);
+
       ctx.font = '16px monospace';
       ctx.fillStyle = '#FFFFFF';
-      ctx.fillText('Volumen: [||||||||--]', ancho / 2, 200);
-      ctx.fillText('Estilo de arte: Pixel / Cuphead', ancho / 2, 245);
+      ctx.fillText(`< ${nombreModo} >`, ancho / 2, 225);
+
+      // Descripción del modo seleccionado
+      ctx.font = '13px monospace';
+      ctx.fillStyle = '#888888';
+      const desc = modoActual === 'joystick'
+        ? (textos.menu.descJoystick || 'Stick analógico — arrastra para moverte')
+        : (textos.menu.descCruceta || 'Botones de dirección clásicos');
+      ctx.fillText(desc, ancho / 2, 260);
 
       ctx.font = '14px monospace';
       ctx.fillStyle = '#888888';
-      ctx.fillText('Presiona Q / Escape / Enter para volver', ancho / 2, alto - 110);
+      const instruccion = textos.menu.opcionesVolver || 'Presiona Q / Escape para volver';
+      ctx.fillText(instruccion, ancho / 2, alto - 110);
     }
 
     if (this.submenuActivo === 'creditos') {
