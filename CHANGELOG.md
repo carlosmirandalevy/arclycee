@@ -1,5 +1,51 @@
 # Changelog
 
+## v0.13.1 — Stadia Maps API key configurada (2026-03-13)
+
+### Corregido
+- **Mapa de referencia (R) daba error de autenticación**: configurada API key real de Stadia Maps (dominio: `arc.cemi.ai`)
+- Las 6 capas de Stadia (acuarela, terreno, tóner, oscuro, suave, OSM bright) ahora cargan correctamente
+- Capa CARTO Voyager como respaldo sin API key
+
+---
+
+## v0.13.0 — Mapa con tiles, mapa de referencia Leaflet, créditos (2026-03-13)
+
+### Agregado
+
+**Mapa de isla con tiles** (`js/mundos/mapa-tiles.js`, `mapa-principal.js`)
+- Generación procedural de La Hispaniola con 8 tipos de terreno: agua profunda, agua superficial, arena, pradera, bosque, montaña, camino, río
+- 48×30 tiles (1536×960px) — más grande que la pantalla, requiere scroll con cámara
+- Cámara lerp-based con clamping a bordes del mapa
+- Colisiones por tile (agua profunda y montaña bloquean movimiento)
+- Mini-mapa en esquina superior derecha con posición del jugador y nodos
+- Detalles animados procedurales: olas, copas de árboles, briznas de hierba
+- Coastline con 7 elipses, bahías, Cordillera Central, 3 ríos
+
+**Mapa de referencia real** (`js/mapas/mapa-leaflet.js`, `js/mapas/referencia/`)
+- Overlay Leaflet activado con tecla R desde el mapa principal
+- 7 capas de tiles: 6 de Stadia Maps (acuarela, terreno, tóner, oscuro, suave, OSM bright) + CARTO Voyager
+- Control de capas en esquina superior derecha
+- 8 marcadores interactivos con DivIcon coloreado por estado (completado/disponible/bloqueado)
+- Click-to-travel: popup con botón "Viajar aquí" → animación de vuelo → cambio de escena
+- 7 sitios arqueológicos taínos + 5 sitios coloniales con marcadores informativos
+- Toggle de capas arqueológicas en esquina inferior derecha
+- Animación de ruta con polyline dorado punteado
+
+**Créditos cinematográficos** (`js/escenas/final-cinematica.js`)
+- Créditos estilo película tras el final del juego
+- Scroll vertical automático con fondo estrellado
+- Nombres del equipo: Elian, Théo, Carlos Guillermo, Jules, Alberto, Rafael, Tom, Nael
+- Lycée Français de Saint-Domingue, Santo Domingo, 2026
+- E para acelerar, skip automático al terminar
+
+### Modificado
+- `juego.js`: importa MapaLeaflet, inicializa referencia map, maneja tecla R
+- `configuracion.js`: añade `referencia: ['r', 'R']` a teclas
+- `principal.css`: estilos para marcadores y animación de ruta
+
+---
+
 ## v0.12.2 — NPCs accesibles en Museo Atarazanas + Mapa con tiles (WIP) (2026-03-13)
 
 ### Corregido

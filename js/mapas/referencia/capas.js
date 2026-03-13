@@ -2,28 +2,36 @@
 // CAPAS.JS - Capas de tiles artísticos para el mapa de referencia
 // ============================================================
 // Define las diferentes capas visuales del mapa de referencia
-// usando tiles de Stadia Maps (antes Stamen). Cada capa ofrece
-// un estilo diferente: acuarela, terreno, oscuro, moderno, etc.
+// usando tiles de Stadia Maps (antes Stamen) + proveedores gratuitos.
 //
-// El jugador puede cambiar entre capas para ver el mapa de
-// diferentes formas — como filtros en una app de fotos.
+// Stadia Maps requiere una API key gratuita que se obtiene en:
+// https://stadiamaps.com/ → Sign Up → crea un dominio permitido.
+// La key se configura en STADIA_API_KEY abajo.
 //
-// NOTA: Stadia Maps ofrece estos tiles gratis para uso educativo.
+// También incluye capas de CartoDB/CARTO que NO necesitan API key
+// como respaldo.
 // ============================================================
+
+// --- API Key de Stadia Maps ---
+// Regístrate gratis en https://stadiamaps.com/ y pega tu key aquí.
+// El plan gratuito permite 200,000 tiles/mes (más que suficiente).
+const STADIA_API_KEY = '4df3a58b-73b6-4d51-88f9-cacb7bea238f';
 
 /**
  * Configuraciones de capas de tiles disponibles.
- * Cada una tiene un nombre, URL de tiles y atribución.
+ * Las capas de Stadia usan la API key; las de CARTO son libres.
  *
  * @returns {Object[]} Array de configuraciones de capas
  */
 export function obtenerCapasDisponibles() {
+  const stadiaKey = STADIA_API_KEY ? `?api_key=${STADIA_API_KEY}` : '';
+
   return [
     {
       id: 'acuarela',
       nombre: 'Acuarela',
       descripcion: 'Estilo artístico de acuarela — parece pintado a mano',
-      url: 'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg',
+      url: `https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://stamen.com/">Stamen Design</a>',
       opacidad: 1,
       maxZoom: 16
@@ -32,7 +40,7 @@ export function obtenerCapasDisponibles() {
       id: 'terreno',
       nombre: 'Terreno',
       descripcion: 'Muestra montañas, ríos y elevación del terreno',
-      url: 'https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.png',
+      url: `https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://stamen.com/">Stamen Design</a>',
       opacidad: 1,
       maxZoom: 18
@@ -41,7 +49,7 @@ export function obtenerCapasDisponibles() {
       id: 'toner',
       nombre: 'Tóner',
       descripcion: 'Blanco y negro limpio — resalta fronteras y nombres',
-      url: 'https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png',
+      url: `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://stamen.com/">Stamen Design</a>',
       opacidad: 1,
       maxZoom: 18
@@ -50,7 +58,7 @@ export function obtenerCapasDisponibles() {
       id: 'oscuro',
       nombre: 'Oscuro',
       descripcion: 'Tema oscuro elegante — ideal para ver marcadores brillantes',
-      url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png',
+      url: `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       opacidad: 1,
       maxZoom: 18
@@ -59,7 +67,7 @@ export function obtenerCapasDisponibles() {
       id: 'suave',
       nombre: 'Suave',
       descripcion: 'Colores suaves y claros — fácil de leer',
-      url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png',
+      url: `https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       opacidad: 1,
       maxZoom: 18
@@ -68,10 +76,20 @@ export function obtenerCapasDisponibles() {
       id: 'osm',
       nombre: 'OSM Moderno',
       descripcion: 'OpenStreetMap con estilo moderno y limpio',
-      url: 'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}.png',
+      url: `https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       opacidad: 1,
       maxZoom: 18
+    },
+    // --- Capa de respaldo sin API key (siempre funciona) ---
+    {
+      id: 'voyager',
+      nombre: 'Voyager (CARTO)',
+      descripcion: 'Mapa moderno gratuito — no necesita API key',
+      url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+      atribucion: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      opacidad: 1,
+      maxZoom: 20
     }
   ];
 }
@@ -107,7 +125,7 @@ export function configurarControlCapas(mapa) {
     const capa = crearCapaTiles(config);
     capasBase[config.nombre] = capa;
 
-    // La primera capa (acuarela) es la activa por defecto
+    // La primera capa (Acuarela) es la activa por defecto
     if (!capaActiva) {
       capaActiva = capa;
       capa.addTo(mapa);

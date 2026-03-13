@@ -14,7 +14,9 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Control ecológico**: combate contra el pez león invasor con captura, pesca, protección de coral y alertas a buzos
 - **Justicia patrimonial**: combate legal contra el traficante Rodrigo Torres con Ley 318, evidencia forense, INTERPOL y UNESCO 1970
 - **3 idiomas**: Español, Français, English
-- **Mapas reales** con LeafletJS mostrando sitios arqueológicos reales de RD
+- **Mapa de isla con tiles**: mapa procedural de La Hispaniola con 8 tipos de terreno, cámara libre, colisiones y mini-mapa
+- **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps (acuarela, terreno, tóner, oscuro, suave, OSM, Voyager), sitios arqueológicos reales y viaje interactivo
+- **Créditos cinematográficos**: créditos estilo película tras el final con nombres del equipo y el Liceo Francés
 - **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
 - **Sonidos procedurales**: efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción

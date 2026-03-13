@@ -79,6 +79,8 @@ arclycee/
 │   ├── motor/              ← Motor del juego (loop, render, input, audio, save)
 │   ├── escenas/            ← Pantallas (menú, selección, intro)
 │   ├── mundos/             ← Niveles y mapas del mundo
+│   │   ├── mapa-tiles.js   ← Generador procedural de la isla (48×30 tiles)
+│   │   ├── mapa-principal.js ← Mapa del mundo con cámara y colisiones
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
 │   │   ├── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
 │   │   ├── acuatico/       ← Mundo Acuático (Naufragio de La Pinta)
@@ -90,6 +92,7 @@ arclycee/
 │   ├── clima/              ← Sistema de clima y huracanes
 │   ├── idiomas/            ← Traducciones ES/FR/EN
 │   ├── mapas/              ← Mapa de referencia con LeafletJS
+│   │   ├── mapa-leaflet.js ← Orquestador del mapa de referencia
 │   │   └── referencia/     ← Módulos del mapa real (capas, marcadores, transiciones)
 │   ├── misiones/           ← Sistema de quests y easter eggs
 │   └── utilidades/         ← Funciones de matemáticas y colisiones
