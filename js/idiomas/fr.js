@@ -320,7 +320,7 @@ const fr = {
       misionCompleta: 'Épave explorée ! Retour à la carte (M)'
     },
 
-    // Monde Juridique — Aéroport Las Américas (Acte 4)
+    // Monde Juridique — Aéroport de Punta Cana (Acte 4)
     juridico: {
       draMartinez1: 'Je t\'attendais ! La carte des épaves a révélé quelque chose d\'inquiétant.',
       draMartinez2: 'Quelqu\'un fait sortir des artefacts archéologiques du pays par cet aéroport.',

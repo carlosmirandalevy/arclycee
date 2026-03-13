@@ -1,10 +1,10 @@
 // ============================================================
-// MUNDO-JURIDICO.JS - Aeropuerto Las Américas (Acto 4)
+// MUNDO-JURIDICO.JS - Aeropuerto de Punta Cana (Acto 4)
 // ============================================================
 // Después de explorar el Naufragio de La Pinta, el mapa de
 // naufragios de la arqueóloga submarina revela una red de
 // tráfico de artefactos arqueológicos que opera desde el
-// Aeropuerto Internacional Las Américas.
+// Aeropuerto Internacional de Punta Cana (PUJ).
 //
 // El jugador debe usar las leyes dominicanas de protección
 // patrimonial y la cooperación internacional para detener

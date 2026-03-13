@@ -809,7 +809,7 @@ export class SistemaCombate {
     ctx.fillRect(cx - 22, cy + 1, 6, 2);
   }
 
-  // --- Sprite: Traficante Rodrigo Torres (Aeropuerto Las Américas) ---
+  // --- Sprite: Traficante Rodrigo Torres (Aeropuerto de Punta Cana) ---
   // Hombre de negocios con traje oscuro, gafas de sol, maletín
   // sospechoso y un reloj de oro. Aspecto nervioso pero arrogante.
   _dibujarTraficante(ctx, x, y, ancho, alto) {

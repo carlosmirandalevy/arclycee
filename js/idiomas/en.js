@@ -320,7 +320,7 @@ const en = {
       misionCompleta: 'Shipwreck explored! Return to map (M)'
     },
 
-    // Legal World — Las Américas Airport (Act 4)
+    // Legal World — Punta Cana Airport (Act 4)
     juridico: {
       draMartinez1: 'I was waiting for you! The shipwreck map revealed something disturbing.',
       draMartinez2: 'Someone is smuggling archaeological artifacts out of the country through this airport.',

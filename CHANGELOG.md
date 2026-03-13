@@ -81,11 +81,11 @@
 
 ---
 
-## v0.11.0 — Mundo Jurídico: Aeropuerto Las Américas (2026-03-12)
+## v0.11.0 — Mundo Jurídico: Aeropuerto de Punta Cana (2026-03-12)
 
 ### Agregado
 
-**Mundo Jurídico — Aeropuerto Las Américas** (`js/mundos/juridico/mundo-juridico.js`)
+**Mundo Jurídico — Aeropuerto de Punta Cana** (`js/mundos/juridico/mundo-juridico.js`)
 - Acto 4: el mapa de naufragios revela una red de tráfico de artefactos arqueológicos
 - Nivel top-down 1800x1200, interior de aeropuerto con velocidad normal
 - 8 estructuras con colisión: Mostrador de Aduanas, Máquina de Rayos X, 3 Barreras de Seguridad, Carrusel de Equipaje, Puerta de Embarque, Oficina de INTERPOL
@@ -122,7 +122,7 @@
 - Íconos de inventario: registro marrón (#8B4513), orden gris (#2F4F4F)
 
 **Integración con el mapa del mundo** (`mapa-principal.js`)
-- Nodo 6: "Aeropuerto Las Américas" (tipo jurídico)
+- Nodo 6: "Aeropuerto de Punta Cana" (tipo jurídico)
 - Conectado desde nodo 5 (Naufragio La Pinta)
 - Título del mundo cambia a "Mundo Jurídico" al seleccionar nodo 6+
 - Se desbloquea automáticamente al completar el Mundo Acuático
@@ -130,7 +130,7 @@
 **Registro de escena** (`juego.js`)
 - `MundoJuridico` importado y registrado como `'mundoJuridico'`
 - Añadido a `escenasJugables` (crea jugador al entrar)
-- Añadido al selector de niveles Konami: "Aeropuerto Las Américas (Jurídico)"
+- Añadido al selector de niveles Konami: "Aeropuerto de Punta Cana (Jurídico)"
 
 **Traducciones** (ES/FR/EN)
 - Diálogos de 5 NPCs × 3 idiomas

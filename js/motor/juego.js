@@ -160,7 +160,7 @@ export class Juego {
       { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
       { nombre: 'Zona Colonial',        escena: 'zonaColonial' },
       { nombre: 'Naufragio La Pinta (Acuático)', escena: 'mundoAcuatico' },
-      { nombre: 'Aeropuerto Las Américas (Jurídico)', escena: 'mundoJuridico' },
+      { nombre: 'Aeropuerto Punta Cana (Jurídico)', escena: 'mundoJuridico' },
       { nombre: 'Museo Atarazanas Reales (Laboratorio)', escena: 'mundoLaboratorio' },
       { nombre: 'Final Cinemática', escena: 'finalCinematica' }
     ];
@@ -298,7 +298,7 @@ export class Juego {
     const mundoAcuatico = new MundoAcuatico();
     this.registrarEscena('mundoAcuatico', mundoAcuatico);
 
-    // Mundo Jurídico — Aeropuerto Las Américas (tráfico de artefactos)
+    // Mundo Jurídico — Aeropuerto de Punta Cana (tráfico de artefactos)
     const mundoJuridico = new MundoJuridico();
     this.registrarEscena('mundoJuridico', mundoJuridico);
 

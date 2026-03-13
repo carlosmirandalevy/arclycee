@@ -81,7 +81,7 @@ arclycee/
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
 │   │   ├── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
 │   │   ├── acuatico/       ← Mundo Acuático (Naufragio de La Pinta)
-│   │   ├── juridico/       ← Mundo Jurídico (Aeropuerto Las Américas)
+│   │   ├── juridico/       ← Mundo Jurídico (Aeropuerto de Punta Cana)
 │   │   └── laboratorio/    ← Mundo Laboratorio (Museo Atarazanas Reales)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí

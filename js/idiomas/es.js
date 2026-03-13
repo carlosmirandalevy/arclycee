@@ -335,7 +335,7 @@ const es = {
       misionCompleta: '¡Naufragio explorado! Vuelve al mapa (M)'
     },
 
-    // Mundo Jurídico — Aeropuerto Las Américas (Acto 4)
+    // Mundo Jurídico — Aeropuerto de Punta Cana (Acto 4)
     // El jugador usa leyes de protección patrimonial para detener
     // una red de tráfico de artefactos arqueológicos
     juridico: {

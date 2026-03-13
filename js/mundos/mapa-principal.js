@@ -114,7 +114,7 @@ export class MapaPrincipal {
       {
         id: 6,
         x: 720, y: 340,
-        nombre: 'Aeropuerto Las Américas',
+        nombre: 'Aeropuerto Punta Cana',
         tipo: 'juridico',
         completado: false,
         bloqueado: true,

@@ -36,7 +36,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura y areíto) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
 | Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león (atrapar, pescar, proteger coral, alertar buzos), arqueóloga submarina con mapa de naufragios |
-| Jurídico | Aeropuerto Las Américas (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
+| Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
 
 ## Tecnologías
