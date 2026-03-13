@@ -111,7 +111,7 @@ export class MundoLaboratorio {
     this.npcs = [
       {
         id: 'morban',
-        x: 500, y: 200,
+        x: 500, y: 370,
         ancho: 28, alto: 36,
         nombre: 'Dr. Fernando Morbán',
         color: '#4a6a8a',
@@ -120,7 +120,7 @@ export class MundoLaboratorio {
       },
       {
         id: 'lopez',
-        x: 1250, y: 200,
+        x: 1250, y: 370,
         ancho: 28, alto: 36,
         nombre: 'Dra. López',
         color: '#6a8a4a',
@@ -129,7 +129,7 @@ export class MundoLaboratorio {
       },
       {
         id: 'ana',
-        x: 250, y: 600,
+        x: 250, y: 770,
         ancho: 28, alto: 36,
         nombre: 'Restauradora Ana',
         color: '#8a4a6a',
@@ -159,14 +159,14 @@ export class MundoLaboratorio {
     // --- Objetos coleccionables ---
     this.objetos = [
       {
-        x: 400, y: 300,
+        x: 550, y: 380,
         ancho: 24, alto: 24,
         tipo: 'certificadoAutenticidad',
         recogido: false,
         requiereNPC: 'morban' // Solo aparece tras hablar con Morbán
       },
       {
-        x: 1300, y: 300,
+        x: 1200, y: 380,
         ancho: 24, alto: 24,
         tipo: 'catalogoMuseo',
         recogido: false,

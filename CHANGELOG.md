@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.12.2 — NPCs accesibles en Museo Atarazanas + Mapa con tiles (WIP) (2026-03-13)
+
+### Corregido
+
+**NPCs inaccesibles en Museo Atarazanas** (`js/mundos/laboratorio/mundo-laboratorio.js`)
+- Dr. Morbán, Dra. López y Restauradora Ana estaban posicionados dentro de sus salas (Sala de Exhibición, Laboratorio C-14, Taller de Restauración) que tienen colisión
+- El jugador no podía entrar a las salas para hablar con ellos
+- Movidos los 3 NPCs a justo fuera de sus salas respectivas (debajo de la entrada)
+- Objetos coleccionables (certificado y catálogo) también movidos fuera de las salas
+
+### En progreso
+
+**Sistema de tiles para mapa de la isla** (`js/mundos/mapa-tiles.js`)
+- Nuevo archivo que genera la forma de La Hispaniola con elipses
+- Tiles: agua profunda, agua superficial, arena, pradera, bosque, montaña, camino, río
+- 48×30 tiles (1536×960px) con cámara que sigue al jugador
+- Renderizado con detalles procedurales (olas animadas, copas de árboles, briznas de hierba)
+- Cordillera Central, ríos, bahías y playas generados proceduralmente
+- Posiciones de los 8 nodos del juego mapeados a ubicaciones geográficas reales
+- Aún no conectado al mapa principal (en desarrollo)
+
+---
+
 ## v0.12.1 — Joystick táctil + corrección Laboratorio (2026-03-13)
 
 ### Agregado
