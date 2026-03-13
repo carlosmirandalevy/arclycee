@@ -397,6 +397,81 @@ const es = {
       // Misión
       misionExplorar: 'Investiga el tráfico de artefactos',
       misionCompleta: '¡Caso resuelto! Vuelve al mapa (M)'
+    },
+
+    // Mundo Laboratorio — Museo de las Atarazanas Reales (Acto 5)
+    // El jugador aprende sobre autenticación, restauración y museología
+    laboratorio: {
+      morban1: 'Bienvenido al Museo de las Atarazanas Reales. Soy el Dr. Fernando Morbán, director.',
+      morban2: 'Este museo conserva los tesoros rescatados de los naufragios del Caribe.',
+      morban3: 'Cada artefacto que llega debe ser autenticado. Sin autenticación, no tiene valor histórico.',
+      morban4: 'Habla con la Dra. López en el laboratorio y con Ana en restauración. Ellas te enseñarán el proceso.',
+      morbanRepite: 'Visita el laboratorio C-14 y el taller de restauración. La ciencia protege la historia.',
+
+      lopez1: 'Soy la Dra. López, especialista en datación por Carbono-14.',
+      lopez2: 'El Carbono-14 es un átomo radiactivo que todos los seres vivos absorben. Cuando mueren, empieza a descomponerse.',
+      lopez3: 'Midiendo cuánto C-14 queda en un objeto orgánico, calculamos su antigüedad con precisión.',
+      lopez4: '¡Así confirmamos si un artefacto tiene 500 años o si es una falsificación moderna!',
+      lopezRepite: 'Recuerda: la datación C-14 funciona con materiales orgánicos — madera, hueso, tela.',
+
+      ana1: 'Soy Ana, restauradora de artefactos. Mi trabajo es reparar sin alterar.',
+      ana2: 'La regla de oro de la restauración: todo lo que hagas debe ser reversible.',
+      ana3: 'Usamos adhesivos especiales, consolidantes y microscopios para no dañar la pieza original.',
+      ana4: 'Un artefacto mal restaurado pierde su valor histórico para siempre. ¡La paciencia es clave!',
+      anaRepite: 'Restaurar es como ser doctor de artefactos: primero, no hacer daño.',
+
+      cassa1_1: '¡Nos encontramos de nuevo! Este museo es uno de mis lugares favoritos.',
+      cassa1_2: 'Las Atarazanas Reales eran los almacenes del puerto de Santo Domingo en el siglo XVI.',
+      cassa2_1: '¿Sabías que este edificio fue restaurado en los años 70?',
+      cassa2_2: 'La restauración respetó la estructura original. Así debería hacerse siempre.',
+      cassa3_1: 'Los museos no son almacenes de objetos viejos. Son lugares vivos.',
+      cassa3_2: 'Cada pieza aquí cuenta una historia que conecta el pasado con el presente.',
+      cassa4_1: 'La República Dominicana tiene más de 60 museos.',
+      cassa4_2: 'Desde el Museo del Hombre Dominicano hasta el Memorial de la Resistencia.',
+      cassa5_1: 'Has recorrido un largo camino, joven arqueólogo.',
+      cassa5_2: 'Desde las cuevas del Pomier hasta este museo, has aprendido a proteger el patrimonio.',
+
+      sospechoso1: '¡Psst! ¿Quieres comprar una reliquia taína auténtica? Precio especial.',
+      sospechoso2: '¿Me estás diciendo que necesita un certificado? Pero si la encontré en mi patio...',
+      sospechoso3: 'Tienes razón. Sin autenticación científica, cualquiera puede vender falsificaciones.',
+      sospechoso4: 'Mejor la llevo al museo para que la examinen. ¡Gracias por el consejo!',
+      sospechosoRepite: 'Estoy esperando los resultados del laboratorio. ¡Ojalá sea auténtica!',
+
+      misionExplorar: 'Explora el Museo de las Atarazanas Reales',
+      misionCompleta: '¡Museo explorado! Presiona M para ver el final',
+      misionFinal: '¡Misión completa! Presiona M para ver el final'
+    },
+
+    // Finales — 4 posibles secuencias de cierre
+    finales: {
+      completo: {
+        linea1: 'Has completado todos los desafíos con sabiduría y paz.',
+        linea2: 'Desde las cuevas del Pomier hasta el Museo de las Atarazanas, protegiste el patrimonio dominicano.',
+        linea3: 'Los artefactos están seguros en los museos. Los traficantes, ante la justicia.',
+        linea4: 'El pez león está bajo control. Los arrecifes se recuperan.',
+        linea5: 'Eres un verdadero guardián del patrimonio. La historia te recordará.'
+      },
+      museo: {
+        linea1: 'Los artefactos recuperados brillan bajo las luces del museo.',
+        linea2: 'El Dr. Morbán inaugura la nueva sala de exhibición con tus descubrimientos.',
+        linea3: 'Desde los petroglifos taínos hasta los tesoros coloniales, cada pieza cuenta una historia.',
+        linea4: 'Los visitantes aprenden sobre la rica historia de la República Dominicana.',
+        linea5: 'El patrimonio está protegido. Tu misión ha terminado... por ahora.'
+      },
+      ecologico: {
+        linea1: 'El mar Caribe brilla con colores renovados.',
+        linea2: 'Gracias a tus acciones ecológicas, los arrecifes de coral se están recuperando.',
+        linea3: 'Las tortugas carey nadan libres. Los peces nativos regresan.',
+        linea4: 'Tu ejemplo inspiró a comunidades enteras a proteger el medio ambiente marino.',
+        linea5: 'La naturaleza y la historia van de la mano. Proteger una es proteger la otra.'
+      },
+      oscuro: {
+        linea1: 'Los artefactos llegaron al museo, pero no todos intactos.',
+        linea2: 'La violencia dejó marcas. Algunas piezas se dañaron en los enfrentamientos.',
+        linea3: 'El constructor Méndez sigue buscando maneras de demoler las ruinas.',
+        linea4: 'Los traficantes escaparon hacia otras rutas. La red sigue activa.',
+        linea5: 'El patrimonio merece ser protegido con inteligencia, no con fuerza.'
+      }
     }
   },
 
@@ -450,7 +525,12 @@ const es = {
     registroAduanal: 'Registro Aduanal',
     descRegistroAduanal: 'Documento oficial de aduanas con las anomalías detectadas en los envíos de Torres.',
     ordenJudicial: 'Orden Judicial',
-    descOrdenJudicial: 'Orden del tribunal que autoriza la confiscación de los artefactos traficados.'
+    descOrdenJudicial: 'Orden del tribunal que autoriza la confiscación de los artefactos traficados.',
+
+    certificadoAutenticidad: 'Certificado de Autenticidad',
+    descCertificadoAutenticidad: 'Documento oficial que certifica la autenticidad de un artefacto arqueológico.',
+    catalogoMuseo: 'Catálogo del Museo',
+    descCatalogoMuseo: 'Catálogo con todos los artefactos del Museo de las Atarazanas Reales.'
   },
 
   inventario: {

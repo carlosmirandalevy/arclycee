@@ -237,6 +237,13 @@ export class MundoJuridico {
         traficante.dialogoHecho = true;
       }
 
+      // --- Rastrear resultado para el sistema de finales ---
+      if (this.juego.combate.resultado === 'pacificado') {
+        this.juego.progreso.combatesPacificados++;
+      } else if (this.juego.combate.resultado === 'victoria') {
+        this.juego.progreso.combatesViolentos++;
+      }
+
       // Diálogo de resolución según el resultado
       const textos = this._obtenerTextos();
       const jur = textos?.dialogos?.juridico;

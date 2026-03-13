@@ -25,7 +25,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Sprites de enemigos**: cada enemigo tiene su sprite único en combate (soldado, constructor, pez león, traficante)
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
-- **Múltiples finales** según tus decisiones
+- **Múltiples finales** (4) según tus decisiones: completo, museo, ecológico u oscuro
+- **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas y efectos en jugador
 - **Desktop y móvil** con controles táctiles virtuales
 
 ### Mundos
@@ -36,7 +37,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
 | Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león (atrapar, pescar, proteger coral, alertar buzos), arqueóloga submarina con mapa de naufragios |
 | Jurídico | Aeropuerto Las Américas (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
-| Laboratorio | Autenticación de piezas, museos |
+| Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
 
 ## Tecnologías
 

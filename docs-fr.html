@@ -543,13 +543,13 @@
          ============================================================ -->
     <section id="flujo">
       <h2><span class="icono">🗺️</span> Déroulement du Jeu</h2>
-      <p class="intro">Progression à travers les mondes, style Super Mario World.</p>
+      <p class="intro">Carte en libre exploration avec 8 n&#339;uds. Le joueur se déplace librement avec un sprite animé.</p>
 
       <div class="flujo">
         <div class="flujo-nodo">
           <div class="flujo-icono taino">🕳️</div>
           <div class="flujo-texto">
-            <strong>Cuevas del Pomier</strong><br>
+            <strong>Grottes de Pomier</strong><br>
             <span>Plateforme dans l'obscurité. Tu découvres des pétroglyphes taïnos et tu reçois Magnoboot.</span>
           </div>
         </div>
@@ -557,7 +557,7 @@
         <div class="flujo-nodo">
           <div class="flujo-icono taino">🏘️</div>
           <div class="flujo-texto">
-            <strong>Asentamiento Taíno I</strong><br>
+            <strong>Établissement Taïno I</strong><br>
             <span>Village avec bohíos. Tu apprends la vie taïno et tu adoptes Viralata.</span>
           </div>
         </div>
@@ -565,7 +565,7 @@
         <div class="flujo-nodo">
           <div class="flujo-icono taino">🌾</div>
           <div class="flujo-texto">
-            <strong>Asentamiento Taíno II</strong><br>
+            <strong>Établissement Taïno II</strong><br>
             <span>Agriculture et cérémonies. Tu rencontres le behique et tu obtiens le Cemí Murciélago.</span>
           </div>
         </div>
@@ -581,7 +581,7 @@
         <div class="flujo-nodo">
           <div class="flujo-icono colonial">🏛️</div>
           <div class="flujo-texto">
-            <strong>Zona Colonial</strong><br>
+            <strong>Zone Coloniale</strong><br>
             <span>Patrimoine UNESCO. Musée de la Cathédrale, Panthéon National, combat d'activisme avec Constructor Méndez.</span>
           </div>
         </div>
@@ -589,24 +589,24 @@
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #4488cc;">🌊</div>
           <div class="flujo-texto">
-            <strong>Monde Aquatique</strong> <span class="tag" style="background:#1a2a3a;color:#4488cc;">PROCHAINEMENT</span><br>
-            <span>Un pêcheur offre sa pirogue. Tu explores l'épave de La Pinta et d'autres sites sous-marins historiques.</span>
+            <strong>Épave de La Pinta</strong><br>
+            <span>Monde aquatique. Un pêcheur offre sa pirogue. Tu explores l'épave et les récifs coralliens.</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
         <div class="flujo-nodo">
-          <div class="flujo-icono" style="border-color: #cc8844;">⚖️</div>
+          <div class="flujo-icono" style="border-color: #cc8844;">✈️</div>
           <div class="flujo-texto">
-            <strong>Monde Juridique</strong> <span class="tag" style="background:#2a2a1a;color:#cc8844;">PROCHAINEMENT</span><br>
-            <span>Un faux archéologue vend des pièces falsifiées. Vol, poursuite à l'aéroport et lois patrimoniales.</span>
+            <strong>Aéroport Las Américas</strong><br>
+            <span>Monde juridique. Intérieur d'aéroport. Combat légal contre le trafiquant Rodrigo Torres avec 4 options juridiques.</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
         <div class="flujo-nodo">
-          <div class="flujo-icono" style="border-color: #44ccaa;">🔬</div>
+          <div class="flujo-icono" style="border-color: #44ccaa;">🏛️</div>
           <div class="flujo-texto">
-            <strong>Laboratoire / Musée</strong> <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PROCHAINEMENT</span><br>
-            <span>Authentification de pièces avec de la science réelle. Exposition finale au musée. Fins multiples.</span>
+            <strong>Musée Atarazanas</strong><br>
+            <span>Monde laboratoire. Museo de las Atarazanas Reales. Authentification de pièces par dialogue scientifique. Fins multiples.</span>
           </div>
         </div>
       </div>
@@ -922,9 +922,9 @@
       <!-- Monde Aquatique -->
       <div class="mundo-card" style="border-left: 3px solid var(--azul);">
         <div class="mundo-header">
-          <div class="mundo-titulo">🌊 Monde Aquatique</div>
+          <div class="mundo-titulo">🌊 Monde Aquatique — Épave de La Pinta</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#1a2a3a;color:#4488cc;">PROCHAINEMENT</span>
+            <span class="tag topdown">Top-Down</span>
           </div>
         </div>
         <p class="mundo-desc">
@@ -1037,90 +1037,142 @@
       <!-- Monde Juridique -->
       <div class="mundo-card" style="border-left: 3px solid #cc8844;">
         <div class="mundo-header">
-          <div class="mundo-titulo">⚖️ Monde Juridique</div>
+          <div class="mundo-titulo">⚖️ Monde Juridique — Aéroport Las Américas</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#2a2a1a;color:#cc8844;">PROCHAINEMENT</span>
+            <span class="tag topdown">Top-Down</span>
           </div>
         </div>
         <p class="mundo-desc">
-          À la fin de son parcours, Pepito a appris de toutes les pièces déposées dans les musées.
-          Il rencontre un faux archéologue qui veut lui vendre des pièces falsifiées. Ils négocient le prix.
-          Plus tard, on lui vole les pièces dans son hôtel. Le voleur tente de sortir les pièces du pays,
-          mais il est arrêté à l'aéroport. Grâce à la plainte policière, les pièces sont rendues à Pepito,
-          qui décide de les donner à un musée.
+          L'intérieur de l'Aéroport International Las Américas (AILA) de Saint-Domingue. Pepito découvre
+          qu'un trafiquant tente de sortir des artefacts archéologiques du pays. Grâce à ses connaissances
+          juridiques et à l'aide de l'Avocate Carmen Vidal, il affronte le trafiquant Rodrigo Torres dans
+          un combat légal utilisant la Loi 318, les preuves médico-légales, la coopération INTERPOL et la
+          Convention UNESCO 1970 sur le trafic illicite de biens culturels.
         </p>
 
-        <h4>Niveaux prévus</h4>
-        <ul>
-          <li><strong>Marché noir</strong> — rencontre avec le faux archéologue et négociation</li>
-          <li><strong>Hôtel / Vol</strong> — enquête sur le vol des pièces</li>
-          <li><strong>Aéroport</strong> — poursuite et capture du trafiquant</li>
-          <li><strong>Commissariat / Tribunal</strong> — procédure judiciaire et protection patrimoniale</li>
-        </ul>
-
-        <h4>Personnages prévus</h4>
+        <h4>PNJ</h4>
         <div class="npc-card">
-          <div class="npc-avatar">🎭</div>
+          <div class="npc-avatar">🔍</div>
           <div class="npc-info">
-            <h5>Faux archéologue</h5>
-            <div class="npc-role">Antagoniste — Vendeur de fausses reliques</div>
-            <p>Tente de vendre des pièces falsifiées. Enseigne le problème réel du trafic d'antiquités.</p>
+            <h5>Inspecteur García</h5>
+            <div class="npc-role">Inspecteur des douanes</div>
+            <p>Contrôle les bagages à l'aéroport. Il détecte des objets suspects et alerte Pepito. Explique les procédures douanières de protection du patrimoine.</p>
           </div>
         </div>
         <div class="npc-card">
-          <div class="npc-avatar">👮</div>
+          <div class="npc-avatar">🌐</div>
           <div class="npc-info">
-            <h5>Police patrimoniale</h5>
-            <div class="npc-role">Allié de la loi</div>
-            <p>Explique les lois de protection du patrimoine culturel dominicain.</p>
+            <h5>Agent INTERPOL</h5>
+            <div class="npc-role">Coopération internationale</div>
+            <p>Agent de la division trafic de biens culturels d'INTERPOL. Explique les réseaux internationaux de trafic d'antiquités et les mécanismes de coopération policière.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">⚖️</div>
+          <div class="npc-info">
+            <h5>Avocate Carmen Vidal</h5>
+            <div class="npc-role">Mentore — 5 dialogues rotatifs</div>
+            <p>Spécialiste en droit du patrimoine culturel. Mentore récurrente avec 5 sujets de dialogue rotatifs : la Loi 318 sur le patrimoine, les conventions internationales, les preuves médico-légales, la procédure judiciaire et les droits culturels des peuples autochtones.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">😰</div>
+          <div class="npc-info">
+            <h5>Passager Nerveux</h5>
+            <div class="npc-role">Témoin</div>
+            <p>Un passager au comportement suspect qui donne des indices sur les activités du trafiquant. Ses réponses évasives mettent le joueur sur la piste.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🏴</div>
+          <div class="npc-info">
+            <h5>Trafiquant Rodrigo Torres</h5>
+            <div class="npc-role">Antagoniste — Combat légal</div>
+            <p>Trafiquant d'artefacts archéologiques. Tente de faire sortir des pièces taïnos et coloniales du pays. On l'affronte avec 4 options juridiques. La jauge affiche « Preuves : » au lieu de « Convaincu : ». S'il est pacifié, les artefacts sont saisis et remis au musée.</p>
           </div>
         </div>
 
         <h4>Thèmes éducatifs</h4>
         <ul>
-          <li>Lois de protection du patrimoine culturel</li>
-          <li>Trafic illégal d'antiquités</li>
-          <li>Comment identifier les pièces falsifiées</li>
-          <li>Le rôle des Douanes et de la police spécialisée</li>
+          <li><strong>Loi 318</strong> sur le patrimoine culturel de la République dominicaine</li>
+          <li><strong>Convention UNESCO 1970</strong> sur le trafic illicite de biens culturels</li>
+          <li>Techniques de preuves médico-légales pour authentifier les artefacts</li>
+          <li>Coopération policière internationale via INTERPOL</li>
+          <li>Droits culturels des peuples autochtones</li>
         </ul>
       </div>
 
-      <!-- Laboratoire / Musée -->
+      <!-- Monde Laboratoire -->
       <div class="mundo-card" style="border-left: 3px solid #44ccaa;">
         <div class="mundo-header">
-          <div class="mundo-titulo">🔬 Laboratoire / Musée</div>
+          <div class="mundo-titulo">🔬 Monde Laboratoire — Museo de las Atarazanas Reales</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PROCHAINEMENT</span>
+            <span class="tag topdown">Top-Down</span>
           </div>
         </div>
         <p class="mundo-desc">
-          Le monde final où Pepito apporte les pièces récupérées à un laboratoire pour les authentifier.
-          Sont-elles originales ou des copies ? En utilisant des outils scientifiques réels (carbone 14, analyse
-          des matériaux, comparaison avec des registres), le joueur apprend comment les professionnels vérifient
-          l'authenticité des artefacts archéologiques. Les pièces authentifiées sont exposées au musée.
+          Le Museo de las Atarazanas Reales (Musée des Chantiers Navals Royaux) dans la Zone Coloniale de
+          Saint-Domingue. Installé dans les anciens entrepôts royaux du XVIe siècle, ce musée abrite l'une
+          des plus importantes collections d'archéologie sous-marine des Caraïbes. Pepito y apporte les pièces
+          récupérées tout au long de son aventure pour les faire authentifier. Pas de combat ici —
+          l'authentification se fait entièrement par dialogue avec les scientifiques et conservateurs.
         </p>
 
-        <h4>Niveaux prévus</h4>
-        <ul>
-          <li><strong>Laboratoire d'authentification</strong> — tests scientifiques avec des outils réels</li>
-          <li><strong>Musée final</strong> — exposition de toutes les pièces collectées au cours de l'aventure</li>
-        </ul>
-
-        <h4>Mécaniques prévues</h4>
-        <ul>
-          <li>Mini-jeux d'analyse scientifique (carbone 14, microscope, rayons X)</li>
-          <li>Comparaison de pièces avec des bases de données de référence</li>
-          <li>Catalogage et exposition d'artefacts</li>
-          <li>Fins multiples selon les décisions prises au cours du jeu</li>
-        </ul>
-
-        <h4>Fins possibles</h4>
-        <div class="grid-2">
-          <div class="item-card"><h5>🏆 Fin complète</h5><p>Tous les sites découverts, toutes les reliques sauvées.</p></div>
-          <div class="item-card"><h5>🏛️ Fin du musée</h5><p>Toutes les pièces authentiques exposées au musée.</p></div>
-          <div class="item-card"><h5>💀 Fin sombre</h5><p>Tu succombes à la tentation et tu vends tout à une entreprise sans scrupules.</p></div>
-          <div class="item-card"><h5>🌍 Fin écologique</h5><p>Tu protèges les sites et tu arrêtes la pollution.</p></div>
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🏛️</div>
+          <div class="npc-info">
+            <h5>Dr. Fernando Morbán</h5>
+            <div class="npc-role">Conservateur du musée</div>
+            <p>Directeur du Museo de las Atarazanas Reales. Expert en archéologie sous-marine des Caraïbes. Il supervise l'authentification des pièces et explique l'histoire des chantiers navals royaux et leur transformation en musée.</p>
+          </div>
         </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🔬</div>
+          <div class="npc-info">
+            <h5>Dra. López</h5>
+            <div class="npc-role">Scientifique — Datation au carbone 14</div>
+            <p>Spécialiste en datation radiométrique. Elle explique le fonctionnement du carbone 14, l'analyse isotopique et les techniques de datation des artefacts archéologiques. Le joueur apprend à authentifier les pièces par le dialogue scientifique.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎨</div>
+          <div class="npc-info">
+            <h5>Restauratrice Ana</h5>
+            <div class="npc-role">Conservation et restauration</div>
+            <p>Experte en restauration d'artefacts. Elle montre les techniques de conservation préventive, le nettoyage des objets archéologiques et l'importance de ne pas altérer les pièces originales.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎭</div>
+          <div class="npc-info">
+            <h5>Roberto Cassá</h5>
+            <div class="npc-role">Menteur — Faux vendeur de reliques</div>
+            <p>Un imposteur qui se fait passer pour l'historien Roberto Cassá. Il tente de vendre des pièces falsifiées au musée. Le joueur doit identifier la supercherie grâce aux connaissances acquises tout au long du jeu.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🕵️</div>
+          <div class="npc-info">
+            <h5>Visiteur Suspect</h5>
+            <div class="npc-role">Personnage ambigu</div>
+            <p>Un visiteur au comportement étrange qui rôde dans les salles du musée. Il pose des questions inhabituelles sur la valeur des pièces exposées, éveillant les soupçons du joueur.</p>
+          </div>
+        </div>
+
+        <h4>Objets à collecter</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>📜 Certificat d'authenticité</h5><p>Document officiel délivré après l'authentification scientifique des artefacts. Prouve que les pièces sont des originaux et non des copies.</p></div>
+          <div class="item-card"><h5>📖 Catalogue du musée</h5><p>Catalogue complet du Museo de las Atarazanas Reales avec les descriptions de toutes les pièces de la collection, y compris celles apportées par Pepito.</p></div>
+        </div>
+
+        <h4>Mécaniques</h4>
+        <ul>
+          <li><strong>Authentification par dialogue</strong> — pas de combat, les pièces sont vérifiées par conversation avec les scientifiques</li>
+          <li>Comparaison de pièces avec des bases de données de référence</li>
+          <li>Catalogage et exposition des artefacts collectés tout au long de l'aventure</li>
+          <li>Détection de faux grâce aux connaissances accumulées</li>
+        </ul>
       </div>
     </section>
 
@@ -1281,12 +1333,53 @@
         de chasse au poisson-lion sont une stratégie réelle utilisée dans les Caraïbes dominicaines.
       </p>
 
+      <h3>Combat Légal : Trafiquant Rodrigo Torres</h3>
+      <p>
+        Dans le Monde Juridique (Aéroport Las Américas), le combat contre le trafiquant Rodrigo Torres utilise
+        des <strong>options juridiques</strong>. Torres tente de faire sortir des artefacts archéologiques du pays
+        illégalement. La jauge affiche « Preuves : » au lieu de « Convaincu : » car on accumule des preuves
+        juridiques contre le trafiquant. Chaque action déclenche une contre-stratégie du trafiquant :
+      </p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>📜 Loi 318 sur le Patrimoine</h5>
+          <p>Tu invoques la Loi 318 de protection du patrimoine culturel dominicain.</p>
+          <div class="efecto">+14-22 Preuves, -10-16 Hostilité</div>
+          <div class="contra">Contre : Torres prétend que les pièces sont des répliques artisanales légales.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🔬 Preuves Médico-légales</h5>
+          <p>Tu présentes les résultats d'analyse C-14 et d'expertise matérielle.</p>
+          <div class="efecto">+16-26 Preuves, -12-20 Hostilité</div>
+          <div class="contra">Contre : Torres conteste la chaîne de traçabilité des preuves scientifiques.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🌐 Coopération INTERPOL</h5>
+          <p>Tu fais appel à la coopération internationale via INTERPOL.</p>
+          <div class="efecto">+18-28 Preuves, -14-22 Hostilité</div>
+          <div class="contra">Contre : Torres invoque des juridictions multiples pour compliquer l'extradition.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🏛️ Convention UNESCO 1970</h5>
+          <p>Tu cites la Convention UNESCO de 1970 sur le trafic illicite de biens culturels.</p>
+          <div class="efecto">+20-30 Preuves, -15-24 Hostilité</div>
+          <div class="contra">Contre : Torres affirme que les pièces ont été acquises avant la ratification.</div>
+        </div>
+      </div>
+      <p>
+        <strong>Résolution pacifique :</strong> Les preuves accumulées sont irréfutables. Torres est arrêté
+        par l'Agent INTERPOL, les artefacts sont saisis et remis au Museo de las Atarazanas Reales. L'Avocate
+        Carmen Vidal explique que la coopération internationale est essentielle pour lutter contre le trafic
+        de biens culturels.
+      </p>
+
       <h3>Sprites des Ennemis</h3>
       <p>Chaque ennemi a son propre sprite détaillé sur l'écran de combat :</p>
       <ul>
         <li><strong>Soldat Diego</strong> : uniforme rouge foncé avec casque de conquistador (morion)</li>
         <li><strong>Constructeur Méndez</strong> : chemise jaune avec casque de chantier</li>
         <li><strong>Poisson-lion</strong> : corps rayé rouge/blanc, nageoires pectorales en éventail, épines dorsales venimeuses à pointes brillantes, queue en V, bande sombre à travers l'œil</li>
+        <li><strong>Trafiquant Rodrigo Torres</strong> : costume sombre avec mallette, lunettes de soleil, attitude furtive</li>
       </ul>
     </section>
 
@@ -1324,16 +1417,60 @@
       <p>Overlay semi-transparent avec des zones colorées : vert (protégé), jaune (en danger),
       rouge (menacé). Bordures pointillées pour distinguer les niveaux de risque patrimonial.</p>
 
-      <h3>Météo Dynamique</h3>
+      <h3>Système Météorologique</h3>
+      <p>6 types de météo dynamique, actifs uniquement dans les scènes extérieures. Chaque type utilise
+      des effets de particules générés en temps réel sur le Canvas :</p>
       <table>
-        <tr><th>Météo</th><th>Probabilité</th><th>Effet</th></tr>
-        <tr><td>Ensoleillé</td><td>45 %</td><td>Normal</td></tr>
-        <tr><td>Nuageux</td><td>25 %</td><td>Visuel uniquement</td></tr>
-        <tr><td>Pluie</td><td>20 %</td><td>-15 % vitesse</td></tr>
-        <tr><td>Orage</td><td>7 %</td><td>-25 % vitesse</td></tr>
-        <tr><td>Ouragan</td><td>2 %</td><td>-35 % vitesse, poussée de vent, débris</td></tr>
-        <tr><td>Tremblement de terre</td><td>1 %</td><td>Trébuchements aléatoires, secousse de l'écran</td></tr>
+        <tr><th>Météo</th><th>Probabilité</th><th>Effet</th><th>Particules</th></tr>
+        <tr><td>Ensoleillé</td><td>45 %</td><td>Normal</td><td>Rayons de lumière</td></tr>
+        <tr><td>Nuageux</td><td>25 %</td><td>Visuel uniquement</td><td>Nuages animés</td></tr>
+        <tr><td>Pluie</td><td>20 %</td><td>-15 % vitesse</td><td>Gouttes diagonales + flaques</td></tr>
+        <tr><td>Tempête</td><td>7 %</td><td>-25 % vitesse</td><td>Éclairs + pluie forte + vent</td></tr>
+        <tr><td>Ouragan</td><td>2 %</td><td>-35 % vitesse, poussée de vent, débris</td><td>Débris volants + pluie horizontale</td></tr>
+        <tr><td>Tremblement de terre</td><td>1 %</td><td>Trébuchements aléatoires, secousse de l'écran</td><td>Poussière + fissures au sol</td></tr>
       </table>
+
+      <h3>Sons de Combat</h3>
+      <p>22 effets sonores procéduraux générés entièrement avec la <strong>Web Audio API</strong> — aucun
+      fichier audio externe n'est utilisé. Chaque son est synthétisé en temps réel à l'aide d'oscillateurs,
+      de filtres et d'enveloppes ADSR. Les sons couvrent toutes les actions de combat :</p>
+      <ul>
+        <li>Sons d'attaque (coups, impacts, critiques)</li>
+        <li>Sons de défense (esquive, parade, bouclier)</li>
+        <li>Sons de dialogue (parler, négocier, convaincre)</li>
+        <li>Sons de résultat (victoire pacifique, défaite, fuite)</li>
+        <li>Sons d'interface (sélection d'option, confirmation, annulation)</li>
+        <li>Sons spécifiques par ennemi (épée du soldat, marteau du constructeur, bulles du poisson-lion, mallette du trafiquant)</li>
+      </ul>
+
+      <h3>4 Fins du Jeu</h3>
+      <p>Le jeu propose 4 fins différentes selon les décisions prises par le joueur tout au long de l'aventure :</p>
+      <div class="grid-2">
+        <div class="item-card" style="border-left: 3px solid var(--dorado);">
+          <h5>🏆 Fin Complète</h5>
+          <p>Tous les 8 n&#339;uds complétés ET tous les ennemis pacifiés. Le joueur a exploré chaque monde,
+          résolu chaque conflit de manière pacifique et collecté tous les artefacts. Le musée organise une
+          grande exposition en l'honneur de Pepito.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--azul);">
+          <h5>🏛️ Fin du Musée</h5>
+          <p>Fin par défaut. Les pièces authentifiées sont exposées au Museo de las Atarazanas Reales.
+          Pepito est reconnu comme jeune archéologue et le musée accueille les visiteurs pour découvrir
+          le patrimoine dominicain.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--verde);">
+          <h5>🌿 Fin Écologique</h5>
+          <p>Déclenchée si le joueur a effectué 3 actions écologiques ou plus et n'a jamais choisi la violence.
+          Pepito devient ambassadeur de la protection du patrimoine naturel et culturel des Caraïbes.
+          Les récifs sont restaurés et les espèces invasives contrôlées.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--rojo);">
+          <h5>💀 Fin Sombre</h5>
+          <p>Déclenchée si le joueur a utilisé plus de violence que de pacification au cours du jeu.
+          Les artefacts sont dispersés, les sites archéologiques sont endommagés et le patrimoine
+          est perdu pour les générations futures.</p>
+        </div>
+      </div>
 
       <h3>Easter Eggs</h3>
       <p>8 objets secrets personnalisés pour chaque membre de l'équipe :</p>

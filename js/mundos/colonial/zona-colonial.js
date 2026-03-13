@@ -377,6 +377,13 @@ export class ZonaColonial {
         constructor.dialogoHecho = true;
       }
 
+      // --- Rastrear resultado para el sistema de finales ---
+      if (this.juego.combate.resultado === 'pacificado') {
+        this.juego.progreso.combatesPacificados++;
+      } else if (this.juego.combate.resultado === 'victoria') {
+        this.juego.progreso.combatesViolentos++;
+      }
+
       // Diálogo de resolución
       const textos = this._obtenerTextos();
       const zc = textos?.dialogos?.zonaColonial;

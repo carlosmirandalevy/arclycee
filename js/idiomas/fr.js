@@ -373,6 +373,80 @@ const fr = {
 
       misionExplorar: 'Enquête sur le trafic d\'artefacts',
       misionCompleta: 'Affaire résolue ! Retour à la carte (M)'
+    },
+
+    // Monde Laboratoire — Musée des Atarazanas Reales (Acte 5)
+    laboratorio: {
+      morban1: 'Bienvenue au Musée des Atarazanas Reales. Je suis le Dr Fernando Morbán, directeur.',
+      morban2: 'Ce musée conserve les trésors récupérés des épaves des Caraïbes.',
+      morban3: 'Chaque artefact qui arrive doit être authentifié. Sans authentification, pas de valeur historique.',
+      morban4: 'Parle à la Dre López au labo et à Ana à la restauration. Elles t\'enseigneront le processus.',
+      morbanRepite: 'Visite le labo C-14 et l\'atelier de restauration. La science protège l\'histoire.',
+
+      lopez1: 'Je suis la Dre López, spécialiste de la datation au Carbone-14.',
+      lopez2: 'Le Carbone-14 est un atome radioactif absorbé par tous les êtres vivants. À leur mort, il commence à se décomposer.',
+      lopez3: 'En mesurant le C-14 restant dans un objet organique, nous calculons son âge avec précision.',
+      lopez4: 'C\'est ainsi qu\'on confirme si un artefact a 500 ans ou s\'il s\'agit d\'une falsification moderne !',
+      lopezRepite: 'Rappelle-toi : la datation C-14 fonctionne avec les matériaux organiques — bois, os, tissu.',
+
+      ana1: 'Je suis Ana, restauratrice d\'artefacts. Mon travail est de réparer sans altérer.',
+      ana2: 'La règle d\'or de la restauration : tout ce que tu fais doit être réversible.',
+      ana3: 'Nous utilisons des adhésifs spéciaux, des consolidants et des microscopes pour ne pas endommager la pièce.',
+      ana4: 'Un artefact mal restauré perd sa valeur historique pour toujours. La patience est la clé !',
+      anaRepite: 'Restaurer, c\'est comme être médecin pour les artefacts : d\'abord, ne pas nuire.',
+
+      cassa1_1: 'On se retrouve ! Ce musée est l\'un de mes endroits préférés.',
+      cassa1_2: 'Les Atarazanas Reales étaient les entrepôts du port de Santo Domingo au XVIe siècle.',
+      cassa2_1: 'Savais-tu que ce bâtiment a été restauré dans les années 70 ?',
+      cassa2_2: 'La restauration a respecté la structure originale. C\'est comme ça qu\'il faut toujours faire.',
+      cassa3_1: 'Les musées ne sont pas des entrepôts d\'objets anciens. Ce sont des lieux vivants.',
+      cassa3_2: 'Chaque pièce ici raconte une histoire qui relie le passé au présent.',
+      cassa4_1: 'La République Dominicaine compte plus de 60 musées.',
+      cassa4_2: 'Du Musée de l\'Homme Dominicain au Mémorial de la Résistance.',
+      cassa5_1: 'Tu as fait un long chemin, jeune archéologue.',
+      cassa5_2: 'Des grottes du Pomier jusqu\'à ce musée, tu as appris à protéger le patrimoine.',
+
+      sospechoso1: 'Psst ! Tu veux acheter une relique taïno authentique ? Prix spécial pour toi.',
+      sospechoso2: 'Tu dis qu\'il faut un certificat ? Mais je l\'ai trouvée dans mon jardin...',
+      sospechoso3: 'Tu as raison. Sans authentification scientifique, n\'importe qui peut vendre des faux.',
+      sospechoso4: 'Je ferais mieux de l\'apporter au musée pour la faire examiner. Merci du conseil !',
+      sospechosoRepite: 'J\'attends les résultats du labo. Pourvu que ce soit authentique !',
+
+      misionExplorar: 'Explore le Musée des Atarazanas Reales',
+      misionCompleta: 'Musée exploré ! Appuie sur M pour voir la fin',
+      misionFinal: 'Mission accomplie ! Appuie sur M pour voir la fin'
+    },
+
+    // Fins — 4 séquences de clôture possibles
+    finales: {
+      completo: {
+        linea1: 'Tu as relevé tous les défis avec sagesse et paix.',
+        linea2: 'Des grottes du Pomier au Musée des Atarazanas, tu as protégé le patrimoine dominicain.',
+        linea3: 'Les artefacts sont en sécurité dans les musées. Les trafiquants face à la justice.',
+        linea4: 'Le poisson-lion est sous contrôle. Les récifs se rétablissent.',
+        linea5: 'Tu es un véritable gardien du patrimoine. L\'histoire se souviendra de toi.'
+      },
+      museo: {
+        linea1: 'Les artefacts récupérés brillent sous les lumières du musée.',
+        linea2: 'Le Dr Morbán inaugure la nouvelle salle d\'exposition avec tes découvertes.',
+        linea3: 'Des pétroglyphes taïnos aux trésors coloniaux, chaque pièce raconte une histoire.',
+        linea4: 'Les visiteurs découvrent la riche histoire de la République Dominicaine.',
+        linea5: 'Le patrimoine est protégé. Ta mission est terminée... pour l\'instant.'
+      },
+      ecologico: {
+        linea1: 'La mer des Caraïbes brille de couleurs renouvelées.',
+        linea2: 'Grâce à tes actions écologiques, les récifs coralliens se rétablissent.',
+        linea3: 'Les tortues imbriquées nagent librement. Les poissons indigènes reviennent.',
+        linea4: 'Ton exemple a inspiré des communautés entières à protéger l\'environnement marin.',
+        linea5: 'La nature et l\'histoire vont de pair. Protéger l\'une, c\'est protéger l\'autre.'
+      },
+      oscuro: {
+        linea1: 'Les artefacts sont arrivés au musée, mais pas tous intacts.',
+        linea2: 'La violence a laissé des traces. Certaines pièces ont été endommagées.',
+        linea3: 'Le constructeur Méndez cherche toujours à démolir les ruines.',
+        linea4: 'Les trafiquants se sont enfuis par d\'autres routes. Le réseau reste actif.',
+        linea5: 'Le patrimoine mérite d\'être protégé avec intelligence, pas avec la force.'
+      }
     }
   },
 
@@ -426,7 +500,12 @@ const fr = {
     registroAduanal: 'Registre Douanier',
     descRegistroAduanal: 'Document officiel des douanes avec les anomalies détectées dans les envois de Torres.',
     ordenJudicial: 'Ordonnance du Tribunal',
-    descOrdenJudicial: 'Ordonnance du tribunal autorisant la confiscation des artefacts trafiqués.'
+    descOrdenJudicial: 'Ordonnance du tribunal autorisant la confiscation des artefacts trafiqués.',
+
+    certificadoAutenticidad: 'Certificat d\'Authenticité',
+    descCertificadoAutenticidad: 'Document officiel certifiant l\'authenticité d\'un artefact archéologique.',
+    catalogoMuseo: 'Catalogue du Musée',
+    descCatalogoMuseo: 'Catalogue de tous les artefacts du Musée des Atarazanas Reales.'
   },
 
   inventario: {

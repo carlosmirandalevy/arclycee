@@ -223,6 +223,13 @@ export class LaIsabela {
         soldado.dialogoHecho = true;
       }
 
+      // --- Rastrear resultado para el sistema de finales ---
+      if (this.juego.combate.resultado === 'pacificado') {
+        this.juego.progreso.combatesPacificados++;
+      } else if (this.juego.combate.resultado === 'victoria') {
+        this.juego.progreso.combatesViolentos++;
+      }
+
       // Mostrar un diálogo de resolución según el resultado
       const textos = this._obtenerTextos();
       const isabela = textos?.dialogos?.isabela;

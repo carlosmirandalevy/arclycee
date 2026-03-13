@@ -543,7 +543,8 @@
          ============================================================ -->
     <section id="flujo">
       <h2><span class="icono">🗺️</span> Flujo del Juego</h2>
-      <p class="intro">Progresión a través de los mundos, estilo Super Mario World.</p>
+      <p class="intro">Mapa de libre exploración con 8 nodos, estilo Super Mario World. El jugador
+      se mueve libremente con un sprite sobre el mapa y activa los nodos al acercarse.</p>
 
       <div class="flujo">
         <div class="flujo-nodo">
@@ -589,24 +590,24 @@
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #4488cc;">🌊</div>
           <div class="flujo-texto">
-            <strong>Mundo Acuático</strong> <span class="tag" style="background:#1a2a3a;color:#4488cc;">PRÓXIMAMENTE</span><br>
-            <span>Un pescador ofrece su canoa. Exploras el naufragio de La Pinta y otros sitios submarinos históricos.</span>
+            <strong>Naufragio de La Pinta</strong><br>
+            <span>Un pescador ofrece su canoa. Exploras el naufragio de La Pinta y combates al pez león invasor.</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #cc8844;">⚖️</div>
           <div class="flujo-texto">
-            <strong>Mundo Jurídico</strong> <span class="tag" style="background:#2a2a1a;color:#cc8844;">PRÓXIMAMENTE</span><br>
-            <span>Un falso arqueólogo vende piezas falsas. Robo, persecución en el aeropuerto y leyes patrimoniales.</span>
+            <strong>Aeropuerto Las Américas</strong><br>
+            <span>Interior del aeropuerto. Combate legal contra el traficante Rodrigo Torres con Ley 318, INTERPOL y UNESCO.</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #44ccaa;">🔬</div>
           <div class="flujo-texto">
-            <strong>Laboratorio / Museo</strong> <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PRÓXIMAMENTE</span><br>
-            <span>Autenticación de piezas con ciencia real. Exhibición final en el museo. Múltiples finales.</span>
+            <strong>Museo de las Atarazanas Reales</strong><br>
+            <span>Autenticación de piezas con ciencia real (carbono-14). 4 finales posibles según tus decisiones.</span>
           </div>
         </div>
       </div>
@@ -922,9 +923,9 @@
       <!-- Mundo Acuático -->
       <div class="mundo-card" style="border-left: 3px solid var(--azul);">
         <div class="mundo-header">
-          <div class="mundo-titulo">🌊 Mundo Acuático</div>
+          <div class="mundo-titulo">🌊 Mundo Acuático — Naufragio de La Pinta</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#1a2a3a;color:#4488cc;">PRÓXIMAMENTE</span>
+            <span class="tag topdown">Top-Down</span>
           </div>
         </div>
         <p class="mundo-desc">
@@ -1034,92 +1035,175 @@
         </ul>
       </div>
 
-      <!-- Mundo Jurídico -->
+      <!-- Mundo Jurídico — Aeropuerto Las Américas -->
       <div class="mundo-card" style="border-left: 3px solid #cc8844;">
         <div class="mundo-header">
-          <div class="mundo-titulo">⚖️ Mundo Jurídico</div>
+          <div class="mundo-titulo">⚖️ Mundo Jurídico — Aeropuerto Las Américas</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#2a2a1a;color:#cc8844;">PRÓXIMAMENTE</span>
+            <span class="tag topdown">Top-Down</span>
           </div>
         </div>
         <p class="mundo-desc">
-          Al final de su recorrido, Pepito ha aprendido de todas las piezas depositadas en los museos.
-          Se encuentra con un falso arqueólogo que quiere venderle piezas falsas. Negocian el precio.
-          Más tarde, le roban las piezas en su hotel. El ladrón intenta sacar las piezas del país,
-          pero lo detienen en el aeropuerto. Con la denuncia policial, devuelven las piezas a Pepito,
-          quien decide donarlas a un museo.
+          Interior del Aeropuerto Internacional de Las Américas (AILA). Pepito descubre que un traficante
+          intenta sacar artefactos arqueológicos del país. Con la ayuda de un inspector aduanal, una agente
+          de INTERPOL y una abogada especializada, debe reunir evidencia legal para detenerlo. El combate
+          se resuelve con herramientas jurídicas reales: la Ley 318 sobre patrimonio, evidencia forense,
+          cooperación policial internacional y convenciones de la UNESCO.
         </p>
 
-        <h4>Niveles planificados</h4>
+        <h4>Mecánicas</h4>
         <ul>
-          <li><strong>Mercado negro</strong> — encuentro con el falso arqueólogo y negociación</li>
-          <li><strong>Hotel / Robo</strong> — investigación del robo de piezas</li>
-          <li><strong>Aeropuerto</strong> — persecución y captura del traficante</li>
-          <li><strong>Comisaría / Tribunal</strong> — proceso legal y protección patrimonial</li>
+          <li><strong>Interior de aeropuerto</strong>: terminal con zonas de embarque, aduanas y oficinas</li>
+          <li><strong>Velocidad normal</strong>: movimiento sin modificadores (a diferencia del Mundo Acuático)</li>
+          <li><strong>Combate legal</strong>: 4 opciones jurídicas contra el traficante con contra-respuestas realistas</li>
+          <li><strong>Mentora con diálogo rotativo</strong>: Lcda. Carmen Vidal ofrece 5 temas legales diferentes</li>
         </ul>
 
-        <h4>Personajes planificados</h4>
+        <h4>NPCs</h4>
         <div class="npc-card">
-          <div class="npc-avatar">🎭</div>
+          <div class="npc-avatar">🔍</div>
           <div class="npc-info">
-            <h5>Falso arqueólogo</h5>
-            <div class="npc-role">Antagonista — Vendedor de falsas reliquias</div>
-            <p>Intenta vender piezas falsificadas. Enseña sobre el problema real del tráfico de antigüedades.</p>
+            <h5>Inspector García</h5>
+            <div class="npc-role">Inspector aduanal</div>
+            <p>Funcionario de Aduanas en el AILA. Detecta actividad sospechosa en el equipaje del traficante
+            y alerta a Pepito. Explica los procedimientos de control aduanal y la importancia de vigilar
+            la exportación ilegal de bienes culturales.</p>
           </div>
         </div>
         <div class="npc-card">
-          <div class="npc-avatar">👮</div>
+          <div class="npc-avatar">🌐</div>
           <div class="npc-info">
-            <h5>Policía patrimonial</h5>
-            <div class="npc-role">Aliado de la ley</div>
-            <p>Explica las leyes de protección del patrimonio cultural dominicano.</p>
+            <h5>Agente INTERPOL</h5>
+            <div class="npc-role">Cooperación policial internacional</div>
+            <p>Agente destacada en República Dominicana que trabaja casos de tráfico internacional de
+            antigüedades. Explica cómo INTERPOL coordina operaciones entre países para recuperar
+            patrimonio cultural robado.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">⚖️</div>
+          <div class="npc-info">
+            <h5>Lcda. Carmen Vidal</h5>
+            <div class="npc-role">Mentora — Abogada de patrimonio cultural</div>
+            <p>Mentora recurrente con diálogo rotativo (5 temas legales). Enseña sobre la Ley 318 de
+            patrimonio cultural, convenciones internacionales, procedimientos de decomiso, cadena de
+            custodia de evidencia y el marco legal UNESCO 1970 contra el tráfico de bienes culturales.
+            Siempre muestra [E] Hablar y nunca muestra checkmark.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">😰</div>
+          <div class="npc-info">
+            <h5>Pasajero Nervioso</h5>
+            <div class="npc-role">Testigo</div>
+            <p>Un pasajero que vio algo sospechoso en la zona de equipaje. Proporciona pistas sobre el
+            traficante y su maleta con doble fondo. Su nerviosismo revela la tensión del contrabando
+            de antigüedades en aeropuertos reales.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎭</div>
+          <div class="npc-info">
+            <h5>Traficante Rodrigo Torres</h5>
+            <div class="npc-role">Antagonista — Combate legal</div>
+            <p>Traficante de artefactos arqueológicos que intenta sacar piezas taínas y coloniales del país.
+            Se enfrenta con herramientas jurídicas: Ley 318 sobre patrimonio, evidencia forense, cooperación
+            INTERPOL y Convención UNESCO 1970. El medidor muestra "Evidencia:" en vez de "Convencido:" porque
+            se acumula evidencia legal, no se convence a una persona.</p>
           </div>
         </div>
 
         <h4>Temas educativos</h4>
         <ul>
-          <li>Leyes de protección del patrimonio cultural</li>
-          <li>Tráfico ilegal de antigüedades</li>
-          <li>Cómo identificar piezas falsas</li>
-          <li>El rol de Aduanas y la policía especializada</li>
+          <li><strong>Ley 318</strong> sobre patrimonio cultural de la República Dominicana</li>
+          <li><strong>Convención UNESCO 1970</strong> contra el tráfico ilícito de bienes culturales</li>
+          <li><strong>INTERPOL</strong> y la cooperación policial internacional</li>
+          <li><strong>Evidencia forense</strong> para identificar artefactos robados</li>
+          <li>El rol de Aduanas en la protección del patrimonio</li>
         </ul>
       </div>
 
-      <!-- Laboratorio / Museo -->
+      <!-- Mundo Laboratorio — Museo de las Atarazanas Reales -->
       <div class="mundo-card" style="border-left: 3px solid #44ccaa;">
         <div class="mundo-header">
-          <div class="mundo-titulo">🔬 Laboratorio / Museo</div>
+          <div class="mundo-titulo">🔬 Museo de las Atarazanas Reales</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#1a2a2a;color:#44ccaa;">PRÓXIMAMENTE</span>
+            <span class="tag topdown">Top-Down</span>
           </div>
         </div>
         <p class="mundo-desc">
-          El mundo final donde Pepito lleva las piezas recuperadas a un laboratorio para autenticarlas.
-          ¿Son originales o copias? Utilizando herramientas científicas reales (carbono-14, análisis
+          El mundo final tiene lugar en el Museo de las Atarazanas Reales, antiguo arsenal y astillero
+          colonial en la Zona Colonial de Santo Domingo. Pepito lleva las piezas recuperadas al laboratorio
+          del museo para autenticarlas. No hay combate: la autenticación se realiza a través de diálogos
+          con científicos y curadores. Utilizando herramientas reales (datación por carbono-14, análisis
           de materiales, comparación con registros), el jugador aprende cómo los profesionales verifican
-          la autenticidad de los artefactos arqueológicos. Las piezas autenticadas se exhiben en el museo.
+          la autenticidad de los artefactos arqueológicos.
         </p>
 
-        <h4>Niveles planificados</h4>
+        <h4>Mecánicas</h4>
         <ul>
-          <li><strong>Laboratorio de autenticación</strong> — pruebas científicas con herramientas reales</li>
-          <li><strong>Museo final</strong> — exhibición de todas las piezas recolectadas durante la aventura</li>
+          <li><strong>Sin combate</strong>: la autenticación se resuelve enteramente a través de diálogos</li>
+          <li><strong>Diálogos de autenticación</strong>: cada científico analiza las piezas con su especialidad</li>
+          <li><strong>2 objetos coleccionables</strong>: certificado de autenticidad y catálogo del museo</li>
+          <li><strong>Múltiples finales</strong>: 4 desenlaces según las decisiones tomadas durante el juego</li>
         </ul>
 
-        <h4>Mecánicas planificadas</h4>
-        <ul>
-          <li>Mini-juegos de análisis científico (carbono-14, microscopio, rayos X)</li>
-          <li>Comparación de piezas con bases de datos de referencia</li>
-          <li>Catalogación y exhibición de artefactos</li>
-          <li>Múltiples finales según las decisiones tomadas durante el juego</li>
-        </ul>
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🏛️</div>
+          <div class="npc-info">
+            <h5>Dr. Fernando Morbán</h5>
+            <div class="npc-role">Curador del museo</div>
+            <p>Director y curador del Museo de las Atarazanas Reales. Recibe las piezas de Pepito y coordina
+            el proceso de autenticación. Explica la historia del edificio como arsenal colonial y su
+            transformación en museo de artefactos submarinos y patrimonio náutico.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🔬</div>
+          <div class="npc-info">
+            <h5>Dra. López</h5>
+            <div class="npc-role">Científica — Datación por carbono-14</div>
+            <p>Especialista en datación radiométrica. Analiza las piezas con carbono-14 para determinar su
+            antigüedad real. Explica el principio científico: los organismos absorben carbono-14 en vida,
+            y al morir, este isótopo decae a un ritmo conocido (vida media de 5,730 años).</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎨</div>
+          <div class="npc-info">
+            <h5>Restauradora Ana</h5>
+            <div class="npc-role">Restauración y conservación</div>
+            <p>Experta en restauración de artefactos arqueológicos. Analiza los materiales, técnicas de
+            fabricación y estado de conservación de cada pieza. Enseña cómo distinguir una pieza auténtica
+            de una falsificación por el desgaste natural, la pátina y la composición de los materiales.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">📚</div>
+          <div class="npc-info">
+            <h5>Roberto Cassá</h5>
+            <div class="npc-role">Historiador mentor — Diálogo rotativo</div>
+            <p>Reaparece como mentor por última vez. Contextualiza históricamente cada pieza autenticada
+            y reflexiona sobre la importancia de preservar el patrimonio para las futuras generaciones.
+            Diálogo rotativo con temas sobre museología, patrimonio y legado cultural.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🕵️</div>
+          <div class="npc-info">
+            <h5>Visitante Sospechoso</h5>
+            <div class="npc-role">Último desafío narrativo</div>
+            <p>Un visitante con preguntas demasiado específicas sobre las piezas. Pepito debe decidir si
+            alerta a la seguridad del museo. Representa la amenaza constante del tráfico de antigüedades
+            incluso dentro de las instituciones culturales.</p>
+          </div>
+        </div>
 
-        <h4>Finales posibles</h4>
+        <h4>Objetos coleccionables</h4>
         <div class="grid-2">
-          <div class="item-card"><h5>🏆 Final completo</h5><p>Todos los yacimientos descubiertos, todas las reliquias salvadas.</p></div>
-          <div class="item-card"><h5>🏛️ Final del museo</h5><p>Todas las piezas auténticas exhibidas en el museo.</p></div>
-          <div class="item-card"><h5>💀 Final oscuro</h5><p>Sucumbes a la tentación y vendes todo a una compañía sin escrúpulos.</p></div>
-          <div class="item-card"><h5>🌍 Final ecológico</h5><p>Proteges los yacimientos y detienes la contaminación.</p></div>
+          <div class="item-card"><h5>📜 Certificado de Autenticidad</h5><p>Documento oficial que certifica la autenticidad de las piezas analizadas por el laboratorio del museo.</p></div>
+          <div class="item-card"><h5>📖 Catálogo del Museo</h5><p>Catálogo completo de las Atarazanas Reales con la historia de cada artefacto náutico y colonial.</p></div>
         </div>
       </div>
     </section>
@@ -1281,12 +1365,71 @@
         caza de pez león son una estrategia real usada en el Caribe dominicano.
       </p>
 
+      <h3>Combate Legal: Traficante Rodrigo Torres</h3>
+      <p>
+        En el Aeropuerto Las Américas, el combate contra el traficante usa <strong>opciones de derecho
+        patrimonial</strong>. El medidor muestra "Evidencia:" en vez de "Convencido:" porque se acumula
+        evidencia legal contra el traficante, no se convence a una persona. Cada acción representa un
+        instrumento jurídico real de protección del patrimonio:
+      </p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>📜 Ley 318</h5>
+          <p>Citas la Ley 318 sobre patrimonio cultural de la RD que prohíbe la exportación de bienes arqueológicos.</p>
+          <div class="efecto">+12-18 Evidencia, -8-14 Hostilidad</div>
+          <div class="contra">Contra: Torres alega que las piezas son réplicas modernas sin valor patrimonial.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🔬 Evidencia Forense</h5>
+          <p>Presentas análisis de materiales que prueban la antigüedad y origen de las piezas.</p>
+          <div class="efecto">+15-22 Evidencia, -10-16 Hostilidad</div>
+          <div class="contra">Contra: Torres cuestiona la cadena de custodia y la validez de las pruebas.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🌐 INTERPOL</h5>
+          <p>Solicitas cooperación de INTERPOL para verificar antecedentes internacionales del traficante.</p>
+          <div class="efecto">+18-25 Evidencia, -12-18 Hostilidad</div>
+          <div class="contra">Contra: Torres amenaza con contactar a sus abogados y dilatar el proceso.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🏛️ UNESCO 1970</h5>
+          <p>Invocas la Convención UNESCO de 1970 sobre tráfico ilícito de bienes culturales.</p>
+          <div class="efecto">+20-28 Evidencia, -15-22 Hostilidad</div>
+          <div class="contra">Contra: Torres argumenta que la convención no aplica retroactivamente a piezas antiguas.</div>
+        </div>
+      </div>
+      <p>
+        <strong>Resolución pacífica:</strong> La evidencia acumulada es irrefutable. Las autoridades decomisan
+        las piezas y Torres es detenido. Las piezas recuperadas son enviadas al Museo de las Atarazanas Reales
+        para su autenticación y exhibición.
+      </p>
+
+      <h3>Sonidos de Combate</h3>
+      <p>
+        El sistema de combate incluye <strong>22 efectos de sonido procedurales</strong> generados en tiempo
+        real con la Web Audio API. No se usan archivos de audio: cada sonido se sintetiza con osciladores,
+        filtros y envolventes programáticos. Los efectos cubren todas las acciones del combate:
+      </p>
+      <ul>
+        <li><strong>Acciones del jugador</strong>: golpe de ataque, sonido de hablar/negociar, uso de objeto, intento de huida</li>
+        <li><strong>Respuestas del enemigo</strong>: ataque enemigo, bloqueo, esquive, gruñido</li>
+        <li><strong>Cambios de estado</strong>: subida de convencimiento, bajada de hostilidad, daño recibido, curación</li>
+        <li><strong>Eventos especiales</strong>: victoria pacífica (acorde mayor), victoria por combate, derrota, inicio de combate</li>
+        <li><strong>Interfaz</strong>: selección de opción, confirmación, cancelación, transición de turno</li>
+      </ul>
+      <p>
+        Cada sonido usa técnicas de síntesis diferentes: ondas sinusoidales para tonos limpios, ondas
+        cuadradas para efectos retro, ruido blanco filtrado para impactos, y barridos de frecuencia
+        para transiciones. Todo generado con cero dependencias externas.
+      </p>
+
       <h3>Sprites de Enemigos</h3>
       <p>Cada enemigo tiene su propio sprite detallado en la pantalla de combate:</p>
       <ul>
         <li><strong>Soldado Diego</strong>: uniforme rojo oscuro con casco de conquistador (morión)</li>
         <li><strong>Constructor Méndez</strong>: camisa amarilla con casco de construcción</li>
         <li><strong>Pez León</strong>: cuerpo con rayas rojas/blancas, aletas pectorales en abanico, espinas dorsales venenosas con puntas brillantes, cola en V, banda oscura a través del ojo</li>
+        <li><strong>Traficante Torres</strong>: traje oscuro, gafas de sol, maleta con doble fondo</li>
       </ul>
     </section>
 
@@ -1325,15 +1468,57 @@
       rojo (amenazado). Bordes punteados para distinguir los niveles de riesgo patrimonial.</p>
 
       <h3>Clima Dinámico</h3>
+      <p>Sistema de clima procedural con 6 tipos meteorológicos. Solo se activa en escenas exteriores
+      (asentamientos, La Isabela, Zona Colonial). Cada tipo tiene efectos de partículas únicos:</p>
       <table>
-        <tr><th>Clima</th><th>Probabilidad</th><th>Efecto</th></tr>
-        <tr><td>Soleado</td><td>45%</td><td>Normal</td></tr>
-        <tr><td>Nublado</td><td>25%</td><td>Visual solamente</td></tr>
-        <tr><td>Lluvia</td><td>20%</td><td>-15% velocidad</td></tr>
-        <tr><td>Tormenta</td><td>7%</td><td>-25% velocidad</td></tr>
-        <tr><td>Huracán</td><td>2%</td><td>-35% velocidad, empuje de viento, escombros</td></tr>
-        <tr><td>Terremoto</td><td>1%</td><td>Tropiezos aleatorios, sacudida de pantalla</td></tr>
+        <tr><th>Clima</th><th>Probabilidad</th><th>Efecto</th><th>Partículas</th></tr>
+        <tr><td>Soleado</td><td>45%</td><td>Normal</td><td>Rayos de luz, destellos</td></tr>
+        <tr><td>Nublado</td><td>25%</td><td>Visual solamente</td><td>Nubes oscuras overlay</td></tr>
+        <tr><td>Lluvia</td><td>20%</td><td>-15% velocidad</td><td>Gotas diagonales, charcos</td></tr>
+        <tr><td>Tormenta</td><td>7%</td><td>-25% velocidad</td><td>Lluvia intensa, relámpagos</td></tr>
+        <tr><td>Huracán</td><td>2%</td><td>-35% velocidad, empuje de viento, escombros</td><td>Viento con hojas, escombros volando</td></tr>
+        <tr><td>Terremoto</td><td>1%</td><td>Tropiezos aleatorios, sacudida de pantalla</td><td>Polvo, grietas, piedras cayendo</td></tr>
       </table>
+
+      <h3>Mapa de Libre Exploración</h3>
+      <p>El mapa del mundo usa un sistema de <strong>libre exploración (free-roam)</strong> donde el jugador
+      controla un sprite que se mueve libremente por un mapa de la isla. Los 8 nodos se activan al acercarse:</p>
+      <table>
+        <tr><th>#</th><th>Nodo</th><th>Ubicación en el mapa</th></tr>
+        <tr><td>1</td><td>Cuevas del Pomier</td><td>San Cristóbal (centro-sur)</td></tr>
+        <tr><td>2</td><td>Asentamiento Taíno I</td><td>Interior de la isla</td></tr>
+        <tr><td>3</td><td>Asentamiento Taíno II</td><td>Interior de la isla</td></tr>
+        <tr><td>4</td><td>La Isabela</td><td>Puerto Plata (costa norte)</td></tr>
+        <tr><td>5</td><td>Zona Colonial</td><td>Santo Domingo (costa sur)</td></tr>
+        <tr><td>6</td><td>Naufragio de La Pinta</td><td>Costa norte (mar)</td></tr>
+        <tr><td>7</td><td>Aeropuerto Las Américas</td><td>Santo Domingo Este</td></tr>
+        <tr><td>8</td><td>Museo de las Atarazanas Reales</td><td>Zona Colonial, Santo Domingo</td></tr>
+      </table>
+
+      <h3>4 Finales</h3>
+      <p>El juego tiene 4 finales posibles según las decisiones del jugador a lo largo de la aventura:</p>
+      <div class="grid-2">
+        <div class="item-card" style="border-left: 3px solid var(--dorado);">
+          <h5>🏆 Final Completo</h5>
+          <p>Se desbloquea al completar los 8 nodos del mapa Y pacificar a todos los enemigos sin violencia.
+          Es el final canónico: Pepito se convierte en embajador juvenil del patrimonio dominicano.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--azul);">
+          <h5>🏛️ Final del Museo</h5>
+          <p>El final por defecto. Las piezas autenticadas se exhiben en el Museo de las Atarazanas Reales.
+          Se obtiene al completar el juego sin cumplir las condiciones especiales de los otros finales.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--verde);">
+          <h5>🌍 Final Ecológico</h5>
+          <p>Se desbloquea al realizar 3 o más acciones ecológicas durante el juego sin usar violencia.
+          Pepito funda una organización de conservación marina y protección de arrecifes.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--rojo);">
+          <h5>💀 Final Oscuro</h5>
+          <p>Se desbloquea cuando el jugador usa más violencia que pacifismo durante los combates.
+          Las piezas terminan en manos de coleccionistas privados y el patrimonio se pierde.</p>
+        </div>
+      </div>
 
       <h3>Easter Eggs</h3>
       <p>8 objetos secretos personalizados para cada miembro del equipo:</p>

@@ -192,7 +192,10 @@ export class SistemaGuardado {
       // Qué nodos completó y cuáles están desbloqueados
       progreso: {
         nodosCompletados: [...(juego.progreso.nodosCompletados || [])],
-        nodosDesbloqueados: [...(juego.progreso.nodosDesbloqueados || [])]
+        nodosDesbloqueados: [...(juego.progreso.nodosDesbloqueados || [])],
+        combatesPacificados: juego.progreso.combatesPacificados || 0,
+        combatesViolentos: juego.progreso.combatesViolentos || 0,
+        accionesEcologicas: juego.progreso.accionesEcologicas || 0
       },
 
       // --- Inventario UI (objetos con nombre, descripción, ícono) ---

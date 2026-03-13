@@ -118,8 +118,19 @@ export class MapaPrincipal {
         tipo: 'juridico',
         completado: false,
         bloqueado: true,
-        conectadoA: [],
+        conectadoA: [7],
         escena: 'mundoJuridico'
+      },
+      // --- Mundo Laboratorio ---
+      {
+        id: 7,
+        x: 530, y: 340,
+        nombre: 'Museo Atarazanas',
+        tipo: 'museo',
+        completado: false,
+        bloqueado: true,
+        conectadoA: [],
+        escena: 'mundoLaboratorio'
       }
     ];
 
@@ -296,16 +307,19 @@ export class MapaPrincipal {
     // Cambia según la zona cercana al jugador
     const nodoCercano = this._nodoCercano;
     const idCercano = nodoCercano ? nodoCercano.id : -1;
-    const esJuridico = idCercano >= 6;
+    const esMuseo = idCercano === 7;
+    const esJuridico = idCercano === 6;
     const esAcuatico = idCercano === 5;
     const esColonial = idCercano >= 3 && idCercano < 5;
-    const tituloMundo = esJuridico
-      ? (textos?.mundos?.juridico || 'Mundo Jurídico')
-      : esAcuatico
-        ? (textos?.mundos?.acuatico || 'Mundo Acuático')
-        : esColonial
-          ? (textos?.mundos?.colonial || 'Mundo Colonial')
-          : (textos?.mundos?.taino || 'Mundo Taíno');
+    const tituloMundo = esMuseo
+      ? (textos?.mundos?.laboratorio || 'Laboratorio / Museo')
+      : esJuridico
+        ? (textos?.mundos?.juridico || 'Mundo Jurídico')
+        : esAcuatico
+          ? (textos?.mundos?.acuatico || 'Mundo Acuático')
+          : esColonial
+            ? (textos?.mundos?.colonial || 'Mundo Colonial')
+            : (textos?.mundos?.taino || 'Mundo Taíno');
 
     ctx.font = 'bold 24px monospace';
     ctx.fillStyle = '#FFD700';
@@ -384,6 +398,7 @@ export class MapaPrincipal {
       if (nodo.tipo === 'ciudad') ctx.fillText('🏛', nodo.x, nodo.y + 5);
       if (nodo.tipo === 'naufragio') ctx.fillText('⚓', nodo.x, nodo.y + 5);
       if (nodo.tipo === 'juridico') ctx.fillText('⚖️', nodo.x, nodo.y + 5);
+      if (nodo.tipo === 'museo') ctx.fillText('🏛', nodo.x, nodo.y + 5);
 
       // Marca de completado (palomita)
       if (nodo.completado) {

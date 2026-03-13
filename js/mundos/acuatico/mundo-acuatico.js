@@ -250,6 +250,14 @@ export class MundoAcuatico {
         pezLeon.dialogoHecho = true;
       }
 
+      // --- Rastrear resultado para el sistema de finales ---
+      if (this.juego.combate.resultado === 'pacificado') {
+        this.juego.progreso.combatesPacificados++;
+        this.juego.progreso.accionesEcologicas++;
+      } else if (this.juego.combate.resultado === 'victoria') {
+        this.juego.progreso.combatesViolentos++;
+      }
+
       // Diálogo de resolución según el resultado
       const textos = this._obtenerTextos();
       const ac = textos?.dialogos?.acuatico;

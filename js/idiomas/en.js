@@ -373,6 +373,80 @@ const en = {
 
       misionExplorar: 'Investigate the artifact trafficking',
       misionCompleta: 'Case solved! Return to map (M)'
+    },
+
+    // Laboratory World — Museum of the Royal Shipyards (Act 5)
+    laboratorio: {
+      morban1: 'Welcome to the Museum of the Royal Shipyards. I\'m Dr. Fernando Morbán, director.',
+      morban2: 'This museum preserves treasures rescued from Caribbean shipwrecks.',
+      morban3: 'Every artifact that arrives must be authenticated. Without authentication, it has no historical value.',
+      morban4: 'Talk to Dr. López in the lab and Ana in restoration. They\'ll teach you the process.',
+      morbanRepite: 'Visit the C-14 lab and the restoration workshop. Science protects history.',
+
+      lopez1: 'I\'m Dr. López, Carbon-14 dating specialist.',
+      lopez2: 'Carbon-14 is a radioactive atom that all living things absorb. When they die, it starts to decay.',
+      lopez3: 'By measuring how much C-14 remains in an organic object, we calculate its age precisely.',
+      lopez4: 'That\'s how we confirm if an artifact is 500 years old or a modern forgery!',
+      lopezRepite: 'Remember: C-14 dating works with organic materials — wood, bone, fabric.',
+
+      ana1: 'I\'m Ana, artifact restorer. My job is to repair without altering.',
+      ana2: 'The golden rule of restoration: everything you do must be reversible.',
+      ana3: 'We use special adhesives, consolidants, and microscopes to avoid damaging the original piece.',
+      ana4: 'A poorly restored artifact loses its historical value forever. Patience is key!',
+      anaRepite: 'Restoring is like being a doctor for artifacts: first, do no harm.',
+
+      cassa1_1: 'We meet again! This museum is one of my favorite places.',
+      cassa1_2: 'The Royal Shipyards were the port warehouses of Santo Domingo in the 16th century.',
+      cassa2_1: 'Did you know this building was restored in the 1970s?',
+      cassa2_2: 'The restoration respected the original structure. That\'s how it should always be done.',
+      cassa3_1: 'Museums are not warehouses for old objects. They are living places.',
+      cassa3_2: 'Every piece here tells a story that connects the past with the present.',
+      cassa4_1: 'The Dominican Republic has over 60 museums.',
+      cassa4_2: 'From the Museum of the Dominican Man to the Memorial of Resistance.',
+      cassa5_1: 'You\'ve come a long way, young archaeologist.',
+      cassa5_2: 'From the Pomier caves to this museum, you\'ve learned to protect heritage.',
+
+      sospechoso1: 'Psst! Want to buy an authentic Taíno relic? Special price for you.',
+      sospechoso2: 'You\'re saying it needs a certificate? But I found it in my backyard...',
+      sospechoso3: 'You\'re right. Without scientific authentication, anyone can sell fakes.',
+      sospechoso4: 'I\'d better take it to the museum for examination. Thanks for the advice!',
+      sospechosoRepite: 'I\'m waiting for the lab results. Hope it\'s authentic!',
+
+      misionExplorar: 'Explore the Museum of the Royal Shipyards',
+      misionCompleta: 'Museum explored! Press M to see the ending',
+      misionFinal: 'Mission complete! Press M to see the ending'
+    },
+
+    // Endings — 4 possible closing sequences
+    finales: {
+      completo: {
+        linea1: 'You completed every challenge with wisdom and peace.',
+        linea2: 'From the Pomier caves to the Royal Shipyards Museum, you protected Dominican heritage.',
+        linea3: 'The artifacts are safe in museums. The traffickers face justice.',
+        linea4: 'The lionfish is under control. The reefs are recovering.',
+        linea5: 'You are a true guardian of heritage. History will remember you.'
+      },
+      museo: {
+        linea1: 'The recovered artifacts shine under the museum lights.',
+        linea2: 'Dr. Morbán opens the new exhibition hall with your discoveries.',
+        linea3: 'From Taíno petroglyphs to colonial treasures, every piece tells a story.',
+        linea4: 'Visitors learn about the rich history of the Dominican Republic.',
+        linea5: 'Heritage is protected. Your mission is complete... for now.'
+      },
+      ecologico: {
+        linea1: 'The Caribbean Sea gleams with renewed colors.',
+        linea2: 'Thanks to your ecological actions, the coral reefs are recovering.',
+        linea3: 'Hawksbill turtles swim free. Native fish are returning.',
+        linea4: 'Your example inspired entire communities to protect the marine environment.',
+        linea5: 'Nature and history go hand in hand. Protecting one is protecting the other.'
+      },
+      oscuro: {
+        linea1: 'The artifacts reached the museum, but not all intact.',
+        linea2: 'Violence left its mark. Some pieces were damaged in the confrontations.',
+        linea3: 'Builder Méndez still seeks ways to demolish the ruins.',
+        linea4: 'The traffickers escaped through other routes. The network remains active.',
+        linea5: 'Heritage deserves to be protected with intelligence, not force.'
+      }
     }
   },
 
@@ -426,7 +500,12 @@ const en = {
     registroAduanal: 'Customs Registry',
     descRegistroAduanal: 'Official customs document with anomalies detected in Torres\'s shipments.',
     ordenJudicial: 'Court Order',
-    descOrdenJudicial: 'Court order authorizing the confiscation of trafficked artifacts.'
+    descOrdenJudicial: 'Court order authorizing the confiscation of trafficked artifacts.',
+
+    certificadoAutenticidad: 'Certificate of Authenticity',
+    descCertificadoAutenticidad: 'Official document certifying the authenticity of an archaeological artifact.',
+    catalogoMuseo: 'Museum Catalog',
+    descCatalogoMuseo: 'Catalog of all artifacts in the Museum of the Royal Shipyards.'
   },
 
   inventario: {

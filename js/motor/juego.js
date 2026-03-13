@@ -49,6 +49,9 @@ import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
 import { MundoJuridico } from '../mundos/juridico/mundo-juridico.js';
+import { MundoLaboratorio } from '../mundos/laboratorio/mundo-laboratorio.js';
+import { FinalCinematica } from '../escenas/final-cinematica.js';
+import { SistemaClima } from '../clima/clima.js';
 
 export class Juego {
 
@@ -96,8 +99,17 @@ export class Juego {
     this.companeros = [];
     this.progreso = {
       nodosCompletados: [],
-      nodosDesbloqueados: [0]
+      nodosDesbloqueados: [0],
+      combatesPacificados: 0,
+      combatesViolentos: 0,
+      accionesEcologicas: 0
     };
+
+    // --- Sistema de clima ---
+    // Controla los efectos climáticos (lluvia, tormenta, etc.)
+    // Solo se activa en mundos exteriores
+    this.clima = new SistemaClima();
+    this._climaActivo = false;
 
     // --- Inventario ---
     // El inventario vive en el juego (no en el jugador) porque es una
@@ -148,7 +160,9 @@ export class Juego {
       { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
       { nombre: 'Zona Colonial',        escena: 'zonaColonial' },
       { nombre: 'Naufragio La Pinta (Acuático)', escena: 'mundoAcuatico' },
-      { nombre: 'Aeropuerto Las Américas (Jurídico)', escena: 'mundoJuridico' }
+      { nombre: 'Aeropuerto Las Américas (Jurídico)', escena: 'mundoJuridico' },
+      { nombre: 'Museo Atarazanas Reales (Laboratorio)', escena: 'mundoLaboratorio' },
+      { nombre: 'Final Cinemática', escena: 'finalCinematica' }
     ];
   }
 
@@ -287,6 +301,14 @@ export class Juego {
     // Mundo Jurídico — Aeropuerto Las Américas (tráfico de artefactos)
     const mundoJuridico = new MundoJuridico();
     this.registrarEscena('mundoJuridico', mundoJuridico);
+
+    // Mundo Laboratorio — Museo de las Atarazanas Reales (autenticación)
+    const mundoLaboratorio = new MundoLaboratorio();
+    this.registrarEscena('mundoLaboratorio', mundoLaboratorio);
+
+    // Cinemática final — secuencia de créditos con final múltiple
+    const finalCinematica = new FinalCinematica();
+    this.registrarEscena('finalCinematica', finalCinematica);
   }
 
   // --- BUCLE PRINCIPAL ---
@@ -433,6 +455,11 @@ export class Juego {
       this.escenaActual.actualizar(dt, this.entrada, this.jugador, this.companeros);
     }
 
+    // --- Actualizar clima si está activo ---
+    if (this._climaActivo) {
+      this.clima.actualizar(dt);
+    }
+
     // --- Actualizar toasts (siempre, incluso durante combate/inventario) ---
     this._actualizarToasts(dt);
   }
@@ -458,6 +485,11 @@ export class Juego {
         this.jugador,
         this.companeros
       );
+    }
+
+    // --- Clima se dibuja ENCIMA de la escena pero debajo de overlays ---
+    if (this._climaActivo) {
+      this.clima.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO);
     }
 
     // --- Combate se dibuja ENCIMA de la escena (overlay) ---
@@ -519,9 +551,26 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    const escenasJugables = ['mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico', 'mundoJuridico'];
+    const escenasJugables = ['mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico', 'mundoJuridico', 'mundoLaboratorio'];
     if (escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
+    }
+
+    // --- Configurar clima según la escena ---
+    // Solo se activa en mundos exteriores (no cuevas, submarino ni interiores)
+    const climaPorEscena = {
+      mapaPrincipal: 'soleado',
+      asentamientoTaino1: 'soleado',
+      asentamientoTaino2: 'soleado',
+      mundoColonial: 'nublado',
+      zonaColonial: 'soleado'
+    };
+
+    if (climaPorEscena[nombreEscena]) {
+      this._climaActivo = true;
+      this.clima.cambiarClima(climaPorEscena[nombreEscena]);
+    } else {
+      this._climaActivo = false;
     }
 
     // Preparar la nueva escena.
@@ -580,6 +629,9 @@ export class Juego {
     if (datos.progreso) {
       this.progreso.nodosCompletados = datos.progreso.nodosCompletados || [];
       this.progreso.nodosDesbloqueados = datos.progreso.nodosDesbloqueados || [0];
+      this.progreso.combatesPacificados = datos.progreso.combatesPacificados || 0;
+      this.progreso.combatesViolentos = datos.progreso.combatesViolentos || 0;
+      this.progreso.accionesEcologicas = datos.progreso.accionesEcologicas || 0;
     }
 
     // --- Restaurar idioma ---

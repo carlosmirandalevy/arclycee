@@ -543,7 +543,7 @@
          ============================================================ -->
     <section id="flujo">
       <h2><span class="icono">🗺️</span> Game Flow</h2>
-      <p class="intro">Progression through the worlds, Super Mario World style.</p>
+      <p class="intro">Free-roam map with 8 location nodes. The player moves a sprite between nodes on an overhead map.</p>
 
       <div class="flujo">
         <div class="flujo-nodo">
@@ -589,24 +589,24 @@
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #4488cc;">🌊</div>
           <div class="flujo-texto">
-            <strong>Aquatic World</strong> <span class="tag" style="background:#1a2a3a;color:#4488cc;">COMING SOON</span><br>
-            <span>A fisherman offers his canoe. You explore the shipwreck of La Pinta and other historical underwater sites.</span>
+            <strong>Pinta Shipwreck</strong><br>
+            <span>Underwater exploration. Combat with lionfish using ecological options. Jellyfish hazards.</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #cc8844;">⚖️</div>
           <div class="flujo-texto">
-            <strong>Legal World</strong> <span class="tag" style="background:#2a2a1a;color:#cc8844;">COMING SOON</span><br>
-            <span>A fake archaeologist sells counterfeit pieces. Theft, airport chase, and heritage laws.</span>
+            <strong>Airport (Legal World)</strong><br>
+            <span>Las Am&eacute;ricas Airport interior. Combat with trafficker Rodrigo Torres using 4 legal options.</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #44ccaa;">🔬</div>
           <div class="flujo-texto">
-            <strong>Laboratory / Museum</strong> <span class="tag" style="background:#1a2a2a;color:#44ccaa;">COMING SOON</span><br>
-            <span>Artifact authentication with real science. Final museum exhibition. Multiple endings.</span>
+            <strong>Atarazanas Museum</strong><br>
+            <span>Museo de las Atarazanas Reales. Artifact authentication through dialogue. Multiple endings.</span>
           </div>
         </div>
       </div>
@@ -922,9 +922,9 @@
       <!-- Aquatic World -->
       <div class="mundo-card" style="border-left: 3px solid var(--azul);">
         <div class="mundo-header">
-          <div class="mundo-titulo">🌊 Aquatic World</div>
+          <div class="mundo-titulo">🌊 Aquatic World — Pinta Shipwreck</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#1a2a3a;color:#4488cc;">COMING SOON</span>
+            <span class="tag plataforma">Top-down</span>
           </div>
         </div>
         <p class="mundo-desc">
@@ -1037,90 +1037,189 @@
       <!-- Legal World -->
       <div class="mundo-card" style="border-left: 3px solid #cc8844;">
         <div class="mundo-header">
-          <div class="mundo-titulo">⚖️ Legal World</div>
+          <div class="mundo-titulo">⚖️ Legal World — Las Am&eacute;ricas Airport</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#2a2a1a;color:#cc8844;">COMING SOON</span>
+            <span class="tag plataforma">Top-down</span>
           </div>
         </div>
         <p class="mundo-desc">
-          At the end of his journey, Pepito has learned about all the pieces deposited in museums.
-          He encounters a fake archaeologist who wants to sell him counterfeit pieces. They negotiate the price.
-          Later, the pieces are stolen from his hotel. The thief tries to take the pieces out of the country,
-          but is stopped at the airport. With the police report, the pieces are returned to Pepito,
-          who decides to donate them to a museum.
+          Set inside Las Am&eacute;ricas International Airport in Santo Domingo. Pepito must stop
+          an antiquities trafficker, Rodrigo Torres, from smuggling stolen artifacts out of the
+          country. The world teaches Dominican heritage protection law (Ley 318-68), international
+          conventions, and forensic techniques used to fight illegal trafficking.
         </p>
 
-        <h4>Planned levels</h4>
-        <ul>
-          <li><strong>Black market</strong> — encounter with the fake archaeologist and negotiation</li>
-          <li><strong>Hotel / Theft</strong> — investigation of the stolen pieces</li>
-          <li><strong>Airport</strong> — chase and capture of the trafficker</li>
-          <li><strong>Police station / Court</strong> — legal proceedings and heritage protection</li>
-        </ul>
+        <h4>Setting</h4>
+        <p>Interior of the airport terminal: check-in counters, security checkpoint, departure gates,
+        and customs inspection area. Normal walking speed (no underwater slowdown). The player
+        navigates through the terminal, talks to NPCs to gather evidence, and confronts the
+        trafficker in a legal combat encounter.</p>
 
-        <h4>Planned characters</h4>
+        <h4>Characters (5 NPCs)</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🕵️</div>
+          <div class="npc-info">
+            <h5>Inspector Garc&iacute;a</h5>
+            <div class="npc-role">Airport security — Investigation</div>
+            <p>Customs inspector who has noticed suspicious luggage. Provides initial clues about the trafficker and explains airport security protocols for cultural goods.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🌐</div>
+          <div class="npc-info">
+            <h5>INTERPOL Agent</h5>
+            <div class="npc-role">International cooperation</div>
+            <p>Stationed at the airport for an ongoing investigation into cross-border antiquities smuggling. Teaches about international police cooperation and INTERPOL's role in heritage crime.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">⚖️</div>
+          <div class="npc-info">
+            <h5>Lcda. Carmen Vidal</h5>
+            <div class="npc-role">Mentor — Heritage law (5 rotating dialogues)</div>
+            <p>Lawyer specializing in cultural heritage. As the world's mentor, she offers 5 rotating dialogue topics: Ley 318-68 (Dominican heritage law), international treaties, forensic authentication methods, famous trafficking cases, and legal procedures for artifact recovery. Marked as <code>esMentor: true</code>.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">😰</div>
+          <div class="npc-info">
+            <h5>Nervous Passenger</h5>
+            <div class="npc-role">Witness — Suspicious behavior</div>
+            <p>A tourist who witnessed Rodrigo Torres hiding artifacts in his luggage. Provides testimony that helps build the case against the trafficker.</p>
+          </div>
+        </div>
         <div class="npc-card">
           <div class="npc-avatar">🎭</div>
           <div class="npc-info">
-            <h5>Fake archaeologist</h5>
-            <div class="npc-role">Antagonist — Counterfeit relic dealer</div>
-            <p>Tries to sell forged pieces. Teaches about the real problem of antiquities trafficking.</p>
-          </div>
-        </div>
-        <div class="npc-card">
-          <div class="npc-avatar">👮</div>
-          <div class="npc-info">
-            <h5>Heritage police</h5>
-            <div class="npc-role">Ally of the law</div>
-            <p>Explains Dominican cultural heritage protection laws.</p>
+            <h5>Rodrigo Torres</h5>
+            <div class="npc-role">Antagonist — Antiquities trafficker (Combat)</div>
+            <p>Professional antiquities smuggler attempting to take stolen Dominican artifacts out of the country. Combat encounter with 4 legal options. His sprite uses the <code>tipoSprite: 'traficante'</code> with the <code>_dibujarTraficante()</code> renderer.</p>
           </div>
         </div>
 
-        <h4>Educational topics</h4>
+        <h4>Combat: Trafficker Rodrigo Torres</h4>
+        <p>The combat uses <strong>legal argumentation options</strong> instead of generic actions. The
+        convincing meter is labeled <strong>"Evidence:"</strong> instead of "Convinced:" because the player
+        is building a legal case, not persuading a person. Each action triggers a counter-response
+        from the trafficker:</p>
+        <div class="combat-flow">
+          <div class="combat-option">
+            <h5>📜 Law 318</h5>
+            <p>You invoke Ley 318-68 on Dominican cultural heritage protection.</p>
+            <div class="efecto">+12-18 Evidence, -8-14 Hostility</div>
+            <div class="contra">Counter: Torres claims the pieces are modern reproductions, not protected artifacts.</div>
+          </div>
+          <div class="combat-option">
+            <h5>🔬 Forensic Evidence</h5>
+            <p>You present forensic analysis proving the artifacts are authentic pre-Columbian pieces.</p>
+            <div class="efecto">+15-22 Evidence, -10-16 Hostility</div>
+            <div class="contra">Counter: Torres questions the chain of custody and lab certifications.</div>
+          </div>
+          <div class="combat-option">
+            <h5>🌐 INTERPOL</h5>
+            <p>You coordinate with the INTERPOL agent to flag Torres in the international database.</p>
+            <div class="efecto">+18-25 Evidence, -12-18 Hostility</div>
+            <div class="contra">Counter: Torres threatens to use diplomatic contacts to escape jurisdiction.</div>
+          </div>
+          <div class="combat-option">
+            <h5>🏛️ UNESCO 1970</h5>
+            <p>You cite the 1970 UNESCO Convention on illicit import/export of cultural property.</p>
+            <div class="efecto">+20-28 Evidence, -15-22 Hostility</div>
+            <div class="contra">Counter: Torres argues the convention has no enforcement mechanism.</div>
+          </div>
+        </div>
+        <p>
+          <strong>Peaceful resolution:</strong> The accumulated evidence is overwhelming. Torres is detained
+          by airport security and INTERPOL. The artifacts are returned to the national museum. Lcda. Vidal
+          explains how Dominican law protects cultural heritage for future generations.
+        </p>
+
+        <h4>Educational Topics</h4>
         <ul>
-          <li>Cultural heritage protection laws</li>
-          <li>Illegal antiquities trafficking</li>
-          <li>How to identify counterfeit pieces</li>
-          <li>The role of Customs and specialized police</li>
+          <li>Ley 318-68: Dominican cultural heritage protection law</li>
+          <li>UNESCO 1970 Convention on illicit trafficking of cultural property</li>
+          <li>INTERPOL's role in combating heritage crime</li>
+          <li>Forensic techniques for authenticating archaeological artifacts</li>
+          <li>Airport customs procedures for cultural goods</li>
         </ul>
       </div>
 
       <!-- Laboratory / Museum -->
       <div class="mundo-card" style="border-left: 3px solid #44ccaa;">
         <div class="mundo-header">
-          <div class="mundo-titulo">🔬 Laboratory / Museum</div>
+          <div class="mundo-titulo">🔬 Laboratory World — Museo de las Atarazanas Reales</div>
           <div class="mundo-meta">
-            <span class="tag" style="background:#1a2a2a;color:#44ccaa;">COMING SOON</span>
+            <span class="tag plataforma">Top-down</span>
           </div>
         </div>
         <p class="mundo-desc">
-          The final world where Pepito takes the recovered pieces to a laboratory for authentication.
-          Are they originals or copies? Using real scientific tools (carbon-14, material analysis,
-          record comparison), the player learns how professionals verify
-          the authenticity of archaeological artifacts. Authenticated pieces are displayed in the museum.
+          The Royal Shipyards Museum (Museo de las Atarazanas Reales) in the Zona Colonial of
+          Santo Domingo — a 16th-century colonial warehouse converted into the country's premier
+          maritime and archaeological museum. The final world where Pepito brings the recovered
+          artifacts for professional authentication. No combat here: authenticity is established
+          through dialogue with experts and scientific reasoning.
         </p>
 
-        <h4>Planned levels</h4>
-        <ul>
-          <li><strong>Authentication laboratory</strong> — scientific tests with real tools</li>
-          <li><strong>Final museum</strong> — exhibition of all pieces collected during the adventure</li>
-        </ul>
+        <h4>Setting</h4>
+        <p>Museum interior with exhibition halls, a conservation laboratory, and archive rooms.
+        The player walks through the galleries, examining artifacts and consulting with museum
+        staff to authenticate the pieces collected throughout the adventure.</p>
 
-        <h4>Planned mechanics</h4>
-        <ul>
-          <li>Scientific analysis mini-games (carbon-14, microscope, X-rays)</li>
-          <li>Artifact comparison with reference databases</li>
-          <li>Cataloguing and displaying artifacts</li>
-          <li>Multiple endings based on decisions made throughout the game</li>
-        </ul>
-
-        <h4>Possible endings</h4>
-        <div class="grid-2">
-          <div class="item-card"><h5>🏆 Complete ending</h5><p>All sites discovered, all relics saved.</p></div>
-          <div class="item-card"><h5>🏛️ Museum ending</h5><p>All authentic pieces displayed in the museum.</p></div>
-          <div class="item-card"><h5>💀 Dark ending</h5><p>You succumb to temptation and sell everything to an unscrupulous company.</p></div>
-          <div class="item-card"><h5>🌍 Ecological ending</h5><p>You protect the sites and stop the contamination.</p></div>
+        <h4>Characters (5 NPCs)</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🏛️</div>
+          <div class="npc-info">
+            <h5>Dr. Fernando Morb&aacute;n</h5>
+            <div class="npc-role">Museum curator</div>
+            <p>Director of the Atarazanas Reales. Guides Pepito through the museum's collection and explains the importance of provenance documentation for every artifact.</p>
+          </div>
         </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🔬</div>
+          <div class="npc-info">
+            <h5>Dr. L&oacute;pez</h5>
+            <div class="npc-role">Carbon-14 scientist</div>
+            <p>Radiocarbon dating specialist. Explains how C-14 decay is used to date organic materials and demonstrates the technique on the player's artifacts.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎨</div>
+          <div class="npc-info">
+            <h5>Restorer Ana</h5>
+            <div class="npc-role">Artifact conservation</div>
+            <p>Restoration specialist who examines surface wear, pigments, and materials. Teaches about conservation ethics — preserving the original, not improving it.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">📚</div>
+          <div class="npc-info">
+            <h5>Roberto Cass&aacute;</h5>
+            <div class="npc-role">Mentor — Final appearance (rotating dialogues)</div>
+            <p>The recurring historian mentor makes his final appearance. Discusses the significance of each authenticated artifact in Dominican history. Marked as <code>esMentor: true</code>.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🤨</div>
+          <div class="npc-info">
+            <h5>Suspicious Visitor</h5>
+            <div class="npc-role">Mystery — Authentication challenge</div>
+            <p>A visitor who claims to own artifacts similar to Pepito's collection. Through dialogue, the player must determine whether the visitor's pieces are authentic or forgeries, applying everything learned throughout the game.</p>
+          </div>
+        </div>
+
+        <h4>Collectibles</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>📄 Certificate of Authenticity</h5><p>Official document issued after scientific verification of each artifact. Proves provenance and legal ownership.</p></div>
+          <div class="item-card"><h5>📖 Museum Catalog</h5><p>Complete catalog of the Atarazanas Reales collection, including the player's authenticated artifacts with their historical context.</p></div>
+        </div>
+
+        <h4>Authentication Mechanics</h4>
+        <ul>
+          <li>No combat encounters — authenticity is established through expert dialogue</li>
+          <li>Players apply knowledge gained throughout the game to answer questions</li>
+          <li>Scientific reasoning: C-14 dating, material analysis, provenance verification</li>
+          <li>Final exhibition of all authenticated pieces from the adventure</li>
+        </ul>
       </div>
     </section>
 
@@ -1191,7 +1290,7 @@
         Each enemy has two emotional meters:
       </p>
       <ul>
-        <li><strong style="color: var(--verde);">Convincing (0-100)</strong>: rises when talking or negotiating. When it reaches 100, the enemy is convinced and the conflict resolves peacefully. The label changes per enemy: "Convinced" for people, "Controlled" for the lionfish.</li>
+        <li><strong style="color: var(--verde);">Convincing (0-100)</strong>: rises when talking or negotiating. When it reaches 100, the enemy is convinced and the conflict resolves peacefully. The label changes per enemy: "Convinced" for people, "Controlled" for the lionfish, "Evidence" for the trafficker.</li>
         <li><strong style="color: var(--rojo);">Hostility (0-100)</strong>: drops with diplomacy. When below 30, the enemy may talk instead of attacking.</li>
       </ul>
 
@@ -1281,13 +1380,72 @@
         tournaments are a real strategy used in the Dominican Caribbean.
       </p>
 
+      <h3>Legal Combat: Trafficker Rodrigo Torres</h3>
+      <p>
+        In the Legal World (Airport), the combat against antiquities trafficker Rodrigo Torres uses
+        <strong>legal argumentation options</strong>. The convincing meter is labeled
+        <strong>"Evidence:"</strong> instead of "Convinced:" because the player is building a legal
+        case rather than persuading a person. Each action triggers a legal counter-argument from Torres:
+      </p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>📜 Law 318</h5>
+          <p>Invoke Ley 318-68, the Dominican cultural heritage protection law.</p>
+          <div class="efecto">+12-18 Evidence, -8-14 Hostility</div>
+          <div class="contra">Counter: Torres claims the pieces are modern reproductions.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🔬 Forensic Evidence</h5>
+          <p>Present lab results proving the artifacts are authentic pre-Columbian pieces.</p>
+          <div class="efecto">+15-22 Evidence, -10-16 Hostility</div>
+          <div class="contra">Counter: Torres questions the chain of custody.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🌐 INTERPOL</h5>
+          <p>Coordinate with the INTERPOL agent to flag Torres internationally.</p>
+          <div class="efecto">+18-25 Evidence, -12-18 Hostility</div>
+          <div class="contra">Counter: Torres threatens to use diplomatic contacts.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🏛️ UNESCO 1970</h5>
+          <p>Cite the 1970 UNESCO Convention on illicit cultural property trafficking.</p>
+          <div class="efecto">+20-28 Evidence, -15-22 Hostility</div>
+          <div class="contra">Counter: Torres argues the convention has no enforcement.</div>
+        </div>
+      </div>
+      <p>
+        <strong>Peaceful resolution:</strong> The evidence is overwhelming. Torres is detained by
+        airport security and INTERPOL. The artifacts are returned to the national museum.
+      </p>
+
       <h3>Enemy Sprites</h3>
       <p>Each enemy has its own detailed sprite on the combat screen:</p>
       <ul>
         <li><strong>Soldier Diego</strong>: dark red uniform with conquistador helmet (morion)</li>
-        <li><strong>Constructor Méndez</strong>: yellow shirt with construction hard hat</li>
+        <li><strong>Constructor M&eacute;ndez</strong>: yellow shirt with construction hard hat</li>
         <li><strong>Lionfish</strong>: body with red/white stripes, fan-shaped pectoral fins, venomous dorsal spines with glowing tips, V-shaped tail, dark band across the eye</li>
+        <li><strong>Trafficker Rodrigo Torres</strong>: dark suit, sunglasses, briefcase — drawn with <code>_dibujarTraficante()</code></li>
       </ul>
+
+      <h3>Combat Sound Effects</h3>
+      <p>
+        The combat system features <strong>22 procedural sound effects</strong> generated entirely
+        with the Web Audio API — no audio files are loaded. Each sound is synthesized in real time
+        using oscillators, gain envelopes, and filters:
+      </p>
+      <ul>
+        <li><strong>Attack sounds</strong>: slash, impact hit, critical strike with harmonic overtones</li>
+        <li><strong>Defense sounds</strong>: shield block, dodge whoosh, parry clang</li>
+        <li><strong>Dialogue sounds</strong>: talk attempt, negotiate proposal, persuasion success/failure</li>
+        <li><strong>Status sounds</strong>: hostility rise/drop, convincing meter increase, victory fanfare</li>
+        <li><strong>Enemy sounds</strong>: enemy attack, enemy counter-response, enemy defeated</li>
+        <li><strong>UI sounds</strong>: menu select, option hover, combat start, combat end, flee attempt</li>
+      </ul>
+      <p>
+        All 22 effects use frequency sweeps, noise bursts, and amplitude envelopes to create
+        distinct audio feedback for every combat interaction. The procedural approach means zero
+        loading time and under 2 KB of code for the entire sound system.
+      </p>
     </section>
 
     <!-- ============================================================
@@ -1324,15 +1482,17 @@
       <p>Semi-transparent overlay with colored zones: green (protected), yellow (at risk),
       red (threatened). Dotted borders to distinguish heritage risk levels.</p>
 
-      <h3>Dynamic Weather</h3>
+      <h3>Dynamic Weather System</h3>
+      <p>6 weather types with particle effects, active <strong>only in outdoor scenes</strong> (settlements,
+      La Isabela, free-roam map). Indoor worlds (caves, airport, museum) are unaffected.</p>
       <table>
-        <tr><th>Weather</th><th>Probability</th><th>Effect</th></tr>
-        <tr><td>Sunny</td><td>45%</td><td>Normal</td></tr>
-        <tr><td>Cloudy</td><td>25%</td><td>Visual only</td></tr>
-        <tr><td>Rain</td><td>20%</td><td>-15% speed</td></tr>
-        <tr><td>Storm</td><td>7%</td><td>-25% speed</td></tr>
-        <tr><td>Hurricane</td><td>2%</td><td>-35% speed, wind push, debris</td></tr>
-        <tr><td>Earthquake</td><td>1%</td><td>Random stumbles, screen shake</td></tr>
+        <tr><th>Weather</th><th>Probability</th><th>Effect</th><th>Particles</th></tr>
+        <tr><td>Sunny</td><td>45%</td><td>Normal</td><td>Light rays</td></tr>
+        <tr><td>Cloudy</td><td>25%</td><td>Visual only</td><td>Cloud shadows</td></tr>
+        <tr><td>Rain</td><td>20%</td><td>-15% speed</td><td>Falling raindrops, splash on ground</td></tr>
+        <tr><td>Storm</td><td>7%</td><td>-25% speed</td><td>Heavy rain, lightning flashes</td></tr>
+        <tr><td>Hurricane</td><td>2%</td><td>-35% speed, wind push, debris</td><td>Diagonal rain, flying debris particles</td></tr>
+        <tr><td>Earthquake</td><td>1%</td><td>Random stumbles, screen shake</td><td>Dust clouds, falling rock particles</td></tr>
       </table>
 
       <h3>Easter Eggs</h3>
@@ -1347,6 +1507,48 @@
         <div class="item-card"><h5>🤾 Smart Ball</h5><p>Tom — activates switches from a distance</p></div>
         <div class="item-card"><h5>🍔 Legendary Burger</h5><p>Nael — full HP restoration</p></div>
       </div>
+
+      <h3>Four Endings</h3>
+      <p>The game has 4 possible endings determined by the player's actions throughout the adventure:</p>
+      <div class="grid-2">
+        <div class="item-card" style="border-left: 3px solid var(--dorado);">
+          <h5>🏆 Complete Ending</h5>
+          <p>All 8 nodes completed AND all enemies pacified (100% convincing on every combat).
+          The ultimate achievement — Pepito becomes a recognized heritage protector.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--azul);">
+          <h5>🏛️ Museum Ending (Default)</h5>
+          <p>The standard ending when the player completes the game without meeting special conditions.
+          Artifacts are displayed in the Atarazanas Reales museum.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--verde);">
+          <h5>🌿 Ecological Ending</h5>
+          <p>Triggered when the player performs 3 or more ecological actions and uses no violence
+          throughout the game. Pepito becomes an environmental advocate for Caribbean heritage.</p>
+        </div>
+        <div class="item-card" style="border-left: 3px solid var(--rojo);">
+          <h5>💀 Dark Ending</h5>
+          <p>Triggered when the player uses more violent actions than pacifist ones. The artifacts
+          are recovered but the relationships with communities are damaged.</p>
+        </div>
+      </div>
+
+      <h3>Free-Roam World Map</h3>
+      <p>The world map is a free-roam overhead view where the player moves a sprite between
+      <strong>8 location nodes</strong>. Nodes unlock progressively as the story advances.
+      Completed nodes show a checkmark; locked nodes appear grayed out. The map auto-saves
+      the player's progress every time they return to it.</p>
+      <p>The 8 nodes in order:</p>
+      <ol>
+        <li><strong>Pomier Caves</strong> — 2D platformer, Taíno rock art</li>
+        <li><strong>Settlement I</strong> — Taíno village, Viralata companion</li>
+        <li><strong>Settlement II</strong> — Agriculture and ceremonies, Cem&iacute; Murci&eacute;lago</li>
+        <li><strong>La Isabela</strong> — First colonial city, Soldado Diego combat</li>
+        <li><strong>Colonial Zone</strong> — UNESCO site, Constructor M&eacute;ndez combat</li>
+        <li><strong>Pinta Shipwreck</strong> — Underwater exploration, lionfish combat</li>
+        <li><strong>Airport</strong> — Legal World, trafficker combat</li>
+        <li><strong>Atarazanas Museum</strong> — Final authentication, multiple endings</li>
+      </ol>
     </section>
 
     <!-- ============================================================

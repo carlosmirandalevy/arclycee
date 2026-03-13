@@ -628,6 +628,45 @@ export class Inventario {
       ctx.quadraticCurveTo(x + 19, y + 16, x + 22, y + 18);
       ctx.stroke();
 
+    } else if (id === 'certificadoAutenticidad') {
+      // Certificado de autenticidad — documento con sello dorado
+      ctx.fillStyle = '#D2B48C';
+      ctx.fillRect(x + 4, y + 4, 24, 24);
+      // Líneas de texto
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(x + 7, y + 9, 18, 1);
+      ctx.fillRect(x + 7, y + 13, 14, 1);
+      ctx.fillRect(x + 7, y + 17, 18, 1);
+      // Sello dorado oficial
+      ctx.fillStyle = '#DAA520';
+      ctx.beginPath();
+      ctx.arc(x + 22, y + 22, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.arc(x + 22, y + 22, 3, 0, Math.PI * 2);
+      ctx.fill();
+      // Estrella en el sello
+      ctx.fillStyle = '#B8860B';
+      ctx.fillRect(x + 21, y + 20, 2, 4);
+      ctx.fillRect(x + 20, y + 21, 4, 2);
+
+    } else if (id === 'catalogoMuseo') {
+      // Catálogo del museo — libro con portada marrón
+      ctx.fillStyle = '#6B4226';
+      ctx.fillRect(x + 6, y + 4, 20, 24);
+      // Lomo del libro
+      ctx.fillStyle = '#4a2a10';
+      ctx.fillRect(x + 6, y + 4, 4, 24);
+      // Páginas (blancas visibles)
+      ctx.fillStyle = '#F5F5DC';
+      ctx.fillRect(x + 10, y + 6, 14, 20);
+      // Título en la portada
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(x + 12, y + 10, 10, 1);
+      ctx.fillRect(x + 12, y + 14, 8, 1);
+      ctx.fillRect(x + 12, y + 18, 10, 1);
+
     } else {
       // Genérico: cuadrado con color del objeto
       ctx.fillStyle = objeto.color || '#66aaff';

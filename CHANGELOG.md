@@ -1,5 +1,49 @@
 # Changelog
 
+## v0.12.0 — Mundo Laboratorio + Finales + Clima (2026-03-13)
+
+### Agregado
+
+**Mundo Laboratorio — Museo de las Atarazanas Reales** (`js/mundos/laboratorio/mundo-laboratorio.js`)
+- Acto 5: autenticación de artefactos recuperados en el museo
+- Nivel top-down 1800x1200, interior de museo con piso de mármol
+- 8 estructuras: Sala de Exhibición, Laboratorio C-14, Taller de Restauración, 3 Vitrinas, Mostrador de Recepción, Almacén de Piezas
+- 5 NPCs educativos:
+  - Dr. Fernando Morbán: director del museo, explica el proceso de autenticación
+  - Dra. López: científica, enseña datación por Carbono-14
+  - Restauradora Ana: principios de restauración reversible
+  - Roberto Cassá: mentor recurrente con 5 diálogos rotativos sobre museos
+  - Visitante Sospechoso: intenta vender falsificaciones, aprende sobre autenticación
+- 2 objetos coleccionables: Certificado de Autenticidad, Catálogo del Museo
+- Sin combate — la enseñanza es por diálogos
+- Nodo 7 en el mapa del mundo (conectado desde Aeropuerto)
+
+**Múltiples Finales** (`js/escenas/final-cinematica.js`)
+- 4 finales determinados por las decisiones del jugador:
+  - Completo: todos los nodos + combates pacificados → mensaje triunfante
+  - Museo: final por defecto → exhibición museística
+  - Ecológico: acciones ecológicas ≥ 3, sin violencia → conservación marina
+  - Oscuro: más combates violentos que pacificados → reflexión
+- 5 pantallas de texto por final con fondos temáticos y sonidos procedurales
+- Sistema de tracking: `combatesPacificados`, `combatesViolentos`, `accionesEcologicas` en progreso
+
+**Sistema de Clima** (`js/clima/clima.js` activado)
+- El sistema de clima (391 líneas) ahora se instancia y activa en mundos exteriores
+- Configuración por escena: asentamientos = soleado, mundo colonial = nublado
+- Desactivado en interiores (cuevas, submarino, aeropuerto, museo)
+- 6 tipos: soleado, nublado, lluvia, tormenta, huracán, terremoto
+- Transiciones suaves con lerp, partículas visuales, efectos en jugador
+
+### Modificado
+- `juego.js`: importa y registra MundoLaboratorio, FinalCinematica, SistemaClima
+- `mapa-principal.js`: nodo 7 (Museo Atarazanas) con ícono 🏛
+- `guardado.js`: serializa los 3 nuevos campos de progreso
+- `inventario.js`: íconos para certificadoAutenticidad y catalogoMuseo
+- `la-isabela.js`, `zona-colonial.js`, `mundo-acuatico.js`, `mundo-juridico.js`: tracking de combate para finales
+- `es.js`, `en.js`, `fr.js`: ~100 líneas de diálogos + finales + objetos por idioma
+
+---
+
 ## v0.11.1 — Corrección combate + Inspector accesible (2026-03-12)
 
 ### Corregido
