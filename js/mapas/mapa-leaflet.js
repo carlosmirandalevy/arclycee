@@ -51,7 +51,8 @@ export class MapaLeaflet {
     this.capas = {
       taino: null,
       colonial: null,
-      naufragios: null
+      naufragios: null,
+      museos: null
     };
 
     // Callback para cuando el jugador viaja a un nodo
@@ -85,6 +86,7 @@ export class MapaLeaflet {
     this.capas.taino = L.layerGroup().addTo(this.mapa);
     this.capas.colonial = L.layerGroup().addTo(this.mapa);
     this.capas.naufragios = L.layerGroup().addTo(this.mapa);
+    this.capas.museos = L.layerGroup().addTo(this.mapa);
 
     // --- Agregar marcadores del juego ---
     const progreso = juego?.progreso || { nodosCompletados: [], nodosDesbloqueados: [0] };
@@ -98,12 +100,14 @@ export class MapaLeaflet {
     this._agregarSitiosTainos();
     this._agregarSitiosColoniales();
     this._agregarNaufragios();
+    this._agregarMuseos();
 
     // --- Control para alternar capas de sitios ---
     const capasSitios = {
       '🗿 Sitios Taínos': this.capas.taino,
       '🏰 Sitios Coloniales': this.capas.colonial,
-      '⚓ Naufragios': this.capas.naufragios
+      '⚓ Naufragios': this.capas.naufragios,
+      '🏛 Museos': this.capas.museos
     };
     L.control.layers(null, capasSitios, {
       position: 'bottomright',
@@ -187,7 +191,6 @@ export class MapaLeaflet {
       { lat: 19.5430, lng: -71.5530, nombre: 'Petroglifos de Chacuey', desc: 'Centenares de petroglifos a orillas del río Chacuey en Dajabón, cerca de la frontera.' },
       { lat: 18.4320, lng: -69.7380, nombre: 'Parque Submarino La Caleta', desc: 'Cementerio precolombino y museo, parque submarino con esculturas de dioses taínos.' },
       { lat: 18.4480, lng: -69.6050, nombre: 'Plaza Ceremonial de Juan Dolio', desc: 'Sitio arqueológico taíno costero con restos de plaza ceremonial y batey.' },
-      { lat: 18.4723, lng: -69.9080, nombre: 'Museo del Hombre Dominicano', desc: 'Principal museo arqueológico del país con extensa colección de cemíes y artefactos taínos.' },
       // --- Haití ---
       { lat: 19.6914, lng: -72.0250, nombre: 'En Bas Saline', desc: 'Uno de los mayores asentamientos taínos (95,000 m²), posible pueblo del cacique Guacanagarí.' },
       { lat: 19.6660, lng: -71.8390, nombre: 'Fort-Liberté (Bayajá)', desc: '164 vestigios de asentamientos taínos documentados y ruinas coloniales en la bahía.' },
@@ -200,9 +203,9 @@ export class MapaLeaflet {
       const marcador = L.marker([s.lat, s.lng], {
         icon: L.divIcon({
           className: 'marcador-sitio',
-          html: '<span style="font-size: 16px;">🗿</span>',
-          iconSize: [20, 20],
-          iconAnchor: [10, 10]
+          html: '<span style="font-size: 28px;">🗿</span>',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
         })
       });
       marcador.bindPopup(`<strong>🗿 ${s.nombre}</strong><br><small>${s.desc}</small>`);
@@ -218,14 +221,10 @@ export class MapaLeaflet {
       { lat: 18.4735, lng: -69.8838, nombre: 'Zona Colonial de Santo Domingo', desc: 'Primera ciudad colonial permanente del Nuevo Mundo. Patrimonio UNESCO desde 1990.' },
       { lat: 19.8193, lng: -71.0832, nombre: 'La Isabela', desc: 'Primer asentamiento europeo planificado en América, fundado por Colón en 1493.' },
       { lat: 18.4738, lng: -69.8817, nombre: 'Alcázar de Colón', desc: 'Palacio virreinal de Diego Colón (1510), hoy museo con mobiliario y arte colonial.' },
-      { lat: 18.4748, lng: -69.8815, nombre: 'Museo de las Atarazanas Reales', desc: 'Antiguo almacén portuario (s. XVI) con más de 1,200 piezas rescatadas de naufragios.' },
       { lat: 18.4725, lng: -69.8820, nombre: 'Ruinas del Monasterio de San Francisco', desc: 'Primer monasterio construido en América (1508), destruido por terremotos.' },
-      { lat: 18.4860, lng: -69.8790, nombre: 'Fortaleza Ozama', desc: 'Fortaleza militar más antigua de América (1502-1508).' },
       { lat: 19.2350, lng: -70.4950, nombre: 'La Vega Vieja', desc: 'Ruinas de la primera ciudad minera de oro en América, destruida por terremoto en 1562.' },
       { lat: 19.7960, lng: -70.6960, nombre: 'Fortaleza San Felipe', desc: 'Fortaleza del siglo XVI en Puerto Plata para defender la costa norte de corsarios.' },
       // --- Haití ---
-      { lat: 19.5708, lng: -72.2397, nombre: 'Citadelle Laferrière', desc: 'La fortaleza más grande del Caribe (1805-1820). Patrimonio UNESCO.' },
-      { lat: 19.6047, lng: -72.2186, nombre: 'Palacio Sans-Souci', desc: 'Palacio del rey Henri Christophe en Milot, rival de Versalles. Patrimonio UNESCO.' },
       { lat: 19.7577, lng: -72.2000, nombre: 'Cap-Haïtien (Centro Histórico)', desc: 'Antigua capital de Saint-Domingue, "París de las Antillas", con arquitectura colonial francesa.' },
       { lat: 18.2341, lng: -72.5350, nombre: 'Jacmel (Centro Histórico)', desc: 'Ciudad colonial con arquitectura de hierro forjado del siglo XIX, patrimonio cultural haitiano.' }
     ];
@@ -234,9 +233,9 @@ export class MapaLeaflet {
       const marcador = L.marker([s.lat, s.lng], {
         icon: L.divIcon({
           className: 'marcador-sitio',
-          html: '<span style="font-size: 16px;">🏰</span>',
-          iconSize: [20, 20],
-          iconAnchor: [10, 10]
+          html: '<span style="font-size: 28px;">🏰</span>',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
         })
       });
       marcador.bindPopup(`<strong>🏰 ${s.nombre}</strong><br><small>${s.desc}</small>`);
@@ -265,13 +264,67 @@ export class MapaLeaflet {
       const marcador = L.marker([s.lat, s.lng], {
         icon: L.divIcon({
           className: 'marcador-sitio',
-          html: '<span style="font-size: 16px;">⚓</span>',
-          iconSize: [20, 20],
-          iconAnchor: [10, 10]
+          html: '<span style="font-size: 28px;">⚓</span>',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
         })
       });
       marcador.bindPopup(`<strong>⚓ ${s.nombre}</strong><br><small>${s.desc}</small>`);
       marcador.addTo(this.capas.naufragios);
+    }
+  }
+
+  // --- Museos históricos y arqueológicos de La Hispaniola ---
+  _agregarMuseos() {
+    const museos = [
+      // --- Santo Domingo ---
+      { lat: 18.4723, lng: -69.9080, nombre: 'Museo del Hombre Dominicano', desc: 'Principal museo antropológico del Caribe con la mayor colección de artefactos taínos.' },
+      { lat: 18.4776, lng: -69.8826, nombre: 'Museo de las Atarazanas Reales', desc: 'Antiguo arsenal naval colonial con arqueología subacuática y restos de naufragios del s. XVI.' },
+      { lat: 18.4771, lng: -69.8832, nombre: 'Museo Alcázar de Colón', desc: 'Palacio virreinal de Diego Colón (1510), el edificio colonial más importante del Nuevo Mundo.' },
+      { lat: 18.4758, lng: -69.8832, nombre: 'Museo de las Casas Reales', desc: 'Antigua sede de la Real Audiencia con historia colonial de La Española desde 1492.' },
+      { lat: 18.4730, lng: -69.8843, nombre: 'Museo de la Catedral Primada', desc: 'Tesoro de arte sacro colonial dentro de la primera catedral del Nuevo Mundo (1512-1540).' },
+      { lat: 18.4704, lng: -69.9087, nombre: 'Museo Nacional de Historia Natural', desc: 'Biodiversidad y geología de La Española con ecosistemas caribeños y especies endémicas.' },
+      { lat: 18.4735, lng: -69.8860, nombre: 'Museo de la Resistencia Dominicana', desc: 'Memorial sobre la lucha contra la dictadura de Trujillo (1930-1961).' },
+      { lat: 18.4819, lng: -69.9253, nombre: 'Museo Bellapart', desc: 'Colección privada de arte dominicano de los siglos XIX y XX.' },
+      { lat: 18.4700, lng: -69.9090, nombre: 'Museo de Arte Moderno', desc: 'Principal museo de arte contemporáneo dominicano en la Plaza de la Cultura.' },
+      { lat: 18.4762, lng: -69.8822, nombre: 'Museo Infantil Trampolín', desc: 'Museo interactivo para niños en la Casa de Rodrigo de Bastidas, Calle Las Damas.' },
+      { lat: 18.4732, lng: -69.8848, nombre: 'Museo Mundo del Ámbar', desc: 'Ámbar dominicano con insectos fosilizados de millones de años, en la Zona Colonial.' },
+      { lat: 18.4725, lng: -69.8834, nombre: 'Museo de Larimar', desc: 'Piedra semipreciosa azul exclusiva de RD, con exhibiciones sobre geología y extracción.' },
+      { lat: 18.4745, lng: -69.8810, nombre: 'Museo Fortaleza Ozama', desc: 'Fortaleza militar más antigua de América (1502) con la Torre del Homenaje.' },
+      { lat: 18.4793, lng: -69.8687, nombre: 'Faro a Colón', desc: 'Monumental museo-mausoleo en forma de cruz con restos atribuidos a Cristóbal Colón.' },
+      // --- Santiago ---
+      { lat: 19.4633, lng: -70.6706, nombre: 'Centro León', desc: 'Centro cultural con colecciones de arte, historia y antropología dominicana.' },
+      { lat: 19.4612, lng: -70.6945, nombre: 'Museo del Tabaco La Aurora', desc: 'Historia del tabaco dominicano dentro de la fábrica La Aurora (fundada 1903).' },
+      // --- Puerto Plata ---
+      { lat: 19.7965, lng: -70.6922, nombre: 'Museo del Ámbar (Puerto Plata)', desc: 'Ámbar y ámbar azul dominicano en la Villa Bentz con insectos prehistóricos.' },
+      { lat: 19.8041, lng: -70.6959, nombre: 'Museo Fortaleza San Felipe', desc: 'Fortaleza española del s. XVI convertida en museo militar e histórico.' },
+      { lat: 19.8888, lng: -71.0796, nombre: 'Museo Arqueológico La Isabela', desc: 'Sitio del primer asentamiento europeo permanente en América (1493).' },
+      // --- Otras ciudades RD ---
+      { lat: 18.4188, lng: -68.8872, nombre: 'Museo Arqueológico Altos de Chavón', desc: 'Más de 3,000 piezas precolombinas taínas junto al río Chavón en La Romana.' },
+      { lat: 19.2058, lng: -69.3326, nombre: 'Museo de las Ballenas (Samaná)', desc: 'Historia natural marina dedicada a las ballenas jorobadas que migran a la bahía.' },
+      { lat: 19.2936, lng: -70.5442, nombre: 'Parque Museo La Vega Vieja', desc: 'Ruinas de la ciudad fundada por Colón (1494) con artefactos taínos y coloniales.' },
+      { lat: 19.3812, lng: -70.4168, nombre: 'Casa Museo Hermanas Mirabal', desc: 'Casa-museo de las heroínas de la resistencia contra Trujillo en Salcedo.' },
+      { lat: 18.6150, lng: -68.7078, nombre: 'Museo Basílica de la Altagracia', desc: 'Arte sacro junto a la basílica patronal de RD en Higüey.' },
+      { lat: 18.4537, lng: -69.3083, nombre: 'Museo de San Pedro de Macorís', desc: 'Historia azucarera y la inmigración de los cocolos antillanos angloparlantes.' },
+      // --- Haití ---
+      { lat: 18.5416, lng: -72.3362, nombre: 'MUPANAH (Panthéon National Haïtien)', desc: 'Museo nacional haitiano con héroes de la independencia y el ancla de la Santa María.' },
+      { lat: 18.5452, lng: -72.3390, nombre: "Musée d'Art Haïtien", desc: 'Mayor colección de arte haitiano con obras maestras del movimiento naíf.' },
+      { lat: 18.5445, lng: -72.3375, nombre: "Centre d'Art (Port-au-Prince)", desc: 'Institución fundada en 1944 que impulsó el movimiento artístico haitiano.' },
+      { lat: 18.5472, lng: -72.3363, nombre: 'Musée Saint-Martial', desc: 'Histórico colegio-seminario (1864) con colección de historia natural y cultural.' },
+      { lat: 18.7453, lng: -72.6273, nombre: 'Musée Ogier-Fombrun', desc: 'Plantación azucarera del s. XVIII en Montrouis con artefactos taínos y de la Revolución Haitiana.' }
+    ];
+
+    for (const s of museos) {
+      const marcador = L.marker([s.lat, s.lng], {
+        icon: L.divIcon({
+          className: 'marcador-sitio',
+          html: '<span style="font-size: 28px;">🏛</span>',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16]
+        })
+      });
+      marcador.bindPopup(`<strong>🏛 ${s.nombre}</strong><br><small>${s.desc}</small>`);
+      marcador.addTo(this.capas.museos);
     }
   }
 
@@ -295,6 +348,7 @@ export class MapaLeaflet {
     this.capas.taino = null;
     this.capas.colonial = null;
     this.capas.naufragios = null;
+    this.capas.museos = null;
 
     // Limpiar referencia global
     if (window._viajarANodo) {

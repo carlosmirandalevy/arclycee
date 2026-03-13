@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.13.4 — Museos de La Hispaniola + íconos grandes (2026-03-13)
+
+### Agregado
+
+**Capa de museos** (`js/mapas/mapa-leaflet.js`)
+- 30 museos históricos y arqueológicos con marcadores 🏛 en el mapa de referencia (R)
+- Santo Domingo (14): Hombre Dominicano, Atarazanas, Alcázar de Colón, Casas Reales, Catedral Primada, Historia Natural, Resistencia, Bellapart, Arte Moderno, Trampolín, Ámbar, Larimar, Fortaleza Ozama, Faro a Colón
+- Santiago (2): Centro León, Tabaco La Aurora
+- Puerto Plata (3): Ámbar, Fortaleza San Felipe, Museo La Isabela
+- Otras ciudades RD (6): Altos de Chavón, Ballenas (Samaná), La Vega Vieja, Hermanas Mirabal, Basílica Higüey, San Pedro de Macorís
+- Haití (5): MUPANAH, Musée d'Art Haïtien, Centre d'Art, Saint-Martial, Ogier-Fombrun
+- Citadelle Laferrière y Sans-Souci movidos de Colonial a Museos
+- Capa toggleable desde el panel inferior derecho
+
+### Mejorado
+- **Íconos de marcadores más grandes**: de 16px/20px a 28px/32px para mejor visibilidad
+- Eliminadas duplicaciones entre capas (museos solo en capa Museos, sitios/ruinas en Taíno/Colonial)
+
+---
+
 ## v0.13.3 — Naufragios + sitios arqueológicos de toda La Hispaniola (2026-03-13)
 
 ### Agregado
