@@ -46,6 +46,7 @@ firebase deploy
 | Inventario | I | Botón X |
 | Habilidad especial | F | Botón Y |
 | Volver al mapa | M | — |
+| Mapa de referencia | R (solo en mapa) | — |
 
 **En móvil**: el control de movimiento puede ser un **joystick analógico** (por defecto) o una **cruceta de 4 botones**. Se cambia desde Opciones en el menú principal.
 
@@ -88,7 +89,8 @@ arclycee/
 │   ├── mecanicas/          ← Combate, diálogos, inventario, misiones
 │   ├── clima/              ← Sistema de clima y huracanes
 │   ├── idiomas/            ← Traducciones ES/FR/EN
-│   ├── mapas/              ← Integración LeafletJS
+│   ├── mapas/              ← Mapa de referencia con LeafletJS
+│   │   └── referencia/     ← Módulos del mapa real (capas, marcadores, transiciones)
 │   ├── misiones/           ← Sistema de quests y easter eggs
 │   └── utilidades/         ← Funciones de matemáticas y colisiones
 ├── assets/                 ← Sprites, tiles, sonidos, música (por generar)

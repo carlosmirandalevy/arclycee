@@ -264,7 +264,7 @@ export function obtenerNodosIsla() {
     },
     {
       id: 5,
-      tileX: 32, tileY: 20,
+      tileX: 33, tileY: 22,
       nombre: 'Naufragio La Pinta',
       tipo: 'naufragio',
       escena: 'mundoAcuatico',

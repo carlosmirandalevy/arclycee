@@ -79,7 +79,8 @@ export const TECLAS_POR_DEFECTO = {
   cancelar:   ['q', 'Q', 'Escape'],       // Salir de menús (Q o Escape)
   inventario: ['i', 'I'],                 // Abrir mochila
   especial:   ['f', 'F'],                 // Habilidad especial
-  mapa:       ['m', 'M']                  // Volver al mapa del mundo
+  mapa:       ['m', 'M'],                 // Volver al mapa del mundo
+  referencia: ['r', 'R']                  // Abrir mapa de referencia (Leaflet)
 };
 
 // --- Guardado ---

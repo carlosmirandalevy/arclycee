@@ -52,6 +52,7 @@ import { MundoJuridico } from '../mundos/juridico/mundo-juridico.js';
 import { MundoLaboratorio } from '../mundos/laboratorio/mundo-laboratorio.js';
 import { FinalCinematica } from '../escenas/final-cinematica.js';
 import { SistemaClima } from '../clima/clima.js';
+import { MapaLeaflet } from '../mapas/mapa-leaflet.js';
 
 export class Juego {
 
@@ -110,6 +111,11 @@ export class Juego {
     // Solo se activa en mundos exteriores
     this.clima = new SistemaClima();
     this._climaActivo = false;
+
+    // --- Mapa de referencia (Leaflet) ---
+    // Mapa interactivo real que se abre con R desde el mapa del mundo
+    this.mapaReferencia = new MapaLeaflet();
+    this._bloqueoReferencia = false;
 
     // --- Inventario ---
     // El inventario vive en el juego (no en el jugador) porque es una
@@ -203,6 +209,12 @@ export class Juego {
     // Activar la entrada (teclado + táctil)
     this.entrada.iniciarTeclado();
     this.entrada.iniciarTactil(document.body);
+
+    // Inicializar el mapa de referencia (Leaflet)
+    const contenedorMapa = document.getElementById('mapa-contenedor');
+    if (contenedorMapa) {
+      this.mapaReferencia.iniciar(contenedorMapa, this);
+    }
 
     // Listener RAW para detectar la secuencia secreta (Konami code)
     // Se escucha aparte del sistema de entrada porque necesitamos las
@@ -449,6 +461,20 @@ export class Juego {
       if (!this.entrada.estaPresionada('especial')) {
         this._bloqueoEspecial = false;
       }
+    }
+
+    // --- Mapa de referencia: abrir/cerrar con R (solo en mapa del mundo) ---
+    if (this.nombreEscenaActual === 'mapaPrincipal') {
+      if (this.entrada.estaPresionada('referencia') && !this._bloqueoReferencia) {
+        this.mapaReferencia.alternar();
+        this._bloqueoReferencia = true;
+      }
+      if (!this.entrada.estaPresionada('referencia')) {
+        this._bloqueoReferencia = false;
+      }
+
+      // Si el mapa de referencia está abierto, no actualizar la escena
+      if (this.mapaReferencia.visible) return;
     }
 
     if (this.escenaActual && typeof this.escenaActual.actualizar === 'function') {

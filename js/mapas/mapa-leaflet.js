@@ -1,307 +1,245 @@
 // ============================================================
-// mapa-leaflet.js - Mapa interactivo con LeafletJS
+// MAPA-LEAFLET.JS - Mapa de referencia interactivo
 // ============================================================
-// Este archivo crea un mapa del mundo real usando LeafletJS,
-// una libreria gratuita para mapas interactivos.
+// Este es el mapa de referencia del juego: un mapa real de la
+// República Dominicana usando LeafletJS. Muestra las ubicaciones
+// reales de los niveles del juego con marcadores interactivos.
 //
-// El mapa muestra la Republica Dominicana con marcadores en
-// sitios arqueologicos reales: cuevas tainas, ruinas coloniales,
-// museos, y mas. Los jugadores pueden explorar el mapa para
-// descubrir nuevas misiones y aprender sobre la historia real.
+// Características:
+// - 6 estilos de mapa artísticos (acuarela, terreno, oscuro...)
+// - Marcadores con colores según estado (completado/bloqueado)
+// - Click para viajar a una ubicación desde el mapa
+// - Sitios arqueológicos reales adicionales (taínos, coloniales)
+// - Se abre/cierra con la tecla R desde el mapa del mundo
+//
+// Este mapa complementa el mapa de tiles del juego: mientras
+// el mapa de tiles es para jugar, este es para aprender sobre
+// la geografía real de los lugares del juego.
 // ============================================================
+
+import { configurarControlCapas } from './referencia/capas.js';
+import { crearMarcadoresJuego, actualizarMarcadores, obtenerCoordenadas } from './referencia/marcadores.js';
+import {
+  CENTRO_RD,
+  ZOOM_PAIS,
+  abrirMapaReferencia,
+  cerrarMapaReferencia,
+  volarAUbicacion
+} from './referencia/transiciones.js';
 
 export class MapaLeaflet {
   constructor() {
-    // La instancia del mapa de Leaflet (se crea al llamar iniciar())
+    // Instancia del mapa de Leaflet
     this.mapa = null;
 
-    // El elemento HTML donde se dibuja el mapa (un div)
+    // Contenedor HTML
     this.contenedor = null;
 
-    // Si el mapa se esta mostrando o no
+    // Si el mapa está visible
     this.visible = false;
 
-    // Lista de todos los marcadores en el mapa
-    this.marcadores = [];
+    // Marcadores del juego (con estado)
+    this.marcadoresJuego = [];
 
-    // --- Capas del mapa ---
-    // Cada capa agrupa un tipo de sitio diferente.
-    // El jugador puede activar/desactivar capas para ver
-    // solo lo que le interesa (como filtros en Google Maps)
+    // Marcadores adicionales (sitios arqueológicos)
+    this.marcadoresExtra = [];
+
+    // Control de capas artísticas
+    this.controlCapas = null;
+
+    // Capas de sitios arqueológicos (para alternar)
     this.capas = {
-      museos: null,          // Museos y colecciones privadas
-      patrimonios: null,     // Sitios de patrimonio cultural
-      taino: null,           // Sitios arqueologicos tainos
-      colonial: null,        // Sitios arqueologicos coloniales
-      submarino: null,       // Arqueologia submarina
-      cuevas: null,          // Cuevas y sistemas subterraneos
-      prospectiva: null      // Posibles nuevos descubrimientos
+      taino: null,
+      colonial: null
     };
+
+    // Callback para cuando el jugador viaja a un nodo
+    this._alViajar = null;
+
+    // Referencia al juego
+    this._juego = null;
   }
 
-  // --- Crear el mapa y centrarlo en Republica Dominicana ---
-  // elementoDOM: el div de HTML donde queremos poner el mapa
-  //
-  // El centro del mapa es aproximadamente el centro de la isla,
-  // con zoom 8 que muestra todo el pais completo.
-  iniciar(elementoDOM) {
+  /**
+   * Inicializa el mapa de referencia.
+   *
+   * @param {HTMLElement} elementoDOM - El div donde crear el mapa
+   * @param {Object} juego - Referencia al juego (para progreso y escenas)
+   */
+  iniciar(elementoDOM, juego) {
     this.contenedor = elementoDOM;
+    this._juego = juego;
 
-    // Creamos el mapa centrado en Republica Dominicana
-    // 18.7357 es la latitud (que tan al norte esta)
-    // -70.1627 es la longitud (que tan al oeste esta, negativo = oeste)
-    this.mapa = L.map(elementoDOM).setView([18.7357, -70.1627], 8);
+    // Crear el mapa centrado en República Dominicana
+    this.mapa = L.map(elementoDOM, {
+      zoomControl: true,
+      attributionControl: true
+    }).setView([CENTRO_RD.lat, CENTRO_RD.lng], ZOOM_PAIS);
 
-    // Agregamos las imagenes del mapa (los "tiles")
-    // Usamos OpenStreetMap que es gratuito y libre
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 18
+    // --- Configurar capas de tiles artísticos ---
+    // La primera capa (acuarela) se activa por defecto
+    this.controlCapas = configurarControlCapas(this.mapa);
+
+    // --- Crear capas para sitios arqueológicos ---
+    this.capas.taino = L.layerGroup().addTo(this.mapa);
+    this.capas.colonial = L.layerGroup().addTo(this.mapa);
+
+    // --- Agregar marcadores del juego ---
+    const progreso = juego?.progreso || { nodosCompletados: [], nodosDesbloqueados: [0] };
+    this.marcadoresJuego = crearMarcadoresJuego(
+      this.mapa,
+      progreso,
+      (idNodo) => this._viajarANodo(idNodo)
+    );
+
+    // --- Agregar sitios arqueológicos reales ---
+    this._agregarSitiosTainos();
+    this._agregarSitiosColoniales();
+
+    // --- Control para alternar capas de sitios ---
+    const capasSitios = {
+      '🗿 Sitios Taínos': this.capas.taino,
+      '🏰 Sitios Coloniales': this.capas.colonial
+    };
+    L.control.layers(null, capasSitios, {
+      position: 'bottomright',
+      collapsed: false
     }).addTo(this.mapa);
 
-    // Inicializamos cada capa como un grupo vacio
-    // Esto nos permite agregar y quitar marcadores por categoria
-    for (const nombreCapa of Object.keys(this.capas)) {
-      this.capas[nombreCapa] = L.layerGroup().addTo(this.mapa);
-    }
-
-    this.visible = true;
-
-    // Agregamos los sitios conocidos al mapa
-    this.agregarSitiosTainos();
-    this.agregarSitiosColoniales();
+    // Empezar oculto
+    this.contenedor.style.display = 'none';
+    this.visible = false;
   }
 
-  // --- Mostrar el mapa ---
+  /** Muestra el mapa de referencia con animación */
   mostrar() {
-    if (this.contenedor) {
-      this.contenedor.style.display = 'block';
-      this.visible = true;
+    if (!this.contenedor || !this.mapa) return;
 
-      // Le decimos a Leaflet que recalcule el tamano
-      // porque al estar oculto, no sabia las dimensiones correctas
-      if (this.mapa) {
-        this.mapa.invalidateSize();
-      }
-    }
-  }
-
-  // --- Ocultar el mapa ---
-  ocultar() {
-    if (this.contenedor) {
-      this.contenedor.style.display = 'none';
-      this.visible = false;
-    }
-  }
-
-  // --- Agregar un marcador al mapa ---
-  // lat, lng: coordenadas del sitio (latitud y longitud)
-  // titulo: nombre del lugar
-  // descripcion: texto que aparece al hacer click
-  // capa: en que capa ponerlo (ej: 'taino', 'colonial')
-  // icono: icono personalizado de Leaflet (opcional)
-  agregarMarcador(lat, lng, titulo, descripcion, capa, icono = null) {
-    // Verificamos que la capa exista
-    if (!this.capas[capa]) {
-      console.warn(`La capa "${capa}" no existe. Marcador no agregado.`);
-      return null;
+    // Actualizar marcadores con progreso actual
+    if (this._juego?.progreso) {
+      actualizarMarcadores(this.marcadoresJuego, this._juego.progreso);
     }
 
-    // Creamos el marcador con o sin icono personalizado
-    const opciones = icono ? { icon: icono } : {};
-    const marcador = L.marker([lat, lng], opciones);
-
-    // Le ponemos un popup con el nombre y la descripcion
-    // El popup aparece cuando el jugador hace click en el marcador
-    marcador.bindPopup(`<strong>${titulo}</strong><br>${descripcion}`);
-
-    // Agregamos el marcador a su capa correspondiente
-    marcador.addTo(this.capas[capa]);
-
-    // Lo guardamos en la lista general de marcadores
-    this.marcadores.push({
-      marcador,
-      titulo,
-      descripcion,
-      capa,
-      lat,
-      lng
-    });
-
-    return marcador;
+    abrirMapaReferencia(this.contenedor, this.mapa);
+    this.visible = true;
   }
 
-  // --- Agregar sitios arqueológicos taínos ---
-  // Los taínos fueron los habitantes originales de la isla
-  // antes de que llegaran los españoles en 1492.
-  // Dejaron petroglifos (dibujos en piedra), cerámica,
-  // y muchos objetos en cuevas por toda la isla.
-  agregarSitiosTainos() {
-    this.agregarMarcador(
-      18.4074, -70.1511,
-      'Cuevas del Pomier',
-      'El conjunto de cuevas con arte rupestre más importante del Caribe. '
-      + 'Tiene más de 6,000 petroglifos y pictografías taínas. '
-      + 'Las cuevas fueron usadas como lugares ceremoniales.',
-      'taino'
-    );
-
-    this.agregarMarcador(
-      18.3230, -68.8224,
-      'Parque Nacional del Este',
-      'Hogar de la Isla Saona y múltiples cuevas con evidencia taína. '
-      + 'Los taínos usaban esta zona para pescar y realizar ceremonias. '
-      + 'Aquí se encontraron cemíes (ídolos religiosos).',
-      'taino'
-    );
-
-    this.agregarMarcador(
-      18.4631, -69.6297,
-      'Cuevas de las Maravillas',
-      'Cuevas con impresionantes formaciones geológicas y '
-      + 'petroglifos taínos. Tienen un museo subterráneo que '
-      + 'protege el arte rupestre con más de 500 años de antigüedad.',
-      'taino'
-    );
-
-    this.agregarMarcador(
-      18.9147, -69.4714,
-      'Cueva de Fun Fun',
-      'Una de las cuevas más grandes del Caribe. Los taínos '
-      + 'la usaban como refugio y lugar sagrado. Para explorarla '
-      + 'hay que hacer rappel y caminar por un río subterráneo.',
-      'taino'
-    );
-
-    this.agregarMarcador(
-      19.0600, -69.9200,
-      'Los Haitises',
-      'Parque Nacional con mogotes (colinas de piedra caliza) y cuevas '
-      + 'que contienen arte rupestre taíno. La Cueva de la Arena y la '
-      + 'Cueva de San Gabriel tienen petroglifos bien preservados.',
-      'taino'
-    );
-
-    this.agregarMarcador(
-      18.4800, -69.9400,
-      'Parque Mirador del Este',
-      'Sitio donde se encontraron restos de un asentamiento taíno. '
-      + 'Incluye herramientas de piedra, cerámica y restos de alimentos '
-      + 'que nos dicen cómo vivían los taínos cerca de los ríos.',
-      'taino'
-    );
-
-    this.agregarMarcador(
-      19.2200, -69.3100,
-      'Cueva Padre Nuestro',
-      'Sistema de cuevas con cenotes (pozos naturales de agua) '
-      + 'y petroglifos taínos. Los taínos creían que estas cuevas '
-      + 'eran la entrada al mundo de los espíritus.',
-      'taino'
-    );
+  /** Oculta el mapa de referencia con animación */
+  async ocultar() {
+    if (!this.contenedor) return;
+    await cerrarMapaReferencia(this.contenedor);
+    this.visible = false;
   }
 
-  // --- Agregar sitios arqueológicos coloniales ---
-  // Estos son lugares de la época colonial española (1492-1844).
-  // La República Dominicana tiene los primeros edificios europeos
-  // de todo el continente americano.
-  agregarSitiosColoniales() {
-    this.agregarMarcador(
-      18.4722, -69.8833,
-      'Zona Colonial de Santo Domingo',
-      'La primera ciudad permanente fundada por europeos en América (1498). '
-      + 'Tiene la primera catedral, el primer hospital, la primera '
-      + 'universidad y el primer monasterio del Nuevo Mundo. '
-      + 'Es Patrimonio de la Humanidad por la UNESCO.',
-      'colonial'
-    );
-
-    this.agregarMarcador(
-      19.8897, -71.0825,
-      'La Isabela',
-      'El primer asentamiento europeo permanente en América, '
-      + 'fundado por Cristóbal Colón en 1493. Aquí se construyó '
-      + 'la primera iglesia y se celebró la primera misa en el '
-      + 'Nuevo Mundo. Hoy es un parque arqueológico.',
-      'colonial'
-    );
-
-    this.agregarMarcador(
-      18.4735, -69.8834,
-      'Alcázar de Colón',
-      'Palacio construido en 1510 para Diego Colón, hijo de '
-      + 'Cristóbal Colón. Es el edificio colonial más importante '
-      + 'de Santo Domingo. Hoy es un museo con muebles y objetos '
-      + 'de la época colonial.',
-      'colonial'
-    );
-
-    this.agregarMarcador(
-      18.4860, -69.8790,
-      'Fortaleza Ozama',
-      'La fortaleza militar más antigua de América, construida '
-      + 'entre 1502 y 1508 para proteger la ciudad de piratas. '
-      + 'Tiene una torre del homenaje con vistas al río Ozama.',
-      'colonial'
-    );
-
-    this.agregarMarcador(
-      19.7580, -70.6980,
-      'La Vega Vieja',
-      'Ruinas de una de las primeras ciudades coloniales, fundada '
-      + 'en 1494. Aquí se encontró la primera Cruz del Nuevo Mundo '
-      + 'y restos de un fuerte español.',
-      'colonial'
-    );
-  }
-
-  // --- Mostrar u ocultar una capa ---
-  // nombreCapa: cuál capa alternar (ej: 'taino', 'colonial')
-  //
-  // Si la capa está visible, la ocultamos.
-  // Si está oculta, la mostramos.
-  alternarCapa(nombreCapa) {
-    if (!this.capas[nombreCapa]) {
-      console.warn(`La capa "${nombreCapa}" no existe.`);
-      return;
-    }
-
-    const capa = this.capas[nombreCapa];
-
-    // hasLayer verifica si el mapa tiene esa capa visible
-    if (this.mapa.hasLayer(capa)) {
-      this.mapa.removeLayer(capa);
+  /** Alterna entre mostrar y ocultar */
+  alternar() {
+    if (this.visible) {
+      this.ocultar();
     } else {
-      this.mapa.addLayer(capa);
+      this.mostrar();
     }
   }
 
-  // --- Volar a una ubicación específica ---
-  // El mapa se mueve suavemente hasta las coordenadas indicadas.
-  // Es como un "fly to" en Google Maps.
+  /**
+   * Viajar a un nodo desde el mapa de referencia.
+   * Anima un vuelo a la ubicación y luego cambia de escena.
+   */
+  _viajarANodo(idNodo) {
+    const coords = obtenerCoordenadas(idNodo);
+    if (!coords) return;
+
+    // Animar el vuelo
+    volarAUbicacion(this.mapa, coords.lat, coords.lng, () => {
+      // Cerrar el mapa y cambiar a la escena del nodo
+      this.ocultar().then(() => {
+        if (this._juego) {
+          // Buscar la escena correspondiente al nodo
+          const escenas = [
+            'cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2',
+            'mundoColonial', 'zonaColonial', 'mundoAcuatico',
+            'mundoJuridico', 'mundoLaboratorio'
+          ];
+          if (escenas[idNodo] && this._juego.cambiarEscena) {
+            this._juego.cambiarEscena(escenas[idNodo]);
+          }
+        }
+      });
+    });
+  }
+
+  // --- Sitios arqueológicos taínos (reales) ---
+  _agregarSitiosTainos() {
+    const sitios = [
+      { lat: 18.4074, lng: -70.1511, nombre: 'Cuevas del Pomier', desc: 'Más de 6,000 petroglifos taínos. El conjunto de arte rupestre más importante del Caribe.' },
+      { lat: 18.3230, lng: -68.8224, nombre: 'Parque Nacional del Este', desc: 'Hogar de la Isla Saona. Cuevas con evidencia taína, cemíes y zonas de pesca ceremonial.' },
+      { lat: 18.4631, lng: -69.6297, nombre: 'Cuevas de las Maravillas', desc: 'Museo subterráneo con petroglifos taínos y formaciones geológicas impresionantes.' },
+      { lat: 18.9147, lng: -69.4714, nombre: 'Cueva de Fun Fun', desc: 'Una de las cuevas más grandes del Caribe. Refugio y lugar sagrado taíno.' },
+      { lat: 19.0600, lng: -69.9200, nombre: 'Los Haitises', desc: 'Mogotes con cuevas que contienen arte rupestre taíno bien preservado.' },
+      { lat: 18.4800, lng: -69.9400, nombre: 'Parque Mirador del Este', desc: 'Restos de asentamiento taíno con herramientas, cerámica y evidencia de vida cotidiana.' },
+      { lat: 19.2200, lng: -69.3100, nombre: 'Cueva Padre Nuestro', desc: 'Cenotes y petroglifos. Los taínos la consideraban entrada al mundo de los espíritus.' }
+    ];
+
+    for (const s of sitios) {
+      const marcador = L.marker([s.lat, s.lng], {
+        icon: L.divIcon({
+          className: 'marcador-sitio',
+          html: '<span style="font-size: 16px;">🗿</span>',
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        })
+      });
+      marcador.bindPopup(`<strong>🗿 ${s.nombre}</strong><br><small>${s.desc}</small>`);
+      marcador.addTo(this.capas.taino);
+    }
+  }
+
+  // --- Sitios coloniales (reales) ---
+  _agregarSitiosColoniales() {
+    const sitios = [
+      { lat: 18.4722, lng: -69.8833, nombre: 'Zona Colonial de Santo Domingo', desc: 'Primera ciudad permanente de América (1498). Patrimonio UNESCO.' },
+      { lat: 19.8897, lng: -71.0825, nombre: 'La Isabela', desc: 'Primer asentamiento europeo permanente en América, fundado por Colón en 1493.' },
+      { lat: 18.4735, lng: -69.8834, nombre: 'Alcázar de Colón', desc: 'Palacio de Diego Colón (1510). Hoy es museo con objetos coloniales.' },
+      { lat: 18.4860, lng: -69.8790, nombre: 'Fortaleza Ozama', desc: 'Fortaleza militar más antigua de América (1502-1508).' },
+      { lat: 19.7580, lng: -70.6980, nombre: 'La Vega Vieja', desc: 'Ruinas de una de las primeras ciudades coloniales (1494).' }
+    ];
+
+    for (const s of sitios) {
+      const marcador = L.marker([s.lat, s.lng], {
+        icon: L.divIcon({
+          className: 'marcador-sitio',
+          html: '<span style="font-size: 16px;">🏰</span>',
+          iconSize: [20, 20],
+          iconAnchor: [10, 10]
+        })
+      });
+      marcador.bindPopup(`<strong>🏰 ${s.nombre}</strong><br><small>${s.desc}</small>`);
+      marcador.addTo(this.capas.colonial);
+    }
+  }
+
+  /** Centrar el mapa en una ubicación con animación */
   centrarEn(lat, lng, zoom = 14) {
     if (this.mapa) {
       this.mapa.flyTo([lat, lng], zoom);
     }
   }
 
-  // --- Limpiar y destruir el mapa ---
-  // Liberamos la memoria quitando todos los marcadores y el mapa.
-  // Es importante hacer esto cuando el jugador sale de la pantalla
-  // del mapa para no desperdiciar recursos.
+  /** Limpiar y destruir el mapa */
   destruir() {
     if (this.mapa) {
       this.mapa.remove();
       this.mapa = null;
     }
-
-    this.marcadores = [];
+    this.marcadoresJuego = [];
+    this.marcadoresExtra = [];
     this.contenedor = null;
     this.visible = false;
+    this.capas.taino = null;
+    this.capas.colonial = null;
 
-    // Ponemos todas las capas en null
-    for (const nombreCapa of Object.keys(this.capas)) {
-      this.capas[nombreCapa] = null;
+    // Limpiar referencia global
+    if (window._viajarANodo) {
+      delete window._viajarANodo;
     }
   }
 }

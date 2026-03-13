@@ -136,6 +136,28 @@ html, body {
     display: block;
 }
 
+/* Marcadores del juego en el mapa de referencia */
+.marcador-juego {
+    background: none !important;
+    border: none !important;
+}
+
+.marcador-sitio {
+    background: none !important;
+    border: none !important;
+}
+
+/* Animación de la ruta de viaje */
+.ruta-viaje-animada {
+    animation: ruta-dash 1s linear infinite;
+}
+
+@keyframes ruta-dash {
+    to {
+        stroke-dashoffset: -18;
+    }
+}
+
 /* ============================================
    Controles virtuales (dispositivos táctiles)
    Los crea dinámicamente js/motor/entrada.js

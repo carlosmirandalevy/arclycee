@@ -45,6 +45,14 @@ export class FinalCinematica {
     // Textos del final actual
     this.textosFinales = [];
 
+    // --- Créditos que ruedan al final ---
+    // true cuando los textos del final terminaron y los créditos empiezan
+    this._enCreditos = false;
+    // Posición Y del scroll de créditos (empieza abajo de la pantalla)
+    this._creditosY = 0;
+    // Velocidad del scroll (píxeles por segundo)
+    this._creditosVelocidad = 40;
+
     // Referencia al juego
     this.juego = null;
   }
@@ -57,6 +65,8 @@ export class FinalCinematica {
     this.opacidad = 0;
     this.bloqueoEntrada = true;
     this._sonidoPasoTocado = -1;
+    this._enCreditos = false;
+    this._creditosY = 0;
 
     // Determinar qué final mostrar basado en el progreso
     this.tipoFinal = this._determinarFinal(juego);
@@ -144,6 +154,34 @@ export class FinalCinematica {
   actualizar(dt, entrada, _jugador, _companeros) {
     this.temporizador += dt;
 
+    // --- Fase de créditos (después de los textos del final) ---
+    if (this._enCreditos) {
+      // Los créditos suben automáticamente
+      this._creditosY -= this._creditosVelocidad * dt;
+
+      // Permitir saltar créditos con E
+      if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
+        // Si los créditos ya pasaron, ir al menú
+        if (this._creditosY < -this._calcularAltoCreditos()) {
+          this._irAlMenu();
+        } else {
+          // Acelerar los créditos
+          this._creditosY -= 200;
+        }
+        this.bloqueoEntrada = true;
+      }
+      if (!entrada.estaPresionada('accion')) {
+        this.bloqueoEntrada = false;
+      }
+
+      // Cuando todos los créditos pasaron, volver al menú
+      if (this._creditosY < -this._calcularAltoCreditos() - 100) {
+        this._irAlMenu();
+      }
+      return;
+    }
+
+    // --- Fase de textos del final ---
     // Permitir avanzar con E
     if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
       this._avanzarPaso();
@@ -174,6 +212,13 @@ export class FinalCinematica {
   dibujar(renderizador, ancho, alto, textos) {
     const ctx = renderizador.ctx;
 
+    // --- Fase de créditos ---
+    if (this._enCreditos) {
+      this._dibujarCreditos(ctx, ancho, alto);
+      return;
+    }
+
+    // --- Fase de textos del final ---
     // Fondo según tipo de final y paso
     this._dibujarFondo(ctx, ancho, alto);
 
@@ -360,11 +405,169 @@ export class FinalCinematica {
     this.temporizador = 0;
     this.opacidad = 0;
 
-    // Después del último paso, volver al menú principal
+    // Después del último paso, iniciar los créditos
     if (this.paso >= this.textosFinales.length) {
-      if (this.juego && this.juego.cambiarEscena) {
-        this.juego.cambiarEscena('menuPrincipal');
-      }
+      this._enCreditos = true;
+      this._creditosY = ALTO_JUEGO; // Empiezan abajo de la pantalla
+      this._tocarAcordeFinal();
     }
+  }
+
+  // --- Ir al menú principal ---
+  _irAlMenu() {
+    if (this.juego && this.juego.cambiarEscena) {
+      this.juego.cambiarEscena('menuPrincipal');
+    }
+  }
+
+  // ============================================================
+  // CRÉDITOS
+  // ============================================================
+
+  /**
+   * Calcula la altura total de los créditos.
+   * Se usa para saber cuándo han terminado de pasar.
+   */
+  _calcularAltoCreditos() {
+    // Cada sección tiene un título + nombres + espacio
+    // Total aproximado: ~25 líneas × 40px = 1000px
+    return 1200;
+  }
+
+  /**
+   * Dibuja los créditos que suben por la pantalla.
+   * Estilo película: fondo negro, texto dorado y blanco.
+   */
+  _dibujarCreditos(ctx, ancho, alto) {
+    // Fondo negro
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, ancho, alto);
+
+    // Estrellas decorativas (fondo sutil)
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+    for (let i = 0; i < 50; i++) {
+      const sx = (i * 137 + 42) % ancho;
+      const sy = (i * 197 + 13) % alto;
+      ctx.fillRect(sx, sy, 1, 1);
+    }
+
+    ctx.save();
+    ctx.textAlign = 'center';
+
+    // Posición Y con scroll
+    let y = this._creditosY;
+    const centroX = ancho / 2;
+    const espacioSeccion = 60;
+    const espacioLinea = 30;
+
+    // --- TÍTULO ---
+    ctx.font = 'bold 36px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('ArcLycée', centroX, y);
+    y += 40;
+
+    ctx.font = '16px monospace';
+    ctx.fillStyle = '#C8A84E';
+    ctx.fillText('Aventura Arqueológica Dominicana', centroX, y);
+    y += espacioSeccion;
+
+    // --- CREADO POR ---
+    ctx.font = 'bold 18px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('Creado por', centroX, y);
+    y += espacioLinea + 5;
+
+    ctx.font = '16px monospace';
+    ctx.fillStyle = '#FFFFFF';
+    const creadores = [
+      'Elian', 'Théo', 'Carlos Guillermo', 'Jules',
+      'Alberto', 'Rafael', 'Tom', 'Nael'
+    ];
+    for (const nombre of creadores) {
+      ctx.fillText(nombre, centroX, y);
+      y += espacioLinea;
+    }
+    y += espacioSeccion - espacioLinea;
+
+    // --- CLASE ---
+    ctx.font = 'bold 18px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('Clase de Robótica', centroX, y);
+    y += espacioLinea + 5;
+
+    ctx.font = '16px monospace';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText('Lycée Français de Saint-Domingue', centroX, y);
+    y += espacioLinea;
+    ctx.fillText('Santo Domingo, República Dominicana', centroX, y);
+    y += espacioSeccion;
+
+    // --- AÑO ---
+    ctx.font = 'bold 28px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('2026', centroX, y);
+    y += espacioSeccion;
+
+    // --- TECNOLOGÍAS ---
+    ctx.font = 'bold 18px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('Tecnologías', centroX, y);
+    y += espacioLinea + 5;
+
+    ctx.font = '14px monospace';
+    ctx.fillStyle = '#AAAAAA';
+    const techs = [
+      'HTML5 Canvas + JavaScript vanilla',
+      'Web Audio API (sonidos procedurales)',
+      'LeafletJS (mapas interactivos)',
+      'Kaplay.js (controles táctiles)'
+    ];
+    for (const tech of techs) {
+      ctx.fillText(tech, centroX, y);
+      y += espacioLinea - 5;
+    }
+    y += espacioSeccion;
+
+    // --- AGRADECIMIENTOS ---
+    ctx.font = 'bold 18px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('Inspirado en', centroX, y);
+    y += espacioLinea + 5;
+
+    ctx.font = '14px monospace';
+    ctx.fillStyle = '#AAAAAA';
+    const agradecimientos = [
+      'El patrimonio arqueológico de la República Dominicana',
+      'Los investigadores del Museo del Hombre Dominicano',
+      'La Zona Colonial de Santo Domingo (UNESCO)',
+      'Las Cuevas del Pomier y sus petroglifos taínos'
+    ];
+    for (const agr of agradecimientos) {
+      ctx.fillText(agr, centroX, y);
+      y += espacioLinea - 5;
+    }
+    y += espacioSeccion;
+
+    // --- MENSAJE FINAL ---
+    ctx.font = 'bold 20px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('Protejamos nuestro patrimonio.', centroX, y);
+    y += espacioLinea;
+    ctx.fillText('La historia nos pertenece a todos.', centroX, y);
+    y += espacioSeccion * 2;
+
+    // Logo / nombre final
+    ctx.font = 'bold 14px monospace';
+    ctx.fillStyle = '#666666';
+    ctx.fillText('Lycée Français de Saint-Domingue © 2026', centroX, y);
+
+    ctx.restore();
+
+    // --- Indicador de saltar ---
+    ctx.fillStyle = `rgba(100, 100, 100, ${0.3 + Math.sin(this.temporizador * 2) * 0.2})`;
+    ctx.font = '11px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('Presiona E para saltar', ancho / 2, alto - 15);
+    ctx.textAlign = 'left';
   }
 }
