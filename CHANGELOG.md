@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.13.3 — Naufragios + sitios arqueológicos de toda La Hispaniola (2026-03-13)
+
+### Agregado
+
+**Capa de naufragios históricos** (`js/mapas/mapa-leaflet.js`)
+- 12 naufragios alrededor de La Hispaniola con marcadores ⚓ en el mapa de referencia (R)
+- Santa María (1492), San Miguel (1551), Concepción (1641), Monte Cristi Pipe Wreck (1660), Quedagh Merchant (1699), Guadalupe (1724), Conde de Tolosa (1724), Le Scipion (1782), Golden Fleece (1827), Hickory (1944), Astron (1978), zona de naufragios de Santo Domingo
+- Capa toggleable desde el panel inferior derecho
+
+**Sitios arqueológicos de Haití** (`js/mapas/mapa-leaflet.js`)
+- 5 sitios taínos en Haití: En Bas Saline, Fort-Liberté, Grotte Marie-Jeanne, Museo Taíno Cap-Haïtien, Sainte-Suzanne
+- 4 sitios coloniales en Haití: Citadelle Laferrière, Sans-Souci, Cap-Haïtien, Jacmel
+
+### Corregido
+- **Coordenadas de sitios taínos y coloniales corregidas**: todas las ubicaciones verificadas con coordenadas reales
+- Sitios taínos ampliados de 7 a 17 (añadidos: Berna, Las Caritas, Cotuí, Chacuey, La Caleta, Juan Dolio, Museo del Hombre)
+- Sitios coloniales ampliados de 5 a 12 (añadidos: Atarazanas, San Francisco, Ozama, San Felipe + 4 de Haití)
+
+---
+
 ## v0.13.2 — Nodos del mapa reubicados a posiciones geográficas reales (2026-03-13)
 
 ### Corregido
