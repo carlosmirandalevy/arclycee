@@ -223,54 +223,61 @@ export function generarMapaIsla() {
 export function obtenerNodosIsla() {
   return [
     {
+      // San Cristóbal — al sur de Santo Domingo, donde están las cuevas reales
       id: 0,
-      tileX: 20, tileY: 19,
+      tileX: 21, tileY: 19,
       nombre: 'Cuevas del Pomier',
       tipo: 'cueva',
       escena: 'cuevasPomier',
       conectadoA: [1]
     },
     {
+      // Cerca de Pomier, ligeramente al oeste (aldea taína cercana a las cuevas)
       id: 1,
-      tileX: 17, tileY: 16,
+      tileX: 19, tileY: 17,
       nombre: 'Asentamiento Taino I',
       tipo: 'aldea',
       escena: 'asentamientoTaino1',
       conectadoA: [2]
     },
     {
+      // Cerca de Pomier, ligeramente al noreste
       id: 2,
-      tileX: 22, tileY: 14,
+      tileX: 22, tileY: 16,
       nombre: 'Asentamiento Taino II',
       tipo: 'aldea',
       escena: 'asentamientoTaino2',
       conectadoA: [3]
     },
     {
+      // Costa noroeste — Puerto Plata, donde está La Isabela real
       id: 3,
-      tileX: 11, tileY: 8,
+      tileX: 12, tileY: 8,
       nombre: 'La Isabela',
       tipo: 'ciudad',
       escena: 'mundoColonial',
       conectadoA: [4]
     },
     {
+      // Santo Domingo — costa sur-central, donde está la Zona Colonial real
       id: 4,
-      tileX: 28, tileY: 17,
+      tileX: 26, tileY: 17,
       nombre: 'Zona Colonial',
       tipo: 'ciudad',
       escena: 'zonaColonial',
       conectadoA: [5]
     },
     {
+      // Costa sur de Santo Domingo — naufragio en agua cerca de la costa
       id: 5,
-      tileX: 33, tileY: 22,
+      tileX: 29, tileY: 22,
       nombre: 'Naufragio La Pinta',
       tipo: 'naufragio',
       escena: 'mundoAcuatico',
       conectadoA: [6]
     },
     {
+      // Extremo este de la isla — Punta Cana real
       id: 6,
       tileX: 42, tileY: 14,
       nombre: 'Aeropuerto Punta Cana',
@@ -279,8 +286,9 @@ export function obtenerNodosIsla() {
       conectadoA: [7]
     },
     {
+      // Santo Domingo — cerca de la Zona Colonial, donde está el museo real
       id: 7,
-      tileX: 29, tileY: 15,
+      tileX: 28, tileY: 16,
       nombre: 'Museo Atarazanas',
       tipo: 'museo',
       escena: 'mundoLaboratorio',

@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.13.2 — Nodos del mapa reubicados a posiciones geográficas reales (2026-03-13)
+
+### Corregido
+- **Nodos del mapa de isla (M) ahora coinciden con el mapa real (R)**: las posiciones de los 8 niveles se recalcularon a partir de las coordenadas lat/lng reales
+  - Pomier (21,19), Asentamiento I (19,17), Asentamiento II (22,16): agrupados cerca de San Cristóbal
+  - La Isabela (12,8): costa noroeste
+  - Zona Colonial (26,17) y Atarazanas (28,16): juntos en Santo Domingo
+  - Naufragio (29,22): costa sur de Santo Domingo (en agua)
+  - Punta Cana (42,14): extremo este (sin cambio)
+
+---
+
 ## v0.13.1 — Stadia Maps API key configurada (2026-03-13)
 
 ### Corregido
