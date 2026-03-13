@@ -64,7 +64,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - Compañeros se restauran como instancias reales vía `_crearCompaneroBasico(tipo, activo)` usando imports de Magnoboot/Viralata/CemiMurcielago
 
 ### Menú principal (`js/escenas/menu-principal.js`)
-- 6 opciones: nuevoJuego, continuarJuego, idioma, documentacion, opciones, creditos
+- 7 opciones: nuevoJuego, continuarJuego, idioma, mapaReal, documentacion, opciones, creditos
 - `documentacion` abre `docs.html`, `docs-en.html` o `docs-fr.html` según `codigosIdioma[idiomaIndice]`
 - Idioma se cambia con flechas horizontales cuando la opción está seleccionada
 

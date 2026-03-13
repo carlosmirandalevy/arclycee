@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.13.5 — Mapa Real accesible desde el menú principal (2026-03-13)
+
+### Agregado
+- **Opción "Mapa Real" en el menú principal**: permite ver el mapa de referencia Leaflet sin necesidad de iniciar una partida
+- Traducido a ES ("Mapa Real"), EN ("Real Map"), FR ("Carte Réelle")
+- Se cierra con R, Q o Escape
+- El menú principal ahora tiene 7 opciones: Nuevo Juego, Continuar, Idioma, Mapa Real, Documentación, Opciones, Créditos
+
+---
+
 ## v0.13.4 — Museos de La Hispaniola + íconos grandes (2026-03-13)
 
 ### Agregado

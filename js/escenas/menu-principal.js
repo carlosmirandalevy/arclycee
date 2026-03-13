@@ -16,7 +16,7 @@ export class MenuPrincipal {
     // 'idioma' es una opción directa del menú (no un submenú)
     // porque el jugador necesita poder cambiar el idioma fácilmente
     // sin tener que entrar a "opciones" primero.
-    this.opciones = ['nuevoJuego', 'continuarJuego', 'idioma', 'documentacion', 'opciones', 'creditos'];
+    this.opciones = ['nuevoJuego', 'continuarJuego', 'idioma', 'mapaReal', 'documentacion', 'opciones', 'creditos'];
 
     // Índice de la opción resaltada (empieza en 0 = "Nuevo Juego")
     this.seleccion = 0;
@@ -124,6 +124,18 @@ export class MenuPrincipal {
         this.particulasAmbientales[i] = this._crearParticula();
         this.particulasAmbientales[i].y = ALTO_JUEGO + 5;
       }
+    }
+
+    // Si el mapa de referencia está visible, cerrarlo con R, Q o Escape
+    if (this.juego?.mapaReferencia?.visible) {
+      if ((entrada.estaPresionada('cancelar') || entrada.estaPresionada('referencia')) && !this.bloqueoEntrada) {
+        this.juego.mapaReferencia.ocultar();
+        this.bloqueoEntrada = true;
+      }
+      if (!entrada.estaPresionada('cancelar') && !entrada.estaPresionada('referencia')) {
+        this.bloqueoEntrada = false;
+      }
+      return; // No procesar menú mientras el mapa está abierto
     }
 
     // Si hay un submenú abierto, procesamos su entrada en vez del menú principal
@@ -472,6 +484,13 @@ export class MenuPrincipal {
         this.idiomaIndice++;
         if (this.idiomaIndice >= this.codigosIdioma.length) this.idiomaIndice = 0;
         this._aplicarIdioma();
+        break;
+
+      case 'mapaReal':
+        // Abrir el mapa de referencia real (Leaflet) directamente desde el menú
+        if (this.juego && this.juego.mapaReferencia) {
+          this.juego.mapaReferencia.mostrar();
+        }
         break;
 
       case 'documentacion':

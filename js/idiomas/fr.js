@@ -9,6 +9,7 @@ const fr = {
     opciones: 'Options',
     idioma: 'Langue',
     creditos: 'Crédits',
+    mapaReal: 'Carte Réelle',
     documentacion: 'Documentation',
     controlesTactiles: 'Contrôles tactiles',
     joystick: 'Joystick',

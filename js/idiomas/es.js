@@ -9,6 +9,7 @@ const es = {
     opciones: 'Opciones',
     idioma: 'Idioma',
     creditos: 'Créditos',
+    mapaReal: 'Mapa Real',
     documentacion: 'Documentación',
     controlesTactiles: 'Controles táctiles',
     joystick: 'Joystick',
