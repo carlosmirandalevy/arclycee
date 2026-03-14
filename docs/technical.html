@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Referencia Técnica</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <!-- ============================================================
+         CONTROLES
+         ============================================================ -->
+    <section id="controles">
+      <h2><span class="icono">🎮</span> Controles</h2>
+
+      <h3>Exploración</h3>
+      <table>
+        <tr><th>Acción</th><th>Teclado</th><th>Móvil</th></tr>
+        <tr><td>Mover</td><td><span class="tecla">WASD</span> o <span class="tecla">Flechas</span></td><td>D-pad virtual</td></tr>
+        <tr><td>Saltar (cuevas)</td><td><span class="tecla">Espacio</span></td><td>Botón SALTO</td></tr>
+        <tr><td>Interactuar</td><td><span class="tecla">E</span> o <span class="tecla">Enter</span></td><td>Botón A</td></tr>
+        <tr><td>Inventario</td><td><span class="tecla">I</span></td><td>Botón X</td></tr>
+        <tr><td>Detectar metal</td><td><span class="tecla">F</span></td><td>Botón Y</td></tr>
+        <tr><td>Volver al mapa</td><td><span class="tecla">M</span></td><td>—</td></tr>
+      </table>
+
+      <h3>En Combate</h3>
+      <table>
+        <tr><th>Acción</th><th>Teclado</th></tr>
+        <tr><td>Elegir opción</td><td><span class="tecla">←</span> <span class="tecla">→</span></td></tr>
+        <tr><td>Confirmar</td><td><span class="tecla">E</span> o <span class="tecla">Enter</span></td></tr>
+      </table>
+
+      <h3>Secreto</h3>
+      <p>
+        <strong>Código Konami:</strong>
+        <span class="tecla">↑</span><span class="tecla">↑</span><span class="tecla">↓</span><span class="tecla">↓</span><span class="tecla">←</span><span class="tecla">→</span><span class="tecla">←</span><span class="tecla">→</span>
+        — abre un selector secreto de niveles.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         TECNOLOGÍAS
+         ============================================================ -->
+    <section id="tech">
+      <h2><span class="icono">💻</span> Tecnologías</h2>
+
+      <table>
+        <tr><th>Tecnología</th><th>Uso</th></tr>
+        <tr><td>HTML5 Canvas</td><td>Renderizado del juego — todo se dibuja por código, sin sprites externos</td></tr>
+        <tr><td>JavaScript ES Modules</td><td>Arquitectura modular sin frameworks ni bundlers</td></tr>
+        <tr><td>Web Audio API</td><td>Sonidos procedurales — cero archivos de audio</td></tr>
+        <tr><td>LeafletJS</td><td>Mapas interactivos con sitios arqueológicos reales de RD</td></tr>
+        <tr><td>Kaplay.js</td><td>Cargado para uso futuro — tilemap, sprites y manejo de input táctil</td></tr>
+        <tr><td>CSS3</td><td>Pantalla de carga, controles táctiles responsivos</td></tr>
+      </table>
+
+      <h3>Principios de Diseño</h3>
+      <ul>
+        <li><strong>Legibilidad primero</strong>: código comentado en español, legible por estudiantes de 13 años</li>
+        <li><strong>Sin dependencias pesadas</strong>: solo LeafletJS para mapas, todo lo demás vanilla</li>
+        <li><strong>Sonido procedural</strong>: efectos generados con Web Audio API, sin archivos</li>
+        <li><strong>Sprites programáticos</strong>: todos los personajes y edificios se dibujan con Canvas 2D</li>
+        <li><strong>3 idiomas</strong>: español, francés e inglés — toda string visible está traducida</li>
+      </ul>
+
+      <h3>Arquitectura del Motor</h3>
+      <p>El código se organiza en módulos ES6:</p>
+      <table>
+        <tr><th>Módulo</th><th>Archivo</th><th>Responsabilidad</th></tr>
+        <tr><td>Game Loop</td><td><code>js/motor/juego.js</code></td><td>Bucle principal, manejo de escenas, inventario, combate, batú, toasts, guardado</td></tr>
+        <tr><td>Input</td><td><code>js/motor/entrada.js</code></td><td>Input unificado (teclado + táctil) vía estaPresionada(accion)</td></tr>
+        <tr><td>Configuración</td><td><code>js/motor/configuracion.js</code></td><td>Constantes globales y mapeo de teclas</td></tr>
+        <tr><td>Renderizado</td><td><code>js/motor/renderizado.js</code></td><td>Wrapper de Canvas 2D</td></tr>
+        <tr><td>Sonido</td><td><code>js/motor/sonido-procedural.js</code></td><td>Efectos con Web Audio API</td></tr>
+        <tr><td>Guardado</td><td><code>js/motor/guardado.js</code></td><td>Persistencia en localStorage</td></tr>
+      </table>
+
+      <h3>Ciclo de Vida de las Escenas</h3>
+      <p>Cada escena implementa:</p>
+      <ul>
+        <li><code>iniciar(juego)</code> — configuración inicial al entrar</li>
+        <li><code>actualizar(dt, entrada, jugador, companeros)</code> — lógica por frame</li>
+        <li><code>dibujar(renderizador, ancho, alto, textos, jugador, companeros)</code> — renderizado</li>
+      </ul>
+      <p>Se cambia de escena con <code>juego.cambiarEscena('nombre')</code>. Solo hay una escena activa a la vez.</p>
+
+      <h3>Sistema de Guardado</h3>
+      <p>Auto-guardado al volver al mapa. Se serializa:</p>
+      <ul>
+        <li>Escena actual, género del personaje, idioma</li>
+        <li>Vida del jugador</li>
+        <li>Progreso (nodos completados y desbloqueados)</li>
+        <li>Inventario completo (objetos con nombre, descripción, tipo)</li>
+        <li>Compañeros (tipo + estado activo/inactivo)</li>
+      </ul>
+      <p>"Continuar Juego" en el menú principal restaura todo y lleva al mapa.</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>ArcLycée v0.14.0 — Aventura Arqueológica Dominicana</p>
+    <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
+  </footer>
+
+  <script src="navigation.js"></script>
+</body>
+</html>

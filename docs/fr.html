@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Documentation du Projet</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="hero">
+    <img src="resources/cemi-logo-just-icon.png" alt="Logo ArcLycée — Cemí">
+    <h1>ArcLycée</h1>
+    <p class="subtitulo">Aventure Archéologique Dominicaine</p>
+    <p class="descripcion">
+      Un jeu vidéo RPG 2D éducatif pour explorer le patrimoine archéologique de la
+      République dominicaine. Créé par les fous du robot du cours de Robotique du
+      Liceo Francés de Santo Domingo — 2026.
+    </p>
+    <div class="badges">
+      <span class="badge tech">HTML5 Canvas + JS Vanilla</span>
+      <span class="badge edu">Éducatif</span>
+      <span class="badge lang">ES / FR / EN</span>
+      <span class="badge tech">Web Audio API</span>
+      <span class="badge edu">Route Pacifiste</span>
+    </div>
+  </div>
+
+  <div class="contenedor">
+
+    <section id="historia">
+      <h2><span class="icono">📖</span> L'Histoire</h2>
+      <p class="intro">Une aventure à travers 5 000 ans d'histoire dominicaine.</p>
+      <p>
+        Tu incarnes <strong>Pepito ou Pepita</strong>, un(e) jeune de 14 ans d'ascendance taïno,
+        espagnole et africaine. Un jour, en traversant un chantier de construction à Santo Domingo,
+        tu découvres une relique mystérieuse qui brille d'une lumière étrange. En la touchant, le sol
+        s'effondre sous tes pieds et tu tombes dans les <strong>Cuevas del Pomier</strong> — un
+        système de grottes réel avec des milliers de pétroglyphes taïnos.
+      </p>
+      <p>
+        Ainsi commence ton aventure d'archéologue accidentel(le). Avec l'aide de trois compagnons
+        — un robot excavateur, un chien errant et un esprit cemí — tu parcourras des mondes allant
+        des villages taïnos à la Zona Colonial de Santo Domingo, affrontant les conflits entre le
+        développement moderne et la préservation du patrimoine.
+      </p>
+      <p>
+        <strong>Tout ne se résout pas en combattant.</strong> Inspiré par Undertale, le jeu propose
+        une route pacifiste complète : tu peux convaincre tes adversaires par le dialogue, la
+        négociation et l'activisme citoyen.
+      </p>
+    </section>
+
+    <section id="flujo">
+      <h2><span class="icono">🗺️</span> Déroulement du Jeu</h2>
+      <p class="intro">Carte en exploration libre avec 8 nœuds, style Super Mario World. Le joueur
+      se déplace librement avec un sprite et active les nœuds en s'approchant.</p>
+      <div class="flujo">
+        <div class="flujo-nodo"><div class="flujo-icono taino">🕳️</div><div class="flujo-texto"><strong>Cuevas del Pomier</strong><br><span>Plateforme dans l'obscurité. Découvre les pétroglyphes taïnos et reçois Magnoboot.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono taino">🏘️</div><div class="flujo-texto"><strong>Village Taïno I</strong><br><span>Village avec bohíos. Apprends la vie taïno et adopte Viralata.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono taino">🌾</div><div class="flujo-texto"><strong>Village Taïno II</strong><br><span>Agriculture et cérémonies. Rencontre le behique et obtiens le Cemí Murciélago.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono colonial">⚓</div><div class="flujo-texto"><strong>La Isabela</strong><br><span>Première ville européenne d'Amérique (1494). Combat avec le Soldat Diego. Roberto Cassá te donne la carte coloniale.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono colonial">🏛️</div><div class="flujo-texto"><strong>Zona Colonial</strong><br><span>Patrimoine UNESCO. Musée de la Cathédrale, Panthéon National, combat d'activisme avec le Constructeur Méndez.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono" style="border-color: #4488cc;">🌊</div><div class="flujo-texto"><strong>Épave de La Pinta</strong><br><span>Un pêcheur offre son canoë. Explore l'épave et combats le poisson-lion invasif.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono" style="border-color: #cc8844;">⚖️</div><div class="flujo-texto"><strong>Aéroport de Punta Cana</strong><br><span>Intérieur de l'aéroport. Combat juridique contre le trafiquant Rodrigo Torres avec la Loi 318, INTERPOL et UNESCO.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono" style="border-color: #44ccaa;">🔬</div><div class="flujo-texto"><strong>Musée des Atarazanas Reales</strong><br><span>Authentification des pièces avec la science réelle (carbone-14). 4 fins possibles selon tes décisions.</span></div></div>
+      </div>
+    </section>
+
+    <section id="companeros">
+      <h2><span class="icono">🤝</span> Compagnons</h2>
+      <p class="intro">Trois alliés uniques qui t'accompagnent tout au long de l'aventure.</p>
+      <div class="companero-card">
+        <div class="companero-visual"><canvas id="sprite-magnoboot" width="64" height="64"></canvas></div>
+        <div>
+          <h3>🤖 Magnoboot</h3>
+          <p><strong>Robot excavateur avec détection de métaux</strong></p>
+          <p>Obtenu de la Dre Martínez dans les Grottes du Pomier. Détecte les objets enfouis avec une impulsion radar (touche F). 100 énergie max, 10 par utilisation.</p>
+        </div>
+      </div>
+      <div class="companero-card">
+        <div class="companero-visual"><canvas id="sprite-viralata" width="64" height="64"></canvas></div>
+        <div>
+          <h3>🐕 Viralata</h3>
+          <p><strong>Chien errant pisteur</strong></p>
+          <p>Adopté dans le Village Taïno I. A un « rayon de flair » de 50px — remue la queue quand des objets cachés sont proches.</p>
+        </div>
+      </div>
+      <div class="companero-card">
+        <div class="companero-visual"><canvas id="sprite-cemi" width="64" height="64"></canvas></div>
+        <div>
+          <h3>🦇 Cemí Murciélago</h3>
+          <p><strong>Esprit protecteur avec 6 niveaux de pouvoir</strong></p>
+          <p>Accordé par le Behique Yuisa dans le Village Taïno II. Gagne des pouvoirs en trouvant des botijas (jarres) :</p>
+          <table>
+            <tr><th>Niveau</th><th>Botijas</th><th>Pouvoir</th></tr>
+            <tr><td>1</td><td>1</td><td>Écho-Localisation</td></tr>
+            <tr><td>3</td><td>3</td><td>Rafale d'Ailes</td></tr>
+            <tr><td>5</td><td>5</td><td>Oreille du Passé</td></tr>
+            <tr><td>8</td><td>8</td><td>Cri Étourdissant</td></tr>
+            <tr><td>10</td><td>10</td><td>Vision de Cemí</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipo">
+      <h2><span class="icono">👥</span> Équipe</h2>
+      <p class="intro">Cours de Robotique du Liceo Francés de Santo Domingo — 2026</p>
+      <div class="grid-2">
+        <div class="item-card"><h5>Elian</h5><p>Easter egg : Cuillère Légendaire</p></div>
+        <div class="item-card"><h5>Théo</h5><p>Easter egg : Frites du Sprinteur</p></div>
+        <div class="item-card"><h5>Carlos Guillermo</h5><p>Easter egg : Shawarma Archéologique</p></div>
+        <div class="item-card"><h5>Jules</h5><p>Easter egg : Sabre Laser Antique</p></div>
+        <div class="item-card"><h5>Alberto</h5><p>Easter egg : Sushi du Farceur</p></div>
+        <div class="item-card"><h5>Rafael</h5><p>Easter egg : Guitare Épique</p></div>
+        <div class="item-card"><h5>Tom</h5><p>Easter egg : Ballon Intelligent</p></div>
+        <div class="item-card"><h5>Nael</h5><p>Easter egg : Hamburger Légendaire</p></div>
+      </div>
+    </section>
+
+    <section id="nota-profesor">
+      <h2><span class="icono">📝</span> Note du Professeur</h2>
+      <div class="nota-profesor">
+        <h3>Bonjour à tous,</h3>
+        <p>L'équipe <strong>Les Fous du Robot</strong> a le plaisir de vous présenter son avant-projet innovant : un jeu vidéo destiné à vulgariser l'archéologie dominicaine auprès du jeune public. Le titre reste à définir, mais ce projet intègre de nombreux aspects de notre patrimoine archéologique. Il est le fruit d'un travail collaboratif d'investigation mené tout au long de l'année par notre groupe de robotique. Il est important de souligner que la présence de l'IA n'intervient qu'à la fin du processus d'investigation (mi-février).</p>
+
+        <p><strong>Voici les étapes clés de notre investigation :</strong></p>
+
+        <ol>
+          <li><strong>Un outil pour les archéologues</strong><br>
+          Diana a conçu un « couteau suisse » pour archéologues, qu'elle a modélisé en 3D et qu'elle souhaite imprimer. Cet outil polyvalent marque le point de départ de notre réflexion.</li>
+
+          <li><strong>Le magnétomètre, un allié précieux</strong><br>
+          Jules et son père, spécialiste du sauvetage d'épaves, nous ont démontré l'importance du magnétomètre. Cet appareil détecte non seulement les métaux, mais aussi toute trace d'activité humaine, même souterraine, grâce aux perturbations du champ magnétique. Comment fonctionne-t-il ? Comment le fabriquer ?</li>
+
+          <li><strong>Prévenir les dommages archéologiques</strong><br>
+          Nos recherches grâce à l'IA, guidées par notre coach Edward, ont révélé que quatre archéologues dominicains supervisent les projets de construction à travers le pays pour éviter les dommages au patrimoine. Comment les aider ? Une carte prospective, permettant de quantifier les risques archéologiques selon les zones de construction (comme la piste de l'aéroport de Pedernales), serait un outil précieux. Un robot autonome, équipé d'un magnétomètre, pourrait également faciliter les fouilles.</li>
+
+          <li><strong>Une carte interactive de l'archéologie dominicaine</strong><br>
+          Inspiré par la revue française <em>Science et Vie Spéciale Archéologie</em>, notre professeur Nicolas nous a encouragés à créer une carte compilant toutes les informations archéologiques de la République dominicaine, organisée en cinq niveaux :
+            <ol>
+              <li>Sites taïnos connus</li>
+              <li>Vestiges de l'époque coloniale (ruines ou objets conservés)</li>
+              <li>Lieux de sensibilisation (musées, collections privées)</li>
+              <li>Carte des épaves pour orienter la recherche ou le tourisme sous-marin</li>
+              <li>Personnes-ressources (historiens, archéologues, directeurs de musées)</li>
+            </ol>
+          </li>
+
+          <li><strong>Renforcer la connaissance de nos racines</strong><br>
+          Les travaux de Franck Moya Pons et Roberto Cassá, les échanges avec l'archéologue Wilton Khoury, ainsi que les vidéos d'Abraham Almonte (réalisées grâce à l'IA) ont renforcé notre conviction : il est essentiel de mieux comprendre notre passé. La discussion sur le marché noir des objets taïnos et ses conséquences sur la vérité historique nous a amenés à interroger Miguel Sánchez sur la législation en vigueur et son efficacité, comparée à celle d'autres pays.</li>
+
+          <li><strong>Un jeu vidéo éducatif et collaboratif</strong><br>
+          La créativité de Carlos Miranda, spécialiste des jeux vidéo éducatifs utilisant l'IA, nous a convaincus de la faisabilité de ce projet. Le jeu intégrera les cinq niveaux mentionnés et servira d'outil de sensibilisation pour les jeunes. Un espace collaboratif, destiné aux écoles et aux musées, permettra d'enrichir cette plateforme éducative et ludique, formant ainsi des citoyens plus responsables.</li>
+        </ol>
+
+        <p>Plusieurs séances de travail avec Carlos Miranda, notre spécialiste en IA, ont permis de rédiger le « prompt » destiné à l'IA pour la production du jeu. Vous trouverez ci-dessous le lien vers la version bêta. Nous sollicitons vos retours pour l'améliorer avant notre prochaine compétition, les samedi 11 et dimanche 12 avril.</p>
+
+        <p>Peu habitué aux jeux vidéo (contrairement à mes enfants), je me suis pourtant lancé dans l'aventure avec plaisir, fasciné mais aussi conscient de l'immense pouvoir – et des responsabilités – que représente l'IA.</p>
+
+        <p>Un remerciement spécial à Carlos Miranda, père d'élève, pour sa précieuse collaboration.</p>
+
+        <p>Profitez de ce week-end en famille pour découvrir, apprécier et, pourquoi pas, critiquer de manière constructive cette version d'essai.</p>
+
+        <p class="firma">Bien cordialement,<br>Nicolas Droulers</p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>ArcLycée v0.14.0 — Aventure Archéologique Dominicaine</p>
+    <p class="equipo">Liceo Francés de Santo Domingo — Cours de Robotique 2026<br><a href="../index.html">Jouer à ArcLycée</a></p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      (() => { const c = document.getElementById('sprite-magnoboot'); if (!c) return; const ctx = c.getContext('2d'); ctx.scale(2, 2); ctx.fillStyle = '#A8A8B0'; ctx.fillRect(8, 12, 16, 14); ctx.fillStyle = '#B8B8C0'; ctx.fillRect(10, 6, 12, 8); ctx.fillStyle = '#00DDDD'; ctx.fillRect(12, 8, 3, 3); ctx.fillRect(17, 8, 3, 3); ctx.fillStyle = '#888888'; ctx.fillRect(15, 2, 2, 5); ctx.fillStyle = '#FF4444'; ctx.beginPath(); ctx.arc(16, 2, 2, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#909098'; ctx.fillRect(5, 14, 4, 8); ctx.fillRect(23, 14, 4, 8); ctx.fillStyle = '#444444'; ctx.fillRect(10, 26, 5, 4); ctx.fillRect(17, 26, 5, 4); })();
+      (() => { const c = document.getElementById('sprite-viralata'); if (!c) return; const ctx = c.getContext('2d'); ctx.scale(2, 2); ctx.fillStyle = '#8B6914'; ctx.fillRect(10, 16, 14, 8); ctx.fillStyle = '#9B7924'; ctx.fillRect(6, 12, 8, 7); ctx.fillStyle = '#000000'; ctx.fillRect(8, 14, 2, 2); ctx.fillStyle = '#333333'; ctx.fillRect(6, 16, 2, 2); ctx.fillStyle = '#7B5904'; ctx.fillRect(7, 10, 3, 4); ctx.fillRect(11, 11, 3, 3); ctx.fillStyle = '#8B6914'; ctx.fillRect(11, 24, 3, 5); ctx.fillRect(19, 24, 3, 5); ctx.fillRect(24, 14, 4, 3); })();
+      (() => { const c = document.getElementById('sprite-cemi'); if (!c) return; const ctx = c.getContext('2d'); ctx.scale(2, 2); ctx.fillStyle = '#6a2a8a'; ctx.beginPath(); ctx.arc(16, 18, 7, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#5a1a7a'; ctx.beginPath(); ctx.moveTo(9, 16); ctx.quadraticCurveTo(2, 10, 4, 20); ctx.lineTo(9, 18); ctx.fill(); ctx.beginPath(); ctx.moveTo(23, 16); ctx.quadraticCurveTo(30, 10, 28, 20); ctx.lineTo(23, 18); ctx.fill(); ctx.fillStyle = '#FF4444'; ctx.beginPath(); ctx.arc(13, 16, 2, 0, Math.PI * 2); ctx.fill(); ctx.beginPath(); ctx.arc(19, 16, 2, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#6a2a8a'; ctx.beginPath(); ctx.moveTo(12, 12); ctx.lineTo(10, 6); ctx.lineTo(14, 11); ctx.fill(); ctx.beginPath(); ctx.moveTo(20, 12); ctx.lineTo(22, 6); ctx.lineTo(18, 11); ctx.fill(); })();
+    });
+  </script>
+  <script src="navigation.js"></script>
+</body>
+</html>

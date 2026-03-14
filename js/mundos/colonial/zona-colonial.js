@@ -1684,7 +1684,7 @@ export class ZonaColonial {
                   }
                 }
               ]
-            });
+            }, this.juego);
           }
         });
       } else {

@@ -497,9 +497,9 @@ export class MenuPrincipal {
         // Abrir la documentación en una nueva ventana según el idioma activo
         // Mapa de idioma → archivo de documentación correspondiente
         {
-          const archivosDoc = { es: 'docs.html', fr: 'docs-fr.html', en: 'docs-en.html' };
+          const archivosDoc = { es: 'docs/index.html', fr: 'docs/fr.html', en: 'docs/en.html' };
           const idiomaActual = this.codigosIdioma[this.idiomaIndice];
-          const archivoDoc = archivosDoc[idiomaActual] || 'docs.html';
+          const archivoDoc = archivosDoc[idiomaActual] || 'docs/index.html';
           window.open(archivoDoc, '_blank');
           // Al abrir una pestaña nueva, el navegador le da el foco a esa pestaña.
           // Cuando el jugador vuelve, las teclas pueden quedar "atascadas" porque

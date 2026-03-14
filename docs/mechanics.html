@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Mecánicas del Juego</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <!-- ============================================================
+         SISTEMA DE COMBATE
+         ============================================================ -->
+    <section id="combate">
+      <h2><span class="icono">⚔️</span> Sistema de Combate</h2>
+      <p class="intro">Inspirado en Undertale: puedes pelear O convencer al enemigo de que se calme.</p>
+
+      <h3>Mecánica Base</h3>
+      <p>Cada enemigo tiene dos medidores emocionales:</p>
+      <ul>
+        <li><strong style="color: var(--verde);">Convencimiento (0-100)</strong>: sube al hablar o negociar. Al llegar a 100, el enemigo se convence y el conflicto se resuelve pacíficamente.</li>
+        <li><strong style="color: var(--rojo);">Hostilidad (0-100)</strong>: baja con diplomacia. Cuando está bajo 30, el enemigo puede hablar en vez de atacar.</li>
+      </ul>
+
+      <h3>Opciones Genéricas</h3>
+      <table>
+        <tr><th>Acción</th><th>Efecto</th><th>Riesgo</th></tr>
+        <tr><td>Atacar</td><td>Daño directo al enemigo</td><td>Sube hostilidad +5</td></tr>
+        <tr><td>Hablar</td><td>Convencido +12-25, Hostilidad -8-20</td><td>Ninguno</td></tr>
+        <tr><td>Negociar</td><td>Convencido +20, Hostilidad -20 (si funciona)</td><td>55% éxito, si falla +5 hostilidad</td></tr>
+        <tr><td>Objeto</td><td>Usar ítem del inventario</td><td>Ninguno</td></tr>
+        <tr><td>Huir</td><td>Escapar del combate</td><td>Depende de velocidad del enemigo</td></tr>
+      </table>
+
+      <h3>Combate Especial: Constructor Méndez</h3>
+      <p>En la Zona Colonial, usa <strong>opciones de activismo ciudadano</strong>:</p>
+      <div class="combat-flow">
+        <div class="combat-option">
+          <h5>📱 Redes Sociales</h5>
+          <p>Publicas fotos de las ruinas amenazadas en redes.</p>
+          <div class="efecto">+10-16 Convencido, -6-12 Hostilidad</div>
+          <div class="contra">Contra: Méndez paga influencers para promover su hotel.</div>
+        </div>
+        <div class="combat-option">
+          <h5>📢 Protestas</h5>
+          <p>Organizas una manifestación frente a la obra.</p>
+          <div class="efecto">+14-22 Convencido, -10-16 Hostilidad</div>
+          <div class="contra">Contra: Méndez patrocina teteos y conciertos para la comunidad.</div>
+        </div>
+        <div class="combat-option">
+          <h5>🏛️ Denunciar</h5>
+          <p>Reportas la demolición ante las autoridades.</p>
+          <div class="efecto">+16-26 Convencido, -12-20 Hostilidad</div>
+          <div class="contra">Contra: Méndez negocia permisos y excepciones con políticos.</div>
+        </div>
+        <div class="combat-option">
+          <h5>⚖️ Vía Legal</h5>
+          <p>Presentas un recurso legal para detener la obra.</p>
+          <div class="efecto">+20-30 Convencido, -15-24 Hostilidad</div>
+          <div class="contra">Contra: Méndez dilata con maniobras legales mientras sigue construyendo.</div>
+        </div>
+      </div>
+      <p><strong>Resolución pacífica:</strong> Méndez rediseña el hotel para proteger las ruinas. "Será más caro, pero le dará un valor único. Y además... es lo correcto."</p>
+
+      <h3>Combate Ecológico: Pez León</h3>
+      <p>El medidor muestra "Controlado" en vez de "Convencido". Opciones de control ecológico:</p>
+      <div class="combat-flow">
+        <div class="combat-option"><h5>🥅 Atrapar</h5><p>Red para llevarlo al acuario.</p><div class="efecto">+12-18 Controlado, -8-14 Hostilidad</div><div class="contra">Contra: Eriza espinas venenosas.</div></div>
+        <div class="combat-option"><h5>🎣 Pescar</h5><p>El pez león es comestible.</p><div class="efecto">+15-22 Controlado, -10-16 Hostilidad</div><div class="contra">Contra: Se reproduce rápidamente.</div></div>
+        <div class="combat-option"><h5>🪸 Proteger Coral</h5><p>Barreras para el coral.</p><div class="efecto">+10-15 Controlado, -6-10 Hostilidad</div><div class="contra">Contra: Devora peces herbívoros.</div></div>
+        <div class="combat-option"><h5>🤿 Alertar Buzos</h5><p>Jornada de remoción.</p><div class="efecto">+18-25 Controlado, -12-18 Hostilidad</div><div class="contra">Contra: Caza peces loro jóvenes.</div></div>
+      </div>
+
+      <h3>Combate Legal: Traficante Rodrigo Torres</h3>
+      <p>El medidor muestra "Evidencia:" — opciones de derecho patrimonial:</p>
+      <div class="combat-flow">
+        <div class="combat-option"><h5>📜 Ley 318</h5><p>Patrimonio cultural de la RD.</p><div class="efecto">+12-18 Evidencia, -8-14 Hostilidad</div><div class="contra">Contra: Alega réplicas modernas.</div></div>
+        <div class="combat-option"><h5>🔬 Evidencia Forense</h5><p>Análisis de materiales.</p><div class="efecto">+15-22 Evidencia, -10-16 Hostilidad</div><div class="contra">Contra: Cuestiona cadena de custodia.</div></div>
+        <div class="combat-option"><h5>🌐 INTERPOL</h5><p>Cooperación internacional.</p><div class="efecto">+18-25 Evidencia, -12-18 Hostilidad</div><div class="contra">Contra: Amenaza con abogados.</div></div>
+        <div class="combat-option"><h5>🏛️ UNESCO 1970</h5><p>Convención contra tráfico ilícito.</p><div class="efecto">+20-28 Evidencia, -15-22 Hostilidad</div><div class="contra">Contra: Alega no retroactividad.</div></div>
+      </div>
+
+      <h3>Sonidos de Combate</h3>
+      <p><strong>22 efectos de sonido procedurales</strong> generados con Web Audio API. Cero archivos de audio:</p>
+      <ul>
+        <li><strong>Acciones del jugador</strong>: golpe, hablar, negociar, uso de objeto, intento de huida</li>
+        <li><strong>Respuestas del enemigo</strong>: ataque, bloqueo, esquive, gruñido</li>
+        <li><strong>Cambios de estado</strong>: subida de convencimiento, bajada de hostilidad, daño, curación</li>
+        <li><strong>Eventos especiales</strong>: victoria pacífica, victoria por combate, derrota, inicio</li>
+      </ul>
+
+      <h3>Sprites de Enemigos</h3>
+      <ul>
+        <li><strong>Soldado Diego</strong>: uniforme rojo oscuro con casco de conquistador (morión)</li>
+        <li><strong>Constructor Méndez</strong>: camisa amarilla con casco de construcción</li>
+        <li><strong>Pez León</strong>: rayas rojas/blancas, aletas en abanico, espinas dorsales venenosas</li>
+        <li><strong>Traficante Torres</strong>: traje oscuro, gafas de sol, maleta con doble fondo</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         MECÁNICAS DEL JUEGO
+         ============================================================ -->
+    <section id="mecanicas">
+      <h2><span class="icono">⚙️</span> Mecánicas del Juego</h2>
+
+      <h3>Inventario</h3>
+      <p>Mochila de 20 slots (5x4) con íconos únicos dibujados por código. Cada objeto tiene nombre, descripción traducida y tipo.</p>
+
+      <h3>Diálogos</h3>
+      <p>Sistema de diálogos con efecto máquina de escribir, nombre del personaje en dorado, soporte para opciones de respuesta. Traducido a ES/FR/EN.</p>
+
+      <h3>Guardado Automático</h3>
+      <p>Se guarda en localStorage al volver al mapa. Se guardan: progreso, inventario, compañeros, vida, género e idioma.</p>
+
+      <h3>Toasts</h3>
+      <p>Mensajes flotantes no intrusivos. Animación de entrada, fondo oscuro con borde dorado, máximo 4 simultáneos.</p>
+
+      <h3>Detección con Magnoboot</h3>
+      <p>Pulso de radar (tecla F) que revela zonas de excavación enterradas.</p>
+
+      <h3>Mapa de Riesgo</h3>
+      <p>Overlay con zonas coloreadas: verde (protegido), amarillo (en peligro), rojo (amenazado).</p>
+
+      <h3>Clima Dinámico</h3>
+      <p>6 tipos meteorológicos, solo en escenas exteriores:</p>
+      <table>
+        <tr><th>Clima</th><th>Probabilidad</th><th>Efecto</th><th>Partículas</th></tr>
+        <tr><td>Soleado</td><td>45%</td><td>Normal</td><td>Rayos de luz, destellos</td></tr>
+        <tr><td>Nublado</td><td>25%</td><td>Visual solamente</td><td>Nubes oscuras overlay</td></tr>
+        <tr><td>Lluvia</td><td>20%</td><td>-15% velocidad</td><td>Gotas diagonales, charcos</td></tr>
+        <tr><td>Tormenta</td><td>7%</td><td>-25% velocidad</td><td>Lluvia intensa, relámpagos</td></tr>
+        <tr><td>Huracán</td><td>2%</td><td>-35% velocidad, empuje</td><td>Viento, hojas, escombros</td></tr>
+        <tr><td>Terremoto</td><td>1%</td><td>Tropiezos, sacudida</td><td>Polvo, grietas, piedras</td></tr>
+      </table>
+
+      <h3>Mapa de Libre Exploración</h3>
+      <p>8 nodos activados al acercarse con el sprite:</p>
+      <table>
+        <tr><th>#</th><th>Nodo</th><th>Ubicación</th></tr>
+        <tr><td>1</td><td>Cuevas del Pomier</td><td>San Cristóbal (centro-sur)</td></tr>
+        <tr><td>2</td><td>Asentamiento Taíno I</td><td>Interior de la isla</td></tr>
+        <tr><td>3</td><td>Asentamiento Taíno II</td><td>Interior de la isla</td></tr>
+        <tr><td>4</td><td>La Isabela</td><td>Puerto Plata (costa norte)</td></tr>
+        <tr><td>5</td><td>Zona Colonial</td><td>Santo Domingo (costa sur)</td></tr>
+        <tr><td>6</td><td>Naufragio de La Pinta</td><td>Costa norte (mar)</td></tr>
+        <tr><td>7</td><td>Aeropuerto de Punta Cana</td><td>La Altagracia</td></tr>
+        <tr><td>8</td><td>Museo de las Atarazanas Reales</td><td>Zona Colonial, Santo Domingo</td></tr>
+      </table>
+
+      <h3>4 Finales</h3>
+      <div class="grid-2">
+        <div class="item-card" style="border-left: 3px solid var(--dorado);"><h5>🏆 Final Completo</h5><p>8 nodos completados + todos pacificados. Pepito embajador juvenil del patrimonio.</p></div>
+        <div class="item-card" style="border-left: 3px solid var(--azul);"><h5>🏛️ Final del Museo</h5><p>Final por defecto. Piezas exhibidas en el Museo de las Atarazanas Reales.</p></div>
+        <div class="item-card" style="border-left: 3px solid var(--verde);"><h5>🌍 Final Ecológico</h5><p>3+ acciones ecológicas sin violencia. Funda organización de conservación marina.</p></div>
+        <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>💀 Final Oscuro</h5><p>Más violencia que pacifismo. Piezas en manos de coleccionistas privados.</p></div>
+      </div>
+
+      <h3>Mini-juego de Batú</h3>
+      <p>El <strong>batú</strong> era el juego de pelota sagrado de los taínos. Se golpeaba con caderas (usando un yugo de piedra), hombros, codos, rodillas y cabeza — nunca con manos ni pies.</p>
+      <p>Se activa con Higüemota en el Asentamiento Taíno II. Vista lateral con física 2D:</p>
+      <table>
+        <tr><th>Golpe</th><th>Zona</th><th>Ángulo</th><th>Potencia</th></tr>
+        <tr><td>Cadera (yugo)</td><td>Cintura</td><td>45°</td><td>Máxima</td></tr>
+        <tr><td>Hombro</td><td>Pecho</td><td>60°</td><td>Alta</td></tr>
+        <tr><td>Cabeza</td><td>Cabeza</td><td>~Vertical</td><td>Media</td></tr>
+        <tr><td>Rodilla</td><td>Piernas</td><td>30°</td><td>Baja (defensivo)</td></tr>
+      </table>
+      <p>IA rival: 85% velocidad, 150ms retardo, 15% errores. Primero en 3 puntos gana.</p>
+
+      <h3>Easter Eggs</h3>
+      <p>8 objetos secretos personalizados:</p>
+      <div class="grid-2">
+        <div class="item-card"><h5>🥄 Cuchara Legendaria</h5><p>Elian — +10 estamina</p></div>
+        <div class="item-card"><h5>🍟 Papas del Velocista</h5><p>Théo — +50% velocidad 30s</p></div>
+        <div class="item-card"><h5>🥙 Shawarma Arqueológico</h5><p>Carlos Guillermo — +50 HP</p></div>
+        <div class="item-card"><h5>🔦 Sable de Luz</h5><p>Jules — arma luminosa especial</p></div>
+        <div class="item-card"><h5>🍣 Sushi del Bromista</h5><p>Alberto — enemigos ríen 10s</p></div>
+        <div class="item-card"><h5>🎸 Guitarra Épica</h5><p>Rafael — revela quests secretas</p></div>
+        <div class="item-card"><h5>🤾 Balón Inteligente</h5><p>Tom — activa interruptores a distancia</p></div>
+        <div class="item-card"><h5>🍔 Hamburguesa Legendaria</h5><p>Nael — restauración total HP</p></div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>ArcLycée v0.14.0 — Aventura Arqueológica Dominicana</p>
+    <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
+  </footer>
+
+  <script src="navigation.js"></script>
+</body>
+</html>

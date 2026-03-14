@@ -17,8 +17,8 @@
 // la geografía real de los lugares del juego.
 // ============================================================
 
-import { configurarControlCapas } from './referencia/capas.js';
-import { crearMarcadoresJuego, actualizarMarcadores, obtenerCoordenadas } from './referencia/marcadores.js';
+import { configurarControlCapas, configurarControlOverlays } from './referencia/capas.js';
+import { crearMarcadoresJuego, actualizarMarcadores, obtenerCoordenadas, crearMarcadoresSitiosArqueologicos } from './referencia/marcadores.js';
 import {
   CENTRO_RD,
   ZOOM_PAIS,
@@ -52,7 +52,8 @@ export class MapaLeaflet {
       taino: null,
       colonial: null,
       naufragios: null,
-      museos: null
+      museos: null,
+      sitiosArqueologicos: null
     };
 
     // Callback para cuando el jugador viaja a un nodo
@@ -102,17 +103,20 @@ export class MapaLeaflet {
     this._agregarNaufragios();
     this._agregarMuseos();
 
+    // --- Naufragios descubiertos por el robot submarino del LFSD ---
+    if (progreso?.naufragiosRobotDescubiertos === true) {
+      this._agregarNaufragiosRobot();
+    }
+
+    // --- Capa de sitios inexplorados (solo si el robot fue programado) ---
+    if (progreso?.robotProgramado === true) {
+      this.capas.sitiosArqueologicos = L.layerGroup().addTo(this.mapa);
+      crearMarcadoresSitiosArqueologicos(this.capas.sitiosArqueologicos);
+    }
+
     // --- Control para alternar capas de sitios ---
-    const capasSitios = {
-      '🗿 Sitios Taínos': this.capas.taino,
-      '🏰 Sitios Coloniales': this.capas.colonial,
-      '⚓ Naufragios': this.capas.naufragios,
-      '🏛 Museos': this.capas.museos
-    };
-    L.control.layers(null, capasSitios, {
-      position: 'bottomright',
-      collapsed: false
-    }).addTo(this.mapa);
+    // Usa configurarControlOverlays que incluye sitios inexplorados condicionalmente
+    configurarControlOverlays(this.mapa, this.capas, progreso);
 
     // Empezar oculto
     this.contenedor.style.display = 'none';
@@ -328,6 +332,70 @@ export class MapaLeaflet {
     }
   }
 
+  // --- Naufragios descubiertos por el robot submarino del LFSD ---
+  // 4 naufragios reales poco conocidos que el robot explorador encuentra
+  _agregarNaufragiosRobot() {
+    const naufragios = [
+      {
+        lat: 19.95, lng: -70.72,
+        nombre: 'Pecio de Luperón (s. XVII)',
+        desc: 'Restos de un barco mercante español encontrado por el robot en la bahía de Luperón. Cargamento de cerámica y herramientas.'
+      },
+      {
+        lat: 18.21, lng: -68.50,
+        nombre: 'Pecio de Isla Saona (s. XVIII)',
+        desc: 'Barco de esclavos hundido al sur de Isla Saona. El robot detectó anclas y cadenas en el fondo arenoso.'
+      },
+      {
+        lat: 19.85, lng: -70.98,
+        nombre: 'Galeón de Puerto Plata (1563)',
+        desc: 'Galeón de la flota de Nueva España perdido durante un huracán. El robot encontró cañones y lingotes.'
+      },
+      {
+        lat: 18.60, lng: -69.90,
+        nombre: 'Vapor costero San Andrés (1891)',
+        desc: 'Vapor dominicano hundido cerca de Boca Chica. El robot escaneó calderas y estructura metálica intacta.'
+      }
+    ];
+
+    for (const s of naufragios) {
+      const marcador = L.marker([s.lat, s.lng], {
+        icon: L.divIcon({
+          className: 'marcador-sitio',
+          html: `<div style="
+            background: #1E90FF;
+            width: 32px;
+            height: 32px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #44FF44;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+          ">
+            <span style="
+              transform: rotate(45deg);
+              font-size: 14px;
+            ">🤖</span>
+          </div>`,
+          iconSize: [32, 42],
+          iconAnchor: [16, 42],
+          popupAnchor: [0, -42]
+        })
+      });
+      marcador.bindPopup(`
+        <div style="font-family: monospace; min-width: 180px;">
+          <strong>🤖 ${s.nombre}</strong>
+          <hr style="border: none; border-top: 1px solid #ddd; margin: 6px 0;">
+          <p style="margin: 4px 0; font-size: 12px;">${s.desc}</p>
+          <small style="color: #44AA44;">📡 Descubierto por Robot LFSD</small>
+        </div>
+      `);
+      marcador.addTo(this.capas.naufragios);
+    }
+  }
+
   /** Centrar el mapa en una ubicación con animación */
   centrarEn(lat, lng, zoom = 14) {
     if (this.mapa) {
@@ -349,6 +417,7 @@ export class MapaLeaflet {
     this.capas.colonial = null;
     this.capas.naufragios = null;
     this.capas.museos = null;
+    this.capas.sitiosArqueologicos = null;
 
     // Limpiar referencia global
     if (window._viajarANodo) {

@@ -59,6 +59,27 @@ export class MapaPrincipal {
     this._nodoCercano = null;
     this._radioInteraccion = 40;
 
+    // --- Zoom de la cámara ---
+    // 1.0 = normal, >1 = acercado, <1 = alejado
+    this.zoom = 1.0;
+    this._zoomMin = 0.25;
+    this._zoomMax = 2.0;
+    this._zoomVelocidad = 0.05;
+    this._bloqueoZoom = false;
+
+    // --- Interacción táctil para el mapa ---
+    // Para arrastrar el mapa con el dedo y hacer zoom con pinch
+    this._tocando = false;           // ¿Hay un dedo tocando?
+    this._arrastrando = false;       // ¿Se está arrastrando el mapa?
+    this._ultimoToque = { x: 0, y: 0 };  // Última posición del dedo
+    this._distanciaPinch = 0;       // Distancia entre dos dedos (para zoom)
+    this._zoomAntesPinch = 1.0;     // Zoom al iniciar el pinch
+
+    // --- Arrastrar el mapa con el ratón ---
+    this._ratonArrastrando = false;  // ¿Se está arrastrando con el ratón?
+    this._ratonUltimoX = 0;
+    this._ratonUltimoY = 0;
+
     // --- Referencia al juego ---
     this.juego = null;
   }
@@ -72,6 +93,138 @@ export class MapaPrincipal {
     // Generar el mapa de tiles (solo la primera vez)
     if (!this.tiles) {
       this.tiles = generarMapaIsla();
+    }
+
+    // Escuchar rueda del ratón para zoom (solo si no hay listener previo)
+    if (!this._wheelListener) {
+      this._wheelListener = (e) => {
+        // Solo hacer zoom si esta escena está activa
+        if (this.juego?.nombreEscenaActual !== 'mapaPrincipal') return;
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -this._zoomVelocidad : this._zoomVelocidad;
+        this.zoom = Math.max(this._zoomMin, Math.min(this._zoomMax, this.zoom + delta));
+      };
+      // Usamos el canvas del juego para no capturar eventos fuera del juego
+      const canvas = this.juego?.renderizador?.canvas || document.querySelector('canvas');
+      if (canvas) {
+        canvas.addEventListener('wheel', this._wheelListener, { passive: false });
+      }
+    }
+
+    // --- Eventos táctiles para arrastrar y hacer pinch-zoom ---
+    // En móvil, el jugador puede mover el mapa con un dedo
+    // y hacer zoom juntando o separando dos dedos
+    if (!this._touchStartListener) {
+      const canvas = this.juego?.renderizador?.canvas || document.querySelector('canvas');
+      if (canvas) {
+        this._touchStartListener = (e) => {
+          // Solo procesar si esta escena está activa
+          if (this.juego?.nombreEscenaActual !== 'mapaPrincipal') return;
+          e.preventDefault();
+
+          if (e.touches.length === 1) {
+            // Un dedo: preparar para arrastrar el mapa
+            this._tocando = true;
+            this._arrastrando = false;
+            this._ultimoToque.x = e.touches[0].clientX;
+            this._ultimoToque.y = e.touches[0].clientY;
+          } else if (e.touches.length === 2) {
+            // Dos dedos: preparar para pinch zoom
+            this._tocando = false;
+            this._arrastrando = false;
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            this._distanciaPinch = Math.sqrt(dx * dx + dy * dy);
+            this._zoomAntesPinch = this.zoom;
+          }
+        };
+
+        this._touchMoveListener = (e) => {
+          if (this.juego?.nombreEscenaActual !== 'mapaPrincipal') return;
+          e.preventDefault();
+
+          if (e.touches.length === 1 && this._tocando) {
+            // Arrastrar el mapa con un dedo
+            this._arrastrando = true;
+            const dx = e.touches[0].clientX - this._ultimoToque.x;
+            const dy = e.touches[0].clientY - this._ultimoToque.y;
+
+            // Convertir píxeles de pantalla a píxeles del mundo
+            // Dividimos por zoom porque la cámara trabaja en coordenadas del mundo
+            const canvasEl = e.target;
+            const escalaCanvas = canvasEl.width / canvasEl.clientWidth;
+            this.camaraX -= (dx * escalaCanvas) / this.zoom;
+            this.camaraY -= (dy * escalaCanvas) / this.zoom;
+            this._clampCamara();
+
+            this._ultimoToque.x = e.touches[0].clientX;
+            this._ultimoToque.y = e.touches[0].clientY;
+          } else if (e.touches.length === 2) {
+            // Pinch zoom: comparar la distancia actual entre dedos
+            // con la distancia cuando empezó el pinch
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const nuevaDistancia = Math.sqrt(dx * dx + dy * dy);
+
+            if (this._distanciaPinch > 0) {
+              const factorZoom = nuevaDistancia / this._distanciaPinch;
+              this.zoom = Math.max(this._zoomMin, Math.min(this._zoomMax,
+                this._zoomAntesPinch * factorZoom));
+              this._clampCamara();
+            }
+          }
+        };
+
+        this._touchEndListener = (e) => {
+          if (this.juego?.nombreEscenaActual !== 'mapaPrincipal') return;
+          this._tocando = false;
+          this._arrastrando = false;
+          this._distanciaPinch = 0;
+        };
+
+        canvas.addEventListener('touchstart', this._touchStartListener, { passive: false });
+        canvas.addEventListener('touchmove', this._touchMoveListener, { passive: false });
+        canvas.addEventListener('touchend', this._touchEndListener, { passive: false });
+        canvas.addEventListener('touchcancel', this._touchEndListener, { passive: false });
+      }
+    }
+
+    // --- Arrastrar el mapa con el ratón (click y arrastrar) ---
+    if (!this._mouseDownListener) {
+      const canvas = this.juego?.renderizador?.canvas || document.querySelector('canvas');
+      if (canvas) {
+        this._mouseDownListener = (e) => {
+          if (this.juego?.nombreEscenaActual !== 'mapaPrincipal') return;
+          this._ratonArrastrando = true;
+          this._ratonUltimoX = e.clientX;
+          this._ratonUltimoY = e.clientY;
+        };
+
+        this._mouseMoveListener = (e) => {
+          if (!this._ratonArrastrando) return;
+          if (this.juego?.nombreEscenaActual !== 'mapaPrincipal') return;
+
+          const dx = e.clientX - this._ratonUltimoX;
+          const dy = e.clientY - this._ratonUltimoY;
+
+          // Convertir píxeles de pantalla a píxeles del mundo
+          const escalaCanvas = canvas.width / canvas.clientWidth;
+          this.camaraX -= (dx * escalaCanvas) / this.zoom;
+          this.camaraY -= (dy * escalaCanvas) / this.zoom;
+          this._clampCamara();
+
+          this._ratonUltimoX = e.clientX;
+          this._ratonUltimoY = e.clientY;
+        };
+
+        this._mouseUpListener = () => {
+          this._ratonArrastrando = false;
+        };
+
+        canvas.addEventListener('mousedown', this._mouseDownListener);
+        window.addEventListener('mousemove', this._mouseMoveListener);
+        window.addEventListener('mouseup', this._mouseUpListener);
+      }
     }
 
     // --- Construir nodos desde las posiciones de tiles ---
@@ -132,8 +285,10 @@ export class MapaPrincipal {
       juego.jugador.y = nodoInicio.y + 25;
 
       // Centrar la cámara en el jugador inmediatamente (sin lerp)
-      this.camaraX = juego.jugador.x - ANCHO_JUEGO / 2 + juego.jugador.ancho / 2;
-      this.camaraY = juego.jugador.y - ALTO_JUEGO / 2 + juego.jugador.alto / 2;
+      const vistaAncho = ANCHO_JUEGO / this.zoom;
+      const vistaAlto = ALTO_JUEGO / this.zoom;
+      this.camaraX = juego.jugador.x - vistaAncho / 2 + juego.jugador.ancho / 2;
+      this.camaraY = juego.jugador.y - vistaAlto / 2 + juego.jugador.alto / 2;
       this._clampCamara();
     }
   }
@@ -161,6 +316,14 @@ export class MapaPrincipal {
       }
       this.bloqueoEntrada = true;
       return;
+    }
+
+    // --- Zoom del mapa con +/- (continuo mientras se mantiene presionado) ---
+    if (entrada.estaPresionada('zoomIn')) {
+      this.zoom = Math.min(this._zoomMax, this.zoom + this._zoomVelocidad * dt * 60);
+    }
+    if (entrada.estaPresionada('zoomOut')) {
+      this.zoom = Math.max(this._zoomMin, this.zoom - this._zoomVelocidad * dt * 60);
     }
 
     // --- Movimiento libre del jugador ---
@@ -214,10 +377,16 @@ export class MapaPrincipal {
     jugador.y = Math.max(0, Math.min(this.altoMundo - jugador.alto, jugador.y));
 
     // --- Cámara suave que sigue al jugador ---
-    const objetivoCamX = jugador.x - ANCHO_JUEGO / 2 + jugador.ancho / 2;
-    const objetivoCamY = jugador.y - ALTO_JUEGO / 2 + jugador.alto / 2;
-    this.camaraX += (objetivoCamX - this.camaraX) * 0.08;
-    this.camaraY += (objetivoCamY - this.camaraY) * 0.08;
+    // No seguir al jugador si estamos arrastrando el mapa manualmente
+    // (con el dedo en móvil o con el ratón en escritorio)
+    if (!this._arrastrando && !this._ratonArrastrando) {
+      const vistaAncho = ANCHO_JUEGO / this.zoom;
+      const vistaAlto = ALTO_JUEGO / this.zoom;
+      const objetivoCamX = jugador.x - vistaAncho / 2 + jugador.ancho / 2;
+      const objetivoCamY = jugador.y - vistaAlto / 2 + jugador.alto / 2;
+      this.camaraX += (objetivoCamX - this.camaraX) * 0.08;
+      this.camaraY += (objetivoCamY - this.camaraY) * 0.08;
+    }
     this._clampCamara();
 
     // --- Detectar nodo más cercano ---
@@ -259,13 +428,22 @@ export class MapaPrincipal {
   // --- Dibujar el mapa ---
   dibujar(renderizador, ancho, alto, textos, jugador) {
     const ctx = renderizador.ctx;
+    const zoom = this.zoom;
+
+    // Viewport visible en coordenadas del mundo (antes del zoom)
+    const vistaAncho = ancho / zoom;
+    const vistaAlto = alto / zoom;
+
+    // --- Aplicar zoom: todo lo del mundo se dibuja escalado ---
+    ctx.save();
+    ctx.scale(zoom, zoom);
 
     // --- Tiles del mundo (con offset de cámara) ---
     if (this.tiles) {
       dibujarTilesVisibles(
         ctx, this.tiles,
         this.camaraX, this.camaraY,
-        ancho, alto,
+        vistaAncho, vistaAlto,
         this.tiempoAnimacion
       );
     }
@@ -278,7 +456,7 @@ export class MapaPrincipal {
 
       const estaActivo = !hasta.bloqueado;
       ctx.strokeStyle = estaActivo ? 'rgba(200, 168, 78, 0.6)' : 'rgba(85, 85, 85, 0.4)';
-      ctx.lineWidth = estaActivo ? 3 : 2;
+      ctx.lineWidth = (estaActivo ? 3 : 2) / zoom;
       ctx.setLineDash(estaActivo ? [8, 6] : [4, 8]);
 
       ctx.beginPath();
@@ -294,8 +472,8 @@ export class MapaPrincipal {
       const nx = nodo.x - this.camaraX;
       const ny = nodo.y - this.camaraY;
 
-      // Solo dibujar nodos visibles en pantalla
-      if (nx < -50 || nx > ancho + 50 || ny < -50 || ny > alto + 50) continue;
+      // Solo dibujar nodos visibles en pantalla (viewport ajustado al zoom)
+      if (nx < -50 || nx > vistaAncho + 50 || ny < -50 || ny > vistaAlto + 50) continue;
 
       const esCercano = nodoCercano && nodo.id === nodoCercano.id;
       const estaDesbloqueandose = nodo.id === this.nodoDesbloqueandose;
@@ -371,10 +549,13 @@ export class MapaPrincipal {
       }
     }
 
-    // --- Jugador (con offset de cámara) ---
+    // --- Jugador (con offset de cámara, dentro del zoom) ---
     if (jugador) {
       this._dibujarJugador(ctx, jugador);
     }
+
+    // --- Cerrar el zoom — todo lo de abajo es HUD fijo en pantalla ---
+    ctx.restore();
 
     // --- Título del mundo (fijo en pantalla, no se mueve con la cámara) ---
     const idCercano = nodoCercano ? nodoCercano.id : -1;
@@ -427,7 +608,7 @@ export class MapaPrincipal {
     ctx.font = '11px monospace';
     ctx.fillStyle = '#AAAAAA';
     ctx.fillText(
-      'E: entrar | I: inventario | R: mapa real | Q: menú',
+      'E: entrar | I: inventario | R: mapa real | +/−: zoom | Q: menú',
       ancho / 2, alto - 8
     );
 
@@ -451,10 +632,12 @@ export class MapaPrincipal {
   // MÉTODOS INTERNOS
   // ============================================================
 
-  /** Limita la cámara a los bordes del mundo */
+  /** Limita la cámara a los bordes del mundo (ajustado al zoom) */
   _clampCamara() {
-    this.camaraX = Math.max(0, Math.min(this.anchoMundo - ANCHO_JUEGO, this.camaraX));
-    this.camaraY = Math.max(0, Math.min(this.altoMundo - ALTO_JUEGO, this.camaraY));
+    const vistaAncho = ANCHO_JUEGO / this.zoom;
+    const vistaAlto = ALTO_JUEGO / this.zoom;
+    this.camaraX = Math.max(0, Math.min(this.anchoMundo - vistaAncho, this.camaraX));
+    this.camaraY = Math.max(0, Math.min(this.altoMundo - vistaAlto, this.camaraY));
   }
 
   /**

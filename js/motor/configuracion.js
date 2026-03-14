@@ -80,7 +80,13 @@ export const TECLAS_POR_DEFECTO = {
   inventario: ['i', 'I'],                 // Abrir mochila
   especial:   ['f', 'F'],                 // Habilidad especial
   mapa:       ['m', 'M'],                 // Volver al mapa del mundo
-  referencia: ['r', 'R']                  // Abrir mapa de referencia (Leaflet)
+  referencia: ['r', 'R'],                 // Abrir mapa de referencia (Leaflet)
+  registro:   ['l', 'L'],                 // Abrir registro de misiones
+  foto:       ['t', 'T'],                 // Tomar foto de un objeto/NPC cercano
+  selfie:     ['g', 'G'],                 // Tomar selfie con un objeto/NPC cercano
+  album:      ['p', 'P'],                 // Abrir/cerrar el álbum de fotos
+  zoomIn:     ['+', '='],                // Acercar la cámara en el mapa del mundo
+  zoomOut:    ['-', '_']                 // Alejar la cámara en el mapa del mundo
 };
 
 // --- Guardado ---

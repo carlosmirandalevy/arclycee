@@ -7,6 +7,7 @@
 // ============================================================
 
 import { lerp, limitar, aleatorio, aleatorioEntero } from '../utilidades/matematicas.js';
+import { SonidoProcedural } from '../motor/sonido-procedural.js';
 
 // --- Todos los tipos de clima que existen en el juego ---
 // Los pusimos en una lista constante para no escribirlos mal por accidente
@@ -48,6 +49,12 @@ export class SistemaClima {
 
     // Intensidad que queremos alcanzar al terminar la transicion
     this.intensidadObjetivo = 0;
+
+    // --- Sistema de sonido ambiental ---
+    // Generamos lluvia y truenos con la Web Audio API
+    this._sfx = new SonidoProcedural();
+    this._lluviaActiva = null;        // Referencia al sonido de lluvia en loop
+    this._temporizadorTrueno = 0;     // Segundos hasta el próximo trueno
   }
 
   // --- Cambiar el clima suavemente ---
@@ -110,6 +117,9 @@ export class SistemaClima {
       // Ponemos el temporizador de nuevo para el siguiente cambio
       this.temporizadorCambio = aleatorio(40, 120);
     }
+
+    // --- Actualizar sonido ambiental según el clima ---
+    this._actualizarSonido(dt);
 
     // --- Actualizar particulas del clima ---
     this._actualizarParticulas(dt);
@@ -183,9 +193,51 @@ export class SistemaClima {
     }
   }
 
+  // --- Detener todos los sonidos ambientales ---
+  // Llamar cuando el clima se desactiva (ej: al cambiar de escena)
+  detenerSonidos() {
+    if (this._lluviaActiva) {
+      this._lluviaActiva.detener();
+      this._lluviaActiva = null;
+    }
+  }
+
   // =====================================================
   // METODOS PRIVADOS (los que empiezan con _ son internos)
   // =====================================================
+
+  // --- Actualizar sonidos ambientales según el clima actual ---
+  // Inicia/detiene la lluvia y dispara truenos cuando corresponde
+  _actualizarSonido(dt) {
+    const necesitaLluvia = this.climaActual === 'lluvia' ||
+                           this.climaActual === 'tormenta' ||
+                           this.climaActual === 'huracan';
+
+    if (necesitaLluvia && !this._lluviaActiva) {
+      // Iniciar sonido de lluvia con la intensidad actual
+      this._lluviaActiva = this._sfx.lluviaAmbiente(this.intensidad);
+    } else if (!necesitaLluvia && this._lluviaActiva) {
+      // Parar la lluvia con fade-out suave
+      this._lluviaActiva.detener();
+      this._lluviaActiva = null;
+    } else if (necesitaLluvia && this._lluviaActiva) {
+      // Ajustar volumen si la intensidad cambió (transiciones)
+      this._lluviaActiva.setIntensidad(this.intensidad);
+    }
+
+    // --- Truenos durante tormentas ---
+    if (this.climaActual === 'tormenta') {
+      this._temporizadorTrueno -= dt;
+      if (this._temporizadorTrueno <= 0) {
+        this._sfx.trueno();
+        // Próximo trueno entre 4 y 15 segundos
+        this._temporizadorTrueno = aleatorio(4, 15);
+      }
+    } else {
+      // Resetear el temporizador cuando no hay tormenta
+      this._temporizadorTrueno = aleatorio(2, 5);
+    }
+  }
 
   // --- Escoger un clima al azar usando las probabilidades ---
   // Usamos un truco: imaginamos una linea de 0 a 1, y cada clima

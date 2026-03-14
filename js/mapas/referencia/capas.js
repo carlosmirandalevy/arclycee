@@ -140,3 +140,35 @@ export function configurarControlCapas(mapa) {
 
   return { capasBase, control, capaActiva };
 }
+
+/**
+ * Crea el control de capas de sitios arqueológicos (overlays).
+ * Incluye la capa de sitios inexplorados condicionalmente,
+ * solo si el jugador ha programado el robot explorador.
+ *
+ * @param {L.Map} mapa - Instancia del mapa de Leaflet
+ * @param {Object} capas - Objeto con las capas { taino, colonial, naufragios, museos, sitiosArqueologicos? }
+ * @param {Object} progreso - Progreso del jugador para verificar condiciones
+ * @returns {L.Control.Layers} Control de overlays creado
+ */
+export function configurarControlOverlays(mapa, capas, progreso) {
+  // Capas base de sitios siempre disponibles
+  const capasSitios = {
+    '🗿 Sitios Taínos': capas.taino,
+    '🏰 Sitios Coloniales': capas.colonial,
+    '⚓ Naufragios': capas.naufragios,
+    '🏛 Museos': capas.museos
+  };
+
+  // La capa de sitios inexplorados solo aparece si el robot fue programado
+  if (progreso?.robotProgramado === true && capas.sitiosArqueologicos) {
+    capasSitios['🔍 Sitios Inexplorados'] = capas.sitiosArqueologicos;
+  }
+
+  const control = L.control.layers(null, capasSitios, {
+    position: 'bottomright',
+    collapsed: false
+  }).addTo(mapa);
+
+  return control;
+}

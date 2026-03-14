@@ -195,7 +195,18 @@ export class SistemaGuardado {
         nodosDesbloqueados: [...(juego.progreso.nodosDesbloqueados || [])],
         combatesPacificados: juego.progreso.combatesPacificados || 0,
         combatesViolentos: juego.progreso.combatesViolentos || 0,
-        accionesEcologicas: juego.progreso.accionesEcologicas || 0
+        accionesEcologicas: juego.progreso.accionesEcologicas || 0,
+        robotProgramado: juego.progreso.robotProgramado || false,
+        magnetometroCalibrado: juego.progreso.magnetometroCalibrado || false,
+        equipoReparado: juego.progreso.equipoReparado || false,
+        equipoEntregado: juego.progreso.equipoEntregado || false,
+        descubrimientoCientifico: juego.progreso.descubrimientoCientifico || false,
+        periodicoRecogido: juego.progreso.periodicoRecogido || false,
+        naufragiosRobotDescubiertos: juego.progreso.naufragiosRobotDescubiertos || false,
+        manatiLiberado: juego.progreso.manatiLiberado || false,
+        arrecifeLimpiado: juego.progreso.arrecifeLimpiado || false,
+        // Estado persistente por mundo (NPCs hablados, objetos recogidos, etc.)
+        mundos: juego.progreso.mundos || {}
       },
 
       // --- Inventario UI (objetos con nombre, descripción, ícono) ---
@@ -209,6 +220,21 @@ export class SistemaGuardado {
 
       // --- Idioma activo ---
       idioma: juego.idiomas ? juego.idiomas.idiomaActual : 'es',
+
+      // --- Reputación del jugador ---
+      reputacion: juego.reputacion ? juego.reputacion.puntos : 0,
+
+      // --- Estado de misiones secundarias ---
+      misiones: juego.misiones ? juego.misiones.serializar() : null,
+
+      // --- Registro de misiones (diario del jugador) ---
+      registroEntradas: juego.registro ? juego.registro.entradas.map(e => ({ ...e })) : [],
+
+      // --- Álbum de fotos (solo metadata, sin imágenes) ---
+      // Las imágenes base64 son demasiado grandes para localStorage,
+      // así que solo guardamos la lista de fotos tomadas (sin miniaturas).
+      // Al cargar, las fotos aparecen como placeholders en el álbum.
+      albumFotos: juego.album ? juego.album.serializar() : [],
 
       // --- Cuándo se guardó ---
       marcaTiempo: Date.now()

@@ -1,0 +1,675 @@
+/* ============================================================
+   ESTILOS COMPARTIDOS DE LA DOCUMENTACIÓN DE ARCLYCÉE
+   Diseño oscuro con acentos dorados inspirado en la estética
+   del juego. Extraído del monolito original para compartir
+   entre todas las páginas de documentación.
+   ============================================================ */
+
+:root {
+  --fondo: #0e0e1a;
+  --fondo-seccion: #14142a;
+  --fondo-tarjeta: #1a1a35;
+  --fondo-codigo: #0a0a18;
+  --texto: #d4d4e0;
+  --texto-tenue: #8888aa;
+  --dorado: #DAA520;
+  --dorado-claro: #FFD700;
+  --verde: #44cc44;
+  --rojo: #cc4444;
+  --azul: #4488cc;
+  --morado: #8844cc;
+  --borde: #2a2a4a;
+  --acento-taino: #8B6914;
+  --acento-colonial: #6B4423;
+}
+
+/* --- Tema claro --- */
+[data-theme="light"] {
+  --fondo: #f4f3ee;
+  --fondo-seccion: #eae8e0;
+  --fondo-tarjeta: #ffffff;
+  --fondo-codigo: #e8e6de;
+  --texto: #2a2a3a;
+  --texto-tenue: #5a5a7a;
+  --dorado: #9a7810;
+  --dorado-claro: #7a6200;
+  --verde: #228822;
+  --rojo: #aa2222;
+  --azul: #226699;
+  --morado: #6622aa;
+  --borde: #c8c6be;
+  --acento-taino: #8B6914;
+  --acento-colonial: #6B4423;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.7;
+}
+
+/* --- Hero / Portada --- */
+.hero {
+  text-align: center;
+  padding: 80px 20px 60px;
+  background: linear-gradient(180deg, #1a1a2e 0%, var(--fondo) 100%);
+  border-bottom: 2px solid var(--dorado);
+}
+[data-theme="light"] .hero {
+  background: linear-gradient(180deg, #e8e6de 0%, var(--fondo) 100%);
+}
+.hero img {
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  border: 3px solid var(--dorado);
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: 3rem;
+  color: var(--dorado-claro);
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.hero .subtitulo {
+  font-size: 1.25rem;
+  color: var(--texto-tenue);
+  margin-top: 8px;
+}
+.hero .descripcion {
+  max-width: 700px;
+  margin: 24px auto 0;
+  font-size: 1.05rem;
+  color: var(--texto);
+}
+.hero .badges {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--borde);
+  background: var(--fondo-tarjeta);
+}
+.badge.tech { color: var(--azul); border-color: var(--azul); }
+.badge.edu { color: var(--verde); border-color: var(--verde); }
+.badge.lang { color: var(--morado); border-color: var(--morado); }
+
+/* --- Contenedor --- */
+.contenedor {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* --- Secciones --- */
+section {
+  padding: 60px 0;
+  border-bottom: 1px solid var(--borde);
+}
+section:last-child { border-bottom: none; }
+
+h2 {
+  font-size: 2rem;
+  color: var(--dorado);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+h2 .icono { font-size: 1.5rem; }
+
+h3 {
+  font-size: 1.4rem;
+  color: #e0d0a0;
+  margin: 32px 0 12px;
+}
+[data-theme="light"] h3 { color: #6a5a20; }
+
+h4 {
+  font-size: 1.1rem;
+  color: var(--dorado);
+  margin: 20px 0 8px;
+}
+
+p { margin-bottom: 12px; }
+p.intro {
+  font-size: 1.05rem;
+  color: var(--texto-tenue);
+  margin-bottom: 24px;
+}
+
+/* --- Tarjetas de mundo --- */
+.mundo-card {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.mundo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.mundo-card.taino::before { background: var(--acento-taino); }
+.mundo-card.colonial::before { background: var(--acento-colonial); }
+
+.mundo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.mundo-titulo {
+  font-size: 1.5rem;
+  color: #fff;
+}
+[data-theme="light"] .mundo-titulo { color: #1a1a2e; }
+
+.mundo-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.tag {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tag.topdown { background: #1a3a2a; color: #44cc88; }
+.tag.plataforma { background: #3a1a2a; color: #cc4488; }
+.tag.unesco { background: #2a2a1a; color: var(--dorado); }
+[data-theme="light"] .tag.topdown { background: #d4f0dd; color: #1a6a3a; }
+[data-theme="light"] .tag.plataforma { background: #f0d4dd; color: #8a2244; }
+[data-theme="light"] .tag.unesco { background: #f0ecd4; color: #8a7a20; }
+
+.mundo-desc {
+  color: var(--texto-tenue);
+  margin-bottom: 16px;
+}
+
+/* --- Canvas de previsualización --- */
+.preview-container {
+  margin: 20px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--borde);
+  background: #000;
+}
+.preview-container canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+.preview-label {
+  background: var(--fondo-codigo);
+  color: var(--texto-tenue);
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-family: monospace;
+}
+
+/* --- SVG de ilustraciones --- */
+.world-illustration {
+  margin: 20px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--borde);
+}
+.world-illustration svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- Listas de contenido --- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+@media (max-width: 700px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+.item-card {
+  background: var(--fondo-seccion);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 16px;
+}
+.item-card h5 {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+[data-theme="light"] .item-card h5 { color: #1a1a2e; }
+.item-card p {
+  color: var(--texto-tenue);
+  font-size: 0.9rem;
+  margin: 0;
+}
+.item-card .item-icon {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* --- NPC cards --- */
+.npc-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--fondo-seccion);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.npc-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+.npc-info h5 {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+[data-theme="light"] .npc-info h5 { color: #1a1a2e; }
+.npc-info .npc-role {
+  color: var(--dorado);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.npc-info p {
+  color: var(--texto-tenue);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* --- Tabla de mecanicas --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+th, td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--borde);
+  font-size: 0.92rem;
+}
+th {
+  color: var(--dorado);
+  font-weight: 600;
+  background: var(--fondo-codigo);
+}
+td { color: var(--texto); }
+tr:hover td { background: rgba(218, 165, 32, 0.05); }
+
+/* --- Companeros --- */
+.companero-card {
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.companero-visual {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.companero-visual canvas {
+  image-rendering: pixelated;
+}
+
+/* --- Diagrama de flujo --- */
+.flujo {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 24px 0;
+}
+.flujo-nodo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.flujo-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  border: 2px solid var(--borde);
+  background: var(--fondo-tarjeta);
+}
+.flujo-icono.taino { border-color: var(--acento-taino); }
+.flujo-icono.colonial { border-color: var(--acento-colonial); }
+.flujo-texto {
+  flex: 1;
+  padding: 12px 0;
+}
+.flujo-texto strong { color: #fff; }
+[data-theme="light"] .flujo-texto strong { color: #1a1a2e; }
+.flujo-texto span { color: var(--texto-tenue); font-size: 0.9rem; }
+.flujo-flecha {
+  width: 48px;
+  display: flex;
+  justify-content: center;
+  color: var(--texto-tenue);
+  font-size: 1.2rem;
+  padding: 4px 0;
+}
+
+/* --- Controles --- */
+.tecla {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--fondo-codigo);
+  border: 1px solid var(--borde);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #fff;
+}
+[data-theme="light"] .tecla { color: #1a1a2e; }
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--texto-tenue);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--borde);
+}
+footer a {
+  color: var(--dorado);
+  text-decoration: none;
+}
+footer .equipo {
+  margin-top: 12px;
+  font-size: 0.85rem;
+}
+
+/* --- Combat diagram --- */
+.combat-flow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.combat-option {
+  background: var(--fondo-codigo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 12px 16px;
+  flex: 1;
+  min-width: 200px;
+}
+.combat-option h5 {
+  color: var(--dorado);
+  margin-bottom: 4px;
+}
+.combat-option p {
+  color: var(--texto-tenue);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.combat-option .efecto {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: var(--verde);
+}
+.combat-option .contra {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--rojo);
+}
+
+/* --- Dialogos --- */
+.dialogo-linea {
+  padding: 6px 12px;
+  margin: 4px 0;
+  background: var(--fondo-codigo);
+  border-left: 3px solid var(--dorado);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.dialogo-key {
+  color: var(--dorado);
+  font-family: monospace;
+  font-size: 0.82rem;
+  margin-right: 8px;
+}
+.dialogo-seccion { margin-bottom: 32px; }
+.dialogo-seccion h3 {
+  color: var(--dorado-claro);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--borde);
+}
+.dialogo-mision {
+  border-left-color: var(--verde);
+}
+.dialogo-combate {
+  border-left-color: var(--rojo);
+}
+.dialogo-sistema {
+  border-left-color: var(--azul);
+}
+
+.info-card {
+  margin-bottom: 16px;
+}
+
+.objetos-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+}
+.objetos-tabla td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--borde);
+  font-size: 0.92rem;
+}
+.objetos-tabla td:first-child {
+  color: var(--dorado-claro);
+  font-weight: 600;
+  white-space: nowrap;
+  width: 200px;
+}
+
+/* --- Navegacion con pills (generada por navigation.js) --- */
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14, 14, 26, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--borde);
+  padding: 10px 20px;
+}
+[data-theme="light"] .doc-nav {
+  background: rgba(244, 243, 238, 0.95);
+}
+
+.doc-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.doc-nav-pills {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1;
+}
+
+.doc-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--texto-tenue);
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.doc-nav-pill:hover {
+  color: var(--dorado);
+  background: var(--fondo-tarjeta);
+}
+.doc-nav-pill.active {
+  color: var(--dorado-claro);
+  background: var(--fondo-tarjeta);
+  border-color: var(--dorado);
+}
+
+.doc-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.doc-nav-lang {
+  display: inline-flex;
+  gap: 2px;
+}
+.doc-nav-lang a {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--texto-tenue);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.doc-nav-lang a:hover {
+  color: var(--dorado);
+}
+.doc-nav-lang a.active {
+  color: #fff;
+  background: var(--dorado);
+}
+[data-theme="light"] .doc-nav-lang a.active {
+  color: #fff;
+}
+
+.doc-nav-theme {
+  background: none;
+  border: 1px solid var(--borde);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--texto-tenue);
+  transition: all 0.2s;
+}
+.doc-nav-theme:hover {
+  color: var(--dorado);
+  border-color: var(--dorado);
+}
+
+/* --- Mapa SVG del juego --- */
+.game-map-container {
+  margin: 24px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--borde);
+  background: var(--fondo-tarjeta);
+}
+.game-map-container svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- Nota del profesor --- */
+.nota-profesor {
+  background: var(--fondo-tarjeta);
+  border-left: 4px solid var(--dorado);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin-top: 1.5rem;
+  line-height: 1.7;
+}
+.nota-profesor h3 {
+  color: var(--dorado);
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+}
+.nota-profesor p { margin: 0.8rem 0; }
+.nota-profesor ol { padding-left: 1.2rem; margin: 0.8rem 0; }
+.nota-profesor ol li { margin: 0.6rem 0; }
+.nota-profesor .firma {
+  margin-top: 1.5rem;
+  text-align: right;
+  font-style: italic;
+  color: var(--dorado-claro);
+}
+
+@media (max-width: 600px) {
+  .doc-nav { padding: 6px 8px; }
+  .doc-nav-pill { padding: 5px 10px; font-size: 0.78rem; }
+  .hero h1 { font-size: 2rem; }
+  .hero .subtitulo { font-size: 1rem; }
+}

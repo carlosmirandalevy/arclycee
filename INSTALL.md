@@ -47,6 +47,10 @@ firebase deploy
 | Habilidad especial | F | Botón Y |
 | Volver al mapa | M | — |
 | Mapa de referencia | R (solo en mapa) | — |
+| Registro de misiones | L | — |
+| Tomar foto | T | — |
+| Tomar selfie | G | — |
+| Álbum de fotos | P | — |
 
 **En móvil**: el control de movimiento puede ser un **joystick analógico** (por defecto) o una **cruceta de 4 botones**. Se cambia desde Opciones en el menú principal.
 
@@ -70,22 +74,24 @@ firebase deploy
 ```
 arclycee/
 ├── index.html              ← Punto de entrada del juego
-├── docs.html               ← Documentación completa (ES)
-├── docs-en.html            ← Documentación completa (EN)
-├── docs-fr.html            ← Documentación completa (FR)
+├── docs/
+│   ├── index.html          ← Documentación completa (ES)
+│   ├── en.html             ← Documentación completa (EN)
+│   └── fr.html             ← Documentación completa (FR)
 ├── estilos/
 │   └── principal.css       ← Estilos del juego
 ├── js/
 │   ├── motor/              ← Motor del juego (loop, render, input, audio, save)
 │   ├── escenas/            ← Pantallas (menú, selección, intro)
 │   ├── mundos/             ← Niveles y mapas del mundo
-│   │   ├── mapa-tiles.js   ← Bitmap de la isla trazado desde referencia (64×34 tiles)
+│   │   ├── mapa-tiles.js   ← Bitmap de la isla trazado desde referencia (128×68 tiles)
 │   │   ├── mapa-principal.js ← Mapa del mundo con cámara y colisiones
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
 │   │   ├── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
 │   │   ├── acuatico/       ← Mundo Acuático (Naufragio de La Pinta)
 │   │   ├── juridico/       ← Mundo Jurídico (Aeropuerto de Punta Cana)
-│   │   └── laboratorio/    ← Mundo Laboratorio (Museo Atarazanas Reales)
+│   │   ├── laboratorio/    ← Mundo Laboratorio (Museo Atarazanas Reales)
+│   │   └── lfsd/           ← LFSD (Liceo Francés — misiones secundarias)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí
 │   ├── mecanicas/          ← Combate, diálogos, inventario, batú, misiones

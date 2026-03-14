@@ -795,7 +795,7 @@ export class MundoLaboratorio {
         this._hablarMorban(npc, lab);
         break;
       case 'lopez':
-        this._hablarLopez(npc, lab);
+        this._hablarLopez(npc, lab, jugador);
         break;
       case 'ana':
         this._hablarAna(npc, lab);
@@ -823,14 +823,124 @@ export class MundoLaboratorio {
         if (this.juego) this.juego.mostrarToast('🏛 Dr. Morbán: proceso de autenticación explicado');
       });
     } else {
-      this.dialogos.iniciarDialogo([
-        { personaje: nombre, texto: lab?.morbanRepite || 'Visita el laboratorio C-14 y el taller de restauración. La ciencia protege la historia.' }
-      ]);
+      // Diálogo mejorado según progreso del equipo
+      const progreso = this.juego?.progreso;
+      if (progreso?.descubrimientoCientifico) {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.morbanPostDescubrimiento || '¡El descubrimiento de la Dra. López ha puesto al museo en el mapa internacional! Y tú eres parte de eso.' }
+        ]);
+      } else if (progreso?.equipoEntregado) {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.morbanPostEntrega || 'La Dra. López está muy contenta con el equipo reparado. Se nota que los jóvenes del LFSD saben lo que hacen.' }
+        ]);
+      } else {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.morbanRepite || 'Visita el laboratorio C-14 y el taller de restauración. La ciencia protege la historia.' }
+        ]);
+      }
     }
   }
 
-  _hablarLopez(npc, lab) {
+  _hablarLopez(npc, lab, jugador) {
     const nombre = '🔬 Dra. López';
+    const progreso = this.juego?.progreso;
+
+    // --- Fase 4: Descubrimiento hecho — ofrecer periódico como coleccionable ---
+    if (progreso?.descubrimientoCientifico) {
+      if (progreso?.periodicoRecogido) {
+        // Ya recogió el periódico
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.lopezPostPeriodico || '¡El artículo ha generado interés internacional! Ya hay 3 universidades que quieren colaborar con nosotros.' }
+        ]);
+      } else {
+        // Ofrecer el periódico
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.lopezPeriodico1 || '¡Mira! ¡Salimos en el periódico! Tú y los estudiantes del LFSD son mencionados.' },
+          { personaje: nombre, texto: lab?.lopezPeriodico2 || 'El artículo habla del descubrimiento y cómo la colaboración entre jóvenes y científicos hizo posible todo esto.' },
+          { personaje: nombre, texto: lab?.lopezPeriodico3 || 'Toma, quédate con un ejemplar. ¡Te lo mereces!' }
+        ], () => {
+          // Dar periódico al inventario
+          const objTextos = this._obtenerTextos()?.objetos;
+          if (this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: 'periodico',
+              nombre: objTextos?.periodico || 'Artículo de Periódico',
+              descripcion: objTextos?.descPeriodico || 'Artículo sobre el descubrimiento arqueológico logrado con el equipo reparado en el LFSD.',
+              tipo: 'documento',
+              cantidad: 1,
+              color: '#D2B48C',
+              esUsable: false
+            });
+          }
+          if (jugador) jugador.agregarAlInventario(objTextos?.periodico || 'Artículo de Periódico');
+          if (progreso) progreso.periodicoRecogido = true;
+          this.juego.mostrarToast('📰 ¡Artículo de periódico recogido!');
+
+          // Ahora sí completar la misión Weird Science
+          if (this.juego.misiones) this.juego.misiones.completar('cienciaLoca');
+          this.juego.registro?.agregarEntrada('secundaria',
+            lab?.misionWSCompleta || 'Weird Science — Completada',
+            lab?.misionWSCompletaDesc || 'El equipo reparado permitió un descubrimiento científico. ¡Saliste en el periódico!');
+          this.juego.registro?.marcarCompletada(lab?.misionWSCompleta || 'Weird Science — Completada');
+        });
+      }
+      return;
+    }
+
+    // --- Fase 3: Equipo entregado, próxima visita = descubrimiento ---
+    if (progreso?.equipoEntregado && !progreso?.descubrimientoCientifico) {
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.lopezDescubrimiento1 || '¡No vas a creer esto! El equipo reparado detectó algo extraordinario.' },
+        { personaje: nombre, texto: lab?.lopezDescubrimiento2 || 'Encontramos trazas de guanín auténtico en un artefacto que creíamos era una réplica.' },
+        { personaje: nombre, texto: lab?.lopezDescubrimiento3 || '¡Es una pieza taína original de hace más de 500 años! Esto cambia lo que sabíamos del sitio.' },
+        { personaje: nombre, texto: lab?.lopezDescubrimiento4 || 'Voy a publicar los resultados. ¡Los estudiantes del LFSD y tú serán co-autores del hallazgo!' }
+      ], () => {
+        if (progreso) progreso.descubrimientoCientifico = true;
+        // Reputación por el descubrimiento
+        if (this.juego.reputacion) {
+          this.juego.reputacion.modificar(10, lab?.repDescubrimiento || 'Descubrimiento científico');
+        }
+        this.sfx.descubrir();
+        this.juego.mostrarToast('📰 ¡Descubrimiento científico! ¡Saldrás en el periódico!');
+      });
+      return;
+    }
+
+    // --- Fase 2: Tiene el equipo reparado — entregarlo ---
+    const tieneEquipo = this.juego?.inventario?.objetos?.some(o => o.id === 'equipoAnalisis');
+    if (tieneEquipo && progreso?.equipoReparado) {
+      this.dialogos.iniciarDialogo([
+        { personaje: nombre, texto: lab?.lopezRecibeEquipo1 || '¡El equipo de análisis! ¿Los estudiantes del LFSD lo repararon? ¡Increíble!' },
+        { personaje: nombre, texto: lab?.lopezRecibeEquipo2 || 'Llevaba semanas sin poder hacer dataciones precisas. Esto cambia todo.' },
+        { personaje: nombre, texto: lab?.lopezRecibeEquipo3 || 'Voy a recalibrar el espectrómetro y empezar a analizar las muestras pendientes.' },
+        { personaje: nombre, texto: lab?.lopezRecibeEquipo4 || '¡Gracias! Vuelve pronto — tengo el presentimiento de que este equipo nos dará sorpresas.' }
+      ], () => {
+        // Quitar equipo del inventario
+        if (this.juego.inventario) {
+          const idx = this.juego.inventario.objetos.findIndex(o => o.id === 'equipoAnalisis');
+          if (idx !== -1) this.juego.inventario.objetos.splice(idx, 1);
+        }
+        if (jugador) {
+          const objTextos = this._obtenerTextos()?.objetos;
+          const idxJug = jugador.inventario.findIndex(o => o.nombre === (objTextos?.equipoAnalisis || 'Equipo de Análisis'));
+          if (idxJug !== -1) jugador.inventario.splice(idxJug, 1);
+        }
+        // Marcar progreso
+        if (progreso) progreso.equipoEntregado = true;
+        // Reputación por la entrega
+        if (this.juego.reputacion) {
+          this.juego.reputacion.modificar(10, lab?.repEntregaEquipo || 'Equipo entregado a la Dra. López');
+        }
+        this.sfx.descubrir();
+        this.juego.mostrarToast('🔬 Equipo entregado — ¡la Dra. López va a investigar!');
+        // Marcar sub-misión como completada en el registro
+        const lfsdTextos = this._obtenerTextos()?.dialogos?.lfsd;
+        this.juego.registro?.marcarCompletada(lfsdTextos?.subMisionEquipo || 'Entregar Equipo de Análisis');
+      });
+      return;
+    }
+
+    // --- Fase 1: Diálogo normal (primera vez / repetido) ---
     if (!npc.dialogoHecho) {
       this.dialogos.iniciarDialogo([
         { personaje: nombre, texto: lab?.lopez1 || 'Soy la Dra. López, especialista en datación por Carbono-14.' },
@@ -843,9 +953,16 @@ export class MundoLaboratorio {
         if (this.juego) this.juego.mostrarToast('🔬 Dra. López: datación por Carbono-14');
       });
     } else {
-      this.dialogos.iniciarDialogo([
-        { personaje: nombre, texto: lab?.lopezRepite || 'Recuerda: la datación C-14 funciona con materiales orgánicos — madera, hueso, tela. Los metales se analizan con otros métodos.' }
-      ]);
+      // Diálogo mejorado si el equipo fue reparado en LFSD pero aún no entregado
+      if (progreso?.equipoReparado && !progreso?.equipoEntregado) {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.lopezEsperaEquipo || '¿Escuché que repararon el equipo en el LFSD? ¡Tráemelo cuando puedas, tengo muchas muestras pendientes!' }
+        ]);
+      } else {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.lopezRepite || 'Recuerda: la datación C-14 funciona con materiales orgánicos — madera, hueso, tela. Los metales se analizan con otros métodos.' }
+        ]);
+      }
     }
   }
 
@@ -863,9 +980,20 @@ export class MundoLaboratorio {
         if (this.juego) this.juego.mostrarToast('🔧 Ana: principios de restauración');
       });
     } else {
-      this.dialogos.iniciarDialogo([
-        { personaje: nombre, texto: lab?.anaRepite || 'Restaurar es como ser doctor de artefactos: primero, no hacer daño.' }
-      ]);
+      const progreso = this.juego?.progreso;
+      if (progreso?.descubrimientoCientifico) {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.anaPostDescubrimiento || '¡El artefacto que descubrió la Dra. López necesita restauración! Es la pieza más emocionante que he visto en años.' }
+        ]);
+      } else if (progreso?.equipoEntregado) {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.anaPostEntrega || 'He oído que trajiste el equipo reparado. ¡La Dra. López no para de hablar de las pruebas que va a hacer!' }
+        ]);
+      } else {
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: lab?.anaRepite || 'Restaurar es como ser doctor de artefactos: primero, no hacer daño.' }
+        ]);
+      }
     }
   }
 
@@ -898,6 +1026,21 @@ export class MundoLaboratorio {
     const indice = this._cassaConversacion % conversaciones.length;
     this.dialogos.iniciarDialogo(conversaciones[indice], () => {
       this._cassaConversacion++;
+
+      // --- Descubrimiento de misión secundaria: Weird Science ---
+      // Cassá menciona que el equipo de análisis está averiado
+      if (this.juego && this.juego.misiones && !this.juego.misiones.estaDescubierta('cienciaLoca')) {
+        const textosMision = this._obtenerTextos();
+        const lab2 = textosMision?.dialogos?.laboratorio;
+        this.dialogos.iniciarDialogo([
+          { personaje: '📚 Roberto Cassá', texto: lab2?.cassaCiencia || 'Ah, y un problema — el equipo de análisis está averiado. Quizás los estudiantes del LFSD sepan cómo repararlo.' }
+        ], () => {
+          this.juego.misiones.descubrir('cienciaLoca');
+          this.juego.mostrarToast('📋 Misión descubierta: Weird Science');
+          const tituloMision = lab2?.misionCienciaLoca || 'Weird Science';
+          this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Reparar el equipo de análisis del museo con los estudiantes del LFSD.');
+        });
+      }
     });
   }
 

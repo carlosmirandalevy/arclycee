@@ -1151,7 +1151,7 @@ export class MundoJuridico {
                   }
                 }
               ]
-            });
+            }, this.juego);
           }
         });
       } else {

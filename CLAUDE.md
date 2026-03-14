@@ -31,6 +31,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - Los mundos top-down setean `jugador.modoJuego = 'topdown'`
 - Salida: tecla M (mapa) o caminar al borde inferior — NO usar Q/Esc para salir de mundos
 - Mundo Acuático (`js/mundos/acuatico/`): velocidad × 0.7 para simular nado, medusas como peligros pasivos (daño + lentitud), depth-sorted rendering
+- Santuario del Manatí (`js/mundos/acuatico/santuario-manati.js`): sub-nivel accesible desde borde derecho del Mundo Acuático, 1800×1200px, 2 acciones ecológicas (liberar manatí + limpiar arrecife), 3 tiburones patrulleros, zona de hélices, flags `progreso.manatiLiberado` / `progreso.arrecifeLimpiado` para evitar doble conteo
 
 ### Compañeros (`js/personajes/companeros/`)
 - Patrón: propiedad `tipo` (string), flag `activo`, métodos `activar()`/`desactivar()`
@@ -65,7 +66,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 
 ### Menú principal (`js/escenas/menu-principal.js`)
 - 7 opciones: nuevoJuego, continuarJuego, idioma, mapaReal, documentacion, opciones, creditos
-- `documentacion` abre `docs.html`, `docs-en.html` o `docs-fr.html` según `codigosIdioma[idiomaIndice]`
+- `documentacion` abre `docs/index.html`, `docs/en.html` o `docs/fr.html` según `codigosIdioma[idiomaIndice]`
 - Idioma se cambia con flechas horizontales cuando la opción está seleccionada
 
 ### Idiomas (`js/idiomas/`)
@@ -95,8 +96,12 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Mundo Jurídico** (`js/mundos/juridico/`): Aeropuerto de Punta Cana interior, velocidad normal, combate legal con opciones de Ley 318/Evidencia/INTERPOL/UNESCO, mentora con diálogo rotativo (5 temas legales)
 - **Combate traficante**: 4 opciones legales (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), etiqueta "Evidencia:" en vez de "Convencido:"
 - **Mundo Laboratorio** (`js/mundos/laboratorio/`): museo interior, velocidad normal, sin combate — educación por cadenas de diálogo, 5 NPCs (3 cuentan para misión + 1 mentor + 1 sospechoso), 2 coleccionables con requisitos. NPCs deben estar FUERA de las estructuras con colisión (no adentro, o el jugador no puede alcanzarlos)
-- **Mapa con tiles** (`js/mundos/mapa-tiles.js`): la costa de Hispaniola se define con `ISLA_BITMAP`, un array de 34 strings de 64 chars ('1'=tierra, '0'=agua) trazado desde `resources/hispaniola-map-pixelated-tiled.png`. `_esTierra()` hace lookup directo en el bitmap. Montañas vía `_distanciaACordilleras()` (6 cadenas en `CORDILLERAS`), lagos con `_esLago()` (`LAGOS` array), ríos con Bresenham, bosques con hash pseudo-aleatorio. 64×34 tiles. `generarMapaIsla()` devuelve array 2D, `dibujarTilesVisibles()` con culling, `esCaminable()` para colisión. Nodos en `obtenerNodosIsla()` con `tileX/tileY`. **Importante**: al posicionar nodos, verificar que tanto el tile del nodo como el tile +1 fila abajo (spawn point) sean caminables
-- **Sistema de clima** (`js/clima/`): `SistemaClima` en `clima.js` + `SistemaHuracan` en `huracan.js`, instanciado en `juego.js`, activado solo en escenas exteriores vía mapa `climaPorEscena` en `cambiarEscena()`. `dibujar()` recibe `ctx` raw (no Renderizador)
+- **Mapa con tiles** (`js/mundos/mapa-tiles.js`): la costa de Hispaniola se define con `ISLA_BITMAP`, un array de 68 strings de 128 chars ('1'=tierra, '0'=agua) escalado 2× desde el bitmap original trazado de `resources/hispaniola-map-pixelated-tiled.png`. `_esTierra()` hace lookup directo en el bitmap. Montañas vía `_distanciaACordilleras()` (8 cadenas en `CORDILLERAS`), lagos con `_esLago()` (`LAGOS` array, 2 lagos), ríos con Bresenham (5 ríos), bosques con hash pseudo-aleatorio. 128×68 tiles. `generarMapaIsla()` devuelve array 2D, `dibujarTilesVisibles()` con culling, `esCaminable()` para colisión. Nodos en `obtenerNodosIsla()` con `tileX/tileY`. **Importante**: al posicionar nodos, verificar que tanto el tile del nodo como el tile +1 fila abajo (spawn point) sean caminables. Posiciones trazadas desde `resources/hispaniola-plain-topographic-map-nasa.jpg` y `resources/hispaniola-map-pixelated-tiled.png`
+- **Touch/drag en mapa** (`js/mundos/mapa-principal.js`): touch drag (1 dedo), pinch zoom (2 dedos), mouse drag (desktop). Variables `_arrastrando`/`_ratonArrastrando` desactivan el camera lerp durante el arrastre
+- **Sistema de clima** (`js/clima/`): `SistemaClima` en `clima.js` + `SistemaHuracan` en `huracan.js`, instanciado en `juego.js`, activado solo en escenas exteriores vía mapa `climaPorEscena` en `cambiarEscena()`. `dibujar()` recibe `ctx` raw (no Renderizador). Sonido ambiental: `_actualizarSonido()` inicia/detiene lluvia procedural (`sfx.lluviaAmbiente()`) y dispara truenos (`sfx.trueno()`) según el clima. `detenerSonidos()` se llama al desactivar clima en `cambiarEscena()`
+- **Álbum de fotos** (`js/mecanicas/album-fotos.js`): genera retratos cuadrados (160×160) y selfies verticales (120×180) desde sprites de entidades. `_renderizarNPC()`, `_renderizarPetroglifo()`, `_renderizarObjeto()`, `_renderizarJugador()` dibujan en canvas offscreen con fondos temáticos. Se activa con T (foto) y G (selfie), álbum con P
+- **Misiones secundarias** (`js/mecanicas/misiones-secundarias.js`): 3 quests con estados `no_descubierta`→`descubierta`→`en_progreso`→`completada`. Se descubren hablando con NPCs en La Isabela, Santuario Manatí y Laboratorio
+- **LFSD** (`js/mundos/lfsd/mundo-lfsd.js`): nivel interior de la clase de robótica, 8 NPCs estudiantes (3 quest-givers con camisetas de color), 4 estaciones de trabajo, pizarra, impresora 3D
 - **Múltiples finales** (`js/escenas/final-cinematica.js`): 4 finales (completo, museo, ecológico, oscuro) determinados por `progreso.combatesPacificados`, `combatesViolentos`, `accionesEcologicas` y `nodosCompletados.length`
 - **Tracking de combate**: cada mundo con combate incrementa `combatesPacificados` o `combatesViolentos` al terminar, Acuático también incrementa `accionesEcologicas`
 - **Controles táctiles duales**: `entrada.modoControlTactil` = `'joystick'` o `'dpad'`, cambiable desde Opciones con `cambiarModoTactil(modo)`, preferencia en localStorage `arclycee_control_tactil`

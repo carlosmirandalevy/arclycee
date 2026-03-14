@@ -45,6 +45,9 @@ export class FinalCinematica {
     // Textos del final actual
     this.textosFinales = [];
 
+    // Epílogo — frase especial según el tipo de final
+    this._epilogo = '';
+
     // --- Créditos que ruedan al final ---
     // true cuando los textos del final terminaron y los créditos empiezan
     this._enCreditos = false;
@@ -73,6 +76,25 @@ export class FinalCinematica {
 
     // Obtener los textos del final
     this.textosFinales = this._obtenerTextosFinales(juego);
+
+    // Epílogo según el tipo de final
+    const genero = juego?.generoJugador === 'pepita' ? 'a' : 'o';
+    const epilogos = {
+      completo: `Guardián${genero === 'a' ? 'a' : ''} del patrimonio dominicano`,
+      ecologico: `Protector${genero === 'a' ? 'a' : ''} del ecosistema marino del Caribe`,
+      oscuro: 'El patrimonio merece otro camino...',
+      museo: `Curador${genero === 'a' ? 'a' : ''} de la historia dominicana`
+    };
+    this._epilogo = epilogos[this.tipoFinal] || epilogos.museo;
+
+    // Nivel de reputación para mostrar en el epílogo
+    if (juego?.reputacion) {
+      const nivel = juego.reputacion.obtenerNivel();
+      const niveles = { desconocido: 'Desconocido', conocido: 'Conocido', respetado: 'Respetado', legendario: 'Legendario' };
+      this._nivelReputacion = `Reputación: ${niveles[nivel]} (${juego.reputacion.puntos}/100)`;
+    } else {
+      this._nivelReputacion = null;
+    }
   }
 
   // --- Determinar cuál de los 4 finales mostrar ---
@@ -430,8 +452,8 @@ export class FinalCinematica {
    */
   _calcularAltoCreditos() {
     // Cada sección tiene un título + nombres + espacio
-    // Total aproximado: ~25 líneas × 40px = 1000px
-    return 1200;
+    // Total aproximado: ~25 líneas × 40px = 1000px + epílogo
+    return 1300;
   }
 
   /**
@@ -459,6 +481,22 @@ export class FinalCinematica {
     const centroX = ancho / 2;
     const espacioSeccion = 60;
     const espacioLinea = 30;
+
+    // --- EPÍLOGO (frase especial según el final) ---
+    if (this._epilogo) {
+      ctx.font = 'bold 20px monospace';
+      ctx.fillStyle = '#FFD700';
+      ctx.fillText(this._epilogo, centroX, y);
+      y += espacioLinea + 5;
+
+      // Mostrar nivel de reputación alcanzado
+      if (this._nivelReputacion) {
+        ctx.font = '14px monospace';
+        ctx.fillStyle = '#C8A84E';
+        ctx.fillText(this._nivelReputacion, centroX, y);
+      }
+      y += espacioSeccion - espacioLinea;
+    }
 
     // --- TÍTULO ---
     ctx.font = 'bold 36px monospace';

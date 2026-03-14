@@ -215,6 +215,100 @@ export function actualizarMarcadores(marcadores, progreso) {
 }
 
 /**
+ * Crea marcadores para 8 sitios arqueológicos reales poco estudiados de RD.
+ * Estos sitios representan lugares con potencial de investigación futura
+ * que los jugadores desbloquean al programar el robot explorador.
+ *
+ * @param {L.LayerGroup} capaDestino - Capa donde agregar los marcadores
+ * @returns {L.LayerGroup} La misma capa con los marcadores agregados
+ */
+export function crearMarcadoresSitiosArqueologicos(capaDestino) {
+  // --- Sitios arqueológicos poco estudiados en RD ---
+  // Lugares reales con gran potencial de investigación arqueológica
+  const sitios = [
+    {
+      lat: 18.32, lng: -68.75,
+      nombre: 'Cueva de Berna',
+      desc: 'Parque Nacional del Este — pictografías precolombinas en cuevas costeras poco documentadas.'
+    },
+    {
+      lat: 18.73, lng: -68.43,
+      nombre: 'Punta Macao',
+      desc: 'Zona de Higüey — sitio precerámico con evidencia de ocupación humana anterior a los taínos.'
+    },
+    {
+      lat: 18.33, lng: -68.58,
+      nombre: 'El Cabo',
+      desc: 'Costa este — gran aldea taína con restos de bohíos, cerámicas y herramientas líticas.'
+    },
+    {
+      lat: 19.62, lng: -70.07,
+      nombre: 'Playa Grande',
+      desc: 'Río San Juan — sitio del período cerámico con fragmentos de vasijas y depósitos culturales.'
+    },
+    {
+      lat: 18.47, lng: -69.42,
+      nombre: 'Loma de Guayacanes',
+      desc: 'San Pedro de Macorís — sitio funerario con enterramientos precolombinos y ofrendas rituales.'
+    },
+    {
+      lat: 18.35, lng: -68.82,
+      nombre: 'Padre Nuestro',
+      desc: 'Bayahíbe — sistema de cuevas con petroglifos, cenotes y evidencia de uso ceremonial taíno.'
+    },
+    {
+      lat: 18.45, lng: -69.55,
+      nombre: 'Cueva de las Maravillas',
+      desc: 'San Pedro — cámaras inexploradas más allá de la zona turística con posibles pictografías inéditas.'
+    },
+    {
+      lat: 18.36, lng: -68.62,
+      nombre: 'Boca de Yuma',
+      desc: 'Cuevas costeras con estratigrafía arqueológica que abarca múltiples períodos de ocupación.'
+    }
+  ];
+
+  // Color púrpura (#9B59B6) con ícono 🔍 para sitios inexplorados
+  for (const s of sitios) {
+    const marcador = L.marker([s.lat, s.lng], {
+      icon: L.divIcon({
+        className: 'marcador-sitio',
+        html: `<div style="
+          background: #9B59B6;
+          width: 32px;
+          height: 32px;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid rgba(255,255,255,0.8);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        ">
+          <span style="
+            transform: rotate(45deg);
+            font-size: 14px;
+          ">🔍</span>
+        </div>`,
+        iconSize: [32, 42],
+        iconAnchor: [16, 42],
+        popupAnchor: [0, -42]
+      })
+    });
+    marcador.bindPopup(`
+      <div style="font-family: monospace; min-width: 180px;">
+        <strong>🔍 ${s.nombre}</strong>
+        <hr style="border: none; border-top: 1px solid #ddd; margin: 6px 0;">
+        <p style="margin: 4px 0; font-size: 12px;">${s.desc}</p>
+      </div>
+    `);
+    marcador.addTo(capaDestino);
+  }
+
+  return capaDestino;
+}
+
+/**
  * Devuelve las coordenadas reales de una ubicación por ID.
  */
 export function obtenerCoordenadas(id) {

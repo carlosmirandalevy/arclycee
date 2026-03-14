@@ -33,7 +33,19 @@ const fr = {
     guardar: 'Sauvegarder',
     mapa: 'Carte',
     misiones: 'Missions',
-    opciones: 'Options'
+    opciones: 'Options',
+    muerteFrases: [
+      'On a fait ce qu\'on a pu, bye...',
+      "Livin' la vida loca, no more!",
+      'Houston, on a un problème...',
+      'Game over, man!',
+      'GG no re',
+      'F dans le chat...',
+      'Wasted.',
+      'Maman, viens me chercher !',
+      'Erreur 404 : vie introuvable',
+      'Respawn avec dignité...'
+    ]
   },
 
   // Les dialogues conservent certains mots en espagnol quand le contexte culturel l'exige
@@ -301,6 +313,11 @@ const fr = {
       arqueologa3: 'Chaque épave est une capsule temporelle. Les clous, céramiques et monnaies nous racontent l\'histoire.',
       arqueologa4: 'Prends cette carte des épaves. Elle t\'aidera à trouver d\'autres sites sous-marins.',
       arqueologaRepite: 'Utilise la carte des épaves pour trouver d\'autres vestiges sous-marins. La mer des Caraïbes cache bien des secrets !',
+      arqueologaRobot1: 'Un robot sous-marin ! Ils l\'ont programmé au LFSD ? Impressionnant !',
+      arqueologaRobot2: 'Avec ce robot, je pourrai explorer des zones trop profondes ou dangereuses pour les plongeurs.',
+      arqueologaRobot3: 'Regarde ! Le robot a déjà trouvé des signaux de 4 épaves que nous n\'avions pas répertoriées.',
+      arqueologaRobot4: 'J\'ai ajouté les nouvelles découvertes à ta carte des épaves. La technologie et l\'archéologie font une super équipe !',
+      arqueologaPostRobot: 'Le robot continue de scanner les fonds marins. Il trouve quelque chose de nouveau chaque jour. Merci de l\'avoir apporté !',
 
       pezLeonIntro1: 'Un poisson-lion ! Cette espèce invasive de l\'Indo-Pacifique détruit les récifs des Caraïbes.',
       pezLeonIntro2: 'Il mange jusqu\'à 30 espèces indigènes et n\'a aucun prédateur naturel ici. Il faut agir !',
@@ -325,8 +342,53 @@ const fr = {
 
       medusaPicadura: 'Piqûre de méduse ! Mouvement ralenti',
 
+      cantoBallenaCerca: 'Tu entends le chant d\'une baleine à bosse au loin !',
+
       misionExplorar: 'Explore l\'épave de La Pinta',
       misionCompleta: 'Épave explorée ! Retour à la carte (M)'
+    },
+
+    // Sanctuaire du Lamantin — sous-niveau marin avec actions écologiques
+    santuario: {
+      biologa1: 'Bienvenue au Sanctuaire du Lamantin ! Je suis le Dr Sofía, biologiste marine.',
+      biologa2: 'Les lamantins des Antilles sont en danger d\'extinction. Il en reste moins de 2 500 dans toutes les Caraïbes.',
+      biologa3: 'La Loi 64-00 protège la biodiversité dominicaine. Blesser un lamantin est un délit environnemental.',
+      biologa4: 'Il y a un lamantin adulte piégé dans un filet fantôme ! Ce sont des filets de pêche abandonnés — un piège mortel.',
+
+      tortugaVerde1: 'Je suis une tortue verte. Contrairement à l\'imbriquée, je mange des algues et des herbiers marins.',
+      tortugaVerde2: 'Les déchets marins nous tuent. Nous confondons les sacs plastiques avec des méduses et les mangeons.',
+      tortugaVerde3: 'Regarde tous ces déchets piégés dans le récif. Ils étouffent le corail !',
+      tortugaVerde4: 'Si tu ramasses les déchets, le récif pourra respirer et se rétablir. Chaque geste compte !',
+
+      manatiBebe1: 'Le bébé lamantin pleure doucement ! Sa mère est piégée dans le filet plus loin.',
+      manatiBebe2: 'Il te regarde avec de grands yeux et nage vers l\'est, te guidant...',
+
+      liberarManati: 'Lamantin libéré ! La mère et son petit nagent ensemble à nouveau.',
+      necesitasBiologa: 'Tu dois d\'abord parler à la biologiste pour savoir comment libérer le lamantin.',
+      recogerDesecho: 'Déchet ramassé',
+      limpiezaCompleta: 'Récif nettoyé ! Les coraux pourront se rétablir sans déchets.',
+      necesitasTortuga: 'Parle à la tortue verte pour comprendre pourquoi le nettoyage est important.',
+
+      objHablar: 'Parler aux habitants',
+      objManati: 'Libérer le lamantin',
+      objArrecife: 'Nettoyer le récif',
+
+      misionExplorar: 'Explore le Sanctuaire du Lamantin',
+      misionCompleta: 'Sanctuaire protégé ! Retour à la carte (M)',
+
+      tiburonAlerta: 'Requin à proximité ! Éloigne-toi !',
+      zonaHelice: 'Zone d\'hélices ! Danger !',
+
+      dienteDescripcion: 'Dent fossile de requin mégalodon. La preuve que ces géants nageaient ici il y a des millions d\'années.',
+
+      cantoBallenaCerca: 'Une baleine à bosse chante tout près ! Elles migrent ici chaque hiver depuis l\'Atlantique Nord.',
+
+      // Robot sous-marin — livraison du robot programmé au LFSD
+      biologaRobot1: 'Le robot sous-marin du LFSD ! Incroyable, vous avez réussi !',
+      biologaRobot2: 'Avec ça je pourrai explorer les zones les plus profondes du sanctuaire et les récifs alentour.',
+      biologaRobot3: 'Regarde ! Le robot a déjà détecté des signaux de 4 épaves qu\'on n\'avait pas recensées.',
+      biologaRobot4: 'J\'ai ajouté les découvertes à ta carte des épaves. La technologie et la biologie marine font une super équipe !',
+      biologaPostRobot: 'Le robot continue de scanner les fonds marins. Chaque jour il trouve quelque chose de nouveau. Merci de l\'avoir apporté !'
     },
 
     // Monde Juridique — Aéroport de Punta Cana (Acte 4)
@@ -397,18 +459,37 @@ const fr = {
       morban3: 'Chaque artefact qui arrive doit être authentifié. Sans authentification, pas de valeur historique.',
       morban4: 'Parle à la Dre López au labo et à Ana à la restauration. Elles t\'enseigneront le processus.',
       morbanRepite: 'Visite le labo C-14 et l\'atelier de restauration. La science protège l\'histoire.',
+      morbanPostEntrega: 'La Dre López est ravie de l\'équipement réparé. Les jeunes du LFSD savent vraiment ce qu\'ils font.',
+      morbanPostDescubrimiento: 'La découverte de la Dre López a mis notre musée sur la carte internationale ! Et tu en fais partie.',
 
       lopez1: 'Je suis la Dre López, spécialiste de la datation au Carbone-14.',
       lopez2: 'Le Carbone-14 est un atome radioactif absorbé par tous les êtres vivants. À leur mort, il commence à se décomposer.',
       lopez3: 'En mesurant le C-14 restant dans un objet organique, nous calculons son âge avec précision.',
       lopez4: 'C\'est ainsi qu\'on confirme si un artefact a 500 ans ou s\'il s\'agit d\'une falsification moderne !',
       lopezRepite: 'Rappelle-toi : la datation C-14 fonctionne avec les matériaux organiques — bois, os, tissu.',
+      lopezEsperaEquipo: 'J\'ai entendu dire que les élèves du LFSD ont réparé l\'équipement ! Apporte-le-moi quand tu peux — j\'ai plein d\'échantillons en attente !',
+      lopezRecibeEquipo1: 'L\'équipement d\'analyse ! Les élèves du LFSD l\'ont réparé ? Incroyable !',
+      lopezRecibeEquipo2: 'Ça fait des semaines que je ne peux plus faire de datations précises. Ça change tout.',
+      lopezRecibeEquipo3: 'Je vais recalibrer le spectromètre et commencer à analyser les échantillons en attente.',
+      lopezRecibeEquipo4: 'Merci ! Reviens bientôt — j\'ai le pressentiment que cet équipement va nous réserver des surprises.',
+      lopezDescubrimiento1: 'Tu ne vas pas en croire tes yeux ! L\'équipement réparé a détecté quelque chose d\'extraordinaire.',
+      lopezDescubrimiento2: 'Nous avons trouvé des traces de guanín authentique dans un artefact qu\'on croyait être une réplique.',
+      lopezDescubrimiento3: 'C\'est une pièce taïno originale de plus de 500 ans ! Ça change ce qu\'on savait du site.',
+      lopezDescubrimiento4: 'Je vais publier les résultats. Les élèves du LFSD et toi serez co-auteurs de la découverte !',
+      lopezPeriodico1: 'Regarde ! On est dans le journal ! Toi et les élèves du LFSD êtes mentionnés.',
+      lopezPeriodico2: 'L\'article parle de la découverte et de comment la collaboration entre jeunes et scientifiques a rendu tout cela possible.',
+      lopezPeriodico3: 'Tiens, garde un exemplaire. Tu l\'as bien mérité !',
+      lopezPostPeriodico: 'L\'article a suscité un intérêt international ! Trois universités veulent déjà collaborer avec nous.',
+      repEntregaEquipo: 'Équipement livré à la Dre López',
+      repDescubrimiento: 'Découverte scientifique',
 
       ana1: 'Je suis Ana, restauratrice d\'artefacts. Mon travail est de réparer sans altérer.',
       ana2: 'La règle d\'or de la restauration : tout ce que tu fais doit être réversible.',
       ana3: 'Nous utilisons des adhésifs spéciaux, des consolidants et des microscopes pour ne pas endommager la pièce.',
       ana4: 'Un artefact mal restauré perd sa valeur historique pour toujours. La patience est la clé !',
       anaRepite: 'Restaurer, c\'est comme être médecin pour les artefacts : d\'abord, ne pas nuire.',
+      anaPostEntrega: 'J\'ai appris que tu as apporté l\'équipement réparé. La Dre López ne parle que des tests qu\'elle va faire !',
+      anaPostDescubrimiento: 'L\'artefact découvert par la Dre López a besoin de restauration ! C\'est la pièce la plus passionnante que j\'aie vue depuis des années.',
 
       cassa1_1: 'On se retrouve ! Ce musée est l\'un de mes endroits préférés.',
       cassa1_2: 'Les Atarazanas Reales étaient les entrepôts du port de Santo Domingo au XVIe siècle.',
@@ -429,7 +510,10 @@ const fr = {
 
       misionExplorar: 'Explore le Musée des Atarazanas Reales',
       misionCompleta: 'Musée exploré ! Appuie sur M pour voir la fin',
-      misionFinal: 'Mission accomplie ! Appuie sur M pour voir la fin'
+      misionFinal: 'Mission accomplie ! Appuie sur M pour voir la fin',
+
+      misionWSCompleta: 'Weird Science — Terminée',
+      misionWSCompletaDesc: 'L\'équipement réparé a permis une découverte scientifique. Tu es dans le journal !'
     },
 
     // Fins — 4 séquences de clôture possibles
@@ -553,7 +637,19 @@ const fr = {
     certificadoAutenticidad: 'Certificat d\'Authenticité',
     descCertificadoAutenticidad: 'Document officiel certifiant l\'authenticité d\'un artefact archéologique.',
     catalogoMuseo: 'Catalogue du Musée',
-    descCatalogoMuseo: 'Catalogue de tous les artefacts du Musée des Atarazanas Reales.'
+    descCatalogoMuseo: 'Catalogue de tous les artefacts du Musée des Atarazanas Reales.',
+
+    dienteTiburon: 'Dent de Requin Fossile',
+    descDienteTiburon: 'Dent fossile de requin mégalodon. La preuve que ces géants nageaient ici il y a des millions d\'années.',
+
+    periodico: 'Article de Journal',
+    descPeriodico: 'Article sur la découverte archéologique réalisée avec l\'équipement réparé au LFSD. Toi et les élèves êtes co-auteurs !',
+
+    robotSubmarino: 'Robot Sous-Marin',
+    descRobotSubmarino: 'Robot sous-marin programmé au LFSD. Apporte-le au Dr Sofía au Sanctuaire du Lamantin.',
+
+    equipoAnalisis: 'Équipement d\'Analyse',
+    descEquipoAnalisis: 'Équipement d\'analyse réparé au LFSD. Apporte-le à la Dre López au Musée des Atarazanas Reales.'
   },
 
   inventario: {
@@ -598,6 +694,240 @@ const fr = {
     movimiento: 'Utilise les flèches ou WASD pour te déplacer',
     accion: 'Appuie sur E pour interagir avec les objets et personnages',
     saltar: 'Appuie sur ESPACE pour sauter (dans les zones de plateformes)'
+  },
+
+  // LFSD — Dialogues de la salle de classe du Lycée Français de Santo Domingo
+  // Trois élèves proposent des quêtes liées à la robotique et l'archéologie
+  lfsd: {
+    // Émile — expert en électronique (chemise bleue)
+    emile1: 'Salut ! Je suis Émile, du club de robotique « les fous du robot ». Je travaille avec des capteurs électromagnétiques.',
+    emile2: 'Je calibre un magnétomètre pour détecter des artefacts métalliques souterrains. Les champs électromagnétiques sont fascinants.',
+    emile3: 'Le magnétomètre mesure les variations du champ magnétique terrestre. Tout objet métallique perturbe ce champ.',
+    emile4: 'Tu veux essayer de le calibrer ? Il faut ajuster la fréquence, l\'amplitude et la phase pour correspondre à l\'onde de référence.',
+
+    // Émile — dialogues supplémentaires (paires a/b affichées en séquence)
+    emile5a: 'Tu connais notre club ? On est « les fous du robot » ! On construit des robots pour l\'exploration archéologique.',
+    emile5b: 'On utilise Arduino, des capteurs ultrasoniques et même des caméras infrarouges. La technologie au service de l\'histoire !',
+    emile6a: 'Au LFSD on apprend en trois langues : espagnol, français et anglais. Ça nous aide à collaborer avec des équipes internationales !',
+    emile6b: 'On va présenter notre projet dans une foire scientifique. Ça va être incroyable !',
+
+    // Sofía — programmeuse (chemise verte)
+    sofia1: 'Salut ! Je suis Sofía, la programmeuse de l\'équipe. Je développe les algorithmes de navigation pour notre robot sous-marin.',
+    sofia2: 'Notre robot peut plonger jusqu\'à 50 mètres. Mais il a besoin d\'instructions précises pour atteindre le point de scan.',
+    sofia3: 'Programmer un robot, c\'est comme écrire une recette : chaque étape doit être dans le bon ordre.',
+    sofia4: 'Tu veux programmer une mission ? Il faudra utiliser des commandes comme avancer, tourner, plonger et scanner.',
+
+    // Sofía — dialogues supplémentaires (paires a/b affichées en séquence)
+    sofia5a: 'Tu savais que la République Dominicaine a plus de 400 épaves le long de ses côtes ?',
+    sofia5b: 'C\'est pour ça qu\'on conçoit des robots sous-marins. Il y a tant de patrimoine immergé à découvrir !',
+    sofia6a: 'Ce que j\'aime le plus dans le club, c\'est combiner science et histoire. Ce n\'est pas juste coder pour coder.',
+    sofia6b: 'Chaque robot qu\'on construit a un but : protéger le patrimoine archéologique dominicain.',
+
+    // Lucas — mécanicien (chemise orange)
+    lucas1: 'Hé ! Je suis Lucas, le mécanicien de l\'équipe. Je m\'occupe de l\'entretien de l\'équipement d\'analyse.',
+    lucas2: 'L\'équipement d\'analyse a un circuit de connexion endommagé. Les fils de couleur se sont débranchés.',
+    lucas3: 'Chaque fil doit être connecté avec son homologue de la même couleur. Si tu te trompes, ça fait des étincelles !',
+    lucas4: 'Tu peux m\'aider à le réparer ? C\'est comme un puzzle électrique. Il faut relier les bonnes paires.',
+
+    // Lucas — dialogues supplémentaires (paires a/b affichées en séquence)
+    lucas5a: 'Tu savais que les Taïnos étaient d\'excellents ingénieurs ? Leurs pirogues pouvaient transporter 50 personnes.',
+    lucas5b: 'On perpétue cette tradition d\'innovation. Sauf que maintenant on utilise des circuits au lieu de troncs de ceiba.',
+
+    // Théo — fan de Sonic, vitesse et frites
+    theo1: 'Sonic X Shadow Generations est le MEILLEUR jeu ! Shadow qui utilise le Chaos Control, c\'est trop fort.',
+    theo2: 'Dans les jeux je choisis toujours le personnage le plus rapide. La vitesse, c\'est tout. Comme Sonic !',
+    theo3: 'J\'adore les mouvements de Sonic : spin dash, homing attack, boost... la perfection !',
+    theo4: 'Tu veux des frites ? J\'ai toujours un sachet par ici. C\'est mon carburant pour coder.',
+    theo5: 'Un bon jeu a besoin de lore, de backstory, d\'un univers profond. Sans ça, c\'est juste un petit jeu.',
+    theo6: 'On utilise Arduino et des capteurs ultrasoniques. La technologie au service de l\'histoire !',
+    theo7: 'Shadow est le meilleur personnage de Sonic. Rapide, sombre, avec une histoire. Sonic est cool mais Shadow est ÉPIQUE.',
+    theo8: 'Si notre robot bougeait à la vitesse de Sonic, on aurait exploré toutes les grottes du pays.',
+
+    // Nael — fan de One Piece, Blue Lock, Roblox, Wendy's, farces
+    nael1: 'Tu joues à Roblox ? J\'ai genre 500 heures. Y\'a de tout là-dedans !',
+    nael2: 'Les burgers de Wendy\'s sont supérieurs. Le Baconator est une œuvre d\'art culinaire.',
+    nael3: 'Dans One Piece, Luffy n\'abandonne jamais. Gear Fifth c\'est le truc le plus épique que j\'ai vu de ma vie !',
+    nael4: 'Blue Lock c\'est INCROYABLE. Isagi qui calcule les angles de tir, c\'est comme ce qu\'on fait avec le robot mais en foot.',
+    nael5: 'Hé hé ! Je viens de planquer le sac de Tom. Je te dis pas où. *rire maléfique*',
+    nael6: 'Mon frère dit que je l\'embête trop. Moi je dis que c\'est de l\'entraînement au combat. C\'est pour son bien !',
+    nael7: 'On conçoit des robots sous-marins. Il y a tant de patrimoine immergé à découvrir !',
+    nael8: 'Zoro de One Piece se perd plus que notre robot quand le GPS bugue. Et c\'est dire.',
+
+    // Jules — fan de Star Wars, Assassin's Creed, dinosaures, surf, guitare
+    jules1: 'Assassin\'s Creed m\'a fait aimer l\'histoire. Les zones restreintes du jeu sont géniales : si tu entres, les PNJ deviennent suspects.',
+    jules2: 'Star Wars ! Les sabres laser, la Force, les Sith... Si je pouvais être un Jedi ET un archéologue, ce serait parfait.',
+    jules3: 'Tu savais que des dinosaures ont vécu sur cette île ? Enfin, pas exactement ici, mais des fossiles ont été trouvés à Hispaniola.',
+    jules4: 'Après le club je vais surfer. Les vagues de Cabarete sont parfaites pour apprendre. Rien de tel que la mer des Caraïbes !',
+    jules5: 'Je joue de la guitare depuis mes 8 ans. Parfois j\'ajoute de la musique à nos présentations du club.',
+    jules6: 'Dans Assassin\'s Creed tu es un assassin qui protège l\'histoire. Nous, on est des robots qui protègent le patrimoine. Même énergie !',
+    jules7: 'Le T-Rex avait de petits bras, mais le Vélociraptor avait des griffes mortelles. Comme notre pince robotique mais plus... mortel.',
+    jules8: 'Chaque robot qu\'on construit a un but : protéger le patrimoine archéologique dominicain.',
+
+    // Rafael — fan de Core Keeper, Minecraft, Brawl Stars, pâtes, guitare, quêtes secondaires
+    rafael1: 'Dans Minecraft j\'ai construit une réplique de la Zone Coloniale. Chaque détail ! Ça m\'a pris trois mois.',
+    rafael2: 'Le meilleur dans un jeu ? Les quêtes secondaires. S\'écarter de l\'histoire principale et découvrir des secrets cachés.',
+    rafael3: 'Je joue de la guitare et j\'aime la musique épique. Quand je code, je mets des bandes-son de jeux vidéo. Ça aide à se concentrer !',
+    rafael4: 'Core Keeper c\'est addictif. Creuser, construire, explorer... C\'est comme l\'archéologie mais en pixels !',
+    rafael5: 'Pizza et pâtes, c\'est la meilleure nourriture. Si je pouvais manger des pâtes en codant, je le ferais. En fait... *regarde son assiette*',
+    rafael6: 'Dans Brawl Stars, mon main c\'est Léon. Invisible et mortel. Comme un archéologue : observer sans être vu.',
+    rafael7: 'L\'année dernière on a présenté notre projet à une foire scientifique à Paris. C\'était incroyable !',
+    rafael8: 'Les meilleurs jeux te laissent explorer librement. Les quêtes secondaires, c\'est là que se trouve la vraie aventure.',
+
+    // Alberto — fan de Terraria, Core Keeper, sushi, farceur
+    alberto1: 'Terraria a plus de 5 000 objets. CINQ MILLE ! Et je les veux tous. Je suis un collectionneur obsessif.',
+    alberto2: 'T\'as goûté le sushi au saumon ? C\'est mon plat préféré. Ça et les pancakes au sirop. Pas ensemble !',
+    alberto3: 'Binding of Isaac c\'est perturbant mais génial. Chaque run est différente. Comme chaque fouille archéologique !',
+    alberto4: 'Hé hé... j\'ai collé un autocollant « fragile » sur le sac de Nael. Tu crois qu\'il va remarquer ?',
+    alberto5: 'Core Keeper et Terraria sont cousins. Même philosophie : creuser, construire, survivre.',
+    alberto6: 'Lire des livres ? Non, je préfère lire du code. Les livres n\'ont pas de bugs... enfin, certains ont des coquilles.',
+    alberto7: 'Mew Genics va être INCROYABLE quand il sortira. Chats mutants + Edmund McMillen = perfection.',
+    alberto8: 'Notre équipe s\'appelle « les fous du robot ». On est les dingues du robot ! Et on en est fiers.',
+
+    // Carlos Guillermo — fan de Percy Jackson, Hollow Knight, Adventure Time, etc.
+    carlosG1: 'Percy Jackson m\'a appris que les mythes grecs sont réels... enfin, presque. Mais l\'archéologie aussi découvre des mythes qui se sont avérés vrais.',
+    carlosG2: 'Tu connais Hollow Knight ? Hallownest est une civilisation perdue sous terre. Comme les grottes du Pomier ! J\'ai trop hâte pour Silksong.',
+    carlosG3: 'Dans Deltarune, Ralsei dit que les choix comptent. En archéologie aussi : chaque pièce que tu protèges change l\'histoire.',
+    carlosG4: 'Gravity Falls, c\'est le meilleur. Dipper qui enquête sur des mystères cachés, c\'est exactement ce qu\'on fait, mais avec des robots.',
+    carlosG5: 'Adventure Time a l\'air random, mais le lore est ultra profond. La Guerre des Champignons est post-apocalyptique. Finn vit dans les ruines de notre civilisation.',
+    carlosG6: 'Delicious in Dungeon m\'a fait réfléchir : et si les archéologues cuisinaient ce qu\'ils trouvent ? ...Vaut mieux pas. Mais Senshi est un génie.',
+    carlosG7: 'Dan Da Dan mélange aliens, fantômes et romance. C\'est chaotique et génial. La transformation d\'Okarun, c\'est toujours épique.',
+    carlosG8: 'Annabeth Chase aurait été une archéologue incroyable. Fille d\'Athéna, obsédée par l\'architecture antique... c\'est pratiquement l\'une des nôtres.',
+    carlosG9: 'Spider-Man: Across the Spider-Verse a le style graphique le plus incroyable du cinéma. Chaque image est un chef-d\'œuvre. CHAQUE IMAGE !',
+    carlosG10: 'Un bon personnage a besoin d\'une définition complète : caractère, histoire, motivations. Sans ça, c\'est juste un sprite qui marche.',
+    carlosG11: 'Les boss fights définissent un jeu. Si le boss ne te fait pas transpirer les mains, c\'est pas réussi.',
+    carlosG12: 'J\'adore lire. Percy Jackson, Harry Potter, Le Seigneur des Anneaux... les livres t\'emmènent dans des mondes que les jeux ne peuvent pas.',
+    carlosG13: 'Shawarma au poulet ou falafel ? Les deux ! C\'est la nourriture parfaite pour les marathons de lecture.',
+    carlosG14: 'Undertale a prouvé qu\'on peut gagner sans se battre. La route pacifiste est la plus difficile et la plus belle.',
+    carlosG15: 'Dans Minecraft je construis des mondes entiers. Villes, donjons, temples... c\'est comme être architecte et explorateur en même temps.',
+
+    // Elian — impression 3D, Fortnite, Gatorade, avocat au thon
+    elian1: 'Je conçois le châssis du robot en impression 3D. C\'est plus léger que l\'aluminium !',
+    elian2: 'Un bon robot a besoin d\'une bonne structure. Comme les bohíos taïnos : ingénierie simple mais efficace.',
+    elian3: 'J\'ai besoin de mon Gatorade ! Coder ça donne soif. Bleu ou rouge ? Bleu, toujours bleu.',
+    elian4: 'Dans Fortnite ma technique c\'est de me cacher dans un buisson jusqu\'à ce qu\'il en reste peu. Stratégie pure !',
+    elian5: 'T\'as goûté avocat au thon et mayo ? Ça a l\'air bizarre mais c\'est DÉLICIEUX. Fais-moi confiance.',
+    elian6: '*se gratte le dos avec une cuillère* Quoi ? C\'est multifonction. Ça sert aussi à mélanger la résine d\'impression 3D.',
+    elian7: 'Faut voir toutes les options avant de décider. Dans Fortnite et dans la vie.',
+    elian8: 'L\'imprimante 3D est mon outil préféré de l\'atelier.',
+
+    // Tom — Brawl Stars, pâtes, blagues, IA, handball
+    tom1: 'Je gère la communication Bluetooth entre le robot et la tablette de contrôle.',
+    tom2: 'Les signaux sans fil sous l\'eau, c\'est compliqué. C\'est pour ça qu\'on utilise des câbles pour le sous-marin !',
+    tom3: 'Brawl Stars ! Mon main c\'est Shelly. Simple mais efficace. Comme un bon algorithme.',
+    tom4: 'L\'intelligence artificielle me fascine. Et si on mettait de l\'IA dans le robot pour qu\'il prenne des décisions tout seul ?',
+    tom5: 'Les pâtes à la bolognaise c\'est la meilleure nourriture du monde. Je n\'accepte pas le débat.',
+    tom6: 'Je joue au handball dans l\'équipe du LFSD. C\'est comme programmer : calculer les angles et anticiper les mouvements.',
+    tom7: '*regarde Nael* Hé hé... Je viens de changer son fond d\'écran. Ne lui dis pas.',
+    tom8: 'Un jour l\'IA pourra analyser les artefacts archéologiques automatiquement. Et on sera les premiers à l\'utiliser !',
+
+    // Sous-mission : livrer le robot sous-marin
+    subMisionRobot: 'Livrer le Robot Sous-Marin',
+    subMisionRobotDesc: 'Apporte le Robot Sous-Marin au Dr Sofía au Sanctuaire du Lamantin.',
+
+    // Sous-mission : livrer l'équipement d'analyse
+    subMisionEquipo: 'Livrer l\'Équipement d\'Analyse',
+    subMisionEquipoDesc: 'Apporte l\'équipement réparé à la Dre López au Musée des Atarazanas Reales.',
+    equipoObtenido: 'Équipement réparé ! Apporte-le à la Dre López.',
+
+    // Lucas — états post mini-jeu
+    lucasCompleto: 'L\'équipement remarche ! Maintenant il faut l\'apporter à la Dre López au musée.',
+    lucasPostEntrega: 'La Dre López a l\'équipement ! Voyons ce qu\'elle va découvrir avec.',
+    lucasPostDescubrimiento: 'On est dans le journal ! L\'article dit que notre club a aidé à une découverte scientifique.',
+    lucasPostDescubrimiento2: 'Ma mère l\'a découpé et collé sur le frigo. Elle dit que je suis célèbre !'
+  },
+
+  // Journal de missions — interface du journal de jeu
+  registro: {
+    titulo: 'Journal de Missions',
+    principal: 'Histoire Principale',
+    secundaria: 'Quêtes Secondaires',
+    vacio: 'Aucune mission enregistrée'
+  },
+
+  // Réputation — niveaux de reconnaissance du joueur
+  reputacion: {
+    etiqueta: 'Rép',
+    desconocido: 'Inconnu',
+    conocido: 'Connu',
+    respetado: 'Respecté',
+    legendario: 'Légendaire'
+  },
+
+  // Calibration — mini-jeu « Good Vibrations » (magnétomètre)
+  calibracion: {
+    titulo: 'Good Vibrations',
+    intro: 'Calibre le magnétomètre en faisant correspondre l\'onde cible. La précision est la clé !',
+    instrucciones: '↑↓ ajuster | ←→ changer cadran | E confirmer',
+    frecuencia: 'Fréquence',
+    amplitud: 'Amplitude',
+    fase: 'Phase',
+    exito: 'Magnétomètre calibré !',
+    fallo: 'Calibration échouée. Réessaie.',
+    tiempo: 'Temps'
+  },
+
+  // Programmation — mini-jeu « Full Metal Archeologist » (robot sous-marin)
+  programacion: {
+    titulo: 'Full Metal Archeologist',
+    intro: 'Programme le robot sous-marin pour atteindre le point de scan. Chaque commande compte.',
+    instrucciones: '↑↓ sélectionner | E ajouter | ← supprimer | Entrée exécuter',
+    avanzar: 'Avancer',
+    girarIzq: 'Tourner G',
+    girarDer: 'Tourner D',
+    escanear: 'Scanner',
+    sumergir: 'Plonger',
+    ascender: 'Remonter',
+    exito: 'Robot arrivé à l\'objectif !',
+    fallo: 'Robot écrasé. Réessaie.',
+    ejecutando: 'Exécution...'
+  },
+
+  // Connexion — mini-jeu « Weird Science » (réparation de circuit)
+  conexion: {
+    titulo: 'Weird Science',
+    intro: 'Connecte les fils de la même couleur pour réparer l\'équipement d\'analyse. Attention aux étincelles !',
+    instrucciones: '↑↓ sélectionner | E connecter',
+    exito: 'Circuit complet !',
+    fallo: 'Temps écoulé ! Réessaie.',
+    chispa: 'Mauvaise connexion !'
+  },
+
+  // Quêtes — titres et descriptions des quêtes du LFSD
+  misiones: {
+    buenasVibracionesTitulo: 'Good Vibrations',
+    buenasVibracionesDesc: 'Calibre le magnétomètre au cours de robotique du LFSD.',
+    metalCompletoTitulo: 'Full Metal Archeologist',
+    metalCompletoDesc: 'Programme le robot sous-marin au LFSD.',
+    cienciaLocaTitulo: 'Weird Science',
+    cienciaLocaDesc: 'Répare l\'équipement d\'analyse au LFSD.',
+    descubierta: 'Quête découverte !'
+  },
+
+  // Album photo — captures du joueur pendant l'aventure
+  album: {
+    titulo: 'Album Photo',
+    fotos: 'Photos',
+    selfies: 'Selfies',
+    vacio: 'Pas encore de photos. Explore et capture des moments !',
+    vacioSelfies: 'Pas encore de selfies. Pose avec ce que tu trouves !',
+    tomarFoto: '[T] Photo',
+    tomarSelfie: '[G] Selfie',
+    fotoTomada: 'Photo enregistrée !',
+    selfieTomada: 'Selfie enregistré !',
+    instrucciones: '← → changer onglet | ↑ ↓ défiler | P fermer'
+  },
+
+  // Sites archéologiques — 8 sites réels à explorer
+  sitiosArqueologicos: {
+    titulo: 'Sites Inexplorés',
+    cuevaBerna: 'Grotte de Berna — Pictogrammes taïnos, partiellement étudiés.',
+    puntaMacao: 'Punta Macao — Site précéramique, fouilles minimales.',
+    elCabo: 'El Cabo — Grand village taïno, partiellement fouillé.',
+    playaGrande: 'Playa Grande — Période céramique, étude limitée.',
+    lomaGuayacanes: 'Loma de Guayacanes — Site funéraire, prospection nécessaire.',
+    padreNuestro: 'Padre Nuestro — Système de grottes avec pétroglyphes.',
+    cuevaMaravillas: 'Cueva de las Maravillas — Chambres supplémentaires non explorées.',
+    bocaYuma: 'Boca de Yuma — Grottes côtières, prospection archéologique limitée.'
   }
 };
 

@@ -971,7 +971,7 @@ export class LaIsabela {
               fuerza: 2,
               velocidad: 2,
               hostilidad: 60  // No es tan hostil, se puede convencer
-            });
+            }, this.juego);
           }
         });
       } else {
@@ -988,7 +988,24 @@ export class LaIsabela {
         { personaje: '📖 Fray Ramón Pané', texto: isabela?.cronista2 || 'Escribo sobre las costumbres de los taínos para que no se pierdan.' },
         { personaje: '📖 Fray Ramón Pané', texto: isabela?.cronista3 || 'Mi obra se llama "Relación acerca de las antigüedades de los indios".' },
         { personaje: '📖 Fray Ramón Pané', texto: isabela?.cronista4 || 'Es el primer libro escrito en América. Proteger la historia es mi deber.' }
-      ], () => { npc.dialogoHecho = true; });
+      ], () => {
+        npc.dialogoHecho = true;
+
+        // --- Descubrimiento de misión secundaria: Good Vibrations ---
+        // El cronista menciona que el magnetómetro parece descalibrado
+        if (this.juego && this.juego.misiones && !this.juego.misiones.estaDescubierta('buenasVibraciones')) {
+          const textosMision = this._obtenerTextos();
+          const isabela2 = textosMision?.dialogos?.isabela;
+          this.dialogos.iniciarDialogo([
+            { personaje: '📖 Fray Ramón Pané', texto: isabela2?.cronistaVibraciones || 'Por cierto... el magnetómetro que encontré parece descalibrado. Los estudiantes de robótica del LFSD quizás puedan arreglarlo.' }
+          ], () => {
+            this.juego.misiones.descubrir('buenasVibraciones');
+            this.juego.mostrarToast('📋 Misión descubierta: Good Vibrations');
+            const tituloMision = isabela2?.misionBuenasVibraciones || 'Good Vibrations';
+            this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Calibrar el magnetómetro con los estudiantes de robótica del LFSD.');
+          });
+        }
+      });
 
     } else if (npc.id === 'taino') {
       this.dialogos.iniciarDialogo([

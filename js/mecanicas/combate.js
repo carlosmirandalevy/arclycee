@@ -84,12 +84,16 @@ export class SistemaCombate {
 
   // --- Iniciar un combate ---
   // Recibe un enemigo con propiedades como: vida, fuerza, velocidad, nombre
-  iniciar(enemigo) {
+  // juego (opcional): referencia al juego para calcular bonus de reputación
+  iniciar(enemigo, juego = null) {
     this.enCombate = true;
     this.turnoJugador = true;
     this.enemigo = enemigo;
     this.opcionSeleccionada = 0;
-    this.paciencia = 0;
+    // Bonus de reputación: a mayor reputación, el enemigo empieza más convencido
+    this.paciencia = juego?.reputacion
+      ? Math.min(juego.reputacion.puntos / 2, 25)
+      : 0;
     // La hostilidad inicial depende del enemigo (algunos son más calmados)
     this.hostilidad = enemigo.hostilidad || 80;
     this._resultado = null;

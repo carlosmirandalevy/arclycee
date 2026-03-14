@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Mundos y Niveles</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <!-- ============================================================
+         MAPA DEL JUEGO (SVG)
+         ============================================================ -->
+    <section id="mapa">
+      <h2><span class="icono">🗺️</span> Mapa del Juego</h2>
+      <p class="intro">La isla de La Hispaniola con los 9 nodos del juego y sus conexiones.</p>
+
+      <div class="game-map-container">
+        <svg viewBox="0 0 640 340" xmlns="http://www.w3.org/2000/svg" style="background:#1a2a4a;">
+          <!-- Océano -->
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFD700" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="shadow">
+              <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.5"/>
+            </filter>
+          </defs>
+
+          <!-- Agua con olas -->
+          <rect width="640" height="340" fill="#1a2a4a"/>
+          <path d="M0 320 Q160 310 320 320 Q480 330 640 320 L640 340 L0 340 Z" fill="#152238" opacity="0.5"/>
+
+          <!-- Silueta de la isla de La Hispaniola (simplificada del ISLA_BITMAP) -->
+          <path d="
+            M160 30 Q170 28 180 30 L200 30 Q210 28 220 30 L230 32
+            Q250 28 270 30 L290 34 Q310 30 330 32 L360 34
+            Q380 30 400 32 L420 36 Q440 34 450 38 L460 40
+            Q470 38 480 40 L500 44 Q510 42 520 44 L530 46
+            Q540 44 550 46 L555 48
+            Q560 50 555 54 L550 56 Q545 58 540 60 L530 62
+            Q520 66 510 68 L500 70 Q490 74 480 76 L460 78
+            Q450 82 440 84 L420 86 Q410 88 400 90
+            Q390 94 380 96 L360 98 Q350 100 340 102
+            Q330 106 320 108 L300 110 Q290 112 280 114
+            Q260 118 250 120 L240 122 Q230 124 220 126
+            Q210 128 200 130 L190 132 Q180 134 170 134
+            Q165 134 160 130 L158 126
+            Q156 120 158 114 L160 108
+            Q162 100 160 94 L158 88
+            Q155 80 157 74 L160 68
+            Q162 60 160 54 L158 48
+            Q156 40 158 34 L160 30 Z
+          " fill="#3a6a3a" stroke="#2a5a2a" stroke-width="1.5"/>
+
+          <!-- Montañas (Cordillera Central) -->
+          <path d="M200 60 L210 45 L220 55 L230 42 L240 52 L250 40 L260 50 L270 56 L280 48 L290 58 L300 52 L310 60" fill="none" stroke="#5a8a5a" stroke-width="2" opacity="0.6"/>
+          <path d="M320 65 L330 52 L340 60 L350 48 L360 58 L370 50 L380 62" fill="none" stroke="#5a8a5a" stroke-width="2" opacity="0.6"/>
+
+          <!-- Conexiones entre nodos (líneas punteadas doradas) -->
+          <!-- 0: Pomier → 1: Taino I -->
+          <line x1="210" y1="170" x2="190" y2="170" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <!-- 1: Taino I → 2: Taino II -->
+          <line x1="190" y1="170" x2="220" y2="160" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <!-- 2: Taino II → 3: La Isabela -->
+          <line x1="220" y1="160" x2="175" y2="65" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <!-- 3: La Isabela → 4: Zona Colonial -->
+          <line x1="175" y1="65" x2="260" y2="170" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <!-- 4: Zona Colonial → 5: Naufragio -->
+          <line x1="260" y1="170" x2="370" y2="240" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <!-- 5: Naufragio → 6: Punta Cana -->
+          <line x1="370" y1="240" x2="420" y2="140" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <!-- 6: Punta Cana → 7: Museo -->
+          <line x1="420" y1="140" x2="280" y2="160" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+          <!-- 7: Museo → 8: LFSD -->
+          <line x1="280" y1="160" x2="250" y2="160" stroke="#DAA520" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+
+          <!-- Nodo 0: Cuevas del Pomier (San Cristóbal, centro-sur) -->
+          <circle cx="210" cy="170" r="8" fill="#8B6914" stroke="#FFD700" stroke-width="2" filter="url(#shadow)"/>
+          <text x="210" y="190" text-anchor="middle" fill="#FFD700" font-size="8" font-family="sans-serif" font-weight="bold">Cuevas del Pomier</text>
+          <text x="210" y="165" text-anchor="middle" fill="#fff" font-size="10">🕳️</text>
+
+          <!-- Nodo 1: Asentamiento Taino I -->
+          <circle cx="190" cy="170" r="7" fill="#8B6914" stroke="#DAA520" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="170" y="185" text-anchor="middle" fill="#e0d0a0" font-size="7" font-family="sans-serif">Taíno I</text>
+          <text x="190" y="166" text-anchor="middle" fill="#fff" font-size="9">🏘️</text>
+
+          <!-- Nodo 2: Asentamiento Taino II -->
+          <circle cx="220" cy="160" r="7" fill="#8B6914" stroke="#DAA520" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="240" y="155" text-anchor="start" fill="#e0d0a0" font-size="7" font-family="sans-serif">Taíno II</text>
+          <text x="220" y="156" text-anchor="middle" fill="#fff" font-size="9">🌾</text>
+
+          <!-- Nodo 3: La Isabela (costa noroeste) -->
+          <circle cx="175" cy="65" r="8" fill="#6B4423" stroke="#FFD700" stroke-width="2" filter="url(#shadow)"/>
+          <text x="175" y="55" text-anchor="middle" fill="#FFD700" font-size="8" font-family="sans-serif" font-weight="bold">La Isabela</text>
+          <text x="175" y="61" text-anchor="middle" fill="#fff" font-size="10">⚓</text>
+
+          <!-- Nodo 4: Zona Colonial (Santo Domingo, costa sur) -->
+          <circle cx="260" cy="170" r="8" fill="#6B4423" stroke="#FFD700" stroke-width="2" filter="url(#shadow)"/>
+          <text x="260" y="182" text-anchor="middle" fill="#FFD700" font-size="7" font-family="sans-serif" font-weight="bold">Zona Colonial</text>
+          <text x="260" y="166" text-anchor="middle" fill="#fff" font-size="10">🏛️</text>
+
+          <!-- Nodo 5: Naufragio La Pinta (en el agua, sur) -->
+          <circle cx="370" cy="240" r="8" fill="#2277AA" stroke="#55AADD" stroke-width="2" filter="url(#shadow)"/>
+          <text x="370" y="256" text-anchor="middle" fill="#55AADD" font-size="7" font-family="sans-serif" font-weight="bold">Naufragio</text>
+          <text x="370" y="236" text-anchor="middle" fill="#fff" font-size="10">🌊</text>
+
+          <!-- Nodo 6: Aeropuerto Punta Cana (este) -->
+          <circle cx="420" cy="140" r="8" fill="#cc8844" stroke="#FFD700" stroke-width="2" filter="url(#shadow)"/>
+          <text x="435" y="135" text-anchor="start" fill="#cc8844" font-size="7" font-family="sans-serif" font-weight="bold">Punta Cana</text>
+          <text x="420" y="136" text-anchor="middle" fill="#fff" font-size="10">⚖️</text>
+
+          <!-- Nodo 7: Museo Atarazanas (Santo Domingo) -->
+          <circle cx="280" cy="160" r="7" fill="#44ccaa" stroke="#DAA520" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="295" y="155" text-anchor="start" fill="#44ccaa" font-size="7" font-family="sans-serif">Museo</text>
+          <text x="280" y="156" text-anchor="middle" fill="#fff" font-size="9">🔬</text>
+
+          <!-- Nodo 8: LFSD -->
+          <circle cx="250" cy="160" r="6" fill="#4488cc" stroke="#DAA520" stroke-width="1.5" filter="url(#shadow)"/>
+          <text x="250" y="152" text-anchor="middle" fill="#4488cc" font-size="6" font-family="sans-serif">LFSD</text>
+          <text x="250" y="157" text-anchor="middle" fill="#fff" font-size="8">🤖</text>
+
+          <!-- Leyenda -->
+          <rect x="490" y="10" width="140" height="120" rx="6" fill="#0e0e1a" stroke="#2a2a4a" opacity="0.9"/>
+          <text x="500" y="28" fill="#DAA520" font-size="9" font-family="sans-serif" font-weight="bold">Leyenda</text>
+          <circle cx="506" cy="42" r="4" fill="#8B6914" stroke="#FFD700" stroke-width="1"/>
+          <text x="516" y="45" fill="#d4d4e0" font-size="7" font-family="sans-serif">Mundo Taíno</text>
+          <circle cx="506" cy="58" r="4" fill="#6B4423" stroke="#FFD700" stroke-width="1"/>
+          <text x="516" y="61" fill="#d4d4e0" font-size="7" font-family="sans-serif">Mundo Colonial</text>
+          <circle cx="506" cy="74" r="4" fill="#2277AA" stroke="#55AADD" stroke-width="1"/>
+          <text x="516" y="77" fill="#d4d4e0" font-size="7" font-family="sans-serif">Mundo Acuático</text>
+          <circle cx="506" cy="90" r="4" fill="#cc8844" stroke="#FFD700" stroke-width="1"/>
+          <text x="516" y="93" fill="#d4d4e0" font-size="7" font-family="sans-serif">Mundo Jurídico</text>
+          <circle cx="506" cy="106" r="4" fill="#44ccaa" stroke="#DAA520" stroke-width="1"/>
+          <text x="516" y="109" fill="#d4d4e0" font-size="7" font-family="sans-serif">Museo / LFSD</text>
+          <line x1="496" y1="120" x2="520" y2="120" stroke="#DAA520" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="524" y="123" fill="#d4d4e0" font-size="7" font-family="sans-serif">Conexión</text>
+
+          <!-- Título del mapa -->
+          <text x="320" y="330" text-anchor="middle" fill="#8888aa" font-size="9" font-family="sans-serif">La Hispaniola — Mapa de ArcLycée</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MUNDOS Y NIVELES
+         ============================================================ -->
+    <section id="mundos">
+      <h2><span class="icono">🌍</span> Mundos y Niveles</h2>
+      <p class="intro">Cada mundo está basado en un lugar real de la República Dominicana.</p>
+
+      <!-- Cuevas del Pomier -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🕳️ Cuevas del Pomier</div>
+          <div class="mundo-meta">
+            <span class="tag plataforma">Plataforma 2D</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Las Cuevas del Pomier (San Cristóbal) son el sistema de arte rupestre más grande del Caribe,
+          con más de 6,000 petroglifos taínos. Es el primer nivel del juego: una cueva oscura donde
+          descubres el patrimonio taíno mientras esquivas peligros.
+        </p>
+
+        <!-- Ilustración SVG de las Cuevas -->
+        <div class="world-illustration">
+          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
+            <!-- Fondo de cueva oscuro -->
+            <rect width="480" height="270" fill="#0a0808"/>
+            <!-- Techo irregular -->
+            <path d="M0 0 L0 20 Q30 30 60 18 Q90 25 120 15 Q150 28 180 20 Q210 30 240 16 Q270 26 300 18 Q330 28 360 22 Q390 32 420 20 Q450 28 480 15 L480 0 Z" fill="#1a1210"/>
+            <!-- Suelo -->
+            <rect x="0" y="230" width="480" height="40" fill="#2a2018"/>
+            <!-- Plataformas con musgo -->
+            <rect x="30" y="200" width="100" height="12" fill="#3a3028" rx="2"/>
+            <rect x="32" y="198" width="96" height="3" fill="#2a5a2a" rx="1"/>
+            <rect x="160" y="170" width="80" height="10" fill="#3a3028" rx="2"/>
+            <rect x="280" y="190" width="90" height="12" fill="#3a3028" rx="2"/>
+            <rect x="282" y="188" width="86" height="3" fill="#2a5a2a" rx="1"/>
+            <rect x="100" y="140" width="70" height="10" fill="#3a3028" rx="2"/>
+            <rect x="350" y="150" width="60" height="10" fill="#3a3028" rx="2"/>
+            <rect x="50" y="100" width="90" height="12" fill="#3a3028" rx="2"/>
+            <rect x="200" y="120" width="80" height="10" fill="#3a3028" rx="2"/>
+            <!-- Petroglifos brillando -->
+            <circle cx="80" cy="85" r="14" fill="rgba(218,165,32,0.15)"/>
+            <text x="80" y="90" text-anchor="middle" fill="#DAA520" font-size="14">☀</text>
+            <circle cx="220" cy="65" r="14" fill="rgba(218,165,32,0.15)"/>
+            <text x="220" y="70" text-anchor="middle" fill="#DAA520" font-size="14">🦇</text>
+            <circle cx="380" cy="55" r="14" fill="rgba(218,165,32,0.15)"/>
+            <text x="380" y="60" text-anchor="middle" fill="#DAA520" font-size="14">🐸</text>
+            <circle cx="150" cy="140" r="14" fill="rgba(218,165,32,0.15)"/>
+            <text x="150" y="145" text-anchor="middle" fill="#DAA520" font-size="14">🌀</text>
+            <!-- Círculo de luz del jugador -->
+            <circle cx="240" cy="195" r="60" fill="url(#lightGrad)"/>
+            <defs>
+              <radialGradient id="lightGrad">
+                <stop offset="0%" stop-color="rgba(255,220,100,0.25)"/>
+                <stop offset="100%" stop-color="rgba(255,220,100,0)"/>
+              </radialGradient>
+              <radialGradient id="darkVignette" cx="50%" cy="72%">
+                <stop offset="20%" stop-color="rgba(0,0,0,0)"/>
+                <stop offset="100%" stop-color="rgba(0,0,0,0.7)"/>
+              </radialGradient>
+            </defs>
+            <!-- Jugador -->
+            <rect x="236" y="184" width="8" height="8" fill="#D2956A"/>
+            <rect x="234" y="192" width="12" height="10" fill="#4488CC"/>
+            <rect x="235" y="202" width="5" height="6" fill="#2a2a6a"/>
+            <rect x="240" y="202" width="5" height="6" fill="#2a2a6a"/>
+            <!-- Goteos de agua -->
+            <rect x="50" y="35" width="2" height="4" fill="rgba(100,150,255,0.5)"/>
+            <rect x="160" y="42" width="2" height="4" fill="rgba(100,150,255,0.5)"/>
+            <rect x="270" y="38" width="2" height="4" fill="rgba(100,150,255,0.5)"/>
+            <rect x="380" y="40" width="2" height="4" fill="rgba(100,150,255,0.5)"/>
+            <!-- Oscuridad (viñeta) -->
+            <rect width="480" height="270" fill="url(#darkVignette)"/>
+            <!-- Graffiti vandalismo -->
+            <text x="420" y="165" fill="#cc3333" font-size="8" font-family="monospace">TAGS</text>
+            <!-- Etiqueta -->
+            <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Cuevas del Pomier — 3000x540px — Plataforma con oscuridad</text>
+          </svg>
+        </div>
+
+        <h4>Mecánicas</h4>
+        <ul>
+          <li><strong>Sistema de oscuridad</strong>: radio de luz de 80px que se agranda con la linterna</li>
+          <li><strong>5 petroglifos</strong>: sol, murciélago, cara, espiral, rana — cada uno con diálogo educativo</li>
+          <li><strong>3 graffitis vandálicos</strong>: muestran el problema real de daño a las cuevas</li>
+          <li><strong>Plataformas con musgo</strong>, goteo de agua, partículas de polvo, parallax de profundidad</li>
+        </ul>
+
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🔬</div>
+          <div class="npc-info">
+            <h5>Dra. Martínez</h5>
+            <div class="npc-role">Arqueóloga</div>
+            <p>Aparece cerca de la salida. Explica que los taínos adornaban sus cemíes con guanín — una aleación de oro, plata y cobre — especialmente en los ojos y órganos sensoriales. Te entrega a Magnoboot, tu primer compañero robot excavador.</p>
+          </div>
+        </div>
+
+        <h4>Objetos</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🔦 Linterna</h5><p>Agranda tu radio de luz en la oscuridad.</p></div>
+          <div class="item-card"><h5>🗺️ Fragmento de Mapa</h5><p>Pergamino con pistas sobre la isla.</p></div>
+          <div class="item-card"><h5>🗿 Artefacto Taíno</h5><p>Un cemí con detalles dorados de guanín en los ojos y órganos sensoriales.</p></div>
+        </div>
+      </div>
+
+      <!-- Asentamiento Taíno I -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🏘️ Asentamiento Taíno I</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Una aldea taína con bohíos circulares, un caney (casa del cacique) y un batey (plaza ceremonial).
+          Aprendes sobre la vida cotidiana: pesca, alfarería, casabe y la estructura social del yucayeque.
+        </p>
+
+        <!-- Ilustración SVG del Asentamiento Taíno I -->
+        <div class="world-illustration">
+          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cielo -->
+            <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#87CEEB"/>
+              <stop offset="100%" stop-color="#4a8a3a"/>
+            </linearGradient>
+            <rect width="480" height="270" fill="url(#sky1)"/>
+            <!-- Pasto -->
+            <rect x="0" y="81" width="480" height="189" fill="#4a8a3a"/>
+            <!-- Caminos de tierra -->
+            <rect x="48" y="135" width="384" height="8" fill="#8B7355"/>
+            <rect x="216" y="81" width="8" height="135" fill="#8B7355"/>
+            <!-- Batey (plaza circular) -->
+            <circle cx="240" cy="149" r="40" fill="#a09070"/>
+            <circle cx="240" cy="149" r="38" fill="none" stroke="#807060" stroke-width="2"/>
+            <!-- Bohíos -->
+            <circle cx="96" cy="108" r="18" fill="#8B6914"/>
+            <path d="M78 108 A18 12 0 0 1 114 108" fill="#5a8a2a"/>
+            <rect x="92" y="108" width="8" height="8" fill="#3a2a0a"/>
+            <circle cx="168" cy="189" r="16" fill="#8B6914"/>
+            <path d="M152 189 A16 10 0 0 1 184 189" fill="#5a8a2a"/>
+            <rect x="164" y="189" width="8" height="8" fill="#3a2a0a"/>
+            <circle cx="336" cy="95" r="18" fill="#8B6914"/>
+            <path d="M318 95 A18 12 0 0 1 354 95" fill="#5a8a2a"/>
+            <rect x="332" y="95" width="8" height="8" fill="#3a2a0a"/>
+            <circle cx="384" cy="162" r="16" fill="#8B6914"/>
+            <path d="M368 162 A16 10 0 0 1 400 162" fill="#5a8a2a"/>
+            <rect x="380" y="162" width="8" height="8" fill="#3a2a0a"/>
+            <!-- Caney (rectangular) -->
+            <rect x="202" y="95" width="40" height="25" fill="#8B6914"/>
+            <polygon points="202,95 222,83 242,95" fill="#5a8a2a"/>
+            <!-- NPCs -->
+            <circle cx="312" cy="184" r="5" fill="#FFD700"/>
+            <text x="312" y="198" text-anchor="middle" fill="#FFD700" font-size="6">Cacique</text>
+            <circle cx="86" cy="86" r="5" fill="#CC6644"/>
+            <text x="86" y="80" text-anchor="middle" fill="#CC6644" font-size="6">Anacaona</text>
+            <circle cx="182" cy="76" r="5" fill="#4488AA"/>
+            <text x="182" y="70" text-anchor="middle" fill="#4488AA" font-size="6">Caonabó</text>
+            <!-- Jugador -->
+            <rect x="230" y="140" width="6" height="6" fill="#D2956A"/>
+            <rect x="229" y="143" width="8" height="8" fill="#4488CC"/>
+            <!-- Viralata -->
+            <rect x="222" y="148" width="6" height="4" fill="#8B6914"/>
+            <!-- Palmeras -->
+            <line x1="60" y1="75" x2="60" y2="100" stroke="#6a4a2a" stroke-width="3"/>
+            <circle cx="60" cy="73" r="8" fill="#3a8a3a"/>
+            <line x1="420" y1="56" x2="420" y2="80" stroke="#6a4a2a" stroke-width="3"/>
+            <circle cx="420" cy="54" r="8" fill="#3a8a3a"/>
+            <!-- Etiqueta -->
+            <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Asentamiento Taíno I — 1200x900px — Aldea con bohíos</text>
+          </svg>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">👑</div>
+          <div class="npc-info">
+            <h5>Cacique Guacanagaríx</h5>
+            <div class="npc-role">Jefe de la aldea</div>
+            <p>Enseña sobre los yucayeques, la organización social taína y el papel del cacique.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🏺</div>
+          <div class="npc-info">
+            <h5>Anacaona</h5>
+            <div class="npc-role">Alfarera</div>
+            <p>Experta en cerámica taína. Enseña sobre la alfarería y la preparación del casabe.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🐟</div>
+          <div class="npc-info">
+            <h5>Caonabó</h5>
+            <div class="npc-role">Pescador</div>
+            <p>Habla sobre la pesca con canoas, redes y anzuelos de hueso.</p>
+          </div>
+        </div>
+
+        <h4>Compañero obtenido</h4>
+        <p>🐕 <strong>Viralata</strong> — perro callejero que adoptas cerca de la entrada de la aldea.</p>
+      </div>
+
+      <!-- Asentamiento Taíno II -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🌾 Asentamiento Taíno II</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Aldea agrícola con conucos (montículos de cultivo), un río, un dujo ceremonial y un caney
+          para rituales. Aprendes sobre agricultura, medicina natural y la ceremonia del areíto.
+        </p>
+
+        <!-- Ilustración SVG del Asentamiento Taíno II -->
+        <div class="world-illustration">
+          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
+            <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#87CEEB"/>
+              <stop offset="100%" stop-color="#3a7a2a"/>
+            </linearGradient>
+            <rect width="480" height="270" fill="url(#sky2)"/>
+            <rect x="0" y="68" width="480" height="202" fill="#3a7a2a"/>
+            <!-- Río sinuoso -->
+            <path d="M0 122 Q60 115 120 125 Q180 135 240 122 Q300 110 360 120 Q420 130 480 125 L480 140 Q420 145 360 135 Q300 125 240 138 Q180 150 120 140 Q60 130 0 137 Z" fill="#3388BB"/>
+            <!-- Conucos -->
+            <circle cx="80" cy="95" r="12" fill="#6a5a3a"/>
+            <text x="80" y="99" text-anchor="middle" fill="#2a8a2a" font-size="12">🌿</text>
+            <circle cx="140" cy="103" r="12" fill="#6a5a3a"/>
+            <text x="140" y="107" text-anchor="middle" fill="#2a8a2a" font-size="12">🌽</text>
+            <circle cx="200" cy="90" r="12" fill="#6a5a3a"/>
+            <text x="200" y="94" text-anchor="middle" fill="#2a8a2a" font-size="12">🌱</text>
+            <circle cx="350" cy="170" r="12" fill="#6a5a3a"/>
+            <text x="350" y="174" text-anchor="middle" fill="#2a8a2a" font-size="12">🌶</text>
+            <!-- Bohíos -->
+            <circle cx="100" cy="189" r="16" fill="#8B6914"/>
+            <path d="M80 187 A20 12 0 0 1 120 187" fill="#5a8a2a"/>
+            <circle cx="400" cy="216" r="16" fill="#8B6914"/>
+            <path d="M380 214 A20 12 0 0 1 420 214" fill="#5a8a2a"/>
+            <!-- Dujo ceremonial -->
+            <rect x="230" y="211" width="20" height="12" fill="#a08040"/>
+            <rect x="228" y="205" width="24" height="4" fill="#806030"/>
+            <!-- NPCs -->
+            <circle cx="96" cy="168" r="5" fill="#3a8a3a"/>
+            <text x="96" y="162" text-anchor="middle" fill="#3a8a3a" font-size="6">Behique</text>
+            <!-- Palmeras -->
+            <line x1="40" y1="145" x2="40" y2="165" stroke="#6a4a2a" stroke-width="3"/>
+            <circle cx="40" cy="143" r="7" fill="#3a8a3a"/>
+            <line x1="460" y1="80" x2="460" y2="100" stroke="#6a4a2a" stroke-width="3"/>
+            <circle cx="460" cy="78" r="7" fill="#3a8a3a"/>
+            <!-- Etiqueta -->
+            <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Asentamiento Taíno II — 1400x1000px — Agricultura y ceremonia</text>
+          </svg>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">🌿</div>
+          <div class="npc-info">
+            <h5>Behique Yuisa</h5>
+            <div class="npc-role">Chamán / Curandero</div>
+            <p>Medicina natural, ceremonia de la cohoba, plantas curativas. Te otorga al Cemí Murciélago.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🌽</div>
+          <div class="npc-info">
+            <h5>Guarionex</h5>
+            <div class="npc-role">Agricultor</div>
+            <p>Experto en conucos: técnicas de cultivo de yuca, maíz, batata, ají y tabaco.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🎵</div>
+          <div class="npc-info">
+            <h5>Higüemota</h5>
+            <div class="npc-role">Música</div>
+            <p>Enseña sobre el areíto y los instrumentos taínos. En la segunda conversación, te reta a un partido de <strong>batú</strong> — el juego de pelota taíno que se jugaba con caderas, hombros y cabeza.</p>
+          </div>
+        </div>
+        <h4>Compañero obtenido</h4>
+        <p>🦇 <strong>Cemí Murciélago</strong> — espíritu protector con 6 niveles de poder.</p>
+      </div>
+
+      <!-- La Isabela -->
+      <div class="mundo-card colonial">
+        <div class="mundo-header">
+          <div class="mundo-titulo">⚓ La Isabela</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Las ruinas de La Isabela (Puerto Plata), fundada en 1494 por Cristóbal Colón como primera
+          ciudad europea permanente en América. Aquí tienes tu primer combate y conoces a Roberto Cassá.
+        </p>
+
+        <!-- Ilustración SVG de La Isabela -->
+        <div class="world-illustration">
+          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
+            <linearGradient id="skyIsabela" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6BB5E0"/>
+              <stop offset="100%" stop-color="#87CEEB"/>
+            </linearGradient>
+            <rect width="480" height="270" fill="url(#skyIsabela)"/>
+            <!-- Mar -->
+            <rect x="0" y="0" width="480" height="40" fill="#2277AA"/>
+            <path d="M0 30 Q60 26 120 32 Q180 28 240 34 Q300 30 360 36 Q420 32 480 28" fill="none" stroke="#55AADD" stroke-width="1"/>
+            <!-- Costa -->
+            <rect x="0" y="32" width="480" height="20" fill="#D4C090"/>
+            <!-- Terreno -->
+            <rect x="0" y="54" width="480" height="216" fill="#5a8a4a"/>
+            <!-- Caminos -->
+            <rect x="48" y="135" width="384" height="6" fill="#9a8a6a"/>
+            <rect x="192" y="68" width="6" height="135" fill="#9a8a6a"/>
+            <!-- Iglesia (ruinas) -->
+            <rect x="96" y="81" width="60" height="40" fill="#b8a888"/>
+            <path d="M126 104 A10 10 0 0 1 126 84" fill="#a09070"/>
+            <line x1="126" y1="69" x2="126" y2="79" stroke="#DAA520" stroke-width="2"/>
+            <line x1="121" y1="73" x2="131" y2="73" stroke="#DAA520" stroke-width="2"/>
+            <!-- Casa de Colón -->
+            <rect x="216" y="68" width="45" height="30" fill="#c0a880"/>
+            <polygon points="216,68 238,58 261,68" fill="#8B4513"/>
+            <!-- Torre de vigía -->
+            <rect x="72" y="162" width="30" height="40" fill="#a09070"/>
+            <rect x="72" y="154" width="6" height="6" fill="#807060"/>
+            <rect x="80" y="154" width="6" height="6" fill="#807060"/>
+            <rect x="88" y="154" width="6" height="6" fill="#807060"/>
+            <rect x="96" y="154" width="6" height="6" fill="#807060"/>
+            <!-- Cementerio -->
+            <rect x="336" y="162" width="45" height="30" fill="#707070"/>
+            <line x1="352" y1="167" x2="352" y2="177" stroke="#888" stroke-width="2"/>
+            <line x1="347" y1="171" x2="357" y2="171" stroke="#888" stroke-width="2"/>
+            <line x1="366" y1="167" x2="366" y2="177" stroke="#888" stroke-width="2"/>
+            <line x1="361" y1="171" x2="371" y2="171" stroke="#888" stroke-width="2"/>
+            <!-- Soldado NPC -->
+            <rect x="182" y="130" width="8" height="10" fill="#8B0000"/>
+            <rect x="180" y="124" width="10" height="5" fill="#808080"/>
+            <!-- Etiqueta -->
+            <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">La Isabela — 1600x1100px — Ruinas coloniales con costa</text>
+          </svg>
+        </div>
+
+        <h4>Edificios</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>⛪ Iglesia</h5><p>Ruinas con arco y cruz. Primera iglesia europea en América.</p></div>
+          <div class="item-card"><h5>🏠 Casa de Colón</h5><p>Residencia del Almirante con techo de teja.</p></div>
+          <div class="item-card"><h5>🏭 Alhóndiga</h5><p>Almacén de provisiones de la colonia.</p></div>
+          <div class="item-card"><h5>🏰 Torre de Vigía</h5><p>Torre con almenas para vigilar el mar.</p></div>
+          <div class="item-card"><h5>✝️ Cementerio</h5><p>Cementerio colonial con cruces de piedra.</p></div>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card"><div class="npc-avatar">⚔️</div><div class="npc-info"><h5>Soldado Diego</h5><div class="npc-role">Guardián — Combate</div><p>Custodia las ruinas. Inicia el primer combate del juego. Puede ser pacificado con diplomacia.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">📜</div><div class="npc-info"><h5>Fray Ramón Pané</h5><div class="npc-role">Primer cronista de las Indias</div><p>Escribió la primera obra sobre las costumbres taínas. Habla sobre su trabajo histórico.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🪶</div><div class="npc-info"><h5>Guatiguaná</h5><div class="npc-role">Líder taíno</div><p>Habla sobre la resistencia indígena y la pervivencia de la cultura taína.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">📚</div><div class="npc-info"><h5>Roberto Cassá</h5><div class="npc-role">Historiador dominicano</div><p>Te entrega el Mapa Colonial a cambio del arcabuz. Su primera aparición como mentor.</p></div></div>
+      </div>
+
+      <!-- Zona Colonial -->
+      <div class="mundo-card colonial">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🏛️ Zona Colonial de Santo Domingo</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+            <span class="tag unesco">Patrimonio UNESCO</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          La Zona Colonial de Santo Domingo, declarada Patrimonio de la Humanidad por la UNESCO en 1990.
+          Contiene las primeras construcciones europeas permanentes en América. Aquí enfrentas al Constructor
+          Méndez con herramientas de activismo ciudadano.
+        </p>
+
+        <!-- Ilustración SVG de la Zona Colonial -->
+        <div class="world-illustration">
+          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
+            <linearGradient id="skyColonial" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6BB5E0"/>
+              <stop offset="100%" stop-color="#87CEEB"/>
+            </linearGradient>
+            <rect width="480" height="270" fill="url(#skyColonial)"/>
+            <rect x="0" y="40" width="480" height="230" fill="#5a7a4a"/>
+            <!-- Calles empedradas -->
+            <rect x="24" y="135" width="432" height="8" fill="#807060"/>
+            <rect x="120" y="54" width="6" height="176" fill="#807060"/>
+            <rect x="264" y="54" width="6" height="176" fill="#807060"/>
+            <!-- Catedral Primada -->
+            <rect x="38" y="54" width="70" height="50" fill="#d4c8a0"/>
+            <rect x="35" y="32" width="14" height="16" fill="#c8bc96"/>
+            <rect x="96" y="32" width="14" height="16" fill="#c8bc96"/>
+            <line x1="42" y1="22" x2="42" y2="32" stroke="#DAA520" stroke-width="2"/>
+            <line x1="37" y1="27" x2="47" y2="27" stroke="#DAA520" stroke-width="2"/>
+            <circle cx="73" cy="73" r="8" fill="none" stroke="#DAA520" stroke-width="1"/>
+            <text x="73" y="112" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7" font-family="monospace">Catedral</text>
+            <!-- Museo de la Catedral -->
+            <rect x="106" y="59" width="45" height="35" fill="#d8c8a8"/>
+            <rect x="124" y="79" width="10" height="15" fill="#2a1a08"/>
+            <text x="128" y="57" text-anchor="middle" fill="#DAA520" font-size="5" font-family="monospace">MUSEO</text>
+            <!-- Hospital (ruinas) -->
+            <rect x="192" y="54" width="55" height="40" fill="#b8a888"/>
+            <rect x="216" y="60" width="6" height="12" fill="#CC3333"/>
+            <rect x="213" y="63" width="12" height="6" fill="#CC3333"/>
+            <!-- Monasterio -->
+            <rect x="298" y="59" width="50" height="42" fill="#a89878"/>
+            <rect x="308" y="69" width="30" height="22" fill="#5a8a5a"/>
+            <!-- Panteón Nacional -->
+            <rect x="374" y="103" width="50" height="40" fill="#c8c0a8"/>
+            <polygon points="371,107 399,93 427,107" fill="#d0c8b0"/>
+            <circle cx="399" cy="89" r="4" fill="#FF6600"/>
+            <rect x="380" y="108" width="4" height="30" fill="#d8d0b8"/>
+            <rect x="392" y="108" width="4" height="30" fill="#d8d0b8"/>
+            <rect x="404" y="108" width="4" height="30" fill="#d8d0b8"/>
+            <rect x="416" y="108" width="4" height="30" fill="#d8d0b8"/>
+            <!-- Guardias del Panteón -->
+            <rect x="392" y="146" width="6" height="8" fill="#3a4a2a"/>
+            <rect x="406" y="146" width="6" height="8" fill="#3a4a2a"/>
+            <!-- Calle de las Damas -->
+            <rect x="34" y="168" width="80" height="16" fill="#706050"/>
+            <circle cx="34" cy="165" r="3" fill="#FFDD44"/>
+            <circle cx="114" cy="165" r="3" fill="#FFDD44"/>
+            <!-- Reloj de Sol -->
+            <circle cx="72" cy="159" r="5" fill="#d8d0b0" stroke="#8a7a60" stroke-width="1"/>
+            <!-- Mapa de riesgo overlay -->
+            <rect x="24" y="49" width="96" height="149" fill="rgba(68,204,68,0.1)"/>
+            <rect x="168" y="49" width="144" height="149" fill="rgba(204,204,68,0.1)"/>
+            <rect x="336" y="49" width="120" height="149" fill="rgba(204,68,68,0.1)"/>
+            <!-- Etiqueta -->
+            <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Zona Colonial — 1800x1200px — Patrimonio UNESCO</text>
+          </svg>
+        </div>
+
+        <h4>Monumentos Históricos</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>⛪ Catedral Primada de América</h5><p>Primera catedral del Nuevo Mundo (1512-1540). Estilo gótico isabelino con rosetón y torres gemelas.</p></div>
+          <div class="item-card"><h5>🏛️ Museo de la Catedral</h5><p>15 salas en la restaurada Real Cárcel. Tesoros del s. XVI-XX: portapaz de Colón, Águila Bicéfala, Coro Bajo.</p></div>
+          <div class="item-card"><h5>🏥 Hospital San Nicolás de Bari</h5><p>Primer hospital de América (1503). Ruinas con arcos de medio punto.</p></div>
+          <div class="item-card"><h5>🏚️ Monasterio San Francisco</h5><p>Primer monasterio de América (1508). Claustro con columnas, hoy ruinas para conciertos.</p></div>
+          <div class="item-card"><h5>🇩🇴 Panteón Nacional</h5><p>Fachada neoclásica con columnas y llama eterna. Guardias del Primer Regimiento.</p></div>
+          <div class="item-card"><h5>🛤️ Calle de las Damas</h5><p>Primera calle empedrada de América (1502). Faroles coloniales con luz parpadeante.</p></div>
+          <div class="item-card"><h5>☀️ Reloj de Sol</h5><p>Uno de los más antiguos de América (s. XVI). Gnomon que gira lentamente.</p></div>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card"><div class="npc-avatar">🏗️</div><div class="npc-info"><h5>Constructor Méndez</h5><div class="npc-role">Antagonista — Combate de activismo</div><p>Quiere demoler ruinas históricas para construir un hotel. Se enfrenta con herramientas de activismo ciudadano.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🏛️</div><div class="npc-info"><h5>Fabiola Herrera</h5><div class="npc-role">Directora del Voluntariado — Museo de la Catedral</div><p>Matemática que descubrió su misión: transformar el Museo de la Catedral en realidad. "Un museo es un viaje a través de un pasado lleno de arte y devoción."</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🔬</div><div class="npc-info"><h5>Dra. Pérez</h5><div class="npc-role">Arqueóloga</div><p>Del Museo del Hombre Dominicano. Explica cómo usar Magnoboot para detectar tesoros enterrados.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🎙️</div><div class="npc-info"><h5>Don Rafael</h5><div class="npc-role">Guía turístico certificado</div><p>Narra la historia de cada monumento.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">📐</div><div class="npc-info"><h5>María</h5><div class="npc-role">Estudiante de Arquitectura — UASD</div><p>Investiga técnicas coloniales: coral fosilizado como material de construcción.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">📚</div><div class="npc-info"><h5>Roberto Cassá</h5><div class="npc-role">Historiador mentor — 7 diálogos rotativos</div><p>Mentor recurrente. Cada conversación cubre un tema diferente.</p></div></div>
+
+        <h4>Guardia Presidencial del Panteón</h4>
+        <p>4 guardias del Primer Regimiento Dominicano custodian el Panteón Nacional. Cada 45 segundos realizan un <strong>cambio de guardia ceremonial</strong>.</p>
+
+        <h4>Zonas de Excavación</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🪙 Moneda Colonial</h5><p>Moneda de oro con corona, enterrada en las calles.</p></div>
+          <div class="item-card"><h5>🧱 Azulejo Antiguo</h5><p>Azulejo decorado con patrones geométricos.</p></div>
+          <div class="item-card"><h5>🔑 Llave de Hierro</h5><p>Llave forjada con anillo y dientes.</p></div>
+        </div>
+      </div>
+
+      <!-- Mundo Acuático -->
+      <div class="mundo-card" style="border-left: 3px solid var(--azul);">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🌊 Mundo Acuático — Naufragio de La Pinta</div>
+          <div class="mundo-meta"><span class="tag topdown">Top-Down</span></div>
+        </div>
+        <p class="mundo-desc">
+          Al regresar a La Isabela, un pescador ofrece a Pepito subirse a una canoa. Lo lleva sobre
+          el naufragio de La Pinta (con cuyas maderas se construyó la Fortaleza Navidad).
+        </p>
+
+        <!-- Ilustración SVG del Mundo Acuático -->
+        <div class="world-illustration">
+          <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg">
+            <!-- Fondo oceánico -->
+            <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a4a7a"/>
+              <stop offset="100%" stop-color="#0a2a4a"/>
+            </linearGradient>
+            <rect width="480" height="270" fill="url(#ocean)"/>
+            <!-- Fondo arenoso -->
+            <rect x="0" y="230" width="480" height="40" fill="#6a6a4a" opacity="0.4"/>
+            <!-- Restos del naufragio -->
+            <rect x="180" y="200" width="120" height="8" fill="#5a3a1a" transform="rotate(-5 240 204)"/>
+            <rect x="200" y="180" width="8" height="30" fill="#5a3a1a"/>
+            <rect x="260" y="175" width="8" height="35" fill="#5a3a1a" transform="rotate(10 264 192)"/>
+            <!-- Corales -->
+            <circle cx="80" cy="220" r="15" fill="#cc4466" opacity="0.7"/>
+            <circle cx="95" cy="215" r="10" fill="#cc6688" opacity="0.6"/>
+            <circle cx="400" cy="225" r="12" fill="#cc4466" opacity="0.7"/>
+            <circle cx="380" cy="218" r="8" fill="#44aacc" opacity="0.5"/>
+            <!-- Algas -->
+            <path d="M50 240 Q55 220 50 200" fill="none" stroke="#2a8a4a" stroke-width="3"/>
+            <path d="M60 240 Q65 225 58 210" fill="none" stroke="#3a9a5a" stroke-width="2"/>
+            <path d="M430 240 Q435 215 428 195" fill="none" stroke="#2a8a4a" stroke-width="3"/>
+            <!-- Rayos de luz -->
+            <line x1="120" y1="0" x2="140" y2="270" stroke="rgba(255,255,200,0.08)" stroke-width="20"/>
+            <line x1="300" y1="0" x2="280" y2="270" stroke="rgba(255,255,200,0.06)" stroke-width="25"/>
+            <!-- Burbujas -->
+            <circle cx="150" cy="100" r="3" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+            <circle cx="320" cy="80" r="2" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+            <circle cx="200" cy="50" r="4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+            <!-- Tortuga carey -->
+            <ellipse cx="350" cy="120" rx="12" ry="8" fill="#5a8a3a"/>
+            <circle cx="338" cy="118" r="4" fill="#6a9a4a"/>
+            <text x="350" y="140" text-anchor="middle" fill="#55AADD" font-size="6">Carey</text>
+            <!-- Medusas -->
+            <ellipse cx="100" cy="80" rx="8" ry="5" fill="rgba(200,180,255,0.5)"/>
+            <line x1="96" y1="85" x2="94" y2="100" stroke="rgba(200,180,255,0.3)" stroke-width="1"/>
+            <line x1="100" y1="85" x2="100" y2="102" stroke="rgba(200,180,255,0.3)" stroke-width="1"/>
+            <line x1="104" y1="85" x2="106" y2="100" stroke="rgba(200,180,255,0.3)" stroke-width="1"/>
+            <!-- Pez león -->
+            <ellipse cx="300" cy="160" rx="10" ry="6" fill="#cc4444"/>
+            <line x1="295" y1="155" x2="292" y2="148" stroke="#cc4444" stroke-width="1.5"/>
+            <line x1="300" y1="154" x2="300" y2="146" stroke="#cc4444" stroke-width="1.5"/>
+            <line x1="305" y1="155" x2="308" y2="148" stroke="#cc4444" stroke-width="1.5"/>
+            <text x="300" y="175" text-anchor="middle" fill="#cc4444" font-size="6">Pez León</text>
+            <!-- Jugador nadando -->
+            <rect x="236" y="140" width="8" height="8" fill="#D2956A"/>
+            <rect x="234" y="148" width="12" height="10" fill="#4488CC"/>
+            <!-- Tinte de agua -->
+            <rect width="480" height="270" fill="rgba(20,60,100,0.25)"/>
+            <!-- Etiqueta -->
+            <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Mundo Acuático — Naufragio de La Pinta — Depth sorting</text>
+          </svg>
+        </div>
+
+        <h4>Fauna marina</h4>
+        <div class="grid-2" style="margin-top:12px;">
+          <div class="item-card"><h5>🐢 Tortugas marinas (4 especies)</h5><p><strong>Carey</strong> (en peligro crítico), <strong>Tinglar</strong> (la más grande), <strong>Verde</strong> (herbívora), <strong>Caguama</strong> (rompe conchas).</p></div>
+          <div class="item-card"><h5>🐋 Ballenas jorobadas</h5><p>Migran de diciembre a marzo a la costa norte para aparearse.</p></div>
+          <div class="item-card"><h5>🐬 Delfines nariz de botella</h5><p>Especie común del Caribe. Se ven todo el año.</p></div>
+          <div class="item-card"><h5>🦭 Manatí antillano</h5><p>Especie precolombina en peligro de extinción.</p></div>
+          <div class="item-card"><h5>🐠 Pez loro (Parrotfish)</h5><p>Vital para los arrecifes. Produce la arena blanca de las playas.</p></div>
+        </div>
+
+        <h4>Amenazas y enemigos</h4>
+        <div class="grid-2">
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🦁 Pez león (Lionfish)</h5><p>Especie invasora. <strong>Encuentro de combate</strong> con 4 opciones ecológicas.</p></div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🪼 Medusas</h5><p>Obstáculo pasivo: daño + efecto de lentitud.</p></div>
+        </div>
+
+        <h4>Personajes</h4>
+        <div class="npc-card"><div class="npc-avatar">🎣</div><div class="npc-info"><h5>Pescador Manuel</h5><div class="npc-role">Historia de La Pinta</div><p>Cuenta cómo La Pinta fue desmantelada para construir la Fortaleza Navidad.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🐢</div><div class="npc-info"><h5>Tortuga Carey</h5><div class="npc-role">Educación sobre especies en peligro</div><p>Nada en circuito ovalado. Enseña sobre su estado de conservación.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🤿</div><div class="npc-info"><h5>Arqueóloga Submarina</h5><div class="npc-role">Entrega el mapa de naufragios</div><p>Documenta los más de 400 naufragios de la isla.</p></div></div>
+
+        <h4>Mecánicas implementadas</h4>
+        <ul>
+          <li>Movimiento submarino (velocidad x 0.7)</li>
+          <li>4 medusas como peligros pasivos (daño + lentitud)</li>
+          <li>Combate ecológico contra pez león</li>
+          <li>Tortuga carey en circuito ovalado</li>
+          <li>25 partículas de burbujas + 20 algas + 4 rayos de luz</li>
+          <li>Depth sorting por Y</li>
+        </ul>
+      </div>
+
+      <!-- Mundo Jurídico -->
+      <div class="mundo-card" style="border-left: 3px solid #cc8844;">
+        <div class="mundo-header">
+          <div class="mundo-titulo">⚖️ Mundo Jurídico — Aeropuerto de Punta Cana</div>
+          <div class="mundo-meta"><span class="tag topdown">Top-Down</span></div>
+        </div>
+        <p class="mundo-desc">
+          Interior del Aeropuerto Internacional de Punta Cana (PUJ). Pepito descubre que un traficante
+          intenta sacar artefactos arqueológicos del país. El combate se resuelve con herramientas jurídicas reales.
+        </p>
+
+        <h4>NPCs</h4>
+        <div class="npc-card"><div class="npc-avatar">🔍</div><div class="npc-info"><h5>Inspector García</h5><div class="npc-role">Inspector aduanal</div><p>Detecta actividad sospechosa y alerta a Pepito.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🌐</div><div class="npc-info"><h5>Agente INTERPOL</h5><div class="npc-role">Cooperación policial internacional</div><p>Trabaja casos de tráfico internacional de antigüedades.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">⚖️</div><div class="npc-info"><h5>Lcda. Carmen Vidal</h5><div class="npc-role">Mentora — Abogada de patrimonio cultural</div><p>5 temas legales rotativos: Ley 318, UNESCO 1970, decomiso, cadena de custodia, marco legal.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🎭</div><div class="npc-info"><h5>Traficante Rodrigo Torres</h5><div class="npc-role">Antagonista — Combate legal</div><p>Medidor "Evidencia:" en vez de "Convencido:" porque se acumula evidencia legal.</p></div></div>
+
+        <h4>Temas educativos</h4>
+        <ul>
+          <li><strong>Ley 318</strong> sobre patrimonio cultural de la República Dominicana</li>
+          <li><strong>Convención UNESCO 1970</strong> contra el tráfico ilícito</li>
+          <li><strong>INTERPOL</strong> y la cooperación policial internacional</li>
+          <li><strong>Evidencia forense</strong> para identificar artefactos robados</li>
+        </ul>
+      </div>
+
+      <!-- Museo de las Atarazanas Reales -->
+      <div class="mundo-card" style="border-left: 3px solid #44ccaa;">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🔬 Museo de las Atarazanas Reales</div>
+          <div class="mundo-meta"><span class="tag topdown">Top-Down</span></div>
+        </div>
+        <p class="mundo-desc">
+          El mundo final. Pepito lleva las piezas recuperadas al laboratorio del museo para autenticarlas.
+          No hay combate: la autenticación se realiza a través de diálogos con científicos y curadores.
+        </p>
+
+        <h4>NPCs</h4>
+        <div class="npc-card"><div class="npc-avatar">🏛️</div><div class="npc-info"><h5>Dr. Fernando Morbán</h5><div class="npc-role">Curador del museo</div><p>Recibe las piezas y coordina el proceso de autenticación.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🔬</div><div class="npc-info"><h5>Dra. López</h5><div class="npc-role">Datación por carbono-14</div><p>Analiza las piezas con C-14 para determinar su antigüedad.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🎨</div><div class="npc-info"><h5>Restauradora Ana</h5><div class="npc-role">Restauración y conservación</div><p>Analiza materiales, técnicas y estado de conservación.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">📚</div><div class="npc-info"><h5>Roberto Cassá</h5><div class="npc-role">Historiador mentor</div><p>Reaparece como mentor por última vez.</p></div></div>
+        <div class="npc-card"><div class="npc-avatar">🕵️</div><div class="npc-info"><h5>Visitante Sospechoso</h5><div class="npc-role">Último desafío narrativo</div><p>Un visitante con preguntas demasiado específicas.</p></div></div>
+
+        <h4>Objetos coleccionables</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>📜 Certificado de Autenticidad</h5><p>Documento oficial que certifica la autenticidad de las piezas.</p></div>
+          <div class="item-card"><h5>📖 Catálogo del Museo</h5><p>Catálogo completo de las Atarazanas Reales.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LFSD — MISIONES SECUNDARIAS
+         ============================================================ -->
+    <section id="lfsd">
+      <h2><span class="icono">🤖</span> LFSD — Misiones Secundarias</h2>
+      <p class="intro">La clase de robótica del Lycée Français de Saint-Domingue ofrece 3 misiones secundarias con mini-juegos únicos.</p>
+
+      <div class="mundo-card">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🔧 Clase de Robótica LFSD</div>
+        </div>
+        <p>Un nivel interior con 8 estudiantes NPC de "les fous du robot". Tres quest-givers ofrecen mini-juegos.</p>
+
+        <h4>Misiones Secundarias</h4>
+        <ul>
+          <li>
+            <strong>Good Vibrations</strong> (Émile) — Calibrar el magnetómetro ajustando frecuencia, amplitud y fase para igualar una onda objetivo en 45 segundos.<br>
+            <small>Se descubre en La Isabela, se juega y completa en LFSD (+15 reputación).</small>
+          </li>
+          <li>
+            <strong>Full Metal Archeologist</strong> (Sofía) — Programar un robot submarino con bloques de instrucciones.<br>
+            <small>Se descubre en el Santuario del Manatí, se juega en LFSD, se completa entregando el robot (+15 rep. LFSD, +10 rep. entrega).</small>
+          </li>
+          <li>
+            <strong>Weird Science</strong> (Lucas) — Conectar 6 cables de colores en 30 segundos.<br>
+            <small>Se descubre en el Museo, se juega en LFSD (+15 rep., +5 bonus si menos de 15s), se completa entregando el equipo (+10 rep.).</small>
+          </li>
+        </ul>
+
+        <h4>Estudiantes — les fous du robot</h4>
+        <p>8 estudiantes del club de robótica:</p>
+        <ul>
+          <li><strong>Théo</strong> — Electrónica. Fan de manga, música y soldadura.</li>
+          <li><strong>Naël</strong> — Sensores. Futbolista, pro de FIFA.</li>
+          <li><strong>Jules</strong> — Navegación submarina. Minecraft, baloncesto.</li>
+          <li><strong>Rafael</strong> — Análisis de datos. Harry Potter, sushi.</li>
+          <li><strong>Alberto</strong> — Sistemas de energía. Pokémon, Roblox.</li>
+          <li><strong>Carlos Guillermo</strong> — Líder / diseñador de juegos. Anime, lector voraz. 15 líneas únicas.</li>
+          <li><strong>Elian</strong> — Impresión 3D. Fortnite, Gatorade.</li>
+          <li><strong>Tom</strong> — Bluetooth. Brawl Stars, handball, pasta, IA.</li>
+        </ul>
+
+        <h4>Sistemas de Juego</h4>
+        <ul>
+          <li><strong>Registro de Misiones (tecla L)</strong> — Diario con dos pestañas y scroll.</li>
+          <li><strong>Reputación (0-100)</strong> — 4 niveles: Desconocido, Conocido, Respetado, Legendario.</li>
+          <li><strong>Sitios Arqueológicos</strong> — 8 sitios reales en el mapa Leaflet.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>ArcLycée v0.14.0 — Aventura Arqueológica Dominicana</p>
+    <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
+  </footer>
+
+  <script src="navigation.js"></script>
+</body>
+</html>

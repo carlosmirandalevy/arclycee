@@ -14,7 +14,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Control ecológico**: combate contra el pez león invasor con captura, pesca, protección de coral y alertas a buzos
 - **Justicia patrimonial**: combate legal contra el traficante Rodrigo Torres con Ley 318, evidencia forense, INTERPOL y UNESCO 1970
 - **3 idiomas**: Español, Français, English
-- **Mapa de isla con tiles**: bitmap de 64×34 tiles trazado desde imagen de referencia, con 8 tipos de terreno, 6 cordilleras, lagos, ríos, cámara libre y colisiones
+- **Mapa de isla con tiles**: bitmap de 128×68 tiles trazado desde imagen de referencia, con 8 tipos de terreno, 8 cordilleras, 5 ríos, 2 lagos, cámara libre con zoom (0.25×-3×), drag táctil/ratón y colisiones
 - **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps y 4 capas de datos: 16 sitios taínos, 8 sitios coloniales, 12 naufragios históricos y 30 museos a lo largo de toda La Hispaniola (RD + Haití)
 - **Créditos cinematográficos**: créditos estilo película tras el final con nombres del equipo y el Liceo Francés
 - **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
@@ -29,8 +29,12 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
 - **Múltiples finales** (4) según tus decisiones: completo, museo, ecológico u oscuro
-- **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas y efectos en jugador
-- **Desktop y móvil** con controles táctiles virtuales (joystick analógico o cruceta, configurable desde Opciones)
+- **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas, efectos en jugador y sonido ambiental (lluvia continua, truenos)
+- **Álbum de fotos**: toma fotos y selfies de NPCs, petroglifos y objetos — genera retratos desde sprites con fondos temáticos
+- **Misiones secundarias**: 3 sidequests en el LFSD (calibración de señal, programación de robot, conexión de cables) con mini-juegos únicos
+- **Registro de juego**: Game Log con tecla L, pestañas de misiones principales y secundarias
+- **Sistema de reputación**: puntuación 0-100 que afecta combates y diálogos
+- **Desktop y móvil** con controles táctiles virtuales (joystick analógico o cruceta, configurable desde Opciones), touch/pinch zoom en mapa
 
 ### Mundos
 
@@ -38,9 +42,10 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 |---|---|
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura, areíto y mini-juego de batú) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
-| Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león (atrapar, pescar, proteger coral, alertar buzos), arqueóloga submarina con mapa de naufragios |
+| Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león, Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones patrulleros) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
+| LFSD | Liceo Francés de Santo Domingo — aula de robótica con 8 NPCs estudiantes, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
 
 ## Tecnologías
 
@@ -56,7 +61,7 @@ Elian · Théo · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Nael
 
 ## Documentación
 
-Disponible en 3 idiomas: [`docs.html`](docs.html) (ES), [`docs-en.html`](docs-en.html) (EN), [`docs-fr.html`](docs-fr.html) (FR). También accesible desde el menú principal del juego (opción "Documentación").
+Disponible en 3 idiomas: [`docs/index.html`](docs/index.html) (ES), [`docs/en.html`](docs/en.html) (EN), [`docs/fr.html`](docs/fr.html) (FR). También accesible desde el menú principal del juego (opción "Documentación").
 
 ## Licencia
 

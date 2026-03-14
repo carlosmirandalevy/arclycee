@@ -1,5 +1,33 @@
 # Changelog
 
+## v0.15.0 — Mapa geográfico, LFSD, misiones secundarias y sonido ambiental (2026-03-14)
+
+### Agregado
+- **Nivel LFSD** (`js/mundos/lfsd/mundo-lfsd.js`): aula de robótica del Liceo Francés como nivel interior top-down con 8 NPCs estudiantes (les fous du robot) y 3 dadores de misiones
+- **3 mini-juegos de misiones secundarias**:
+  - `calibracion-senal.js` (Good Vibrations): calibrar magnetómetro con 3 diales en osciloscopio
+  - `programacion-bloques.js` (Full Metal Archeologist): programar robot submarino con bloques
+  - `conexion-cables.js` (Weird Science): conectar 6 cables en circuito bajo presión de tiempo
+- **Sistema de misiones secundarias** (`misiones-secundarias.js`): 3 sidequests con estados descubierta/en_progreso/completada
+- **Registro de juego** (`registro-juego.js`): Game Log accesible con tecla L, con pestañas Principal/Secundaria
+- **Sistema de reputación** (`reputacion.js`): puntuación 0-100 con 4 niveles (desconocido→legendario), medidor visual, bonus en combate
+- **Álbum de fotos por sprites** (`album-fotos.js`): reescritura completa — genera retratos desde sprites de entidades en vez de capturas de pantalla del canvas
+- **Santuario del Manatí** (`santuario-manati.js`): sub-nivel acuático con 2 acciones ecológicas, tiburones patrulleros y zona de hélices
+- **Sonido ambiental de lluvia**: lluvia procedural continua (ruido blanco filtrado + gotas individuales) que se activa automáticamente durante lluvia/tormenta/huracán
+- **Sonido de trueno**: retumbar grave durante tormentas, disparado aleatoriamente cada 4-15 segundos
+- **Touch/pinch/drag en mapa del mundo**: soporte móvil con arrastre táctil, zoom por pellizco, y arrastre con ratón en desktop
+- **Capa de sitios arqueológicos** en mapa Leaflet: 8 sitios reales inexplorados de RD (Cueva de Berna, Punta Macao, El Cabo, etc.), desbloqueables tras completar misión del robot
+
+### Mejorado
+- **Mapa geográfico completo**: 8 cordilleras (Central, Septentrional, Oriental, Neiba, Bahoruco + 3 macizos haitianos), 5 ríos (Yaque del Norte/Sur, Yuna, Ozama, Artibonite), 2 lagos (Enriquillo, Saumâtre) — trazados desde mapas topográficos NASA y mapa hidrográfico de referencia
+- **Península de Samaná** agregada al bitmap de la isla
+- **Posiciones de nodos geográficamente correctas**: Santo Domingo en la costa sur (fila 44), La Isabela en la costa norte, Punta Cana en el extremo este, Asentamiento Taíno II en el Valle del Cibao, etc.
+- **Bitmap de isla corregido**: cerrados gaps falsos en filas 32-35 y 40-43 que creaban manchas de agua artificiales
+- **Zoom del mapa**: mínimo reducido de 0.5× a 0.25× para ver toda la isla
+- **Mapa de tiles escalado 2×**: 128×68 tiles (antes 64×34) para más espacio entre nodos
+
+---
+
 ## v0.14.0 — Mini-juego de Batú (pelota taína) (2026-03-13)
 
 ### Agregado

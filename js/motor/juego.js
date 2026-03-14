@@ -18,6 +18,7 @@ import { Entrada } from './entrada.js';
 import { Renderizador } from './renderizado.js';
 import { CargadorRecursos } from './recursos.js';
 import { Sonido } from './sonido.js';
+import { SonidoProcedural } from './sonido-procedural.js';
 import { SistemaGuardado } from './guardado.js';
 
 // --- Importar el inventario ---
@@ -28,6 +29,19 @@ import { SistemaCombate } from '../mecanicas/combate.js';
 
 // --- Importar el mini-juego de batú ---
 import { JuegoBatu } from '../mecanicas/batu.js';
+
+// --- Importar el álbum de fotos ---
+import { AlbumFotos } from '../mecanicas/album-fotos.js';
+
+// --- Importar sistemas de misiones secundarias ---
+import { RegistroJuego } from '../mecanicas/registro-juego.js';
+import { SistemaReputacion } from '../mecanicas/reputacion.js';
+import { MisionesSecundarias } from '../mecanicas/misiones-secundarias.js';
+
+// --- Importar mini-juegos del LFSD ---
+import { CalibracionSenal } from '../mecanicas/calibracion-senal.js';
+import { ProgramacionBloques } from '../mecanicas/programacion-bloques.js';
+import { ConexionCables } from '../mecanicas/conexion-cables.js';
 
 // --- Importar el sistema de idiomas ---
 import idiomas from '../idiomas/idiomas.js';
@@ -51,9 +65,11 @@ import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
+import { SantuarioManati } from '../mundos/acuatico/santuario-manati.js';
 import { MundoJuridico } from '../mundos/juridico/mundo-juridico.js';
 import { MundoLaboratorio } from '../mundos/laboratorio/mundo-laboratorio.js';
 import { FinalCinematica } from '../escenas/final-cinematica.js';
+import { MundoLFSD } from '../mundos/lfsd/mundo-lfsd.js';
 import { SistemaClima } from '../clima/clima.js';
 import { MapaLeaflet } from '../mapas/mapa-leaflet.js';
 
@@ -70,6 +86,10 @@ export class Juego {
     // necesitan el canvas/recursos que aún no existen
     this.renderizador = null;
     this.sonido = null;
+    this.sfx = new SonidoProcedural();
+
+    // Flag para evitar múltiples triggers de muerte simultáneos
+    this._muerteEnCurso = false;
 
     // --- Sistema de idiomas ---
     // Referencia al singleton de idiomas para acceso rápido
@@ -94,6 +114,13 @@ export class Juego {
     this.escenaActual = null;
     this.nombreEscenaActual = '';
 
+    // Lista de escenas donde el jugador existe y puede recibir daño
+    this.escenasJugables = [
+      'mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2',
+      'mundoColonial', 'zonaColonial', 'mundoAcuatico', 'santuarioManati',
+      'mundoJuridico', 'mundoLaboratorio', 'mundoLFSD'
+    ];
+
     // --- Estado del juego ---
     // Estos datos representan el "estado" del jugador. Son los que
     // se guardan cuando el jugador quiere guardar su progreso.
@@ -106,7 +133,8 @@ export class Juego {
       nodosDesbloqueados: [0],
       combatesPacificados: 0,
       combatesViolentos: 0,
-      accionesEcologicas: 0
+      accionesEcologicas: 0,
+      mundos: {} // Estado persistente por mundo (NPCs, objetos, etc.)
     };
 
     // --- Sistema de clima ---
@@ -132,6 +160,34 @@ export class Juego {
     // --- Batú ---
     // Mini-juego de pelota taína (overlay como el combate)
     this.batu = new JuegoBatu();
+
+    // --- Álbum de fotos ---
+    // El jugador puede tomar fotos y selfies de objetos, NPCs y paisajes.
+    // Se abre con P, se toman fotos con T y selfies con G.
+    this.album = new AlbumFotos();
+
+    // Bloqueo para la tecla P (álbum de fotos)
+    this._bloqueoAlbum = false;
+
+    // Bloqueo para las teclas T (foto) y G (selfie)
+    this._bloqueoFoto = false;
+    this._bloqueoSelfie = false;
+
+    // --- Sistemas de misiones secundarias ---
+    // Registro de misiones (diario del jugador, tecla L)
+    this.registro = new RegistroJuego();
+    // Reputación del jugador (0-100, afecta combates)
+    this.reputacion = new SistemaReputacion();
+    // Estado de las 3 sidequests del LFSD
+    this.misiones = new MisionesSecundarias();
+
+    // --- Mini-juegos del LFSD (overlays como batú/combate) ---
+    this.calibracion = new CalibracionSenal();
+    this.programacion = new ProgramacionBloques();
+    this.conexion = new ConexionCables();
+
+    // Bloqueo para la tecla L (registro de misiones)
+    this._bloqueoRegistro = false;
 
     // Bloqueo para evitar que la tecla I abra y cierre en el mismo frame
     this._bloqueoInventario = false;
@@ -173,8 +229,10 @@ export class Juego {
       { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
       { nombre: 'Zona Colonial',        escena: 'zonaColonial' },
       { nombre: 'Naufragio La Pinta (Acuático)', escena: 'mundoAcuatico' },
+      { nombre: 'Santuario del Manatí', escena: 'santuarioManati' },
       { nombre: 'Aeropuerto Punta Cana (Jurídico)', escena: 'mundoJuridico' },
       { nombre: 'Museo Atarazanas Reales (Laboratorio)', escena: 'mundoLaboratorio' },
+      { nombre: 'LFSD (Robótica)', escena: 'mundoLFSD' },
       { nombre: 'Final Cinemática', escena: 'finalCinematica' }
     ];
   }
@@ -317,6 +375,10 @@ export class Juego {
     const mundoAcuatico = new MundoAcuatico();
     this.registrarEscena('mundoAcuatico', mundoAcuatico);
 
+    // Santuario del Manatí — sub-nivel marino con acciones ecológicas
+    const santuarioManati = new SantuarioManati();
+    this.registrarEscena('santuarioManati', santuarioManati);
+
     // Mundo Jurídico — Aeropuerto de Punta Cana (tráfico de artefactos)
     const mundoJuridico = new MundoJuridico();
     this.registrarEscena('mundoJuridico', mundoJuridico);
@@ -324,6 +386,10 @@ export class Juego {
     // Mundo Laboratorio — Museo de las Atarazanas Reales (autenticación)
     const mundoLaboratorio = new MundoLaboratorio();
     this.registrarEscena('mundoLaboratorio', mundoLaboratorio);
+
+    // LFSD — clase de robótica del Lycée Français (misiones secundarias)
+    const mundoLFSD = new MundoLFSD();
+    this.registrarEscena('mundoLFSD', mundoLFSD);
 
     // Cinemática final — secuencia de créditos con final múltiple
     const finalCinematica = new FinalCinematica();
@@ -447,6 +513,47 @@ export class Juego {
       }
     }
 
+    // --- Registro de misiones: abrir/cerrar con L ---
+    if (this.jugador) {
+      if (this.entrada.estaPresionada('registro') && !this._bloqueoRegistro) {
+        this.registro.visible = !this.registro.visible;
+        this._bloqueoRegistro = true;
+      }
+      if (!this.entrada.estaPresionada('registro')) {
+        this._bloqueoRegistro = false;
+      }
+
+      // Si el registro está abierto, consume TODA la entrada
+      if (this.registro.visible) {
+        this.registro.manejarEntrada(this.entrada);
+        return;
+      }
+    }
+
+    // --- Álbum de fotos: abrir/cerrar con P ---
+    // Se puede abrir en cualquier escena jugable (cuando hay jugador)
+    if (this.jugador) {
+      if (this.entrada.estaPresionada('album') && !this._bloqueoAlbum) {
+        this.album.visible = !this.album.visible;
+        this.album.scrollY = 0; // Reiniciar scroll al abrir
+        this._bloqueoAlbum = true;
+      }
+      if (!this.entrada.estaPresionada('album')) {
+        this._bloqueoAlbum = false;
+      }
+
+      // También cerrar con cancelar (Q/Esc)
+      if (this.album.visible && this.entrada.estaPresionada('cancelar')) {
+        this.album.visible = false;
+      }
+
+      // Si el álbum está abierto, consume TODA la entrada
+      if (this.album.visible) {
+        this.album.manejarEntrada(this.entrada);
+        return;
+      }
+    }
+
     // --- Combate: si hay un combate activo, consume toda la entrada ---
     if (this.combate.enCombate) {
       this.combate.actualizar(dt, this.entrada, this.jugador, this.inventario);
@@ -456,6 +563,20 @@ export class Juego {
     // --- Batú: si hay un juego de batú activo, consume toda la entrada ---
     if (this.batu.enJuego) {
       this.batu.actualizar(dt, this.entrada);
+      return;
+    }
+
+    // --- Mini-juegos LFSD: si alguno está activo, consume toda la entrada ---
+    if (this.calibracion.enJuego) {
+      this.calibracion.actualizar(dt, this.entrada);
+      return;
+    }
+    if (this.programacion.enJuego) {
+      this.programacion.actualizar(dt, this.entrada);
+      return;
+    }
+    if (this.conexion.enJuego) {
+      this.conexion.actualizar(dt, this.entrada);
       return;
     }
 
@@ -473,6 +594,56 @@ export class Juego {
       }
       if (!this.entrada.estaPresionada('especial')) {
         this._bloqueoEspecial = false;
+      }
+    }
+
+    // --- Foto/Selfie: capturar con T/G cuando hay objetivo cercano ---
+    // Detecta NPCs, petroglifos y objetos cerca del jugador en la escena
+    // actual y permite tomar fotos o selfies de ellos.
+    if (this.jugador && this.escenaActual) {
+      const objetivoCercano = this._buscarObjetivoFotografico();
+
+      if (objetivoCercano) {
+        // Tomar foto con T
+        if (this.entrada.estaPresionada('foto') && !this._bloqueoFoto) {
+          this._bloqueoFoto = true;
+          const exito = this.album.tomarFoto(
+            objetivoCercano.nombre,
+            objetivoCercano.descripcion || '',
+            this.nombreEscenaActual,
+            objetivoCercano.entidad,
+            objetivoCercano.tipoEntidad
+          );
+          if (exito) {
+            const textos = this.idiomas.traducciones[this.idiomas.idiomaActual];
+            this.mostrarToast(textos?.album?.fotoTomada || '¡Foto guardada!');
+            if (this.sfx) this.sfx.fotoCaptura();
+          }
+        }
+        if (!this.entrada.estaPresionada('foto')) {
+          this._bloqueoFoto = false;
+        }
+
+        // Tomar selfie con G
+        if (this.entrada.estaPresionada('selfie') && !this._bloqueoSelfie) {
+          this._bloqueoSelfie = true;
+          const exito = this.album.tomarSelfie(
+            objetivoCercano.nombre,
+            objetivoCercano.descripcion || '',
+            this.nombreEscenaActual,
+            objetivoCercano.entidad,
+            objetivoCercano.tipoEntidad,
+            this.jugador
+          );
+          if (exito) {
+            const textos = this.idiomas.traducciones[this.idiomas.idiomaActual];
+            this.mostrarToast(textos?.album?.selfieTomada || '¡Selfie guardada!');
+            if (this.sfx) this.sfx.selfieCaptura();
+          }
+        }
+        if (!this.entrada.estaPresionada('selfie')) {
+          this._bloqueoSelfie = false;
+        }
       }
     }
 
@@ -498,6 +669,39 @@ export class Juego {
 
     if (this.escenaActual && typeof this.escenaActual.actualizar === 'function') {
       this.escenaActual.actualizar(dt, this.entrada, this.jugador, this.companeros);
+    }
+
+    // --- Muerte global: si la vida llega a 0, volver al mapa ---
+    // Aplica a cualquier mundo donde el jugador pueda recibir daño.
+    // Muestra mensaje cómico, reproduce sonido de muerte y pausa 2.5s
+    // antes de volver al mapa para que el jugador vea qué pasó.
+    if (this.jugador && this.jugador.vida <= 0 && this.escenasJugables.includes(this.nombreEscenaActual)
+        && this.nombreEscenaActual !== 'mapaPrincipal' && !this._muerteEnCurso) {
+      this._muerteEnCurso = true;
+      this.jugador.vida = 0; // Mantener en 0 durante la pausa
+
+      // Sonido cómico de muerte ("wah wah waaah")
+      if (this.sfx) this.sfx.muerte();
+
+      // Mensaje aleatorio
+      const textos = this.idiomas.traducciones[this.idiomas.idiomaActual];
+      const frases = textos?.interfaz?.muerteFrases || [
+        'Se hizo lo que se pudo, bye...',
+        'Houston, we have a problem...',
+        'Game over, man!',
+        'GG no re'
+      ];
+      const frase = frases[Math.floor(Math.random() * frases.length)];
+      this.mostrarToast(frase, 4);
+
+      // Pausa de 2.5 segundos antes de volver al mapa
+      setTimeout(() => {
+        if (this.jugador) {
+          this.jugador.vida = Math.ceil((this.jugador.vidaMaxima || 100) * 0.3);
+        }
+        this._muerteEnCurso = false;
+        this.cambiarEscena('mapaPrincipal');
+      }, 2500);
     }
 
     // --- Actualizar clima si está activo ---
@@ -547,6 +751,39 @@ export class Juego {
       this.batu.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.batu);
     }
 
+    // --- Mini-juegos LFSD se dibujan como overlays ---
+    if (this.calibracion.enJuego) {
+      this.calibracion.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.calibracion);
+    }
+    if (this.programacion.enJuego) {
+      this.programacion.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.programacion);
+    }
+    if (this.conexion.enJuego) {
+      this.conexion.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.conexion);
+    }
+
+    // --- Registro de misiones (overlay con tecla L) ---
+    if (this.registro.visible) {
+      this.registro.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
+    }
+
+    // --- Medidor de reputación en el HUD (solo en escenas jugables) ---
+    if (this.jugador && !this.inventario.abierto && !this.registro.visible) {
+      this.reputacion.dibujarMedidor(this.ctx, ANCHO_JUEGO - 160, 10, 140, textos);
+    }
+
+    // --- Álbum de fotos (overlay con tecla P) ---
+    if (this.album.visible) {
+      this.album.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
+    }
+
+    // --- Pista de foto/selfie cuando hay objetivo cercano ---
+    // Muestra [T] Foto | [G] Selfie si el jugador está cerca de algo fotografiable
+    if (this.jugador && !this.album.visible && !this.inventario.abierto
+        && !this.registro.visible && !this.combate.enCombate && !this.batu.enJuego) {
+      this._dibujarPistaFoto(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
+    }
+
     // --- Inventario se dibuja ENCIMA de todo (overlay) ---
     // Usa el contexto raw porque maneja su propio dibujo
     if (this.inventario.abierto) {
@@ -590,6 +827,10 @@ export class Juego {
       return;
     }
 
+    // --- Guardar estado del mundo actual antes de salir ---
+    // Esto preserva diálogos hechos, objetos recogidos, etc.
+    this._guardarEstadoMundo();
+
     // Avisar a la escena actual que nos vamos
     if (this.escenaActual && typeof this.escenaActual.salir === 'function') {
       this.escenaActual.salir();
@@ -601,8 +842,7 @@ export class Juego {
 
     // Si entramos a un nivel jugable, creamos al jugador ANTES de iniciar
     // la escena, para que la escena pueda posicionarlo y configurarlo
-    const escenasJugables = ['mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico', 'mundoJuridico', 'mundoLaboratorio'];
-    if (escenasJugables.includes(nombreEscena) && !this.jugador) {
+    if (this.escenasJugables.includes(nombreEscena) && !this.jugador) {
       this.jugador = new Jugador(60, 350, this.generoJugador);
     }
 
@@ -621,6 +861,8 @@ export class Juego {
       this.clima.cambiarClima(climaPorEscena[nombreEscena]);
     } else {
       this._climaActivo = false;
+      // Detener sonidos ambientales al salir de escenas con clima
+      this.clima.detenerSonidos();
     }
 
     // Preparar la nueva escena.
@@ -630,12 +872,148 @@ export class Juego {
       this.escenaActual.iniciar(this);
     }
 
+    // --- Restaurar estado del mundo después de iniciar ---
+    // Esto recupera NPCs hablados, objetos recogidos, etc.
+    this._restaurarEstadoMundo(nombreEscena);
+
     // --- Auto-guardado al volver al mapa ---
     // Cuando el jugador regresa al mapa del mundo (después de completar
     // un nivel o presionar M), guardamos automáticamente. Así nunca
     // pierde su progreso. No guardamos al entrar a menús ni cinemáticas.
     if (nombreEscena === 'mapaPrincipal' && this.jugador) {
       this.guardarPartida();
+    }
+  }
+
+  // --- PERSISTENCIA DE ESTADO POR MUNDO ---
+  // Guarda el estado de NPCs hablados, objetos recogidos y otros
+  // datos persistentes de cada mundo en progreso.mundos.
+  // Esto permite que al re-entrar, el estado se preserve.
+
+  _guardarEstadoMundo() {
+    if (!this.escenaActual || !this.nombreEscenaActual) return;
+    if (!this.escenasJugables.includes(this.nombreEscenaActual)) return;
+
+    const escena = this.escenaActual;
+    if (!this.progreso.mundos) this.progreso.mundos = {};
+    const estado = {};
+
+    // NPCs — guardar IDs de los que ya tienen dialogoHecho
+    if (escena.npcs?.length) {
+      estado.npcsHablados = escena.npcs
+        .filter(n => n.dialogoHecho)
+        .map(n => n.id);
+    }
+
+    // Objetos coleccionables — guardar tipos de los recogidos
+    if (escena.objetos?.length) {
+      estado.objetosRecogidos = escena.objetos
+        .filter(o => o.recogido)
+        .map(o => o.tipo);
+    }
+
+    // Petroglifos (Cuevas Pomier) — guardar índices descubiertos
+    if (escena.petroglifos?.length) {
+      estado.petroglifosDescubiertos = [];
+      escena.petroglifos.forEach((p, i) => {
+        if (p.descubierto) estado.petroglifosDescubiertos.push(i);
+      });
+    }
+
+    // Desechos (Santuario Manatí) — guardar índices recogidos
+    if (escena.desechos?.length) {
+      estado.desechosRecogidos = [];
+      escena.desechos.forEach((d, i) => {
+        if (d.recogido) estado.desechosRecogidos.push(i);
+      });
+    }
+
+    // Flags específicos de cada mundo
+    if (escena._cassaConversacion !== undefined)
+      estado.cassaConversacion = escena._cassaConversacion;
+    if (escena._sospechosoHablado !== undefined)
+      estado.sospechosoHablado = escena._sospechosoHablado;
+    if (escena._batuOfrecido !== undefined)
+      estado.batuOfrecido = escena._batuOfrecido;
+    if (escena._batuCompletado !== undefined)
+      estado.batuCompletado = escena._batuCompletado;
+    if (escena.arqueologaDialogoHecho !== undefined)
+      estado.arqueologaDialogoHecho = escena.arqueologaDialogoHecho;
+
+    // Contadores de diálogo rotativo (LFSD y otros mundos)
+    if (escena._dialogoRotativo) {
+      estado.dialogoRotativo = { ...escena._dialogoRotativo };
+    }
+
+    this.progreso.mundos[this.nombreEscenaActual] = estado;
+  }
+
+  _restaurarEstadoMundo(nombreEscena) {
+    const estado = this.progreso?.mundos?.[nombreEscena];
+    if (!estado) return;
+
+    const escena = this.escenaActual;
+    if (!escena) return;
+
+    // Restaurar NPCs — marcar dialogoHecho y desactivar combate resuelto
+    if (estado.npcsHablados?.length && escena.npcs?.length) {
+      escena.npcs.forEach(npc => {
+        if (estado.npcsHablados.includes(npc.id)) {
+          npc.dialogoHecho = true;
+          // Si era NPC de combate, desactivar (el combate ya se resolvió)
+          if (npc.esCombate) npc.esCombate = false;
+        }
+      });
+    }
+
+    // Restaurar objetos recogidos
+    if (estado.objetosRecogidos?.length && escena.objetos?.length) {
+      escena.objetos.forEach(obj => {
+        if (estado.objetosRecogidos.includes(obj.tipo)) {
+          obj.recogido = true;
+        }
+      });
+    }
+
+    // Restaurar petroglifos
+    if (estado.petroglifosDescubiertos?.length && escena.petroglifos?.length) {
+      estado.petroglifosDescubiertos.forEach(i => {
+        if (escena.petroglifos[i]) escena.petroglifos[i].descubierto = true;
+      });
+    }
+
+    // Restaurar desechos
+    if (estado.desechosRecogidos?.length && escena.desechos?.length) {
+      estado.desechosRecogidos.forEach(i => {
+        if (escena.desechos[i]) escena.desechos[i].recogido = true;
+      });
+      // Actualizar contador
+      escena.desechosRecogidos = escena.desechos.filter(d => d.recogido).length;
+    }
+
+    // Restaurar flags específicos
+    if (estado.cassaConversacion !== undefined)
+      escena._cassaConversacion = estado.cassaConversacion;
+    if (estado.sospechosoHablado !== undefined)
+      escena._sospechosoHablado = estado.sospechosoHablado;
+    if (estado.batuOfrecido !== undefined)
+      escena._batuOfrecido = estado.batuOfrecido;
+    if (estado.batuCompletado !== undefined)
+      escena._batuCompletado = estado.batuCompletado;
+    if (estado.arqueologaDialogoHecho !== undefined)
+      escena.arqueologaDialogoHecho = estado.arqueologaDialogoHecho;
+
+    // Restaurar contadores de diálogo rotativo
+    if (estado.dialogoRotativo && escena._dialogoRotativo) {
+      Object.assign(escena._dialogoRotativo, estado.dialogoRotativo);
+    }
+
+    // Actualizar contador de NPCs hablados (lo recalculan en actualizar())
+    if (escena.npcs?.length) {
+      const hablados = escena.npcs.filter(n =>
+        n.dialogoHecho && !n.esMentor && n.id !== 'sospechoso'
+      ).length;
+      if (escena.npcsHablados !== undefined) escena.npcsHablados = hablados;
     }
   }
 
@@ -682,6 +1060,17 @@ export class Juego {
       this.progreso.combatesPacificados = datos.progreso.combatesPacificados || 0;
       this.progreso.combatesViolentos = datos.progreso.combatesViolentos || 0;
       this.progreso.accionesEcologicas = datos.progreso.accionesEcologicas || 0;
+      this.progreso.robotProgramado = datos.progreso.robotProgramado || false;
+      this.progreso.magnetometroCalibrado = datos.progreso.magnetometroCalibrado || false;
+      this.progreso.equipoReparado = datos.progreso.equipoReparado || false;
+      this.progreso.equipoEntregado = datos.progreso.equipoEntregado || false;
+      this.progreso.descubrimientoCientifico = datos.progreso.descubrimientoCientifico || false;
+      this.progreso.periodicoRecogido = datos.progreso.periodicoRecogido || false;
+      this.progreso.naufragiosRobotDescubiertos = datos.progreso.naufragiosRobotDescubiertos || false;
+      this.progreso.manatiLiberado = datos.progreso.manatiLiberado || false;
+      this.progreso.arrecifeLimpiado = datos.progreso.arrecifeLimpiado || false;
+      // Estado persistente por mundo (NPCs hablados, objetos recogidos, etc.)
+      this.progreso.mundos = datos.progreso.mundos || {};
     }
 
     // --- Restaurar idioma ---
@@ -710,6 +1099,26 @@ export class Juego {
     // --- Restaurar compañeros ---
     // Recreamos las instancias de clase a partir de los datos guardados
     this._restaurarCompaneros(datos.companeros || []);
+
+    // --- Restaurar reputación ---
+    if (datos.reputacion !== undefined) {
+      this.reputacion.puntos = datos.reputacion;
+    }
+
+    // --- Restaurar misiones secundarias ---
+    if (datos.misiones) {
+      this.misiones.restaurar(datos.misiones);
+    }
+
+    // --- Restaurar registro de misiones ---
+    if (datos.registroEntradas) {
+      this.registro.entradas = datos.registroEntradas;
+    }
+
+    // --- Restaurar álbum de fotos (solo metadata) ---
+    if (datos.albumFotos) {
+      this.album.deserializar(datos.albumFotos);
+    }
 
     // --- Ir a la escena guardada ---
     // Si estaba en un nivel, lo llevamos al mapa para que no empiece
@@ -990,6 +1399,126 @@ export class Juego {
     ctx.textAlign = 'center';
     const yInstrucciones = inicioY + Math.min(totalNiveles, maxVisibles) * altoOpcion + 25;
     ctx.fillText('↑↓: elegir  |  E: ir al nivel  |  Q: cerrar', ancho / 2, yInstrucciones);
+  }
+
+  // --- ÁLBUM DE FOTOS: DETECCIÓN DE OBJETIVOS ---
+  // Busca NPCs, petroglifos, objetos y otros elementos fotografiables
+  // que estén cerca del jugador en la escena actual.
+
+  /**
+   * Busca el objetivo fotografiable más cercano al jugador.
+   * Revisa NPCs, petroglifos y objetos de la escena actual.
+   * Devuelve { nombre, descripcion, x, y } o null si no hay nada cerca.
+   */
+  _buscarObjetivoFotografico() {
+    const escena = this.escenaActual;
+    const jugador = this.jugador;
+    if (!escena || !jugador) return null;
+
+    const RANGO_FOTO = 80; // Pixeles de distancia máxima para tomar foto
+    let mejorObjetivo = null;
+    let mejorDistancia = RANGO_FOTO;
+
+    // --- Buscar en NPCs ---
+    if (escena.npcs?.length) {
+      for (const npc of escena.npcs) {
+        if (!npc.activo && npc.activo !== undefined) continue;
+        const dx = (npc.x || 0) - jugador.x;
+        const dy = (npc.y || 0) - jugador.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mejorDistancia) {
+          mejorDistancia = dist;
+          mejorObjetivo = {
+            nombre: npc.nombre || npc.id || 'NPC',
+            descripcion: npc.descripcion || '',
+            x: npc.x || 0,
+            y: npc.y || 0,
+            entidad: npc,          // Referencia directa al NPC para dibujar su sprite
+            tipoEntidad: 'npc'     // Tipo de entidad para elegir el estilo de retrato
+          };
+        }
+      }
+    }
+
+    // --- Buscar en petroglifos ---
+    if (escena.petroglifos?.length) {
+      for (const petro of escena.petroglifos) {
+        const dx = (petro.x || 0) - jugador.x;
+        const dy = (petro.y || 0) - jugador.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mejorDistancia) {
+          mejorDistancia = dist;
+          mejorObjetivo = {
+            nombre: petro.nombre || petro.tipo || 'Petroglifo',
+            descripcion: petro.descripcion || '',
+            x: petro.x || 0,
+            y: petro.y || 0,
+            entidad: petro,            // Referencia al petroglifo para dibujar su símbolo
+            tipoEntidad: 'petroglifo'  // Tipo para fondo de cueva y símbolo taíno
+          };
+        }
+      }
+    }
+
+    // --- Buscar en objetos coleccionables ---
+    if (escena.objetos?.length) {
+      for (const obj of escena.objetos) {
+        if (obj.recogido) continue; // Ignorar objetos ya recogidos
+        const dx = (obj.x || 0) - jugador.x;
+        const dy = (obj.y || 0) - jugador.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mejorDistancia) {
+          mejorDistancia = dist;
+          mejorObjetivo = {
+            nombre: obj.nombre || obj.tipo || 'Objeto',
+            descripcion: obj.descripcion || '',
+            x: obj.x || 0,
+            y: obj.y || 0,
+            entidad: obj,          // Referencia al objeto para dibujar su sprite
+            tipoEntidad: 'objeto'  // Tipo para fondo ámbar y brillo dorado
+          };
+        }
+      }
+    }
+
+    return mejorObjetivo;
+  }
+
+  /**
+   * Dibuja la pista "[T] Foto | [G] Selfie" cuando hay un objetivo
+   * fotografiable cerca del jugador. Aparece debajo de los demás
+   * prompts (como [E] Hablar) para no taparlos.
+   */
+  _dibujarPistaFoto(ctx, ancho, alto, textos) {
+    const objetivo = this._buscarObjetivoFotografico();
+    if (!objetivo) return;
+
+    const t = textos?.album || {};
+    const textoFoto = t.tomarFoto || '[T] Foto';
+    const textoSelfie = t.tomarSelfie || '[G] Selfie';
+
+    // Indicadores de foto ya tomada
+    const yaFoto = this.album.tieneFoto(objetivo.nombre);
+    const yaSelfie = this.album.tieneSelfie(objetivo.nombre);
+
+    ctx.save();
+    ctx.font = 'bold 11px monospace';
+    ctx.textAlign = 'center';
+
+    // Posición: parte inferior de la pantalla, centrado
+    const y = alto - 45;
+    const textoCompleto = `${textoFoto}${yaFoto ? ' ✓' : ''} | ${textoSelfie}${yaSelfie ? ' ✓' : ''}`;
+
+    // Fondo semitransparente
+    const medida = ctx.measureText(textoCompleto);
+    const anchoFondo = medida.width + 20;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+    ctx.fillRect(ancho / 2 - anchoFondo / 2, y - 12, anchoFondo, 18);
+
+    // Texto
+    ctx.fillStyle = '#FFDD44';
+    ctx.fillText(textoCompleto, ancho / 2, y);
+    ctx.restore();
   }
 
   // --- RESPONSIVO ---

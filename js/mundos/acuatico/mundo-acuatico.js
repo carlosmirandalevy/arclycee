@@ -49,6 +49,13 @@ export class MundoAcuatico {
     // --- Algas marinas animadas ---
     this.algas = [];
 
+    // --- Sombras de ballenas jorobadas (fondo lejano) ---
+    // Siluetas oscuras que cruzan lentamente el nivel, como si
+    // nadaran en aguas profundas debajo del jugador. Adaptadas
+    // del proyecto cary (Phaser 3 → Canvas2D vanilla).
+    this.ballenasJorobadas = [];
+    this._cooldownCantoballena = 0; // Evita spam de sonido/toast
+
     // --- Diálogos ---
     this.dialogos = new SistemaDialogos();
 
@@ -77,6 +84,10 @@ export class MundoAcuatico {
     this.efectoLentitud = 0; // Segundos restantes
     this.invulnerabilidad = 0; // Cooldown tras picadura
 
+    // --- Spawn desde sub-nivel (Santuario del Manatí) ---
+    // Cuando el jugador vuelve del santuario, aparece a la derecha
+    this._spawnDesdeSubnivel = false;
+
     // --- Referencia al juego ---
     this.juego = null;
   }
@@ -88,8 +99,15 @@ export class MundoAcuatico {
     // Poner al jugador en modo top-down
     if (juego.jugador) {
       juego.jugador.modoJuego = 'topdown';
-      juego.jugador.x = 200;
-      juego.jugador.y = 900;
+      // Si viene del Santuario del Manatí, aparecer a la derecha
+      if (this._spawnDesdeSubnivel) {
+        juego.jugador.x = 1500;
+        juego.jugador.y = 500;
+        this._spawnDesdeSubnivel = false;
+      } else {
+        juego.jugador.x = 200;
+        juego.jugador.y = 900;
+      }
       juego.jugador.direccion = 'arriba';
     }
 
@@ -222,6 +240,11 @@ export class MundoAcuatico {
       this.burbujas.push(this._crearBurbuja());
     }
 
+    // --- Ballenas jorobadas (sombras lejanas) ---
+    // Empiezan fuera del nivel y cruzan lentamente
+    this.ballenasJorobadas = [];
+    this._spawnBallena();
+
     // Misión inicial
     const textos = this._obtenerTextos();
     this.misionActual = textos?.dialogos?.acuatico?.misionExplorar
@@ -339,6 +362,14 @@ export class MundoAcuatico {
     jugador.x = Math.max(0, Math.min(this.anchoNivel - jugador.ancho, jugador.x));
     jugador.y = Math.max(0, Math.min(this.altoNivel - jugador.alto, jugador.y));
 
+    // --- Transición al Santuario del Manatí (borde derecho) ---
+    if (jugador.x >= this.anchoNivel - jugador.ancho - 5) {
+      if (this.juego && this.juego.cambiarEscena) {
+        this.juego.cambiarEscena('santuarioManati');
+      }
+      return;
+    }
+
     // --- Colisión con estructuras ---
     for (const est of this.estructuras) {
       if (jugador.x + jugador.ancho > est.x &&
@@ -404,6 +435,34 @@ export class MundoAcuatico {
       if (burbuja.y < -10) {
         Object.assign(burbuja, this._crearBurbuja());
         burbuja.y = this.altoNivel + 10;
+      }
+    }
+
+    // --- Actualizar ballenas jorobadas (sombras lejanas) ---
+    if (this._cooldownCantoballena > 0) this._cooldownCantoballena -= dt;
+    for (let i = this.ballenasJorobadas.length - 1; i >= 0; i--) {
+      const b = this.ballenasJorobadas[i];
+      b.x += b.vx * dt * 60;
+      b.y += Math.sin(this.tiempoTotal * b.frecuenciaY + b.fase) * 0.15;
+      b.vida -= dt;
+      if (b.vida <= 0 || b.x < -200 || b.x > this.anchoNivel + 200) {
+        this.ballenasJorobadas.splice(i, 1);
+      }
+    }
+    // Respawnear si no hay ballenas
+    if (this.ballenasJorobadas.length < 1 && Math.random() < 0.005) {
+      this._spawnBallena();
+      // Canto + mensaje (cooldown de 30s para no repetir seguido)
+      if (this._cooldownCantoballena <= 0) {
+        this._cooldownCantoballena = 30;
+        this.sfx.cantoBallenaCerca();
+        if (this.juego && this.juego.mostrarToast) {
+          const textos = this._obtenerTextos();
+          this.juego.mostrarToast(
+            textos?.dialogos?.acuatico?.cantoBallenaCerca
+            || '🐋 ¡Escuchas el canto de una ballena jorobada a lo lejos!'
+          , 4000);
+        }
       }
     }
 
@@ -544,6 +603,16 @@ export class MundoAcuatico {
     }
 
     // =========================================================
+    // CAPA 2b: Sombras de ballenas jorobadas (fondo lejano)
+    // =========================================================
+    // Siluetas oscuras que cruzan lentamente como si nadaran
+    // en aguas profundas debajo del jugador. Adaptado del
+    // proyecto cary (Phaser 3 → Canvas2D).
+    for (const ballena of this.ballenasJorobadas) {
+      this._dibujarBallenaJorobada(ctx, ballena, offsetX, offsetY);
+    }
+
+    // =========================================================
     // CAPA 3: Algas marinas (se balancean con la corriente)
     // =========================================================
     for (const alga of this.algas) {
@@ -586,6 +655,32 @@ export class MundoAcuatico {
     for (const est of this.estructuras) {
       this._dibujarEstructura(ctx, est.x + offsetX, est.y + offsetY, est);
     }
+
+    // =========================================================
+    // CAPA 4b: Arco de coral indicando salida al Santuario →
+    // =========================================================
+    const arcoX = this.anchoNivel - 30 + offsetX;
+    const arcoY = 440 + offsetY;
+    // Columnas de coral
+    ctx.fillStyle = '#8a5040';
+    ctx.fillRect(arcoX, arcoY, 15, 80);
+    ctx.fillRect(arcoX, arcoY + 140, 15, 80);
+    // Arco
+    ctx.strokeStyle = '#8a5040';
+    ctx.lineWidth = 8;
+    ctx.beginPath();
+    ctx.arc(arcoX + 7, arcoY + 110, 70, -Math.PI / 2, Math.PI / 2, true);
+    ctx.stroke();
+    // Flecha >>>
+    const flechaParpadeo = 0.3 + Math.sin(this.tiempoTotal * 3) * 0.3;
+    ctx.font = 'bold 14px monospace';
+    ctx.fillStyle = `rgba(255, 215, 0, ${flechaParpadeo})`;
+    ctx.textAlign = 'center';
+    ctx.fillText('>>>', arcoX + 7, arcoY + 115);
+    ctx.font = '8px monospace';
+    ctx.fillStyle = `rgba(200, 220, 255, ${flechaParpadeo})`;
+    ctx.fillText('Santuario', arcoX + 7, arcoY + 130);
+    ctx.textAlign = 'left';
 
     // =========================================================
     // CAPA 5: Objetos coleccionables
@@ -1233,8 +1328,15 @@ export class MundoAcuatico {
       // La arqueóloga da el mapa de naufragios al terminar
       const tieneMapaNaufragios = this.juego && this.juego.inventario &&
         this.juego.inventario.objetos.some(o => o.id === 'mapaNaufragios');
+      const yaEntregoRobot = this.juego?.progreso?.naufragiosRobotDescubiertos === true;
 
-      if (npc.dialogoHecho || tieneMapaNaufragios) {
+      if (yaEntregoRobot) {
+        // Robot ya entregado a la Dra. Sofía — la arqueóloga lo sabe
+        this.dialogos.iniciarDialogo([
+          { personaje: '🤿 Arqueóloga Submarina', texto: ac?.arqueologaPostRobot || '¡La Dra. Sofía me contó del robot submarino! Los datos que envía son increíbles. ¡Gracias!' }
+        ]);
+
+      } else if (npc.dialogoHecho || tieneMapaNaufragios) {
         // Ya dio el mapa — repite información
         this.dialogos.iniciarDialogo([
           { personaje: '🤿 Arqueóloga Submarina', texto: ac?.arqueologaRepite || 'Usa el mapa de naufragios para encontrar más restos submarinos. ¡El mar Caribe esconde muchos secretos!' }
@@ -1352,7 +1454,7 @@ export class MundoAcuatico {
                   }
                 }
               ]
-            });
+            }, this.juego);
           }
         });
       } else {
@@ -1363,6 +1465,99 @@ export class MundoAcuatico {
         ]);
       }
     }
+  }
+
+  // ============================================================
+  // BALLENAS JOROBADAS — sombras lejanas en el fondo
+  // ============================================================
+  // Las ballenas jorobadas (Megaptera novaeangliae) migran por
+  // las aguas del Caribe dominicano cada invierno (enero-marzo).
+  // Aquí las dibujamos como siluetas oscuras y lejanas que cruzan
+  // lentamente el nivel, dando sensación de profundidad oceánica.
+  // Sprite adaptado del proyecto cary (Phaser 3 → Canvas2D).
+
+  // --- Crear una nueva ballena que cruce el nivel ---
+  _spawnBallena() {
+    // Aparece por la izquierda o la derecha
+    const desdeIzquierda = Math.random() > 0.5;
+    this.ballenasJorobadas.push({
+      x: desdeIzquierda ? -150 : this.anchoNivel + 150,
+      y: 200 + Math.random() * 400,
+      // Tamaño grande: 80-120px (cary: 65-100)
+      tamano: 80 + Math.random() * 40,
+      // Velocidad lenta: cruzan en ~30 segundos
+      vx: desdeIzquierda ? (0.3 + Math.random() * 0.3) : -(0.3 + Math.random() * 0.3),
+      // Bobbing vertical suave
+      fase: Math.random() * Math.PI * 2,
+      frecuenciaY: 0.15 + Math.random() * 0.1,
+      // Duración de vida
+      vida: 25 + Math.random() * 10,
+      vidaMax: 35,
+      // Opacidad base baja (son sombras lejanas)
+      opacidadBase: 0.12 + Math.random() * 0.08
+    });
+  }
+
+  // --- Dibujar silueta de ballena jorobada ---
+  // Adaptado de cary Phase3Scene: cuerpo elipse + cola triangular
+  // + aletas pectorales largas (características de la jorobada)
+  _dibujarBallenaJorobada(ctx, ballena, offsetX, offsetY) {
+    const bx = ballena.x + offsetX;
+    const by = ballena.y + offsetY;
+    const s = ballena.tamano;
+    // Opacidad que sube y baja con la vida (fade in/out)
+    const vidaNorm = ballena.vida / ballena.vidaMax;
+    const fadeInOut = vidaNorm > 0.8 ? (1 - vidaNorm) / 0.2 : (vidaNorm < 0.2 ? vidaNorm / 0.2 : 1);
+    const alpha = ballena.opacidadBase * fadeInOut;
+
+    // Dirección (la cola va opuesta al movimiento)
+    const dir = ballena.vx > 0 ? 1 : -1;
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
+    // --- Cuerpo principal (elipse grande) ---
+    // Color azul muy oscuro, como cary Phase3: 0x142846
+    ctx.fillStyle = '#142846';
+    ctx.beginPath();
+    ctx.ellipse(bx, by, s * 0.5, s * 0.18, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // --- Cabeza ancha y cuadrada (característica de la jorobada) ---
+    ctx.fillRect(bx + dir * s * 0.3, by - s * 0.12, s * 0.2 * dir, s * 0.24);
+
+    // --- Cola (fluke) — triángulo bifurcado ---
+    ctx.beginPath();
+    ctx.moveTo(bx - dir * s * 0.5, by);
+    ctx.lineTo(bx - dir * s * 0.75, by - s * 0.18);
+    ctx.lineTo(bx - dir * s * 0.6, by);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(bx - dir * s * 0.5, by);
+    ctx.lineTo(bx - dir * s * 0.75, by + s * 0.18);
+    ctx.lineTo(bx - dir * s * 0.6, by);
+    ctx.closePath();
+    ctx.fill();
+
+    // --- Aletas pectorales largas (la jorobada tiene las más largas) ---
+    ctx.fillStyle = '#1a3050';
+    // Aleta superior
+    ctx.beginPath();
+    ctx.moveTo(bx - dir * s * 0.05, by - s * 0.1);
+    ctx.lineTo(bx - dir * s * 0.15, by - s * 0.32);
+    ctx.lineTo(bx + dir * s * 0.1, by - s * 0.12);
+    ctx.closePath();
+    ctx.fill();
+    // Aleta inferior
+    ctx.beginPath();
+    ctx.moveTo(bx - dir * s * 0.05, by + s * 0.1);
+    ctx.lineTo(bx - dir * s * 0.15, by + s * 0.32);
+    ctx.lineTo(bx + dir * s * 0.1, by + s * 0.12);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.restore();
   }
 
   // ============================================================

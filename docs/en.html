@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Project Documentation</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="hero">
+    <img src="resources/cemi-logo-just-icon.png" alt="ArcLycée Logo — Cemí">
+    <h1>ArcLycée</h1>
+    <p class="subtitulo">Dominican Archaeological Adventure</p>
+    <p class="descripcion">
+      A 2D educational RPG video game to explore the archaeological heritage of the
+      Dominican Republic. Created by les fous du robot from the Robotics class at the
+      Liceo Francés de Santo Domingo — 2026.
+    </p>
+    <div class="badges">
+      <span class="badge tech">HTML5 Canvas + Vanilla JS</span>
+      <span class="badge edu">Educational</span>
+      <span class="badge lang">ES / FR / EN</span>
+      <span class="badge tech">Web Audio API</span>
+      <span class="badge edu">Pacifist Route</span>
+    </div>
+  </div>
+
+  <div class="contenedor">
+
+    <section id="historia">
+      <h2><span class="icono">📖</span> The Story</h2>
+      <p class="intro">An adventure through 5,000 years of Dominican history.</p>
+      <p>You play as <strong>Pepito or Pepita</strong>, a 14-year-old with Taíno, Spanish, and African ancestry. One day, while walking through a construction site in Santo Domingo, you discover a mysterious relic. When you touch it, the ground gives way and you fall into the <strong>Cuevas del Pomier</strong> — a real cave system with thousands of Taíno petroglyphs.</p>
+      <p>Thus begins your adventure as an accidental archaeologist. With three companions — a digging robot, a stray dog, and a cemí spirit — you'll travel from Taíno settlements to Santo Domingo's Zona Colonial, facing conflicts between modern development and heritage preservation.</p>
+      <p><strong>Not everything is solved by fighting.</strong> Inspired by Undertale, the game offers a full pacifist route: convince your adversaries through dialogue, negotiation, and civic activism.</p>
+    </section>
+
+    <section id="flujo">
+      <h2><span class="icono">🗺️</span> Game Flow</h2>
+      <p class="intro">Free-roam map with 8 nodes, Super Mario World style. The player moves a sprite freely and activates nodes by approaching them.</p>
+      <div class="flujo">
+        <div class="flujo-nodo"><div class="flujo-icono taino">🕳️</div><div class="flujo-texto"><strong>Cuevas del Pomier</strong><br><span>Platformer in darkness. Discover Taíno petroglyphs and receive Magnoboot.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono taino">🏘️</div><div class="flujo-texto"><strong>Taíno Settlement I</strong><br><span>Village with bohíos. Learn about Taíno life and adopt Viralata.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono taino">🌾</div><div class="flujo-texto"><strong>Taíno Settlement II</strong><br><span>Agriculture and ceremonies. Meet the behique and obtain Cemí Murciélago.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono colonial">⚓</div><div class="flujo-texto"><strong>La Isabela</strong><br><span>First European city in the Americas (1494). Combat with Soldier Diego. Roberto Cassá gives you the colonial map.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono colonial">🏛️</div><div class="flujo-texto"><strong>Zona Colonial</strong><br><span>UNESCO Heritage. Cathedral Museum, National Pantheon, activism combat with Constructor Méndez.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono" style="border-color: #4488cc;">🌊</div><div class="flujo-texto"><strong>La Pinta Shipwreck</strong><br><span>A fisherman offers his canoe. Explore the shipwreck and fight the invasive lionfish.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono" style="border-color: #cc8844;">⚖️</div><div class="flujo-texto"><strong>Punta Cana Airport</strong><br><span>Airport interior. Legal combat against trafficker Rodrigo Torres with Law 318, INTERPOL and UNESCO.</span></div></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo"><div class="flujo-icono" style="border-color: #44ccaa;">🔬</div><div class="flujo-texto"><strong>Royal Shipyards Museum</strong><br><span>Authenticate artifacts with real science (carbon-14). 4 possible endings based on your decisions.</span></div></div>
+      </div>
+    </section>
+
+    <section id="companeros">
+      <h2><span class="icono">🤝</span> Companions</h2>
+      <p class="intro">Three unique allies that accompany you throughout the adventure.</p>
+      <div class="companero-card">
+        <div class="companero-visual"><canvas id="sprite-magnoboot" width="64" height="64"></canvas></div>
+        <div>
+          <h3>🤖 Magnoboot</h3>
+          <p><strong>Digging robot with metal detection</strong></p>
+          <p>Obtained from Dr. Martínez in the Pomier Caves. Detects buried objects with radar pulse (F key). 100 energy max, 10 per use.</p>
+        </div>
+      </div>
+      <div class="companero-card">
+        <div class="companero-visual"><canvas id="sprite-viralata" width="64" height="64"></canvas></div>
+        <div>
+          <h3>🐕 Viralata</h3>
+          <p><strong>Stray dog tracker</strong></p>
+          <p>Adopted in Taíno Settlement I. Has a 50px "sniff radius" — wags tail when hidden objects are near.</p>
+        </div>
+      </div>
+      <div class="companero-card">
+        <div class="companero-visual"><canvas id="sprite-cemi" width="64" height="64"></canvas></div>
+        <div>
+          <h3>🦇 Cemí Murciélago</h3>
+          <p><strong>Protective spirit with 6 power levels</strong></p>
+          <p>Granted by Behique Yuisa in Taíno Settlement II. Gains powers by finding botijas (vessels):</p>
+          <table>
+            <tr><th>Level</th><th>Botijas</th><th>Power</th></tr>
+            <tr><td>1</td><td>1</td><td>Echo-Location</td></tr>
+            <tr><td>3</td><td>3</td><td>Wing Gust</td></tr>
+            <tr><td>5</td><td>5</td><td>Ear of the Past</td></tr>
+            <tr><td>8</td><td>8</td><td>Stunning Screech</td></tr>
+            <tr><td>10</td><td>10</td><td>Cemí Vision</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipo">
+      <h2><span class="icono">👥</span> Team</h2>
+      <p class="intro">Robotics Class at the Liceo Francés de Santo Domingo — 2026</p>
+      <div class="grid-2">
+        <div class="item-card"><h5>Elian</h5><p>Easter egg: Legendary Spoon</p></div>
+        <div class="item-card"><h5>Théo</h5><p>Easter egg: Speed Fries</p></div>
+        <div class="item-card"><h5>Carlos Guillermo</h5><p>Easter egg: Archaeological Shawarma</p></div>
+        <div class="item-card"><h5>Jules</h5><p>Easter egg: Ancient Lightsaber</p></div>
+        <div class="item-card"><h5>Alberto</h5><p>Easter egg: Prankster's Sushi</p></div>
+        <div class="item-card"><h5>Rafael</h5><p>Easter egg: Epic Guitar</p></div>
+        <div class="item-card"><h5>Tom</h5><p>Easter egg: Smart Ball</p></div>
+        <div class="item-card"><h5>Nael</h5><p>Easter egg: Legendary Burger</p></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NOTE FROM THE TEACHER
+         ============================================================ -->
+    <section id="nota-profesor">
+      <h2><span class="icono">📝</span> Note from the Teacher</h2>
+      <div class="nota-profesor">
+        <h3>Hello everyone,</h3>
+        <p>The <strong>Les Fous du Robot</strong> team is pleased to present its innovative preliminary project: a video game designed to popularize Dominican archaeology among young audiences. The title is yet to be defined, but this project incorporates many aspects of our archaeological heritage. It is the result of a collaborative research effort carried out throughout the year by our robotics group. It is important to emphasize that AI only comes into play at the end of the research process (mid-February).</p>
+
+        <p><strong>Here are the key stages of our investigation:</strong></p>
+
+        <ol>
+          <li><strong>A tool for archaeologists</strong><br>
+          Diana designed a "Swiss army knife" for archaeologists, which she modeled in 3D and wishes to print. This versatile tool marks the starting point of our thinking.</li>
+
+          <li><strong>The magnetometer, a valuable ally</strong><br>
+          Jules and his father, a shipwreck salvage specialist, demonstrated the importance of the magnetometer. This device detects not only metals but also any trace of human activity, even underground, through magnetic field disturbances. How does it work? How can we build one?</li>
+
+          <li><strong>Preventing archaeological damage</strong><br>
+          Our AI-assisted research, guided by our coach Edward, revealed that four Dominican archaeologists supervise construction projects across the country to prevent heritage damage. How can we help them? A prospective map that quantifies archaeological risks by construction zone (such as the Pedernales airport runway) would be a valuable tool. An autonomous robot equipped with a magnetometer could also facilitate excavations.</li>
+
+          <li><strong>An interactive map of Dominican archaeology</strong><br>
+          Inspired by the French magazine <em>Science et Vie Spéciale Archéologie</em>, our teacher Nicolas encouraged us to create a map compiling all archaeological information from the Dominican Republic, organized in five layers:
+            <ol>
+              <li>Known Ta&iacute;no sites</li>
+              <li>Colonial-era remains (ruins or preserved objects)</li>
+              <li>Awareness-raising locations (museums, private collections)</li>
+              <li>Shipwreck map to guide research or underwater tourism</li>
+              <li>Key contacts (historians, archaeologists, museum directors)</li>
+            </ol>
+          </li>
+
+          <li><strong>Strengthening the knowledge of our roots</strong><br>
+          The works of Franck Moya Pons and Roberto Cass&aacute;, exchanges with archaeologist Wilton Khoury, and Abraham Almonte's videos (created with AI assistance) reinforced our conviction: it is essential to better understand our past. The discussion on the black market for Ta&iacute;no objects and its consequences for historical truth led us to question Miguel S&aacute;nchez about current legislation and its effectiveness, compared to that of other countries.</li>
+
+          <li><strong>An educational and collaborative video game</strong><br>
+          The creativity of Carlos Miranda, a specialist in educational video games using AI, convinced us of this project's feasibility. The game will integrate the five layers mentioned and serve as an awareness tool for young people. A collaborative space, intended for schools and museums, will enrich this educational and playful platform, thus training more responsible citizens.</li>
+        </ol>
+
+        <p>Several working sessions with Carlos Miranda, our AI specialist, made it possible to write the "prompt" intended for the AI to produce the game. Below you will find the link to the beta version. We welcome your feedback to improve it before our next competition on Saturday April 11 and Sunday April 12.</p>
+
+        <p>Not very accustomed to video games (unlike my children), I nevertheless embarked on the adventure with pleasure, fascinated but also aware of the immense power — and responsibilities — that AI represents.</p>
+
+        <p>A special thank you to Carlos Miranda, a student's father, for his invaluable collaboration.</p>
+
+        <p>Enjoy this weekend with your family to discover, appreciate, and why not, constructively critique this trial version.</p>
+
+        <p class="firma">Best regards,<br>Nicolas Droulers</p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>ArcLycée v0.14.0 — Dominican Archaeological Adventure</p>
+    <p class="equipo">Liceo Francés de Santo Domingo — Robotics Class 2026<br><a href="../index.html">Play ArcLycée</a></p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      (() => { const c = document.getElementById('sprite-magnoboot'); if (!c) return; const ctx = c.getContext('2d'); ctx.scale(2, 2); ctx.fillStyle = '#A8A8B0'; ctx.fillRect(8, 12, 16, 14); ctx.fillStyle = '#B8B8C0'; ctx.fillRect(10, 6, 12, 8); ctx.fillStyle = '#00DDDD'; ctx.fillRect(12, 8, 3, 3); ctx.fillRect(17, 8, 3, 3); ctx.fillStyle = '#888888'; ctx.fillRect(15, 2, 2, 5); ctx.fillStyle = '#FF4444'; ctx.beginPath(); ctx.arc(16, 2, 2, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#909098'; ctx.fillRect(5, 14, 4, 8); ctx.fillRect(23, 14, 4, 8); ctx.fillStyle = '#444444'; ctx.fillRect(10, 26, 5, 4); ctx.fillRect(17, 26, 5, 4); })();
+      (() => { const c = document.getElementById('sprite-viralata'); if (!c) return; const ctx = c.getContext('2d'); ctx.scale(2, 2); ctx.fillStyle = '#8B6914'; ctx.fillRect(10, 16, 14, 8); ctx.fillStyle = '#9B7924'; ctx.fillRect(6, 12, 8, 7); ctx.fillStyle = '#000000'; ctx.fillRect(8, 14, 2, 2); ctx.fillStyle = '#333333'; ctx.fillRect(6, 16, 2, 2); ctx.fillStyle = '#7B5904'; ctx.fillRect(7, 10, 3, 4); ctx.fillRect(11, 11, 3, 3); ctx.fillStyle = '#8B6914'; ctx.fillRect(11, 24, 3, 5); ctx.fillRect(19, 24, 3, 5); ctx.fillRect(24, 14, 4, 3); })();
+      (() => { const c = document.getElementById('sprite-cemi'); if (!c) return; const ctx = c.getContext('2d'); ctx.scale(2, 2); ctx.fillStyle = '#6a2a8a'; ctx.beginPath(); ctx.arc(16, 18, 7, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#5a1a7a'; ctx.beginPath(); ctx.moveTo(9, 16); ctx.quadraticCurveTo(2, 10, 4, 20); ctx.lineTo(9, 18); ctx.fill(); ctx.beginPath(); ctx.moveTo(23, 16); ctx.quadraticCurveTo(30, 10, 28, 20); ctx.lineTo(23, 18); ctx.fill(); ctx.fillStyle = '#FF4444'; ctx.beginPath(); ctx.arc(13, 16, 2, 0, Math.PI * 2); ctx.fill(); ctx.beginPath(); ctx.arc(19, 16, 2, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#6a2a8a'; ctx.beginPath(); ctx.moveTo(12, 12); ctx.lineTo(10, 6); ctx.lineTo(14, 11); ctx.fill(); ctx.beginPath(); ctx.moveTo(20, 12); ctx.lineTo(22, 6); ctx.lineTo(18, 11); ctx.fill(); })();
+    });
+  </script>
+  <script src="navigation.js"></script>
+</body>
+</html>
