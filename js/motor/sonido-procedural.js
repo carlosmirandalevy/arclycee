@@ -792,6 +792,119 @@ export class SonidoProcedural {
     ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.03);
   }
 
+  // ============================================================
+  // SONIDOS DEL BATÚ (juego de pelota taíno)
+  // ============================================================
+
+  // --- GOLPE DE BATÚ: impacto seco de pelota de cupey contra el yugo ---
+  batuGolpe() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.4);
+
+    // Impacto grave y corto (pelota de caucho contra cinturón de piedra)
+    const osc = ctx.createOscillator();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(120, ahora);
+    osc.frequency.exponentialRampToValueAtTime(60, ahora + 0.08);
+    osc.connect(ganancia);
+    osc.start(ahora);
+    osc.stop(ahora + 0.1);
+
+    ganancia.gain.setValueAtTime(this.volumen * 0.4, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.12);
+  }
+
+  // --- REBOTE DE BATÚ: pelota de caucho rebotando contra piedra ---
+  batuRebote() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.25);
+
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(300, ahora);
+    osc.frequency.exponentialRampToValueAtTime(150, ahora + 0.06);
+    osc.connect(ganancia);
+    osc.start(ahora);
+    osc.stop(ahora + 0.08);
+
+    ganancia.gain.setValueAtTime(this.volumen * 0.25, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.08);
+  }
+
+  // --- PUNTO DE BATÚ: tono ascendente celebratorio ---
+  batuPunto() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.35);
+
+    const notas = [392, 494, 587]; // Sol4, Si4, Re5
+    for (let i = 0; i < notas.length; i++) {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(notas[i], ahora + i * 0.1);
+      osc.connect(ganancia);
+      osc.start(ahora + i * 0.1);
+      osc.stop(ahora + i * 0.1 + 0.12);
+    }
+
+    ganancia.gain.setValueAtTime(this.volumen * 0.35, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.45);
+  }
+
+  // --- SAQUE DE BATÚ: señal tipo silbato para iniciar ---
+  batuSaque() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.2);
+
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(600, ahora);
+    osc.frequency.linearRampToValueAtTime(800, ahora + 0.1);
+    osc.connect(ganancia);
+    osc.start(ahora);
+    osc.stop(ahora + 0.12);
+
+    ganancia.gain.setValueAtTime(this.volumen * 0.2, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.15);
+  }
+
+  // --- MULTITUD DE BATÚ: ruido breve de espectadores ---
+  batuMultitud() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.15);
+
+    const bufferSize = ctx.sampleRate * 0.2;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const datos = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      datos[i] = (Math.random() * 2 - 1) * 0.3;
+    }
+
+    const fuente = ctx.createBufferSource();
+    fuente.buffer = buffer;
+    const filtro = ctx.createBiquadFilter();
+    filtro.type = 'bandpass';
+    filtro.frequency.value = 600;
+    filtro.Q.value = 0.5;
+    fuente.connect(filtro);
+    filtro.connect(ganancia);
+
+    ganancia.gain.setValueAtTime(0.001, ahora);
+    ganancia.gain.linearRampToValueAtTime(this.volumen * 0.15, ahora + 0.05);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.25);
+
+    fuente.start(ahora);
+  }
+
   // --- SONIDO DE DIÁLOGO ---
   // "Bleep" corto estilo Undertale — suena con cada carácter del texto
   dialogo() {

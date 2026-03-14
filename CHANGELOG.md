@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.14.0 — Mini-juego de Batú (pelota taína) (2026-03-13)
+
+### Agregado
+- **Mini-juego de batú** (`js/mecanicas/batu.js`): juego de pelota taíno jugable como overlay, con física 2D completa (gravedad, rebotes elásticos, fricción del aire)
+- **4 tipos de golpe** según altura del impacto: cadera/yugo (más fuerte, 45°), hombro (60°), cabeza (casi vertical), rodilla (bajo, defensivo)
+- **IA del rival**: velocidad al 85%, retardo de reacción de 150ms, 15% de errores intencionales — vencible por jugadores de ~13 años
+- **6 datos educativos** mostrados entre puntos: pelota de cupey, petroglifos en bateyes, yugo de piedra, areíto, diplomacia deportiva, sitios arqueológicos (Chacuey, La Aleta, Tibes, Caguana)
+- **2 historias**: resolución de disputa pesquera (diplomacia) o partido amistoso durante areíto (ceremonia)
+- **Renderizado completo**: cancha lateral con bordes de piedra y petroglifos, espectadores animados, cacique en dujo, pelota con estela de movimiento, personajes con yugo visible
+- **5 sonidos procedurales** para batú: `batuGolpe` (impacto seco), `batuRebote` (caucho contra piedra), `batuPunto` (arpegio celebratorio), `batuSaque` (señal tipo silbato), `batuMultitud` (ruido de espectadores)
+- **Integración con Asentamiento Taíno II**: Higüemota (NPC músico) ofrece el batú en su segunda conversación, con 3 estados de diálogo (areíto → oferta → resultado)
+- **Traducciones completas** en ES/EN/FR: sección `batu` con 28 claves + 6 claves de diálogo de Higüemota en `aldea2`
+- Integrado en `juego.js` como overlay (mismo patrón que el combate): `this.batu = new JuegoBatu()`, con hooks en `actualizar()` y `dibujar()`
+
+---
+
 ## v0.13.6 — Mapa de tiles trazado desde imagen de referencia (2026-03-13)
 
 ### Mejorado

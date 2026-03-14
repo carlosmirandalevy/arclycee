@@ -154,6 +154,14 @@ const fr = {
 
       behiqueCemi: 'L\'esprit du Cemí Chauve-souris t\'a choisi ! Il te guidera dans les grottes avec son écho-localisation.',
 
+      // Batú — dialogues de Higüemota pour le mini-jeu
+      batuOferta1: 'Tu veux jouer au batú ? C\'est notre jeu de balle sacré.',
+      batuOferta2: 'On frappe avec les hanches, les épaules et la tête. Jamais avec les mains !',
+      batuOferta3: 'Allons au batey ! Le premier à 3 points gagne.',
+      batuVictoria: 'Impressionnant ! Tu joues comme un vrai Taïno.',
+      batuDerrota: 'Bon essai ! Le batú demande beaucoup de pratique.',
+      batuRepite: 'C\'était un super match ! Le batú unit les villages et résout les conflits sans violence.',
+
       misionHablar: 'Parle aux 3 villageois',
       misionCompleta: 'Village exploré ! Retour à la carte (M)'
     },
@@ -455,6 +463,39 @@ const fr = {
         linea5: 'Le patrimoine mérite d\'être protégé avec intelligence, pas avec la force.'
       }
     }
+  },
+
+  // Batú — jeu de balle taïno (mini-jeu)
+  batu: {
+    titulo: 'BATÚ',
+    tituloIntro: 'Jeu de Batú !',
+    introDisputa1: 'Deux villages se disputent un territoire de pêche.',
+    introDisputa2: 'Les caciques ont décidé de régler le conflit par un match de batú.',
+    introDisputa3: 'Le gagnant obtient les droits de pêche !',
+    introCeremonia1: 'C\'est jour d\'areíto ! Le village fête avec musique et jeux.',
+    introCeremonia2: 'Higüemota te défie dans un match amical de batú.',
+    introCeremonia3: 'Montre ton talent sur le batey !',
+    reglas: 'Règles : frappe la balle avec les hanches, épaules ou la tête. Pas de mains ni pieds !',
+    reglas2: 'Le premier à 3 points gagne. La balle ne doit pas toucher le sol de ton côté.',
+    continuar: '[E] Continuer',
+    controles: '← → bouger | Frappe avec le corps (hanche, épaule, tête, genou)',
+    saqueJugador: 'Ton service !',
+    saqueRival: 'Service du rival !',
+    puntoJugador: 'Ton point !',
+    puntoRival: 'Point pour le rival !',
+    sabiasQue: 'Le savais-tu... ?',
+    victoria: 'Victoire !',
+    derrota: 'Défaite !',
+    victoriaDisputa: 'Ton village gagne les droits de pêche ! Le batú a résolu le conflit sans violence.',
+    derrotaDisputa: 'L\'autre village gagne. Mais le batú a évité un conflit violent.',
+    victoriaCeremonia: 'Super match ! Higüemota te félicite. L\'areíto continue de plus belle.',
+    derrotaCeremonia: 'Higüemota gagne cette fois. Mais l\'important, c\'est la fête !',
+    datoFisica: 'La balle du batú était faite de latex d\'arbre de cupey. Elle était très rebondissante, de la taille d\'une softball.',
+    datoCancha: 'Les bateyes (terrains) avaient des pétroglyphes gravés sur leurs bordures en pierre. C\'étaient des lieux sacrés.',
+    datoYugo: 'Le yugo était une ceinture en pierre ou bois utilisée pour frapper la balle avec les hanches.',
+    datoCeremonia: 'Le batú se jouait pendant les fêtes d\'areíto, avec musique, danse et nourriture.',
+    datoDisputa: 'Le batú servait à régler les conflits entre villages sans recourir à la guerre. Diplomatie sportive taïno.',
+    datoArqueologia: 'Des bateyes ont été trouvés à Chacuey et La Aleta (RD), et à Tibes et Caguana (Porto Rico).'
   },
 
   // Le combat privilégie la résolution pacifique — reflète l'approche éducative du jeu

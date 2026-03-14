@@ -749,7 +749,7 @@
           <div class="npc-info">
             <h5>Higüemota</h5>
             <div class="npc-role">Musicienne</div>
-            <p>Enseigne l'areíto, les instruments taïnos : maracas, güiros, tambours et la tradition orale.</p>
+            <p>Enseigne l'areíto et les instruments taïnos. À la deuxième conversation, te défie à un match de <strong>batú</strong> — le jeu de balle taïno joué avec les hanches, épaules et la tête.</p>
           </div>
         </div>
 
@@ -1471,6 +1471,26 @@
           est perdu pour les générations futures.</p>
         </div>
       </div>
+
+      <h3>Mini-jeu de Batú</h3>
+      <p>Le <strong>batú</strong> était le jeu de balle sacré des Taïnos, joué sur des terrains rectangulaires
+      en pierre appelés bateyes. La balle était faite de latex d'arbre de cupey et frappée avec les hanches
+      (en utilisant une ceinture en pierre appelée yugo), les épaules, les coudes, les genoux et la tête —
+      jamais avec les mains ni les pieds.</p>
+      <p>S'active en parlant à Higüemota une deuxième fois dans l'Établissement Taïno II. Fonctionne comme
+      un overlay (même modèle que le combat). Vue latérale avec physique 2D :</p>
+      <table>
+        <tr><th>Frappe</th><th>Zone</th><th>Angle</th><th>Puissance</th></tr>
+        <tr><td>Hanche (yugo)</td><td>Taille</td><td>45°</td><td>Maximum</td></tr>
+        <tr><td>Épaule</td><td>Poitrine</td><td>60°</td><td>Élevée</td></tr>
+        <tr><td>Tête</td><td>Tête</td><td>~Vertical</td><td>Moyenne</td></tr>
+        <tr><td>Genou</td><td>Jambes</td><td>30°</td><td>Basse (défensif)</td></tr>
+      </table>
+      <p>L'IA du rival fonctionne à 85 % de la vitesse du joueur, avec 150 ms de retard de réaction et
+      15 % d'erreurs intentionnelles, la rendant battable pour des joueurs de ~13 ans. Le premier à 3
+      points gagne. Des faits éducatifs sur le batú sont affichés entre les points (balle de cupey,
+      pétroglyphes des bateyes, la ceinture yugo, les fêtes d'areíto, la diplomatie sportive, sites
+      archéologiques à Chacuey, La Aleta, Tibes et Caguana).</p>
 
       <h3>Easter Eggs</h3>
       <p>8 objets secrets personnalisés pour chaque membre de l'équipe :</p>

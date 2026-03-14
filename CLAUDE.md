@@ -15,7 +15,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 ## Arquitectura
 
 ### Motor del juego (`js/motor/`)
-- `juego.js` — game loop, manejo de escenas, inventario overlay, combate overlay, toasts, guardado/carga
+- `juego.js` — game loop, manejo de escenas, inventario overlay, combate overlay, batú overlay, toasts, guardado/carga
 - `entrada.js` — input unificado (teclado + táctil) vía `estaPresionada(accion)`
 - `configuracion.js` — constantes globales y mapeo de teclas (`TECLAS_POR_DEFECTO`)
 - `renderizado.js` — wrapper de Canvas 2D
@@ -101,6 +101,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Tracking de combate**: cada mundo con combate incrementa `combatesPacificados` o `combatesViolentos` al terminar, Acuático también incrementa `accionesEcologicas`
 - **Controles táctiles duales**: `entrada.modoControlTactil` = `'joystick'` o `'dpad'`, cambiable desde Opciones con `cambiarModoTactil(modo)`, preferencia en localStorage `arclycee_control_tactil`
 - **Mapa de referencia Leaflet** (`js/mapas/`): `mapa-leaflet.js` orquesta módulos en `referencia/` (capas, marcadores, transiciones). Se abre con R desde `mapaPrincipal`. Stadia Maps API key en `capas.js` línea 18 (dominio registrado: `arc.cemi.ai`). 4 capas de datos toggleables: 🗿 Taínos (16 sitios), 🏰 Coloniales (8 sitios), ⚓ Naufragios (12 pecios), 🏛 Museos (30 museos RD+Haití). Marcadores con DivIcon coloreados por estado. `window._viajarANodo(id)` para click-to-travel
+- **Batú mini-juego** (`js/mecanicas/batu.js`): juego de pelota taíno como overlay (patrón idéntico al combate). Física 2D con gravedad, rebotes y tipos de golpe según altura (cadera/hombro/cabeza/rodilla). IA con 85% velocidad, 15% errores intencionales. Se inicia desde `asentamiento-taino-2.js` al hablar con Higüemota una segunda vez. `juego.batu.iniciar({historia, alTerminar})`. Datos educativos entre puntos. Primero en 3 puntos gana. Sonidos: `batuGolpe`, `batuRebote`, `batuPunto`, `batuSaque`, `batuMultitud`
 - **Créditos cinematográficos**: fase `_enCreditos` en `final-cinematica.js`, scroll vertical automático (`_creditosY -= velocidad * dt`), E para acelerar/saltar, lista de 8 creadores + Lycée Français + año 2026
 
 ## Qué NO hacer

@@ -26,6 +26,9 @@ import { Inventario } from '../mecanicas/inventario.js';
 // --- Importar el sistema de combate ---
 import { SistemaCombate } from '../mecanicas/combate.js';
 
+// --- Importar el mini-juego de batú ---
+import { JuegoBatu } from '../mecanicas/batu.js';
+
 // --- Importar el sistema de idiomas ---
 import idiomas from '../idiomas/idiomas.js';
 
@@ -125,6 +128,10 @@ export class Juego {
     // --- Combate ---
     // Sistema de combate estilo Undertale con opción pacifista
     this.combate = new SistemaCombate();
+
+    // --- Batú ---
+    // Mini-juego de pelota taína (overlay como el combate)
+    this.batu = new JuegoBatu();
 
     // Bloqueo para evitar que la tecla I abra y cierre en el mismo frame
     this._bloqueoInventario = false;
@@ -446,6 +453,12 @@ export class Juego {
       return;
     }
 
+    // --- Batú: si hay un juego de batú activo, consume toda la entrada ---
+    if (this.batu.enJuego) {
+      this.batu.actualizar(dt, this.entrada);
+      return;
+    }
+
     // --- Habilidad especial con F ---
     // Si el jugador presiona F y tiene a Magnoboot, activa la detección
     if (this.jugador) {
@@ -527,6 +540,11 @@ export class Juego {
     // --- Combate se dibuja ENCIMA de la escena (overlay) ---
     if (this.combate.enCombate) {
       this.combate.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.combate, this.jugador);
+    }
+
+    // --- Batú se dibuja ENCIMA de la escena (overlay) ---
+    if (this.batu.enJuego) {
+      this.batu.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.batu);
     }
 
     // --- Inventario se dibuja ENCIMA de todo (overlay) ---

@@ -750,7 +750,7 @@
           <div class="npc-info">
             <h5>Higüemota</h5>
             <div class="npc-role">Música</div>
-            <p>Enseña sobre el areíto, los instrumentos taínos: maracas, güiros, tambores y la tradición oral.</p>
+            <p>Enseña sobre el areíto y los instrumentos taínos. En la segunda conversación, te reta a un partido de <strong>batú</strong> — el juego de pelota taíno que se jugaba con caderas, hombros y cabeza.</p>
           </div>
         </div>
 
@@ -1519,6 +1519,24 @@
           Las piezas terminan en manos de coleccionistas privados y el patrimonio se pierde.</p>
         </div>
       </div>
+
+      <h3>Mini-juego de Batú</h3>
+      <p>El <strong>batú</strong> era el juego de pelota sagrado de los taínos, jugado en canchas rectangulares de piedra
+      llamadas bateyes. La pelota se hacía con látex del árbol de cupey y se golpeaba con caderas (usando un
+      cinturón de piedra llamado yugo), hombros, codos, rodillas y cabeza — nunca con manos ni pies.</p>
+      <p>Se activa al hablar con Higüemota por segunda vez en el Asentamiento Taíno II. Funciona como overlay
+      (mismo patrón que el combate). Vista lateral con física 2D:</p>
+      <table>
+        <tr><th>Golpe</th><th>Zona</th><th>Ángulo</th><th>Potencia</th></tr>
+        <tr><td>Cadera (yugo)</td><td>Cintura</td><td>45°</td><td>Máxima</td></tr>
+        <tr><td>Hombro</td><td>Pecho</td><td>60°</td><td>Alta</td></tr>
+        <tr><td>Cabeza</td><td>Cabeza</td><td>~Vertical</td><td>Media</td></tr>
+        <tr><td>Rodilla</td><td>Piernas</td><td>30°</td><td>Baja (defensivo)</td></tr>
+      </table>
+      <p>La IA rival tiene 85% de la velocidad del jugador, 150ms de retardo de reacción y un 15% de errores
+      intencionales, haciéndola vencible para jugadores de ~13 años. Primero en 3 puntos gana. Entre puntos
+      se muestran datos educativos sobre el batú (pelota de cupey, petroglifos en bateyes, el yugo, el areíto,
+      diplomacia deportiva, sitios arqueológicos en Chacuey, La Aleta, Tibes y Caguana).</p>
 
       <h3>Easter Eggs</h3>
       <p>8 objetos secretos personalizados para cada miembro del equipo:</p>

@@ -59,6 +59,11 @@ export class AsentamientoTaino2 {
     this.npcsHablados = 0;
     this.totalNPCs = 3;
 
+    // --- Batú (juego de pelota taíno) ---
+    // Se activa al hablar con Higüemota una segunda vez
+    this._batuOfrecido = false;
+    this._batuCompletado = false;
+
     // --- Referencia al juego ---
     this.juego = null;
   }
@@ -903,12 +908,46 @@ export class AsentamientoTaino2 {
         { personaje: '🌱 Guarionex', texto: aldea2?.agricultor4 || 'La yuca es lo más importante — con ella hacemos el casabe.' }
       ], () => { npc.dialogoHecho = true; });
     } else if (npc.id === 'musico') {
-      this.dialogos.iniciarDialogo([
-        { personaje: '🎵 Higüemota', texto: aldea2?.musico1 || '¡Bienvenido al batey!' },
-        { personaje: '🎵 Higüemota', texto: aldea2?.musico2 || 'Aquí celebramos el areíto — nuestra ceremonia de música y danza.' },
-        { personaje: '🎵 Higüemota', texto: aldea2?.musico3 || 'Usamos maracas, güiros y tambores hechos de troncos.' },
-        { personaje: '🎵 Higüemota', texto: aldea2?.musico4 || 'En el areíto contamos la historia de nuestro pueblo cantando.' }
-      ], () => { npc.dialogoHecho = true; });
+      // Primera vez: diálogo sobre el areíto → marca como hablado
+      // Segunda vez (si ya completó el diálogo): ofrece jugar batú
+      // Después de jugar: diálogo de victoria/derrota o repetir
+      if (!npc.dialogoHecho) {
+        this.dialogos.iniciarDialogo([
+          { personaje: '🎵 Higüemota', texto: aldea2?.musico1 || '¡Bienvenido al batey!' },
+          { personaje: '🎵 Higüemota', texto: aldea2?.musico2 || 'Aquí celebramos el areíto — nuestra ceremonia de música y danza.' },
+          { personaje: '🎵 Higüemota', texto: aldea2?.musico3 || 'Usamos maracas, güiros y tambores hechos de troncos.' },
+          { personaje: '🎵 Higüemota', texto: aldea2?.musico4 || 'En el areíto contamos la historia de nuestro pueblo cantando.' }
+        ], () => { npc.dialogoHecho = true; });
+      } else if (!this._batuCompletado) {
+        // Ofrecer el batú
+        this.dialogos.iniciarDialogo([
+          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta1 || '¿Quieres jugar batú? Es nuestro juego de pelota sagrado.' },
+          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta2 || 'Se golpea con la cadera, los hombros y la cabeza. ¡Nunca con las manos!' },
+          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta3 || '¡Vamos al batey! Primero en 3 puntos gana.' }
+        ], () => {
+          // Iniciar el juego de batú como overlay
+          if (this.juego && this.juego.batu) {
+            this.juego.batu.iniciar({
+              historia: 'ceremonia',
+              alTerminar: (gano) => {
+                this._batuCompletado = true;
+                // Mostrar mensaje de resultado
+                const msg = gano
+                  ? (aldea2?.batuVictoria || '¡Higüemota: Impresionante! Juegas como un verdadero taíno.')
+                  : (aldea2?.batuDerrota || '¡Higüemota: Buen intento! El batú requiere mucha práctica.');
+                if (this.juego && this.juego.mostrarToast) {
+                  this.juego.mostrarToast(msg, 4);
+                }
+              }
+            });
+          }
+        });
+      } else {
+        // Ya completó el batú — diálogo de cierre
+        this.dialogos.iniciarDialogo([
+          { personaje: '🎵 Higüemota', texto: aldea2?.batuRepite || '¡Fue un gran partido! El batú une a las aldeas y resuelve conflictos sin violencia.' }
+        ]);
+      }
     }
   }
 

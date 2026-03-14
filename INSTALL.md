@@ -88,7 +88,7 @@ arclycee/
 │   │   └── laboratorio/    ← Mundo Laboratorio (Museo Atarazanas Reales)
 │   ├── personajes/         ← Pepito/a y compañeros
 │   │   └── companeros/     ← Magnoboot, Viralata, Cemí
-│   ├── mecanicas/          ← Combate, diálogos, inventario, misiones
+│   ├── mecanicas/          ← Combate, diálogos, inventario, batú, misiones
 │   ├── clima/              ← Sistema de clima y huracanes
 │   ├── idiomas/            ← Traducciones ES/FR/EN
 │   ├── mapas/              ← Mapa de referencia con LeafletJS

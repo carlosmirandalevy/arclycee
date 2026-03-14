@@ -154,6 +154,14 @@ const en = {
 
       behiqueCemi: 'The Cemí Bat spirit has chosen you! It will guide you in the caves with its echo-location.',
 
+      // Batú — Higüemota dialogues for the mini-game
+      batuOferta1: 'Want to play batú? It\'s our sacred ball game.',
+      batuOferta2: 'You hit the ball with your hips, shoulders, and head. Never with your hands!',
+      batuOferta3: 'Let\'s go to the batey! First to 3 points wins.',
+      batuVictoria: 'Impressive! You play like a true Taíno.',
+      batuDerrota: 'Good try! Batú takes a lot of practice.',
+      batuRepite: 'That was a great match! Batú unites villages and resolves conflicts without violence.',
+
       misionHablar: 'Talk to the 3 villagers',
       misionCompleta: 'Village explored! Return to map (M)'
     },
@@ -455,6 +463,39 @@ const en = {
         linea5: 'Heritage deserves to be protected with intelligence, not force.'
       }
     }
+  },
+
+  // Batú — Taíno ball game (mini-game)
+  batu: {
+    titulo: 'BATÚ',
+    tituloIntro: 'Batú Ball Game!',
+    introDisputa1: 'Two villages disagree over fishing territory.',
+    introDisputa2: 'The caciques have decided to settle the dispute with a batú game.',
+    introDisputa3: 'The winner gets the fishing rights!',
+    introCeremonia1: 'It\'s areíto day! The village celebrates with music and games.',
+    introCeremonia2: 'Higüemota challenges you to a friendly batú match.',
+    introCeremonia3: 'Show your skill on the batey!',
+    reglas: 'Rules: hit the ball with hips, shoulders, or head. No hands or feet!',
+    reglas2: 'First to 3 points wins. The ball cannot touch the ground on your side.',
+    continuar: '[E] Continue',
+    controles: '← → move | Hit with your body (hip, shoulder, head, knee)',
+    saqueJugador: 'Your serve!',
+    saqueRival: 'Rival\'s serve!',
+    puntoJugador: 'Your point!',
+    puntoRival: 'Point for the rival!',
+    sabiasQue: 'Did you know...?',
+    victoria: 'Victory!',
+    derrota: 'Defeat!',
+    victoriaDisputa: 'Your village wins the fishing rights! Batú resolved the conflict without violence.',
+    derrotaDisputa: 'The other village wins. But batú prevented a violent conflict.',
+    victoriaCeremonia: 'Great match! Higüemota congratulates you. The areíto continues with more energy.',
+    derrotaCeremonia: 'Higüemota wins this time. But the celebration is what matters!',
+    datoFisica: 'The batú ball was made from cupey tree latex. It was very bouncy and softball-sized.',
+    datoCancha: 'Bateyes (courts) had petroglyphs carved on their stone borders. They were sacred places.',
+    datoYugo: 'The yugo was a stone or wooden belt used to hit the ball with the hips.',
+    datoCeremonia: 'Batú was played during areíto festivals, alongside music, dance, and food.',
+    datoDisputa: 'Batú was used to settle disputes between villages without going to war. Taíno sports diplomacy.',
+    datoArqueologia: 'Bateyes have been found at Chacuey and La Aleta (DR), and Tibes and Caguana (Puerto Rico).'
   },
 
   // El combate prioriza la resolución pacífica — refleja el enfoque educativo del juego

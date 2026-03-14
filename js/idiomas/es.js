@@ -156,6 +156,14 @@ const es = {
 
       behiqueCemi: '¡El espíritu del Cemí Murciélago te ha elegido! Él te guiará en las cuevas con su eco-localización.',
 
+      // Batú — diálogos de Higüemota para el mini-juego
+      batuOferta1: '¿Quieres jugar batú? Es nuestro juego de pelota sagrado.',
+      batuOferta2: 'Se golpea con la cadera, los hombros y la cabeza. ¡Nunca con las manos!',
+      batuOferta3: '¡Vamos al batey! Primero en 3 puntos gana.',
+      batuVictoria: '¡Impresionante! Juegas como un verdadero taíno.',
+      batuDerrota: '¡Buen intento! El batú requiere mucha práctica.',
+      batuRepite: '¡Fue un gran partido! El batú une a las aldeas y resuelve conflictos sin violencia.',
+
       misionHablar: 'Habla con los 3 aldeanos de la aldea',
       misionCompleta: '¡Aldea explorada! Vuelve al mapa (M)'
     },
@@ -480,6 +488,39 @@ const es = {
         linea5: 'El patrimonio merece ser protegido con inteligencia, no con fuerza.'
       }
     }
+  },
+
+  // Batú — juego de pelota taíno (mini-juego)
+  batu: {
+    titulo: 'BATÚ',
+    tituloIntro: '¡Juego de Batú!',
+    introDisputa1: 'Dos aldeas discuten por un territorio de pesca.',
+    introDisputa2: 'Los caciques han decidido resolver la disputa con un juego de batú.',
+    introDisputa3: '¡El ganador se queda con los derechos de pesca!',
+    introCeremonia1: '¡Es día de areíto! La aldea celebra con música y juegos.',
+    introCeremonia2: 'Higüemota te reta a un partido amistoso de batú.',
+    introCeremonia3: '¡Demuestra tu habilidad en el batey!',
+    reglas: 'Reglas: golpea la pelota con cadera, hombros o cabeza. ¡Sin manos ni pies!',
+    reglas2: 'Primero en 3 puntos gana. La pelota no puede tocar el suelo de tu lado.',
+    continuar: '[E] Continuar',
+    controles: '← → mover | Golpea con el cuerpo (cadera, hombro, cabeza, rodilla)',
+    saqueJugador: '¡Tu saque!',
+    saqueRival: '¡Saque del rival!',
+    puntoJugador: '¡Tu punto!',
+    puntoRival: '¡Punto para el rival!',
+    sabiasQue: '¿Sabías que...?',
+    victoria: '¡Victoria!',
+    derrota: '¡Derrota!',
+    victoriaDisputa: '¡Tu aldea gana los derechos de pesca! El batú resolvió el conflicto sin violencia.',
+    derrotaDisputa: 'La otra aldea gana. Pero el batú evitó un conflicto violento.',
+    victoriaCeremonia: '¡Gran partido! Higüemota te felicita. El areíto continúa con más fuerza.',
+    derrotaCeremonia: 'Higüemota gana esta vez. ¡Pero lo importante es la celebración!',
+    datoFisica: 'La pelota del batú se hacía con látex del árbol de cupey. Era muy elástica y del tamaño de una softball.',
+    datoCancha: 'Los bateyes (canchas) tenían petroglifos tallados en las piedras de los bordes. Eran lugares sagrados.',
+    datoYugo: 'El yugo era un cinturón de piedra o madera que se usaba para golpear la pelota con la cadera.',
+    datoCeremonia: 'El batú se jugaba durante las fiestas de areíto, junto con música, danza y comida.',
+    datoDisputa: 'El batú servía para resolver disputas entre aldeas sin recurrir a la guerra. Diplomacia deportiva taína.',
+    datoArqueologia: 'Se han encontrado bateyes en Chacuey y La Aleta (RD), y en Tibes y Caguana (Puerto Rico).'
   },
 
   // El combate prioriza la resolución pacífica — refleja el enfoque educativo del juego
