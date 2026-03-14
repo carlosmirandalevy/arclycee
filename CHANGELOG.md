@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.13.6 — Mapa de tiles trazado desde imagen de referencia (2026-03-13)
+
+### Mejorado
+- **Forma de la isla completamente rediseñada**: la costa ahora se define con un bitmap de 64×34 tiles trazado directamente desde la imagen de referencia pixelada (`resources/hispaniola-map-pixelated-tiled.png`), en vez de las aproximaciones con elipses
+- Isla mucho más fiel a la geografía real: ambas penínsulas de Haití, Bahía de Samaná abierta al este, Golfo de la Gonâve, Punta Cana, costa sur con bahías
+- **Île de la Gonâve** correctamente separada del continente por un canal de agua
+- **Indicador de cierre en mapa de referencia**: banner "R / Esc — cerrar mapa" visible al abrir el mapa Leaflet
+- **Tecla Escape cierra el mapa de referencia** además de R
+
+### Corregido
+- Todos los nodos del juego verificados en terreno caminable (nodo + punto de spawn 1 tile debajo)
+- Node 0 (Pomier) movido de zona montañosa a terreno llano para evitar que el jugador quede atrapado
+- Naufragio (Node 5) reposicionado a agua costera válida en el nuevo bitmap
+- La Isabela (Node 3) reposicionada para que el spawn no caiga en agua
+- Reemplazada función `_distanciaACordillera()` (rota) por `_distanciaACordilleras()` que itera las 6 cadenas montañosas
+- Añadida función `_esLago()` para lagos interiores (Enriquillo + Étang Saumâtre)
+
+---
+
 ## v0.13.5 — Mapa Real accesible desde el menú principal (2026-03-13)
 
 ### Agregado

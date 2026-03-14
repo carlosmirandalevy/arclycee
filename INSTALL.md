@@ -79,7 +79,7 @@ arclycee/
 │   ├── motor/              ← Motor del juego (loop, render, input, audio, save)
 │   ├── escenas/            ← Pantallas (menú, selección, intro)
 │   ├── mundos/             ← Niveles y mapas del mundo
-│   │   ├── mapa-tiles.js   ← Generador procedural de la isla (48×30 tiles)
+│   │   ├── mapa-tiles.js   ← Bitmap de la isla trazado desde referencia (64×34 tiles)
 │   │   ├── mapa-principal.js ← Mapa del mundo con cámara y colisiones
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
 │   │   ├── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)

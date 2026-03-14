@@ -6,9 +6,9 @@
 // simple con gradientes, ahora el mapa tiene tierra, agua,
 // montañas, bosques y playas — como un mapa real.
 //
-// La forma de la isla se genera con elipses que simulan la
-// costa dominicana. Los tiles se dibujan como cuadrados de
-// 32×32 píxeles con colores y detalles procedurales.
+// La forma de la isla se define con un bitmap trazado desde
+// una imagen de referencia pixelada. Los tiles se dibujan como
+// cuadrados de 32×32 píxeles con colores y detalles procedurales.
 //
 // El mapa es más grande que la pantalla, así que la cámara
 // sigue al jugador mostrando solo la parte visible.
@@ -42,64 +42,105 @@ const COLORES = {
 };
 
 // --- Dimensiones del mapa en tiles ---
-// 48 columnas × 30 filas = 1536 × 960 píxeles
-// La pantalla muestra 30×17 tiles a la vez
-export const MAPA_ANCHO = 48;
-export const MAPA_ALTO = 30;
+// 64 columnas × 34 filas = 2048 × 1088 píxeles
+// Más grande que el mapa anterior (48×30) para representar
+// toda La Hispaniola con sus dos penínsulas haitianas,
+// la Península de Samaná, y la extensión de Punta Cana.
+export const MAPA_ANCHO = 64;
+export const MAPA_ALTO = 34;
 
-// --- Formas que componen la isla ---
-// Cada elipse define una "masa de tierra". Si un punto
-// está dentro de cualquiera de estas elipses, es tierra.
-// Los valores (cx, cy) son el centro en coordenadas de tile,
-// (rx, ry) son los radios horizontal y vertical.
-const FORMAS_ISLA = [
-  // Cuerpo principal de la isla (centro-este)
-  { cx: 25, cy: 15, rx: 17, ry: 7 },
-  // Valle del Cibao (norte, zona agrícola)
-  { cx: 17, cy: 10, rx: 10, ry: 4 },
-  // Extensión noroeste (Montecristi → Puerto Plata)
-  { cx: 11, cy: 9, rx: 7, ry: 3.5 },
-  // Península de Samaná (noreste)
-  { cx: 34, cy: 10, rx: 6, ry: 2.5 },
-  // Extensión sur (Baní → Barahona)
-  { cx: 20, cy: 20, rx: 9, ry: 5 },
-  // Punta Cana / extremo este
-  { cx: 40, cy: 14, rx: 6, ry: 4 },
-  // Costa sureste (San Pedro, La Romana)
-  { cx: 35, cy: 18, rx: 7, ry: 4 }
+// --- Bitmap de la isla ---
+// Cada string representa una fila del mapa (64 caracteres = 64 columnas).
+// '1' = tierra, '0' = agua. Trazado desde la imagen de referencia
+// pixelada (resources/hispaniola-map-pixelated-tiled.png) para máxima
+// fidelidad a la forma real de La Hispaniola.
+//
+// Características geográficas visibles en el bitmap:
+// - Península NW de Haití (filas 3-7, cols 11-18)
+// - Península Tiburon / SW de Haití (filas 19-27, cols 2-11)
+// - Golfo de la Gonâve (espacio entre las dos penínsulas)
+// - Île de la Gonâve (fila 16, cols 12-15)
+// - Valle del Cibao (fila 7-9, centro)
+// - Bahía de Samaná (filas 9-13, cols 47+, abierta al este)
+// - Punta Cana (filas 11-15, cols 50-60+)
+// - Costa sur con bahías (filas 23-25)
+const ISLA_BITMAP = [
+  '0000000000000000000000000000000000000000000000000000000000000000', // 0
+  '0000000000000000000000000000000000000000000000000000000000000000', // 1
+  '0000000000000000000000000000000000000000000000000000000000000000', // 2
+  '0000000000000000111000000000000000000000000000000000000000000000', // 3
+  '0000000000000001111100000000000000000000000000000000000000000000', // 4
+  '0000000000000111111110000000111111111100000000000000000000000000', // 5
+  '0000000000011111111111111001111111111111000000000000000000000000', // 6
+  '0000000000011111111111111111111111111111111000000000000000000000', // 7
+  '0000000000011111111111111111111111111111111111100000000000000000', // 8
+  '0000000000001111111111111111111111111111111111100000000000000000', // 9
+  '0000000000000000111111111111111111111111111111100000000000000000', // 10
+  '0000000000000000011111111111111111111111111111110011110000000000', // 11
+  '0000000000000000011111111111111111111111111111111111110000000000', // 12
+  '0000000000000000011111111111111111111111111111111111110000000000', // 13
+  '0000000000000000011111111111111111111111111111111111111111000000', // 14
+  '0000000000000000011111111111111111111111111111111111111111000000', // 15
+  '0000000000001111000111111111111111111111111111111111111111100000', // 16  Gonâve (12-15) separada por canal (16)
+  '0000000000000111000111111111111111111111111111111111111111110000', // 17  Canal de agua entre Gonâve y tierra firme
+  '0000000000000000001111111111111111111111111111111111111111111000', // 18
+  '0011111011000001111111111111111111111111111111111111111111111100', // 19
+  '0011111111111000000111111011111111111111111111111111111111111110', // 20
+  '0111111111111111111111111111101111111111111111111111111111111100', // 21
+  '0111111111111111111111111111111111111111111111111111111111111100', // 22
+  '0011111111111111111111111111111111111111111110000000001111111000', // 23
+  '0000011111111111111111111111111111111001111110000000000011110000', // 24
+  '0000001111100011111110000011111111110000110000000000000001111000', // 25
+  '0000001111100000000000000001111111100000000000000000000000110000', // 26
+  '0000000110000000000000000000111111100000000000000000000000000000', // 27
+  '0000000000000000000000000000111111000000000000000000000000000000', // 28
+  '0000000000000000000000000000111111000000000000000000000000000000', // 29
+  '0000000000000000000000000000011110000000000000000000000000000000', // 30
+  '0000000000000000000000000000011100000000000000000000000000000000', // 31
+  '0000000000000000000000000000010000000000000000000000000000000000', // 32
+  '0000000000000000000000000000000000000000000000000000000000000000', // 33
 ];
 
-// --- Bahías y entrantes de agua ---
-// Estas elipses "recortan" la tierra para crear bahías
-const BAHIAS = [
-  // Bahía de Samaná (entre la península y el continente)
-  { cx: 30, cy: 11, rx: 4, ry: 2.5 },
-  // Bahía de Neiba (suroeste)
-  { cx: 13, cy: 20, rx: 3, ry: 3 },
-  // Bahía de Ocoa
-  { cx: 19, cy: 22, rx: 2.5, ry: 2 }
+// --- Lagos interiores ---
+// Grandes cuerpos de agua dentro de la isla, se dibujan como
+// tiles de río sobre tierra firme.
+const LAGOS = [
+  // Lago Enriquillo (suroeste de RD, el lago más grande del Caribe)
+  { cx: 20, cy: 18, rx: 2.5, ry: 1 },
+  // Lac Étang Saumâtre (Haití, justo cruzando la frontera)
+  { cx: 17, cy: 17, rx: 2, ry: 0.8 }
 ];
 
-// --- Cordillera Central ---
-// Línea de montañas que cruza la isla de noroeste a sureste.
-// Definida como puntos de una línea; los tiles cercanos son montaña.
-const CORDILLERA = [
-  { x: 10, y: 11 },
-  { x: 15, y: 13 },
-  { x: 20, y: 14 },
-  { x: 25, y: 15 },
-  { x: 30, y: 16 }
+// --- Cordilleras ---
+// Líneas de montañas que cruzan la isla. Cada array es una cadena
+// montañosa definida como puntos. Los tiles cercanos se pintan montaña.
+// Trazadas desde el mapa de referencia (resources/hispaniola-map.png).
+const CORDILLERAS = [
+  // Cordillera Central (RD — Pico Duarte 3098m, la más alta del Caribe)
+  [{ x: 24, y: 13 }, { x: 29, y: 14 }, { x: 34, y: 15 }, { x: 39, y: 16 }],
+  // Cordillera Septentrional (norte de RD, paralela a la costa)
+  [{ x: 26, y: 10 }, { x: 32, y: 10 }, { x: 38, y: 10 }],
+  // Sierra de Bahoruco (suroeste RD, frontera con Haití)
+  [{ x: 20, y: 20 }, { x: 24, y: 19 }],
+  // Massif de la Hotte (Haití — península sur)
+  [{ x: 5, y: 19 }, { x: 10, y: 17 }],
+  // Massif de la Selle (Haití — el más alto de Haití, Pic la Selle 2680m)
+  [{ x: 14, y: 16 }, { x: 18, y: 15 }],
+  // Massif du Nord (Haití — Citadelle Laferrière en la cima)
+  [{ x: 5, y: 10 }, { x: 11, y: 11 }]
 ];
 
 // --- Ríos principales ---
 // Cada río es una lista de puntos (en tiles) que se conectan
 const RIOS = [
-  // Río Yaque del Norte (desde Cordillera hacia el noroeste)
-  [{ x: 18, y: 13 }, { x: 15, y: 12 }, { x: 12, y: 11 }, { x: 9, y: 10 }],
-  // Río Yaque del Sur (hacia el suroeste)
-  [{ x: 20, y: 15 }, { x: 18, y: 18 }, { x: 16, y: 21 }],
+  // Río Yaque del Norte (desde Cordillera Central hacia el noroeste, desemboca en Montecristi)
+  [{ x: 29, y: 14 }, { x: 26, y: 12 }, { x: 22, y: 11 }, { x: 19, y: 10 }],
+  // Río Yaque del Sur (hacia la Bahía de Neiba)
+  [{ x: 30, y: 15 }, { x: 27, y: 18 }, { x: 24, y: 20 }],
   // Río Ozama (hacia Santo Domingo)
-  [{ x: 25, y: 14 }, { x: 27, y: 16 }, { x: 28, y: 18 }]
+  [{ x: 34, y: 14 }, { x: 35, y: 16 }, { x: 36, y: 18 }],
+  // Río Artibonite (el más largo de Haití, nace en RD, cruza la frontera)
+  [{ x: 23, y: 13 }, { x: 19, y: 13 }, { x: 15, y: 12 }]
 ];
 
 
@@ -157,11 +198,11 @@ export function generarMapaIsla() {
     }
   }
 
-  // --- Paso 4: Montañas (Cordillera Central) ---
+  // --- Paso 4: Montañas (múltiples cordilleras) ---
   for (let fila = 0; fila < MAPA_ALTO; fila++) {
     for (let col = 0; col < MAPA_ANCHO; col++) {
       if (tiles[fila][col] === TILE.PRADERA) {
-        const distCordillera = _distanciaACordillera(col, fila);
+        const distCordillera = _distanciaACordilleras(col, fila);
         if (distCordillera < 1.8) {
           tiles[fila][col] = TILE.MONTANA;
         }
@@ -169,7 +210,17 @@ export function generarMapaIsla() {
     }
   }
 
-  // --- Paso 5: Bosques (basado en pseudo-ruido) ---
+  // --- Paso 5: Lagos interiores ---
+  // Lago Enriquillo y Étang Saumâtre son cuerpos de agua dentro de la isla
+  for (let fila = 0; fila < MAPA_ALTO; fila++) {
+    for (let col = 0; col < MAPA_ANCHO; col++) {
+      if (tiles[fila][col] >= TILE.ARENA && _esLago(col, fila)) {
+        tiles[fila][col] = TILE.RIO; // Lagos se dibujan como agua dulce
+      }
+    }
+  }
+
+  // --- Paso 6: Bosques (basado en pseudo-ruido) ---
   // Usamos un hash simple de la posición para crear parches de bosque
   for (let fila = 0; fila < MAPA_ALTO; fila++) {
     for (let col = 0; col < MAPA_ANCHO; col++) {
@@ -225,7 +276,7 @@ export function obtenerNodosIsla() {
     {
       // San Cristóbal — al sur de Santo Domingo, donde están las cuevas reales
       id: 0,
-      tileX: 21, tileY: 19,
+      tileX: 21, tileY: 17,
       nombre: 'Cuevas del Pomier',
       tipo: 'cueva',
       escena: 'cuevasPomier',
@@ -252,7 +303,7 @@ export function obtenerNodosIsla() {
     {
       // Costa noroeste — Puerto Plata, donde está La Isabela real
       id: 3,
-      tileX: 12, tileY: 8,
+      tileX: 13, tileY: 8,
       nombre: 'La Isabela',
       tipo: 'ciudad',
       escena: 'mundoColonial',
@@ -268,9 +319,9 @@ export function obtenerNodosIsla() {
       conectadoA: [5]
     },
     {
-      // Costa sur de Santo Domingo — naufragio en agua cerca de la costa
+      // Costa sur — naufragio en agua cerca de la costa
       id: 5,
-      tileX: 29, tileY: 22,
+      tileX: 37, tileY: 24,
       nombre: 'Naufragio La Pinta',
       tipo: 'naufragio',
       escena: 'mundoAcuatico',
@@ -365,32 +416,12 @@ export function esCaminable(tiles, col, fila) {
 // FUNCIONES INTERNAS
 // ============================================================
 
-/** ¿Este punto (col, fila) es tierra según las elipses? */
+/** ¿Este punto (col, fila) es tierra según el bitmap de la isla? */
 function _esTierra(col, fila) {
-  let dentroForma = false;
-
-  // Verificar si está dentro de alguna masa de tierra
-  for (const f of FORMAS_ISLA) {
-    const dx = (col - f.cx) / f.rx;
-    const dy = (fila - f.cy) / f.ry;
-    if (dx * dx + dy * dy <= 1) {
-      dentroForma = true;
-      break;
-    }
+  if (fila < 0 || fila >= MAPA_ALTO || col < 0 || col >= MAPA_ANCHO) {
+    return false;
   }
-
-  if (!dentroForma) return false;
-
-  // Verificar si está dentro de alguna bahía (recorta la tierra)
-  for (const b of BAHIAS) {
-    const dx = (col - b.cx) / b.rx;
-    const dy = (fila - b.cy) / b.ry;
-    if (dx * dx + dy * dy <= 0.85) {
-      return false;
-    }
-  }
-
-  return true;
+  return ISLA_BITMAP[fila][col] === '1';
 }
 
 /** ¿Tiene algún vecino que sea tierra? (para detectar costa) */
@@ -423,18 +454,32 @@ function _tieneVecinoAgua(tiles, col, fila) {
   return false;
 }
 
-/** Distancia mínima de un punto a la Cordillera Central */
-function _distanciaACordillera(col, fila) {
+/** Distancia mínima de un punto a cualquiera de las cordilleras */
+function _distanciaACordilleras(col, fila) {
   let minDist = Infinity;
 
-  for (let i = 0; i < CORDILLERA.length - 1; i++) {
-    const a = CORDILLERA[i];
-    const b = CORDILLERA[i + 1];
-    const dist = _distanciaPuntoASegmento(col, fila, a.x, a.y, b.x, b.y);
-    if (dist < minDist) minDist = dist;
+  for (const cadena of CORDILLERAS) {
+    for (let i = 0; i < cadena.length - 1; i++) {
+      const a = cadena[i];
+      const b = cadena[i + 1];
+      const dist = _distanciaPuntoASegmento(col, fila, a.x, a.y, b.x, b.y);
+      if (dist < minDist) minDist = dist;
+    }
   }
 
   return minDist;
+}
+
+/** ¿Este punto está dentro de algún lago interior? */
+function _esLago(col, fila) {
+  for (const lago of LAGOS) {
+    const dx = (col - lago.cx) / lago.rx;
+    const dy = (fila - lago.cy) / lago.ry;
+    if (dx * dx + dy * dy <= 1) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /** Distancia de un punto (px, py) a un segmento de línea (ax,ay)→(bx,by) */

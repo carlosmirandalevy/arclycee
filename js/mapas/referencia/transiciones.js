@@ -29,6 +29,28 @@ export function abrirMapaReferencia(contenedor, mapa) {
   contenedor.style.opacity = '0';
   contenedor.style.transition = 'opacity 0.4s ease-in';
 
+  // --- Añadir indicador de cierre si no existe ---
+  if (!contenedor.querySelector('.mapa-cerrar-hint')) {
+    const hint = document.createElement('div');
+    hint.className = 'mapa-cerrar-hint';
+    hint.textContent = 'R / Esc — cerrar mapa';
+    hint.style.cssText = `
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.7);
+      color: #FFD700;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font: bold 14px monospace;
+      pointer-events: none;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+    `;
+    contenedor.appendChild(hint);
+  }
+
   // Forzar reflow antes de animar
   contenedor.offsetHeight;
 

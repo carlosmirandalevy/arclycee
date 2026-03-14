@@ -473,6 +473,12 @@ export class Juego {
         this._bloqueoReferencia = false;
       }
 
+      // Cerrar el mapa con Escape también
+      if (this.mapaReferencia.visible && this.entrada.estaPresionada('cancelar') && !this._bloqueoReferencia) {
+        this.mapaReferencia.ocultar();
+        this._bloqueoReferencia = true;
+      }
+
       // Si el mapa de referencia está abierto, no actualizar la escena
       if (this.mapaReferencia.visible) return;
     }
