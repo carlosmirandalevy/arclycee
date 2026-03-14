@@ -2,7 +2,7 @@
 
 ## Sobre el proyecto
 
-ArcLycée es un RPG 2D educativo sobre el patrimonio arqueológico de la República Dominicana. Creado por 8 estudiantes (~13 años) del Liceo Francés de Santo Domingo. Usa HTML5 Canvas + JavaScript vanilla (ES modules, sin frameworks).
+ArcLycée es un RPG 2D educativo sobre el patrimonio arqueológico de la República Dominicana. Creado por les fous du robot (~13 años) del Liceo Francés de Santo Domingo. Usa HTML5 Canvas + JavaScript vanilla (ES modules, sin frameworks).
 
 ## Prioridad #1: Legibilidad
 
