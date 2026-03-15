@@ -1017,6 +1017,10 @@ const en = {
     controlesExcavar: 'WASD: move | E: talk/dig | F: detect | I: inventory | M: map | P: photos | L: quests',
     controlesMuseo: 'WASD: move | E: talk/pick up | M: map | I: inventory | P: photos | L: quests',
     controlesLFSD: 'WASD: move | E: talk | M: map | I: inventory | P: photos | L: quests',
+    controlesMapa: 'E: enter | I: inventory | R: real map | +/−: zoom | Q: menu',
+
+    // --- Toasts ---
+    partidaGuardada: '💾 Game saved',
 
     hostilidad: 'Hostility:',
     tuVida: 'Your health:',

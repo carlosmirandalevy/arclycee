@@ -1046,7 +1046,8 @@ export class Juego {
     const datos = this.guardado.crearDatosGuardado(this);
     const exito = this.guardado.guardarLocal(datos);
     if (exito) {
-      this.mostrarToast('💾 Partida guardada');
+      const _t = this.idiomas?.traducciones?.[this.idiomas?.idiomaActual];
+      this.mostrarToast(_t?.ui?.partidaGuardada || '💾 Partida guardada');
     }
     return exito;
   }

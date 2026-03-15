@@ -1017,6 +1017,10 @@ const fr = {
     controlesExcavar: 'WASD : bouger | E : parler/creuser | F : détecter | I : inventaire | M : carte | P : photos | L : quêtes',
     controlesMuseo: 'WASD : bouger | E : parler/ramasser | M : carte | I : inventaire | P : photos | L : quêtes',
     controlesLFSD: 'WASD : bouger | E : parler | M : carte | I : inventaire | P : photos | L : quêtes',
+    controlesMapa: 'E : entrer | I : inventaire | R : carte réelle | +/− : zoom | Q : menu',
+
+    // --- Toasts ---
+    partidaGuardada: '💾 Partie sauvegardée',
 
     hostilidad: 'Hostilité :',
     tuVida: 'Ta vie :',

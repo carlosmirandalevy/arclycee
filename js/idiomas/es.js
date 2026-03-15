@@ -1055,6 +1055,10 @@ const es = {
     controlesExcavar: 'WASD: mover | E: hablar/excavar | F: detectar | I: inventario | M: mapa | P: fotos | L: misiones',
     controlesMuseo: 'WASD: mover | E: hablar/recoger | M: mapa | I: inventario | P: fotos | L: misiones',
     controlesLFSD: 'WASD: mover | E: hablar | M: mapa | I: inventario | P: fotos | L: misiones',
+    controlesMapa: 'E: entrar | I: inventario | R: mapa real | +/−: zoom | Q: menú',
+
+    // --- Toasts ---
+    partidaGuardada: '💾 Partida guardada',
 
     // --- Combate ---
     hostilidad: 'Hostilidad:',

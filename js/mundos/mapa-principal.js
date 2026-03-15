@@ -620,7 +620,7 @@ export class MapaPrincipal {
     ctx.font = '11px monospace';
     ctx.fillStyle = '#AAAAAA';
     ctx.fillText(
-      'E: entrar | I: inventario | R: mapa real | +/−: zoom | Q: menú',
+      this.juego?.idiomas?.traducciones?.[this.juego?.idiomas?.idiomaActual]?.ui?.controlesMapa || 'E: entrar | I: inventario | R: mapa real | +/−: zoom | Q: menú',
       ancho / 2, alto - 8
     );
 
