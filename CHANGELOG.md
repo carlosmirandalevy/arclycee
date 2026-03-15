@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.16.3 — Technical diagrams, character avatars, batú rebalance (2026-03-15)
+
+### Agregado
+- **10 diagramas técnicos SVG** (`docs/tech-diagrams.js`): generados programáticamente con i18n (ES/EN/FR), insertados automáticamente en la documentación técnica. Cubren: arquitectura de módulos, game loop, pila de overlays, combate por turnos, sistema de input, cadena de audio, pipeline de terreno, máquina de estados del clima, árbol de decisión de finales, ciclo de vida de sidequests
+- **Diana** añadida al equipo: 9.º miembro de les fous du robot, avatar personalizado (piel clara, pelo rubio largo rizado, cuerpo delgado, camiseta verde), créditos actualizados, docs/characters en 3 idiomas
+- **Manatí adulto** en docs/characters: sprite dedicado (más grande que la cría, con cicatrices de red), descripción del rescate en red fantasma, reunión madre-cría. Descripción del bebé manatí corregida
+- **Scott Pilgrim** en Carlos Guillermo: 2 líneas de diálogo nuevas (carlosG16, carlosG17) en ES/EN/FR sobre la película y el juego
+
+### Mejorado
+- **Avatares personalizados del equipo LFSD**: Carlos Guillermo (piel clara, pelo largo castaño oscuro, gafas azul oscuro, camiseta azul, pantalones naranjas), Rafael (piel clara, pelo castaño claro, delgado), Diana (piel clara, pelo rubio rizado largo) — tanto en el juego como en docs/character-sprites.js
+- **Sprite de Fabiola Herrera** en docs: ahora refleja su personaje del juego (piel clara, pelo largo castaño oscuro, labios rojos, blusa blanca)
+- **Sprite del pez león** en docs: corregido para mirar en una sola dirección (derecha), con cola, boca y espinas correctamente orientadas
+- **Batú rebalanceado**: primero en 5 puntos (era 3), velocidad del jugador 250 px/s (era 200), error de IA reducido a 15% (era 30%)
+- **Diagrama de finales**: pills de terminal con fondo opaco 85% y texto blanco para legibilidad
+- **Diagrama de sidequests**: ancho reducido para evitar corte del nodo "Completada"
+
+---
+
 ## v0.16.2 — Comprehensive technical documentation + source code viewer (2026-03-15)
 
 ### Agregado

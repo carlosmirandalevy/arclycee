@@ -611,7 +611,7 @@ const en = {
     introCeremonia2: 'Higüemota challenges you to a friendly batú match.',
     introCeremonia3: 'Show your skill on the batey!',
     reglas: 'Rules: hit the ball with hips, shoulders, or head. No hands or feet!',
-    reglas2: 'First to 3 points wins. The ball cannot touch the ground on your side.',
+    reglas2: 'First to 5 points wins. The ball cannot touch the ground on your side.',
     continuar: '[E] Continue',
     controles: '← → move | Hit with your body (hip, shoulder, head, knee)',
     saqueJugador: 'Your serve!',
@@ -860,6 +860,8 @@ const en = {
     carlosG13: 'Chicken shawarma or falafel? Both! They\'re the perfect food for reading marathons.',
     carlosG14: 'Undertale proved you can win without fighting. The pacifist route is the hardest and the most beautiful.',
     carlosG15: 'In Minecraft I build entire worlds. Cities, dungeons, temples... it\'s like being an architect and explorer at once.',
+    carlosG16: 'Scott Pilgrim vs. the World is my favorite movie. Defeating the 7 evil exes to be with the person you love! Edgar Wright is a genius.',
+    carlosG17: 'The Scott Pilgrim game is a perfect beat \'em up. River City Ransom + pixel art + Anamanaguchi. And now we can play it again!',
 
     // Elian — 3D printing, Fortnite, Gatorade, avocado with tuna
     elian1: 'I\'m designing the robot chassis with 3D printing. It\'s lighter than aluminum!',

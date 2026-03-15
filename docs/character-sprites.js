@@ -57,14 +57,11 @@ function obtenerInfoSprite(tipo) {
     // Mapa de sprites humanoides simples (solo cambian color de cuerpo)
     const estudiantesSimples = {
         'emile':     '#4488ff',
-        'sofia-lfsd':'#44aa44',
         'lucas':     '#ff8844',
         'theo':      '#ffcc00',
         'nael':      '#cc44cc',
         'jules':     '#44cccc',
-        'rafael':    '#cc6644',
         'alberto':   '#66aa66',
-        'carlos-g':  '#8866cc',
         'elian':     '#cc4444',
         'tom':       '#4466aa',
     };
@@ -75,6 +72,77 @@ function obtenerInfoSprite(tipo) {
             dibujarBaseHumanoide(ctx, {
                 colorCuerpo: estudiantesSimples[tipo],
             });
+        });
+    }
+
+    // Diana (sofia-lfsd): delgada, piel clara, pelo rubio largo rizado
+    if (tipo === 'sofia-lfsd' || tipo === 'diana') {
+        return spriteHumanoide((ctx) => {
+            dibujarBaseHumanoide(ctx, {
+                colorCuerpo: '#44aa44',
+                colorPiel: '#F5DEB3',
+                colorPelo: '#E8C84A',
+                anchoPelo: 20,
+                alturaPelo: 6,
+            });
+            // Cuerpo más delgado: cubrir los bordes con fondo
+            ctx.fillStyle = 'rgba(0,0,0,0)';
+            ctx.clearRect(-10, -8, 2, 16);
+            ctx.clearRect(8, -8, 2, 16);
+            // Pelo largo a los lados (llega hasta la cintura)
+            ctx.fillStyle = '#E8C84A';
+            ctx.fillRect(-11, -18, 4, 24);
+            ctx.fillRect(7, -18, 4, 24);
+            // Rizos: pequeños píxeles que sobresalen
+            ctx.fillRect(-13, -8, 2, 3);
+            ctx.fillRect(11, -8, 2, 3);
+            ctx.fillRect(-12, 0, 2, 3);
+            ctx.fillRect(10, 0, 2, 3);
+        });
+    }
+
+    // Rafael: piel clara, pelo castaño claro, delgado
+    if (tipo === 'rafael') {
+        return spriteHumanoide((ctx) => {
+            dibujarBaseHumanoide(ctx, {
+                colorCuerpo: '#cc6644',
+                colorPiel: '#F5DEB3',
+                colorPelo: '#A0784C',
+            });
+            // Cuerpo más delgado: recortar bordes
+            ctx.clearRect(-10, -8, 2, 16);
+            ctx.clearRect(8, -8, 2, 16);
+        });
+    }
+
+    // Carlos Guillermo: piel clara, pelo largo castaño oscuro, gafas azul oscuro
+    if (tipo === 'carlos-g') {
+        return spriteHumanoide((ctx) => {
+            dibujarBaseHumanoide(ctx, {
+                colorCuerpo: '#4488DD',
+                colorPiel: '#F5DEB3',
+                colorPelo: '#3B2314',
+                anchoPelo: 20,
+                alturaPelo: 6,
+            });
+            // Pantalones naranjas (cubrir piernas azules por defecto)
+            ctx.fillStyle = '#DD7722';
+            ctx.fillRect(-7, 8, 7, 8);
+            ctx.fillRect(0, 8, 7, 8);
+            // Pelo largo a los lados (llega hasta los hombros)
+            ctx.fillStyle = '#3B2314';
+            ctx.fillRect(-11, -18, 4, 20);
+            ctx.fillRect(7, -18, 4, 20);
+            // Gafas de marco azul oscuro
+            ctx.strokeStyle = '#1a2a5a';
+            ctx.lineWidth = 1.2;
+            ctx.strokeRect(-7, -8, 5, 5);
+            ctx.strokeRect(2, -8, 5, 5);
+            // Puente
+            ctx.beginPath();
+            ctx.moveTo(-2, -6);
+            ctx.lineTo(2, -6);
+            ctx.stroke();
         });
     }
 
@@ -510,11 +578,21 @@ function obtenerInfoSprite(tipo) {
         case 'fabiola':
             return spriteHumanoide((ctx) => {
                 dibujarBaseHumanoide(ctx, {
-                    colorCuerpo: '#4a4a8a',
-                    colorPelo: '#2a1a0a',
-                    anchoPelo: 18,
-                    alturaPelo: 4, // pelo más corto/estilizado
+                    colorCuerpo: '#EEEEDD', // blusa blanca
+                    colorPiel: '#E8C8A8',   // piel clara
+                    colorPelo: '#1a0e08',   // castaño muy oscuro
+                    anchoPelo: 22,
+                    alturaPelo: 7,
                 });
+                // Pelo largo a ambos lados (hasta los hombros)
+                ctx.fillStyle = '#1a0e08';
+                ctx.fillRect(-12, -19, 6, 24);
+                ctx.fillRect(6, -19, 6, 24);
+                // Mechón frontal (flequillo al lado)
+                ctx.fillRect(-9, -17, 10, 4);
+                // Labios rojos (rasgo distintivo)
+                ctx.fillStyle = '#CC2222';
+                ctx.fillRect(-3, -2, 6, 2);
             });
 
         // ---- MUNDO ACUÁTICO ----
@@ -618,35 +696,44 @@ function obtenerInfoSprite(tipo) {
                         ctx.stroke();
                     }
 
-                    // Aletas pectorales (abanico con espinas)
+                    // Cola (lado izquierdo — el pez mira a la derecha)
+                    ctx.fillStyle = '#CC5544';
+                    ctx.beginPath();
+                    ctx.moveTo(-12, 0);
+                    ctx.lineTo(-17, -5);
+                    ctx.lineTo(-17, 5);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // Aletas pectorales (abanico de espinas hacia atrás/abajo)
                     ctx.strokeStyle = '#CC3333';
                     ctx.lineWidth = 0.8;
                     for (let a = -3; a <= 3; a++) {
                         ctx.beginPath();
-                        ctx.moveTo(-4, 2);
-                        ctx.lineTo(-14, a * 3);
-                        ctx.stroke();
-                        ctx.beginPath();
-                        ctx.moveTo(4, 2);
-                        ctx.lineTo(14, a * 3);
+                        ctx.moveTo(-2, 3);
+                        ctx.lineTo(-14, a * 3 + 2);
                         ctx.stroke();
                     }
 
-                    // Espinas dorsales
+                    // Espinas dorsales (más hacia la cabeza/derecha)
                     ctx.strokeStyle = '#FFAA44';
                     ctx.lineWidth = 0.8;
-                    for (let i = -6; i <= 6; i += 3) {
+                    for (let i = -4; i <= 8; i += 3) {
                         ctx.beginPath();
                         ctx.moveTo(i, -7);
-                        ctx.lineTo(i, -13);
+                        ctx.lineTo(i + 1, -13);
                         ctx.stroke();
                     }
 
-                    // Ojo con banda oscura
+                    // Ojo (lado derecho = cabeza)
                     ctx.fillStyle = '#000000';
-                    ctx.fillRect(5, -3, 4, 2);
+                    ctx.fillRect(6, -3, 4, 3);
                     ctx.fillStyle = '#ffcc00';
-                    ctx.fillRect(6, -3, 2, 2);
+                    ctx.fillRect(7, -2, 2, 2);
+
+                    // Boca
+                    ctx.fillStyle = '#881111';
+                    ctx.fillRect(12, -1, 2, 1);
                 },
             };
 
@@ -720,6 +807,60 @@ function obtenerInfoSprite(tipo) {
                     ctx.fillStyle = '#7a7a8a';
                     ctx.beginPath();
                     ctx.ellipse(14, -2, 3, 5, 0.3, 0, Math.PI * 2);
+                    ctx.fill();
+                },
+            };
+
+        case 'manati-adulto':
+            return {
+                ancho: 64, alto: 48,
+                dibujar: (ctx) => {
+                    ctx.imageSmoothingEnabled = false;
+                    ctx.translate(32, 24);
+                    const s = 1.5;
+                    ctx.scale(s, s);
+
+                    dibujarSombra(ctx);
+
+                    // Cuerpo más grande que la cría
+                    ctx.fillStyle = '#7a7a8a';
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, 18, 10, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Cabeza/hocico
+                    ctx.fillStyle = '#8a8a9a';
+                    ctx.beginPath();
+                    ctx.ellipse(-18, -1, 6, 6, 0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Ojos
+                    ctx.fillStyle = '#333333';
+                    ctx.beginPath();
+                    ctx.arc(-20, -3, 1.5, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Cicatrices de la red (marcas claras en el cuerpo)
+                    ctx.strokeStyle = '#aaaaaa';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(-5, -4); ctx.lineTo(3, -3);
+                    ctx.moveTo(-3, 2); ctx.lineTo(5, 3);
+                    ctx.stroke();
+
+                    // Aletas
+                    ctx.fillStyle = '#6a6a7a';
+                    ctx.beginPath();
+                    ctx.ellipse(-8, 9, 5, 3, 0.3, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.ellipse(5, 9, 5, 3, -0.3, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Cola (aleta caudal grande)
+                    ctx.fillStyle = '#6a6a7a';
+                    ctx.beginPath();
+                    ctx.ellipse(18, -2, 4, 7, 0.3, 0, Math.PI * 2);
                     ctx.fill();
                 },
             };

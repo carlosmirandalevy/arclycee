@@ -26,9 +26,9 @@ const FRICCION_AIRE = 0.998;       // La pelota pierde velocidad más gradualmen
 const VELOCIDAD_SAQUE = 400;       // px/s al servir (más fuerte para cruzar la cancha)
 const VELOCIDAD_GOLPE_MIN = 280;   // px/s golpe débil
 const VELOCIDAD_GOLPE_MAX = 500;   // px/s golpe fuerte
-const VELOCIDAD_JUGADOR = 200;     // px/s movimiento horizontal del jugador
+const VELOCIDAD_JUGADOR = 250;     // px/s movimiento horizontal del jugador
 const RADIO_PELOTA = 8;            // px
-const PUNTOS_PARA_GANAR = 3;       // Primero en llegar gana
+const PUNTOS_PARA_GANAR = 5;       // Primero en llegar gana
 
 // --- Dimensiones de la cancha (dentro del overlay de 960×540) ---
 const CANCHA_X = 80;               // Margen izquierdo
@@ -45,7 +45,7 @@ const JUGADOR_ALTO = 40;
 // Diseñada para ser vencible por jugadores de ~13 años
 const IA_VELOCIDAD_FACTOR = 0.72;  // 72% de la velocidad del jugador
 const IA_RETARDO_REACCION = 0.3;   // Segundos antes de reaccionar (más lento)
-const IA_PROBABILIDAD_ERROR = 0.30; // 30% de fallar intencionalmente
+const IA_PROBABILIDAD_ERROR = 0.15; // 15% de fallar intencionalmente
 const IA_IMPRECISION = 25;          // px de error al apuntar a la pelota
 
 // --- Datos educativos sobre el batú (se muestran entre puntos) ---
@@ -786,7 +786,7 @@ export class JuegoBatu {
     ctx.fillStyle = '#AAAAAA';
     ctx.fillText(textos?.reglas || 'Reglas: golpea la pelota con cadera, hombros o cabeza. ¡Sin manos ni pies!',
       ancho / 2, alto / 2 + 45);
-    ctx.fillText(textos?.reglas2 || 'Primero en 3 puntos gana. La pelota no puede tocar el suelo de tu lado.',
+    ctx.fillText(textos?.reglas2 || 'Primero en 5 puntos gana. La pelota no puede tocar el suelo de tu lado.',
       ancho / 2, alto / 2 + 65);
 
     // Continuar

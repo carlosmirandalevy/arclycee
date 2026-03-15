@@ -611,7 +611,7 @@ const fr = {
     introCeremonia2: 'Higüemota te défie dans un match amical de batú.',
     introCeremonia3: 'Montre ton talent sur le batey !',
     reglas: 'Règles : frappe la balle avec les hanches, épaules ou la tête. Pas de mains ni pieds !',
-    reglas2: 'Le premier à 3 points gagne. La balle ne doit pas toucher le sol de ton côté.',
+    reglas2: 'Le premier à 5 points gagne. La balle ne doit pas toucher le sol de ton côté.',
     continuar: '[E] Continuer',
     controles: '← → bouger | Frappe avec le corps (hanche, épaule, tête, genou)',
     saqueJugador: 'Ton service !',
@@ -860,6 +860,8 @@ const fr = {
     carlosG13: 'Shawarma au poulet ou falafel ? Les deux ! C\'est la nourriture parfaite pour les marathons de lecture.',
     carlosG14: 'Undertale a prouvé qu\'on peut gagner sans se battre. La route pacifiste est la plus difficile et la plus belle.',
     carlosG15: 'Dans Minecraft je construis des mondes entiers. Villes, donjons, temples... c\'est comme être architecte et explorateur en même temps.',
+    carlosG16: 'Scott Pilgrim vs. the World est mon film préféré. Vaincre les 7 ex maléfiques pour être avec la personne qu\'on aime ! Edgar Wright est un génie.',
+    carlosG17: 'Le jeu Scott Pilgrim est un beat \'em up parfait. River City Ransom + pixel art + Anamanaguchi. Et maintenant on peut y rejouer !',
 
     // Elian — impression 3D, Fortnite, Gatorade, avocat au thon
     elian1: 'Je conçois le châssis du robot en impression 3D. C\'est plus léger que l\'aluminium !',

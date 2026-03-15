@@ -156,7 +156,7 @@ export class MundoLFSD {
       {
         id: 'estudiante6', x: 400, y: 780, ancho: 28, alto: 36,
         nombre: lfsd?.est6Nombre || 'Carlos Guillermo',
-        color: '#88AACC',
+        color: '#4488DD',
         dialogoHecho: false, esMentor: false, esQuestGiver: false
       },
       {
@@ -455,21 +455,52 @@ export class MundoLFSD {
     ctx.ellipse(npc.x + npc.ancho / 2, npc.y + npc.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cuerpo (camisa del color del NPC — profesor más delgado)
+    // Cuerpo (camisa del color del NPC — profesor, Diana y Rafael más delgados)
     ctx.fillStyle = npc.color;
-    if (npc.id === 'profesor') {
+    if (npc.id === 'profesor' || npc.id === 'sofia' || npc.id === 'estudiante4') {
       ctx.fillRect(npc.x + 6, npc.y + 10, 16, 16);
     } else {
       ctx.fillRect(npc.x + 4, npc.y + 10, 20, 16);
     }
 
-    // Cabeza
-    ctx.fillStyle = '#D2956A';
+    // Cabeza (Diana, Carlos Guillermo y Rafael tienen piel clara)
+    const pielClara = npc.id === 'sofia' || npc.id === 'estudiante6' || npc.id === 'estudiante4';
+    ctx.fillStyle = pielClara ? '#F5DEB3' : '#D2956A';
     ctx.fillRect(npc.x + 6, npc.y, 16, 14);
 
-    // Pelo (el profesor tiene pelo blanco)
-    ctx.fillStyle = npc.id === 'profesor' ? '#DDDDDD' : '#2a1a0a';
-    ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
+    // Pelo
+    if (npc.id === 'sofia') {
+      // Diana: pelo rubio largo rizado
+      ctx.fillStyle = '#E8C84A';
+      // Pelo arriba (flequillo)
+      ctx.fillRect(npc.x + 4, npc.y - 3, 20, 6);
+      // Pelo largo a los lados (llega hasta la cintura)
+      ctx.fillRect(npc.x + 3, npc.y - 3, 4, 22);
+      ctx.fillRect(npc.x + 21, npc.y - 3, 4, 22);
+      // Rizos: pequeños píxeles que sobresalen
+      ctx.fillRect(npc.x + 1, npc.y + 4, 2, 3);
+      ctx.fillRect(npc.x + 25, npc.y + 4, 2, 3);
+      ctx.fillRect(npc.x + 2, npc.y + 12, 2, 3);
+      ctx.fillRect(npc.x + 24, npc.y + 12, 2, 3);
+    } else if (npc.id === 'estudiante6') {
+      // Carlos Guillermo: pelo largo castaño oscuro
+      ctx.fillStyle = '#3B2314';
+      // Pelo arriba (flequillo)
+      ctx.fillRect(npc.x + 4, npc.y - 3, 20, 6);
+      // Pelo largo a los lados (llega hasta los hombros)
+      ctx.fillRect(npc.x + 3, npc.y - 3, 4, 18);
+      ctx.fillRect(npc.x + 21, npc.y - 3, 4, 18);
+    } else if (npc.id === 'estudiante4') {
+      // Rafael: pelo castaño claro
+      ctx.fillStyle = '#A0784C';
+      ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
+    } else if (npc.id === 'profesor') {
+      ctx.fillStyle = '#DDDDDD';
+      ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
+    } else {
+      ctx.fillStyle = '#2a1a0a';
+      ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
+    }
 
     // El profesor es delgado — cuerpo más estrecho y sonrisa visible
     if (npc.id === 'profesor') {
@@ -489,8 +520,23 @@ export class MundoLFSD {
     ctx.fillRect(npc.x + 10, npc.y + 5, 1.5, 1.5);
     ctx.fillRect(npc.x + 17, npc.y + 5, 1.5, 1.5);
 
-    // Piernas
-    ctx.fillStyle = '#2a3a5a';
+    // Carlos Guillermo: gafas de marco azul oscuro
+    if (npc.id === 'estudiante6') {
+      ctx.strokeStyle = '#1a2a5a';
+      ctx.lineWidth = 1.2;
+      // Marco izquierdo
+      ctx.strokeRect(npc.x + 8, npc.y + 3, 5, 5);
+      // Marco derecho
+      ctx.strokeRect(npc.x + 15, npc.y + 3, 5, 5);
+      // Puente entre los marcos
+      ctx.beginPath();
+      ctx.moveTo(npc.x + 13, npc.y + 5);
+      ctx.lineTo(npc.x + 15, npc.y + 5);
+      ctx.stroke();
+    }
+
+    // Piernas (Carlos Guillermo lleva pantalones naranjas)
+    ctx.fillStyle = npc.id === 'estudiante6' ? '#DD7722' : '#2a3a5a';
     ctx.fillRect(npc.x + 6, npc.y + 26, 7, 8);
     ctx.fillRect(npc.x + 15, npc.y + 26, 7, 8);
 
@@ -959,7 +1005,7 @@ export class MundoLFSD {
         lfsd?.alberto7 || 'Mew Genics va a ser INCREÍBLE. Gatos mutantes + Edmund McMillen.',
         lfsd?.alberto8 || 'A veces le escondo la lonchera a Carlos Guillermo también. ¡Pero siempre se la devuelvo! Somos un gran equipo.'
       ],
-      // Carlos Guillermo — Percy Jackson, Hollow Knight, Adventure Time, etc.
+      // Carlos Guillermo — Scott Pilgrim, Percy Jackson, Hollow Knight, Adventure Time, etc.
       estudiante6: [
         lfsd?.carlosG1 || 'Percy Jackson me enseñó que los mitos griegos son reales... bueno, casi.',
         lfsd?.carlosG2 || '¿Conoces Hollow Knight? Hallownest es como las cuevas del Pomier!',
@@ -975,7 +1021,9 @@ export class MundoLFSD {
         lfsd?.carlosG12 || 'Me encanta leer. Los libros te llevan a mundos que los juegos no pueden.',
         lfsd?.carlosG13 || '¿Shawarma o falafel? ¡Los dos! Perfectos para maratones de lectura.',
         lfsd?.carlosG14 || 'Undertale: puedes ganar sin pelear. La ruta pacifista es hermosa.',
-        lfsd?.carlosG15 || 'En Minecraft construyo mundos enteros. Ciudades, calabozos, templos...'
+        lfsd?.carlosG15 || 'En Minecraft construyo mundos enteros. Ciudades, calabozos, templos...',
+        lfsd?.carlosG16 || 'Scott Pilgrim vs. the World es mi película favorita. ¡Derrotar a los 7 ex malvados para estar con la persona que amas! Edgar Wright es un genio.',
+        lfsd?.carlosG17 || 'El juego de Scott Pilgrim es un beat \'em up perfecto. River City Ransom + pixel art + Anamanaguchi. ¡Y ahora podemos jugarlo de nuevo!'
       ],
       // Elian — impresión 3D, Fortnite, Gatorade, aguacate con atún
       estudiante7: [

@@ -81,6 +81,7 @@ arclycee/
 │   ├── characters.html     ← Personajes: NPCs y equipo (ES/EN/FR)
 │   ├── technical.html      ← Referencia técnica con visor de código (ES/EN/FR)
 │   ├── source-viewer.js    ← Visor de código fuente con syntax highlighting
+│   ├── tech-diagrams.js    ← 10 diagramas SVG técnicos con i18n (ES/EN/FR)
 │   └── ...                 ← Mundos, mecánicas, diálogos (ES/EN/FR)
 ├── estilos/
 │   └── principal.css       ← Estilos del juego

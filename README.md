@@ -26,7 +26,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Sistema de curación**: el Behique Yuisa cura completamente al jugador, Guarionex da hojas de guanábana (+30 vida) y Anacaona da vasija curativa (+35 vida) — objetos usables desde el inventario en cualquier momento
 - **Guardado automático**: el progreso se guarda al volver al mapa del mundo (localStorage)
 - **Sprites de enemigos**: cada enemigo tiene su sprite único en combate (soldado, constructor, pez león, traficante)
-- **Mini-juego de batú**: juego de pelota taíno con física 2D, golpes por cadera/hombro/cabeza/rodilla, IA vencible, datos educativos entre puntos
+- **Mini-juego de batú**: juego de pelota taíno con física 2D, golpes por cadera/hombro/cabeza/rodilla, IA vencible (72% velocidad, 15% errores), primero en 5 puntos, datos educativos entre puntos
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
 - **Múltiples finales** (5) según tus decisiones: completo, pacifista, museo, ecológico u oscuro
@@ -47,7 +47,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), 4 especies de tortugas marinas (carey, tinglar, caguama, verde) con aletas animadas, ballenas jorobadas con canto, medusas con sacudida, pez león patrullero, combate ecológico, corales fotografiables (cerebro, cuerno, abanico, mesa). Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones con mordida y sacudida, lanchas rápidas con impacto + grito, sistema de oxígeno por apnea) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
-| LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers y 8 NPCs estudiantes, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
+| LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers y 9 NPCs estudiantes (cada uno con avatar personalizado), 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
 
 ## Tecnologías
 
@@ -59,7 +59,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 ## Equipo
 
-Elian · Théo · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Nael
+Elian · Théo · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Nael · Diana
 
 ## Documentación
 
