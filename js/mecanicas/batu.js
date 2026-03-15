@@ -638,7 +638,8 @@ export class JuegoBatu {
     ctx.font = '9px monospace';
     ctx.fillStyle = esJugador ? '#88BBFF' : '#FFAA88';
     ctx.textAlign = 'center';
-    ctx.fillText(esJugador ? 'Tú' : 'Rival', x + JUGADOR_ANCHO / 2, y - 8);
+    const _uiTex = this.juego?.idiomas?.traducciones?.[this.juego?.idiomas?.idiomaActual]?.ui;
+    ctx.fillText(esJugador ? (_uiTex?.tu || 'Tú') : (_uiTex?.rival || 'Rival'), x + JUGADOR_ANCHO / 2, y - 8);
   }
 
   // --- Bordes de piedra con petroglifos tallados ---

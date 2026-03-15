@@ -1021,6 +1021,138 @@ const es = {
   },
 
   // Sitios arqueológicos — 8 sitios reales por explorar
+  // Textos de interfaz usados en múltiples escenas y mundos
+  // (controles, etiquetas de acción, indicadores del HUD)
+  ui: {
+    // --- Indicadores de continuar ---
+    presionaE: 'Presiona E para continuar',
+    presionaESaltar: 'Presiona E para saltar',
+    eContinuar: '[E] Continuar',
+    eComenzar: '[E] Comenzar',
+    comenzar: 'Comenzar',
+    continuar: 'Continuar',
+
+    // --- Acciones sobre NPCs y objetos ---
+    eHablar: '[E] Hablar',
+    eExaminar: '[E] Examinar',
+    eEntrar: '[E] Entrar',
+    eCurar: '[E] Curar',
+    eAdoptar: '[E] Adoptar',
+    eExcavar: '[E] Excavar',
+    eAlerta: '[E] ¡Alerta!',
+    eSospechoso: '[E] ¡Sospechoso!',
+    eLiberar: '[E] Liberar',
+    eLiberarManati: '[E] Liberar manatí',
+    fDetectarMetal: '[F] Detectar Metal',
+
+    // --- Controles de mundos (barra inferior) ---
+    controlesCueva: 'WASD: mover | Espacio: saltar | E: examinar | I: inventario | M: mapa | P: fotos | L: misiones',
+    controlesAldea: 'WASD: mover | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones',
+    controlesHabilidad: 'WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa | P: fotos | L: misiones',
+    controlesNadar: 'WASD: nadar | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones',
+    controlesNadarInteractuar: 'WASD: nadar | E: interactuar | I: inventario | M: mapa | P: fotos | L: misiones',
+    controlesCaminar: 'WASD: caminar | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones',
+    controlesExcavar: 'WASD: mover | E: hablar/excavar | F: detectar | I: inventario | M: mapa | P: fotos | L: misiones',
+    controlesMuseo: 'WASD: mover | E: hablar/recoger | M: mapa | I: inventario | P: fotos | L: misiones',
+    controlesLFSD: 'WASD: mover | E: hablar | M: mapa | I: inventario | P: fotos | L: misiones',
+
+    // --- Combate ---
+    hostilidad: 'Hostilidad:',
+    tuVida: 'Tu vida:',
+    tuTurno: '< Tu turno — elige una acción >',
+    turnoEnemigo: '... turno del enemigo ...',
+    controlesCombate: 'Flechas: elegir | E: confirmar',
+    pistaDefecto: 'Usa Hablar o Negociar para convencer al oponente',
+
+    // --- Diálogos ---
+    presionaEContinuar: 'Presiona E para continuar ▶',
+
+    // --- Selección de personaje ---
+    descripcionPersonaje: '14 años. Ascendencia taína, española y africana.',
+    controlesSeleccion: 'Izquierda/Derecha: cambiar | Enter/E: confirmar | Q/Esc: volver',
+
+    // --- Cinemática de intro ---
+    introLugar: 'En algún lugar de Santo Domingo...',
+    introBrilla: 'Algo brilla entre los escombros...',
+    introCuidado: '¡CUIDADO! ¡El suelo se derrumba!',
+    introDonde: '...¿Dónde estoy?',
+
+    // --- Menú principal ---
+    controlesMenu: 'Flechas/WASD: navegar | Enter/E: seleccionar',
+    volverMenu: 'Presiona Q / Escape / Enter para volver',
+
+    // --- Selector de niveles (Konami) ---
+    selectorNiveles: '🔓 SELECTOR DE NIVELES 🔓',
+    konamiActivado: '(Código Konami activado)',
+    masNivelesArriba: '▲ más niveles',
+    masNivelesAbajo: '▼ más niveles',
+    controlesSelector: '↑↓: elegir  |  E: ir al nivel  |  Q: cerrar',
+
+    // --- Créditos cinematográficos ---
+    subtituloJuego: 'Aventura Arqueológica Dominicana',
+    creadoPor: 'Creado por',
+    profesor: 'Profesor',
+    claseRobotica: 'Clase de Robótica',
+    ubicacion: 'Santo Domingo, República Dominicana',
+    tecnologias: 'Tecnologías',
+    inspiradoEn: 'Inspirado en',
+    agradecimiento1: 'El patrimonio arqueológico de la República Dominicana',
+    agradecimiento2: 'Los investigadores del Museo del Hombre Dominicano',
+    agradecimiento3: 'La Zona Colonial de Santo Domingo (UNESCO)',
+    agradecimiento4: 'Las Cuevas del Pomier y sus petroglifos taínos',
+    mensajeFinal1: 'Protejamos nuestro patrimonio.',
+    mensajeFinal2: 'La historia nos pertenece a todos.',
+    copyright: 'Lycée Français de Saint-Domingue © 2026',
+
+    // --- Batú controles ---
+    controlesBatu: '← → mover | Golpea con el cuerpo (cadera, hombro, cabeza, rodilla)',
+    tu: 'Tú',
+    rival: 'Rival',
+
+    // --- Registro de misiones controles ---
+    controlesRegistro: '← → cambiar pestaña | ↑ ↓ scroll | Q cerrar',
+
+    // --- Misión completa ---
+    misionCompletaFinal: '¡Misión completa! Presiona M para ver el final',
+
+    // --- Mini-juegos (fallbacks) ---
+    calibracionTitulo: 'Calibración de Señal',
+    calibracionInstrucciones: '↑↓: cambiar perilla | ←→: ajustar | E: confirmar',
+    calibracionDesc1: 'Ajusta las 3 perillas para que la onda coincida',
+    calibracionDesc2: 'con la señal objetivo (línea punteada).',
+
+    programacionTitulo: 'Programación del Robot',
+    programacionDesc1: 'Ordena los bloques para guiar al robot',
+    programacionDesc2: 'hasta el punto de escaneo.',
+    programacionInstrucciones: '↑↓: elegir bloque | E: agregar | ←: quitar | F: ejecutar',
+    programacionBloques: 'Bloques:',
+    programacionPrograma: 'Programa:',
+    programacionControles: '↑↓: elegir | E: agregar | ←: quitar | F: ejecutar',
+    programacionEjecutando: 'Ejecutando programa...',
+
+    conexionTitulo: 'Conexión de Cables',
+    conexionDesc1: 'Conecta cada cable con su par correcto.',
+    conexionDesc2: 'Empareja colores y símbolos.',
+    conexionInstrucciones: '↑↓: navegar | E: seleccionar/conectar | Q: cancelar',
+    conexionBonus: '¡Bonus de velocidad! +5 reputación extra',
+
+    // --- Nombre de LFSD ---
+    lfsdTitulo: 'LFSD - Classe de Robotique',
+    lfsdPizarra: 'Classe de Robotique - LFSD',
+
+    // --- Hablar con habitantes (fallback) ---
+    hablarHabitantes: 'Hablar con habitantes',
+
+    // --- Nombres de personajes en diálogos ---
+    espirituTaina: '🌀 Espíritu Taína',
+    petroglifo: '🗿 Petroglifo',
+
+    // --- Toasts de inventario ---
+    itemAnadido: 'ítem añadido al inventario',
+    itemAnadidoCorto: 'añadido al inventario',
+    itemAnadidoBrief: 'ítem añadido'
+  },
+
   sitiosArqueologicos: {
     titulo: 'Sitios Inexplorados',
     cuevaBerna: 'Cueva de Berna — Pictografías taínas, parcialmente estudiadas.',

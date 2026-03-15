@@ -676,7 +676,8 @@ export class MundoLaboratorio {
 
       // Siempre mostrar [E] Hablar si está cerca
       ctx.fillStyle = `rgba(255, 215, 0, ${pulso})`;
-      ctx.fillText('[E] Hablar', npc.x + npc.ancho / 2, npc.y - 4);
+      const texHablar = this._obtenerTextos()?.ui?.eHablar || '[E] Hablar';
+      ctx.fillText(texHablar, npc.x + npc.ancho / 2, npc.y - 4);
       ctx.textAlign = 'left';
     }
 
@@ -786,12 +787,13 @@ export class MundoLaboratorio {
     // --- Controles ---
     ctx.fillStyle = '#AAAAAA';
     ctx.font = '11px monospace';
-    ctx.fillText('WASD: mover | E: hablar/recoger | M: mapa | I: inventario | P: fotos | L: misiones', ancho / 2, alto - 15);
+    const texControles = this._obtenerTextos()?.ui?.controlesMuseo || 'WASD: mover | E: hablar/recoger | M: mapa | I: inventario | P: fotos | L: misiones';
+    ctx.fillText(texControles, ancho / 2, alto - 15);
     ctx.textAlign = 'left';
 
     // --- Diálogos ---
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
   }
 

@@ -215,7 +215,7 @@ export class CuevasPomier {
     if (!textos) return;
 
     const cueva = textos.dialogos.cueva;
-    const espiritu = '🌀 Espíritu Taína';
+    const espiritu = textos?.ui?.espirituTaina || '🌀 Espíritu Taína';
 
     this.dialogos.iniciarDialogo([
       { personaje: espiritu, texto: cueva.espirituIntro1 },
@@ -435,7 +435,8 @@ export class CuevasPomier {
 
         // Mostrar mensaje flotante indicando qué objeto se recogió
         if (nombreObjeto && this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+          const _t = this._obtenerTextos();
+          this.juego.mostrarToast(`✦ ${nombreObjeto} — ${_t?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
         }
       }
     }
@@ -453,7 +454,7 @@ export class CuevasPomier {
           const textoPetro = textos?.dialogos?.cueva?.[petro.claveTexto] || 'Petroglifo descubierto.';
 
           this.dialogos.iniciarDialogo([
-            { personaje: '🗿 Petroglifo', texto: textoPetro }
+            { personaje: textos?.ui?.petroglifo || '🗿 Petroglifo', texto: textoPetro }
           ]);
 
           // Actualizar misión si todos descubiertos
@@ -636,7 +637,8 @@ export class CuevasPomier {
         ctx.font = '11px monospace';
         ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
         ctx.textAlign = 'center';
-        ctx.fillText('[E] Examinar', px + 15, py - 15);
+        const texExaminar = this._obtenerTextos()?.ui?.eExaminar || '[E] Examinar';
+        ctx.fillText(texExaminar, px + 15, py - 15);
         ctx.textAlign = 'left';
       }
     }
@@ -695,7 +697,8 @@ export class CuevasPomier {
           ctx.font = '11px monospace';
           ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
           ctx.textAlign = 'center';
-          ctx.fillText('[E] Hablar', ax + 12, ay - 20);
+          const texHablar = this._obtenerTextos()?.ui?.eHablar || '[E] Hablar';
+          ctx.fillText(texHablar, ax + 12, ay - 20);
           ctx.textAlign = 'left';
         }
       }
@@ -788,12 +791,13 @@ export class CuevasPomier {
     // --- Dibujar caja de diálogo (si hay diálogo activo) ---
     // NOTA: dialogos.dibujar() espera el contexto raw, no el Renderizador
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | Espacio: saltar | E: examinar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
+      const texControles = this._obtenerTextos()?.ui?.controlesCueva || 'WASD: mover | Espacio: saltar | E: examinar | I: inventario | M: mapa | P: fotos | L: misiones';
+      renderizador.dibujarTexto(texControles, ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }

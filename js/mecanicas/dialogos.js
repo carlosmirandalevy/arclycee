@@ -115,8 +115,9 @@ class SistemaDialogos {
   /**
    * Dibuja la caja de diálogo en la parte inferior del canvas
    * Usa el renderizador (contexto 2D) directamente para máxima compatibilidad
+   * textos: objeto de traducciones completo (se usa textos?.ui?.presionaEContinuar)
    */
-  dibujar(renderizador, anchoCanvas, altoCanvas) {
+  dibujar(renderizador, anchoCanvas, altoCanvas, textos) {
     if (!this.dialogoActivo) return;
 
     const lineaObj = this.lineas[this.lineaActual];
@@ -181,7 +182,7 @@ class SistemaDialogos {
         renderizador.fillStyle = 'rgba(255, 255, 255, 0.6)';
         renderizador.font = '13px monospace';
         renderizador.textAlign = 'right';
-        renderizador.fillText('Presiona E para continuar ▶', xCaja + anchoCaja - 16, yCaja + altoCaja - 12);
+        renderizador.fillText(textos?.ui?.presionaEContinuar || 'Presiona E para continuar ▶', xCaja + anchoCaja - 16, yCaja + altoCaja - 12);
         renderizador.textAlign = 'left';
       }
     }

@@ -354,7 +354,7 @@ export class LaIsabela {
 
         // Mostrar mensaje flotante indicando qué objeto se recogió
         if (this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+          this.juego.mostrarToast(`✦ ${nombreObjeto} — ${textos?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
         }
       }
     }
@@ -614,19 +614,21 @@ export class LaIsabela {
 
     // --- Indicador de F para Magnoboot ---
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto('[F] Detectar Metal', 15, 90, {
+      const texDetectar = this._obtenerTextos()?.ui?.fDetectarMetal || '[F] Detectar Metal';
+      renderizador.dibujarTexto(texDetectar, 15, 90, {
         tamano: 10, color: '#44FFFF'
       });
     }
 
     // --- Diálogo ---
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
+      const texControles = this._obtenerTextos()?.ui?.controlesHabilidad || 'WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa | P: fotos | L: misiones';
+      renderizador.dibujarTexto(texControles, ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }
@@ -863,7 +865,8 @@ export class LaIsabela {
       const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
-      const texto = npc.esCombate ? '[E] ¡Alerta!' : '[E] Hablar';
+      const _t = this._obtenerTextos()?.ui;
+      const texto = npc.esCombate ? (_t?.eAlerta || '[E] ¡Alerta!') : (_t?.eHablar || '[E] Hablar');
       ctx.fillText(texto, nx + npc.ancho / 2, ny - 34);
     }
 

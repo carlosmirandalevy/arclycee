@@ -164,7 +164,7 @@ export class RegistroJuego {
     ctx.fillStyle = '#888888';
     ctx.font = '11px monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('← → cambiar pestaña | ↑ ↓ scroll | Q cerrar', ancho / 2, alto - 45);
+    ctx.fillText(textos?.ui?.controlesRegistro || '← → cambiar pestaña | ↑ ↓ scroll | Q cerrar', ancho / 2, alto - 45);
 
     ctx.textAlign = 'left';
   }

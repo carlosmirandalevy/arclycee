@@ -411,8 +411,14 @@ export class SistemaCombate {
   // Dibuja todo: el enemigo arriba, la vida del jugador, las opciones
   // abajo, y los medidores de paciencia/hostilidad.
   // Necesita el jugador para mostrar su barra de vida.
-  dibujar(renderizador, anchoCanvas, altoCanvas, idiomas, jugador) {
+  // textos: objeto completo de traducciones (textos.combate para nombres
+  //   de opciones, textos.ui para etiquetas de interfaz)
+  dibujar(renderizador, anchoCanvas, altoCanvas, textos, jugador) {
     if (!this.enCombate) return;
+
+    // Extraer subsecciones de traducciones para uso local
+    const idiomas = textos?.combate;
+    const ui = textos?.ui;
 
     const ctx = renderizador;
 
@@ -477,7 +483,7 @@ export class SistemaCombate {
     // Medidor de hostilidad (rojo = peligro, baja al hablar)
     ctx.font = '12px monospace';
     ctx.fillStyle = '#aaaaaa';
-    ctx.fillText('Hostilidad:', 30, medidorY + 25);
+    ctx.fillText(ui?.hostilidad || 'Hostilidad:', 30, medidorY + 25);
     ctx.fillStyle = '#333333';
     ctx.fillRect(140, medidorY + 15, 100, 12);
     ctx.fillStyle = '#cc4444';
@@ -497,7 +503,7 @@ export class SistemaCombate {
       ctx.font = '12px monospace';
       ctx.fillStyle = '#aaaaaa';
       ctx.textAlign = 'left';
-      ctx.fillText('Tu vida:', jpX, jpY + 10);
+      ctx.fillText(ui?.tuVida || 'Tu vida:', jpX, jpY + 10);
 
       // Barra de vida del jugador (verde)
       const vidaMax = jugador.vidaMaxima || 100;
@@ -541,6 +547,7 @@ export class SistemaCombate {
     ctx.fillStyle = '#777777';
     ctx.textAlign = 'center';
     const pista = this.enemigo?.pistaPersonalizada
+      || ui?.pistaDefecto
       || 'Usa Hablar o Negociar para convencer al oponente';
     ctx.fillText(pista, anchoCanvas / 2, medidorY + 85);
 
@@ -587,16 +594,16 @@ export class SistemaCombate {
     ctx.font = '13px monospace';
     ctx.textAlign = 'center';
     if (this.turnoJugador) {
-      ctx.fillText('< Tu turno — elige una acción >', anchoCanvas / 2, altoCanvas - 30);
+      ctx.fillText(ui?.tuTurno || '< Tu turno — elige una acción >', anchoCanvas / 2, altoCanvas - 30);
     } else {
       ctx.fillStyle = '#ff8888';
-      ctx.fillText('... turno del enemigo ...', anchoCanvas / 2, altoCanvas - 30);
+      ctx.fillText(ui?.turnoEnemigo || '... turno del enemigo ...', anchoCanvas / 2, altoCanvas - 30);
     }
 
     // --- Controles ---
     ctx.font = '10px monospace';
     ctx.fillStyle = '#444444';
-    ctx.fillText('Flechas: elegir | E: confirmar', anchoCanvas / 2, altoCanvas - 12);
+    ctx.fillText(ui?.controlesCombate || 'Flechas: elegir | E: confirmar', anchoCanvas / 2, altoCanvas - 12);
 
     // Restaurar alineación
     ctx.textAlign = 'left';

@@ -368,8 +368,9 @@ export class MenuPrincipal {
     ctx.font = '12px monospace';
     ctx.fillStyle = '#555555';
     ctx.textAlign = 'center';
+    const textos = this.juego?.idiomas?.traducciones?.[this.juego?.idiomas?.idiomaActual];
     ctx.fillText(
-      'Flechas/WASD: navegar | Enter/E: seleccionar',
+      textos?.ui?.controlesMenu || 'Flechas/WASD: navegar | Enter/E: seleccionar',
       ancho / 2,
       alto - 40
     );
@@ -453,7 +454,8 @@ export class MenuPrincipal {
 
       ctx.font = '14px monospace';
       ctx.fillStyle = '#888888';
-      ctx.fillText('Presiona Q / Escape / Enter para volver', ancho / 2, alto - 110);
+      const textosCreditos = this.juego?.idiomas?.traducciones?.[this.juego?.idiomas?.idiomaActual];
+      ctx.fillText(textosCreditos?.ui?.volverMenu || 'Presiona Q / Escape / Enter para volver', ancho / 2, alto - 110);
     }
 
     ctx.textAlign = 'left';

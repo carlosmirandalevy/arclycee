@@ -303,7 +303,7 @@ export class AsentamientoTaino1 {
           }
 
           if (this.juego && this.juego.mostrarToast) {
-            this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+            this.juego.mostrarToast(`✦ ${nombreObjeto} — ${textos?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
           }
         }
       }
@@ -581,12 +581,13 @@ export class AsentamientoTaino1 {
 
     // --- Diálogo ---
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
+      const texControles = this._obtenerTextos()?.ui?.controlesAldea || 'WASD: mover | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones';
+      renderizador.dibujarTexto(texControles, ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }
@@ -738,7 +739,8 @@ export class AsentamientoTaino1 {
       const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
-      ctx.fillText('[E] Hablar', nx + npc.ancho / 2, ny - 32);
+      const texHablar = this._obtenerTextos()?.ui?.eHablar || '[E] Hablar';
+      ctx.fillText(texHablar, nx + npc.ancho / 2, ny - 32);
     }
 
     // Palomita si ya habló con el NPC (no para curanderos)
@@ -887,7 +889,8 @@ export class AsentamientoTaino1 {
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
       ctx.textAlign = 'center';
-      ctx.fillText('[E] Adoptar', px + 11, py - 14);
+      const texAdoptar = this._obtenerTextos()?.ui?.eAdoptar || '[E] Adoptar';
+      ctx.fillText(texAdoptar, px + 11, py - 14);
       ctx.textAlign = 'left';
     }
   }
@@ -923,7 +926,7 @@ export class AsentamientoTaino1 {
             });
             this.sfx.recoger();
             if (this.juego.mostrarToast) {
-              this.juego.mostrarToast(`✦ ${t.vasijaCurativa || 'Vasija Curativa'} — ítem añadido`);
+              this.juego.mostrarToast(`✦ ${t.vasijaCurativa || 'Vasija Curativa'} — ${textos?.ui?.itemAnadidoBrief || 'ítem añadido'}`);
             }
           });
         } else {
@@ -953,7 +956,7 @@ export class AsentamientoTaino1 {
           });
           this.sfx.recoger();
           if (this.juego.mostrarToast) {
-            this.juego.mostrarToast(`✦ ${t.vasijaCurativa || 'Vasija Curativa'} — ítem añadido`);
+            this.juego.mostrarToast(`✦ ${t.vasijaCurativa || 'Vasija Curativa'} — ${textos?.ui?.itemAnadidoBrief || 'ítem añadido'}`);
           }
         }
       });

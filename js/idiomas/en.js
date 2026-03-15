@@ -986,6 +986,122 @@ const en = {
   },
 
   // Archaeological sites — 8 real sites to explore
+  // UI strings used across multiple scenes and worlds
+  // (controls, action labels, HUD indicators)
+  ui: {
+    presionaE: 'Press E to continue',
+    presionaESaltar: 'Press E to skip',
+    eContinuar: '[E] Continue',
+    eComenzar: '[E] Start',
+    comenzar: 'Start',
+    continuar: 'Continue',
+
+    eHablar: '[E] Talk',
+    eExaminar: '[E] Examine',
+    eEntrar: '[E] Enter',
+    eCurar: '[E] Heal',
+    eAdoptar: '[E] Adopt',
+    eExcavar: '[E] Dig',
+    eAlerta: '[E] Alert!',
+    eSospechoso: '[E] Suspect!',
+    eLiberar: '[E] Free',
+    eLiberarManati: '[E] Free manatee',
+    fDetectarMetal: '[F] Detect Metal',
+
+    controlesCueva: 'WASD: move | Space: jump | E: examine | I: inventory | M: map | P: photos | L: quests',
+    controlesAldea: 'WASD: move | E: talk | I: inventory | M: map | P: photos | L: quests',
+    controlesHabilidad: 'WASD: move | E: talk | F: ability | I: inventory | M: map | P: photos | L: quests',
+    controlesNadar: 'WASD: swim | E: talk | I: inventory | M: map | P: photos | L: quests',
+    controlesNadarInteractuar: 'WASD: swim | E: interact | I: inventory | M: map | P: photos | L: quests',
+    controlesCaminar: 'WASD: walk | E: talk | I: inventory | M: map | P: photos | L: quests',
+    controlesExcavar: 'WASD: move | E: talk/dig | F: detect | I: inventory | M: map | P: photos | L: quests',
+    controlesMuseo: 'WASD: move | E: talk/pick up | M: map | I: inventory | P: photos | L: quests',
+    controlesLFSD: 'WASD: move | E: talk | M: map | I: inventory | P: photos | L: quests',
+
+    hostilidad: 'Hostility:',
+    tuVida: 'Your health:',
+    tuTurno: '< Your turn — choose an action >',
+    turnoEnemigo: '... enemy turn ...',
+    controlesCombate: 'Arrows: choose | E: confirm',
+    pistaDefecto: 'Use Talk or Negotiate to convince the opponent',
+
+    presionaEContinuar: 'Press E to continue ▶',
+
+    descripcionPersonaje: '14 years old. Taíno, Spanish and African ancestry.',
+    controlesSeleccion: 'Left/Right: change | Enter/E: confirm | Q/Esc: back',
+
+    introLugar: 'Somewhere in Santo Domingo...',
+    introBrilla: 'Something shines among the rubble...',
+    introCuidado: 'WATCH OUT! The ground is collapsing!',
+    introDonde: '...Where am I?',
+
+    controlesMenu: 'Arrows/WASD: navigate | Enter/E: select',
+    volverMenu: 'Press Q / Escape / Enter to go back',
+
+    selectorNiveles: '🔓 LEVEL SELECTOR 🔓',
+    konamiActivado: '(Konami Code activated)',
+    masNivelesArriba: '▲ more levels',
+    masNivelesAbajo: '▼ more levels',
+    controlesSelector: '↑↓: choose  |  E: go to level  |  Q: close',
+
+    subtituloJuego: 'Dominican Archaeological Adventure',
+    creadoPor: 'Created by',
+    profesor: 'Teacher',
+    claseRobotica: 'Robotics Class',
+    ubicacion: 'Santo Domingo, Dominican Republic',
+    tecnologias: 'Technologies',
+    inspiradoEn: 'Inspired by',
+    agradecimiento1: 'The archaeological heritage of the Dominican Republic',
+    agradecimiento2: 'The researchers of the Museum of the Dominican Man',
+    agradecimiento3: 'The Zona Colonial of Santo Domingo (UNESCO)',
+    agradecimiento4: 'The Pomier Caves and their Taíno petroglyphs',
+    mensajeFinal1: 'Let us protect our heritage.',
+    mensajeFinal2: 'History belongs to all of us.',
+    copyright: 'Lycée Français de Saint-Domingue © 2026',
+
+    controlesBatu: '← → move | Hit with your body (hip, shoulder, head, knee)',
+    tu: 'You',
+    rival: 'Rival',
+
+    controlesRegistro: '← → change tab | ↑ ↓ scroll | Q close',
+
+    misionCompletaFinal: 'Mission complete! Press M to see the ending',
+
+    calibracionTitulo: 'Signal Calibration',
+    calibracionInstrucciones: '↑↓: change knob | ←→: adjust | E: confirm',
+    calibracionDesc1: 'Adjust the 3 knobs so the wave matches',
+    calibracionDesc2: 'the target signal (dotted line).',
+
+    programacionTitulo: 'Robot Programming',
+    programacionDesc1: 'Arrange the blocks to guide the robot',
+    programacionDesc2: 'to the scan point.',
+    programacionInstrucciones: '↑↓: choose block | E: add | ←: remove | F: run',
+    programacionBloques: 'Blocks:',
+    programacionPrograma: 'Program:',
+    programacionControles: '↑↓: choose | E: add | ←: remove | F: run',
+    programacionEjecutando: 'Running program...',
+
+    conexionTitulo: 'Cable Connection',
+    conexionDesc1: 'Connect each cable to its matching pair.',
+    conexionDesc2: 'Match colors and symbols.',
+    conexionInstrucciones: '↑↓: navigate | E: select/connect | Q: cancel',
+    conexionBonus: 'Speed bonus! +5 extra reputation',
+
+    lfsdTitulo: 'LFSD - Robotics Class',
+    lfsdPizarra: 'Robotics Class - LFSD',
+
+    hablarHabitantes: 'Talk to inhabitants',
+
+    // --- Character names in dialogues ---
+    espirituTaina: '🌀 Taíno Spirit',
+    petroglifo: '🗿 Petroglyph',
+
+    // --- Inventory toasts ---
+    itemAnadido: 'item added to inventory',
+    itemAnadidoCorto: 'added to inventory',
+    itemAnadidoBrief: 'item added'
+  },
+
   sitiosArqueologicos: {
     titulo: 'Unexplored Sites',
     cuevaBerna: 'Cave of Berna — Taíno pictographs, partially studied.',

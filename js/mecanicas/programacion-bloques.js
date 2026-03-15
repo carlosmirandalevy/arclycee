@@ -273,10 +273,16 @@ export class ProgramacionBloques {
     this._pasoEjecucion++;
   }
 
+  // Obtiene el bloque de textos de UI para fallbacks de mini-juego
+  _obtenerTextos(textos) {
+    return textos?.ui || {};
+  }
+
   // Dibuja toda la interfaz del mini-juego según la fase actual
   dibujar(ctx, ancho, alto, textos) {
     if (!this.enJuego) return;
     const prog = textos?.programacion || {};
+    const ui = this._obtenerTextos(textos);
 
     // Fondo oscuro submarino
     ctx.fillStyle = '#0a1a2a';
@@ -287,17 +293,17 @@ export class ProgramacionBloques {
       ctx.fillStyle = '#44AAFF';
       ctx.font = 'bold 24px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText(prog.titulo || 'Programación del Robot', ancho / 2, 120);
+      ctx.fillText(prog.titulo || ui.programacionTitulo || 'Programación del Robot', ancho / 2, 120);
 
       ctx.fillStyle = '#88CCFF';
       ctx.font = '14px monospace';
-      ctx.fillText(prog.intro1 || 'Ordena los bloques para guiar al robot', ancho / 2, 180);
-      ctx.fillText(prog.intro2 || 'hasta el punto de escaneo.', ancho / 2, 200);
-      ctx.fillText(prog.intro3 || '↑↓: elegir bloque | E: agregar | ←: quitar | F: ejecutar', ancho / 2, 240);
+      ctx.fillText(prog.intro1 || ui.programacionDesc1 || 'Ordena los bloques para guiar al robot', ancho / 2, 180);
+      ctx.fillText(prog.intro2 || ui.programacionDesc2 || 'hasta el punto de escaneo.', ancho / 2, 200);
+      ctx.fillText(prog.intro3 || ui.programacionInstrucciones || '↑↓: elegir bloque | E: agregar | ←: quitar | F: ejecutar', ancho / 2, 240);
 
       // Texto parpadeante de "Comenzar"
       ctx.fillStyle = `rgba(68, 170, 255, ${0.5 + Math.sin(this._tiempoTotal * 3) * 0.3})`;
-      ctx.fillText('[E] ' + (prog.comenzar || 'Comenzar'), ancho / 2, 300);
+      ctx.fillText('[E] ' + (prog.comenzar || ui.comenzar || 'Comenzar'), ancho / 2, 300);
       ctx.textAlign = 'left';
       return;
     }
@@ -309,12 +315,12 @@ export class ProgramacionBloques {
       ctx.font = 'bold 28px monospace';
       ctx.textAlign = 'center';
       ctx.fillText(
-        esExito ? (prog.exito || '¡Robot llegó al objetivo!') : (prog.fallo || 'El robot no llegó...'),
+        esExito ? (prog.exito || '¡Robot llegó al objetivo!') : (prog.fallo || ui.tiempoAgotado || 'El robot no llegó...'),
         ancho / 2, 170
       );
       ctx.fillStyle = '#AAAAAA';
       ctx.font = '14px monospace';
-      ctx.fillText('[E] ' + (prog.continuar || 'Continuar'), ancho / 2, 230);
+      ctx.fillText('[E] ' + (prog.continuar || ui.continuar || 'Continuar'), ancho / 2, 230);
       ctx.textAlign = 'left';
       return;
     }
@@ -351,7 +357,7 @@ export class ProgramacionBloques {
     ctx.fillStyle = '#FFFFFF';
     ctx.font = 'bold 12px monospace';
     ctx.textAlign = 'left';
-    ctx.fillText(prog.paleta || 'Bloques:', 20, 40);
+    ctx.fillText(prog.paleta || ui.programacionBloques || 'Bloques:', 20, 40);
 
     // Dibujar cada bloque de la paleta
     for (let i = 0; i < BLOQUES.length; i++) {
@@ -373,7 +379,7 @@ export class ProgramacionBloques {
     // --- Programa del jugador (columna centro-izquierda) ---
     ctx.fillStyle = '#FFFFFF';
     ctx.font = 'bold 12px monospace';
-    ctx.fillText(prog.programa || 'Programa:', 170, 40);
+    ctx.fillText(prog.programa || ui.programacionPrograma || 'Programa:', 170, 40);
 
     // Bloques ya agregados al programa
     for (let i = 0; i < this._programa.length; i++) {
@@ -474,9 +480,9 @@ export class ProgramacionBloques {
     ctx.font = '11px monospace';
     ctx.textAlign = 'center';
     if (this.fase === 'programando') {
-      ctx.fillText(prog.controles || '↑↓: elegir | E: agregar | ←: quitar | F: ejecutar', ancho / 2, alto - 20);
+      ctx.fillText(prog.controles || ui.programacionControles || '↑↓: elegir | E: agregar | ←: quitar | F: ejecutar', ancho / 2, alto - 20);
     } else if (this.fase === 'ejecutando') {
-      ctx.fillText(prog.ejecutando || 'Ejecutando programa...', ancho / 2, alto - 20);
+      ctx.fillText(prog.ejecutando || ui.programacionEjecutando || 'Ejecutando programa...', ancho / 2, alto - 20);
     }
 
     ctx.textAlign = 'left';

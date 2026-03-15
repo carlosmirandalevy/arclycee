@@ -556,7 +556,8 @@ export class MapaPrincipal {
         const pulso = 0.7 + Math.sin(this.tiempoAnimacion * 3) * 0.3;
         ctx.font = 'bold 13px monospace';
         ctx.fillStyle = `rgba(255, 215, 0, ${pulso})`;
-        ctx.fillText('[E] Entrar', nx, ny - radio - 10);
+        const _t = this.juego?.idiomas?.traducciones?.[this.juego?.idiomas?.idiomaActual];
+        ctx.fillText(_t?.ui?.eEntrar || '[E] Entrar', nx, ny - radio - 10);
       }
     }
 

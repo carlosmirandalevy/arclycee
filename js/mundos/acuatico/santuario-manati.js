@@ -562,7 +562,7 @@ export class SantuarioManati {
         }
 
         if (this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`🦷 ${nombreObjeto} — ítem añadido al inventario`);
+          this.juego.mostrarToast(`🦷 ${nombreObjeto} — ${textos?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
         }
       }
     }
@@ -983,7 +983,7 @@ export class SantuarioManati {
 
     // 1. Hablar con habitantes
     renderizador.dibujarTexto(
-      `💬 ${san?.objHablar || 'Hablar con habitantes'}: ${npcsHablados}/${totalNPCs}`, 15, 42,
+      `💬 ${san?.objHablar || this._obtenerTextos()?.ui?.hablarHabitantes || 'Hablar con habitantes'}: ${npcsHablados}/${totalNPCs}`, 15, 42,
       { tamano: 10, color: colorHablar }
     );
     // 2. Liberar manatí
@@ -1019,19 +1019,21 @@ export class SantuarioManati {
     // Indicador de interacción con red
     if (this.redFantasma.activa && !this.manatiLiberado &&
         this._estaCerca(jugador, this.redFantasma, 50)) {
-      renderizador.dibujarTexto('[E] Liberar manatí', ancho / 2, alto - 40, {
+      const texLiberar = this._obtenerTextos()?.ui?.eLiberarManati || '[E] Liberar manatí';
+      renderizador.dibujarTexto(texLiberar, ancho / 2, alto - 40, {
         tamano: 13, color: '#FFD700', alineacion: 'center'
       });
     }
 
     // --- Diálogo ---
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: nadar | E: interactuar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
+      const texControles = this._obtenerTextos()?.ui?.controlesNadarInteractuar || 'WASD: nadar | E: interactuar | I: inventario | M: mapa | P: fotos | L: misiones';
+      renderizador.dibujarTexto(texControles, ancho / 2, alto - 10, {
         tamano: 10, color: 'rgba(150, 200, 180, 0.6)', alineacion: 'center'
       });
     }
@@ -1857,7 +1859,8 @@ export class SantuarioManati {
     ctx.font = '11px monospace';
     ctx.fillStyle = `rgba(255, 200, 100, ${0.5 + Math.sin(this.tiempoTotal * 3) * 0.3})`;
     ctx.textAlign = 'center';
-    ctx.fillText('[E] Liberar', rx + red.ancho / 2, ry - 10);
+    const texLib = this._obtenerTextos()?.ui?.eLiberar || '[E] Liberar';
+    ctx.fillText(texLib, rx + red.ancho / 2, ry - 10);
     ctx.textAlign = 'left';
   }
 
@@ -2064,7 +2067,8 @@ export class SantuarioManati {
       const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
-      ctx.fillText('[E] Hablar', nx + npc.ancho / 2, nombreY - 12);
+      const texHablar = this._obtenerTextos()?.ui?.eHablar || '[E] Hablar';
+      ctx.fillText(texHablar, nx + npc.ancho / 2, nombreY - 12);
     }
 
     if (npc.dialogoHecho) {

@@ -754,7 +754,7 @@ export class Juego {
 
     // --- Combate se dibuja ENCIMA de la escena (overlay) ---
     if (this.combate.enCombate) {
-      this.combate.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.combate, this.jugador);
+      this.combate.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos, this.jugador);
     }
 
     // --- Batú se dibuja ENCIMA de la escena (overlay) ---
@@ -1369,6 +1369,9 @@ export class Juego {
    * Aparece como un overlay oscuro con la lista de todas las escenas.
    */
   _dibujarSelectorNiveles(ctx, ancho, alto) {
+    // Traducciones para los textos de la interfaz del selector
+    const textos = this.idiomas?.traducciones?.[this.idiomas?.idiomaActual];
+
     // Fondo semitransparente
     ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
     ctx.fillRect(0, 0, ancho, alto);
@@ -1377,11 +1380,11 @@ export class Juego {
     ctx.fillStyle = '#FFD700';
     ctx.font = 'bold 28px monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('🔓 SELECTOR DE NIVELES 🔓', ancho / 2, 60);
+    ctx.fillText(textos?.ui?.selectorNiveles || '🔓 SELECTOR DE NIVELES 🔓', ancho / 2, 60);
 
     ctx.fillStyle = '#AAAAAA';
     ctx.font = '14px monospace';
-    ctx.fillText('(Código Konami activado)', ancho / 2, 85);
+    ctx.fillText(textos?.ui?.konamiActivado || '(Código Konami activado)', ancho / 2, 85);
 
     // Lista de niveles — con scroll si hay muchos
     const altoOpcion = 32;
@@ -1406,7 +1409,7 @@ export class Juego {
       ctx.fillStyle = '#888888';
       ctx.font = '12px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('▲ más niveles', ancho / 2, inicioY - 5);
+      ctx.fillText(textos?.ui?.masNivelesArriba || '▲ más niveles', ancho / 2, inicioY - 5);
     }
 
     for (let i = visibleDesde; i < visibleHasta; i++) {
@@ -1439,7 +1442,7 @@ export class Juego {
       ctx.fillStyle = '#888888';
       ctx.font = '12px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('▼ más niveles', ancho / 2, inicioY + maxVisibles * altoOpcion + 10);
+      ctx.fillText(textos?.ui?.masNivelesAbajo || '▼ más niveles', ancho / 2, inicioY + maxVisibles * altoOpcion + 10);
     }
 
     // Instrucciones
@@ -1447,7 +1450,7 @@ export class Juego {
     ctx.font = '14px monospace';
     ctx.textAlign = 'center';
     const yInstrucciones = inicioY + Math.min(totalNiveles, maxVisibles) * altoOpcion + 25;
-    ctx.fillText('↑↓: elegir  |  E: ir al nivel  |  Q: cerrar', ancho / 2, yInstrucciones);
+    ctx.fillText(textos?.ui?.controlesSelector || '↑↓: elegir  |  E: ir al nivel  |  Q: cerrar', ancho / 2, yInstrucciones);
   }
 
   // --- ÁLBUM DE FOTOS: DETECCIÓN DE OBJETIVOS ---

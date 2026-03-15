@@ -986,6 +986,122 @@ const fr = {
   },
 
   // Sites archéologiques — 8 sites réels à explorer
+  // Textes d'interface utilisés dans plusieurs scènes et mondes
+  // (contrôles, étiquettes d'action, indicateurs du HUD)
+  ui: {
+    presionaE: 'Appuie sur E pour continuer',
+    presionaESaltar: 'Appuie sur E pour passer',
+    eContinuar: '[E] Continuer',
+    eComenzar: '[E] Commencer',
+    comenzar: 'Commencer',
+    continuar: 'Continuer',
+
+    eHablar: '[E] Parler',
+    eExaminar: '[E] Examiner',
+    eEntrar: '[E] Entrer',
+    eCurar: '[E] Soigner',
+    eAdoptar: '[E] Adopter',
+    eExcavar: '[E] Creuser',
+    eAlerta: '[E] Alerte !',
+    eSospechoso: '[E] Suspect !',
+    eLiberar: '[E] Libérer',
+    eLiberarManati: '[E] Libérer le lamantin',
+    fDetectarMetal: '[F] Détecter Métal',
+
+    controlesCueva: 'WASD : bouger | Espace : sauter | E : examiner | I : inventaire | M : carte | P : photos | L : quêtes',
+    controlesAldea: 'WASD : bouger | E : parler | I : inventaire | M : carte | P : photos | L : quêtes',
+    controlesHabilidad: 'WASD : bouger | E : parler | F : capacité | I : inventaire | M : carte | P : photos | L : quêtes',
+    controlesNadar: 'WASD : nager | E : parler | I : inventaire | M : carte | P : photos | L : quêtes',
+    controlesNadarInteractuar: 'WASD : nager | E : interagir | I : inventaire | M : carte | P : photos | L : quêtes',
+    controlesCaminar: 'WASD : marcher | E : parler | I : inventaire | M : carte | P : photos | L : quêtes',
+    controlesExcavar: 'WASD : bouger | E : parler/creuser | F : détecter | I : inventaire | M : carte | P : photos | L : quêtes',
+    controlesMuseo: 'WASD : bouger | E : parler/ramasser | M : carte | I : inventaire | P : photos | L : quêtes',
+    controlesLFSD: 'WASD : bouger | E : parler | M : carte | I : inventaire | P : photos | L : quêtes',
+
+    hostilidad: 'Hostilité :',
+    tuVida: 'Ta vie :',
+    tuTurno: '< Ton tour — choisis une action >',
+    turnoEnemigo: '... tour de l\'ennemi ...',
+    controlesCombate: 'Flèches : choisir | E : confirmer',
+    pistaDefecto: 'Utilise Parler ou Négocier pour convaincre l\'adversaire',
+
+    presionaEContinuar: 'Appuie sur E pour continuer ▶',
+
+    descripcionPersonaje: '14 ans. Ascendance taïno, espagnole et africaine.',
+    controlesSeleccion: 'Gauche/Droite : changer | Entrée/E : confirmer | Q/Échap : retour',
+
+    introLugar: 'Quelque part à Saint-Domingue...',
+    introBrilla: 'Quelque chose brille parmi les décombres...',
+    introCuidado: 'ATTENTION ! Le sol s\'effondre !',
+    introDonde: '...Où suis-je ?',
+
+    controlesMenu: 'Flèches/WASD : naviguer | Entrée/E : sélectionner',
+    volverMenu: 'Appuie sur Q / Échap / Entrée pour revenir',
+
+    selectorNiveles: '🔓 SÉLECTEUR DE NIVEAUX 🔓',
+    konamiActivado: '(Code Konami activé)',
+    masNivelesArriba: '▲ plus de niveaux',
+    masNivelesAbajo: '▼ plus de niveaux',
+    controlesSelector: '↑↓ : choisir  |  E : aller au niveau  |  Q : fermer',
+
+    subtituloJuego: 'Aventure Archéologique Dominicaine',
+    creadoPor: 'Créé par',
+    profesor: 'Professeur',
+    claseRobotica: 'Cours de Robotique',
+    ubicacion: 'Saint-Domingue, République dominicaine',
+    tecnologias: 'Technologies',
+    inspiradoEn: 'Inspiré par',
+    agradecimiento1: 'Le patrimoine archéologique de la République dominicaine',
+    agradecimiento2: 'Les chercheurs du Musée de l\'Homme Dominicain',
+    agradecimiento3: 'La Zona Colonial de Saint-Domingue (UNESCO)',
+    agradecimiento4: 'Les grottes du Pomier et leurs pétroglyphes taïnos',
+    mensajeFinal1: 'Protégeons notre patrimoine.',
+    mensajeFinal2: 'L\'histoire nous appartient à tous.',
+    copyright: 'Lycée Français de Saint-Domingue © 2026',
+
+    controlesBatu: '← → bouger | Frappe avec le corps (hanche, épaule, tête, genou)',
+    tu: 'Toi',
+    rival: 'Rival',
+
+    controlesRegistro: '← → changer d\'onglet | ↑ ↓ défiler | Q fermer',
+
+    misionCompletaFinal: 'Mission accomplie ! Appuie sur M pour voir la fin',
+
+    calibracionTitulo: 'Calibration du Signal',
+    calibracionInstrucciones: '↑↓ : changer cadran | ←→ : ajuster | E : confirmer',
+    calibracionDesc1: 'Ajuste les 3 cadrans pour que l\'onde corresponde',
+    calibracionDesc2: 'au signal cible (ligne pointillée).',
+
+    programacionTitulo: 'Programmation du Robot',
+    programacionDesc1: 'Ordonne les blocs pour guider le robot',
+    programacionDesc2: 'jusqu\'au point de scan.',
+    programacionInstrucciones: '↑↓ : choisir bloc | E : ajouter | ← : retirer | F : exécuter',
+    programacionBloques: 'Blocs :',
+    programacionPrograma: 'Programme :',
+    programacionControles: '↑↓ : choisir | E : ajouter | ← : retirer | F : exécuter',
+    programacionEjecutando: 'Exécution du programme...',
+
+    conexionTitulo: 'Connexion de Câbles',
+    conexionDesc1: 'Connecte chaque câble à sa paire correspondante.',
+    conexionDesc2: 'Associe les couleurs et symboles.',
+    conexionInstrucciones: '↑↓ : naviguer | E : sélectionner/connecter | Q : annuler',
+    conexionBonus: 'Bonus de vitesse ! +5 réputation en plus',
+
+    lfsdTitulo: 'LFSD - Cours de Robotique',
+    lfsdPizarra: 'Cours de Robotique - LFSD',
+
+    hablarHabitantes: 'Parler aux habitants',
+
+    // --- Noms de personnages dans les dialogues ---
+    espirituTaina: '🌀 Esprit Taïno',
+    petroglifo: '🗿 Pétroglyphe',
+
+    // --- Toasts d'inventaire ---
+    itemAnadido: 'objet ajouté à l\'inventaire',
+    itemAnadidoCorto: 'ajouté à l\'inventaire',
+    itemAnadidoBrief: 'objet ajouté'
+  },
+
   sitiosArqueologicos: {
     titulo: 'Sites Inexplorés',
     cuevaBerna: 'Grotte de Berna — Pictogrammes taïnos, partiellement étudiés.',

@@ -298,7 +298,7 @@ export class AsentamientoTaino2 {
           }
 
           if (this.juego && this.juego.mostrarToast) {
-            this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+            this.juego.mostrarToast(`✦ ${nombreObjeto} — ${textos?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
           }
         }
       }
@@ -594,19 +594,21 @@ export class AsentamientoTaino2 {
 
     // --- Diálogo ---
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
 
     // --- Indicador de F para Magnoboot ---
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto('[F] Detectar Metal', 15, 90, {
+      const texDetectar = this._obtenerTextos()?.ui?.fDetectarMetal || '[F] Detectar Metal';
+      renderizador.dibujarTexto(texDetectar, 15, 90, {
         tamano: 10, color: '#44FFFF'
       });
     }
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
+      const texControles = this._obtenerTextos()?.ui?.controlesHabilidad || 'WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa | P: fotos | L: misiones';
+      renderizador.dibujarTexto(texControles, ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }
@@ -860,7 +862,8 @@ export class AsentamientoTaino2 {
       const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
-      const etiqueta = npc.esCurandero && npc.dialogoHecho ? '[E] Curar' : '[E] Hablar';
+      const _t = this._obtenerTextos()?.ui;
+      const etiqueta = npc.esCurandero && npc.dialogoHecho ? (_t?.eCurar || '[E] Curar') : (_t?.eHablar || '[E] Hablar');
       ctx.fillText(etiqueta, nx + npc.ancho / 2, ny - 32);
     }
 
@@ -1031,7 +1034,7 @@ export class AsentamientoTaino2 {
             });
             this.sfx.recoger();
             if (this.juego.mostrarToast) {
-              this.juego.mostrarToast(`✦ ${t.guanabana || 'Hojas de Guanábana'} — ítem añadido`);
+              this.juego.mostrarToast(`✦ ${t.guanabana || 'Hojas de Guanábana'} — ${textos?.ui?.itemAnadidoBrief || 'ítem añadido'}`);
             }
           });
         } else {
@@ -1061,7 +1064,7 @@ export class AsentamientoTaino2 {
           });
           this.sfx.recoger();
           if (this.juego.mostrarToast) {
-            this.juego.mostrarToast(`✦ ${t.guanabana || 'Hojas de Guanábana'} — ítem añadido`);
+            this.juego.mostrarToast(`✦ ${t.guanabana || 'Hojas de Guanábana'} — ${textos?.ui?.itemAnadidoBrief || 'ítem añadido'}`);
           }
         }
       });

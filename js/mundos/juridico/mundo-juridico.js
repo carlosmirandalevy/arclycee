@@ -491,7 +491,7 @@ export class MundoJuridico {
         }
 
         if (this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`📄 ${nombreObjeto} — ítem añadido al inventario`);
+          this.juego.mostrarToast(`📄 ${nombreObjeto} — ${textos?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
         }
       }
     }
@@ -706,12 +706,13 @@ export class MundoJuridico {
 
     // --- Diálogo ---
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: caminar | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
+      const texControles = this._obtenerTextos()?.ui?.controlesCaminar || 'WASD: caminar | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones';
+      renderizador.dibujarTexto(texControles, ancho / 2, alto - 10, {
         tamano: 10, color: 'rgba(100, 100, 120, 0.6)', alineacion: 'center'
       });
     }
@@ -1022,7 +1023,8 @@ export class MundoJuridico {
         const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
         ctx.font = '11px monospace';
         ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
-        const texto = npc.esCombate ? '[E] ¡Sospechoso!' : '[E] Hablar';
+        const _t = this._obtenerTextos()?.ui;
+        const texto = npc.esCombate ? (_t?.eSospechoso || '[E] ¡Sospechoso!') : (_t?.eHablar || '[E] Hablar');
         ctx.fillText(texto, nx + npc.ancho / 2, ny - 34);
       }
     }

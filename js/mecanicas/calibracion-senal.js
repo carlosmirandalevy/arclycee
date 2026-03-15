@@ -141,9 +141,15 @@ export class CalibracionSenal {
     }
   }
 
+  // Obtiene el bloque de textos de UI para fallbacks de mini-juego
+  _obtenerTextos(textos) {
+    return textos?.ui || {};
+  }
+
   dibujar(ctx, ancho, alto, textos) {
     if (!this.enJuego) return;
     const cal = textos?.calibracion || {};
+    const ui = this._obtenerTextos(textos);
 
     // --- Fondo: osciloscopio (verde sobre negro) ---
     ctx.fillStyle = '#0a0a0a';
@@ -175,16 +181,16 @@ export class CalibracionSenal {
       ctx.fillStyle = '#00FF00';
       ctx.font = 'bold 24px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText(cal.titulo || 'Calibración de Señal', ancho / 2, 120);
+      ctx.fillText(cal.titulo || ui.calibracionTitulo || 'Calibración de Señal', ancho / 2, 120);
 
       ctx.fillStyle = '#00CC00';
       ctx.font = '14px monospace';
-      ctx.fillText(cal.intro1 || 'Ajusta las 3 perillas para que la onda coincida', ancho / 2, 180);
-      ctx.fillText(cal.intro2 || 'con la señal objetivo (línea punteada).', ancho / 2, 200);
-      ctx.fillText(cal.intro3 || '↑↓: cambiar perilla | ←→: ajustar | E: confirmar', ancho / 2, 240);
+      ctx.fillText(cal.intro1 || ui.calibracionDesc1 || 'Ajusta las 3 perillas para que la onda coincida', ancho / 2, 180);
+      ctx.fillText(cal.intro2 || ui.calibracionDesc2 || 'con la señal objetivo (línea punteada).', ancho / 2, 200);
+      ctx.fillText(cal.intro3 || ui.calibracionInstrucciones || '↑↓: cambiar perilla | ←→: ajustar | E: confirmar', ancho / 2, 240);
 
       ctx.fillStyle = `rgba(0, 255, 0, ${0.5 + Math.sin(this._tiempoTotal * 3) * 0.3})`;
-      ctx.fillText('[E] ' + (cal.comenzar || 'Comenzar'), ancho / 2, 300);
+      ctx.fillText('[E] ' + (cal.comenzar || ui.comenzar || 'Comenzar'), ancho / 2, 300);
 
       ctx.textAlign = 'left';
       return;
@@ -197,13 +203,13 @@ export class CalibracionSenal {
       ctx.font = 'bold 28px monospace';
       ctx.textAlign = 'center';
       ctx.fillText(
-        esExito ? (cal.exito || '¡Calibración exitosa!') : (cal.fallo || 'Tiempo agotado...'),
+        esExito ? (cal.exito || '¡Calibración exitosa!') : (cal.fallo || ui.tiempoAgotado || 'Tiempo agotado...'),
         ancho / 2, 170
       );
 
       ctx.fillStyle = '#AAAAAA';
       ctx.font = '14px monospace';
-      ctx.fillText('[E] ' + (cal.continuar || 'Continuar'), ancho / 2, 230);
+      ctx.fillText('[E] ' + (cal.continuar || ui.continuar || 'Continuar'), ancho / 2, 230);
       ctx.textAlign = 'left';
       return;
     }
@@ -284,7 +290,7 @@ export class CalibracionSenal {
     ctx.fillStyle = '#006600';
     ctx.font = '11px monospace';
     ctx.textAlign = 'center';
-    ctx.fillText(cal.tolerancia || 'Tolerancia: ±15% | E: confirmar calibración', ancho / 2, alto - 30);
+    ctx.fillText(cal.tolerancia || ui.calibracionTolerancia || 'Tolerancia: ±15% | E: confirmar calibración', ancho / 2, alto - 30);
 
     // Indicación de qué tan cerca está cada perilla
     for (let i = 0; i < 3; i++) {

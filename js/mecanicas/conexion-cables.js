@@ -198,9 +198,15 @@ export class ConexionCables {
     }
   }
 
+  // Obtiene el bloque de textos de UI para fallbacks de mini-juego
+  _obtenerTextos(textos) {
+    return textos?.ui || {};
+  }
+
   dibujar(ctx, ancho, alto, textos) {
     if (!this.enJuego) return;
     const con = textos?.conexion || {};
+    const ui = this._obtenerTextos(textos);
 
     // Fondo: circuito impreso (verde oscuro con trazas)
     ctx.fillStyle = '#0a2a0a';
@@ -222,16 +228,16 @@ export class ConexionCables {
       ctx.fillStyle = '#44FF44';
       ctx.font = 'bold 24px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText(con.titulo || 'Conexión de Cables', ancho / 2, 120);
+      ctx.fillText(con.titulo || ui.conexionTitulo || 'Conexión de Cables', ancho / 2, 120);
 
       ctx.fillStyle = '#88FF88';
       ctx.font = '14px monospace';
-      ctx.fillText(con.intro1 || 'Conecta cada cable con su par correcto.', ancho / 2, 180);
-      ctx.fillText(con.intro2 || 'Empareja colores y símbolos.', ancho / 2, 200);
-      ctx.fillText(con.intro3 || '↑↓: navegar | E: seleccionar/conectar | Q: cancelar', ancho / 2, 240);
+      ctx.fillText(con.intro1 || ui.conexionDesc1 || 'Conecta cada cable con su par correcto.', ancho / 2, 180);
+      ctx.fillText(con.intro2 || ui.conexionDesc2 || 'Empareja colores y símbolos.', ancho / 2, 200);
+      ctx.fillText(con.intro3 || ui.conexionInstrucciones || '↑↓: navegar | E: seleccionar/conectar | Q: cancelar', ancho / 2, 240);
 
       ctx.fillStyle = `rgba(68, 255, 68, ${0.5 + Math.sin(this._tiempoTotal * 3) * 0.3})`;
-      ctx.fillText('[E] ' + (con.comenzar || 'Comenzar'), ancho / 2, 300);
+      ctx.fillText('[E] ' + (con.comenzar || ui.comenzar || 'Comenzar'), ancho / 2, 300);
       ctx.textAlign = 'left';
       return;
     }
@@ -243,19 +249,19 @@ export class ConexionCables {
       ctx.font = 'bold 28px monospace';
       ctx.textAlign = 'center';
       ctx.fillText(
-        esExito ? (con.exito || '¡Circuito completo!') : (con.fallo || 'Tiempo agotado...'),
+        esExito ? (con.exito || '¡Circuito completo!') : (con.fallo || ui.tiempoAgotado || 'Tiempo agotado...'),
         ancho / 2, 150
       );
 
       if (esExito && this._tiempoCompletado < 15) {
         ctx.fillStyle = '#FFD700';
         ctx.font = '16px monospace';
-        ctx.fillText(con.bonus || '¡Bonus de velocidad! +5 reputación extra', ancho / 2, 190);
+        ctx.fillText(con.bonus || ui.conexionBonus || '¡Bonus de velocidad! +5 reputación extra', ancho / 2, 190);
       }
 
       ctx.fillStyle = '#AAAAAA';
       ctx.font = '14px monospace';
-      ctx.fillText('[E] ' + (con.continuar || 'Continuar'), ancho / 2, 240);
+      ctx.fillText('[E] ' + (con.continuar || ui.continuar || 'Continuar'), ancho / 2, 240);
       ctx.textAlign = 'left';
       return;
     }
@@ -395,7 +401,7 @@ export class ConexionCables {
     // Controles
     ctx.fillStyle = '#666666';
     ctx.font = '11px monospace';
-    ctx.fillText(con.controles || '↑↓: navegar | E: seleccionar/conectar | Q: cancelar', ancho / 2, alto - 20);
+    ctx.fillText(con.controles || ui.conexionInstrucciones || '↑↓: navegar | E: seleccionar/conectar | Q: cancelar', ancho / 2, alto - 20);
     ctx.textAlign = 'left';
   }
 }

@@ -76,6 +76,13 @@ export class IntroCinematica {
     this._tiempoProximoCrujido = 0;
   }
 
+  // --- Obtener textos del idioma actual ---
+  // Devuelve el objeto de traducciones activo, o null si no está disponible
+  _obtenerTextos() {
+    if (!this.juego || !this.juego.idiomas) return null;
+    return this.juego.idiomas.traducciones[this.juego.idiomas.idiomaActual];
+  }
+
   // --- Lógica de cada frame ---
   actualizar(dt, entrada, _jugador, _companeros) {
     this.temporizador += dt;
@@ -217,6 +224,7 @@ export class IntroCinematica {
   // --- Dibujar la cinemática ---
   dibujar(renderizador, ancho, alto, textos) {
     const ctx = renderizador.ctx;
+    const t = this._obtenerTextos();
 
     // Aplicar temblor de pantalla
     const temblorX = this.temblor > 0 ? (Math.random() - 0.5) * this.temblor : 0;
@@ -240,7 +248,7 @@ export class IntroCinematica {
     ctx.font = '12px monospace';
     ctx.fillStyle = 'rgba(150, 150, 150, 0.6)';
     ctx.textAlign = 'center';
-    ctx.fillText('Presiona E para continuar', ancho / 2, alto - 20);
+    ctx.fillText(t?.ui?.presionaE || 'Presiona E para continuar', ancho / 2, alto - 20);
     ctx.textAlign = 'left';
   }
 
@@ -538,13 +546,14 @@ export class IntroCinematica {
 
   // --- Paso 0: Pantalla negra, texto aparece ---
   _dibujarPaso0(ctx, ancho, alto) {
+    const textos = this._obtenerTextos();
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, ancho, alto);
 
     ctx.font = 'bold 22px monospace';
     ctx.fillStyle = `rgba(255, 255, 255, ${this.opacidad})`;
     ctx.textAlign = 'center';
-    ctx.fillText('En algun lugar de Santo Domingo...', ancho / 2, alto / 2);
+    ctx.fillText(textos?.ui?.introLugar || 'En algún lugar de Santo Domingo...', ancho / 2, alto / 2);
     ctx.textAlign = 'left';
   }
 
@@ -586,6 +595,7 @@ export class IntroCinematica {
 
   // --- Paso 2: Algo brilla entre los escombros ---
   _dibujarPaso2(ctx, ancho, alto) {
+    const textos = this._obtenerTextos();
     // Reutilizamos el escenario de la obra de construcción
     this._dibujarPaso1(ctx, ancho, alto);
 
@@ -610,12 +620,13 @@ export class IntroCinematica {
     ctx.font = '16px monospace';
     ctx.fillStyle = '#FFFFFF';
     ctx.textAlign = 'center';
-    ctx.fillText('Algo brilla entre los escombros...', ancho / 2, 40);
+    ctx.fillText(textos?.ui?.introBrilla || 'Algo brilla entre los escombros...', ancho / 2, 40);
     ctx.textAlign = 'left';
   }
 
   // --- Paso 3: Reliquia recogida, terremoto ---
   _dibujarPaso3(ctx, ancho, alto) {
+    const textos = this._obtenerTextos();
     this._dibujarPaso1(ctx, ancho, alto);
 
     // Grietas en el suelo
@@ -633,7 +644,7 @@ export class IntroCinematica {
     ctx.font = 'bold 20px monospace';
     ctx.fillStyle = '#FF4444';
     ctx.textAlign = 'center';
-    ctx.fillText('CUIDADO! El suelo se derrumba!', ancho / 2, 40);
+    ctx.fillText(textos?.ui?.introCuidado || '¡CUIDADO! ¡El suelo se derrumba!', ancho / 2, 40);
     ctx.textAlign = 'left';
   }
 
@@ -682,13 +693,14 @@ export class IntroCinematica {
 
   // --- Paso 5: Pantalla negra, texto final ---
   _dibujarPaso5(ctx, ancho, alto) {
+    const textos = this._obtenerTextos();
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, ancho, alto);
 
     ctx.font = 'italic 22px monospace';
     ctx.fillStyle = `rgba(255, 255, 255, ${this.opacidad})`;
     ctx.textAlign = 'center';
-    ctx.fillText('...¿Dónde estoy?', ancho / 2, alto / 2);
+    ctx.fillText(textos?.ui?.introDonde || '...¿Dónde estoy?', ancho / 2, alto / 2);
     ctx.textAlign = 'left';
   }
 

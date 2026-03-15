@@ -73,9 +73,18 @@ export class SeleccionPersonaje {
     }
   }
 
+  // --- Obtener las traducciones del idioma actual ---
+  // Devuelve el objeto de textos o null si el sistema de idiomas no está listo
+  _obtenerTextos() {
+    if (!this.juego || !this.juego.idiomas) return null;
+    return this.juego.idiomas.traducciones[this.juego.idiomas.idiomaActual];
+  }
+
   // --- Dibujar la pantalla de selección ---
-  dibujar(renderizador, ancho, alto, textos) {
+  dibujar(renderizador, ancho, alto, _textos) {
     const ctx = renderizador.ctx;
+    // Usamos el sistema de idiomas directamente para tener siempre el idioma correcto
+    const textos = this._obtenerTextos();
 
     // --- Fondo ---
     // Degradado suave que evoca la tierra dominicana
@@ -140,7 +149,7 @@ export class SeleccionPersonaje {
     ctx.fillStyle = '#CCCCCC';
     ctx.textAlign = 'center';
     ctx.fillText(
-      '14 años. Ascendencia taína, española y africana.',
+      textos?.ui?.descripcionPersonaje || '14 años. Ascendencia taína, española y africana.',
       ancho / 2,
       personajeY + personajeAlto + 70
     );
@@ -149,7 +158,7 @@ export class SeleccionPersonaje {
     ctx.font = '13px monospace';
     ctx.fillStyle = '#888888';
     ctx.fillText(
-      'Izquierda/Derecha: cambiar | Enter/E: confirmar | Q/Esc: volver',
+      textos?.ui?.controlesSeleccion || 'Izquierda/Derecha: cambiar | Enter/E: confirmar | Q/Esc: volver',
       ancho / 2,
       alto - 40
     );

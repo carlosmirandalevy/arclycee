@@ -337,7 +337,8 @@ export class MundoLFSD {
     ctx.fillText('les fous du robot', 600, 58);
     ctx.font = '11px monospace';
     ctx.fillStyle = '#CCCCCC';
-    ctx.fillText('Classe de Robotique - LFSD', 600, 78);
+    const _uiTextos = this._obtenerTextos()?.ui;
+    ctx.fillText(_uiTextos?.lfsdPizarra || 'Classe de Robotique - LFSD', 600, 78);
     ctx.textAlign = 'left';
 
     // --- Estructuras ---
@@ -515,7 +516,8 @@ export class MundoLFSD {
       ctx.font = 'bold 11px monospace';
       ctx.textAlign = 'center';
       ctx.fillStyle = `rgba(255, 215, 0, ${pulso})`;
-      ctx.fillText('[E] Hablar', npc.x + npc.ancho / 2, npc.y - 4);
+      const texHablar = this._obtenerTextos()?.ui?.eHablar || '[E] Hablar';
+      ctx.fillText(texHablar, npc.x + npc.ancho / 2, npc.y - 4);
       ctx.textAlign = 'left';
     }
 
@@ -596,16 +598,17 @@ export class MundoLFSD {
     ctx.fillStyle = '#FFD700';
     ctx.font = '11px monospace';
     ctx.textAlign = 'center';
-    ctx.fillText(lfsd?.nombreLugar || 'LFSD - Classe de Robotique', ancho / 2, alto - 40);
+    const _uiTex = this._obtenerTextos()?.ui;
+    ctx.fillText(lfsd?.nombreLugar || _uiTex?.lfsdTitulo || 'LFSD - Classe de Robotique', ancho / 2, alto - 40);
 
     // Controles
     ctx.fillStyle = '#AAAAAA';
-    ctx.fillText('WASD: mover | E: hablar | M: mapa | I: inventario | P: fotos | L: misiones', ancho / 2, alto - 15);
+    ctx.fillText(_uiTex?.controlesLFSD || 'WASD: mover | E: hablar | M: mapa | I: inventario | P: fotos | L: misiones', ancho / 2, alto - 15);
     ctx.textAlign = 'left';
 
     // Diálogos
     if (this.dialogos.estaActivo()) {
-      this.dialogos.dibujar(ctx, ancho, alto);
+      this.dialogos.dibujar(ctx, ancho, alto, textos);
     }
   }
 
@@ -759,7 +762,7 @@ export class MundoLFSD {
                   });
                 }
                 this.juego.mostrarToast(
-                  `🤖 ${objTextos?.robotSubmarino || 'Robot Submarino'} — añadido al inventario`
+                  `🤖 ${objTextos?.robotSubmarino || 'Robot Submarino'} — ${textos2?.ui?.itemAnadidoCorto || 'añadido al inventario'}`
                 );
 
                 // Sub-misión: llevar el robot a la Dra. Sofía en el Santuario del Manatí

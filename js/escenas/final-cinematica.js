@@ -246,8 +246,9 @@ export class FinalCinematica {
   }
 
   // --- Dibujar la cinemática ---
-  dibujar(renderizador, ancho, alto, textos) {
+  dibujar(renderizador, ancho, alto, _textosHUD) {
     const ctx = renderizador.ctx;
+    const textos = this._obtenerTextos();
 
     // --- Fase de créditos ---
     if (this._enCreditos) {
@@ -295,7 +296,7 @@ export class FinalCinematica {
 
     // Indicador de continuar
     ctx.fillStyle = `rgba(150, 150, 150, ${0.4 + Math.sin(this.temporizador * 2) * 0.3})`;
-    ctx.fillText('Presiona E para continuar', ancho / 2, alto - 20);
+    ctx.fillText(textos?.ui?.presionaE || 'Presiona E para continuar', ancho / 2, alto - 20);
 
     ctx.textAlign = 'left';
   }
@@ -477,6 +478,12 @@ export class FinalCinematica {
     }
   }
 
+  // --- Obtener objeto de traducciones del idioma actual ---
+  _obtenerTextos() {
+    if (!this.juego || !this.juego.idiomas) return null;
+    return this.juego.idiomas.traducciones[this.juego.idiomas.idiomaActual];
+  }
+
   // --- Ir al menú principal ---
   _irAlMenu() {
     if (this.juego && this.juego.cambiarEscena) {
@@ -503,6 +510,8 @@ export class FinalCinematica {
    * Estilo película: fondo negro, texto dorado y blanco.
    */
   _dibujarCreditos(ctx, ancho, alto) {
+    const textos = this._obtenerTextos();
+
     // Fondo negro
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, ancho, alto);
@@ -548,13 +557,13 @@ export class FinalCinematica {
 
     ctx.font = '16px monospace';
     ctx.fillStyle = '#C8A84E';
-    ctx.fillText('Aventura Arqueológica Dominicana', centroX, y);
+    ctx.fillText(textos?.ui?.subtituloJuego || 'Aventura Arqueológica Dominicana', centroX, y);
     y += espacioSeccion;
 
     // --- CREADO POR ---
     ctx.font = 'bold 18px monospace';
     ctx.fillStyle = '#FFD700';
-    ctx.fillText('Creado por', centroX, y);
+    ctx.fillText(textos?.ui?.creadoPor || 'Creado por', centroX, y);
     y += espacioLinea + 5;
 
     ctx.font = '16px monospace';
@@ -572,7 +581,7 @@ export class FinalCinematica {
     // --- PROFESOR ---
     ctx.font = 'bold 18px monospace';
     ctx.fillStyle = '#FFD700';
-    ctx.fillText('Profesor', centroX, y);
+    ctx.fillText(textos?.ui?.profesor || 'Profesor', centroX, y);
     y += espacioLinea + 5;
 
     ctx.font = '16px monospace';
@@ -583,14 +592,14 @@ export class FinalCinematica {
     // --- CLASE ---
     ctx.font = 'bold 18px monospace';
     ctx.fillStyle = '#FFD700';
-    ctx.fillText('Clase de Robótica', centroX, y);
+    ctx.fillText(textos?.ui?.claseRobotica || 'Clase de Robótica', centroX, y);
     y += espacioLinea + 5;
 
     ctx.font = '16px monospace';
     ctx.fillStyle = '#FFFFFF';
     ctx.fillText('Lycée Français de Saint-Domingue', centroX, y);
     y += espacioLinea;
-    ctx.fillText('Santo Domingo, República Dominicana', centroX, y);
+    ctx.fillText(textos?.ui?.ubicacion || 'Santo Domingo, República Dominicana', centroX, y);
     y += espacioSeccion;
 
     // --- AÑO ---
@@ -602,7 +611,7 @@ export class FinalCinematica {
     // --- TECNOLOGÍAS ---
     ctx.font = 'bold 18px monospace';
     ctx.fillStyle = '#FFD700';
-    ctx.fillText('Tecnologías', centroX, y);
+    ctx.fillText(textos?.ui?.tecnologias || 'Tecnologías', centroX, y);
     y += espacioLinea + 5;
 
     ctx.font = '14px monospace';
@@ -622,16 +631,16 @@ export class FinalCinematica {
     // --- AGRADECIMIENTOS ---
     ctx.font = 'bold 18px monospace';
     ctx.fillStyle = '#FFD700';
-    ctx.fillText('Inspirado en', centroX, y);
+    ctx.fillText(textos?.ui?.inspiradoEn || 'Inspirado en', centroX, y);
     y += espacioLinea + 5;
 
     ctx.font = '14px monospace';
     ctx.fillStyle = '#AAAAAA';
     const agradecimientos = [
-      'El patrimonio arqueológico de la República Dominicana',
-      'Los investigadores del Museo del Hombre Dominicano',
-      'La Zona Colonial de Santo Domingo (UNESCO)',
-      'Las Cuevas del Pomier y sus petroglifos taínos'
+      textos?.ui?.agradecimiento1 || 'El patrimonio arqueológico de la República Dominicana',
+      textos?.ui?.agradecimiento2 || 'Los investigadores del Museo del Hombre Dominicano',
+      textos?.ui?.agradecimiento3 || 'La Zona Colonial de Santo Domingo (UNESCO)',
+      textos?.ui?.agradecimiento4 || 'Las Cuevas del Pomier y sus petroglifos taínos'
     ];
     for (const agr of agradecimientos) {
       ctx.fillText(agr, centroX, y);
@@ -642,15 +651,15 @@ export class FinalCinematica {
     // --- MENSAJE FINAL ---
     ctx.font = 'bold 20px monospace';
     ctx.fillStyle = '#FFD700';
-    ctx.fillText('Protejamos nuestro patrimonio.', centroX, y);
+    ctx.fillText(textos?.ui?.mensajeFinal1 || 'Protejamos nuestro patrimonio.', centroX, y);
     y += espacioLinea;
-    ctx.fillText('La historia nos pertenece a todos.', centroX, y);
+    ctx.fillText(textos?.ui?.mensajeFinal2 || 'La historia nos pertenece a todos.', centroX, y);
     y += espacioSeccion * 2;
 
     // Logo / nombre final
     ctx.font = 'bold 14px monospace';
     ctx.fillStyle = '#666666';
-    ctx.fillText('Lycée Français de Saint-Domingue © 2026', centroX, y);
+    ctx.fillText(textos?.ui?.copyright || 'Lycée Français de Saint-Domingue © 2026', centroX, y);
 
     ctx.restore();
 
@@ -658,7 +667,7 @@ export class FinalCinematica {
     ctx.fillStyle = `rgba(100, 100, 100, ${0.3 + Math.sin(this.temporizador * 2) * 0.2})`;
     ctx.font = '11px monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('Presiona E para saltar', ancho / 2, alto - 15);
+    ctx.fillText(textos?.ui?.presionaESaltar || 'Presiona E para saltar', ancho / 2, alto - 15);
     ctx.textAlign = 'left';
   }
 }
