@@ -109,33 +109,59 @@ export class IntroCinematica {
         }
         break;
 
-      case 1:
-        // Personaje camina de izquierda a derecha
+      case 1: {
+        // Personaje camina de izquierda hacia el objeto brillante
         this.opacidad = 1;
-        this.personajeCaminaX += 60 * dt;
-        if (this.personajeCaminaX > ANCHO_JUEGO * 0.6) {
-          this.personajeCaminaX = ANCHO_JUEGO * 0.6;
+        // Posición destino: donde está el objeto brillante (62% del ancho)
+        const destinoPaso1 = ANCHO_JUEGO * 0.6;
+        // Velocidad adaptada para llegar a tiempo en la duración del paso
+        const velocidadCaminar = 160;
+        if (this.personajeCaminaX < destinoPaso1) {
+          this.personajeCaminaX += velocidadCaminar * dt;
+          if (this.personajeCaminaX > destinoPaso1) {
+            this.personajeCaminaX = destinoPaso1;
+          }
         }
 
         // Sonido de pasos mientras camina
         this._tiempoProximoPaso -= dt;
-        if (this._tiempoProximoPaso <= 0 && this.personajeCaminaX < ANCHO_JUEGO * 0.6) {
+        if (this._tiempoProximoPaso <= 0 && this.personajeCaminaX < destinoPaso1) {
           this.sfx.paso();
           this._tiempoProximoPaso = 0.35;
         }
         break;
+      }
 
-      case 2:
+      case 2: {
+        // El personaje sigue caminando hasta llegar al objeto brillante
+        const destinoBrillo = ANCHO_JUEGO * 0.6;
+        const velocidadAcercar = 160;
+        if (this.personajeCaminaX < destinoBrillo) {
+          // Sigue caminando si no llegó en el paso anterior
+          this.personajeCaminaX += velocidadAcercar * dt;
+          if (this.personajeCaminaX > destinoBrillo) {
+            this.personajeCaminaX = destinoBrillo;
+          }
+
+          // Sonido de pasos mientras se acerca
+          this._tiempoProximoPaso -= dt;
+          if (this._tiempoProximoPaso <= 0) {
+            this.sfx.paso();
+            this._tiempoProximoPaso = 0.35;
+          }
+        }
+
         // Brillo parpadeante — algo brilla entre los escombros
         this.brilloTiempo += dt * 5;
         this.brilloOpacidad = (Math.sin(this.brilloTiempo) + 1) / 2;
 
-        // Sonido de descubrimiento al entrar en este paso
-        if (this._sonidoPasoTocado < 2) {
+        // Sonido de descubrimiento cuando el personaje llega al objeto
+        if (this._sonidoPasoTocado < 2 && this.personajeCaminaX >= destinoBrillo) {
           this._sonidoPasoTocado = 2;
           this.sfx.descubrir();
         }
         break;
+      }
 
       case 3:
         // Temblor de pantalla — terremoto
@@ -560,9 +586,8 @@ export class IntroCinematica {
 
   // --- Paso 2: Algo brilla entre los escombros ---
   _dibujarPaso2(ctx, ancho, alto) {
+    // Reutilizamos el escenario de la obra de construcción
     this._dibujarPaso1(ctx, ancho, alto);
-
-    this.personajeCaminaX = ancho * 0.6;
 
     // Destello dorado parpadeante
     const brilloX = ancho * 0.62;

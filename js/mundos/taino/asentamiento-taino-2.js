@@ -131,6 +131,16 @@ export class AsentamientoTaino2 {
         ancho: 16, alto: 16,
         tipo: 'navaja',
         recogido: false
+      },
+      // Hierbas curativas del behique — restauran vida
+      // Se resetean cada vez que el jugador entra a la aldea
+      {
+        x: 310, y: 330,
+        ancho: 16, alto: 16,
+        tipo: 'hierbasCurativas',
+        recogido: false,
+        esCurativo: true,
+        curacion: 30
       }
     ];
 
@@ -273,23 +283,31 @@ export class AsentamientoTaino2 {
 
         const textos = this._obtenerTextos();
         const nombreObjeto = textos?.objetos?.[obj.tipo] || obj.tipo;
-        jugador.agregarAlInventario({ nombre: obj.tipo });
 
-        if (this.juego && this.juego.inventario) {
-          this.juego.inventario.agregar({
-            id: obj.tipo,
-            nombre: nombreObjeto,
-            descripcion: textos?.objetos?.[`desc${obj.tipo.charAt(0).toUpperCase() + obj.tipo.slice(1)}`] || '',
-            tipo: 'herramienta',
-            cantidad: 1,
-            color: '#CC4444',
-            esUsable: false
-          });
-        }
+        // Los objetos curativos restauran vida en vez de ir al inventario
+        if (obj.esCurativo) {
+          jugador.curar(obj.curacion);
+          if (this.juego && this.juego.mostrarToast) {
+            this.juego.mostrarToast(`💚 ${nombreObjeto} — +${obj.curacion} vida`);
+          }
+        } else {
+          jugador.agregarAlInventario({ nombre: obj.tipo });
 
-        // Mostrar mensaje flotante indicando qué objeto se recogió
-        if (this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+          if (this.juego && this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: obj.tipo,
+              nombre: nombreObjeto,
+              descripcion: textos?.objetos?.[`desc${obj.tipo.charAt(0).toUpperCase() + obj.tipo.slice(1)}`] || '',
+              tipo: 'herramienta',
+              cantidad: 1,
+              color: '#CC4444',
+              esUsable: false
+            });
+          }
+
+          if (this.juego && this.juego.mostrarToast) {
+            this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+          }
         }
       }
     }
@@ -478,17 +496,50 @@ export class AsentamientoTaino2 {
       const ox = obj.x + offsetX;
       const oy = obj.y + offsetY;
 
+      // Brillo pulsante (verde para curativos, rojo para normales)
       const brillo = 0.5 + Math.sin(this.tiempoTotal * 3) * 0.3;
-      ctx.fillStyle = `rgba(204, 68, 68, ${brillo})`;
-      ctx.beginPath();
-      ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
-      ctx.fill();
 
-      // Ícono navaja
-      ctx.fillStyle = '#CC3333';
-      ctx.fillRect(ox + 4, oy + 3, 8, 10);
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(ox + 6, oy + 1, 4, 3);
+      if (obj.esCurativo) {
+        // --- Ícono de hierbas curativas ---
+        ctx.fillStyle = `rgba(68, 204, 68, ${brillo})`;
+        ctx.beginPath();
+        ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tres hojitas verdes
+        ctx.fillStyle = '#228B22';
+        // Hoja central
+        ctx.beginPath();
+        ctx.ellipse(ox + 8, oy + 5, 3, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+        // Hoja izquierda
+        ctx.beginPath();
+        ctx.ellipse(ox + 4, oy + 7, 2, 5, -0.4, 0, Math.PI * 2);
+        ctx.fill();
+        // Hoja derecha
+        ctx.beginPath();
+        ctx.ellipse(ox + 12, oy + 7, 2, 5, 0.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tallo
+        ctx.strokeStyle = '#2E8B2E';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(ox + 8, oy + 10);
+        ctx.lineTo(ox + 8, oy + 14);
+        ctx.stroke();
+      } else {
+        // --- Ícono navaja ---
+        ctx.fillStyle = `rgba(204, 68, 68, ${brillo})`;
+        ctx.beginPath();
+        ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#CC3333';
+        ctx.fillRect(ox + 4, oy + 3, 8, 10);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(ox + 6, oy + 1, 4, 3);
+      }
     }
 
     // --- NPCs ---
@@ -529,10 +580,11 @@ export class AsentamientoTaino2 {
       tamano: 11, color: '#FFD700'
     });
 
-    // Objetos recogidos
-    const objRecogidos = this.objetos.filter(o => o.recogido).length;
-    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
-      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    // Objetos recogidos (excluir curativos del conteo — se regeneran)
+    const objetosPermanentes = this.objetos.filter(o => !o.esCurativo);
+    const objRecogidos = objetosPermanentes.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${objetosPermanentes.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= objetosPermanentes.length ? '#44CC44' : '#FFD700'
     });
 
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {

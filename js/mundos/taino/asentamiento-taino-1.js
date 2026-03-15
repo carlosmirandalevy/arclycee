@@ -126,6 +126,16 @@ export class AsentamientoTaino1 {
         ancho: 16, alto: 16,
         tipo: 'brujula',
         recogido: false
+      },
+      // Casabe curativo — pan taíno que restaura vida
+      // Se resetea cada vez que el jugador entra a la aldea
+      {
+        x: 260, y: 280,
+        ancho: 16, alto: 16,
+        tipo: 'casabe',
+        recogido: false,
+        esCurativo: true,
+        curacion: 25
       }
     ];
 
@@ -279,23 +289,31 @@ export class AsentamientoTaino1 {
 
         const textos = this._obtenerTextos();
         const nombreObjeto = textos?.objetos?.[obj.tipo] || obj.tipo;
-        jugador.agregarAlInventario({ nombre: obj.tipo });
 
-        if (this.juego && this.juego.inventario) {
-          this.juego.inventario.agregar({
-            id: obj.tipo,
-            nombre: nombreObjeto,
-            descripcion: textos?.objetos?.[`desc${obj.tipo.charAt(0).toUpperCase() + obj.tipo.slice(1)}`] || '',
-            tipo: 'herramienta',
-            cantidad: 1,
-            color: '#4488CC',
-            esUsable: false
-          });
-        }
+        // Los objetos curativos restauran vida en vez de ir al inventario
+        if (obj.esCurativo) {
+          jugador.curar(obj.curacion);
+          if (this.juego && this.juego.mostrarToast) {
+            this.juego.mostrarToast(`💚 ${nombreObjeto} — +${obj.curacion} vida`);
+          }
+        } else {
+          jugador.agregarAlInventario({ nombre: obj.tipo });
 
-        // Mostrar mensaje flotante indicando qué objeto se recogió
-        if (this.juego && this.juego.mostrarToast) {
-          this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+          if (this.juego && this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: obj.tipo,
+              nombre: nombreObjeto,
+              descripcion: textos?.objetos?.[`desc${obj.tipo.charAt(0).toUpperCase() + obj.tipo.slice(1)}`] || '',
+              tipo: 'herramienta',
+              cantidad: 1,
+              color: '#4488CC',
+              esUsable: false
+            });
+          }
+
+          if (this.juego && this.juego.mostrarToast) {
+            this.juego.mostrarToast(`✦ ${nombreObjeto} — ítem añadido al inventario`);
+          }
         }
       }
     }
@@ -460,25 +478,50 @@ export class AsentamientoTaino1 {
       const ox = obj.x + offsetX;
       const oy = obj.y + offsetY;
 
-      // Brillo pulsante
+      // Brillo pulsante (verde para curativos, azul para normales)
       const brillo = 0.5 + Math.sin(this.tiempoTotal * 3) * 0.3;
-      ctx.fillStyle = `rgba(68, 136, 204, ${brillo})`;
-      ctx.beginPath();
-      ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
-      ctx.fill();
 
-      // Ícono brújula
-      ctx.fillStyle = '#FFFFFF';
-      ctx.beginPath();
-      ctx.arc(ox + 8, oy + 8, 6, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#CC3333';
-      ctx.beginPath();
-      ctx.moveTo(ox + 8, oy + 2);
-      ctx.lineTo(ox + 10, oy + 8);
-      ctx.lineTo(ox + 6, oy + 8);
-      ctx.closePath();
-      ctx.fill();
+      if (obj.esCurativo) {
+        // --- Ícono de casabe (pan redondo taíno) ---
+        ctx.fillStyle = `rgba(68, 204, 68, ${brillo})`;
+        ctx.beginPath();
+        ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Pan circular color marrón claro
+        ctx.fillStyle = '#D4A860';
+        ctx.beginPath();
+        ctx.arc(ox + 8, oy + 8, 7, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Textura del casabe (líneas cruzadas)
+        ctx.strokeStyle = '#B8860B';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(ox + 3, oy + 8);
+        ctx.lineTo(ox + 13, oy + 8);
+        ctx.moveTo(ox + 8, oy + 3);
+        ctx.lineTo(ox + 8, oy + 13);
+        ctx.stroke();
+      } else {
+        // --- Ícono brújula ---
+        ctx.fillStyle = `rgba(68, 136, 204, ${brillo})`;
+        ctx.beginPath();
+        ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(ox + 8, oy + 8, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#CC3333';
+        ctx.beginPath();
+        ctx.moveTo(ox + 8, oy + 2);
+        ctx.lineTo(ox + 10, oy + 8);
+        ctx.lineTo(ox + 6, oy + 8);
+        ctx.closePath();
+        ctx.fill();
+      }
     }
 
     // --- NPCs ---
@@ -525,10 +568,11 @@ export class AsentamientoTaino1 {
       tamano: 11, color: '#FFD700'
     });
 
-    // Objetos recogidos
-    const objRecogidos = this.objetos.filter(o => o.recogido).length;
-    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
-      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    // Objetos recogidos (excluir curativos del conteo — se regeneran)
+    const objetosPermanentes = this.objetos.filter(o => !o.esCurativo);
+    const objRecogidos = objetosPermanentes.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${objetosPermanentes.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= objetosPermanentes.length ? '#44CC44' : '#FFD700'
     });
 
     // Misión actual

@@ -663,7 +663,12 @@ const en = {
     descRobotSubmarino: 'Underwater robot programmed at LFSD. Bring it to Dr. Sofía at the Manatee Sanctuary.',
 
     equipoAnalisis: 'Analysis Equipment',
-    descEquipoAnalisis: 'Analysis equipment repaired at LFSD. Bring it to Dr. López at the Royal Shipyards Museum.'
+    descEquipoAnalisis: 'Analysis equipment repaired at LFSD. Bring it to Dr. López at the Royal Shipyards Museum.',
+
+    casabe: 'Casabe',
+    descCasabe: 'Taíno bread made from grated and toasted cassava. Restores 25 health.',
+    hierbasCurativas: 'Healing Herbs',
+    descHierbasCurativas: 'Medicinal plants from the behique. Restore 30 health.'
   },
 
   inventario: {
@@ -872,7 +877,7 @@ const en = {
 
   // Reputation — player recognition levels
   reputacion: {
-    etiqueta: 'Rep',
+    etiqueta: 'Reputation',
     desconocido: 'Unknown',
     conocido: 'Known',
     respetado: 'Respected',

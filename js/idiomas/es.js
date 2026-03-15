@@ -698,7 +698,12 @@ const es = {
     descRobotSubmarino: 'Robot submarino programado en el LFSD. Llévalo a la Dra. Sofía en el Santuario del Manatí.',
 
     equipoAnalisis: 'Equipo de Análisis',
-    descEquipoAnalisis: 'Equipo de análisis reparado en el LFSD. Llévalo a la Dra. López en el Museo de las Atarazanas Reales.'
+    descEquipoAnalisis: 'Equipo de análisis reparado en el LFSD. Llévalo a la Dra. López en el Museo de las Atarazanas Reales.',
+
+    casabe: 'Casabe',
+    descCasabe: 'Pan taíno hecho de yuca rallada y tostada. Restaura 25 de vida.',
+    hierbasCurativas: 'Hierbas Curativas',
+    descHierbasCurativas: 'Plantas medicinales del behique. Restauran 30 de vida.'
   },
 
   inventario: {
@@ -907,7 +912,7 @@ const es = {
 
   // Reputación — niveles de reconocimiento del jugador
   reputacion: {
-    etiqueta: 'Rep',
+    etiqueta: 'Reputación',
     desconocido: 'Desconocido',
     conocido: 'Conocido',
     respetado: 'Respetado',

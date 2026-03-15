@@ -265,6 +265,13 @@ export class SeleccionPersonaje {
     if (this.juego) {
       this.juego.generoJugador = this.seleccion;
 
+      // Limpiar todo el progreso anterior para empezar de cero.
+      // Esto es necesario porque si el jugador cargó una partida
+      // antes de elegir "Nuevo Juego", el estado viejo persiste.
+      if (this.juego.reiniciarEstado) {
+        this.juego.reiniciarEstado();
+      }
+
       // Avanzamos a la cinemática introductoria
       if (this.juego.cambiarEscena) {
         this.juego.cambiarEscena('introCinematica');

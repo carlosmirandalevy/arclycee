@@ -73,7 +73,7 @@ export class SistemaReputacion {
     ctx.fillStyle = '#FFFFFF';
     ctx.font = '9px monospace';
     ctx.textAlign = 'left';
-    const etiqueta = rep.etiqueta || 'Rep';
+    const etiqueta = rep.etiqueta || 'Reputación';
     ctx.fillText(`${etiqueta}: ${niveles[this.obtenerNivel()]}`, x, y - 3);
   }
 }

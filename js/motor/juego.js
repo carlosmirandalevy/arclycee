@@ -772,9 +772,11 @@ export class Juego {
       this.registro.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
     }
 
-    // --- Medidor de reputación en el HUD (solo en escenas jugables) ---
+    // --- Medidor de reputación debajo de la barra de vida ---
+    // Se dibuja en la esquina superior izquierda, justo debajo de Vida
+    // (la barra de vida ocupa y=10 a y=24, así que empezamos en y=30)
     if (this.jugador && !this.inventario.abierto && !this.registro.visible) {
-      this.reputacion.dibujarMedidor(this.ctx, ANCHO_JUEGO - 160, 10, 140, textos);
+      this.reputacion.dibujarMedidor(this.ctx, 10, 30, 120, textos);
     }
 
     // --- Álbum de fotos (overlay con tecla P) ---
@@ -1048,6 +1050,36 @@ export class Juego {
    * Reconstruye el jugador, los compañeros, el inventario y
    * lleva al jugador a la escena donde estaba (o al mapa).
    */
+  // --- REINICIAR ESTADO ---
+  // Limpia TODO el progreso en memoria para empezar una partida nueva.
+  // Se llama desde la pantalla de selección de personaje al confirmar.
+  // NO borra el guardado en localStorage (eso se sobreescribe al guardar).
+  reiniciarEstado() {
+    // Progreso del mundo
+    this.progreso = {
+      nodosCompletados: [],
+      nodosDesbloqueados: [0],
+      combatesPacificados: 0,
+      combatesViolentos: 0,
+      accionesEcologicas: 0,
+      mundos: {}
+    };
+    // Compañeros
+    this.companeros = [];
+    // Inventario (UI y jugador)
+    this.inventario = new Inventario();
+    // Álbum de fotos
+    this.album = new AlbumFotos();
+    // Reputación
+    this.reputacion = new SistemaReputacion();
+    // Misiones secundarias
+    this.misiones = new MisionesSecundarias();
+    // Registro de juego (diario)
+    this.registro = new RegistroJuego(this);
+    // Jugador (se recreará en la intro, pero limpiamos por seguridad)
+    this.jugador = null;
+  }
+
   cargarPartida() {
     const datos = this.guardado.cargarLocal();
     if (!datos) {

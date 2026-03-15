@@ -663,7 +663,12 @@ const fr = {
     descRobotSubmarino: 'Robot sous-marin programmé au LFSD. Apporte-le au Dr Sofía au Sanctuaire du Lamantin.',
 
     equipoAnalisis: 'Équipement d\'Analyse',
-    descEquipoAnalisis: 'Équipement d\'analyse réparé au LFSD. Apporte-le à la Dre López au Musée des Atarazanas Reales.'
+    descEquipoAnalisis: 'Équipement d\'analyse réparé au LFSD. Apporte-le à la Dre López au Musée des Atarazanas Reales.',
+
+    casabe: 'Casabe',
+    descCasabe: 'Pain taïno fait de manioc râpé et grillé. Restaure 25 points de vie.',
+    hierbasCurativas: 'Herbes Médicinales',
+    descHierbasCurativas: 'Plantes médicinales du behique. Restaurent 30 points de vie.'
   },
 
   inventario: {
@@ -872,7 +877,7 @@ const fr = {
 
   // Réputation — niveaux de reconnaissance du joueur
   reputacion: {
-    etiqueta: 'Rép',
+    etiqueta: 'Réputation',
     desconocido: 'Inconnu',
     conocido: 'Connu',
     respetado: 'Respecté',
