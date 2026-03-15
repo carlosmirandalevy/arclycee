@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.15.4 — HUD layout fix: Vida + Reputación side by side (2026-03-14)
+
+### Mejorado
+- **Barras de HUD en una fila**: Vida (120px) y Reputación (100px) ahora se dibujan lado a lado en la misma línea (y=10), sin solapar los indicadores de mundo (NPCs, objetos, habilidades) que aparecen debajo (y=42+)
+- **Etiqueta "Reputación" dentro de la barra**: el texto se muestra dentro de la barra de color como "Vida" dentro de la suya, con el color indicando el nivel (rojo→amarillo→verde→dorado)
+
+---
+
 ## v0.15.3 — Sistema de curación con NPCs taínos (2026-03-14)
 
 ### Agregado

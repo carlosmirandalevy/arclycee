@@ -86,6 +86,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - Inventario dual: `jugador.inventario` (array simple) + `juego.inventario` (UI con Inventario class). `inventario.usar(id, jugador)` maneja ítems usables (`tipo: 'curacion'` llama `jugador.curar(valor)`). Callback `inventario.alUsar` notifica a juego.js para toasts
 - **Ítems curativos**: objetos con `{tipo: 'curacion', esUsable: true, valor: N}` se usan con E en inventario. Guanábana (+30), vasija curativa (+35)
 - **NPC curandero**: flag `esCurandero: true` en NPC — siempre muestra `[E]`, no muestra checkmark, permite re-interacción. Behique Yuisa cura a 100 HP, Anacaona y Guarionex dan ítems curativos (re-obtibles si se usan)
+- **HUD layout**: Vida bar `(10, 10, 120, 14)` + Reputación bar `(140, 10, 100, 14)` en la misma fila. Los mundos dibujan sus indicadores (NPCs, objetos, habilidades) a partir de y=42. No agregar más barras encima de y=42
 - Física: `factorTiempo = dt * 60` para movimiento independiente de framerate
 - Progreso: `juego.progreso.nodosCompletados` y `nodosDesbloqueados`
 - **Diálogo rotativo**: contador `_cassaConversacion` que incrementa tras cada diálogo, `indice = contador % array.length` para ciclar

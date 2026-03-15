@@ -778,11 +778,12 @@ export class Juego {
       this.registro.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
     }
 
-    // --- Medidor de reputación debajo de la barra de vida ---
-    // Se dibuja en la esquina superior izquierda, justo debajo de Vida
-    // (la barra de vida ocupa y=10 a y=24, así que empezamos en y=30)
+    // --- Medidor de reputación a la derecha de la barra de vida ---
+    // La barra de Vida ocupa x=10..130, y=10..24.
+    // Ponemos la reputación al lado (x=140) en la misma fila para no
+    // solapar indicadores de los mundos (NPCs y=42, objetos y=58, etc.)
     if (this.jugador && !this.inventario.abierto && !this.registro.visible) {
-      this.reputacion.dibujarMedidor(this.ctx, 10, 30, 120, textos);
+      this.reputacion.dibujarMedidor(this.ctx, 140, 10, 100, textos);
     }
 
     // --- Álbum de fotos (overlay con tecla P) ---
