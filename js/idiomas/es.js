@@ -1154,7 +1154,60 @@ const es = {
     // --- Toasts de inventario ---
     itemAnadido: 'ítem añadido al inventario',
     itemAnadidoCorto: 'añadido al inventario',
-    itemAnadidoBrief: 'ítem añadido'
+    itemAnadidoBrief: 'ítem añadido',
+
+    // --- Toasts de guardado ---
+    noHayPartida: 'No hay partida guardada',
+    partidaCargada: '📂 Partida cargada',
+
+    // --- Toasts de misiones ---
+    misionDescubierta: '📋 Misión descubierta:',
+    misionCompletada: '✅ ¡Misión completada:',
+    accionEcologica: '¡Acción ecológica completada!',
+
+    // --- Toasts de zona colonial ---
+    cassaInteresante: '💬 Roberto Cassá siempre tiene algo interesante que contar',
+    cambioGuardia: '🎖️ ¡Cambio de guardia en el Panteón Nacional!',
+
+    // --- Toasts de laboratorio ---
+    morbanAutenticacion: '🏛 Dr. Morbán: proceso de autenticación explicado',
+    periodicoRecogido: '📰 ¡Artículo de periódico recogido!',
+    descubrimientoCientifico: '📰 ¡Descubrimiento científico! ¡Saldrás en el periódico!',
+    equipoEntregado: '🔬 Equipo entregado — ¡la Dra. López va a investigar!',
+    lopezCarbono: '🔬 Dra. López: datación por Carbono-14',
+    anaRestauracion: '🔧 Ana: principios de restauración',
+    visitanteConvencido: '🕵 Visitante convencido de autenticar su pieza',
+    certificadoRecogido: '📜 ¡Certificado de Autenticidad recogido!',
+    catalogoRecogido: '📖 ¡Catálogo del Museo recogido!',
+
+    // --- Toasts de santuario del manatí ---
+    robotEntregado: '🤖 Robot entregado — ¡4 nuevos naufragios descubiertos!',
+
+    // --- Etiquetas de ubicación ---
+    salida: 'SALIDA',
+    recepcion: 'RECEPCIÓN',
+    aduanas: 'ADUANAS',
+    museo: 'MUSEO',
+    santuario: 'Santuario',
+    helices: '⚠ HÉLICES ⚠',
+
+    // --- Mapa de riesgo (Zona Colonial) ---
+    mapaRiesgo: 'Mapa de Riesgo:',
+    protegido: 'Protegido',
+    enPeligro: 'En peligro',
+    amenazado: 'Amenazado',
+
+    // --- HUD del mapa ---
+    bloqueadoNivel: '🔒 Bloqueado — completa el nivel anterior',
+    completadoNivel: '(Completado)',
+
+    // --- Mapa de referencia (marcadores) ---
+    completado: '✅ Completado',
+    bloqueado: '🔒 Bloqueado',
+    disponible: '🟡 Disponible',
+    viajarAqui: '🗺️ Viajar aquí',
+    descubiertoRobot: '📡 Descubierto por Robot LFSD',
+    cerrarMapa: 'R / Esc — cerrar mapa'
   },
 
   sitiosArqueologicos: {

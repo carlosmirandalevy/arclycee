@@ -587,7 +587,8 @@ export class MundoLaboratorio {
         ctx.fillStyle = '#FFFFFF';
         ctx.font = 'bold 11px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('RECEPCIÓN', est.x + est.ancho / 2, est.y - 5);
+        const _tRec = this._obtenerTextos();
+        ctx.fillText(_tRec?.ui?.recepcion || 'RECEPCIÓN', est.x + est.ancho / 2, est.y - 5);
         ctx.textAlign = 'left';
         break;
 
@@ -835,7 +836,10 @@ export class MundoLaboratorio {
       ], () => {
         npc.dialogoHecho = true;
         this.sfx.descubrir();
-        if (this.juego) this.juego.mostrarToast('🏛 Dr. Morbán: proceso de autenticación explicado');
+        if (this.juego) {
+          const _t = this._obtenerTextos();
+          this.juego.mostrarToast(_t?.ui?.morbanAutenticacion || '🏛 Dr. Morbán: proceso de autenticación explicado');
+        }
       });
     } else {
       // Diálogo mejorado según progreso del equipo
@@ -889,7 +893,7 @@ export class MundoLaboratorio {
           }
           if (jugador) jugador.agregarAlInventario(objTextos?.periodico || 'Artículo de Periódico');
           if (progreso) progreso.periodicoRecogido = true;
-          this.juego.mostrarToast('📰 ¡Artículo de periódico recogido!');
+          { const _t = this._obtenerTextos(); this.juego.mostrarToast(_t?.ui?.periodicoRecogido || '📰 ¡Artículo de periódico recogido!'); }
 
           // Ahora sí completar la misión Weird Science
           if (this.juego.misiones) this.juego.misiones.completar('cienciaLoca');
@@ -916,7 +920,7 @@ export class MundoLaboratorio {
           this.juego.reputacion.modificar(10, lab?.repDescubrimiento || 'Descubrimiento científico');
         }
         this.sfx.descubrir();
-        this.juego.mostrarToast('📰 ¡Descubrimiento científico! ¡Saldrás en el periódico!');
+        { const _t = this._obtenerTextos(); this.juego.mostrarToast(_t?.ui?.descubrimientoCientifico || '📰 ¡Descubrimiento científico! ¡Saldrás en el periódico!'); }
       });
       return;
     }
@@ -947,7 +951,7 @@ export class MundoLaboratorio {
           this.juego.reputacion.modificar(10, lab?.repEntregaEquipo || 'Equipo entregado a la Dra. López');
         }
         this.sfx.descubrir();
-        this.juego.mostrarToast('🔬 Equipo entregado — ¡la Dra. López va a investigar!');
+        { const _t = this._obtenerTextos(); this.juego.mostrarToast(_t?.ui?.equipoEntregado || '🔬 Equipo entregado — ¡la Dra. López va a investigar!'); }
         // Marcar sub-misión como completada en el registro
         const lfsdTextos = this._obtenerTextos()?.dialogos?.lfsd;
         this.juego.registro?.marcarCompletada(lfsdTextos?.subMisionEquipo || 'Entregar Equipo de Análisis');
@@ -965,7 +969,10 @@ export class MundoLaboratorio {
       ], () => {
         npc.dialogoHecho = true;
         this.sfx.descubrir();
-        if (this.juego) this.juego.mostrarToast('🔬 Dra. López: datación por Carbono-14');
+        if (this.juego) {
+          const _t = this._obtenerTextos();
+          this.juego.mostrarToast(_t?.ui?.lopezCarbono || '🔬 Dra. López: datación por Carbono-14');
+        }
       });
     } else {
       // Diálogo mejorado si el equipo fue reparado en LFSD pero aún no entregado
@@ -992,7 +999,10 @@ export class MundoLaboratorio {
       ], () => {
         npc.dialogoHecho = true;
         this.sfx.descubrir();
-        if (this.juego) this.juego.mostrarToast('🔧 Ana: principios de restauración');
+        if (this.juego) {
+          const _t = this._obtenerTextos();
+          this.juego.mostrarToast(_t?.ui?.anaRestauracion || '🔧 Ana: principios de restauración');
+        }
       });
     } else {
       const progreso = this.juego?.progreso;
@@ -1056,7 +1066,7 @@ export class MundoLaboratorio {
           if (!this.juego.progreso.nodosDesbloqueados.includes(8)) {
             this.juego.progreso.nodosDesbloqueados.push(8);
           }
-          this.juego.mostrarToast('📋 Misión descubierta: Weird Science');
+          { const _t = this._obtenerTextos(); this.juego.mostrarToast((_t?.ui?.misionDescubierta || '📋 Misión descubierta:') + ' Weird Science'); }
           const tituloMision = lab2?.misionCienciaLoca || 'Weird Science';
           this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Reparar el equipo de análisis del museo con los estudiantes del LFSD.');
         });
@@ -1076,7 +1086,10 @@ export class MundoLaboratorio {
         this._sospechosoHablado = true;
         npc.dialogoHecho = true;
         this.sfx.descubrir();
-        if (this.juego) this.juego.mostrarToast('🕵 Visitante convencido de autenticar su pieza');
+        if (this.juego) {
+          const _t = this._obtenerTextos();
+          this.juego.mostrarToast(_t?.ui?.visitanteConvencido || '🕵 Visitante convencido de autenticar su pieza');
+        }
       });
     } else {
       this.dialogos.iniciarDialogo([
@@ -1101,7 +1114,7 @@ export class MundoLaboratorio {
           color: '#DAA520',
           esUsable: false
         });
-        this.juego.mostrarToast('📜 ¡Certificado de Autenticidad recogido!');
+        { const _t = this._obtenerTextos(); this.juego.mostrarToast(_t?.ui?.certificadoRecogido || '📜 ¡Certificado de Autenticidad recogido!'); }
       }
     } else if (obj.tipo === 'catalogoMuseo') {
       if (this.juego && this.juego.inventario) {
@@ -1114,7 +1127,7 @@ export class MundoLaboratorio {
           color: '#8B4513',
           esUsable: false
         });
-        this.juego.mostrarToast('📖 ¡Catálogo del Museo recogido!');
+        { const _t = this._obtenerTextos(); this.juego.mostrarToast(_t?.ui?.catalogoRecogido || '📖 ¡Catálogo del Museo recogido!'); }
       }
     }
 

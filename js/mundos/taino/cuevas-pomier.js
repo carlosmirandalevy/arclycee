@@ -725,7 +725,7 @@ export class CuevasPomier {
       ctx.font = '11px monospace';
       ctx.fillStyle = '#AACCFF';
       ctx.textAlign = 'center';
-      ctx.fillText('SALIDA', sx + 15, sy - 10);
+      ctx.fillText(this._obtenerTextos()?.ui?.salida || 'SALIDA', sx + 15, sy - 10);
       ctx.textAlign = 'left';
     }
 

@@ -606,11 +606,13 @@ export class MapaPrincipal {
       if (nodoCercano.bloqueado) {
         ctx.font = '11px monospace';
         ctx.fillStyle = '#cc4444';
-        ctx.fillText('🔒 Bloqueado — completa el nivel anterior', ancho / 2, alto - 32);
+        const _tBloqueo = this.juego?.idiomas?.traducciones?.[this.juego?.idiomas?.idiomaActual];
+        ctx.fillText(_tBloqueo?.ui?.bloqueadoNivel || '🔒 Bloqueado — completa el nivel anterior', ancho / 2, alto - 32);
       } else if (nodoCercano.completado) {
         ctx.font = '11px monospace';
         ctx.fillStyle = '#44AA44';
-        ctx.fillText('(Completado)', ancho / 2, alto - 32);
+        const _tComp = this.juego?.idiomas?.traducciones?.[this.juego?.idiomas?.idiomaActual];
+        ctx.fillText(_tComp?.ui?.completadoNivel || '(Completado)', ancho / 2, alto - 32);
       }
     }
 

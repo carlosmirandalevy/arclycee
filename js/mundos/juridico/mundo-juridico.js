@@ -740,7 +740,7 @@ export class MundoJuridico {
       ctx.fillStyle = '#FFFFFF';
       ctx.font = 'bold 11px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('ADUANAS', x + a / 2, y - 6);
+      ctx.fillText(this._obtenerTextos()?.ui?.aduanas || 'ADUANAS', x + a / 2, y - 6);
       ctx.textAlign = 'left';
       // Computadora en el mostrador
       ctx.fillStyle = '#333333';

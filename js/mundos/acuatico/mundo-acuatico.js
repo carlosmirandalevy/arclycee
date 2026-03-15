@@ -683,7 +683,8 @@ export class MundoAcuatico {
     ctx.fillText('>>>', arcoX + 7, arcoY + 115);
     ctx.font = '8px monospace';
     ctx.fillStyle = `rgba(200, 220, 255, ${flechaParpadeo})`;
-    ctx.fillText('Santuario', arcoX + 7, arcoY + 130);
+    const _t = this._obtenerTextos();
+    ctx.fillText(_t?.ui?.santuario || 'Santuario', arcoX + 7, arcoY + 130);
     ctx.textAlign = 'left';
 
     // =========================================================

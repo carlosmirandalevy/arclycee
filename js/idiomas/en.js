@@ -1103,7 +1103,60 @@ const en = {
     // --- Inventory toasts ---
     itemAnadido: 'item added to inventory',
     itemAnadidoCorto: 'added to inventory',
-    itemAnadidoBrief: 'item added'
+    itemAnadidoBrief: 'item added',
+
+    // --- Save toasts ---
+    noHayPartida: 'No saved game found',
+    partidaCargada: '📂 Game loaded',
+
+    // --- Quest toasts ---
+    misionDescubierta: '📋 Quest discovered:',
+    misionCompletada: '✅ Quest completed:',
+    accionEcologica: 'Ecological action completed!',
+
+    // --- Colonial zone toasts ---
+    cassaInteresante: '💬 Roberto Cassá always has something interesting to say',
+    cambioGuardia: '🎖️ Changing of the guard at the National Pantheon!',
+
+    // --- Laboratory toasts ---
+    morbanAutenticacion: '🏛 Dr. Morbán: authentication process explained',
+    periodicoRecogido: '📰 Newspaper article collected!',
+    descubrimientoCientifico: '📰 Scientific discovery! You\'ll be in the newspaper!',
+    equipoEntregado: '🔬 Equipment delivered — Dr. López will investigate!',
+    lopezCarbono: '🔬 Dr. López: Carbon-14 dating',
+    anaRestauracion: '🔧 Ana: restoration principles',
+    visitanteConvencido: '🕵 Visitor convinced to authenticate their piece',
+    certificadoRecogido: '📜 Certificate of Authenticity collected!',
+    catalogoRecogido: '📖 Museum Catalogue collected!',
+
+    // --- Manatee sanctuary toasts ---
+    robotEntregado: '🤖 Robot delivered — 4 new wrecks discovered!',
+
+    // --- Location labels ---
+    salida: 'EXIT',
+    recepcion: 'RECEPTION',
+    aduanas: 'CUSTOMS',
+    museo: 'MUSEUM',
+    santuario: 'Sanctuary',
+    helices: '⚠ PROPELLERS ⚠',
+
+    // --- Risk map (Colonial Zone) ---
+    mapaRiesgo: 'Risk Map:',
+    protegido: 'Protected',
+    enPeligro: 'In danger',
+    amenazado: 'Threatened',
+
+    // --- Map HUD ---
+    bloqueadoNivel: '🔒 Locked — complete the previous level',
+    completadoNivel: '(Completed)',
+
+    // --- Reference map (markers) ---
+    completado: '✅ Completed',
+    bloqueado: '🔒 Locked',
+    disponible: '🟡 Available',
+    viajarAqui: '🗺️ Travel here',
+    descubiertoRobot: '📡 Discovered by LFSD Robot',
+    cerrarMapa: 'R / Esc — close map'
   },
 
   sitiosArqueologicos: {

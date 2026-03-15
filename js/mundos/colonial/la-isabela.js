@@ -1020,7 +1020,8 @@ export class LaIsabela {
             if (!this.juego.progreso.nodosDesbloqueados.includes(8)) {
               this.juego.progreso.nodosDesbloqueados.push(8);
             }
-            this.juego.mostrarToast('📋 Misión descubierta: Good Vibrations');
+            const _tMision = this._obtenerTextos()?.ui;
+            this.juego.mostrarToast((_tMision?.misionDescubierta || '📋 Misión descubierta:') + ' Good Vibrations');
             const tituloMision = isabela2?.misionBuenasVibraciones || 'Good Vibrations';
             this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Calibrar el magnetómetro con los estudiantes de robótica del LFSD.');
           });

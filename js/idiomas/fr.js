@@ -1103,7 +1103,60 @@ const fr = {
     // --- Toasts d'inventaire ---
     itemAnadido: 'objet ajouté à l\'inventaire',
     itemAnadidoCorto: 'ajouté à l\'inventaire',
-    itemAnadidoBrief: 'objet ajouté'
+    itemAnadidoBrief: 'objet ajouté',
+
+    // --- Toasts de sauvegarde ---
+    noHayPartida: 'Aucune partie sauvegardée',
+    partidaCargada: '📂 Partie chargée',
+
+    // --- Toasts de quêtes ---
+    misionDescubierta: '📋 Quête découverte :',
+    misionCompletada: '✅ Quête terminée :',
+    accionEcologica: 'Action écologique accomplie !',
+
+    // --- Toasts zone coloniale ---
+    cassaInteresante: '💬 Roberto Cassá a toujours quelque chose d\'intéressant à raconter',
+    cambioGuardia: '🎖️ Relève de la garde au Panthéon National !',
+
+    // --- Toasts laboratoire ---
+    morbanAutenticacion: '🏛 Dr. Morbán : processus d\'authentification expliqué',
+    periodicoRecogido: '📰 Article de journal récupéré !',
+    descubrimientoCientifico: '📰 Découverte scientifique ! Tu seras dans le journal !',
+    equipoEntregado: '🔬 Équipement livré — la Dre López va enquêter !',
+    lopezCarbono: '🔬 Dre López : datation au Carbone-14',
+    anaRestauracion: '🔧 Ana : principes de restauration',
+    visitanteConvencido: '🕵 Visiteur convaincu d\'authentifier sa pièce',
+    certificadoRecogido: '📜 Certificat d\'Authenticité récupéré !',
+    catalogoRecogido: '📖 Catalogue du Musée récupéré !',
+
+    // --- Toasts sanctuaire du lamantin ---
+    robotEntregado: '🤖 Robot livré — 4 nouvelles épaves découvertes !',
+
+    // --- Étiquettes de lieu ---
+    salida: 'SORTIE',
+    recepcion: 'ACCUEIL',
+    aduanas: 'DOUANES',
+    museo: 'MUSÉE',
+    santuario: 'Sanctuaire',
+    helices: '⚠ HÉLICES ⚠',
+
+    // --- Carte de risque (Zone Coloniale) ---
+    mapaRiesgo: 'Carte de Risque :',
+    protegido: 'Protégé',
+    enPeligro: 'En danger',
+    amenazado: 'Menacé',
+
+    // --- HUD de la carte ---
+    bloqueadoNivel: '🔒 Verrouillé — termine le niveau précédent',
+    completadoNivel: '(Terminé)',
+
+    // --- Carte de référence (marqueurs) ---
+    completado: '✅ Terminé',
+    bloqueado: '🔒 Verrouillé',
+    disponible: '🟡 Disponible',
+    viajarAqui: '🗺️ Voyager ici',
+    descubiertoRobot: '📡 Découvert par le Robot LFSD',
+    cerrarMapa: 'R / Échap — fermer la carte'
   },
 
   sitiosArqueologicos: {

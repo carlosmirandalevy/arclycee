@@ -1083,7 +1083,8 @@ export class SantuarioManati {
     }]);
 
     if (this.juego && this.juego.mostrarToast) {
-      this.juego.mostrarToast('🐋 ¡Acción ecológica completada!');
+      const _t = this._obtenerTextos();
+      this.juego.mostrarToast('🐋 ' + (_t?.ui?.accionEcologica || '¡Acción ecológica completada!'));
     }
 
     // Reputación por liberar al manatí
@@ -1121,7 +1122,8 @@ export class SantuarioManati {
       }]);
 
       if (this.juego && this.juego.mostrarToast) {
-        this.juego.mostrarToast('🪸 ¡Acción ecológica completada!');
+        const _t = this._obtenerTextos();
+        this.juego.mostrarToast('🪸 ' + (_t?.ui?.accionEcologica || '¡Acción ecológica completada!'));
       }
 
       // Reputación por limpiar el arrecife
@@ -1158,7 +1160,9 @@ export class SantuarioManati {
       }
 
       if (this.juego.mostrarToast) {
-        this.juego.mostrarToast('✅ ¡Misión completada: Rescate del manatí!');
+        const _t = this._obtenerTextos();
+        const _titulo = _t?.misiones?.rescateManatiTitulo || 'Rescate del manatí';
+        this.juego.mostrarToast((_t?.ui?.misionCompletada || '✅ ¡Misión completada:') + ' ' + _titulo + '!');
       }
     }
   }
@@ -1931,7 +1935,8 @@ export class SantuarioManati {
     ctx.font = 'bold 12px monospace';
     ctx.fillStyle = `rgba(255, 200, 0, ${0.5 + Math.sin(this.tiempoTotal * 3) * 0.3})`;
     ctx.textAlign = 'center';
-    ctx.fillText('⚠ HÉLICES ⚠', ancho / 2, zy + zh / 2 + 4);
+    const _t = this._obtenerTextos();
+    ctx.fillText(_t?.ui?.helices || '⚠ HÉLICES ⚠', ancho / 2, zy + zh / 2 + 4);
     ctx.textAlign = 'left';
   }
 
@@ -2216,7 +2221,8 @@ export class SantuarioManati {
           this.juego.registro?.marcarCompletada(lfsd?.subMisionRobot || 'Entregar Robot Submarino');
 
           if (this.juego.mostrarToast) {
-            this.juego.mostrarToast('🤖 Robot entregado — ¡4 nuevos naufragios descubiertos!');
+            const _t = this._obtenerTextos();
+            this.juego.mostrarToast(_t?.ui?.robotEntregado || '🤖 Robot entregado — ¡4 nuevos naufragios descubiertos!');
           }
         });
 
@@ -2259,7 +2265,9 @@ export class SantuarioManati {
               if (!this.juego.progreso.nodosDesbloqueados.includes(8)) {
                 this.juego.progreso.nodosDesbloqueados.push(8);
               }
-              this.juego.mostrarToast('📋 Misión descubierta: Full Metal Archeologist');
+              const _tMetal = this._obtenerTextos();
+              const _sanMetal = _tMetal?.dialogos?.santuario;
+              this.juego.mostrarToast((_tMetal?.ui?.misionDescubierta || '📋 Misión descubierta:') + ' ' + (_sanMetal?.misionMetalCompleto || 'Full Metal Archeologist'));
               const tituloMision = san2?.misionMetalCompleto || 'Full Metal Archeologist';
               this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Programar un robot submarino de exploración con los estudiantes del LFSD.');
             });

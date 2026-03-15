@@ -492,7 +492,8 @@ export class ZonaColonial {
     if (cassa && this._estaCerca(jugador, cassa, 70) && !this._cassaToastMostrado) {
       this._cassaToastMostrado = true;
       if (this.juego && this.juego.mostrarToast) {
-        this.juego.mostrarToast('💬 Roberto Cassá siempre tiene algo interesante que contar');
+        const _tCassa = this._obtenerTextos()?.ui;
+        this.juego.mostrarToast(_tCassa?.cassaInteresante || '💬 Roberto Cassá siempre tiene algo interesante que contar');
       }
     }
 
@@ -514,7 +515,8 @@ export class ZonaColonial {
       this._cambioEnCurso = true;
       this._progresoCambio = 0;
       if (this.juego && this.juego.mostrarToast) {
-        this.juego.mostrarToast('🎖️ ¡Cambio de guardia en el Panteón Nacional!');
+        const _tGuardia = this._obtenerTextos()?.ui;
+        this.juego.mostrarToast(_tGuardia?.cambioGuardia || '🎖️ ¡Cambio de guardia en el Panteón Nacional!');
       }
     }
 
@@ -1315,7 +1317,7 @@ export class ZonaColonial {
       ctx.fillStyle = '#DAA520';
       ctx.font = '6px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('MUSEO', x + a / 2, y + 1);
+      ctx.fillText(this._obtenerTextos()?.ui?.museo || 'MUSEO', x + a / 2, y + 1);
       ctx.textAlign = 'left';
 
       // Cruz dorada pequeña (vínculo con la Catedral)
@@ -1593,26 +1595,27 @@ export class ZonaColonial {
 
     ctx.font = 'bold 9px monospace';
     ctx.fillStyle = '#FFFFFF';
-    ctx.fillText('Mapa de Riesgo:', lx + 5, ly + 12);
+    const _tRiesgo = this._obtenerTextos()?.ui;
+    ctx.fillText(_tRiesgo?.mapaRiesgo || 'Mapa de Riesgo:', lx + 5, ly + 12);
 
     // Verde
     ctx.fillStyle = '#44CC44';
     ctx.fillRect(lx + 5, ly + 18, 10, 10);
     ctx.fillStyle = '#CCCCCC';
     ctx.font = '8px monospace';
-    ctx.fillText('Protegido', lx + 20, ly + 27);
+    ctx.fillText(_tRiesgo?.protegido || 'Protegido', lx + 20, ly + 27);
 
     // Amarillo
     ctx.fillStyle = '#CCCC44';
     ctx.fillRect(lx + 5, ly + 32, 10, 10);
     ctx.fillStyle = '#CCCCCC';
-    ctx.fillText('En peligro', lx + 20, ly + 41);
+    ctx.fillText(_tRiesgo?.enPeligro || 'En peligro', lx + 20, ly + 41);
 
     // Rojo
     ctx.fillStyle = '#CC4444';
     ctx.fillRect(lx + 5, ly + 46, 10, 10);
     ctx.fillStyle = '#CCCCCC';
-    ctx.fillText('Amenazado', lx + 20, ly + 55);
+    ctx.fillText(_tRiesgo?.amenazado || 'Amenazado', lx + 20, ly + 55);
   }
 
   // --- Hablar con NPC ---
