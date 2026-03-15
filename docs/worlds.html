@@ -685,7 +685,7 @@
         <h4>Amenazas y enemigos</h4>
         <div class="grid-2">
           <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🦁 Pez león (Lionfish)</h5><p>Especie invasora. <strong>Encuentro de combate</strong> con 4 opciones ecológicas.</p></div>
-          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🪼 Medusas</h5><p>Obstáculo pasivo: daño + efecto de lentitud.</p></div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🪼 Medusas</h5><p>Obstáculo pasivo: daño + efecto de lentitud + sacudida del avatar.</p></div>
         </div>
 
         <h4>Personajes</h4>
@@ -696,7 +696,7 @@
         <h4>Mecánicas implementadas</h4>
         <ul>
           <li>Movimiento submarino (velocidad x 0.7)</li>
-          <li>4 medusas como peligros pasivos (daño + lentitud)</li>
+          <li>4 medusas como peligros pasivos (daño + lentitud + sacudida)</li>
           <li>Combate ecológico contra pez león</li>
           <li>Tortuga carey en circuito ovalado</li>
           <li>25 partículas de burbujas + 20 algas + 4 rayos de luz</li>
@@ -706,6 +706,8 @@
           <li>Ballenas jorobadas: silueta Bezier continua, canto con sombra visible</li>
           <li>Rotación de nado del avatar (75° lateral, 180° al bajar)</li>
           <li>Corales mejorados: cerebro con surcos meándricos 3D, abanico con red de venación</li>
+          <li>Sacudida del avatar al recibir daño (medusas, tiburones, lanchas)</li>
+          <li>Corales y tortugas fotografiables con renderizado dedicado por especie/tipo</li>
         </ul>
 
         <h4>Objetos</h4>
@@ -717,12 +719,13 @@
         <p>Sub-nivel accesible desde el borde derecho del Mundo Acuático. Mapa de 1800x1200 px con zona protegida de arrecifes.</p>
         <ul>
           <li><strong>Misión secundaria: Rescate del Manatí</strong> — 2 acciones ecológicas: liberar un manatí atrapado y limpiar el arrecife dañado. Cada acción otorga +10 de reputación.</li>
-          <li><strong>3 tiburones patrulleros</strong> — Enemigos que recorren rutas fijas.</li>
-          <li><strong>Zona de hélices</strong> — Obstáculo ambiental que el jugador debe esquivar.</li>
+          <li><strong>3 tiburones patrulleros</strong> — Mordida con sonido de crujido de mandíbulas + sacudida del avatar. Patrullan rutas fijas y persiguen al detectar al jugador.</li>
+          <li><strong>Zona de hélices</strong> — Obstáculo ambiental. Aviso de peligro una sola vez al entrar a la zona.</li>
           <li>Flags de progreso: <code>manatiLiberado</code> y <code>arrecifeLimpiado</code> para evitar doble conteo.</li>
-          <li><strong>Lanchas rápidas</strong> — Speedboats que cruzan la zona de hélices cada 8-15s. Cascos de colores con estela de olas y sonido de motor. Impacto = -8 vida.</li>
+          <li><strong>Lanchas rápidas</strong> — Speedboats que cruzan la zona de hélices cada 8-15s. Impacto = -8 vida + grito Wilhelm sintético + sacudida del avatar.</li>
           <li><strong>Sistema de oxígeno</strong> — Barra O₂ en HUD que se agota en ~60s. Subir a la superficie (zona peligrosa) para respirar. Asfixia causa daño.</li>
-          <li><strong>Mensajes de transición</strong> — Al cruzar entre mundos, mensajes sobre dejar/recoger el equipo de buceo.</li>
+          <li><strong>Mensajes de transición</strong> — Al cruzar entre mundos, 2 mensajes secuenciales sobre dejar/recoger el equipo de buceo.</li>
+          <li><strong>6 corales fotografiables</strong> — Cerebro, Cuerno de Alce, Abanico, Mesa con descripciones científicas.</li>
         </ul>
       </div>
 
@@ -851,7 +854,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.16.0 — Aventura Arqueológica Dominicana</p>
+    <p>ArcLycée v0.16.1 — Aventura Arqueológica Dominicana</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
   </footer>
 

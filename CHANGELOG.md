@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.16.1 — Collision feedback, photo album for corals & turtles, shark bite sound (2026-03-15)
+
+### Agregado
+- **Sonido de impacto de lancha** (`lanchaImpacto()`): golpe grave + chapoteo + grito Wilhelm sintético (3 capas de audio procedural)
+- **Sonido de mordida de tiburón** (`mordidaTiburon()`): crujido de mandíbulas (ruido high-pass) + golpe grave + gruñido con vibrato (distinto al de lancha)
+- **Sacudida del avatar al recibir daño**: oscilación lateral `sin(t*50)` con decaimiento — 0.6s para lanchas, 0.5s para tiburones, 0.4s para medusas
+- **Fotos y selfies de tortugas**: renderizado dedicado `_renderizarTortuga()` con sprites específicos por especie (carey con rayas, tinglar con crestas y manchas, caguama con marca de corazón, verde con manchas)
+- **Fotos y selfies de corales**: renderizado dedicado `_renderizarCoral()` con sprites por tipo (cerebro con surcos meándricos, cuerno de alce con ramas bifurcadas, abanico con venación radial, mesa con plataforma)
+- **Corales fotografiables** en ambos mundos acuáticos: 6 corales con descripciones científicas en Santuario, arrecife en Naufragio
+- **Array `fotografiables`** en sistema de fotos: las escenas pueden exponer elementos extra para el álbum
+
+### Mejorado
+- **Toast de zona de hélices**: se muestra una sola vez al entrar a la zona, se reinicia al salir — ya no se repite cada 1.5s
+- **Detección de tortugas en fotos**: NPCs con id `tortuga*` usan renderizado dedicado en vez del genérico
+
+### Corregido
+- **Barra de O₂ tapada por reputación**: la barra de reputación ya no se dibuja en el Santuario del Manatí
+- **Toast de transición demasiado largo**: dividido en 2 mensajes secuenciales con 4s de separación
+
+---
+
 ## v0.16.0 — Aquatic world overhaul: whales, turtles, corals, oxygen, speedboats + map i18n + Diana rename (2026-03-15)
 
 ### Agregado

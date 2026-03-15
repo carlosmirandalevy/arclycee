@@ -209,7 +209,11 @@ export class AlbumFotos {
   // Esto funciona con cualquier escena y cualquier método _dibujarNPC
   // sin importar cómo ese método posicione el sprite internamente.
   _renderizarEntidadCentrada(ctx, entidad, tipoEntidad, cx, cy, escala, escena) {
-    if (tipoEntidad === 'npc') {
+    if (tipoEntidad === 'tortuga') {
+      this._renderizarTortuga(ctx, entidad, cx, cy, escala);
+    } else if (tipoEntidad === 'coral') {
+      this._renderizarCoral(ctx, entidad, cx, cy, escala);
+    } else if (tipoEntidad === 'npc') {
       this._renderizarNPCCentrado(ctx, entidad, cx, cy, escala, escena);
     } else if (tipoEntidad === 'petroglifo') {
       this._renderizarPetroglifo(ctx, entidad, cx, cy, escala);
@@ -421,6 +425,351 @@ export class AlbumFotos {
     ctx.strokeStyle = '#FFFFFF';
     ctx.lineWidth = 1;
     ctx.strokeRect(-8, -8, 16, 16);
+
+    ctx.restore();
+  }
+
+  // --- RENDERIZAR CORAL ---
+  // Dibuja el sprite de un coral centrado en (cx, cy).
+  // Cada tipo tiene forma y colores únicos: cerebro, cuerno, abanico, mesa.
+  _renderizarCoral(ctx, entidad, cx, cy, escala) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(escala, escala);
+
+    const tipo = entidad.tipo || '';
+
+    if (tipo === 'coralCerebro') {
+      // Coral cerebro — hemisferio con surcos meándricos
+      // Base: gradiente radial beige→marrón
+      const grad = ctx.createRadialGradient(-2, -3, 2, 0, 0, 22);
+      grad.addColorStop(0, '#D4B896');
+      grad.addColorStop(0.6, '#C4A070');
+      grad.addColorStop(1, '#8B7355');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(0, 2, 22, 16, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Surcos meándricos (líneas sinuosas clipeadas)
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(0, 2, 20, 14, 0, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.strokeStyle = '#6B5A3A';
+      ctx.lineWidth = 0.8;
+      for (let fila = -12; fila <= 14; fila += 4) {
+        ctx.beginPath();
+        ctx.moveTo(-22, fila);
+        for (let x = -20; x <= 20; x += 2) {
+          ctx.lineTo(x, fila + Math.sin(x * 0.5 + fila * 0.3) * 2);
+        }
+        ctx.stroke();
+      }
+      // Valles más oscuros entre surcos
+      ctx.strokeStyle = 'rgba(60, 40, 20, 0.3)';
+      ctx.lineWidth = 1.5;
+      for (let fila = -10; fila <= 14; fila += 4) {
+        ctx.beginPath();
+        ctx.moveTo(-22, fila + 2);
+        for (let x = -20; x <= 20; x += 2) {
+          ctx.lineTo(x, fila + 2 + Math.sin(x * 0.5 + fila * 0.3) * 2);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Brillo especular
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.beginPath();
+      ctx.ellipse(-5, -4, 10, 6, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+
+    } else if (tipo === 'coralCuerno' || tipo === 'coralCuerno de Alce') {
+      // Coral cuerno de alce — ramas que salen de una base
+      // Base
+      ctx.fillStyle = '#8B6914';
+      ctx.fillRect(-4, 8, 8, 8);
+
+      // Ramas (5 ramas de tonos dorados/ocre)
+      const ramas = [
+        { x: 0, ang: -Math.PI / 2, largo: 22, color: '#CD853F' },
+        { x: -3, ang: -Math.PI / 2 - 0.4, largo: 18, color: '#DEB887' },
+        { x: 3, ang: -Math.PI / 2 + 0.4, largo: 18, color: '#DEB887' },
+        { x: -6, ang: -Math.PI / 2 - 0.7, largo: 14, color: '#D2B48C' },
+        { x: 6, ang: -Math.PI / 2 + 0.7, largo: 14, color: '#D2B48C' }
+      ];
+      for (const r of ramas) {
+        const ex = r.x + Math.cos(r.ang) * r.largo;
+        const ey = 8 + Math.sin(r.ang) * r.largo;
+        ctx.strokeStyle = r.color;
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(r.x, 8);
+        ctx.lineTo(ex, ey);
+        ctx.stroke();
+        // Puntas bifurcadas
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(ex, ey);
+        ctx.lineTo(ex - 3, ey - 4);
+        ctx.moveTo(ex, ey);
+        ctx.lineTo(ex + 3, ey - 3);
+        ctx.stroke();
+      }
+
+    } else if (tipo === 'coralAbanico') {
+      // Coral abanico (gorgonia) — abanico con red de venación
+      // Tallo leñoso
+      ctx.strokeStyle = '#5a3a1a';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(0, 16);
+      ctx.lineTo(0, 4);
+      ctx.stroke();
+
+      // Abanico: gradiente púrpura→rosa
+      const gradAb = ctx.createRadialGradient(0, -4, 2, 0, -4, 20);
+      gradAb.addColorStop(0, '#CC4488');
+      gradAb.addColorStop(0.5, '#9933CC');
+      gradAb.addColorStop(1, '#662288');
+      ctx.fillStyle = gradAb;
+      ctx.beginPath();
+      ctx.moveTo(0, 4);
+      ctx.bezierCurveTo(-22, -4, -20, -22, 0, -20);
+      ctx.bezierCurveTo(20, -22, 22, -4, 0, 4);
+      ctx.fill();
+
+      // Red de venación (venas radiales)
+      ctx.strokeStyle = 'rgba(255, 200, 230, 0.5)';
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < 7; i++) {
+        const ang = -Math.PI / 2 + (i - 3) * 0.35;
+        ctx.beginPath();
+        ctx.moveTo(0, 4);
+        ctx.quadraticCurveTo(
+          Math.cos(ang) * 10, Math.sin(ang) * 10,
+          Math.cos(ang) * 18, Math.sin(ang) * 18 + 2
+        );
+        ctx.stroke();
+      }
+      // Arcos concéntricos
+      ctx.strokeStyle = 'rgba(255, 180, 220, 0.3)';
+      for (let r = 6; r <= 16; r += 5) {
+        ctx.beginPath();
+        ctx.arc(0, -4, r, Math.PI * 0.7, Math.PI * 0.3, true);
+        ctx.stroke();
+      }
+
+    } else if (tipo === 'coralMesa') {
+      // Coral de mesa — tronco con plataforma plana arriba
+      // Tronco
+      ctx.fillStyle = '#8B7355';
+      ctx.fillRect(-3, 0, 6, 14);
+
+      // Plataforma — elipse marrón claro
+      const gradMesa = ctx.createRadialGradient(-2, -3, 2, 0, -2, 20);
+      gradMesa.addColorStop(0, '#DEB887');
+      gradMesa.addColorStop(1, '#A0845C');
+      ctx.fillStyle = gradMesa;
+      ctx.beginPath();
+      ctx.ellipse(0, -2, 22, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Textura radial de la mesa
+      ctx.strokeStyle = 'rgba(100, 70, 40, 0.3)';
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < 8; i++) {
+        const ang = i * Math.PI / 4;
+        ctx.beginPath();
+        ctx.moveTo(0, -2);
+        ctx.lineTo(Math.cos(ang) * 18, -2 + Math.sin(ang) * 6);
+        ctx.stroke();
+      }
+      // Borde más oscuro
+      ctx.strokeStyle = '#6B5A3A';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(0, -2, 22, 8, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+    } else {
+      // Coral genérico — arbusto redondeado
+      ctx.fillStyle = '#CC6644';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 18, 14, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#884422';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 18, 14, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+
+  // --- RENDERIZAR TORTUGA ---
+  // Dibuja el sprite de una tortuga marina centrado en (cx, cy).
+  // Cada especie tiene colores y rasgos únicos (carey, tinglar, caguama, verde).
+  _renderizarTortuga(ctx, entidad, cx, cy, escala) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(escala, escala);
+
+    const id = entidad.id || '';
+    // Dimensiones base de la tortuga para el retrato (siempre mirando a la derecha)
+    const w = 20; // Medio ancho del caparazón
+    const h = 14; // Medio alto del caparazón
+
+    if (id === 'tortugaCarey') {
+      // Caparazón oliva con rayas carey
+      ctx.fillStyle = '#6B8E23';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Patrón del caparazón (rayas verticales)
+      ctx.strokeStyle = '#8B6914';
+      ctx.lineWidth = 0.8;
+      for (let i = -2; i <= 2; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * 5, -h + 3);
+        ctx.lineTo(i * 5, h - 3);
+        ctx.stroke();
+      }
+      // Cabeza
+      ctx.fillStyle = '#556B2F';
+      ctx.beginPath();
+      ctx.arc(w + 5, 0, 6, 0, Math.PI * 2);
+      ctx.fill();
+      // Ojo
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(w + 7, -1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Aletas
+      ctx.fillStyle = '#556B2F';
+      ctx.fillRect(w - 2, -h + 2, 6, 4);
+      ctx.fillRect(-w - 4, -h + 2, 6, 4);
+      ctx.fillRect(w - 2, h - 6, 6, 4);
+      ctx.fillRect(-w - 4, h - 6, 6, 4);
+
+    } else if (id === 'tortugaTinglar') {
+      // Caparazón azul-negro oscuro con crestas
+      ctx.fillStyle = '#1a1a2e';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, w + 2, h + 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Crestas longitudinales
+      ctx.strokeStyle = '#3d3d5c';
+      ctx.lineWidth = 1.2;
+      for (let i = -3; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * 3, -h);
+        ctx.lineTo(i * 3, h);
+        ctx.stroke();
+      }
+      // Manchas claras
+      ctx.fillStyle = '#E8E8E8';
+      for (let i = 0; i < 5; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.sin(i * 2.3) * 10, Math.cos(i * 1.7) * 8, 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Cabeza
+      ctx.fillStyle = '#4a5568';
+      ctx.beginPath();
+      ctx.arc(w + 8, 0, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(w + 11, -1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Aletas grandes
+      ctx.fillStyle = '#4a5568';
+      ctx.fillRect(w, -h + 1, 8, 5);
+      ctx.fillRect(-w - 6, -h + 1, 8, 5);
+      ctx.fillRect(w, h - 5, 8, 5);
+      ctx.fillRect(-w - 6, h - 5, 8, 5);
+
+    } else if (id === 'tortugaCaguama') {
+      // Caparazón marrón rojizo con marca de corazón
+      ctx.fillStyle = '#8B4513';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Marca corazón
+      ctx.strokeStyle = '#D2691E';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(0, 5);
+      ctx.bezierCurveTo(-7, -2, -7, -7, 0, -4);
+      ctx.bezierCurveTo(7, -7, 7, -2, 0, 5);
+      ctx.stroke();
+      // Cruz central
+      ctx.strokeStyle = '#5a3520';
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(-w + 5, 0);
+      ctx.lineTo(w - 5, 0);
+      ctx.moveTo(0, -h + 4);
+      ctx.lineTo(0, h - 4);
+      ctx.stroke();
+      // Cabeza grande (mandíbulas poderosas)
+      ctx.fillStyle = '#8B7355';
+      ctx.beginPath();
+      ctx.arc(w + 5, 0, 8, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(w + 8, -1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Aletas
+      ctx.fillStyle = '#8B7355';
+      ctx.fillRect(w - 2, -h + 2, 6, 4);
+      ctx.fillRect(-w - 4, -h + 2, 6, 4);
+      ctx.fillRect(w - 2, h - 6, 6, 4);
+      ctx.fillRect(-w - 4, h - 6, 6, 4);
+
+    } else {
+      // Tortuga verde u otra — verde oliva genérica
+      ctx.fillStyle = '#4A7A3A';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Líneas del caparazón
+      ctx.strokeStyle = '#2a5a1a';
+      ctx.lineWidth = 0.8;
+      for (let i = -2; i <= 2; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * 5, -h + 3);
+        ctx.lineTo(i * 5, h - 3);
+        ctx.stroke();
+      }
+      // Manchitas
+      ctx.fillStyle = '#3a6a2a';
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.arc(Math.sin(i * 2) * 8, Math.cos(i * 2.5) * 6, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // Cabeza
+      ctx.fillStyle = '#3a6a2a';
+      ctx.beginPath();
+      ctx.arc(w + 5, 0, 6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(w + 7, -1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Aletas
+      ctx.fillStyle = '#3a6a2a';
+      ctx.fillRect(w - 2, -h + 2, 6, 4);
+      ctx.fillRect(-w - 4, -h + 2, 6, 4);
+      ctx.fillRect(w - 2, h - 6, 6, 4);
+      ctx.fillRect(-w - 4, h - 6, 6, 4);
+    }
 
     ctx.restore();
   }

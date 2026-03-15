@@ -76,6 +76,7 @@ export class SantuarioManati {
     this.zonaHelice = { y: 0, alto: 50 };
     this.tiempoEnHelice = 0;
     this.cooldownHelice = 0;
+    this._heliceToastMostrado = false; // true mientras el jugador está en la zona
 
     // --- Lanchas rápidas (speedboats que cruzan la zona de hélices) ---
     // Cada cierto tiempo una lancha cruza a toda velocidad por la superficie,
@@ -107,6 +108,10 @@ export class SantuarioManati {
 
     // Ángulo de nado del jugador — rota suavemente al moverse horizontalmente
     this._anguloNado = 0;
+
+    // --- Sacudida del avatar al ser golpeado por una lancha ---
+    // Timer que decrementa hasta 0; mientras > 0 el sprite oscila lateralmente
+    this._sacudida = 0;
 
     // --- Misión ---
     this.misionActual = '';
@@ -161,6 +166,19 @@ export class SantuarioManati {
       { x: 1400, y: 700, ancho: 90, alto: 65, tipo: 'coralCerebro', nombre: 'Coral Cerebro' },
       { x: 1000, y: 900, ancho: 100, alto: 50, tipo: 'coralCuerno', nombre: 'Coral Cuerno' }
     ];
+
+    // --- Corales fotografiables ---
+    // Expuestos como `fotografiables` para que el sistema de fotos los detecte.
+    // tipoEntidad 'coral' activa el renderizado dedicado en el álbum de fotos.
+    this.fotografiables = this.estructuras.map(e => ({
+      ...e,
+      descripcion: e.tipo === 'coralCerebro' ? 'Diploria labyrinthiformis — surcos meándricos'
+        : e.tipo === 'coralAbanico' ? 'Gorgonia ventalina — red de venación ramificada'
+        : e.tipo === 'coralCuerno' ? 'Acropora palmata — ramas como cuernos de alce'
+        : e.tipo === 'coralMesa' ? 'Acropora hyacinthus — plataforma horizontal'
+        : 'Formación coralina del Caribe',
+      tipoEntidad: 'coral'
+    }));
 
     // --- NPCs ---
     this.npcs = [
@@ -323,6 +341,9 @@ export class SantuarioManati {
 
     this.tiempoTotal += dt;
 
+    // Decrementar sacudida por impacto de lancha
+    if (this._sacudida > 0) this._sacudida = Math.max(0, this._sacudida - dt);
+
     // --- Diálogo activo ---
     if (this.dialogos.estaActivo()) {
       this.dialogos.actualizar(dt);
@@ -455,17 +476,27 @@ export class SantuarioManati {
     }
 
     // --- Zona de hélices (parte superior del nivel) ---
-    if (jugador.y < this.zonaHelice.alto && this.cooldownHelice <= 0) {
-      jugador.vida = Math.max(0, jugador.vida - 2);
-      this.cooldownHelice = 1.5;
-      this.sfx.dano();
-      const textos = this._obtenerTextos();
-      if (this.juego && this.juego.mostrarToast) {
-        this.juego.mostrarToast(
-          textos?.dialogos?.santuario?.zonaHelice
-          || '⚠ ¡Zona de hélices! ¡Peligro!'
-        );
+    if (jugador.y < this.zonaHelice.alto) {
+      // Toast solo una vez al entrar a la zona (no se repite mientras sigue dentro)
+      if (!this._heliceToastMostrado) {
+        this._heliceToastMostrado = true;
+        const textos = this._obtenerTextos();
+        if (this.juego && this.juego.mostrarToast) {
+          this.juego.mostrarToast(
+            textos?.dialogos?.santuario?.zonaHelice
+            || '⚠ ¡Zona de hélices! ¡Peligro!'
+          );
+        }
       }
+      // Daño periódico mientras permanece en la zona
+      if (this.cooldownHelice <= 0) {
+        jugador.vida = Math.max(0, jugador.vida - 2);
+        this.cooldownHelice = 1.5;
+        this.sfx.dano();
+      }
+    } else {
+      // Salió de la zona — reiniciar flag para la próxima entrada
+      this._heliceToastMostrado = false;
     }
 
     // --- Lanchas rápidas (speedboats en la zona de hélices) ---
@@ -500,7 +531,8 @@ export class SantuarioManati {
         if (dx < 30 && dy < 20) {
           jugador.vida = Math.max(0, jugador.vida - 8);
           this.invulnerabilidad = 2.0;
-          this.sfx.dano();
+          this._sacudida = 0.6; // Sacude el avatar 0.6 segundos
+          this.sfx.lanchaImpacto(); // Golpe + chapoteo + grito
           const textos = this._obtenerTextos();
           if (this.juego && this.juego.mostrarToast) {
             this.juego.mostrarToast(
@@ -563,14 +595,15 @@ export class SantuarioManati {
         tiburon.x += Math.cos(angulo) * vel;
         tiburon.y += Math.sin(angulo) * vel;
 
-        // Contacto = daño + retirada
+        // Contacto = daño + retirada + sacudida del avatar
         if (dist < 30 && tiburon.cooldownDano <= 0 && this.invulnerabilidad <= 0) {
           jugador.vida = Math.max(0, jugador.vida - 10);
           this.invulnerabilidad = 1.5;
           tiburon.cooldownDano = 2.0;
           // Tras morder, retirarse 1.5 segundos antes de volver a atacar
           tiburon.retirada = 1.5;
-          this.sfx.dano();
+          this._sacudida = 0.5; // Sacude el avatar medio segundo
+          this.sfx.mordidaTiburon();
           this.sfx.tiburonAlerta();
           const textos = this._obtenerTextos();
           if (this.juego && this.juego.mostrarToast) {
@@ -2539,8 +2572,14 @@ export class SantuarioManati {
     ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // --- Rotación de nado: el avatar rota al moverse horizontalmente ---
+    // --- Rotación de nado + sacudida por impacto de lancha ---
     ctx.save();
+    // Sacudida lateral rápida al ser golpeado por una lancha
+    if (this._sacudida > 0) {
+      const intensidad = this._sacudida / 0.6; // 1→0 mientras decae
+      const desplazamiento = Math.sin(this.tiempoTotal * 50) * 6 * intensidad;
+      ctx.translate(desplazamiento, 0);
+    }
     if (Math.abs(this._anguloNado) > 0.01) {
       const centroX = px + jugador.ancho / 2;
       const centroY = py + jugador.alto / 2;

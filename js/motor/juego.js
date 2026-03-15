@@ -1486,13 +1486,15 @@ export class Juego {
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < mejorDistancia) {
           mejorDistancia = dist;
+          // Tortugas usan renderizado dedicado en el álbum (no screen capture)
+          const esTortuga = (npc.id || '').startsWith('tortuga');
           mejorObjetivo = {
             nombre: npc.nombre || npc.id || 'NPC',
             descripcion: npc.descripcion || '',
             x: npc.x || 0,
             y: npc.y || 0,
-            entidad: npc,          // Referencia directa al NPC para dibujar su sprite
-            tipoEntidad: 'npc'     // Tipo de entidad para elegir el estilo de retrato
+            entidad: npc,
+            tipoEntidad: esTortuga ? 'tortuga' : 'npc'
           };
         }
       }
@@ -1534,6 +1536,29 @@ export class Juego {
             y: obj.y || 0,
             entidad: obj,          // Referencia al objeto para dibujar su sprite
             tipoEntidad: 'objeto'  // Tipo para fondo ámbar y brillo dorado
+          };
+        }
+      }
+    }
+
+    // --- Buscar en elementos fotografiables extra (corales, estructuras decorativas) ---
+    // Las escenas pueden exponer un array `fotografiables` con objetos {x, y, nombre, tipo}
+    if (escena.fotografiables?.length) {
+      for (const ent of escena.fotografiables) {
+        const ex = (ent.x || 0) + (ent.ancho || 0) / 2;
+        const ey = (ent.y || 0) + (ent.alto || 0) / 2;
+        const dx = ex - (jugador.x + jugador.ancho / 2);
+        const dy = ey - (jugador.y + jugador.alto / 2);
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mejorDistancia) {
+          mejorDistancia = dist;
+          mejorObjetivo = {
+            nombre: ent.nombre || ent.tipo || 'Coral',
+            descripcion: ent.descripcion || '',
+            x: ex,
+            y: ey,
+            entidad: ent,
+            tipoEntidad: ent.tipoEntidad || 'objeto'
           };
         }
       }

@@ -391,7 +391,7 @@
         <h4>Menaces et Ennemis</h4>
         <div class="grid-2">
           <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🦁 Poisson-lion</h5><p>Espèce invasive. <strong>Rencontre de combat</strong> avec 4 options écologiques.</p></div>
-          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🪼 Méduses</h5><p>Obstacle passif : dégâts + effet de lenteur.</p></div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🪼 Méduses</h5><p>Obstacle passif : dégâts + lenteur + secousse de l'avatar.</p></div>
         </div>
 
         <h4>Personnages</h4>
@@ -402,7 +402,7 @@
         <h4>Mécaniques implémentées</h4>
         <ul>
           <li>Mouvement sous-marin (vitesse x 0,7)</li>
-          <li>4 méduses comme dangers passifs (dégâts + lenteur)</li>
+          <li>4 méduses comme dangers passifs (dégâts + lenteur + secousse)</li>
           <li>Combat écologique contre le poisson-lion</li>
           <li>Tortue imbriquée en circuit ovale</li>
           <li>25 particules de bulles + 20 algues + 4 rayons de lumière</li>
@@ -412,6 +412,8 @@
           <li>Baleines à bosse : silhouette Bézier continue, ombre visible en chantant</li>
           <li>Rotation de nage de l'avatar (75° latéral, 180° en plongeant)</li>
           <li>Coraux améliorés : corail cerveau avec sillons méandriques 3D, gorgone avec réseau de veines ramifiées</li>
+          <li>Secousse de l'avatar lors des dégâts (méduses, requins, hors-bords — intensité différente)</li>
+          <li>Coraux et tortues photographiables avec rendu dédié par espèce/type</li>
         </ul>
 
         <h4>Sanctuaire du Lamantin</h4>
@@ -419,11 +421,14 @@
         <ul>
           <li><strong>Libérer le lamantin</strong> piégé dans un filet de pêche abandonné</li>
           <li><strong>Nettoyer l'arrecife</strong> envahi par les déchets</li>
-          <li><strong>Hors-bords</strong> — Bateaux rapides traversant la zone d'hélices toutes les 8-15s. Coques colorées avec sillage et bruit de moteur. Impact = -8 PV.</li>
+          <li><strong>3 requins patrouilleurs</strong> — Son de morsure + secousse de l'avatar. Patrouillent des routes fixes, chassent à la détection.</li>
+          <li><strong>Zone d'hélices</strong> — Avertissement affiché une seule fois par entrée dans la zone.</li>
+          <li><strong>Hors-bords</strong> — Bateaux rapides toutes les 8-15s. Impact = -8 PV + cri de Wilhelm synthétique + secousse.</li>
           <li><strong>Système d'oxygène</strong> — Barre O₂ dans le HUD qui se vide en ~60s. Remonter à la surface (zone dangereuse) pour respirer. L'asphyxie cause des dégâts.</li>
-          <li><strong>Messages de transition</strong> — En passant entre les mondes, messages sur l'équipement de plongée.</li>
+          <li><strong>Messages de transition</strong> — Deux messages séquentiels sur l'équipement de plongée.</li>
+          <li><strong>6 coraux photographiables</strong> — Cerveau, Corne d'élan, Éventail, Table avec descriptions scientifiques.</li>
         </ul>
-        <p>Obstacles : 3 requins patrouilleurs + zone d'hélices dangereuse. Flags <code>progreso.manatiLiberado</code> / <code>progreso.arrecifeLimpiado</code> pour éviter le double comptage.</p>
+        <p>Flags <code>manatiLiberado</code> / <code>arrecifeLimpiado</code> pour éviter le double comptage.</p>
 
         <h4>Objets</h4>
         <div class="grid-2">
@@ -541,7 +546,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.16.0 — Aventure Archéologique Dominicaine</p>
+    <p>ArcLycée v0.16.1 — Aventure Archéologique Dominicaine</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Cours de Robotique 2026<br><a href="../index.html">Jouer à ArcLycée</a></p>
   </footer>
 

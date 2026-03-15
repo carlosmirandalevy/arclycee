@@ -73,6 +73,9 @@ export class MundoAcuatico {
     // Ángulo de nado del jugador — rota suavemente al moverse horizontalmente
     this._anguloNado = 0; // radianes: 0 = vertical, ±π/2 = horizontal
 
+    // Sacudida del avatar al recibir daño (medusa, colisión)
+    this._sacudida = 0;
+
     // --- Misión ---
     this.misionActual = '';
     this.npcsHablados = 0;
@@ -157,6 +160,17 @@ export class MundoAcuatico {
         nombre: 'Canoa del pescador'
       }
     ];
+
+    // --- Estructuras fotografiables (arrecife de coral) ---
+    // El arrecife se puede fotografiar con renderizado dedicado de coral
+    this.fotografiables = this.estructuras
+      .filter(e => e.tipo === 'arrecife')
+      .map(e => ({
+        ...e,
+        tipo: 'coralCerebro', // El arrecife del naufragio es coral cerebro colonizador
+        descripcion: 'Arrecife de coral colonizando los restos del naufragio',
+        tipoEntidad: 'coral'
+      }));
 
     // --- NPCs ---
     this.npcs = [
@@ -295,6 +309,9 @@ export class MundoAcuatico {
     if (!jugador) return;
 
     this.tiempoTotal += dt;
+
+    // Decrementar sacudida por impacto
+    if (this._sacudida > 0) this._sacudida = Math.max(0, this._sacudida - dt);
 
     // --- Si hay combate activo, lo maneja juego.js ---
     if (this.juego && this.juego.combate.enCombate) {
@@ -519,10 +536,11 @@ export class MundoAcuatico {
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < medusa.radio + 15) {
-          // ¡Picadura! Daño + lentitud
+          // ¡Picadura! Daño + lentitud + sacudida
           jugador.vida = Math.max(0, jugador.vida - 5);
           this.efectoLentitud = 2.0; // 2 segundos de lentitud
           this.invulnerabilidad = 1.5; // 1.5s de invulnerabilidad
+          this._sacudida = 0.4; // Sacudida breve por picadura
           this.sfx.dano();
 
           if (this.juego && this.juego.mostrarToast) {
@@ -1746,8 +1764,14 @@ export class MundoAcuatico {
     ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // --- Rotación de nado: el avatar rota al moverse horizontalmente ---
+    // --- Rotación de nado + sacudida por daño ---
     ctx.save();
+    // Sacudida lateral al recibir daño (medusa, etc.)
+    if (this._sacudida > 0) {
+      const intensidad = this._sacudida / 0.5;
+      const desplazamiento = Math.sin(this.tiempoTotal * 50) * 5 * intensidad;
+      ctx.translate(desplazamiento, 0);
+    }
     if (Math.abs(this._anguloNado) > 0.01) {
       const centroX = px + jugador.ancho / 2;
       const centroY = py + jugador.alto / 2;

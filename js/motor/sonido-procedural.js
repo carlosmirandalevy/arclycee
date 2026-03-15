@@ -1752,6 +1752,150 @@ export class SonidoProcedural {
     ruido.stop(ahora + duracion);
   }
 
+  // --- IMPACTO DE LANCHA (colisión con el jugador) ---
+  // Golpe grave + ruido de chapoteo + grito agudo corto ("Wilhelm scream" sintético)
+  lanchaImpacto() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+
+    const ganancia = this._crearGanancia(this.volumen * 0.5);
+
+    // 1) Golpe grave de impacto — onda triangular descendente
+    const golpe = ctx.createOscillator();
+    golpe.type = 'triangle';
+    golpe.frequency.setValueAtTime(200, ahora);
+    golpe.frequency.exponentialRampToValueAtTime(40, ahora + 0.25);
+    const gGolpe = ctx.createGain();
+    gGolpe.gain.setValueAtTime(0.7, ahora);
+    gGolpe.gain.exponentialRampToValueAtTime(0.001, ahora + 0.3);
+    golpe.connect(gGolpe);
+    gGolpe.connect(ganancia);
+    golpe.start(ahora);
+    golpe.stop(ahora + 0.35);
+
+    // 2) Chapoteo — ruido blanco con bandpass alto
+    const muestras = ctx.sampleRate * 0.4;
+    const buffer = ctx.createBuffer(1, muestras, ctx.sampleRate);
+    const datos = buffer.getChannelData(0);
+    for (let i = 0; i < muestras; i++) datos[i] = Math.random() * 2 - 1;
+    const splash = ctx.createBufferSource();
+    splash.buffer = buffer;
+    const filtroSplash = ctx.createBiquadFilter();
+    filtroSplash.type = 'bandpass';
+    filtroSplash.frequency.setValueAtTime(2000, ahora);
+    filtroSplash.Q.setValueAtTime(0.8, ahora);
+    const gSplash = ctx.createGain();
+    gSplash.gain.setValueAtTime(0.5, ahora);
+    gSplash.gain.exponentialRampToValueAtTime(0.001, ahora + 0.35);
+    splash.connect(filtroSplash);
+    filtroSplash.connect(gSplash);
+    gSplash.connect(ganancia);
+    splash.start(ahora);
+    splash.stop(ahora + 0.4);
+
+    // 3) Grito corto (Wilhelm scream sintético) — oscilador con vibrato
+    const grito = ctx.createOscillator();
+    grito.type = 'sawtooth';
+    grito.frequency.setValueAtTime(600, ahora + 0.05);
+    grito.frequency.linearRampToValueAtTime(900, ahora + 0.15);
+    grito.frequency.linearRampToValueAtTime(700, ahora + 0.35);
+    grito.frequency.exponentialRampToValueAtTime(300, ahora + 0.55);
+    // Vibrato rápido para que suene a voz
+    const lfo = ctx.createOscillator();
+    lfo.frequency.setValueAtTime(30, ahora);
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.setValueAtTime(40, ahora);
+    lfo.connect(lfoGain);
+    lfoGain.connect(grito.frequency);
+    lfo.start(ahora + 0.05);
+    lfo.stop(ahora + 0.55);
+    // Envolvente del grito
+    const gGrito = ctx.createGain();
+    gGrito.gain.setValueAtTime(0.001, ahora);
+    gGrito.gain.linearRampToValueAtTime(0.4, ahora + 0.1);
+    gGrito.gain.setValueAtTime(0.4, ahora + 0.25);
+    gGrito.gain.exponentialRampToValueAtTime(0.001, ahora + 0.55);
+    // Filtro para dar timbre de voz humana
+    const filtroVoz = ctx.createBiquadFilter();
+    filtroVoz.type = 'bandpass';
+    filtroVoz.frequency.setValueAtTime(1200, ahora);
+    filtroVoz.Q.setValueAtTime(3, ahora);
+    grito.connect(filtroVoz);
+    filtroVoz.connect(gGrito);
+    gGrito.connect(ganancia);
+    grito.start(ahora + 0.05);
+    grito.stop(ahora + 0.55);
+  }
+
+  // --- MORDIDA DE TIBURÓN ---
+  // Crujido seco de mandíbulas cerrándose + chapoteo + gruñido grave corto
+  mordidaTiburon() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+
+    const ganancia = this._crearGanancia(this.volumen * 0.5);
+
+    // 1) Crujido de mandíbulas — ruido blanco muy corto con high-pass
+    const muestras = ctx.sampleRate * 0.15;
+    const buffer = ctx.createBuffer(1, muestras, ctx.sampleRate);
+    const datos = buffer.getChannelData(0);
+    for (let i = 0; i < muestras; i++) datos[i] = Math.random() * 2 - 1;
+    const crujido = ctx.createBufferSource();
+    crujido.buffer = buffer;
+    const filtroCrujido = ctx.createBiquadFilter();
+    filtroCrujido.type = 'highpass';
+    filtroCrujido.frequency.setValueAtTime(3000, ahora);
+    const gCrujido = ctx.createGain();
+    gCrujido.gain.setValueAtTime(0.6, ahora);
+    gCrujido.gain.exponentialRampToValueAtTime(0.001, ahora + 0.12);
+    crujido.connect(filtroCrujido);
+    filtroCrujido.connect(gCrujido);
+    gCrujido.connect(ganancia);
+    crujido.start(ahora);
+    crujido.stop(ahora + 0.15);
+
+    // 2) Golpe grave de la mordida — triangular descendente (más grave que lancha)
+    const golpe = ctx.createOscillator();
+    golpe.type = 'triangle';
+    golpe.frequency.setValueAtTime(120, ahora);
+    golpe.frequency.exponentialRampToValueAtTime(30, ahora + 0.2);
+    const gGolpe = ctx.createGain();
+    gGolpe.gain.setValueAtTime(0.6, ahora);
+    gGolpe.gain.exponentialRampToValueAtTime(0.001, ahora + 0.25);
+    golpe.connect(gGolpe);
+    gGolpe.connect(ganancia);
+    golpe.start(ahora);
+    golpe.stop(ahora + 0.3);
+
+    // 3) Gruñido corto — sawtooth grave con vibrato lento
+    const grunido = ctx.createOscillator();
+    grunido.type = 'sawtooth';
+    grunido.frequency.setValueAtTime(80, ahora + 0.08);
+    grunido.frequency.exponentialRampToValueAtTime(50, ahora + 0.4);
+    const lfo = ctx.createOscillator();
+    lfo.frequency.setValueAtTime(12, ahora);
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.setValueAtTime(15, ahora);
+    lfo.connect(lfoGain);
+    lfoGain.connect(grunido.frequency);
+    lfo.start(ahora + 0.08);
+    lfo.stop(ahora + 0.4);
+    const filtroGrunido = ctx.createBiquadFilter();
+    filtroGrunido.type = 'lowpass';
+    filtroGrunido.frequency.setValueAtTime(200, ahora);
+    const gGrunido = ctx.createGain();
+    gGrunido.gain.setValueAtTime(0.001, ahora);
+    gGrunido.gain.linearRampToValueAtTime(0.35, ahora + 0.12);
+    gGrunido.gain.exponentialRampToValueAtTime(0.001, ahora + 0.4);
+    grunido.connect(filtroGrunido);
+    filtroGrunido.connect(gGrunido);
+    gGrunido.connect(ganancia);
+    grunido.start(ahora + 0.08);
+    grunido.stop(ahora + 0.45);
+  }
+
   trueno() {
     if (!this._asegurarContexto()) return;
     const ctx = this.contexto;
