@@ -849,11 +849,11 @@ const es = {
     alberto1: 'Terraria tiene más de 5,000 ítems. ¡CINCO MIL! Y yo los quiero todos. Soy coleccionista obsesivo.',
     alberto2: '¿Probaste el sushi de salmón? Es mi comida favorita. Eso y los pancakes con sirope. ¡No juntos!',
     alberto3: 'Binding of Isaac es perturbador pero genial. Cada run es diferente. ¡Como cada excavación arqueológica!',
-    alberto4: 'Je, je... le puse un sticker de "frágil" a la mochila de Nael. ¿Crees que se dará cuenta?',
+    alberto4: 'Je, je... le escondí el libro a Carlos Guillermo otra vez. ¡Es que siempre cae! Pero somos buenos amigos, eh.',
     alberto5: 'Core Keeper y Terraria son primos. Ambos tienen la misma filosofía: excavar, construir, sobrevivir.',
     alberto6: '¿Leer libros? Nah, prefiero leer código. Los libros no tienen bugs... bueno, algunos tienen erratas.',
     alberto7: 'Mew Genics va a ser INCREÍBLE cuando salga. Gatos mutantes + Edmund McMillen = perfección.',
-    alberto8: 'Nuestro equipo se llama "les fous du robot". ¡Somos los locos del robot! Y estamos orgullosos de eso.',
+    alberto8: 'A veces le escondo la lonchera a Carlos Guillermo también. ¡Pero siempre se la devuelvo! Somos un gran equipo y nos la pasamos increíble juntos.',
 
     // Carlos Guillermo — fan de Percy Jackson, Hollow Knight, Adventure Time, etc.
     carlosG1: 'Percy Jackson me enseñó que los mitos griegos son reales... bueno, casi. Pero la arqueología también descubre mitos que resultaron ser verdad.',
@@ -893,7 +893,7 @@ const es = {
     tom8: 'Algún día la IA va a poder analizar artefactos arqueológicos automáticamente. ¡Y nosotros seremos los primeros en usarla!',
 
     // Prof. Nicolas Droulers — profesor de robótica y líder del proyecto
-    profesorNombre: 'Prof. Droulers',
+    profesorNombre: 'Prof. Nicolas Droulers',
     profesor1: 'Bienvenido a la clase de robótica del Liceo Francés. Soy Nicolas Droulers, el profesor de este grupo.',
     profesor2: 'Estos estudiantes son "les fous du robot". Locos por los robots, pero también por la historia de este país.',
     profesor3: 'Yo tuve la idea de combinar robótica con arqueología. Un mapa, un videojuego, robots que exploran el patrimonio.',
@@ -1220,6 +1220,46 @@ const es = {
     padreNuestro: 'Padre Nuestro — Sistema de cuevas con petroglifos.',
     cuevaMaravillas: 'Cueva de las Maravillas — Cámaras adicionales sin explorar.',
     bocaYuma: 'Boca de Yuma — Cuevas costeras con prospección arqueológica limitada.'
+  },
+
+  // --- Nombres de lugares, estructuras y cultivos visibles en pantalla ---
+  lugares: {
+    // Asentamiento Taíno I
+    bohioAlfarero: 'Bohío del Alfarero',
+    bohioPescador: 'Bohío del Pescador',
+    bohioCurandera: 'Bohío de la Curandera',
+    caneyCacique: 'Caney del Cacique',
+    bohioCasabe: 'Bohío de Casabe',
+
+    // Asentamiento Taíno II
+    bohioBehique: 'Bohío del Behique',
+    bohioSemillas: 'Bohío de Semillas',
+    bohioAgricultor: 'Bohío del Agricultor',
+    caneyCeremonial: 'Caney Ceremonial',
+    dujo: 'Dujo',
+
+    // Cultivos taínos
+    yuca: 'yuca',
+    batata: 'batata',
+    maiz: 'maíz',
+    aji: 'ají',
+    tabaco: 'tabaco',
+
+    // La Isabela
+    iglesiaRuinas: 'Iglesia (ruinas)',
+    casaColon: 'Casa de Colón',
+    alhondiga: 'Alhóndiga',
+    torreVigia: 'Torre de Vigía',
+    cementerioColonial: 'Cementerio Colonial',
+
+    // Museo Atarazanas Reales
+    salaExhibicion: 'Sala de Exhibición',
+    laboratorioC14: 'Laboratorio C-14',
+    tallerRestauracion: 'Taller de Restauración',
+    vitrinaTaina: 'Vitrina Taína',
+    vitrinaColonial: 'Vitrina Colonial',
+    vitrinaSubmarina: 'Vitrina Submarina',
+    almacenPiezas: 'Almacén de Piezas'
   }
 };
 

@@ -814,11 +814,11 @@ const en = {
     alberto1: 'Terraria has over 5,000 items. FIVE THOUSAND! And I want them all. I\'m an obsessive collector.',
     alberto2: 'Tried salmon sushi? It\'s my favorite food. That and pancakes with syrup. Not together!',
     alberto3: 'Binding of Isaac is disturbing but genius. Every run is different. Like every archaeological dig!',
-    alberto4: 'Hehe... I put a "fragile" sticker on Nael\'s backpack. Think he\'ll notice?',
+    alberto4: 'Hehe... I hid Carlos Guillermo\'s book again. He always falls for it! But we\'re good friends, you know.',
     alberto5: 'Core Keeper and Terraria are cousins. Same philosophy: dig, build, survive.',
     alberto6: 'Read books? Nah, I prefer reading code. Books don\'t have bugs... well, some have typos.',
     alberto7: 'Mew Genics is gonna be INCREDIBLE when it comes out. Mutant cats + Edmund McMillen = perfection.',
-    alberto8: 'Our team is called "les fous du robot". We\'re the robot crazies! Proud of it.',
+    alberto8: 'Sometimes I hide Carlos Guillermo\'s lunch box too. But I always give it back! We\'re a great team and we have an amazing time together.',
 
     // Carlos Guillermo — Percy Jackson, Hollow Knight, Adventure Time, etc.
     carlosG1: 'Percy Jackson taught me that Greek myths are real... well, almost. But archaeology also uncovers myths that turned out to be true.',
@@ -858,7 +858,7 @@ const en = {
     tom8: 'Someday AI will analyze archaeological artifacts automatically. And we\'ll be the first to use it!',
 
     // Prof. Nicolas Droulers — robotics teacher and project leader
-    profesorNombre: 'Prof. Droulers',
+    profesorNombre: 'Prof. Nicolas Droulers',
     profesor1: 'Welcome to the Lycée Français robotics class. I\'m Nicolas Droulers, the teacher of this group.',
     profesor2: 'These students are "les fous du robot". Crazy about robots, but also about this country\'s history.',
     profesor3: 'I had the idea of combining robotics with archaeology. A map, a video game, robots exploring heritage.',
@@ -1169,6 +1169,46 @@ const en = {
     padreNuestro: 'Padre Nuestro — Cave system with petroglyphs.',
     cuevaMaravillas: 'Cueva de las Maravillas — Additional chambers unexplored.',
     bocaYuma: 'Boca de Yuma — Coastal caves, limited archaeological survey.'
+  },
+
+  // --- Place names, structures and crops visible on screen ---
+  lugares: {
+    // Taíno Settlement I
+    bohioAlfarero: 'Potter\'s Bohío',
+    bohioPescador: 'Fisherman\'s Bohío',
+    bohioCurandera: 'Healer\'s Bohío',
+    caneyCacique: 'Cacique\'s Caney',
+    bohioCasabe: 'Casabe Bohío',
+
+    // Taíno Settlement II
+    bohioBehique: 'Behique\'s Bohío',
+    bohioSemillas: 'Seed Bohío',
+    bohioAgricultor: 'Farmer\'s Bohío',
+    caneyCeremonial: 'Ceremonial Caney',
+    dujo: 'Dujo',
+
+    // Taíno crops
+    yuca: 'cassava',
+    batata: 'sweet potato',
+    maiz: 'corn',
+    aji: 'chili pepper',
+    tabaco: 'tobacco',
+
+    // La Isabela
+    iglesiaRuinas: 'Church (ruins)',
+    casaColon: 'Columbus\'s House',
+    alhondiga: 'Granary',
+    torreVigia: 'Watchtower',
+    cementerioColonial: 'Colonial Cemetery',
+
+    // Atarazanas Reales Museum
+    salaExhibicion: 'Exhibition Hall',
+    laboratorioC14: 'C-14 Laboratory',
+    tallerRestauracion: 'Restoration Workshop',
+    vitrinaTaina: 'Taíno Display Case',
+    vitrinaColonial: 'Colonial Display Case',
+    vitrinaSubmarina: 'Underwater Display Case',
+    almacenPiezas: 'Artifact Storage'
   }
 };
 

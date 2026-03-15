@@ -90,21 +90,21 @@ export class MundoLaboratorio {
     // Representan salas, vitrinas y muebles con colisión
     this.estructuras = [
       // Sala de Exhibición (gran sala central superior)
-      { x: 300, y: 100, ancho: 500, alto: 250, tipo: 'sala', nombre: 'Sala de Exhibición' },
+      { x: 300, y: 100, ancho: 500, alto: 250, tipo: 'sala', clave: 'salaExhibicion', nombre: 'Sala de Exhibición' },
       // Laboratorio C-14 (sala derecha)
-      { x: 1100, y: 100, ancho: 350, alto: 250, tipo: 'laboratorio', nombre: 'Laboratorio C-14' },
+      { x: 1100, y: 100, ancho: 350, alto: 250, tipo: 'laboratorio', clave: 'laboratorioC14', nombre: 'Laboratorio C-14' },
       // Taller de Restauración (sala izquierda)
-      { x: 100, y: 500, ancho: 350, alto: 250, tipo: 'taller', nombre: 'Taller de Restauración' },
+      { x: 100, y: 500, ancho: 350, alto: 250, tipo: 'taller', clave: 'tallerRestauracion', nombre: 'Taller de Restauración' },
       // Vitrina 1 — artefactos taínos
-      { x: 350, y: 450, ancho: 80, alto: 80, tipo: 'vitrina', nombre: 'Vitrina Taína' },
+      { x: 350, y: 450, ancho: 80, alto: 80, tipo: 'vitrina', clave: 'vitrinaTaina', nombre: 'Vitrina Taína' },
       // Vitrina 2 — artefactos coloniales
-      { x: 550, y: 450, ancho: 80, alto: 80, tipo: 'vitrina', nombre: 'Vitrina Colonial' },
+      { x: 550, y: 450, ancho: 80, alto: 80, tipo: 'vitrina', clave: 'vitrinaColonial', nombre: 'Vitrina Colonial' },
       // Vitrina 3 — artefactos submarinos
-      { x: 750, y: 450, ancho: 80, alto: 80, tipo: 'vitrina', nombre: 'Vitrina Submarina' },
+      { x: 750, y: 450, ancho: 80, alto: 80, tipo: 'vitrina', clave: 'vitrinaSubmarina', nombre: 'Vitrina Submarina' },
       // Mostrador de Recepción (entrada sur)
       { x: 750, y: 950, ancho: 300, alto: 60, tipo: 'mostrador', nombre: 'Recepción' },
       // Almacén de Piezas (sala derecha inferior)
-      { x: 1200, y: 600, ancho: 300, alto: 300, tipo: 'almacen', nombre: 'Almacén de Piezas' }
+      { x: 1200, y: 600, ancho: 300, alto: 300, tipo: 'almacen', clave: 'almacenPiezas', nombre: 'Almacén de Piezas' }
     ];
 
     // --- NPCs del museo ---
@@ -505,6 +505,7 @@ export class MundoLaboratorio {
   // ============================================================
 
   _dibujarEstructura(ctx, est) {
+    const _tLug = this._obtenerTextos()?.lugares;
     switch (est.tipo) {
       case 'sala':
         // Sala de exhibición — piso más oscuro, bordes dorados
@@ -517,7 +518,7 @@ export class MundoLaboratorio {
         ctx.fillStyle = '#4a3520';
         ctx.font = 'bold 12px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(est.nombre, est.x + est.ancho / 2, est.y + 20);
+        ctx.fillText(_tLug?.[est.clave] || est.nombre, est.x + est.ancho / 2, est.y + 20);
         ctx.textAlign = 'left';
         break;
 
@@ -537,7 +538,7 @@ export class MundoLaboratorio {
         ctx.fillStyle = '#2a3a4a';
         ctx.font = 'bold 12px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(est.nombre, est.x + est.ancho / 2, est.y + 20);
+        ctx.fillText(_tLug?.[est.clave] || est.nombre, est.x + est.ancho / 2, est.y + 20);
         ctx.textAlign = 'left';
         break;
 
@@ -555,7 +556,7 @@ export class MundoLaboratorio {
         ctx.fillStyle = '#4a3520';
         ctx.font = 'bold 12px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(est.nombre, est.x + est.ancho / 2, est.y + 20);
+        ctx.fillText(_tLug?.[est.clave] || est.nombre, est.x + est.ancho / 2, est.y + 20);
         ctx.textAlign = 'left';
         break;
 
@@ -573,7 +574,7 @@ export class MundoLaboratorio {
         ctx.fillStyle = '#333333';
         ctx.font = '9px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(est.nombre, est.x + est.ancho / 2, est.y + est.alto + 14);
+        ctx.fillText(_tLug?.[est.clave] || est.nombre, est.x + est.ancho / 2, est.y + est.alto + 14);
         ctx.textAlign = 'left';
         break;
 
@@ -608,7 +609,7 @@ export class MundoLaboratorio {
         ctx.fillStyle = '#4a3520';
         ctx.font = 'bold 12px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(est.nombre, est.x + est.ancho / 2, est.y + est.alto + 18);
+        ctx.fillText(_tLug?.[est.clave] || est.nombre, est.x + est.ancho / 2, est.y + est.alto + 18);
         ctx.textAlign = 'left';
         break;
     }

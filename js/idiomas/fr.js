@@ -814,11 +814,11 @@ const fr = {
     alberto1: 'Terraria a plus de 5 000 objets. CINQ MILLE ! Et je les veux tous. Je suis un collectionneur obsessif.',
     alberto2: 'T\'as goûté le sushi au saumon ? C\'est mon plat préféré. Ça et les pancakes au sirop. Pas ensemble !',
     alberto3: 'Binding of Isaac c\'est perturbant mais génial. Chaque run est différente. Comme chaque fouille archéologique !',
-    alberto4: 'Hé hé... j\'ai collé un autocollant « fragile » sur le sac de Nael. Tu crois qu\'il va remarquer ?',
+    alberto4: 'Hé hé... j\'ai encore caché le livre de Carlos Guillermo. Il tombe toujours dans le panneau ! Mais on est bons amis, hein.',
     alberto5: 'Core Keeper et Terraria sont cousins. Même philosophie : creuser, construire, survivre.',
     alberto6: 'Lire des livres ? Non, je préfère lire du code. Les livres n\'ont pas de bugs... enfin, certains ont des coquilles.',
     alberto7: 'Mew Genics va être INCROYABLE quand il sortira. Chats mutants + Edmund McMillen = perfection.',
-    alberto8: 'Notre équipe s\'appelle « les fous du robot ». On est les dingues du robot ! Et on en est fiers.',
+    alberto8: 'Des fois je cache aussi la boîte à lunch de Carlos Guillermo. Mais je la rends toujours ! On est une super équipe et on passe des moments incroyables ensemble.',
 
     // Carlos Guillermo — fan de Percy Jackson, Hollow Knight, Adventure Time, etc.
     carlosG1: 'Percy Jackson m\'a appris que les mythes grecs sont réels... enfin, presque. Mais l\'archéologie aussi découvre des mythes qui se sont avérés vrais.',
@@ -858,7 +858,7 @@ const fr = {
     tom8: 'Un jour l\'IA pourra analyser les artefacts archéologiques automatiquement. Et on sera les premiers à l\'utiliser !',
 
     // Prof. Nicolas Droulers — professeur de robotique et leader du projet
-    profesorNombre: 'Prof. Droulers',
+    profesorNombre: 'Prof. Nicolas Droulers',
     profesor1: 'Bienvenue dans la classe de robotique du Lycée Français. Je suis Nicolas Droulers, le professeur de ce groupe.',
     profesor2: 'Ces élèves sont "les fous du robot". Passionnés de robots, mais aussi de l\'histoire de ce pays.',
     profesor3: 'J\'ai eu l\'idée de combiner la robotique avec l\'archéologie. Une carte, un jeu vidéo, des robots qui explorent le patrimoine.',
@@ -1169,6 +1169,46 @@ const fr = {
     padreNuestro: 'Padre Nuestro — Système de grottes avec pétroglyphes.',
     cuevaMaravillas: 'Cueva de las Maravillas — Chambres supplémentaires non explorées.',
     bocaYuma: 'Boca de Yuma — Grottes côtières, prospection archéologique limitée.'
+  },
+
+  // --- Noms de lieux, structures et cultures visibles à l'écran ---
+  lugares: {
+    // Village Taïno I
+    bohioAlfarero: 'Bohío du Potier',
+    bohioPescador: 'Bohío du Pêcheur',
+    bohioCurandera: 'Bohío de la Guérisseuse',
+    caneyCacique: 'Caney du Cacique',
+    bohioCasabe: 'Bohío de Cassave',
+
+    // Village Taïno II
+    bohioBehique: 'Bohío du Béhique',
+    bohioSemillas: 'Bohío des Graines',
+    bohioAgricultor: 'Bohío de l\'Agriculteur',
+    caneyCeremonial: 'Caney Cérémoniel',
+    dujo: 'Dujo',
+
+    // Cultures taïnos
+    yuca: 'manioc',
+    batata: 'patate douce',
+    maiz: 'maïs',
+    aji: 'piment',
+    tabaco: 'tabac',
+
+    // La Isabela
+    iglesiaRuinas: 'Église (ruines)',
+    casaColon: 'Maison de Colomb',
+    alhondiga: 'Grenier',
+    torreVigia: 'Tour de Guet',
+    cementerioColonial: 'Cimetière Colonial',
+
+    // Musée des Atarazanas Reales
+    salaExhibicion: 'Salle d\'Exposition',
+    laboratorioC14: 'Laboratoire C-14',
+    tallerRestauracion: 'Atelier de Restauration',
+    vitrinaTaina: 'Vitrine Taïno',
+    vitrinaColonial: 'Vitrine Coloniale',
+    vitrinaSubmarina: 'Vitrine Sous-marine',
+    almacenPiezas: 'Réserve de Pièces'
   }
 };
 

@@ -85,30 +85,35 @@ export class LaIsabela {
         x: 400, y: 250,
         ancho: 120, alto: 80,
         tipo: 'iglesia',
+        clave: 'iglesiaRuinas',
         nombre: 'Iglesia (ruinas)'
       },
       {
         x: 700, y: 180,
         ancho: 100, alto: 70,
         tipo: 'casaColon',
+        clave: 'casaColon',
         nombre: 'Casa de Colón'
       },
       {
         x: 1000, y: 350,
         ancho: 90, alto: 60,
         tipo: 'almacen',
+        clave: 'alhondiga',
         nombre: 'Alhóndiga'
       },
       {
         x: 300, y: 500,
         ancho: 80, alto: 60,
         tipo: 'torre',
+        clave: 'torreVigia',
         nombre: 'Torre de Vigía'
       },
       {
         x: 1200, y: 550,
         ancho: 100, alto: 70,
         tipo: 'cementerio',
+        clave: 'cementerioColonial',
         nombre: 'Cementerio Colonial'
       }
     ];
@@ -640,6 +645,7 @@ export class LaIsabela {
 
   // --- Dibujar edificio colonial (ruinas de piedra) ---
   _dibujarEdificio(ctx, x, y, edificio) {
+    const _tLug = this._obtenerTextos()?.lugares;
     const a = edificio.ancho;
     const h = edificio.alto;
 
@@ -765,7 +771,7 @@ export class LaIsabela {
     ctx.font = '9px monospace';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.textAlign = 'center';
-    ctx.fillText(edificio.nombre, x + a / 2, y + h + 15);
+    ctx.fillText(_tLug?.[edificio.clave] || edificio.nombre, x + a / 2, y + h + 15);
     ctx.textAlign = 'left';
   }
 

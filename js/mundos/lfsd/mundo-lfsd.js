@@ -89,7 +89,7 @@ export class MundoLFSD {
 
     // --- NPCs del aula ---
     const textos = this._obtenerTextos();
-    const lfsd = textos?.dialogos?.lfsd;
+    const lfsd = textos?.lfsd;
 
     this.npcs = [
       // Quest-givers (camisas de colores)
@@ -117,7 +117,7 @@ export class MundoLFSD {
       // Profesor — líder del proyecto y de la clase de robótica
       {
         id: 'profesor', x: 560, y: 140, ancho: 28, alto: 36,
-        nombre: lfsd?.profesorNombre || 'Prof. Droulers',
+        nombre: lfsd?.profesorNombre || 'Prof. Nicolas Droulers',
         color: '#2255AA', // Azul LFSD
         dialogoHecho: false, esMentor: true, esQuestGiver: false
       },
@@ -578,7 +578,7 @@ export class MundoLFSD {
   }
 
   _dibujarHUD(ctx, ancho, alto, textos, jugador) {
-    const lfsd = textos?.dialogos?.lfsd;
+    const lfsd = textos?.lfsd;
 
     // Barra de vida
     if (jugador) {
@@ -618,7 +618,7 @@ export class MundoLFSD {
 
   _hablarConNPC(npc) {
     const textos = this._obtenerTextos();
-    const lfsd = textos?.dialogos?.lfsd;
+    const lfsd = textos?.lfsd;
 
     if (npc.esQuestGiver) {
       this._hablarQuestGiver(npc, lfsd);
@@ -953,11 +953,11 @@ export class MundoLFSD {
         lfsd?.alberto1 || 'Terraria tiene más de 5,000 ítems. ¡Los quiero todos!',
         lfsd?.alberto2 || '¿Probaste sushi de salmón? Eso y los pancakes con sirope. ¡No juntos!',
         lfsd?.alberto3 || 'Binding of Isaac es perturbador pero genial. Cada run es diferente.',
-        lfsd?.alberto4 || 'Je, je... le puse un sticker de "frágil" a la mochila de Nael.',
+        lfsd?.alberto4 || 'Je, je... le escondí el libro a Carlos Guillermo otra vez. ¡Es que siempre cae! Pero somos buenos amigos, eh.',
         lfsd?.alberto5 || 'Core Keeper y Terraria son primos. Excavar, construir, sobrevivir.',
         lfsd?.alberto6 || '¿Leer libros? Nah, prefiero leer código.',
         lfsd?.alberto7 || 'Mew Genics va a ser INCREÍBLE. Gatos mutantes + Edmund McMillen.',
-        lfsd?.alberto8 || '¡Somos "les fous du robot"! Los locos del robot. Orgullosos de eso.'
+        lfsd?.alberto8 || 'A veces le escondo la lonchera a Carlos Guillermo también. ¡Pero siempre se la devuelvo! Somos un gran equipo.'
       ],
       // Carlos Guillermo — Percy Jackson, Hollow Knight, Adventure Time, etc.
       estudiante6: [

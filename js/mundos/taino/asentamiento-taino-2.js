@@ -77,10 +77,10 @@ export class AsentamientoTaino2 {
 
     // --- Bohíos ---
     this.bohios = [
-      { x: 250, y: 250, radio: 45, tipo: 'bohio', nombre: 'Bohío del Behique' },
-      { x: 500, y: 180, radio: 40, tipo: 'bohio', nombre: 'Bohío de Semillas' },
-      { x: 1050, y: 300, radio: 45, tipo: 'bohio', nombre: 'Bohío del Agricultor' },
-      { x: 1100, y: 600, radio: 50, tipo: 'caney', nombre: 'Caney Ceremonial' }
+      { x: 250, y: 250, radio: 45, tipo: 'bohio', nombre: 'Bohío del Behique', clave: 'bohioBehique' },
+      { x: 500, y: 180, radio: 40, tipo: 'bohio', nombre: 'Bohío de Semillas', clave: 'bohioSemillas' },
+      { x: 1050, y: 300, radio: 45, tipo: 'bohio', nombre: 'Bohío del Agricultor', clave: 'bohioAgricultor' },
+      { x: 1100, y: 600, radio: 50, tipo: 'caney', nombre: 'Caney Ceremonial', clave: 'caneyCeremonial' }
     ];
 
     // --- Conucos (montículos de cultivo) ---
@@ -620,6 +620,7 @@ export class AsentamientoTaino2 {
 
   // --- Dibujar un conuco (montículo de cultivo taíno) ---
   _dibujarConuco(ctx, x, y, conuco) {
+    const _tCult = this._obtenerTextos()?.lugares;
     // Montículo de tierra
     ctx.fillStyle = '#7a5a30';
     ctx.beginPath();
@@ -694,7 +695,7 @@ export class AsentamientoTaino2 {
     ctx.font = '8px monospace';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.textAlign = 'center';
-    ctx.fillText(conuco.cultivo, x + conuco.ancho / 2, y + conuco.alto + 10);
+    ctx.fillText(_tCult?.[conuco.cultivo] || conuco.cultivo, x + conuco.ancho / 2, y + conuco.alto + 10);
     ctx.textAlign = 'left';
   }
 
@@ -722,12 +723,13 @@ export class AsentamientoTaino2 {
     ctx.font = '8px monospace';
     ctx.fillStyle = 'rgba(255, 215, 0, 0.6)';
     ctx.textAlign = 'center';
-    ctx.fillText('Dujo', x, y + 22);
+    ctx.fillText(this._obtenerTextos()?.lugares?.dujo || 'Dujo', x, y + 22);
     ctx.textAlign = 'left';
   }
 
   // --- Dibujar bohío (reutiliza patrón de Asentamiento 1) ---
   _dibujarBohio(ctx, x, y, bohio) {
+    const _tLug = this._obtenerTextos()?.lugares;
     const r = bohio.radio;
 
     if (bohio.tipo === 'caney') {
@@ -787,7 +789,7 @@ export class AsentamientoTaino2 {
     ctx.font = '9px monospace';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.textAlign = 'center';
-    ctx.fillText(bohio.nombre, x, y + r + 15);
+    ctx.fillText(_tLug?.[bohio.clave] || bohio.nombre, x, y + r + 15);
     ctx.textAlign = 'left';
   }
 

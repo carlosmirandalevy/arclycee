@@ -83,11 +83,11 @@ export class AsentamientoTaino1 {
     // Los bohíos eran casas circulares con techo de hojas de palma (cana)
     // El cacique vivía en un caney (bohío rectangular más grande)
     this.bohios = [
-      { x: 200, y: 200, radio: 45, tipo: 'bohio', nombre: 'Bohío del Alfarero' },
-      { x: 450, y: 150, radio: 45, tipo: 'bohio', nombre: 'Bohío del Pescador' },
-      { x: 850, y: 200, radio: 45, tipo: 'bohio', nombre: 'Bohío de la Curandera' },
-      { x: 900, y: 500, radio: 55, tipo: 'caney', nombre: 'Caney del Cacique' },
-      { x: 300, y: 500, radio: 40, tipo: 'bohio', nombre: 'Bohío de Casabe' }
+      { x: 200, y: 200, radio: 45, tipo: 'bohio', nombre: 'Bohío del Alfarero', clave: 'bohioAlfarero' },
+      { x: 450, y: 150, radio: 45, tipo: 'bohio', nombre: 'Bohío del Pescador', clave: 'bohioPescador' },
+      { x: 850, y: 200, radio: 45, tipo: 'bohio', nombre: 'Bohío de la Curandera', clave: 'bohioCurandera' },
+      { x: 900, y: 500, radio: 55, tipo: 'caney', nombre: 'Caney del Cacique', clave: 'caneyCacique' },
+      { x: 300, y: 500, radio: 40, tipo: 'bohio', nombre: 'Bohío de Casabe', clave: 'bohioCasabe' }
     ];
 
     // --- NPCs de la aldea ---
@@ -459,8 +459,9 @@ export class AsentamientoTaino1 {
     }
 
     // --- Bohíos ---
+    const _tLug = this._obtenerTextos()?.lugares;
     for (const bohio of this.bohios) {
-      this._dibujarBohio(ctx, bohio.x + offsetX, bohio.y + offsetY, bohio);
+      this._dibujarBohio(ctx, bohio.x + offsetX, bohio.y + offsetY, bohio, _tLug);
     }
 
     // --- Objetos coleccionables ---
@@ -600,7 +601,7 @@ export class AsentamientoTaino1 {
   // --- Dibujar un bohío taíno ---
   // Los bohíos eran casas circulares hechas de madera y hojas de palma.
   // El caney era rectangular y más grande — la casa del cacique.
-  _dibujarBohio(ctx, x, y, bohio) {
+  _dibujarBohio(ctx, x, y, bohio, _tLug) {
     const r = bohio.radio;
 
     if (bohio.tipo === 'caney') {
@@ -672,7 +673,7 @@ export class AsentamientoTaino1 {
     ctx.font = '9px monospace';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.textAlign = 'center';
-    ctx.fillText(bohio.nombre, x, y + r + 15);
+    ctx.fillText(_tLug?.[bohio.clave] || bohio.nombre, x, y + r + 15);
     ctx.textAlign = 'left';
   }
 
