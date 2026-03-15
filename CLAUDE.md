@@ -69,6 +69,9 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - 7 opciones: nuevoJuego, continuarJuego, idioma, mapaReal, documentacion, opciones, creditos
 - `documentacion` abre `docs/index.html`, `docs/en.html` o `docs/fr.html` según `codigosIdioma[idiomaIndice]`
 - Idioma se cambia con flechas horizontales cuando la opción está seleccionada
+- **Hero images**: 3 imágenes hero por idioma en `resources/artes/` precargadas en `_precargarImagenesHero()`, dibujadas con viñeta oscura (gradientes en 4 bordes) sobre fondo negro
+- **Logo en menú**: `resources/arclycee-logo.png` precargado junto con las hero images, mostrado en créditos (140px) y en la cinemática final (120px)
+- **Créditos**: logo + 9 nombres en 3 columnas + "les fous du robot" + "Liceo Francés de Santo Domingo — 2026"
 
 ### Idiomas (`js/idiomas/`)
 - 3 idiomas: `es.js`, `fr.js`, `en.js`
@@ -128,6 +131,9 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Documentación técnica** (`docs/technical.html`, `technical-en.html`, `technical-fr.html`): 22 secciones cubriendo toda la arquitectura del código (game loop, input, renderizado, 57 sonidos, combate, diálogos, compañeros, inventario, álbum, mapa tiles, mapa mundo, acuático, clima, mini-juegos, reputación, guardado, Leaflet, finales, i18n, jugador, config). Cada referencia a un archivo .js es clicable gracias a `source-viewer.js`
 - **Visor de código fuente** (`docs/source-viewer.js`): auto-convierte `<code>js/...</code>` en enlaces clicables que abren un modal con syntax highlighting (regex-based: keywords, strings, comments, numbers, functions). GitHub Dark theme. Inyecta sus propios estilos CSS
 - **Diagramas técnicos** (`docs/tech-diagrams.js`): 10 SVGs generados programáticamente con i18n (ES/EN/FR). Detecta idioma vía `<html lang>`. Insertados automáticamente tras headings en las secciones correspondientes de la documentación técnica
+- **Previews de mundos** (`docs/world-previews.js`): Canvas 2D renders animados de los 9 mundos del juego. IIFE con 10 funciones renderer, matching multilingüe por título de sección, IntersectionObserver para eficiencia. Se incluye en `worlds*.html`
+- **Logo y branding**: `resources/arclycee-logo.png` (fondo transparente) usado en menú principal, créditos, cinemática final, navegación docs y footer docs. `navigation.js` inyecta logo en nav bar (28px) y footer (48px) dinámicamente vía DOM
+- **Hero banners en docs**: cada página principal (`index.html`, `en.html`, `fr.html`) muestra la hero image del idioma correspondiente con clase `.hero-banner` (full-width, border-radius inferior)
 
 ## Qué NO hacer
 

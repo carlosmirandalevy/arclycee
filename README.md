@@ -16,7 +16,9 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **3 idiomas completos**: Español, Français, English — toda la interfaz, controles, combate, cinemáticas, mini-juegos, toasts, nombres de estructuras y cultivos traducidos (~210 claves)
 - **Mapa de isla con tiles**: bitmap de 128×68 tiles trazado desde imagen de referencia, con 8 tipos de terreno, 8 cordilleras, 5 ríos, 2 lagos, cámara libre con zoom (0.25×-3×), drag táctil/ratón y colisiones
 - **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps y 4 capas de datos: 16 sitios taínos, 8 sitios coloniales, 12 naufragios históricos y 30 museos a lo largo de toda La Hispaniola (RD + Haití). Totalmente traducido en 3 idiomas
-- **Créditos cinematográficos**: créditos estilo película tras el final con nombres del equipo y el Liceo Francés
+- **Hero images**: pantalla de inicio con imagen hero por idioma (ES/EN/FR) con viñeta oscura en los bordes
+- **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer
+- **Créditos cinematográficos**: créditos estilo película tras el final con logo, nombres del equipo y el Liceo Francés
 - **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
 - **Sonidos procedurales**: efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
@@ -29,6 +31,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Mini-juego de batú**: juego de pelota taíno con física 2D, golpes por cadera/hombro/cabeza/rodilla, IA vencible (72% velocidad, 15% errores), primero en 5 puntos, datos educativos entre puntos
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
+- **Previews de mundos**: cada mundo en la documentación tiene un render Canvas 2D animado con los colores y elementos reales del juego
 - **Múltiples finales** (5) según tus decisiones: completo, pacifista, museo, ecológico u oscuro
 - **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas, efectos en jugador y sonido ambiental (lluvia continua, truenos)
 - **Álbum de fotos**: toma fotos y selfies de NPCs, tortugas, corales, petroglifos y objetos — cada tipo tiene renderizado dedicado (tortugas por especie, corales por tipo: cerebro, cuerno, abanico, mesa). Selfies muestran entidad + jugador lado a lado. Sin capturas de pantalla

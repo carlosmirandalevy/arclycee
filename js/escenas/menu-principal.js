@@ -53,6 +53,34 @@ export class MenuPrincipal {
 
     // Temporizador del título para la animación sinusoidal
     this.tiempoAnimacion = 0;
+
+    // Imágenes hero por idioma — se precargan al iniciar
+    // Cada imagen ya incluye el logo, título y subtítulo del juego
+    this.imagenesHero = {};
+    this.imagenHeroCargada = false;
+    this._precargarImagenesHero();
+  }
+
+  // --- Precargar las 3 imágenes hero (una por idioma) ---
+  // Se cargan al crear el menú para que estén listas cuando se dibuje
+  _precargarImagenesHero() {
+    const rutas = {
+      es: 'resources/artes/arclycee-hero-image-spanish.png',
+      fr: 'resources/artes/arclycee-hero-image-francais.png',
+      en: 'resources/artes/arclycee-hero-image-english.png',
+      logo: 'resources/arclycee-logo.png'
+    };
+    let cargadas = 0;
+    const total = Object.keys(rutas).length;
+    for (const [codigo, ruta] of Object.entries(rutas)) {
+      const img = new Image();
+      img.onload = () => {
+        cargadas++;
+        if (cargadas === total) this.imagenHeroCargada = true;
+      };
+      img.src = ruta;
+      this.imagenesHero[codigo] = img;
+    }
   }
 
   // --- Preparar el menú cuando se entra a esta escena ---
@@ -281,26 +309,66 @@ export class MenuPrincipal {
       ctx.fillRect(p.x, p.y, p.tamano, p.tamano);
     }
 
-    // --- Título principal con animación flotante ---
-    ctx.save();
-    ctx.font = 'bold 48px monospace';
-    ctx.fillStyle = '#FFD700';
-    ctx.textAlign = 'center';
-    ctx.fillText(
-      textos.menu.titulo,
-      ancho / 2,
-      120 + this.animacionTitulo
-    );
+    // --- Imagen hero según idioma ---
+    // La imagen ya contiene el logo, título y subtítulo
+    const codigoIdioma = this.codigosIdioma[this.idiomaIndice];
+    const imgHero = this.imagenesHero[codigoIdioma];
+    let heroAlto = 0;
 
-    // --- Subtítulo ---
-    ctx.font = '16px monospace';
-    ctx.fillStyle = '#CCCCCC';
-    ctx.fillText(
-      'Aventura Arqueológica Dominicana',
-      ancho / 2,
-      150 + this.animacionTitulo
-    );
-    ctx.restore();
+    if (this.imagenHeroCargada && imgHero && imgHero.complete) {
+      // Escalar la imagen para que ocupe el ancho del canvas
+      // manteniendo la proporción 16:9
+      const escala = ancho / imgHero.naturalWidth;
+      heroAlto = imgHero.naturalHeight * escala;
+      // Limitar la altura máxima al 45% del canvas para dejar espacio al menú
+      const maxAlto = alto * 0.45;
+      if (heroAlto > maxAlto) heroAlto = maxAlto;
+      const imgAncho = heroAlto * (imgHero.naturalWidth / imgHero.naturalHeight);
+      const imgX = (ancho - imgAncho) / 2;
+      const imgY = 8;
+
+      ctx.drawImage(imgHero, imgX, imgY, imgAncho, heroAlto);
+
+      // Viñeta oscura: bordes de la imagen se funden con el fondo negro
+      // Borde inferior
+      const gradBot = ctx.createLinearGradient(0, imgY + heroAlto - 40, 0, imgY + heroAlto);
+      gradBot.addColorStop(0, 'rgba(0,0,0,0)');
+      gradBot.addColorStop(1, 'rgba(0,0,0,0.95)');
+      ctx.fillStyle = gradBot;
+      ctx.fillRect(imgX, imgY + heroAlto - 40, imgAncho, 40);
+
+      // Borde superior
+      const gradTop = ctx.createLinearGradient(0, imgY, 0, imgY + 25);
+      gradTop.addColorStop(0, 'rgba(10,10,46,0.8)');
+      gradTop.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gradTop;
+      ctx.fillRect(imgX, imgY, imgAncho, 25);
+
+      // Bordes laterales
+      const gradLeft = ctx.createLinearGradient(imgX, 0, imgX + 30, 0);
+      gradLeft.addColorStop(0, 'rgba(0,0,0,0.85)');
+      gradLeft.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gradLeft;
+      ctx.fillRect(imgX, imgY, 30, heroAlto);
+
+      const gradRight = ctx.createLinearGradient(imgX + imgAncho - 30, 0, imgX + imgAncho, 0);
+      gradRight.addColorStop(0, 'rgba(0,0,0,0)');
+      gradRight.addColorStop(1, 'rgba(0,0,0,0.85)');
+      ctx.fillStyle = gradRight;
+      ctx.fillRect(imgX + imgAncho - 30, imgY, 30, heroAlto);
+    } else {
+      // Fallback: título de texto si la imagen no cargó
+      ctx.save();
+      ctx.font = 'bold 48px monospace';
+      ctx.fillStyle = '#FFD700';
+      ctx.textAlign = 'center';
+      ctx.fillText(textos.menu.titulo, ancho / 2, 120 + this.animacionTitulo);
+      ctx.font = '16px monospace';
+      ctx.fillStyle = '#CCCCCC';
+      ctx.fillText('Aventura Arqueológica Dominicana', ancho / 2, 150 + this.animacionTitulo);
+      ctx.restore();
+      heroAlto = 160;
+    }
 
     // --- Opciones del menú ---
     // Si hay un submenú activo, dibujamos eso en vez de las opciones
@@ -309,8 +377,9 @@ export class MenuPrincipal {
       return;
     }
 
-    const inicioY = 220;
-    const espaciado = 40;
+    // Posicionar opciones debajo de la imagen hero
+    const inicioY = Math.max(heroAlto + 30, 220);
+    const espaciado = 32;
 
     for (let i = 0; i < this.opciones.length; i++) {
       const opcion = this.opciones[i];
@@ -435,25 +504,46 @@ export class MenuPrincipal {
     }
 
     if (this.submenuActivo === 'creditos') {
-      ctx.font = 'bold 24px monospace';
-      ctx.fillStyle = '#FFD700';
-      ctx.fillText(textos.menu.creditos, ancho / 2, 130);
-
-      // Nombres del equipo real del proyecto
-      const miembros = [
-        'Elian', 'Theo', 'Carlos Guillermo', 'Jules',
-        'Alberto', 'Rafael', 'Tom', 'Nael'
-      ];
-
-      ctx.font = '16px monospace';
-      ctx.fillStyle = '#FFFFFF';
-      for (let i = 0; i < miembros.length; i++) {
-        ctx.fillText(miembros[i], ancho / 2, 175 + i * 28);
+      // Logo del juego centrado arriba
+      const imgLogo = this.imagenesHero['logo'];
+      if (imgLogo && imgLogo.complete) {
+        const logoAlto = 140;
+        const logoAncho = logoAlto * (imgLogo.naturalWidth / imgLogo.naturalHeight);
+        ctx.drawImage(imgLogo, (ancho - logoAncho) / 2, 82, logoAncho, logoAlto);
       }
 
-      ctx.font = '14px monospace';
+      // Nombres del equipo real del proyecto — les fous du robot
+      const miembros = [
+        'Elian', 'Théo', 'Carlos Guillermo', 'Jules', 'Alberto',
+        'Rafael', 'Tom', 'Naël', 'Diana'
+      ];
+
+      ctx.font = '15px monospace';
+      ctx.fillStyle = '#FFFFFF';
+      const inicioNombres = 240;
+      const espacioNombres = 24;
+      const cols = 3;
+      const colAncho = (ancho - 140) / cols;
+      const colInicioX = 70 + colAncho / 2;
+      for (let i = 0; i < miembros.length; i++) {
+        const col = i % cols;
+        const fila = Math.floor(i / cols);
+        ctx.fillText(miembros[i], colInicioX + col * colAncho, inicioNombres + fila * espacioNombres);
+      }
+
+      // Nombre del equipo y escuela
+      const filas = Math.ceil(miembros.length / cols);
+      const yEquipo = inicioNombres + filas * espacioNombres + 16;
+      ctx.font = '13px monospace';
+      ctx.fillStyle = '#CCAA44';
+      ctx.fillText('les fous du robot', ancho / 2, yEquipo);
+      ctx.font = '11px monospace';
       ctx.fillStyle = '#888888';
-      ctx.fillText(textos?.ui?.volverMenu || 'Presiona Q / Escape / Enter para volver', ancho / 2, alto - 110);
+      ctx.fillText('Liceo Francés de Santo Domingo — 2026', ancho / 2, yEquipo + 18);
+
+      ctx.font = '12px monospace';
+      ctx.fillStyle = '#555555';
+      ctx.fillText(textos?.ui?.volverMenu || 'Q / Escape / Enter', ancho / 2, alto - 95);
     }
 
     ctx.textAlign = 'left';

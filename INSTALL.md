@@ -82,6 +82,7 @@ arclycee/
 │   ├── technical.html      ← Referencia técnica con visor de código (ES/EN/FR)
 │   ├── source-viewer.js    ← Visor de código fuente con syntax highlighting
 │   ├── tech-diagrams.js    ← 10 diagramas SVG técnicos con i18n (ES/EN/FR)
+│   ├── world-previews.js   ← Renders Canvas 2D animados de los 9 mundos
 │   └── ...                 ← Mundos, mecánicas, diálogos (ES/EN/FR)
 ├── estilos/
 │   └── principal.css       ← Estilos del juego
@@ -112,10 +113,13 @@ arclycee/
 │   └── instrucciones-assets.md  ← Prompts para generar arte con IA
 └── resources/
     ├── idea-original.md    ← Documento de diseño del juego
-    ├── favicon.ico          ← Favicon del juego (16+32px)
+    ├── image-prompts.md    ← Prompts para generar logo y poster con IA
+    ├── arclycee-logo.png   ← Logo del juego (transparente)
+    ├── favicon.ico          ← Favicon del juego (16+32+48px)
     ├── favicon-32.png       ← Favicon PNG 32x32
     ├── apple-touch-icon.png ← Ícono para iOS 180x180
-    └── og-share.png         ← Imagen para redes sociales 1200x630
+    ├── og-share.png         ← Imagen para redes sociales 192x192
+    └── artes/               ← Hero images, logo original, favicon original
 ```
 
 ## Audio

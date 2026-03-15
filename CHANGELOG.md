@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.16.4 — Hero images, logo, world previews, branding overhaul (2026-03-15)
+
+### Agregado
+- **Hero images** en menú principal del juego: 3 imágenes (ES/EN/FR) con viñeta oscura en los bordes, se selecciona según el idioma activo
+- **Logo del juego** (`resources/arclycee-logo.png`): letras de piedra con cemí murciélago, fondo transparente. Mostrado en: menú créditos del juego, cinemática final, navegación de docs (64px), footer de docs (64px)
+- **Favicon nuevo**: generado desde arte original del cemí con la letra "A", multi-tamaño (16/32/48 ICO + PNG + apple-touch-icon 180px + og-share 192px)
+- **World previews** (`docs/world-previews.js`): renders Canvas 2D animados de los 9 mundos del juego, reemplazan las ilustraciones SVG estáticas. Incluye: Cuevas (oscuridad + antorcha), Taíno I/II (bohíos, conucos), La Isabela (ruinas + mar), Zona Colonial (catedral, panteón), Acuático (naufragio + burbujas + medusa), Jurídico (aeropuerto), Museo (vitrinas + lab C-14), LFSD (aula + 9 estudiantes). Animación con requestAnimationFrame + IntersectionObserver
+- **Image prompts** (`resources/image-prompts.md`): prompts para Gemini Nano Banana Pro 2 para logo (512×512) y poster (1920×1080)
+- **Diana en LFSD** (docs/worlds): listada por nombre en la sección de estudiantes de les fous du robot en los 3 idiomas
+
+### Mejorado
+- **Docs hero**: las 3 páginas principales (index.html, en.html, fr.html) usan la hero image como banner en vez del icono cemí + h1
+- **Docs navegación**: logo ArcLycée 64px en la barra de navegación (enlaza a inicio) + logo 64px centrado en el footer de todas las 18 páginas
+- **Créditos del menú**: logo grande (140px), 9 miembros en 3 columnas, "les fous du robot" en dorado, "Liceo Francés de Santo Domingo — 2026"
+- **Créditos de cinemática final**: logo (120px) reemplaza el texto "ArcLycée" en el scroll de créditos
+- **Listado de estudiantes LFSD**: sin número fijo ("8 estudiantes" → lista por nombre), Diana incluida en ES/EN/FR
+
+### Corregido
+- **worlds-fr.html**: error de sintaxis JS por apóstrofo francés en `d'ArcLycée` — reemplazado con escapes Unicode
+
+---
+
 ## v0.16.3 — Technical diagrams, character avatars, batú rebalance (2026-03-15)
 
 ### Agregado

@@ -59,6 +59,10 @@ export class FinalCinematica {
 
     // Referencia al juego
     this.juego = null;
+
+    // Logo del juego para los créditos
+    this._imagenLogo = new Image();
+    this._imagenLogo.src = 'resources/arclycee-logo.png';
   }
 
   // --- Preparar la cinemática ---
@@ -549,11 +553,18 @@ export class FinalCinematica {
       y += espacioSeccion - espacioLinea;
     }
 
-    // --- TÍTULO ---
-    ctx.font = 'bold 36px monospace';
-    ctx.fillStyle = '#FFD700';
-    ctx.fillText('ArcLycée', centroX, y);
-    y += 40;
+    // --- LOGO ---
+    if (this._imagenLogo && this._imagenLogo.complete && this._imagenLogo.naturalWidth > 0) {
+      const logoAlto = 120;
+      const logoAncho = logoAlto * (this._imagenLogo.naturalWidth / this._imagenLogo.naturalHeight);
+      ctx.drawImage(this._imagenLogo, centroX - logoAncho / 2, y - logoAlto * 0.7, logoAncho, logoAlto);
+      y += logoAlto * 0.5;
+    } else {
+      ctx.font = 'bold 36px monospace';
+      ctx.fillStyle = '#FFD700';
+      ctx.fillText('ArcLycée', centroX, y);
+      y += 40;
+    }
 
     ctx.font = '16px monospace';
     ctx.fillStyle = '#C8A84E';

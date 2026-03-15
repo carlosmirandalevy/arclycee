@@ -150,6 +150,11 @@
 
     var html = '<div class="doc-nav-inner">';
 
+    // Logo pequeño a la izquierda
+    html += '<a href="' + PAGINAS.overview.archivos[idiomaActual] + '" class="doc-nav-logo">'
+          + '<img src="../resources/arclycee-logo.png" alt="ArcLycée" height="28">'
+          + '</a>';
+
     // Pills de secciones — cada una enlaza a la versión del idioma actual
     html += '<div class="doc-nav-pills">';
     for (var id in PAGINAS) {
@@ -203,5 +208,14 @@
       var nuevoTema = obtenerTema() === 'dark' ? 'light' : 'dark';
       aplicarTema(nuevoTema);
     });
+
+    // Insertar logo centrado en el footer
+    var footer = document.querySelector('footer');
+    if (footer) {
+      var logoDiv = document.createElement('div');
+      logoDiv.className = 'footer-logo';
+      logoDiv.innerHTML = '<img src="../resources/arclycee-logo.png" alt="ArcLycée" height="48">';
+      footer.insertBefore(logoDiv, footer.firstChild);
+    }
   });
 })();
