@@ -13,7 +13,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Activismo ciudadano**: combate contra Constructor Méndez con redes sociales, protestas, denuncias y vías legales
 - **Control ecológico**: combate contra el pez león invasor con captura, pesca, protección de coral y alertas a buzos
 - **Justicia patrimonial**: combate legal contra el traficante Rodrigo Torres con Ley 318, evidencia forense, INTERPOL y UNESCO 1970
-- **3 idiomas**: Español, Français, English
+- **3 idiomas completos**: Español, Français, English — toda la interfaz, controles, combate, cinemáticas, mini-juegos y toasts traducidos (~130 claves UI)
 - **Mapa de isla con tiles**: bitmap de 128×68 tiles trazado desde imagen de referencia, con 8 tipos de terreno, 8 cordilleras, 5 ríos, 2 lagos, cámara libre con zoom (0.25×-3×), drag táctil/ratón y colisiones
 - **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps y 4 capas de datos: 16 sitios taínos, 8 sitios coloniales, 12 naufragios históricos y 30 museos a lo largo de toda La Hispaniola (RD + Haití)
 - **Créditos cinematográficos**: créditos estilo película tras el final con nombres del equipo y el Liceo Francés

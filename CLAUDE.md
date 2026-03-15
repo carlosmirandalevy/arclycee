@@ -74,6 +74,10 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - 3 idiomas: `es.js`, `fr.js`, `en.js`
 - Acceso: `juego.idiomas.traducciones[juego.idiomas.idiomaActual]`
 - Toda string visible al jugador debe estar en los 3 archivos de idioma
+- **Sección `ui`**: ~130 claves para strings de interfaz compartidas entre múltiples archivos (controles, etiquetas de acción, combate, cinemáticas, mini-juegos, créditos, nombres de personajes, toasts de inventario)
+- **Patrón de acceso en mundos/escenas**: `const textos = this._obtenerTextos();` → `textos?.ui?.clave || 'fallback en español'`
+- **Patrón de acceso en mecánicas**: reciben `textos` como parámetro de `dibujar()` → `textos?.ui?.clave || 'fallback'`
+- **Nombres de personajes en diálogos**: usar `textos?.ui?.espirituTaina` / `textos?.ui?.petroglifo` para nombres genéricos traducibles. Los nombres propios históricos (Cacique Guacanagaríx, Fray Ramón Pané, Roberto Cassá, etc.) NO se traducen
 
 ### Toasts (`juego.js`)
 - `juego.mostrarToast(texto, duracion)` — mensaje flotante no intrusivo

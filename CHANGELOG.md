@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.15.6 — Full i18n: all UI strings translated to English and French (2026-03-15)
+
+### Agregado
+- **~130 claves de traducción** en sección `ui` de los 3 archivos de idioma (ES/EN/FR)
+- **Nombres de personajes traducidos**: "Espíritu Taína" → "Taíno Spirit" / "Esprit Taïno", "Petroglifo" → "Petroglyph" / "Pétroglyphe"
+- **Toasts de inventario traducidos**: "ítem añadido al inventario" → "item added to inventory" / "objet ajouté à l'inventaire" en los 9 mundos
+
+### Mejorado
+- **Controles de mundo** (barra inferior): 10 variantes de controles traducidas según el tipo de mundo
+- **Etiquetas de acción**: `[E] Hablar`, `[E] Examinar`, `[F] Detectar Metal` y 10 más traducidas
+- **Combate**: Hostilidad, Tu vida, indicadores de turno, controles y pista por defecto traducidos
+- **Cinemáticas**: intro completa (4 textos), selección de personaje (descripción + controles), créditos (13 strings)
+- **Mini-juegos**: instrucciones de calibración, programación de bloques y conexión de cables traducidas
+- **Menú/HUD**: selector de niveles (Konami), registro de misiones, controles de batú traducidos
+
+### Archivos modificados
+- 26 archivos: 3 idiomas, 4 escenas, 6 mecánicas, 1 motor, 10 mundos, 1 mapa, 1 registro
+
+---
+
 ## v0.15.5 — Gift counter, 5 endings, Prof. Droulers, coral reef, LFSD unlock fix (2026-03-15)
 
 ### Agregado
