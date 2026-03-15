@@ -5,8 +5,9 @@
 // jugador ve una secuencia cinematográfica que resume su viaje
 // y muestra el impacto de sus acciones.
 //
-// Hay 4 finales posibles basados en las decisiones del jugador:
-// - Completo: todos los nodos + todos los combates pacificados
+// Hay 5 finales posibles basados en las decisiones del jugador:
+// - Completo: todos los nodos + todas las sidequests + combates pacificados
+// - Pacifista: todos los nodos + combates pacificados (sin sidequests completas)
 // - Ecológico: acciones ecológicas ≥ 3, sin combates violentos
 // - Oscuro: más combates violentos que pacificados
 // - Museo: final por defecto — exhibición museística
@@ -80,7 +81,8 @@ export class FinalCinematica {
     // Epílogo según el tipo de final
     const genero = juego?.generoJugador === 'pepita' ? 'a' : 'o';
     const epilogos = {
-      completo: `Guardián${genero === 'a' ? 'a' : ''} del patrimonio dominicano`,
+      completo: `Leyenda${genero === 'a' ? '' : ''} de Quisqueya`,
+      pacifista: `Guardián${genero === 'a' ? 'a' : ''} del patrimonio dominicano`,
       ecologico: `Protector${genero === 'a' ? 'a' : ''} del ecosistema marino del Caribe`,
       oscuro: 'El patrimonio merece otro camino...',
       museo: `Curador${genero === 'a' ? 'a' : ''} de la historia dominicana`
@@ -97,7 +99,7 @@ export class FinalCinematica {
     }
   }
 
-  // --- Determinar cuál de los 4 finales mostrar ---
+  // --- Determinar cuál de los 5 finales mostrar ---
   _determinarFinal(juego) {
     if (!juego || !juego.progreso) return 'museo';
 
@@ -106,10 +108,16 @@ export class FinalCinematica {
     const pacificados = progreso.combatesPacificados || 0;
     const violentos = progreso.combatesViolentos || 0;
     const ecologicas = progreso.accionesEcologicas || 0;
+    const sidequestsCompletas = juego.misiones ? juego.misiones.contarCompletadas() : 0;
 
-    // Final completo: todos los nodos (8) + todos los combates pacificados
-    if (nodosCompletos >= 8 && pacificados > 0 && violentos === 0) {
+    // Final completo: todos los nodos (8) + todas las sidequests (5) + pacificados
+    if (nodosCompletos >= 8 && sidequestsCompletas >= 5 && pacificados > 0 && violentos === 0) {
       return 'completo';
+    }
+
+    // Final pacifista: todos los nodos (8) + combates pacificados, sin violencia
+    if (nodosCompletos >= 8 && pacificados > 0 && violentos === 0) {
+      return 'pacifista';
     }
 
     // Final oscuro: más combates violentos que pacificados
@@ -134,6 +142,13 @@ export class FinalCinematica {
     // Si no hay traducciones, usar textos por defecto en español
     const defecto = {
       completo: [
+        'Has dominado cada rincón de esta isla: los mundos, las misiones, los desafíos.',
+        'Calibraste el magnetómetro, programaste el robot, reparaste el equipo, jugaste batú y salvaste al manatí.',
+        'Desde las cuevas del Pomier hasta el LFSD, dejaste huella en cada lugar.',
+        'Los artefactos están en los museos, los arrecifes se recuperan, y la justicia llegó.',
+        'Eres la leyenda de Quisqueya. 100% completado.'
+      ],
+      pacifista: [
         'Has completado todos los desafíos con sabiduría y paz.',
         'Desde las cuevas del Pomier hasta el Museo de las Atarazanas, protegiste el patrimonio dominicano.',
         'Los artefactos están seguros en los museos. Los traficantes, ante la justicia.',
@@ -289,6 +304,32 @@ export class FinalCinematica {
   _dibujarFondo(ctx, ancho, alto) {
     switch (this.tipoFinal) {
       case 'completo':
+        // Fondo épico con aurora dorada — el final más difícil de conseguir
+        const gradComp = ctx.createRadialGradient(ancho / 2, alto / 2, 50, ancho / 2, alto / 2, 400);
+        gradComp.addColorStop(0, '#2a200a');
+        gradComp.addColorStop(0.5, '#1a150a');
+        gradComp.addColorStop(1, '#0a0a05');
+        ctx.fillStyle = gradComp;
+        ctx.fillRect(0, 0, ancho, alto);
+        // Rayos dorados intensos convergentes al centro
+        ctx.fillStyle = `rgba(255, 215, 0, ${0.08 * this.opacidad})`;
+        for (let i = 0; i < 12; i++) {
+          const ang = (i / 12) * Math.PI * 2 + this.temporizador * 0.05;
+          ctx.beginPath();
+          ctx.moveTo(ancho / 2, alto / 2);
+          ctx.lineTo(ancho / 2 + Math.cos(ang) * 500, alto / 2 + Math.sin(ang) * 500);
+          ctx.lineTo(ancho / 2 + Math.cos(ang + 0.15) * 500, alto / 2 + Math.sin(ang + 0.15) * 500);
+          ctx.closePath();
+          ctx.fill();
+        }
+        // Brillo central pulsante
+        ctx.fillStyle = `rgba(255, 200, 50, ${(0.03 + Math.sin(this.temporizador) * 0.02) * this.opacidad})`;
+        ctx.beginPath();
+        ctx.arc(ancho / 2, alto / 2, 120, 0, Math.PI * 2);
+        ctx.fill();
+        break;
+
+      case 'pacifista':
         // Fondo dorado triunfante
         ctx.fillStyle = '#1a1a0a';
         ctx.fillRect(0, 0, ancho, alto);
@@ -379,10 +420,11 @@ export class FinalCinematica {
 
     // Acorde según tipo de final
     const acordes = {
-      completo: [261, 329, 392, 523],  // C mayor brillante
-      museo: [220, 277, 329],           // A menor cálido
-      ecologico: [261, 329, 392],       // C mayor suave
-      oscuro: [196, 233, 293]           // G menor sombrío
+      completo: [261, 329, 392, 523, 659],  // C mayor 9 — épico y pleno
+      pacifista: [261, 329, 392, 523],       // C mayor brillante
+      museo: [220, 277, 329],                // A menor cálido
+      ecologico: [261, 329, 392],            // C mayor suave
+      oscuro: [196, 233, 293]                // G menor sombrío
     };
 
     const notas = acordes[this.tipoFinal] || acordes.museo;
@@ -453,7 +495,7 @@ export class FinalCinematica {
   _calcularAltoCreditos() {
     // Cada sección tiene un título + nombres + espacio
     // Total aproximado: ~25 líneas × 40px = 1000px + epílogo
-    return 1300;
+    return 1400;
   }
 
   /**
@@ -526,6 +568,17 @@ export class FinalCinematica {
       y += espacioLinea;
     }
     y += espacioSeccion - espacioLinea;
+
+    // --- PROFESOR ---
+    ctx.font = 'bold 18px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText('Profesor', centroX, y);
+    y += espacioLinea + 5;
+
+    ctx.font = '16px monospace';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText('Nicolas Droulers', centroX, y);
+    y += espacioSeccion;
 
     // --- CLASE ---
     ctx.font = 'bold 18px monospace';

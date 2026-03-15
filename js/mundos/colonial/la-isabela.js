@@ -600,13 +600,21 @@ export class LaIsabela {
       tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
     });
 
+    // Regalos de NPCs (Roberto Cassá da mapa colonial a cambio de arcabuz)
+    const tieneMapaColonial = this.juego?.inventario?.tieneObjeto('mapaColonial');
+    const regalosRecibidos = tieneMapaColonial ? 1 : 0;
+    const totalRegalos = 1;
+    renderizador.dibujarTexto(`🎁 ${regalosRecibidos}/${totalRegalos}`, 15, 74, {
+      tamano: 11, color: regalosRecibidos >= totalRegalos ? '#44CC44' : '#FFD700'
+    });
+
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
     });
 
     // --- Indicador de F para Magnoboot ---
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto('[F] Detectar Metal', 15, 74, {
+      renderizador.dibujarTexto('[F] Detectar Metal', 15, 90, {
         tamano: 10, color: '#44FFFF'
       });
     }
@@ -1005,6 +1013,10 @@ export class LaIsabela {
             { personaje: '📖 Fray Ramón Pané', texto: isabela2?.cronistaVibraciones || 'Por cierto... el magnetómetro que encontré parece descalibrado. Los estudiantes de robótica del LFSD quizás puedan arreglarlo.' }
           ], () => {
             this.juego.misiones.descubrir('buenasVibraciones');
+            // Desbloquear LFSD para que el jugador pueda ir a completar la misión
+            if (!this.juego.progreso.nodosDesbloqueados.includes(8)) {
+              this.juego.progreso.nodosDesbloqueados.push(8);
+            }
             this.juego.mostrarToast('📋 Misión descubierta: Good Vibrations');
             const tituloMision = isabela2?.misionBuenasVibraciones || 'Good Vibrations';
             this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Calibrar el magnetómetro con los estudiantes de robótica del LFSD.');

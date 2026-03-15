@@ -29,7 +29,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Mini-juego de batú**: juego de pelota taíno con física 2D, golpes por cadera/hombro/cabeza/rodilla, IA vencible, datos educativos entre puntos
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
-- **Múltiples finales** (4) según tus decisiones: completo, museo, ecológico u oscuro
+- **Múltiples finales** (5) según tus decisiones: completo, pacifista, museo, ecológico u oscuro
 - **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas, efectos en jugador y sonido ambiental (lluvia continua, truenos)
 - **Álbum de fotos**: toma fotos y selfies de NPCs, petroglifos y objetos — las fotos renderizan solo el sprite del NPC/objeto centrado sobre fondo oscuro (bloque cuadrado), las selfies muestran al NPC y al jugador lado a lado (rectángulo vertical). Sin capturas de pantalla
 - **Misiones secundarias**: 5 sidequests: batú (pelota taína), rescate del manatí, y 3 del LFSD (calibración de señal, programación de robot, conexión de cables) con mini-juegos únicos
@@ -46,7 +46,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león, Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones patrulleros) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
-| LFSD | Liceo Francés de Santo Domingo — aula de robótica con 8 NPCs estudiantes, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
+| LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers y 8 NPCs estudiantes, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
 
 ## Tecnologías
 

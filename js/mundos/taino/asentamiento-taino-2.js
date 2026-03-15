@@ -579,6 +579,15 @@ export class AsentamientoTaino2 {
       tamano: 11, color: objRecogidos >= objetosPermanentes.length ? '#44CC44' : '#FFD700'
     });
 
+    // Regalos de NPCs (Guarionex da guanábana, Behique da Cemí Murciélago)
+    const agricultor = this.npcs.find(n => n.id === 'agricultor');
+    const behique = this.npcs.find(n => n.id === 'behique');
+    const regalosRecibidos = (agricultor?.dialogoHecho ? 1 : 0) + (behique?.dialogoHecho ? 1 : 0);
+    const totalRegalos = 2;
+    renderizador.dibujarTexto(`🎁 ${regalosRecibidos}/${totalRegalos}`, 15, 74, {
+      tamano: 11, color: regalosRecibidos >= totalRegalos ? '#44CC44' : '#FFD700'
+    });
+
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
     });
@@ -590,7 +599,7 @@ export class AsentamientoTaino2 {
 
     // --- Indicador de F para Magnoboot ---
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto('[F] Detectar Metal', 15, 74, {
+      renderizador.dibujarTexto('[F] Detectar Metal', 15, 90, {
         tamano: 10, color: '#44FFFF'
       });
     }

@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.15.5 — Gift counter, 5 endings, Prof. Droulers, coral reef, LFSD unlock fix (2026-03-15)
+
+### Agregado
+- **Contador de regalos** (🎁): HUD en y=74 en 5 mundos muestra ítems/compañeros recibidos de NPCs (Asentamiento I: 1, Asentamiento II: 2, Cuevas Pomier: 1, La Isabela: 1, Mundo Acuático: 1). Se vuelve verde al completar
+- **5to final — Completo**: requiere 8+ nodos + 5 sidequests completadas + todos pacificados. Nuevo título "Leyenda de Quisqueya" con fondo de rayos dorados giratorios y acorde C major 9
+- **Final Pacifista**: renombrado del antiguo "Completo" (8+ nodos + todos pacificados, sin requerir sidequests)
+- **Prof. Nicolas Droulers**: NPC mentor en LFSD con sprite personalizado (delgado, pelo blanco, sonrisa), 5 pares de diálogos rotativos sobre el proyecto, el patrimonio y sus estudiantes
+- **Desbloqueo dinámico de LFSD**: el nodo LFSD se desbloquea al descubrir cualquier sidequest que lo mencione (La Isabela → buenasVibraciones, Santuario → metalCompleto, Museo → cienciaLoca), sin necesidad de completar Mundo Laboratorio
+
+### Mejorado
+- **Arrecife de coral realista**: reemplazado círculos aleatorios por formaciones determinísticas: base rocosa, coral cerebro con surcos, coral cuerno de ciervo con puntas blancas, abanico de mar con Bézier, esponjas tubo púrpura, coral de fuego amarillo, algas animadas con sin()
+
+### Corregido
+- **Toast de ballena atascado**: corregida duración de `4000` (interpretado como 4000 segundos) a `4` segundos
+
+---
+
 ## v0.15.4 — HUD layout fix: Vida + Reputación side by side (2026-03-14)
 
 ### Mejorado

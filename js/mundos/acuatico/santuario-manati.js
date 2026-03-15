@@ -2251,6 +2251,10 @@ export class SantuarioManati {
               { personaje: '🧪 Dra. Sofía', texto: san2?.biologaMetal || 'Ah, una cosa más — necesitamos un robot submarino para explorar las zonas más profundas. Los estudiantes del LFSD podrían programar uno.' }
             ], () => {
               this.juego.misiones.descubrir('metalCompleto');
+              // Desbloquear LFSD para que el jugador pueda ir a completar la misión
+              if (!this.juego.progreso.nodosDesbloqueados.includes(8)) {
+                this.juego.progreso.nodosDesbloqueados.push(8);
+              }
               this.juego.mostrarToast('📋 Misión descubierta: Full Metal Archeologist');
               const tituloMision = san2?.misionMetalCompleto || 'Full Metal Archeologist';
               this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Programar un robot submarino de exploración con los estudiantes del LFSD.');

@@ -773,6 +773,13 @@ export class CuevasPomier {
       tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
     });
 
+    // Regalos de NPCs (Arqueóloga da Magnoboot)
+    const regalosRecibidos = this.arqueologaDialogoHecho ? 1 : 0;
+    const totalRegalos = 1;
+    renderizador.dibujarTexto(`🎁 ${regalosRecibidos}/${totalRegalos}`, 15, 74, {
+      tamano: 11, color: regalosRecibidos >= totalRegalos ? '#44CC44' : '#FFD700'
+    });
+
     // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'

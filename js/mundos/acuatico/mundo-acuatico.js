@@ -465,7 +465,7 @@ export class MundoAcuatico {
           this.juego.mostrarToast(
             textos?.dialogos?.acuatico?.cantoBallenaCerca
             || '🐋 ¡Escuchas el canto de una ballena jorobada a lo lejos!'
-          , 4000);
+          , 4);
         }
       }
     }
@@ -812,6 +812,14 @@ export class MundoAcuatico {
       tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
     });
 
+    // Regalos de NPCs (Arqueóloga Submarina da mapa de naufragios)
+    const arqueologa = this.npcs.find(n => n.id === 'arqueologa');
+    const regalosRecibidos = arqueologa?.dialogoHecho ? 1 : 0;
+    const totalRegalos = 1;
+    renderizador.dibujarTexto(`🎁 ${regalosRecibidos}/${totalRegalos}`, 15, 74, {
+      tamano: 11, color: regalosRecibidos >= totalRegalos ? '#44CC44' : '#FFD700'
+    });
+
     // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
@@ -819,7 +827,7 @@ export class MundoAcuatico {
 
     // Indicador de lentitud por medusa
     if (this.efectoLentitud > 0) {
-      renderizador.dibujarTexto('🪼 ¡Lentitud!', 15, 74, {
+      renderizador.dibujarTexto('🪼 ¡Lentitud!', 15, 90, {
         tamano: 10, color: '#CC77FF'
       });
     }
@@ -950,22 +958,184 @@ export class MundoAcuatico {
       ctx.fill();
 
     } else if (est.tipo === 'arrecife') {
-      // Arrecife de coral — formas irregulares y coloridas
-      // Base
-      ctx.fillStyle = '#8a5040';
+      // Arrecife de coral — formaciones realistas con distintos tipos
+      // de coral caribeño: cerebro, cuerno de ciervo, abanico y esponjas
+
+      // --- Base rocosa irregular ---
+      ctx.fillStyle = '#6b4535';
       ctx.beginPath();
-      ctx.ellipse(x + a / 2, y + h / 2, a / 2, h / 2, 0, 0, Math.PI * 2);
+      ctx.moveTo(x + 5, y + h);
+      ctx.lineTo(x - 3, y + h * 0.7);
+      ctx.lineTo(x + 8, y + h * 0.4);
+      ctx.lineTo(x + a * 0.3, y + 5);
+      ctx.lineTo(x + a * 0.5, y);
+      ctx.lineTo(x + a * 0.7, y + 8);
+      ctx.lineTo(x + a - 5, y + h * 0.35);
+      ctx.lineTo(x + a + 3, y + h * 0.6);
+      ctx.lineTo(x + a - 2, y + h);
+      ctx.closePath();
       ctx.fill();
-      // Corales de colores
-      const coloresCoral = ['#ff6666', '#ff9944', '#ffcc44', '#ff66aa', '#cc88ff'];
-      for (let i = 0; i < 8; i++) {
-        const cx = x + 15 + Math.random() * (a - 30);
-        const cy = y + 10 + Math.random() * (h - 20);
-        ctx.fillStyle = coloresCoral[i % coloresCoral.length];
-        // Forma de coral ramificado
+
+      // Textura de la roca (manchas más claras)
+      ctx.fillStyle = '#7d5a48';
+      ctx.beginPath();
+      ctx.ellipse(x + a * 0.3, y + h * 0.6, 12, 8, 0.3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(x + a * 0.7, y + h * 0.5, 10, 6, -0.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // --- Coral cerebro (brain coral) — hemisferio con surcos ---
+      const cerebroX = x + 20;
+      const cerebroY = y + h * 0.45;
+      ctx.fillStyle = '#c4956a';
+      ctx.beginPath();
+      ctx.ellipse(cerebroX, cerebroY, 14, 11, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Surcos sinuosos del coral cerebro
+      ctx.strokeStyle = '#9a7050';
+      ctx.lineWidth = 1.5;
+      for (let i = -2; i <= 2; i++) {
         ctx.beginPath();
-        ctx.arc(cx, cy, 5 + Math.random() * 8, 0, Math.PI * 2);
+        ctx.moveTo(cerebroX - 10, cerebroY + i * 4);
+        ctx.bezierCurveTo(
+          cerebroX - 4, cerebroY + i * 4 - 3,
+          cerebroX + 4, cerebroY + i * 4 + 3,
+          cerebroX + 10, cerebroY + i * 4
+        );
+        ctx.stroke();
+      }
+      // Brillo húmedo
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.beginPath();
+      ctx.ellipse(cerebroX - 3, cerebroY - 4, 5, 3, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // --- Coral cuerno de ciervo (staghorn) — ramas hacia arriba ---
+      const ciervoX = x + a * 0.55;
+      const ciervoY = y + h * 0.3;
+      ctx.strokeStyle = '#e8a060';
+      ctx.lineCap = 'round';
+      // Ramas principales
+      const ramas = [
+        [0, 0, -8, -22], [0, 0, 5, -25], [0, 0, 14, -18],
+        [-8, -22, -15, -32], [-8, -22, -3, -35],
+        [5, -25, 2, -38], [5, -25, 12, -34],
+        [14, -18, 20, -28], [14, -18, 10, -30]
+      ];
+      // Ramas gruesas primero
+      ctx.lineWidth = 3;
+      for (let i = 0; i < 3; i++) {
+        const r = ramas[i];
+        ctx.beginPath();
+        ctx.moveTo(ciervoX + r[0], ciervoY + r[1]);
+        ctx.lineTo(ciervoX + r[2], ciervoY + r[3]);
+        ctx.stroke();
+      }
+      // Ramas finas después
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#f0b878';
+      for (let i = 3; i < ramas.length; i++) {
+        const r = ramas[i];
+        ctx.beginPath();
+        ctx.moveTo(ciervoX + r[0], ciervoY + r[1]);
+        ctx.lineTo(ciervoX + r[2], ciervoY + r[3]);
+        ctx.stroke();
+      }
+      // Puntas blancas (zona de crecimiento)
+      ctx.fillStyle = '#f8e0c8';
+      for (let i = 3; i < ramas.length; i++) {
+        ctx.beginPath();
+        ctx.arc(ciervoX + ramas[i][2], ciervoY + ramas[i][3], 1.5, 0, Math.PI * 2);
         ctx.fill();
+      }
+
+      // --- Coral abanico (sea fan) — estructura en abanico ---
+      const abanicoX = x + a * 0.82;
+      const abanicoY = y + h * 0.35;
+      // Tallo
+      ctx.strokeStyle = '#8a4060';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(abanicoX, abanicoY + 12);
+      ctx.lineTo(abanicoX, abanicoY);
+      ctx.stroke();
+      // Abanico (forma de arco con nervaduras)
+      ctx.fillStyle = 'rgba(180, 60, 100, 0.6)';
+      ctx.beginPath();
+      ctx.moveTo(abanicoX, abanicoY);
+      ctx.bezierCurveTo(
+        abanicoX - 16, abanicoY - 8,
+        abanicoX - 14, abanicoY - 28,
+        abanicoX, abanicoY - 24
+      );
+      ctx.bezierCurveTo(
+        abanicoX + 14, abanicoY - 28,
+        abanicoX + 16, abanicoY - 8,
+        abanicoX, abanicoY
+      );
+      ctx.fill();
+      // Nervaduras del abanico
+      ctx.strokeStyle = 'rgba(200, 80, 120, 0.7)';
+      ctx.lineWidth = 0.8;
+      for (let i = -3; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(abanicoX, abanicoY);
+        ctx.lineTo(abanicoX + i * 3, abanicoY - 22 + Math.abs(i) * 2);
+        ctx.stroke();
+      }
+
+      // --- Esponjas tubulares (tube sponges) — cilindros verticales ---
+      const esponjasPos = [
+        [x + a * 0.38, y + h * 0.55, 12, '#8855cc'],
+        [x + a * 0.42, y + h * 0.48, 16, '#7744bb'],
+        [x + a * 0.35, y + h * 0.6, 9, '#9966dd']
+      ];
+      for (const [ex, ey, eh, ec] of esponjasPos) {
+        // Tubo exterior
+        ctx.fillStyle = ec;
+        ctx.fillRect(ex - 3, ey - eh, 6, eh);
+        // Bordes redondeados
+        ctx.beginPath();
+        ctx.ellipse(ex, ey - eh, 3, 1.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        // Apertura oscura en la punta
+        ctx.fillStyle = '#3a2266';
+        ctx.beginPath();
+        ctx.ellipse(ex, ey - eh, 2, 1, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // --- Pequeños corales de fuego (fire coral) — manchas amarillas ---
+      ctx.fillStyle = '#ddaa30';
+      const fuegosPos = [[x + 10, y + h * 0.7], [x + a - 15, y + h * 0.65], [x + a * 0.5, y + h * 0.75]];
+      for (const [fx, fy] of fuegosPos) {
+        ctx.beginPath();
+        ctx.arc(fx, fy, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#eebb44';
+        ctx.beginPath();
+        ctx.arc(fx + 2, fy - 2, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#ddaa30';
+      }
+
+      // --- Algas y hierbas marinas en la base ---
+      ctx.strokeStyle = '#3a8844';
+      ctx.lineWidth = 1.5;
+      ctx.lineCap = 'round';
+      const t = this.tiempoTotal || 0;
+      const algasPos = [
+        [x + 5, y + h - 2], [x + 18, y + h], [x + a - 20, y + h - 3],
+        [x + a - 8, y + h - 1], [x + a * 0.5, y + h]
+      ];
+      for (let i = 0; i < algasPos.length; i++) {
+        const [ax2, ay2] = algasPos[i];
+        const ondulacion = Math.sin(t * 1.5 + i * 2) * 3;
+        ctx.beginPath();
+        ctx.moveTo(ax2, ay2);
+        ctx.quadraticCurveTo(ax2 + ondulacion, ay2 - 10, ax2 + ondulacion * 0.5, ay2 - 18);
+        ctx.stroke();
       }
 
     } else if (est.tipo === 'canoa') {

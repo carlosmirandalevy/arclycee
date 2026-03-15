@@ -2,9 +2,9 @@
 // MUNDO-LFSD.JS - Clase de robótica del LFSD (Misiones Secundarias)
 // ============================================================
 // El Liceo Francés de Santo Domingo tiene una clase de robótica
-// llamada "les fous du robot". Aquí el jugador conoce a 8
-// estudiantes, 3 de los cuales ofrecen misiones secundarias
-// con mini-juegos únicos:
+// llamada "les fous du robot". Aquí el jugador conoce al
+// Prof. Nicolas Droulers y a 8 estudiantes, 3 de los cuales
+// ofrecen misiones secundarias con mini-juegos únicos:
 //
 // - Émile (electrónica) → Calibración de señal (magnetómetro)
 // - Sofía (programación) → Programación de bloques (robot submarino)
@@ -113,6 +113,13 @@ export class MundoLFSD {
         color: '#FF8844', // Naranja
         dialogoHecho: false, esMentor: false, esQuestGiver: true,
         quest: 'cienciaLoca'
+      },
+      // Profesor — líder del proyecto y de la clase de robótica
+      {
+        id: 'profesor', x: 560, y: 140, ancho: 28, alto: 36,
+        nombre: lfsd?.profesorNombre || 'Prof. Droulers',
+        color: '#2255AA', // Azul LFSD
+        dialogoHecho: false, esMentor: true, esQuestGiver: false
       },
       // Estudiantes de relleno
       {
@@ -447,17 +454,31 @@ export class MundoLFSD {
     ctx.ellipse(npc.x + npc.ancho / 2, npc.y + npc.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cuerpo (camisa del color del NPC)
+    // Cuerpo (camisa del color del NPC — profesor más delgado)
     ctx.fillStyle = npc.color;
-    ctx.fillRect(npc.x + 4, npc.y + 10, 20, 16);
+    if (npc.id === 'profesor') {
+      ctx.fillRect(npc.x + 6, npc.y + 10, 16, 16);
+    } else {
+      ctx.fillRect(npc.x + 4, npc.y + 10, 20, 16);
+    }
 
     // Cabeza
     ctx.fillStyle = '#D2956A';
     ctx.fillRect(npc.x + 6, npc.y, 16, 14);
 
-    // Pelo
-    ctx.fillStyle = '#2a1a0a';
+    // Pelo (el profesor tiene pelo blanco)
+    ctx.fillStyle = npc.id === 'profesor' ? '#DDDDDD' : '#2a1a0a';
     ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
+
+    // El profesor es delgado — cuerpo más estrecho y sonrisa visible
+    if (npc.id === 'profesor') {
+      // Sonrisa (siempre sonriente)
+      ctx.strokeStyle = '#8a5a3a';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(npc.x + 14, npc.y + 10, 4, 0.1, Math.PI - 0.1);
+      ctx.stroke();
+    }
 
     // Ojos
     ctx.fillStyle = '#FFFFFF';
@@ -869,6 +890,12 @@ export class MundoLFSD {
   }
 
   _hablarEstudiante(npc, lfsd) {
+    // El profesor tiene su propio flujo de diálogo
+    if (npc.id === 'profesor') {
+      this._hablarProfesor(npc, lfsd);
+      return;
+    }
+
     // Diálogo rotativo para cada estudiante
     const key = npc.id;
     if (!this._dialogoRotativo[key]) this._dialogoRotativo[key] = 0;
@@ -980,6 +1007,36 @@ export class MundoLFSD {
       this._dialogoRotativo[key]++;
       npc.dialogoHecho = true;
     });
+  }
+
+  // --- Diálogo del Prof. Nicolas Droulers ---
+  // Profesor de robótica del LFSD y líder del proyecto ArcLycée.
+  // Diálogo rotativo con temas sobre el proyecto, los estudiantes
+  // y la intersección entre tecnología y patrimonio.
+  _hablarProfesor(npc, lfsd) {
+    if (!this._dialogoRotativo['profesor']) this._dialogoRotativo['profesor'] = 0;
+    const idx = this._dialogoRotativo['profesor'];
+    const nombre = '👨‍🏫 ' + npc.nombre;
+
+    const pares = [
+      [lfsd?.profesor1 || 'Bienvenido a la clase de robótica del Liceo Francés. Soy Nicolas Droulers, el profesor de este grupo.',
+       lfsd?.profesor2 || 'Estos estudiantes son "les fous du robot". Locos por los robots, pero también por la historia de este país.'],
+      [lfsd?.profesor3 || 'Yo tuve la idea de combinar robótica con arqueología. Un mapa, un videojuego, robots que exploran el patrimonio.',
+       lfsd?.profesor4 || 'Los chicos le dieron vida al proyecto. Diseñan, programan, resuelven problemas reales. Aprenden haciendo.'],
+      [lfsd?.profesor5 || 'La República Dominicana tiene un patrimonio arqueológico enorme y mucho por descubrir.',
+       lfsd?.profesor6 || 'Nuestro trabajo es conectar la ciencia con la cultura. Robótica al servicio de la historia.'],
+      [lfsd?.profesor7 || 'Conozco a cada uno de mis estudiantes. Cada uno aporta algo diferente: electrónica, programación, mecánica, diseño...',
+       lfsd?.profesor8 || 'Lo más importante no es el robot en sí, sino lo que aprenden construyéndolo juntos. Eso es lo que me hace más orgulloso.'],
+      [lfsd?.profesor9 || 'Este proyecto nació de una idea simple: ¿y si la tecnología pudiera ayudar a proteger el patrimonio?',
+       lfsd?.profesor10 || 'Cada chico aportó al proyecto y realizó distintos aspectos también. Todos investigaron mucho.']
+    ];
+
+    const par = pares[idx % pares.length];
+    this.dialogos.iniciarDialogo([
+      { personaje: nombre, texto: par[0] },
+      { personaje: nombre, texto: par[1] }
+    ]);
+    this._dialogoRotativo['profesor']++;
   }
 
   // ============================================================

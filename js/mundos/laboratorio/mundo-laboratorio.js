@@ -1050,6 +1050,10 @@ export class MundoLaboratorio {
           { personaje: '📚 Roberto Cassá', texto: lab2?.cassaCiencia || 'Ah, y un problema — el equipo de análisis está averiado. Quizás los estudiantes del LFSD sepan cómo repararlo.' }
         ], () => {
           this.juego.misiones.descubrir('cienciaLoca');
+          // Desbloquear LFSD para que el jugador pueda ir a completar la misión
+          if (!this.juego.progreso.nodosDesbloqueados.includes(8)) {
+            this.juego.progreso.nodosDesbloqueados.push(8);
+          }
           this.juego.mostrarToast('📋 Misión descubierta: Weird Science');
           const tituloMision = lab2?.misionCienciaLoca || 'Weird Science';
           this.juego.registro.agregarEntrada('secundaria', tituloMision, 'Reparar el equipo de análisis del museo con los estudiantes del LFSD.');

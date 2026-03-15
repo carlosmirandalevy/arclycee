@@ -537,9 +537,16 @@ const en = {
       misionWSCompletaDesc: 'The repaired equipment led to a scientific discovery. You made the newspaper!'
     },
 
-    // Endings — 4 possible closing sequences
+    // Endings — 5 possible closing sequences
     finales: {
       completo: {
+        linea1: 'You mastered every corner of this island: the worlds, the missions, the challenges.',
+        linea2: 'You calibrated the magnetometer, programmed the robot, repaired the equipment, played batú and saved the manatee.',
+        linea3: 'From the Pomier caves to the LFSD, you left your mark everywhere.',
+        linea4: 'The artifacts are in museums, the reefs are recovering, and justice was served.',
+        linea5: 'You are the legend of Quisqueya. 100% completed.'
+      },
+      pacifista: {
         linea1: 'You completed every challenge with wisdom and peace.',
         linea2: 'From the Pomier caves to the Royal Shipyards Museum, you protected Dominican heritage.',
         linea3: 'The artifacts are safe in museums. The traffickers face justice.',
@@ -849,6 +856,19 @@ const en = {
     tom6: 'I play handball on the LFSD team. It\'s like coding: calculate angles and anticipate moves.',
     tom7: '*looks at Nael* Hehe... I just changed his desktop wallpaper. Don\'t tell him.',
     tom8: 'Someday AI will analyze archaeological artifacts automatically. And we\'ll be the first to use it!',
+
+    // Prof. Nicolas Droulers — robotics teacher and project leader
+    profesorNombre: 'Prof. Droulers',
+    profesor1: 'Welcome to the Lycée Français robotics class. I\'m Nicolas Droulers, the teacher of this group.',
+    profesor2: 'These students are "les fous du robot". Crazy about robots, but also about this country\'s history.',
+    profesor3: 'I had the idea of combining robotics with archaeology. A map, a video game, robots exploring heritage.',
+    profesor4: 'The kids brought the project to life. They design, program, solve real problems. They learn by doing.',
+    profesor5: 'The Dominican Republic has an enormous archaeological heritage and so much left to discover.',
+    profesor6: 'Our work connects science with culture. Robotics in service of history.',
+    profesor7: 'I know each and every one of my students. Each one brings something different: electronics, programming, mechanics, design...',
+    profesor8: 'The most important thing isn\'t the robot itself, but what they learn building it together. That\'s what makes me proudest.',
+    profesor9: 'This project was born from a simple idea: what if technology could help protect heritage?',
+    profesor10: 'Each student contributed to the project and worked on different aspects too. They all did a lot of research.',
 
     // Sub-mission: deliver submarine robot
     subMisionRobot: 'Deliver Submarine Robot',

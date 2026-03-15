@@ -537,9 +537,16 @@ const fr = {
       misionWSCompletaDesc: 'L\'équipement réparé a permis une découverte scientifique. Tu es dans le journal !'
     },
 
-    // Fins — 4 séquences de clôture possibles
+    // Fins — 5 séquences de clôture possibles
     finales: {
       completo: {
+        linea1: 'Tu as maîtrisé chaque recoin de cette île : les mondes, les missions, les défis.',
+        linea2: 'Tu as calibré le magnétomètre, programmé le robot, réparé l\'équipement, joué au batú et sauvé le lamantin.',
+        linea3: 'Des grottes du Pomier au LFSD, tu as laissé ta marque partout.',
+        linea4: 'Les artefacts sont dans les musées, les récifs se rétablissent, et la justice est arrivée.',
+        linea5: 'Tu es la légende de Quisqueya. 100% complété.'
+      },
+      pacifista: {
         linea1: 'Tu as relevé tous les défis avec sagesse et paix.',
         linea2: 'Des grottes du Pomier au Musée des Atarazanas, tu as protégé le patrimoine dominicain.',
         linea3: 'Les artefacts sont en sécurité dans les musées. Les trafiquants face à la justice.',
@@ -849,6 +856,19 @@ const fr = {
     tom6: 'Je joue au handball dans l\'équipe du LFSD. C\'est comme programmer : calculer les angles et anticiper les mouvements.',
     tom7: '*regarde Nael* Hé hé... Je viens de changer son fond d\'écran. Ne lui dis pas.',
     tom8: 'Un jour l\'IA pourra analyser les artefacts archéologiques automatiquement. Et on sera les premiers à l\'utiliser !',
+
+    // Prof. Nicolas Droulers — professeur de robotique et leader du projet
+    profesorNombre: 'Prof. Droulers',
+    profesor1: 'Bienvenue dans la classe de robotique du Lycée Français. Je suis Nicolas Droulers, le professeur de ce groupe.',
+    profesor2: 'Ces élèves sont "les fous du robot". Passionnés de robots, mais aussi de l\'histoire de ce pays.',
+    profesor3: 'J\'ai eu l\'idée de combiner la robotique avec l\'archéologie. Une carte, un jeu vidéo, des robots qui explorent le patrimoine.',
+    profesor4: 'Les élèves ont donné vie au projet. Ils conçoivent, programment, résolvent de vrais problèmes. Ils apprennent en faisant.',
+    profesor5: 'La République Dominicaine a un patrimoine archéologique énorme et tellement de choses à découvrir.',
+    profesor6: 'Notre travail connecte la science avec la culture. La robotique au service de l\'histoire.',
+    profesor7: 'Je connais chacun de mes élèves. Chacun apporte quelque chose de différent : électronique, programmation, mécanique, design...',
+    profesor8: 'Le plus important n\'est pas le robot en soi, mais ce qu\'ils apprennent en le construisant ensemble. C\'est ce qui me rend le plus fier.',
+    profesor9: 'Ce projet est né d\'une idée simple : et si la technologie pouvait aider à protéger le patrimoine ?',
+    profesor10: 'Chaque élève a contribué au projet et a travaillé sur différents aspects aussi. Ils ont tous beaucoup recherché.',
 
     // Sous-mission : livrer le robot sous-marin
     subMisionRobot: 'Livrer le Robot Sous-Marin',
