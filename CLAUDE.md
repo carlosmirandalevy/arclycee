@@ -78,6 +78,8 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Patrón de acceso en mundos/escenas**: `const textos = this._obtenerTextos();` → `textos?.ui?.clave || 'fallback en español'`
 - **Patrón de acceso en mecánicas**: reciben `textos` como parámetro de `dibujar()` → `textos?.ui?.clave || 'fallback'`
 - **Nombres de personajes en diálogos**: usar `textos?.ui?.espirituTaina` / `textos?.ui?.petroglifo` para nombres genéricos traducibles. Los nombres propios históricos (Cacique Guacanagaríx, Fray Ramón Pané, Roberto Cassá, etc.) NO se traducen
+- **Sección `lugares`**: nombres de estructuras (bohíos, edificios, salas de museo), cultivos taínos y etiquetas de lugar. Cada estructura tiene propiedad `clave` que se busca en `textos?.lugares?.[clave] || nombre`
+- **Diálogos del LFSD**: la sección `lfsd` está al nivel raíz de traducciones (no dentro de `dialogos`). Acceso: `textos?.lfsd?.key`, NO `textos?.dialogos?.lfsd?.key`
 
 ### Toasts (`juego.js`)
 - `juego.mostrarToast(texto, duracion)` — mensaje flotante no intrusivo

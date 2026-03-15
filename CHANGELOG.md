@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.15.8 — Complete i18n: structure names, LFSD dialogues, Alberto pranks (2026-03-15)
+
+### Agregado
+- **Sección `lugares`** en los 3 idiomas con 32 nombres traducidos: bohíos taínos, cultivos, edificios de La Isabela, salas del museo Atarazanas Reales
+- **Alberto → Carlos Guillermo pranks**: Alberto ahora le esconde el libro y la lonchera a Carlos Guillermo como broma amistosa, reflejando la amistad del equipo
+
+### Corregido
+- **Diálogos LFSD no se traducían**: la ruta `textos?.dialogos?.lfsd` era incorrecta — la sección `lfsd` está al nivel raíz, no dentro de `dialogos`. Corregido a `textos?.lfsd`
+- **Prof. Droulers** → renombrado a **Prof. Nicolas Droulers** en los 3 idiomas y el fallback
+
+---
+
+## v0.15.7 — Translate toasts, labels, HUD messages + hide reputation on map (2026-03-15)
+
+### Agregado
+- **~50 claves de traducción** para toasts (guardado, misiones, laboratorio, santuario), etiquetas de ubicación (SALIDA, RECEPCIÓN, ADUANAS, MUSEO, Santuario, HÉLICES), leyenda del mapa de riesgo y HUD del mapa
+
+### Corregido
+- **Barra de reputación en mapa del mundo**: ya no se muestra en la pantalla del mapa — solo visible dentro de niveles
+
+---
+
 ## v0.15.6 — Full i18n: all UI strings translated to English and French (2026-03-15)
 
 ### Agregado
