@@ -387,7 +387,8 @@ const es = {
       misionCompleta: '¡Naufragio explorado! Vuelve al mapa (M)',
 
       // Transición al santuario
-      transicionSantuario: '🤿 Dejamos los tanques de oxígeno y el equipo de buceo. Nadamos a pulmón con snorkel en las aguas poco profundas del santuario, moviéndonos con gracia entre los corales sin tocarlos ni perturbar la vida local...'
+      transicionSantuario1: '🤿 Dejamos los tanques de oxígeno y el equipo de buceo.',
+      transicionSantuario2: '🫁 Nadamos a pulmón con snorkel entre los corales, sin tocarlos ni perturbar la vida local...'
     },
 
     // Santuario del Manatí — sub-nivel marino con acciones ecológicas
@@ -446,7 +447,8 @@ const es = {
       biologaPostRobot: 'El robot sigue escaneando el fondo marino. Cada día encuentra algo nuevo. ¡Gracias por traerlo!',
 
       // Transición de vuelta al naufragio
-      transicionNaufragio: '🫧 Recogemos los tanques de oxígeno y el equipo de buceo para sumergirnos en las aguas profundas en busca de los restos del naufragio...'
+      transicionNaufragio1: '🫧 Recogemos los tanques de oxígeno y el equipo de buceo.',
+      transicionNaufragio2: '🤿 Nos sumergimos en las aguas profundas en busca de los restos del naufragio...'
     },
 
     // Mundo Jurídico — Aeropuerto de Punta Cana (Acto 4)

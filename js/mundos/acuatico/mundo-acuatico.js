@@ -420,13 +420,18 @@ export class MundoAcuatico {
     if (jugador.x >= this.anchoNivel - jugador.ancho - 5) {
       if (this.juego && this.juego.cambiarEscena) {
         this.juego.cambiarEscena('santuarioManati');
-        // Mensaje: dejamos el equipo pesado para nadar a pulmón
+        // Mensaje en dos partes: dejamos el equipo pesado para nadar a pulmón
         const textos = this._obtenerTextos();
+        const t = textos?.dialogos?.acuatico;
         if (this.juego.mostrarToast) {
           this.juego.mostrarToast(
-            textos?.dialogos?.acuatico?.transicionSantuario
-            || '🤿 Dejamos los tanques de oxígeno y el equipo de buceo para nadar a pulmón con snorkel en las aguas poco profundas del santuario...'
-          , 6);
+            t?.transicionSantuario1 || '🤿 Dejamos los tanques de oxígeno y el equipo de buceo.'
+          , 4);
+          setTimeout(() => {
+            this.juego.mostrarToast(
+              t?.transicionSantuario2 || '🫁 Nadamos a pulmón con snorkel entre los corales, sin tocarlos...'
+            , 5);
+          }, 4000);
         }
       }
       return;

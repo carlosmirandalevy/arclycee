@@ -782,8 +782,10 @@ export class Juego {
     // La barra de Vida ocupa x=10..130, y=10..24.
     // Ponemos la reputación al lado (x=140) en la misma fila para no
     // solapar indicadores de los mundos (NPCs y=42, objetos y=58, etc.)
+    // En el Santuario del Manatí la barra de reputación se reemplaza por la de O₂
     if (this.jugador && !this.inventario.abierto && !this.registro.visible
-        && this.nombreEscenaActual !== 'mapaPrincipal') {
+        && this.nombreEscenaActual !== 'mapaPrincipal'
+        && this.nombreEscenaActual !== 'santuarioManati') {
       this.reputacion.dibujarMedidor(this.ctx, 140, 10, 100, textos);
     }
 

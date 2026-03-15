@@ -372,7 +372,8 @@ const en = {
       misionCompleta: 'Shipwreck explored! Return to map (M)',
 
       // Transition to sanctuary
-      transicionSantuario: '🤿 We leave our oxygen tanks and diving gear behind. We swim on lung power with snorkels in the shallow sanctuary waters, moving gracefully among the corals without touching them or disturbing local life...'
+      transicionSantuario1: '🤿 We leave our oxygen tanks and diving gear behind.',
+      transicionSantuario2: '🫁 We swim with snorkels among the corals, careful not to touch them or disturb local life...'
     },
 
     // Manatee Sanctuary — marine sub-level with ecological actions
@@ -422,7 +423,8 @@ const en = {
       biologaPostRobot: 'The robot keeps scanning the ocean floor. Every day it finds something new. Thanks for bringing it!',
 
       // Transition back to shipwreck
-      transicionNaufragio: '🫧 We pick up our oxygen tanks and diving gear to dive into the deep waters in search of the shipwreck remnants...'
+      transicionNaufragio1: '🫧 We pick up our oxygen tanks and diving gear.',
+      transicionNaufragio2: '🤿 We dive into the deep waters in search of the shipwreck remnants...'
     },
 
     // Legal World — Punta Cana Airport (Act 4)

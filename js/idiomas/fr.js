@@ -372,7 +372,8 @@ const fr = {
       misionCompleta: 'Épave explorée ! Retour à la carte (M)',
 
       // Transition vers le sanctuaire
-      transicionSantuario: '🤿 Nous laissons les bouteilles d\'oxygène et l\'équipement de plongée. Nous nageons en apnée avec tuba dans les eaux peu profondes du sanctuaire, nous déplaçant avec grâce parmi les coraux sans les toucher ni perturber la vie locale...'
+      transicionSantuario1: '🤿 Nous laissons les bouteilles d\'oxygène et l\'équipement de plongée.',
+      transicionSantuario2: '🫁 Nous nageons en apnée avec tuba parmi les coraux, sans les toucher ni perturber la vie locale...'
     },
 
     // Sanctuaire du Lamantin — sous-niveau marin avec actions écologiques
@@ -422,7 +423,8 @@ const fr = {
       biologaPostRobot: 'Le robot continue de scanner les fonds marins. Chaque jour il trouve quelque chose de nouveau. Merci de l\'avoir apporté !',
 
       // Transition retour vers l'épave
-      transicionNaufragio: '🫧 Nous récupérons les bouteilles d\'oxygène et l\'équipement de plongée pour plonger dans les eaux profondes à la recherche des vestiges de l\'épave...'
+      transicionNaufragio1: '🫧 Nous récupérons les bouteilles d\'oxygène et l\'équipement de plongée.',
+      transicionNaufragio2: '🤿 Nous plongeons dans les eaux profondes à la recherche des vestiges de l\'épave...'
     },
 
     // Monde Juridique — Aéroport de Punta Cana (Acte 4)

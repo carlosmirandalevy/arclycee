@@ -825,13 +825,18 @@ export class SantuarioManati {
           mundoAcuatico._spawnDesdeSubnivel = true;
         }
         this.juego.cambiarEscena('mundoAcuatico');
-        // Mensaje: recogemos el equipo de buceo para explorar aguas profundas
+        // Mensaje en dos partes: recogemos el equipo de buceo
         const textos = this._obtenerTextos();
+        const t = textos?.dialogos?.santuario;
         if (this.juego.mostrarToast) {
           this.juego.mostrarToast(
-            textos?.dialogos?.santuario?.transicionNaufragio
-            || '🫧 Recogemos los tanques de oxígeno y el equipo de buceo para explorar las aguas profundas en busca de restos del naufragio...'
-          , 6);
+            t?.transicionNaufragio1 || '🫧 Recogemos los tanques de oxígeno y el equipo de buceo.'
+          , 4);
+          setTimeout(() => {
+            this.juego.mostrarToast(
+              t?.transicionNaufragio2 || '🤿 Nos sumergimos en las aguas profundas en busca del naufragio...'
+            , 5);
+          }, 4000);
         }
       }
       return;
