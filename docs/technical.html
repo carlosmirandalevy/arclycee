@@ -12,102 +12,1131 @@
   <div class="contenedor">
 
     <!-- ============================================================
-         CONTROLES
+         1. VISIÓN GENERAL DEL CÓDIGO
          ============================================================ -->
-    <section id="controles">
-      <h2><span class="icono">🎮</span> Controles</h2>
-
-      <h3>Exploración</h3>
-      <table>
-        <tr><th>Acción</th><th>Teclado</th><th>Móvil</th></tr>
-        <tr><td>Mover</td><td><span class="tecla">WASD</span> o <span class="tecla">Flechas</span></td><td>D-pad virtual</td></tr>
-        <tr><td>Saltar (cuevas)</td><td><span class="tecla">Espacio</span></td><td>Botón SALTO</td></tr>
-        <tr><td>Interactuar</td><td><span class="tecla">E</span> o <span class="tecla">Enter</span></td><td>Botón A</td></tr>
-        <tr><td>Inventario</td><td><span class="tecla">I</span></td><td>Botón X</td></tr>
-        <tr><td>Detectar metal</td><td><span class="tecla">F</span></td><td>Botón Y</td></tr>
-        <tr><td>Volver al mapa</td><td><span class="tecla">M</span></td><td>—</td></tr>
-      </table>
-
-      <h3>En Combate</h3>
-      <table>
-        <tr><th>Acción</th><th>Teclado</th></tr>
-        <tr><td>Elegir opción</td><td><span class="tecla">←</span> <span class="tecla">→</span></td></tr>
-        <tr><td>Confirmar</td><td><span class="tecla">E</span> o <span class="tecla">Enter</span></td></tr>
-      </table>
-
-      <h3>Secreto</h3>
-      <p>
-        <strong>Código Konami:</strong>
-        <span class="tecla">↑</span><span class="tecla">↑</span><span class="tecla">↓</span><span class="tecla">↓</span><span class="tecla">←</span><span class="tecla">→</span><span class="tecla">←</span><span class="tecla">→</span>
-        — abre un selector secreto de niveles.
+    <section id="overview">
+      <h2><span class="icono">📊</span> Visión General del Código</h2>
+      <p class="intro">
+        ArcLycée es un RPG 2D escrito en JavaScript vanilla (ES Modules) sin frameworks ni bundlers.
+        Todo el renderizado se hace con HTML5 Canvas, todos los sonidos se generan por código con Web Audio API,
+        y todos los sprites se dibujan proceduralmente.
       </p>
-    </section>
 
-    <!-- ============================================================
-         TECNOLOGÍAS
-         ============================================================ -->
-    <section id="tech">
-      <h2><span class="icono">💻</span> Tecnologías</h2>
+      <table>
+        <tr><th>Métrica</th><th>Valor</th></tr>
+        <tr><td>Archivos JavaScript</td><td>53</td></tr>
+        <tr><td>Líneas de código totales</td><td>~37,500</td></tr>
+        <tr><td>Resolución del canvas</td><td>960 × 540 px (16:9)</td></tr>
+        <tr><td>FPS objetivo</td><td>60</td></tr>
+        <tr><td>Idiomas soportados</td><td>3 (Español, Français, English)</td></tr>
+        <tr><td>Claves de traducción</td><td>~1,100+</td></tr>
+        <tr><td>Efectos de sonido procedurales</td><td>57 métodos</td></tr>
+        <tr><td>Mundos jugables</td><td>9 + mapa del mundo</td></tr>
+        <tr><td>Mini-juegos</td><td>4 (batú, calibración, programación, cables)</td></tr>
+      </table>
 
+      <h3>Estructura de Directorios</h3>
+      <table>
+        <tr><th>Directorio</th><th>Contenido</th><th>Archivos</th></tr>
+        <tr><td><code>js/motor/</code></td><td>Game loop, input, renderizado, sonido, guardado, configuración</td><td>6</td></tr>
+        <tr><td><code>js/escenas/</code></td><td>Menú principal, selección de personaje, intro, final cinematográfico</td><td>4</td></tr>
+        <tr><td><code>js/mundos/</code></td><td>9 niveles jugables: cuevas, asentamientos, coloniales, acuáticos, jurídico, laboratorio, LFSD</td><td>12</td></tr>
+        <tr><td><code>js/mecanicas/</code></td><td>Combate, diálogo, inventario, álbum de fotos, 4 mini-juegos, misiones, reputación, registro</td><td>11</td></tr>
+        <tr><td><code>js/personajes/</code></td><td>Jugador (Pepito/Pepita) + 3 compañeros (Magnoboot, Viralata, Cemí)</td><td>4</td></tr>
+        <tr><td><code>js/idiomas/</code></td><td>Traducciones ES/FR/EN + gestor de idiomas</td><td>4</td></tr>
+        <tr><td><code>js/mapas/</code></td><td>Mapa Leaflet con capas de datos reales (taínos, coloniales, naufragios, museos)</td><td>4</td></tr>
+        <tr><td><code>js/clima/</code></td><td>Sistema de clima + huracanes</td><td>2</td></tr>
+      </table>
+
+      <h3>Tecnologías</h3>
       <table>
         <tr><th>Tecnología</th><th>Uso</th></tr>
         <tr><td>HTML5 Canvas</td><td>Renderizado del juego — todo se dibuja por código, sin sprites externos</td></tr>
         <tr><td>JavaScript ES Modules</td><td>Arquitectura modular sin frameworks ni bundlers</td></tr>
-        <tr><td>Web Audio API</td><td>Sonidos procedurales — cero archivos de audio</td></tr>
-        <tr><td>LeafletJS</td><td>Mapas interactivos con sitios arqueológicos reales de RD</td></tr>
-        <tr><td>Kaplay.js</td><td>Cargado para uso futuro — tilemap, sprites y manejo de input táctil</td></tr>
+        <tr><td>Web Audio API</td><td>57 sonidos procedurales — cero archivos de audio</td></tr>
+        <tr><td>LeafletJS + Stadia Maps</td><td>Mapas interactivos con 76 sitios arqueológicos reales de RD y Haití</td></tr>
+        <tr><td>Kaplay.js</td><td>Touch input (joystick analógico y D-pad)</td></tr>
         <tr><td>CSS3</td><td>Pantalla de carga, controles táctiles responsivos</td></tr>
       </table>
 
       <h3>Principios de Diseño</h3>
       <ul>
         <li><strong>Legibilidad primero</strong>: código comentado en español, legible por estudiantes de 13 años</li>
-        <li><strong>Sin dependencias pesadas</strong>: solo LeafletJS para mapas, todo lo demás vanilla</li>
-        <li><strong>Sonido procedural</strong>: efectos generados con Web Audio API, sin archivos</li>
-        <li><strong>Sprites programáticos</strong>: todos los personajes y edificios se dibujan con Canvas 2D</li>
-        <li><strong>3 idiomas</strong>: español, francés e inglés — toda string visible está traducida</li>
+        <li><strong>Sin dependencias pesadas</strong>: solo LeafletJS para mapas, todo lo demás es vanilla</li>
+        <li><strong>Sonido procedural</strong>: todos los efectos generados con Web Audio API, sin archivos de audio</li>
+        <li><strong>Sprites programáticos</strong>: todos los personajes, edificios y objetos se dibujan con Canvas 2D</li>
+        <li><strong>Tres idiomas completos</strong>: español, francés e inglés — toda cadena visible está traducida</li>
+        <li><strong>Convenciones en español</strong>: variables (<code>velocidadJugador</code>), funciones (<code>estaPresionada</code>), constantes (<code>ANCHO_JUEGO</code>)</li>
       </ul>
+    </section>
 
-      <h3>Arquitectura del Motor</h3>
-      <p>El código se organiza en módulos ES6:</p>
+    <!-- ============================================================
+         2. GAME LOOP Y GESTIÓN DE ESCENAS
+         ============================================================ -->
+    <section id="gameloop">
+      <h2><span class="icono">🔄</span> Game Loop y Gestión de Escenas</h2>
+      <p>Archivo: <code>js/motor/juego.js</code> (1,659 líneas) — el orquestador principal del juego.</p>
+
+      <h3>Bucle Principal</h3>
+      <p>
+        El juego corre a ~60 FPS usando <code>requestAnimationFrame</code>.
+        Cada frame calcula el delta time (tiempo entre frames) y ejecuta dos fases: <strong>actualizar</strong> (lógica) y <strong>dibujar</strong> (renderizado).
+      </p>
+      <p>
+        El delta time se limita a 0.1 segundos máximo para evitar "teletransportación" del jugador cuando se vuelve de otra pestaña:
+      </p>
+      <pre style="background: var(--fondo-codigo); padding: 16px; border-radius: 8px; overflow-x: auto; color: var(--texto); font-size: 0.9rem;">dt = Math.min((tiempoActual - tiempoAnterior) / 1000, 0.1)</pre>
+
+      <h3>Sistema de Escenas</h3>
+      <p>El juego tiene 15 escenas registradas. Solo una escena está activa a la vez.</p>
       <table>
-        <tr><th>Módulo</th><th>Archivo</th><th>Responsabilidad</th></tr>
-        <tr><td>Game Loop</td><td><code>js/motor/juego.js</code></td><td>Bucle principal, manejo de escenas, inventario, combate, batú, toasts, guardado</td></tr>
-        <tr><td>Input</td><td><code>js/motor/entrada.js</code></td><td>Input unificado (teclado + táctil) vía estaPresionada(accion)</td></tr>
-        <tr><td>Configuración</td><td><code>js/motor/configuracion.js</code></td><td>Constantes globales y mapeo de teclas</td></tr>
-        <tr><td>Renderizado</td><td><code>js/motor/renderizado.js</code></td><td>Wrapper de Canvas 2D</td></tr>
-        <tr><td>Sonido</td><td><code>js/motor/sonido-procedural.js</code></td><td>Efectos con Web Audio API</td></tr>
-        <tr><td>Guardado</td><td><code>js/motor/guardado.js</code></td><td>Persistencia en localStorage</td></tr>
+        <tr><th>Tipo</th><th>Escenas</th></tr>
+        <tr><td>Interfaz</td><td>Menú principal, selección de personaje, intro cinematográfica, final cinematográfico</td></tr>
+        <tr><td>Mundos jugables (9)</td><td>Cuevas del Pomier, Asentamiento I, Asentamiento II, La Isabela, Zona Colonial, Mundo Acuático, Aeropuerto, Laboratorio, LFSD</td></tr>
+        <tr><td>Navegación</td><td>Mapa del mundo (mapa de tiles)</td></tr>
+        <tr><td>Secreto</td><td>Selector de niveles (Código Konami)</td></tr>
       </table>
 
-      <h3>Ciclo de Vida de las Escenas</h3>
-      <p>Cada escena implementa:</p>
+      <h4>Ciclo de Vida de una Escena</h4>
+      <p>Cada escena implementa tres métodos:</p>
       <ul>
-        <li><code>iniciar(juego)</code> — configuración inicial al entrar</li>
-        <li><code>actualizar(dt, entrada, jugador, companeros)</code> — lógica por frame</li>
-        <li><code>dibujar(renderizador, ancho, alto, textos, jugador, companeros)</code> — renderizado</li>
+        <li><code>iniciar(juego)</code> — configuración inicial al entrar en la escena</li>
+        <li><code>actualizar(dt, entrada, jugador, companeros)</code> — lógica por frame (movimiento, colisiones, IA)</li>
+        <li><code>dibujar(renderizador, ancho, alto, textos, jugador, companeros)</code> — renderizado visual</li>
       </ul>
-      <p>Se cambia de escena con <code>juego.cambiarEscena('nombre')</code>. Solo hay una escena activa a la vez.</p>
+      <p>
+        El cambio de escena se realiza con <code>juego.cambiarEscena('nombre')</code>, que llama <code>salir()</code> en la escena anterior,
+        crea al jugador si la nueva escena es jugable, y llama <code>iniciar(juego)</code> en la nueva.
+        Al volver al mapa del mundo se auto-guarda la partida.
+      </p>
 
-      <h3>Sistema de Guardado</h3>
-      <p>Auto-guardado al volver al mapa. Se serializa:</p>
+      <h3>Sistema de Overlays</h3>
+      <p>Los overlays se dibujan <em>encima</em> de la escena activa, en este orden (de abajo hacia arriba):</p>
+      <ol>
+        <li>Escena base</li>
+        <li>Efectos climáticos (lluvia, tormentas)</li>
+        <li><strong>Combate</strong> — encuentro con enemigo</li>
+        <li><strong>Batú</strong> — mini-juego de pelota taína</li>
+        <li><strong>Mini-juegos LFSD</strong> — calibración, programación, cables</li>
+        <li><strong>Registro de juego</strong> — Game Log (tecla L)</li>
+        <li><strong>Medidor de reputación</strong> — barra en el HUD</li>
+        <li><strong>Álbum de fotos</strong> — galería (tecla P)</li>
+        <li>Indicador de foto/selfie (teclas T/G)</li>
+        <li><strong>Inventario</strong> — mochila (tecla I)</li>
+        <li><strong>Toasts</strong> — notificaciones flotantes (máximo 4 visibles apilados)</li>
+        <li><strong>Selector secreto</strong> — siempre encima de todo</li>
+      </ol>
+
+      <h3>Sistema de Toasts</h3>
+      <p>
+        <code>juego.mostrarToast(texto, duracion)</code> agrega un mensaje flotante. Se apilan verticalmente
+        (máximo 4), con fade-in de 0.3s y fade-out en el último segundo. Se usan para recoger objetos,
+        completar misiones, alertas de peligro, etc.
+      </p>
+
+      <h3>Sistema de Muerte</h3>
+      <p>
+        Cuando el jugador llega a 0 de vida: sonido cómico "wah wah waaah", mensaje aleatorio de muerte (4s),
+        pausa de 2.5s, luego respawn en el mapa del mundo con 30% de vida restaurada.
+        Un flag <code>_muerteEnCurso</code> previene disparar la muerte múltiples veces.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         3. SISTEMA DE INPUT
+         ============================================================ -->
+    <section id="input">
+      <h2><span class="icono">🎮</span> Sistema de Input</h2>
+      <p>Archivo: <code>js/motor/entrada.js</code> (494 líneas) — capa de abstracción unificada para teclado y táctil.</p>
+
+      <h3>Controles de Teclado</h3>
+      <table>
+        <tr><th>Acción</th><th>Teclas</th><th>Uso</th></tr>
+        <tr><td>Mover</td><td><span class="tecla">WASD</span> / <span class="tecla">Flechas</span></td><td>Exploración y menús</td></tr>
+        <tr><td>Saltar</td><td><span class="tecla">Espacio</span></td><td>Solo en cuevas (plataforma)</td></tr>
+        <tr><td>Interactuar</td><td><span class="tecla">E</span> / <span class="tecla">Enter</span></td><td>Hablar con NPCs, usar objetos</td></tr>
+        <tr><td>Inventario</td><td><span class="tecla">I</span></td><td>Abrir/cerrar mochila</td></tr>
+        <tr><td>Especial</td><td><span class="tecla">F</span></td><td>Detectar metal (Magnoboot)</td></tr>
+        <tr><td>Volver al mapa</td><td><span class="tecla">M</span></td><td>Salir del nivel actual</td></tr>
+        <tr><td>Mapa real</td><td><span class="tecla">R</span></td><td>Abrir mapa Leaflet de referencia</td></tr>
+        <tr><td>Registro</td><td><span class="tecla">L</span></td><td>Game Log (misiones)</td></tr>
+        <tr><td>Foto</td><td><span class="tecla">T</span></td><td>Tomar foto de entidad cercana</td></tr>
+        <tr><td>Selfie</td><td><span class="tecla">G</span></td><td>Tomar selfie con entidad</td></tr>
+        <tr><td>Álbum</td><td><span class="tecla">P</span></td><td>Ver galería de fotos</td></tr>
+        <tr><td>Zoom</td><td><span class="tecla">+</span> / <span class="tecla">-</span></td><td>Zoom en el mapa del mundo</td></tr>
+        <tr><td>Código Konami</td><td><span class="tecla">↑↑↓↓←→←→</span></td><td>Selector secreto de niveles</td></tr>
+      </table>
+
+      <h3>API Unificada</h3>
+      <p>
+        Toda consulta de input pasa por <code>entrada.estaPresionada(accion)</code>, que combina teclado y táctil.
+        Internamente usa dos <code>Map</code>: <code>teclasPresionadas</code> para teclado y <code>accionesTocadas</code> para touch.
+      </p>
+
+      <h3>Controles Táctiles</h3>
+      <p>Dos modos intercambiables desde el menú de Opciones (preferencia guardada en localStorage):</p>
+      <ul>
+        <li><strong>Joystick analógico</strong>: Canvas 160×160 px, base de radio 65 px, stick de 28 px, zona muerta del 15%. Normalización a [-1, 1] con clamping por distancia.</li>
+        <li><strong>D-pad discreto</strong>: 4 botones direccionales con triángulos Unicode (▲▼◀▶), input binario sin gradación.</li>
+      </ul>
+      <p>
+        5 botones de acción en el lado derecho: A (acción), B (cancelar), X (inventario), Y (especial), SALTO.
+        Usan <code>touchstart/touchend</code> en vez de <code>click</code> para evitar el retraso de 300ms en móviles.
+      </p>
+
+      <h3>Patrón de Bloqueo de Input</h3>
+      <p>
+        Para evitar que una tecla se "repita" al mantenerla presionada, se usa un flag <code>bloqueoEntrada</code>:
+        se activa al procesar la acción y se desactiva solo cuando la tecla se suelta.
+        Al entrar a una escena donde la tecla de activación podría estar presionada, se inicializa en <code>true</code>.
+      </p>
+
+      <h3>Prevención de Teclas Pegadas</h3>
+      <p>
+        El evento <code>window.blur</code> limpia todas las teclas presionadas. Esto evita que al cambiar de pestaña
+        con una tecla de movimiento presionada, el jugador siga moviéndose al volver.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         4. RENDERIZADO Y EFECTOS VISUALES
+         ============================================================ -->
+    <section id="rendering">
+      <h2><span class="icono">🖼️</span> Renderizado y Efectos Visuales</h2>
+      <p>Archivo: <code>js/motor/renderizado.js</code> (199 líneas) — wrapper de Canvas 2D.</p>
+
+      <h3>Configuración del Canvas</h3>
+      <p>
+        Resolución fija de 960×540 (mitad de 1080p, fácil de escalar). El suavizado de imagen está deshabilitado
+        (<code>imageSmoothingEnabled = false</code>) para preservar la nitidez del estilo pixel art.
+      </p>
+
+      <h3>Operaciones Principales</h3>
+      <table>
+        <tr><th>Método</th><th>Descripción</th></tr>
+        <tr><td><code>limpiar()</code></td><td>Borra el frame anterior con <code>clearRect</code></td></tr>
+        <tr><td><code>dibujarRectangulo()</code></td><td>Rectángulo relleno (colisiones, placeholders)</td></tr>
+        <tr><td><code>dibujarTexto()</code></td><td>Texto con fuente, color y alineación configurables</td></tr>
+        <tr><td><code>dibujarBarra()</code></td><td>Barra de progreso con porcentaje clamped [0, 1] y borde negro</td></tr>
+      </table>
+
+      <h3>Efecto de Cueva (Linterna)</h3>
+      <p>
+        <code>aplicarFiltroCueva(jugadorX, jugadorY, radioLuz)</code> crea un efecto de antorcha usando un
+        gradiente radial con centro transparente y bordes opacos:
+      </p>
+      <ul>
+        <li>Círculo interior (30% del radio): totalmente visible</li>
+        <li>Zona media (30%-70%): transición gradual a 60% de opacidad</li>
+        <li>Borde exterior (100%): 95% de oscuridad</li>
+      </ul>
+
+      <h3>Efecto de Sacudida (Shake)</h3>
+      <p>
+        Los mundos acuáticos usan un timer <code>_sacudida</code> que al activarse (por colisión con lancha, mordida de tiburón
+        o medusa) aplica una oscilación horizontal al sprite del jugador:
+      </p>
+      <pre style="background: var(--fondo-codigo); padding: 16px; border-radius: 8px; overflow-x: auto; color: var(--texto); font-size: 0.9rem;">ctx.translate(Math.sin(tiempoTotal * 50) * amplitud * intensidad, 0)
+// intensidad = _sacudida / duracionInicial (decae linealmente)</pre>
+
+      <h3>Depth Sorting</h3>
+      <p>
+        En los mundos acuáticos, las entidades (NPCs, tortugas, medusas, jugador) se ordenan por su coordenada Y
+        antes de dibujar, creando un efecto natural de profundidad donde los objetos más cercanos tapan a los más lejanos.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         5. SISTEMA DE AUDIO PROCEDURAL
+         ============================================================ -->
+    <section id="audio">
+      <h2><span class="icono">🔊</span> Sistema de Audio Procedural</h2>
+      <p>Archivo: <code>js/motor/sonido-procedural.js</code> (1,931 líneas) — 57 efectos de sonido generados por código.</p>
+
+      <p class="intro">
+        Ningún archivo de audio se usa en el juego. Cada sonido se sintetiza en tiempo real combinando
+        osciladores (sine, square, sawtooth, triangle), filtros (lowpass, highpass, bandpass), buffers de ruido blanco
+        y envolventes de ganancia.
+      </p>
+
+      <h3>Patrones Fundamentales</h3>
+
+      <h4>Inicialización Perezosa</h4>
+      <p>
+        Los navegadores bloquean Web Audio hasta la primera interacción del usuario.
+        <code>_asegurarContexto()</code> crea el <code>AudioContext</code> solo cuando se necesita por primera vez.
+      </p>
+
+      <h4>Barrido de Frecuencia</h4>
+      <p>
+        La mayoría de los sonidos usan un barrido de frecuencia (rampa exponencial o lineal) para crear
+        sensación de movimiento:
+      </p>
+      <pre style="background: var(--fondo-codigo); padding: 16px; border-radius: 8px; overflow-x: auto; color: var(--texto); font-size: 0.9rem;">osc.frequency.setValueAtTime(frecInicial, ahora)
+osc.frequency.exponentialRampToValueAtTime(frecFinal, ahora + duracion)</pre>
+
+      <h4>Envolvente de Amplitud (ADSR simplificado)</h4>
+      <p>
+        Controla el volumen a lo largo del tiempo: ataque rápido → sustain → decaimiento exponencial hacia silencio.
+      </p>
+
+      <h4>Ruido Blanco</h4>
+      <p>
+        Se genera llenando un buffer con valores aleatorios (-1 a 1), luego se filtra para crear diferentes texturas:
+        pasos (lowpass 800 Hz), chispas (highpass 2000 Hz), multitud (bandpass 600 Hz).
+      </p>
+
+      <h4>LFO (Oscilador de Baja Frecuencia)</h4>
+      <p>
+        Un oscilador a baja frecuencia (4-30 Hz) modula otro parámetro (generalmente la frecuencia principal)
+        para crear vibrato, wobble o sirenas:
+      </p>
+      <pre style="background: var(--fondo-codigo); padding: 16px; border-radius: 8px; overflow-x: auto; color: var(--texto); font-size: 0.9rem;">lfo.frequency.value = 4     // 4 Hz de wobble
+lfoGain.gain.value = 8      // ±8 Hz de profundidad de modulación
+lfo → lfoGain → osc.frequency</pre>
+
+      <h3>Catálogo de Sonidos (57 métodos)</h3>
+
+      <h4>Locomoción y Feedback (7)</h4>
+      <table>
+        <tr><th>Método</th><th>Técnica</th><th>Descripción</th></tr>
+        <tr><td><code>salto()</code></td><td>Square 150→400 Hz</td><td>Salto del jugador</td></tr>
+        <tr><td><code>aterrizar()</code></td><td>Sine 100→40 Hz</td><td>Aterrizaje</td></tr>
+        <tr><td><code>recoger()</code></td><td>Dos notas square (523, 659 Hz)</td><td>Recoger objeto</td></tr>
+        <tr><td><code>paso()</code></td><td>Ruido blanco 40ms, lowpass 800 Hz</td><td>Paso en el suelo</td></tr>
+        <tr><td><code>goteo()</code></td><td>Sine 800→240 Hz, randomizado</td><td>Gota de agua</td></tr>
+        <tr><td><code>dano()</code></td><td>Sawtooth 200→50 Hz</td><td>Daño genérico</td></tr>
+        <tr><td><code>muerte()</code></td><td>Tres notas sawtooth descendentes con LFO</td><td>"Wah wah waaah" cómico</td></tr>
+      </table>
+
+      <h4>Combate (17)</h4>
+      <table>
+        <tr><th>Método</th><th>Descripción</th></tr>
+        <tr><td><code>combateAtacar()</code></td><td>Sawtooth 400→100 Hz agresivo</td></tr>
+        <tr><td><code>combateHablar()</code></td><td>Dos sines simultáneos (300, 350 Hz), pacífico</td></tr>
+        <tr><td><code>combateNegociar()</code></td><td>Dos notas square alternas con pausa</td></tr>
+        <tr><td><code>combateRedesSociales()</code></td><td>Dos sines "ding-ding" (notificación de teléfono)</td></tr>
+        <tr><td><code>combateProtestas()</code></td><td>Tres pulsos square (ritmo de coro de protesta)</td></tr>
+        <tr><td><code>combateDenuncia()</code></td><td>Ruido + sine 150→60 Hz (sello oficial)</td></tr>
+        <tr><td><code>combateViaLegal()</code></td><td>Triangle 180→90 Hz (mazo judicial)</td></tr>
+        <tr><td><code>combateAtrapar()</code></td><td>Ruido bandpass 1200 Hz (red de pesca)</td></tr>
+        <tr><td><code>combatePescar()</code></td><td>Sine 200→800 Hz + ruido lowpass (arpón + splash)</td></tr>
+        <tr><td><code>combateProtegerCoral()</code></td><td>Acorde de tres notas mayor cálido</td></tr>
+        <tr><td><code>combateAlertarBuzos()</code></td><td>Square 700 Hz con LFO 8 Hz (silbato submarino)</td></tr>
+        <tr><td><code>combateLey318()</code></td><td>Triangle 200→100 Hz (golpe judicial)</td></tr>
+        <tr><td><code>combateEvidenciaForense()</code></td><td>Dos beeps sine (cámara/escáner)</td></tr>
+        <tr><td><code>combateInterpol()</code></td><td>Square 600→800→600 Hz (sirena policial)</td></tr>
+        <tr><td><code>combateUnesco()</code></td><td>Acorde solemne mayor (autoridad diplomática)</td></tr>
+        <tr><td><code>combateVictoria()</code></td><td>Arpegio ascendente triunfante</td></tr>
+        <tr><td><code>combatePacificado()</code></td><td>Acorde mayor sostenido 0.5s (paz lograda)</td></tr>
+      </table>
+
+      <h4>Batú (5)</h4>
+      <table>
+        <tr><th>Método</th><th>Descripción</th></tr>
+        <tr><td><code>batuGolpe()</code></td><td>Triangle 120→60 Hz (impacto pelota-piedra)</td></tr>
+        <tr><td><code>batuRebote()</code></td><td>Sine 300→150 Hz (rebote de goma)</td></tr>
+        <tr><td><code>batuPunto()</code></td><td>Arpegio ascendente de tres notas</td></tr>
+        <tr><td><code>batuSaque()</code></td><td>Sine 600→800 Hz (silbato de saque)</td></tr>
+        <tr><td><code>batuMultitud()</code></td><td>Ruido blanco bandpass 600 Hz (rugido del público)</td></tr>
+      </table>
+
+      <h4>Ambiente Acuático (4)</h4>
+      <table>
+        <tr><th>Método</th><th>Descripción</th></tr>
+        <tr><td><code>cantoBallenaCerca()</code></td><td>Tres notas sine largas con LFO individual, lowpass 600 Hz (canto de ballena jorobada)</td></tr>
+        <tr><td><code>manatiLlamada()</code></td><td>Sine 80→120→90→110 Hz wobble (llamada ondulante del manatí)</td></tr>
+        <tr><td><code>lanchaImpacto()</code></td><td>3 capas: impacto triangle 200→40 Hz + splash de ruido + grito Wilhelm sintético (sawtooth con LFO 30 Hz)</td></tr>
+        <tr><td><code>mordidaTiburon()</code></td><td>3 capas: crujido de mandíbula (ruido highpass 3000 Hz) + impacto profundo + gruñido con LFO 12 Hz</td></tr>
+      </table>
+
+      <h4>Mini-juegos LFSD (12)</h4>
+      <table>
+        <tr><th>Método</th><th>Descripción</th></tr>
+        <tr><td><code>calibracionTono(freq)</code></td><td>Sine a frecuencia dada, 0.2s</td></tr>
+        <tr><td><code>calibracionExito()</code></td><td>Arpegio mayor ascendente (4 notas)</td></tr>
+        <tr><td><code>calibracionFallo()</code></td><td>Dos pulsos sawtooth descendentes</td></tr>
+        <tr><td><code>calibracionAjuste()</code></td><td>Ruido highpass 2000 Hz, 20ms (click de dial)</td></tr>
+        <tr><td><code>bloqueColocar()</code></td><td>Square 800→400 Hz + ruido (bloque encajado)</td></tr>
+        <tr><td><code>bloqueQuitar()</code></td><td>Sine 300→600 Hz ascendente (bloque retirado)</td></tr>
+        <tr><td><code>robotMoverse()</code></td><td>Sawtooth 120→180→120 Hz modulado (servo motor)</td></tr>
+        <tr><td><code>robotExito()</code></td><td>Arpegio square de 4 notas triunfante</td></tr>
+        <tr><td><code>robotFallo()</code></td><td>Dos beeps square descendentes</td></tr>
+        <tr><td><code>cableConectar()</code></td><td>Sine 1200→600 Hz + ruido de contacto</td></tr>
+        <tr><td><code>cableError()</code></td><td>Sawtooth + ruido highpass 3000 Hz (chispa eléctrica)</td></tr>
+        <tr><td><code>circuitoCompleto()</code></td><td>Sine + triangle exponenciales (power-up del circuito)</td></tr>
+      </table>
+
+      <h4>Ambiente y UI (4)</h4>
+      <table>
+        <tr><th>Método</th><th>Descripción</th></tr>
+        <tr><td><code>dialogo()</code></td><td>Square "bleep" rápido 380±40 Hz (carácter de texto estilo Undertale)</td></tr>
+        <tr><td><code>fotoCaptura()</code></td><td>Ruido 0.08s + square 1200→300 Hz (obturador + click mecánico)</td></tr>
+        <tr><td><code>selfieCaptura()</code></td><td>Ruido 0.06s + sine 400→1200 Hz ascendente (obturador + flash)</td></tr>
+        <tr><td><code>lluviaAmbiente()</code></td><td>Loop continuo: ruido filtrado + gotas periódicas cada 150-350ms</td></tr>
+      </table>
+    </section>
+
+    <!-- ============================================================
+         6. SISTEMA DE COMBATE
+         ============================================================ -->
+    <section id="combat">
+      <h2><span class="icono">⚔️</span> Sistema de Combate</h2>
+      <p>Archivo: <code>js/mecanicas/combate.js</code> (932 líneas) — combate por turnos estilo Undertale con ruta pacifista.</p>
+
+      <h3>Concepto</h3>
+      <p>
+        El combate en ArcLycée no es de daño mutuo tradicional. El objetivo es <strong>convencer</strong> al enemigo
+        a través de acciones diplomáticas. Hay dos medidores emocionales:
+      </p>
+      <ul>
+        <li><strong>Paciencia</strong> (0-100): sube cuando el jugador habla, negocia o usa acciones personalizadas. Llegar a 100 = victoria pacífica.</li>
+        <li><strong>Hostilidad</strong> (0-100): baja con diplomacia, sube con violencia. Por debajo de 30%, el enemigo puede hablar en vez de atacar.</li>
+      </ul>
+
+      <h3>Flujo de Turnos</h3>
+      <ol>
+        <li><strong>Turno del jugador</strong>: elige entre opciones (←→ para navegar, E para confirmar)</li>
+        <li><strong>Feedback</strong>: mensaje dorado con el resultado de la acción (1.8-2.5s)</li>
+        <li><strong>Turno del enemigo</strong>: el enemigo responde según la última acción del jugador</li>
+        <li><strong>Repetir</strong> hasta que paciencia = 100 (victoria pacífica) o vida del enemigo = 0 (victoria por fuerza)</li>
+      </ol>
+
+      <h3>Opciones Personalizadas por Enemigo</h3>
+      <p>
+        Cada enemigo puede tener <code>opcionesPersonalizadas</code> — un array de acciones únicas con rangos de
+        paciencia/hostilidad aleatorios y contra-respuestas específicas:
+      </p>
+      <table>
+        <tr><th>Enemigo</th><th>Opciones</th><th>Etiqueta</th></tr>
+        <tr><td>Constructor Méndez</td><td>Redes sociales, Protestas, Denuncia, Vía legal</td><td>"Convencido:"</td></tr>
+        <tr><td>Pez León</td><td>Atrapar, Pescar, Proteger coral, Alertar buzos</td><td>"Controlado:"</td></tr>
+        <tr><td>Rodrigo Torres</td><td>Ley 318, Evidencia forense, INTERPOL, UNESCO 1970</td><td>"Evidencia:"</td></tr>
+      </table>
+
+      <h3>Sprites de Enemigos</h3>
+      <p>
+        4 tipos de sprite dibujados proceduralmente: <code>_dibujarSoldado()</code>, <code>_dibujarConstructor()</code>,
+        <code>_dibujarPezLeon()</code>, <code>_dibujarTraficante()</code>. Cada uno con diseño único y animación.
+      </p>
+
+      <h3>Integración con Reputación</h3>
+      <p>
+        Victoria pacífica = +15 reputación. Victoria por fuerza = +5. Además, la reputación actual del jugador
+        da una ventaja inicial: <code>pacienciaInicial = min(reputacion / 2, 25)</code>.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         7. SISTEMA DE DIÁLOGO
+         ============================================================ -->
+    <section id="dialogue">
+      <h2><span class="icono">💬</span> Sistema de Diálogo</h2>
+      <p>Archivo: <code>js/mecanicas/dialogo.js</code> (326 líneas) — motor de diálogos con efecto máquina de escribir.</p>
+
+      <h3>Efecto Máquina de Escribir</h3>
+      <p>
+        Los caracteres aparecen uno por uno. Un contador <code>_caracteresVisibles</code> se incrementa cada frame,
+        y el texto mostrado es <code>texto.substring(0, Math.floor(caracteres))</code>. Cada carácter dispara
+        un "bleep" de diálogo (sonido procedural).
+      </p>
+
+      <h3>Opciones de Respuesta</h3>
+      <p>
+        Las líneas de diálogo pueden incluir <code>opciones: [{texto, valor}]</code>. Cuando hay opciones,
+        el avance se bloquea hasta que el jugador selecciona una (↑↓ para navegar, E para confirmar).
+      </p>
+
+      <h3>Callback de Encadenamiento</h3>
+      <p>
+        <code>alTerminar</code> permite encadenar eventos al finalizar un diálogo: iniciar combate,
+        dar un objeto, descubrir una misión, etc.
+      </p>
+
+      <h3>Diálogo Rotativo</h3>
+      <p>
+        NPCs mentores (Roberto Cassá, Lcda. Carmen Vidal) usan un contador que incrementa tras cada conversación.
+        El índice se calcula como <code>contador % array.length</code> para ciclar infinitamente por los temas.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         8. SISTEMA DE COMPAÑEROS
+         ============================================================ -->
+    <section id="companions">
+      <h2><span class="icono">🤝</span> Sistema de Compañeros</h2>
+      <p>Directorio: <code>js/personajes/companeros/</code> — tres compañeros que siguen al jugador entre escenas.</p>
+
+      <h3>Patrón Común</h3>
+      <p>
+        Todos comparten: propiedad <code>tipo</code> (string), flag <code>activo</code>,
+        métodos <code>activar()/desactivar()</code>, y movimiento por <strong>interpolación lineal (lerp)</strong>
+        que crea un seguimiento suave en vez de teletransporte.
+      </p>
+
+      <h3>Los Tres Compañeros</h3>
+      <table>
+        <tr><th>Nombre</th><th>Tipo</th><th>Habilidad</th><th>Factor Lerp</th><th>Posición Relativa</th></tr>
+        <tr><td>Magnoboot</td><td>Robot excavador</td><td>Detector de metal (tecla F), excavación (cuesta 10 energía)</td><td>0.05</td><td>Derecha del jugador (+30, +5)</td></tr>
+        <tr><td>Viralata</td><td>Perro rastreador</td><td>Olfato (radio 50 px), cola que se menea al detectar objetos</td><td>0.06</td><td>Izquierda del jugador (-25, +10)</td></tr>
+        <tr><td>Cemí Murciélago</td><td>Espíritu de cueva</td><td>6 niveles de poder desbloqueados con botijas (eco-localización → visión de cemí)</td><td>0.08</td><td>Arriba-izquierda (-20, -25) con flotación sinusoidal</td></tr>
+      </table>
+
+      <h3>Persistencia</h3>
+      <p>
+        Los compañeros persisten entre escenas vía <code>juego.companeros[]</code>. En el guardado se serializan como
+        <code>{tipo, activo}</code> y se reconstruyen con <code>_crearCompaneroBasico(tipo, activo)</code>.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         9. INVENTARIO
+         ============================================================ -->
+    <section id="inventory">
+      <h2><span class="icono">🎒</span> Sistema de Inventario</h2>
+      <p>Archivo: <code>js/mecanicas/inventario.js</code> (742 líneas) — mochila con grilla visual de 20 slots.</p>
+
+      <h3>Diseño</h3>
+      <p>
+        Grilla de 5 columnas × 4 filas. Cada slot mide 52×52 px con margen de 4 px. El panel se centra en el canvas.
+        Navegación con flechas, uso de objeto con E (si <code>esUsable</code>).
+      </p>
+
+      <h3>Objetos Curativos</h3>
+      <table>
+        <tr><th>Objeto</th><th>Curación</th><th>Fuente</th></tr>
+        <tr><td>Guanábana</td><td>+30 HP</td><td>Guarionex (Asentamiento II)</td></tr>
+        <tr><td>Vasija curativa</td><td>+35 HP</td><td>Anacaona (Asentamiento I)</td></tr>
+        <tr><td>Casabe</td><td>+25 HP</td><td>Varios</td></tr>
+      </table>
+
+      <h3>Iconos Procedurales</h3>
+      <p>
+        Más de 24 iconos únicos dibujados con Canvas 2D: linterna con rayos de luz, cemí dorado con ojos,
+        brújula con agujas roja/blanca, arcabuz colonial, moneda con corona, etc.
+        <code>_dibujarIconoObjeto(ctx, id, x, y, tam)</code> despacha al icono correcto por ID.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         10. ÁLBUM DE FOTOS
+         ============================================================ -->
+    <section id="album">
+      <h2><span class="icono">📸</span> Álbum de Fotos</h2>
+      <p>Archivo: <code>js/mecanicas/album-fotos.js</code> (1,140 líneas) — sistema de captura con renderizado dedicado por tipo de entidad.</p>
+
+      <h3>Tipos de Captura</h3>
+      <ul>
+        <li><strong>Fotos</strong> (tecla T): 160×160 px, cuadradas, entidad centrada sobre fondo oscuro</li>
+        <li><strong>Selfies</strong> (tecla G): 160×200 px, verticales, entidad a la izquierda + jugador a la derecha</li>
+      </ul>
+
+      <h3>Renderizado por Tipo de Entidad</h3>
+      <p>
+        El campo <code>tipoEntidad</code> determina qué renderizador usar. Las escenas exponen un array
+        <code>fotografiables[]</code> para entidades adicionales más allá de NPCs:
+      </p>
+      <table>
+        <tr><th>tipoEntidad</th><th>Renderizador</th><th>Detalle</th></tr>
+        <tr><td><code>'npc'</code></td><td><code>_renderizarNPCCentrado()</code></td><td>Dibuja el NPC en canvas auxiliar 200×200, detecta bounding box por píxeles, recorta y centra</td></tr>
+        <tr><td><code>'tortuga'</code></td><td><code>_renderizarTortuga()</code></td><td>4 sprites dedicados: carey (oliva con franjas ámbar), tinglar (azul-negro con 7 crestas), caguama (marrón-rojo con marca de corazón), verde (oliva con manchas)</td></tr>
+        <tr><td><code>'coral'</code></td><td><code>_renderizarCoral()</code></td><td>4 sprites: cerebro (hemisferio con surcos meándricos), cuerno (5 ramas bifurcadas), abanico (abanico púrpura-rosa con venas radiales), mesa (plataforma elíptica sobre tronco)</td></tr>
+        <tr><td><code>'petroglifo'</code></td><td><code>_renderizarPetroglifo()</code></td><td>4 tipos: sol, murciélago, cara, espiral</td></tr>
+        <tr><td><code>'objeto'</code></td><td><code>_renderizarObjeto()</code></td><td>Coleccionable genérico con resplandor</td></tr>
+      </table>
+
+      <h3>Rango de Detección</h3>
+      <p>
+        La detección de objetivo fotográfico usa distancia euclidiana con un radio de 80 px
+        (<code>RANGO_FOTO</code>). Se busca primero en NPCs, luego en objetos, luego en <code>fotografiables[]</code>.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         11. MAPA DE TILES
+         ============================================================ -->
+    <section id="tilemap">
+      <h2><span class="icono">🗺️</span> Mapa de Tiles (Hispaniola)</h2>
+      <p>Archivo: <code>js/mundos/mapa-tiles.js</code> (784 líneas) — generación procedural del terreno de la isla.</p>
+
+      <h3>El Bitmap</h3>
+      <p>
+        La costa de La Hispaniola se define con <code>ISLA_BITMAP</code>: un array de 68 strings de 128 caracteres cada uno.
+        Cada carácter es '1' (tierra) o '0' (agua). Trazado manualmente desde una imagen de referencia de la NASA,
+        escalado 2× desde un bitmap original de 64×34.
+      </p>
+
+      <h3>Pipeline de Generación de Terreno</h3>
+      <ol>
+        <li>Inicializar todos los tiles como <code>AGUA_PROFUNDA</code></li>
+        <li>Marcar tiles de tierra desde <code>ISLA_BITMAP</code></li>
+        <li>Agregar agua superficial adyacente a la costa (borde de 1 tile)</li>
+        <li>Pintar playas (tierra adyacente al agua)</li>
+        <li>Aplicar cordilleras usando distancia punto-a-segmento (8 cadenas montañosas)</li>
+        <li>Agregar lagos interiores (Enriquillo, Saumâtre) por colisión de elipse</li>
+        <li>Generar bosques con hash pseudo-aleatorio (40% de probabilidad por tile)</li>
+        <li>Dibujar 5 ríos con algoritmo de Bresenham (Yaque del Norte/Sur, Yuna, Ozama, Artibonite)</li>
+      </ol>
+
+      <h3>8 Tipos de Terreno</h3>
+      <table>
+        <tr><th>Tipo</th><th>Caminable</th><th>Decoración</th></tr>
+        <tr><td>Agua profunda</td><td>No</td><td>Curvas de olas animadas</td></tr>
+        <tr><td>Agua superficial</td><td>Sí</td><td>Espuma</td></tr>
+        <tr><td>Arena</td><td>Sí</td><td>Textura de granos</td></tr>
+        <tr><td>Pradera</td><td>Sí</td><td>—</td></tr>
+        <tr><td>Bosque</td><td>Sí</td><td>Copas de árboles (círculos)</td></tr>
+        <tr><td>Montaña</td><td>No</td><td>Triángulos con nieve</td></tr>
+        <tr><td>Río</td><td>Sí</td><td>Líneas de corriente animadas</td></tr>
+        <tr><td>Camino</td><td>Sí</td><td>—</td></tr>
+      </table>
+
+      <h3>Algoritmo de Bresenham para Ríos</h3>
+      <p>
+        Los ríos se trazan conectando waypoints con el algoritmo de línea de Bresenham.
+        Solo se pintan tiles que ya son tierra (se saltan tiles de agua), creando ríos que fluyen
+        naturalmente a lo largo del terreno.
+      </p>
+
+      <h3>Cordilleras por Distancia</h3>
+      <p>
+        8 cadenas montañosas definidas como secuencias de waypoints. Para cada tile de tierra,
+        se calcula la distancia mínima a cada segmento de cordillera. Si la distancia es menor a 3.6 tiles,
+        se marca como montaña (no caminable).
+      </p>
+
+      <h3>Renderizado con Culling</h3>
+      <p>
+        <code>dibujarTilesVisibles()</code> solo renderiza tiles dentro del viewport de la cámara,
+        calculando columna/fila de inicio y fin. Esto es crucial para rendimiento dado que el mapa total
+        es de 128×68 = 8,704 tiles.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         12. MAPA DEL MUNDO (NAVEGACIÓN)
+         ============================================================ -->
+    <section id="worldmap">
+      <h2><span class="icono">🧭</span> Mapa del Mundo</h2>
+      <p>Archivo: <code>js/mundos/mapa-principal.js</code> (809 líneas) — navegación entre nodos de nivel.</p>
+
+      <h3>Sistema de Cámara</h3>
+      <ul>
+        <li><strong>Seguimiento suave</strong>: lerp con factor 0.08 por frame</li>
+        <li><strong>Zoom</strong>: 0.25× a 2.0× con teclas +/−</li>
+        <li><strong>Clamping</strong>: la cámara no puede salir de los límites del mapa (4096×2176 px)</li>
+        <li><strong>Touch drag</strong>: un dedo arrastra la cámara (desactiva el lerp durante el arrastre)</li>
+        <li><strong>Pinch zoom</strong>: dos dedos para escalar el mundo</li>
+        <li><strong>Mouse drag</strong>: arrastre con ratón en desktop</li>
+      </ul>
+
+      <h3>Nodos de Nivel</h3>
+      <p>
+        9 nodos ubicados en coordenadas de tile verificadas como caminables.
+        Cada nodo tiene: ID, posición, tipo (cueva, aldea, ciudad, naufragio, etc.), escena destino,
+        y nodo previo en la cadena de progresión.
+      </p>
+      <p>
+        Visualización: círculo (18-22 px) + borde + icono emoji + nombre. Los colores indican estado:
+        gris (bloqueado), oro (activo), verde (completado). Un indicador <code>[E]</code> dorado pulsa cuando el jugador está cerca.
+      </p>
+
+      <h3>Mini-Mapa</h3>
+      <p>
+        Esquina superior derecha (120×75 px). Muestra tiles simplificados (paso de 2 para rendimiento),
+        nodos coloreados por estado, posición del jugador y viewport de la cámara.
+      </p>
+
+      <h3>Colisión</h3>
+      <p>
+        <code>_puedeMoverse()</code> prueba las 4 esquinas del sprite (con margen de 4 px)
+        contra <code>esCaminable()</code> del mapa de tiles.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         13. MECÁNICAS ACUÁTICAS
+         ============================================================ -->
+    <section id="aquatic">
+      <h2><span class="icono">🌊</span> Mecánicas Acuáticas</h2>
+      <p>
+        Archivos: <code>js/mundos/acuatico/mundo-acuatico.js</code> (2,174 líneas)
+        + <code>santuario-manati.js</code> (2,905 líneas).
+      </p>
+
+      <h3>Movimiento Submarino</h3>
+      <table>
+        <tr><th>Condición</th><th>Factor de Velocidad</th></tr>
+        <tr><td>Normal (bajo el agua)</td><td>× 0.7</td></tr>
+        <tr><td>Con efecto de medusa</td><td>× 0.4</td></tr>
+        <tr><td>Con efecto de tiburón</td><td>× 0.4 (2s de duración)</td></tr>
+      </table>
+
+      <h3>Medusas Pasivas</h3>
+      <p>
+        4 medusas con movimiento sinusoidal entre dos waypoints:
+        <code>t = (sin(fase + dt*0.8) + 1) / 2</code> → lerp entre puntoA y puntoB.
+        Contacto (radio 15-20 px) = 5 HP de daño + 2.5s de lentitud + 2s de invulnerabilidad.
+      </p>
+
+      <h3>Vida Marina</h3>
+      <ul>
+        <li><strong>3 tortugas</strong>: patrulla circular con diferente velocidad angular y radio de elipse por especie</li>
+        <li><strong>Ballenas jorobadas</strong>: siluetas de fondo que cruzan lentamente (spawn cada 30-60s, toast en primer avistamiento)</li>
+        <li><strong>8 corales</strong>: estáticos, de 4 tipos (cerebro, cuerno, abanico, mesa), fotografiables</li>
+        <li><strong>Bancos de peces</strong>: 10 boids en órbita circular</li>
+        <li><strong>Algas decorativas</strong>: 20 plantas con movimiento <code>Math.sin</code></li>
+      </ul>
+
+      <h3>Sistema de Oxígeno (Santuario del Manatí)</h3>
+      <p>
+        El jugador nada a pulmón con snorkel. Barra de O₂ que va de 100 a 0:
+      </p>
+      <ul>
+        <li><strong>En superficie</strong> (y &lt; 50): recarga +50/frame → ~2s para llenar</li>
+        <li><strong>Sumergido</strong>: gasta -1.7/frame → ~60s de autonomía</li>
+        <li><strong>Alerta</strong>: toast al llegar a 25%</li>
+        <li><strong>Sin oxígeno</strong>: -3 HP/frame con cooldown de 1.5s entre ticks</li>
+      </ul>
+
+      <h3>Tiburones</h3>
+      <p>
+        3 tiburones patrullan entre waypoints con desfase de fase (0, π/2, π).
+        Mordida: -8 HP + 2s de lentitud + efecto de sacudida (0.5s) + sonido <code>mordidaTiburon()</code>.
+      </p>
+
+      <h3>Lanchas Rápidas</h3>
+      <p>
+        Spawn cada 5-15s en la zona de superficie. Colisión: -10 HP + sacudida (0.6s) + grito Wilhelm sintético
+        (<code>lanchaImpacto()</code>). La zona de hélices causa daño periódico (-2 HP con cooldown).
+        El toast de advertencia se muestra una sola vez por entrada a la zona.
+      </p>
+
+      <h3>Acciones Ecológicas</h3>
+      <ul>
+        <li><strong>Liberar manatí</strong>: cortar red fantasma → animación de reunión cría-madre → +1 acción ecológica + 10 reputación</li>
+        <li><strong>Limpiar arrecife</strong>: recoger 3 desechos (bolsa, botella, lata) → +1 acción por desecho</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         14. SISTEMA DE CLIMA
+         ============================================================ -->
+    <section id="weather">
+      <h2><span class="icono">⛈️</span> Sistema de Clima</h2>
+      <p>Archivos: <code>js/clima/clima.js</code> (442 líneas) + <code>huracan.js</code> (324 líneas).</p>
+
+      <h3>6 Estados Climáticos</h3>
+      <table>
+        <tr><th>Estado</th><th>Probabilidad</th><th>Intensidad</th><th>Efecto en Jugador</th></tr>
+        <tr><td>Soleado</td><td>45%</td><td>0.1</td><td>Ninguno</td></tr>
+        <tr><td>Nublado</td><td>25%</td><td>0.3</td><td>Ninguno</td></tr>
+        <tr><td>Lluvia</td><td>20%</td><td>0.6</td><td>Velocidad × (1 − 0.15×i)</td></tr>
+        <tr><td>Tormenta</td><td>7%</td><td>0.8</td><td>Velocidad × (1 − 0.25×i) + truenos</td></tr>
+        <tr><td>Huracán</td><td>2%</td><td>1.0</td><td>Empuje de viento 2px×i + velocidad × (1 − 0.35×i)</td></tr>
+        <tr><td>Terremoto</td><td>1%</td><td>—</td><td>2% por frame de tropiezo aleatorio</td></tr>
+      </table>
+
+      <h3>Partículas</h3>
+      <p>
+        Hasta 500 partículas recicladas. Tasa de spawn: 3-8 partículas/frame según intensidad.
+        Cada partícula tiene gravedad + empuje de viento.
+      </p>
+
+      <h3>Huracanes (Avanzado)</h3>
+      <p>
+        Categorías 1-5 con velocidad de viento = categoría × 2 px/frame.
+        Tres fases: <strong>inicio</strong> (0-25%, intensidad sube) → <strong>pico</strong> (25-75%, intensidad máxima)
+        → <strong>final</strong> (75-100%, intensidad baja). Debris físico hasta 500 objetos con rebote en terreno.
+        Dirección: típicamente del este (realista para el Caribe).
+      </p>
+
+      <h3>Sonido Ambiental</h3>
+      <p>
+        Lluvia continua (<code>lluviaAmbiente()</code>) con intensidad dinámica durante transiciones.
+        Truenos aleatorios cada 4-15s durante tormentas.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         15. MINI-JUEGOS
+         ============================================================ -->
+    <section id="minigames">
+      <h2><span class="icono">🎲</span> Mini-Juegos</h2>
+
+      <h3>Batú — Juego de Pelota Taíno</h3>
+      <p>Archivo: <code>js/mecanicas/batu.js</code> (935 líneas) — física 2D con IA adaptativa.</p>
+
+      <h4>Física</h4>
+      <table>
+        <tr><th>Parámetro</th><th>Valor</th></tr>
+        <tr><td>Gravedad</td><td>480 px/s²</td></tr>
+        <tr><td>Coeficiente de rebote (suelo)</td><td>0.8</td></tr>
+        <tr><td>Coeficiente de rebote (paredes)</td><td>0.9</td></tr>
+        <tr><td>Fricción del aire</td><td>0.998 por frame</td></tr>
+        <tr><td>Radio de la pelota</td><td>8 px</td></tr>
+        <tr><td>Condición de victoria</td><td>Primero en 3 puntos</td></tr>
+      </table>
+
+      <h4>Tipos de Golpe (por altura de contacto)</h4>
+      <table>
+        <tr><th>Zona</th><th>Parte del Cuerpo</th><th>Velocidad</th><th>Ángulo</th></tr>
+        <tr><td>&lt; 25%</td><td>Cabeza</td><td>290 px/s</td><td>-70° (casi vertical)</td></tr>
+        <tr><td>25-50%</td><td>Hombro</td><td>425 px/s</td><td>-60°</td></tr>
+        <tr><td>50-75%</td><td>Cadera/yugo</td><td>500 px/s (máximo)</td><td>-45° (el más fuerte)</td></tr>
+        <tr><td>&gt; 75%</td><td>Rodilla</td><td>280 px/s</td><td>-30° (defensivo)</td></tr>
+      </table>
+      <p>Cada golpe tiene ±25% de variación de velocidad y ±8° de variación angular para impredecibilidad.</p>
+
+      <h4>IA del Oponente</h4>
+      <ul>
+        <li><strong>Retardo de reacción</strong>: 0.3 segundos</li>
+        <li><strong>Factor de velocidad</strong>: 72% del jugador</li>
+        <li><strong>Probabilidad de error</strong>: 30% (fallo intencional)</li>
+        <li><strong>Imprecisión</strong>: ±25 px de error de puntería</li>
+        <li><strong>Re-evaluación</strong>: cada 1.5-3.5s decide si fallar el rally</li>
+      </ul>
+
+      <h4>Datos Educativos</h4>
+      <p>
+        Entre cada punto se muestra un dato histórico sobre el batú: material de la pelota (látex de cupey),
+        petroglifos en bateys, el yugo ceremonial, festivales de areíto, resolución pacífica de conflictos,
+        y sitios arqueológicos reales (Chacuey, La Aleta).
+      </p>
+
+      <h4>Fases</h4>
+      <p><code>intro → saque → jugando → punto → educativo → saque → ... → finJuego</code></p>
+
+      <hr style="border-color: var(--borde); margin: 40px 0;">
+
+      <h3>Calibración de Señal ("Good Vibrations")</h3>
+      <p>Archivo: <code>js/mecanicas/calibracion-senal.js</code> (330 líneas) — puzzle de osciloscopio.</p>
+
+      <h4>Mecánica</h4>
+      <p>
+        3 diales (frecuencia, amplitud, fase) que controlan una onda sinusoidal mostrada en un osciloscopio
+        (verde sobre negro). El jugador debe igualar la onda objetivo dentro de una tolerancia del ±15%.
+      </p>
+
+      <h4>Fórmula de la Onda</h4>
+      <pre style="background: var(--fondo-codigo); padding: 16px; border-radius: 8px; overflow-x: auto; color: var(--texto); font-size: 0.9rem;">y = centroY + sin(t + fase) × amplitud
+donde t = (x − 40) / (ancho − 80) × π × 2 × frecuencia</pre>
+
+      <h4>Controles</h4>
+      <p>↑↓ para cambiar entre diales, ←→ para ajustar (±2), E para confirmar. Límite: 45 segundos.</p>
+      <p>Recompensa: magnetómetro calibrado (<code>progreso.magnetometroCalibrado = true</code>), +15 reputación.</p>
+
+      <hr style="border-color: var(--borde); margin: 40px 0;">
+
+      <h3>Programación de Robot ("Full Metal Archeologist")</h3>
+      <p>Archivo: <code>js/mecanicas/programacion-bloques.js</code> (491 líneas) — navegación por bloques.</p>
+
+      <h4>Mecánica</h4>
+      <p>
+        Ordenar 5-6 bloques de instrucción (avanzar, girar izquierda/derecha, escanear, sumergir, ascender)
+        para guiar un robot submarino a través de una cuadrícula de 6×4. Robot empieza en (0,1) mirando a la derecha,
+        objetivo en (5,2).
+      </p>
+
+      <h4>Ejecución</h4>
+      <p>
+        Máximo 12 bloques. Intervalo de ejecución: 0.6s entre pasos. Fallo: robot sale de la cuadrícula u
+        obstáculo (si no está sumergido). Fase de programación: 60s. Ejecución: automática sin límite.
+      </p>
+      <p>Recompensa: capa de sitios arqueológicos en mapa Leaflet (<code>progreso.robotProgramado = true</code>), +15 reputación.</p>
+
+      <hr style="border-color: var(--borde); margin: 40px 0;">
+
+      <h3>Conexión de Cables ("Weird Science")</h3>
+      <p>Archivo: <code>js/mecanicas/conexion-cables.js</code> (408 líneas) — matching puzzle en placa de circuito.</p>
+
+      <h4>Mecánica</h4>
+      <p>
+        Conectar 6 entradas (izquierda) con 6 salidas (derecha) por color y símbolo. Salidas en orden aleatorio.
+        Las conexiones se dibujan como <strong>curvas de Bézier cúbicas</strong>. Conexión incorrecta = animación de chispa.
+      </p>
+
+      <h4>Controles</h4>
+      <p>↑↓ para seleccionar entrada/salida, E para conectar. Límite: 30 segundos.</p>
+      <p>Recompensa: +15 reputación (bonus +5 si se completa en &lt;15s), artículo de periódico en inventario.</p>
+    </section>
+
+    <!-- ============================================================
+         16. REPUTACIÓN Y MISIONES SECUNDARIAS
+         ============================================================ -->
+    <section id="reputation">
+      <h2><span class="icono">⭐</span> Reputación y Misiones Secundarias</h2>
+
+      <h3>Sistema de Reputación</h3>
+      <p>Archivo: <code>js/mecanicas/reputacion.js</code> (74 líneas) — puntuación 0-100 con 4 niveles.</p>
+      <table>
+        <tr><th>Rango</th><th>Nivel</th><th>Color de Barra</th></tr>
+        <tr><td>0-24</td><td>Desconocido</td><td>Rojo</td></tr>
+        <tr><td>25-49</td><td>Conocido</td><td>Amarillo</td></tr>
+        <tr><td>50-74</td><td>Respetado</td><td>Verde</td></tr>
+        <tr><td>75-100</td><td>Legendario</td><td>Dorado</td></tr>
+      </table>
+      <p>
+        La reputación afecta el combate (ventaja inicial de paciencia) y se muestra en el epílogo final.
+        Se gana con victorias pacíficas (+15), victorias por fuerza (+5), mini-juegos (+15 cada uno)
+        y acciones ecológicas (+10).
+      </p>
+
+      <h3>5 Misiones Secundarias</h3>
+      <p>Archivo: <code>js/mecanicas/misiones-secundarias.js</code> (89 líneas) — máquina de estados por misión.</p>
+      <table>
+        <tr><th>Misión</th><th>Descripción</th><th>Detonador</th></tr>
+        <tr><td>Batú</td><td>Jugar pelota taína con Higüemota</td><td>Hablar con Higüemota en Asentamiento II</td></tr>
+        <tr><td>Rescate del Manatí</td><td>Liberar manatí + limpiar arrecife</td><td>Hablar con Dra. Sofía en Santuario</td></tr>
+        <tr><td>Good Vibrations</td><td>Calibrar el magnetómetro</td><td>Hablar con NPC en La Isabela</td></tr>
+        <tr><td>Full Metal Archeologist</td><td>Programar robot submarino</td><td>Hablar con bióloga en Santuario</td></tr>
+        <tr><td>Weird Science</td><td>Reparar equipo de análisis</td><td>Hablar con mentor en Laboratorio</td></tr>
+      </table>
+      <p>
+        Cada misión progresa: <code>no_descubierta → descubierta → en_progreso → completada</code>.
+        El Registro de Juego (tecla L) muestra el estado de todas las misiones en dos pestañas:
+        Historia Principal (9 nodos con ✅/🔓/🔒) y Secundarias (con checkmarks).
+      </p>
+    </section>
+
+    <!-- ============================================================
+         17. SISTEMA DE GUARDADO
+         ============================================================ -->
+    <section id="save">
+      <h2><span class="icono">💾</span> Sistema de Guardado</h2>
+      <p>Archivo: <code>js/motor/guardado.js</code> (243 líneas) — persistencia en localStorage.</p>
+
+      <h3>Auto-guardado</h3>
+      <p>
+        La partida se guarda automáticamente al volver al mapa del mundo. "Continuar Juego" en el menú
+        restaura todo el estado y lleva al mapa.
+      </p>
+
+      <h3>Datos Serializados</h3>
       <ul>
         <li>Escena actual, género del personaje, idioma</li>
         <li>Vida del jugador</li>
-        <li>Progreso (nodos completados y desbloqueados)</li>
-        <li>Inventario completo (objetos con nombre, descripción, tipo)</li>
+        <li>Progreso completo: nodos completados/desbloqueados, contadores de combate (pacificados, violentos, ecológicos), flags de progreso de quests</li>
+        <li>Estado de mundos: NPCs hablados, objetos recogidos, petroglifos descubiertos, contadores de diálogo rotativo</li>
+        <li>Inventario completo (objetos con nombre, descripción, tipo, valor curativo)</li>
         <li>Compañeros (tipo + estado activo/inactivo)</li>
+        <li>Puntuación de reputación (0-100)</li>
+        <li>Estado de misiones secundarias</li>
+        <li>Entradas del registro de juego</li>
+        <li>Metadatos de fotos del álbum</li>
       </ul>
-      <p>"Continuar Juego" en el menú principal restaura todo y lleva al mapa.</p>
+
+      <h3>Reconstrucción de Compañeros</h3>
+      <p>
+        Los compañeros se guardan como <code>{tipo: 'magnoboot', activo: true}</code> y se reconstruyen
+        como instancias reales vía <code>_crearCompaneroBasico(tipo, activo)</code> usando los imports
+        de Magnoboot, Viralata y CemiMurcielago.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         18. MAPA DE REFERENCIA LEAFLET
+         ============================================================ -->
+    <section id="leaflet">
+      <h2><span class="icono">🌐</span> Mapa de Referencia (LeafletJS)</h2>
+      <p>Directorio: <code>js/mapas/</code> (4 archivos, ~700 líneas) — mapa geográfico real con sitios arqueológicos.</p>
+
+      <h3>Configuración</h3>
+      <p>
+        Centro: 19.0°N, -70.5°W (República Dominicana). Zoom por defecto: 8.
+        Se abre con tecla R desde el mapa del mundo.
+        Tiles de Stadia Maps (6 capas estéticas: Watercolor, Terrain, Toner, Dark, Smooth, OSM Bright)
+        con fallback a CARTO Voyager.
+      </p>
+
+      <h3>Capas de Datos (76 sitios reales)</h3>
+      <table>
+        <tr><th>Capa</th><th>Icono</th><th>Cantidad</th></tr>
+        <tr><td>Sitios Taínos</td><td>🗿</td><td>16 (asentamientos, cuevas, petroglifos en RD y Haití)</td></tr>
+        <tr><td>Sitios Coloniales</td><td>🏰</td><td>8 (La Isabela, Zona Colonial, Cap-Haïtien, etc.)</td></tr>
+        <tr><td>Naufragios</td><td>⚓</td><td>12 (Santa María 1492, San Miguel 1551, Concepción 1641, etc.)</td></tr>
+        <tr><td>Museos</td><td>🏛</td><td>30 (RD + Haití)</td></tr>
+        <tr><td>Sitios Inexplorados</td><td>🔍</td><td>8 (solo visible tras completar mini-juego del robot)</td></tr>
+      </table>
+
+      <h3>Interacción</h3>
+      <p>
+        Marcadores con popup (nombre + descripción) al hacer click.
+        Click-to-travel: <code>window._viajarANodo(id)</code> para volar animadamente al nodo y cambiar de escena.
+        Estado visual: completado (borde verde + brillo), bloqueado (escala de grises + opacidad 0.4), activo (borde blanco).
+      </p>
+    </section>
+
+    <!-- ============================================================
+         19. MÚLTIPLES FINALES
+         ============================================================ -->
+    <section id="endings">
+      <h2><span class="icono">🎬</span> Múltiples Finales</h2>
+      <p>Archivo: <code>js/escenas/final-cinematica.js</code> (673 líneas) — 5 finales + créditos cinematográficos.</p>
+
+      <h3>Tipos de Final</h3>
+      <table>
+        <tr><th>Final</th><th>Condición</th><th>Título</th></tr>
+        <tr><td>Completo</td><td>8 nodos + 5 sidequests + más pacificados que violentos</td><td>"Leyenda de Quisqueya"</td></tr>
+        <tr><td>Pacifista</td><td>8 nodos + más pacificados, sin violentos</td><td>"Guardián del patrimonio"</td></tr>
+        <tr><td>Ecológico</td><td>3+ acciones ecológicas + sin violencia</td><td>"Protector del ecosistema marino"</td></tr>
+        <tr><td>Oscuro</td><td>Más combates violentos que pacíficos</td><td>"El patrimonio merece otro camino"</td></tr>
+        <tr><td>Museo</td><td>Fallback por defecto</td><td>"Curador de la historia"</td></tr>
+      </table>
+
+      <h3>Secuencia</h3>
+      <p>
+        5 pasos de texto con auto-avance (5-6s cada uno), skip con E.
+        Fondos temáticos por final: gradientes dorados (completo/pacifista), azul marino con burbujas (ecológico),
+        rojo con fracturas (oscuro), cálido con foco de luz (museo).
+        El nivel de reputación se muestra en el epílogo.
+      </p>
+
+      <h3>Créditos</h3>
+      <p>
+        Scroll vertical automático a 40 px/s. Lista los 8 creadores (les fous du robot),
+        el Liceo Francés de Santo Domingo y el año 2026. E para acelerar/saltar.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         20. INTERNACIONALIZACIÓN
+         ============================================================ -->
+    <section id="i18n">
+      <h2><span class="icono">🌍</span> Internacionalización</h2>
+      <p>Directorio: <code>js/idiomas/</code> (4 archivos, ~4,400 líneas).</p>
+
+      <h3>Estructura</h3>
+      <p>
+        3 archivos de traducción (<code>es.js</code>, <code>en.js</code>, <code>fr.js</code>) con ~1,100+ claves cada uno,
+        organizados como objetos JavaScript anidados. Un gestor <code>idiomas.js</code> (73 líneas) provee:
+      </p>
+      <ul>
+        <li><code>cambiarIdioma(codigo)</code> — cambia entre 'es', 'fr', 'en'</li>
+        <li><code>t(clave)</code> — acceso con notación de puntos: <code>t('dialogos.cueva.petroSol')</code></li>
+      </ul>
+
+      <h3>Secciones Principales</h3>
+      <table>
+        <tr><th>Sección</th><th>Contenido</th></tr>
+        <tr><td><code>menu</code></td><td>Títulos, opciones del menú principal</td></tr>
+        <tr><td><code>seleccion</code></td><td>Selección de personaje</td></tr>
+        <tr><td><code>interfaz</code></td><td>HUD (vida, oxígeno, inventario), frases de muerte (10 variantes)</td></tr>
+        <tr><td><code>dialogos</code></td><td>Todos los diálogos por mundo (cueva, aldea, isabela, colonial, acuático, jurídico, laboratorio, LFSD, finales)</td></tr>
+        <tr><td><code>combate</code></td><td>Acciones y mensajes de combate</td></tr>
+        <tr><td><code>batu</code></td><td>25 claves del mini-juego (reglas, datos, mensajes)</td></tr>
+        <tr><td><code>objetos</code></td><td>32+ objetos con nombre y descripción</td></tr>
+        <tr><td><code>inventario</code></td><td>UI del inventario</td></tr>
+        <tr><td><code>clima</code></td><td>Nombres de estados climáticos</td></tr>
+        <tr><td><code>guardado</code></td><td>Strings del sistema de guardado</td></tr>
+      </table>
+
+      <h3>Acceso en el Código</h3>
+      <pre style="background: var(--fondo-codigo); padding: 16px; border-radius: 8px; overflow-x: auto; color: var(--texto); font-size: 0.9rem;">// En escenas y mecánicas:
+const textos = juego.idiomas.traducciones[juego.idiomas.idiomaActual];
+const nombre = textos.menu.titulo;
+
+// O usando el helper con dot-notation:
+const texto = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
+    </section>
+
+    <!-- ============================================================
+         21. JUGADOR
+         ============================================================ -->
+    <section id="player">
+      <h2><span class="icono">🧑</span> Jugador (Pepito/Pepita)</h2>
+      <p>Archivo: <code>js/personajes/pepito.js</code> (258 líneas).</p>
+
+      <h3>Dos Modos de Movimiento</h3>
+      <ul>
+        <li><strong>Top-down</strong>: 4 direcciones, sin gravedad (estilo Zelda/Pokémon) — usado en asentamientos, coloniales, acuáticos</li>
+        <li><strong>Plataforma</strong>: izquierda/derecha + salto con gravedad (estilo Mario) — usado en cuevas</li>
+      </ul>
+
+      <h3>Propiedades Principales</h3>
+      <table>
+        <tr><th>Propiedad</th><th>Valor</th></tr>
+        <tr><td>Dimensiones</td><td>28×32 px (más estrecho que el tile de 32 px para facilitar el paso)</td></tr>
+        <tr><td>Vida máxima</td><td>100 HP</td></tr>
+        <tr><td>Género</td><td>'pepito' (masculino) o 'pepita' (femenino)</td></tr>
+      </table>
+
+      <h3>Animación de Marcha</h3>
+      <p>
+        Las piernas se animan con <code>Math.sin(cuadroAnimacion * 5) * 3</code> — un movimiento sinusoidal
+        que simula pasos. Los brazos con <code>Math.sin(cuadroAnimacion * 2) * 1</code>.
+        La animación solo avanza cuando <code>esAnimando = true</code>.
+      </p>
+
+      <h3>Selección de Personaje</h3>
+      <p>
+        <code>js/escenas/seleccion-personaje.js</code> (291 líneas): el sprite del juego se muestra escalado ×2.5
+        con animación de marcha en vivo. Pepito es azul (#4488ff) con pelo puntiagudo; Pepita es morada (#aa44ff) con trenzas.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         22. CONFIGURACIÓN Y CONSTANTES
+         ============================================================ -->
+    <section id="config">
+      <h2><span class="icono">⚙️</span> Configuración y Constantes</h2>
+      <p>Archivo: <code>js/motor/configuracion.js</code> (95 líneas) — punto central de configuración.</p>
+
+      <table>
+        <tr><th>Constante</th><th>Valor</th><th>Uso</th></tr>
+        <tr><td><code>ANCHO_JUEGO</code></td><td>960</td><td>Ancho del canvas en píxeles</td></tr>
+        <tr><td><code>ALTO_JUEGO</code></td><td>540</td><td>Alto del canvas (16:9)</td></tr>
+        <tr><td><code>TAMANO_TILE</code></td><td>32</td><td>Tamaño estándar de tile</td></tr>
+        <tr><td><code>GRAVEDAD</code></td><td>0.6</td><td>Aceleración vertical en plataforma</td></tr>
+        <tr><td><code>VELOCIDAD_JUGADOR</code></td><td>3</td><td>Píxeles por frame</td></tr>
+        <tr><td><code>FPS_OBJETIVO</code></td><td>60</td><td>Frames por segundo</td></tr>
+        <tr><td><code>ESCALA_MINIMA</code></td><td>0.5</td><td>Escala mínima del canvas</td></tr>
+        <tr><td><code>ESCALA_MAXIMA</code></td><td>3.0</td><td>Escala máxima del canvas</td></tr>
+        <tr><td><code>CLAVE_GUARDADO</code></td><td>'arclycee_guardado'</td><td>Key de localStorage</td></tr>
+      </table>
+
+      <h3>Dimensiones de Sprites</h3>
+      <table>
+        <tr><th>Tipo</th><th>Ancho × Alto</th></tr>
+        <tr><td>Jugador</td><td>32 × 32</td></tr>
+        <tr><td>Compañero</td><td>24 × 24</td></tr>
+        <tr><td>Cemí</td><td>16 × 16</td></tr>
+        <tr><td>NPC</td><td>32 × 32</td></tr>
+        <tr><td>Boss</td><td>64 × 64</td></tr>
+        <tr><td>Boss Grande</td><td>96 × 96</td></tr>
+        <tr><td>Item</td><td>16 × 16</td></tr>
+        <tr><td>Petroglifo</td><td>48 × 48</td></tr>
+      </table>
+    </section>
+
+    <!-- ============================================================
+         ARCHIVOS MÁS GRANDES
+         ============================================================ -->
+    <section id="files">
+      <h2><span class="icono">📁</span> Archivos Principales por Tamaño</h2>
+      <table>
+        <tr><th>#</th><th>Archivo</th><th>Líneas</th><th>Responsabilidad</th></tr>
+        <tr><td>1</td><td><code>santuario-manati.js</code></td><td>2,905</td><td>Santuario: oxígeno, tiburones, lanchas, ecología</td></tr>
+        <tr><td>2</td><td><code>mundo-acuatico.js</code></td><td>2,174</td><td>Naufragio: medusas, tortugas, ballenas, combate</td></tr>
+        <tr><td>3</td><td><code>sonido-procedural.js</code></td><td>1,931</td><td>57 efectos de audio generados por código</td></tr>
+        <tr><td>4</td><td><code>zona-colonial.js</code></td><td>1,923</td><td>Zona Colonial: NPCs, combate, activismo</td></tr>
+        <tr><td>5</td><td><code>juego.js</code></td><td>1,659</td><td>Game loop, escenas, overlays, toasts</td></tr>
+        <tr><td>6</td><td><code>es.js</code></td><td>1,523</td><td>Traducciones en español</td></tr>
+        <tr><td>7</td><td><code>fr.js</code></td><td>1,472</td><td>Traducciones en francés</td></tr>
+        <tr><td>8</td><td><code>en.js</code></td><td>1,408</td><td>Traducciones en inglés</td></tr>
+        <tr><td>9</td><td><code>cuevas-pomier.js</code></td><td>1,340</td><td>Cueva plataforma con linterna</td></tr>
+        <tr><td>10</td><td><code>mundo-juridico.js</code></td><td>1,335</td><td>Aeropuerto: combate legal, INTERPOL</td></tr>
+      </table>
     </section>
 
   </div>
 
   <footer>
-    <p>ArcLycée v0.16.1 — Aventura Arqueológica Dominicana</p>
+    <p>ArcLycée v0.16.2 — Aventura Arqueológica Dominicana</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
   </footer>
 
   <script src="navigation.js"></script>
+  <script src="source-viewer.js"></script>
 </body>
 </html>

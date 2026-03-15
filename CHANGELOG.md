@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.16.2 — Comprehensive technical documentation + source code viewer (2026-03-15)
+
+### Agregado
+- **Documentación técnica completa** (`docs/technical.html`, `technical-en.html`, `technical-fr.html`): 22 secciones cubriendo toda la arquitectura del código — game loop, input, renderizado, audio procedural (57 sonidos catalogados), combate, diálogos, compañeros, inventario, álbum de fotos, mapa de tiles, mapa del mundo, mecánicas acuáticas, clima, 4 mini-juegos, reputación, misiones, guardado, mapa Leaflet, finales, i18n, jugador, configuración
+- **Visor de código fuente** (`docs/source-viewer.js`): las 34 referencias a archivos .js en la documentación técnica son clicables y abren un modal con el código fuente formateado con syntax highlighting (colores estilo GitHub Dark: keywords en rojo, strings en azul, comentarios en gris, funciones en púrpura, números en azul). Incluye números de línea, conteo de líneas, cierre con Escape/click fuera, responsive para móvil
+
+### Mejorado
+- **Documentación técnica reescrita**: de ~110 líneas básicas (controles + tech stack) a ~1,140 líneas por idioma con cobertura exhaustiva de todos los sistemas del juego
+
+---
+
 ## v0.16.1 — Collision feedback, photo album for corals & turtles, shark bite sound (2026-03-15)
 
 ### Agregado

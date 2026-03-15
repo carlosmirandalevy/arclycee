@@ -67,6 +67,8 @@ Disponible en 3 idiomas: [`docs/index.html`](docs/index.html) (ES), [`docs/en.ht
 
 La documentación incluye una página de **Characters** con todos los NPCs y miembros del equipo: [`docs/characters.html`](docs/characters.html) (ES), [`docs/characters-en.html`](docs/characters-en.html) (EN), [`docs/characters-fr.html`](docs/characters-fr.html) (FR).
 
+**Referencia técnica** con 22 secciones cubriendo toda la arquitectura del código, algoritmos y sistemas del juego: [`docs/technical.html`](docs/technical.html) (ES), [`docs/technical-en.html`](docs/technical-en.html) (EN), [`docs/technical-fr.html`](docs/technical-fr.html) (FR). Cada referencia a un archivo .js es clicable y abre el código fuente con syntax highlighting.
+
 ## Licencia
 
 Proyecto educativo del Liceo Francés de Santo Domingo.

@@ -78,9 +78,10 @@ arclycee/
 │   ├── index.html          ← Documentación completa (ES)
 │   ├── en.html             ← Documentación completa (EN)
 │   ├── fr.html             ← Documentación completa (FR)
-│   ├── characters.html     ← Personajes: NPCs y equipo (ES)
-│   ├── characters-en.html  ← Personajes: NPCs y equipo (EN)
-│   └── characters-fr.html  ← Personajes: NPCs y equipo (FR)
+│   ├── characters.html     ← Personajes: NPCs y equipo (ES/EN/FR)
+│   ├── technical.html      ← Referencia técnica con visor de código (ES/EN/FR)
+│   ├── source-viewer.js    ← Visor de código fuente con syntax highlighting
+│   └── ...                 ← Mundos, mecánicas, diálogos (ES/EN/FR)
 ├── estilos/
 │   └── principal.css       ← Estilos del juego
 ├── js/

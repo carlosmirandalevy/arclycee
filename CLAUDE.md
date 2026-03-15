@@ -125,6 +125,8 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Opciones de diálogo**: las líneas de diálogo pueden tener `opciones: [{texto, valor}]`. `avanzar()` bloquea en opciones. `seleccionarOpcion(±1)` para navegar ↑↓, `confirmarOpcion()` para elegir. Usado en oferta de batú, etc.
 - **Registro de juego** (`js/mecanicas/registro-juego.js`): Game Log con tecla L. Pestaña "Historia Principal" muestra los 9 nodos del mundo con estado (✅/🔓/🔒) desde `juego.progreso`. Pestaña "Secundaria" muestra sidequests. Constructor recibe `juego` para acceder al progreso
 - **Créditos cinematográficos**: fase `_enCreditos` en `final-cinematica.js`, scroll vertical automático (`_creditosY -= velocidad * dt`), E para acelerar/saltar, lista de 8 creadores + Lycée Français + año 2026
+- **Documentación técnica** (`docs/technical.html`, `technical-en.html`, `technical-fr.html`): 22 secciones cubriendo toda la arquitectura del código (game loop, input, renderizado, 57 sonidos, combate, diálogos, compañeros, inventario, álbum, mapa tiles, mapa mundo, acuático, clima, mini-juegos, reputación, guardado, Leaflet, finales, i18n, jugador, config). Cada referencia a un archivo .js es clicable gracias a `source-viewer.js`
+- **Visor de código fuente** (`docs/source-viewer.js`): auto-convierte `<code>js/...</code>` en enlaces clicables que abren un modal con syntax highlighting (regex-based: keywords, strings, comments, numbers, functions). GitHub Dark theme. Inyecta sus propios estilos CSS
 
 ## Qué NO hacer
 
