@@ -30,7 +30,7 @@
         <tr><td>FPS objetivo</td><td>60</td></tr>
         <tr><td>Idiomas soportados</td><td>3 (Español, Français, English)</td></tr>
         <tr><td>Claves de traducción</td><td>~1,100+</td></tr>
-        <tr><td>Efectos de sonido procedurales</td><td>57 métodos</td></tr>
+        <tr><td>Efectos de sonido procedurales</td><td>60 métodos</td></tr>
         <tr><td>Mundos jugables</td><td>9 + mapa del mundo</td></tr>
         <tr><td>Mini-juegos</td><td>4 (batú, calibración, programación, cables)</td></tr>
       </table>
@@ -53,7 +53,7 @@
         <tr><th>Tecnología</th><th>Uso</th></tr>
         <tr><td>HTML5 Canvas</td><td>Renderizado del juego — todo se dibuja por código, sin sprites externos</td></tr>
         <tr><td>JavaScript ES Modules</td><td>Arquitectura modular sin frameworks ni bundlers</td></tr>
-        <tr><td>Web Audio API</td><td>57 sonidos procedurales — cero archivos de audio</td></tr>
+        <tr><td>Web Audio API</td><td>60 sonidos procedurales — cero archivos de audio</td></tr>
         <tr><td>LeafletJS + Stadia Maps</td><td>Mapas interactivos con 76 sitios arqueológicos reales de RD y Haití</td></tr>
         <tr><td>Kaplay.js</td><td>Touch input (joystick analógico y D-pad)</td></tr>
         <tr><td>CSS3</td><td>Pantalla de carga, controles táctiles responsivos</td></tr>
@@ -251,7 +251,7 @@
          ============================================================ -->
     <section id="audio">
       <h2><span class="icono">🔊</span> Sistema de Audio Procedural</h2>
-      <p>Archivo: <code>js/motor/sonido-procedural.js</code> (1,931 líneas) — 57 efectos de sonido generados por código.</p>
+      <p>Archivo: <code>js/motor/sonido-procedural.js</code> (1,931 líneas) — 60 efectos de sonido generados por código.</p>
 
       <p class="intro">
         Ningún archivo de audio se usa en el juego. Cada sonido se sintetiza en tiempo real combinando
@@ -295,7 +295,7 @@ osc.frequency.exponentialRampToValueAtTime(frecFinal, ahora + duracion)</pre>
 lfoGain.gain.value = 8      // ±8 Hz de profundidad de modulación
 lfo → lfoGain → osc.frequency</pre>
 
-      <h3>Catálogo de Sonidos (57 métodos)</h3>
+      <h3>Catálogo de Sonidos (60 métodos)</h3>
 
       <h4>Locomoción y Feedback (7)</h4>
       <table>
@@ -350,7 +350,7 @@ lfo → lfoGain → osc.frequency</pre>
         <tr><td><code>mordidaTiburon()</code></td><td>3 capas: crujido de mandíbula (ruido highpass 3000 Hz) + impacto profundo + gruñido con LFO 12 Hz</td></tr>
       </table>
 
-      <h4>Mini-juegos LFSD (12)</h4>
+      <h4>Mini-juegos LFSD (15)</h4>
       <table>
         <tr><th>Método</th><th>Descripción</th></tr>
         <tr><td><code>calibracionTono(freq)</code></td><td>Sine a frecuencia dada, 0.2s</td></tr>
@@ -365,6 +365,9 @@ lfo → lfoGain → osc.frequency</pre>
         <tr><td><code>cableConectar()</code></td><td>Sine 1200→600 Hz + ruido de contacto</td></tr>
         <tr><td><code>cableError()</code></td><td>Sawtooth + ruido highpass 3000 Hz (chispa eléctrica)</td></tr>
         <tr><td><code>circuitoCompleto()</code></td><td>Sine + triangle exponenciales (power-up del circuito)</td></tr>
+        <tr><td><code>robotFLLIniciar()</code></td><td>Sawtooth continuo con zumbido de motor (arranque del robot FLL de orugas)</td></tr>
+        <tr><td><code>robotFLLDetener()</code></td><td>Detiene el motor con fade-out suave (parada del robot FLL)</td></tr>
+        <tr><td><code>robotFLLClick()</code></td><td>Click mecánico corto (sin uso actualmente)</td></tr>
       </table>
 
       <h4>Ambiente y UI (4)</h4>
@@ -764,6 +767,19 @@ lfo → lfoGain → osc.frequency</pre>
     <section id="minigames">
       <h2><span class="icono">🎲</span> Mini-Juegos</h2>
 
+      <h3>Mundo LFSD — Clase de Robótica</h3>
+      <p>Archivo: <code>js/mundos/lfsd/mundo-lfsd.js</code> — nivel interior de la clase de robótica del Liceo Francés de Santo Domingo.</p>
+      <p>
+        El Prof. Nicolas Droulers (pelo blanco y barba blanca) guía al jugador.
+        El aula contiene mesas de trabajo con pantallas de programación Scratch, una pizarra,
+        una impresora 3D con etiqueta traducida según el idioma activo,
+        y una mesa de FIRST LEGO League con caminos negros de seguimiento de línea
+        donde un robot LEGO animado con orugas de cadena recorre las pistas con sonido de motor (<code>robotFLLIniciar</code>/<code>robotFLLDetener</code>).
+        8 NPCs estudiantes (3 quest-givers con camisetas de color) y 4 estaciones de trabajo.
+      </p>
+
+      <hr style="border-color: var(--borde); margin: 40px 0;">
+
       <h3>Batú — Juego de Pelota Taíno</h3>
       <p>Archivo: <code>js/mecanicas/batu.js</code> (935 líneas) — física 2D con IA adaptativa.</p>
 
@@ -1118,7 +1134,7 @@ const texto = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
         <tr><th>#</th><th>Archivo</th><th>Líneas</th><th>Responsabilidad</th></tr>
         <tr><td>1</td><td><code>santuario-manati.js</code></td><td>2,905</td><td>Santuario: oxígeno, tiburones, lanchas, ecología</td></tr>
         <tr><td>2</td><td><code>mundo-acuatico.js</code></td><td>2,174</td><td>Naufragio: medusas, tortugas, ballenas, combate</td></tr>
-        <tr><td>3</td><td><code>sonido-procedural.js</code></td><td>1,931</td><td>57 efectos de audio generados por código</td></tr>
+        <tr><td>3</td><td><code>sonido-procedural.js</code></td><td>1,931</td><td>60 efectos de audio generados por código</td></tr>
         <tr><td>4</td><td><code>zona-colonial.js</code></td><td>1,923</td><td>Zona Colonial: NPCs, combate, activismo</td></tr>
         <tr><td>5</td><td><code>juego.js</code></td><td>1,659</td><td>Game loop, escenas, overlays, toasts</td></tr>
         <tr><td>6</td><td><code>es.js</code></td><td>1,523</td><td>Traducciones en español</td></tr>
@@ -1132,7 +1148,7 @@ const texto = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
   </div>
 
   <footer>
-    <p>ArcLycée v0.16.4 — Aventura Arqueológica Dominicana</p>
+    <p>ArcLycée v0.16.5 — Aventura Arqueológica Dominicana</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
   </footer>
 

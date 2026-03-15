@@ -89,6 +89,7 @@ export class MenuPrincipal {
     this.juego = juego;
     this.seleccion = 0;
     this.submenuActivo = null;
+    this.bloqueoEntrada = true; // Evitar input residual de la escena anterior
 
     // Sincronizar el índice de idioma con el idioma actual del juego
     if (juego && juego.idiomas) {

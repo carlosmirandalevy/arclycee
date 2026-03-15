@@ -881,7 +881,7 @@ const es = {
 
     // Carlos Guillermo — fan de Percy Jackson, Hollow Knight, Adventure Time, etc.
     carlosG1: 'Percy Jackson me enseñó que los mitos griegos son reales... bueno, casi. Pero la arqueología también descubre mitos que resultaron ser verdad.',
-    carlosG2: '¿Conoces Hollow Knight? Hallownest es una civilización perdida bajo tierra. ¡Como las cuevas del Pomier! No puedo esperar a Silksong.',
+    carlosG2: '¿Conoces Hollow Knight? Hallownest es una civilización perdida bajo tierra. ¡Como las cuevas del Pomier! Silksong es aún mejor.',
     carlosG3: 'En Deltarune, Ralsei dice que las decisiones importan. En la arqueología también: cada pieza que proteges cambia la historia.',
     carlosG4: 'Gravity Falls es lo máximo. Dipper investigando misterios ocultos es básicamente lo que hacemos nosotros, pero con robots.',
     carlosG5: 'Adventure Time parece random, pero tiene la lore más profunda. La Guerra de los Hongos es post-apocalíptica. Finn vive en las ruinas de nuestra civilización.',
@@ -1169,6 +1169,7 @@ const es = {
     // --- Nombre de LFSD ---
     lfsdTitulo: 'LFSD - Classe de Robotique',
     lfsdPizarra: 'Classe de Robotique - LFSD',
+    impresora3D: 'Impresora 3D',
 
     // --- Hablar con habitantes (fallback) ---
     hablarHabitantes: 'Hablar con habitantes',

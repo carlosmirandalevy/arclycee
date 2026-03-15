@@ -146,6 +146,31 @@ function obtenerInfoSprite(tipo) {
         });
     }
 
+    // Prof. Nicolas Droulers: delgado, pelo blanco, barba blanca, camisa azul LFSD
+    if (tipo === 'profesor') {
+        return spriteHumanoide((ctx) => {
+            dibujarBaseHumanoide(ctx, {
+                colorCuerpo: '#2255AA',
+                colorPelo: '#EEEEEE',
+                alturaPelo: 5,
+            });
+            // Cuerpo más delgado: recortar bordes
+            ctx.clearRect(-10, -8, 2, 16);
+            ctx.clearRect(8, -8, 2, 16);
+            // Barba blanca debajo de la cara
+            ctx.fillStyle = '#DDDDDD';
+            ctx.fillRect(-5, 0, 10, 5);
+            // Forma redondeada inferior de la barba
+            ctx.fillRect(-3, 5, 6, 2);
+            // Sonrisa (siempre sonriente)
+            ctx.strokeStyle = '#8a5a3a';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(0, -1, 4, 0.1, Math.PI - 0.1);
+            ctx.stroke();
+        });
+    }
+
     // Sprites específicos de cada personaje
     switch (tipo) {
 

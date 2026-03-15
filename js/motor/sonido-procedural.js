@@ -1928,4 +1928,78 @@ export class SonidoProcedural {
     fuente.start(ahora);
     fuente.stop(ahora + duracion);
   }
+
+  // --- ROBOT FLL ZUMBIDO: motor continuo que se inicia/detiene ---
+  // Simula el zumbido constante de un pequeño robot LEGO moviéndose
+  robotFLLIniciar() {
+    if (this._robotFLLActivo) return; // Ya está sonando
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+
+    // Nodo de ganancia persistente para poder hacer fade out al detener
+    const ganancia = ctx.createGain();
+    ganancia.gain.setValueAtTime(0.001, ahora);
+    ganancia.gain.linearRampToValueAtTime(this.volumen * 0.15, ahora + 0.1);
+    ganancia.connect(ctx.destination);
+
+    // Oscilador grave continuo (motor eléctrico pequeño)
+    const osc = ctx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(85, ahora);
+
+    // Filtro pasa-bajos para suavizar
+    const filtro = ctx.createBiquadFilter();
+    filtro.type = 'lowpass';
+    filtro.frequency.setValueAtTime(200, ahora);
+
+    osc.connect(filtro);
+    filtro.connect(ganancia);
+    osc.start(ahora);
+
+    // Guardar referencias para poder detenerlo después
+    this._robotFLLOsc = osc;
+    this._robotFLLGanancia = ganancia;
+    this._robotFLLActivo = true;
+  }
+
+  // Detiene el zumbido del robot FLL con un fade out rápido
+  robotFLLDetener() {
+    if (!this._robotFLLActivo) return;
+    if (!this.contexto) return;
+    const ahora = this.contexto.currentTime;
+
+    // Fade out rápido para evitar click
+    this._robotFLLGanancia.gain.cancelScheduledValues(ahora);
+    this._robotFLLGanancia.gain.setValueAtTime(this._robotFLLGanancia.gain.value, ahora);
+    this._robotFLLGanancia.gain.linearRampToValueAtTime(0.001, ahora + 0.08);
+
+    // Detener el oscilador tras el fade
+    this._robotFLLOsc.stop(ahora + 0.1);
+
+    this._robotFLLOsc = null;
+    this._robotFLLGanancia = null;
+    this._robotFLLActivo = false;
+  }
+
+  // --- ROBOT FLL CLICK: clic mecánico al detenerse y girar ---
+  // Simula el sonido de engranajes deteniéndose
+  robotFLLClick() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.01);
+
+    // Pulso muy corto y agudo (clic mecánico)
+    const osc = ctx.createOscillator();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(800, ahora);
+    osc.frequency.exponentialRampToValueAtTime(200, ahora + 0.04);
+    osc.connect(ganancia);
+    osc.start(ahora);
+    osc.stop(ahora + 0.05);
+
+    ganancia.gain.setValueAtTime(this.volumen * 0.01, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.06);
+  }
 }

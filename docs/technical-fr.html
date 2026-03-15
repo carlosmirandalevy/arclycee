@@ -30,7 +30,7 @@
         <tr><td>FPS cible</td><td>60</td></tr>
         <tr><td>Langues supportées</td><td>3 (Español, Français, English)</td></tr>
         <tr><td>Clés de traduction</td><td>~1 100+</td></tr>
-        <tr><td>Effets sonores procéduraux</td><td>57 méthodes</td></tr>
+        <tr><td>Effets sonores procéduraux</td><td>60 méthodes</td></tr>
         <tr><td>Mondes jouables</td><td>9 + carte du monde</td></tr>
         <tr><td>Mini-jeux</td><td>4 (batú, calibration, programmation, câbles)</td></tr>
       </table>
@@ -53,7 +53,7 @@
         <tr><th>Technologie</th><th>Utilisation</th></tr>
         <tr><td>HTML5 Canvas</td><td>Rendu du jeu — tout est dessiné par code, aucun sprite externe</td></tr>
         <tr><td>JavaScript ES Modules</td><td>Architecture modulaire sans frameworks ni bundlers</td></tr>
-        <tr><td>Web Audio API</td><td>57 sons procéduraux — zéro fichier audio</td></tr>
+        <tr><td>Web Audio API</td><td>60 sons procéduraux — zéro fichier audio</td></tr>
         <tr><td>LeafletJS + Stadia Maps</td><td>Cartes interactives avec 76 sites archéologiques réels de RD et Haïti</td></tr>
         <tr><td>Kaplay.js</td><td>Entrée tactile (joystick analogique et D-pad)</td></tr>
         <tr><td>CSS3</td><td>Écran de chargement, contrôles tactiles responsive</td></tr>
@@ -251,7 +251,7 @@
          ============================================================ -->
     <section id="audio">
       <h2><span class="icono">🔊</span> Système Audio Procédural</h2>
-      <p>Fichier : <code>js/motor/sonido-procedural.js</code> (1 931 lignes) — 57 effets sonores générés par code.</p>
+      <p>Fichier : <code>js/motor/sonido-procedural.js</code> (1 931 lignes) — 60 effets sonores générés par code.</p>
 
       <p class="intro">
         Aucun fichier audio n'est utilisé dans le jeu. Chaque son est synthétisé en temps réel en combinant
@@ -294,7 +294,7 @@ osc.frequency.exponentialRampToValueAtTime(endFreq, now + duration)</pre>
 lfoGain.gain.value = 8      // profondeur de modulation ±8 Hz
 lfo → lfoGain → osc.frequency</pre>
 
-      <h3>Catalogue de Sons (57 méthodes)</h3>
+      <h3>Catalogue de Sons (60 méthodes)</h3>
 
       <h4>Locomotion et Retour d'Information (7)</h4>
       <table>
@@ -349,7 +349,7 @@ lfo → lfoGain → osc.frequency</pre>
         <tr><td><code>mordidaTiburon()</code></td><td>3 couches : craquement de mâchoire (bruit passe-haut 3000 Hz) + impact profond + grognement avec LFO 12 Hz</td></tr>
       </table>
 
-      <h4>Mini-jeux LFSD (12)</h4>
+      <h4>Mini-jeux LFSD (15)</h4>
       <table>
         <tr><th>Méthode</th><th>Description</th></tr>
         <tr><td><code>calibracionTono(freq)</code></td><td>Sinusoïdal à la fréquence donnée, 0,2 s</td></tr>
@@ -364,6 +364,9 @@ lfo → lfoGain → osc.frequency</pre>
         <tr><td><code>cableConectar()</code></td><td>Sinusoïdal 1200→600 Hz + bruit de contact</td></tr>
         <tr><td><code>cableError()</code></td><td>Dent de scie + bruit passe-haut 3000 Hz (étincelle électrique)</td></tr>
         <tr><td><code>circuitoCompleto()</code></td><td>Sinusoïdal exponentiel + triangle (mise sous tension du circuit)</td></tr>
+        <tr><td><code>robotFLLIniciar()</code></td><td>Dent de scie continue avec ronronnement de moteur (démarrage du robot FLL à chenilles)</td></tr>
+        <tr><td><code>robotFLLDetener()</code></td><td>Arrête le moteur avec fondu sortant progressif (arrêt du robot FLL)</td></tr>
+        <tr><td><code>robotFLLClick()</code></td><td>Clic mécanique court (inutilisé actuellement)</td></tr>
       </table>
 
       <h4>Ambiance et Interface (4)</h4>
@@ -763,6 +766,19 @@ lfo → lfoGain → osc.frequency</pre>
     <section id="minigames">
       <h2><span class="icono">🎲</span> Mini-Jeux</h2>
 
+      <h3>Monde LFSD — Classe de Robotique</h3>
+      <p>Fichier : <code>js/mundos/lfsd/mundo-lfsd.js</code> — niveau intérieur de la salle de robotique du Lycée Français de Saint-Domingue.</p>
+      <p>
+        Le Prof. Nicolas Droulers (cheveux blancs et barbe blanche) guide le joueur.
+        La salle contient des tables de travail avec des écrans de programmation Scratch, un tableau,
+        une imprimante 3D avec une étiquette traduite selon la langue active,
+        et une table FIRST LEGO League avec des chemins noirs de suivi de ligne
+        où un robot LEGO animé à chenilles suit les pistes avec un son de moteur (<code>robotFLLIniciar</code>/<code>robotFLLDetener</code>).
+        8 PNJ étudiants (3 donneurs de quêtes avec des T-shirts de couleur) et 4 postes de travail.
+      </p>
+
+      <hr style="border-color: var(--borde); margin: 40px 0;">
+
       <h3>Batú — Jeu de Balle Taïno</h3>
       <p>Fichier : <code>js/mecanicas/batu.js</code> (935 lignes) — physique 2D avec IA adaptative.</p>
 
@@ -1117,7 +1133,7 @@ const text = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
         <tr><th>#</th><th>Fichier</th><th>Lignes</th><th>Responsabilité</th></tr>
         <tr><td>1</td><td><code>santuario-manati.js</code></td><td>2 905</td><td>Sanctuaire : oxygène, requins, vedettes, écologie</td></tr>
         <tr><td>2</td><td><code>mundo-acuatico.js</code></td><td>2 174</td><td>Naufrage : méduses, tortues, baleines, combat</td></tr>
-        <tr><td>3</td><td><code>sonido-procedural.js</code></td><td>1 931</td><td>57 effets audio générés par code</td></tr>
+        <tr><td>3</td><td><code>sonido-procedural.js</code></td><td>1 931</td><td>60 effets audio générés par code</td></tr>
         <tr><td>4</td><td><code>zona-colonial.js</code></td><td>1 923</td><td>Zone Coloniale : PNJ, combat, activisme</td></tr>
         <tr><td>5</td><td><code>juego.js</code></td><td>1 659</td><td>Boucle de jeu, scènes, couches, notifications</td></tr>
         <tr><td>6</td><td><code>es.js</code></td><td>1 523</td><td>Traductions espagnoles</td></tr>
@@ -1131,7 +1147,7 @@ const text = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
   </div>
 
   <footer>
-    <p>ArcLycée v0.16.4 — Aventure Archéologique Dominicaine</p>
+    <p>ArcLycée v0.16.5 — Aventure Archéologique Dominicaine</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Classe de Robotique 2026<br><a href="../index.html">Jouer à ArcLycée</a></p>
   </footer>
 

@@ -55,6 +55,11 @@ export class MundoLFSD {
   }
 
   // --- Preparar el mundo ---
+  // --- Al salir del nivel, detener sonidos continuos ---
+  salir() {
+    this.sfx.robotFLLDetener();
+  }
+
   iniciar(juego) {
     this.juego = juego;
     this.bloqueoEntrada = true;
@@ -75,7 +80,7 @@ export class MundoLFSD {
       { x: 100, y: 200, ancho: 200, alto: 100, tipo: 'mesa', nombre: 'Mesa Electrónica' },
       { x: 450, y: 200, ancho: 200, alto: 100, tipo: 'mesa', nombre: 'Mesa Programación' },
       { x: 800, y: 200, ancho: 200, alto: 100, tipo: 'mesa', nombre: 'Mesa Mecánica' },
-      { x: 450, y: 500, ancho: 200, alto: 100, tipo: 'mesa', nombre: 'Mesa Diseño' },
+      { x: 450, y: 500, ancho: 200, alto: 100, tipo: 'mesaFLL', nombre: 'Mesa FIRST LEGO League' },
       // Estanterías
       { x: 30, y: 30, ancho: 300, alto: 60, tipo: 'estanteria', nombre: 'Estantería' },
       { x: 870, y: 30, ancho: 300, alto: 60, tipo: 'estanteria', nombre: 'Estantería' },
@@ -178,6 +183,9 @@ export class MundoLFSD {
   actualizar(dt, entrada, jugador, companeros) {
     if (!jugador) return;
     this.tiempoTotal += dt;
+
+    // --- Actualizar robot FLL (siempre se mueve, independiente del diálogo) ---
+    this._actualizarRobotFLL(dt);
 
     // Si hay un mini-juego activo, no procesar
     if (this.juego?.calibracion?.enJuego) return;
@@ -386,20 +394,249 @@ export class MundoLFSD {
   // DIBUJO
   // ============================================================
 
+  // --- Mover el robot LEGO por los caminos del mapa FLL ---
+  _actualizarRobotFLL(dt) {
+    // Buscar la mesa FLL que tiene el robot
+    for (const est of this.estructuras) {
+      if (est.tipo !== 'mesaFLL' || !est._robot) continue;
+      const rb = est._robot;
+
+      // Si está en pausa (giró o llegó a un waypoint), esperar
+      if (rb.pausa > 0) {
+        rb.pausa -= dt;
+        // Motor apagado mientras está parado
+        this.sfx.robotFLLDetener();
+        return;
+      }
+
+      // Motor encendido mientras se mueve
+      this.sfx.robotFLLIniciar();
+
+      // Waypoint destino
+      const destino = rb.ruta[rb.indice];
+      const dx = destino[0] - rb.x;
+      const dy = destino[1] - rb.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Ángulo hacia el destino (para rotar el sprite)
+      const anguloDestino = Math.atan2(dy, dx);
+
+      // Rotación suave hacia el ángulo destino
+      let diffAng = anguloDestino - rb.angulo;
+      // Normalizar a [-PI, PI]
+      while (diffAng > Math.PI) diffAng -= Math.PI * 2;
+      while (diffAng < -Math.PI) diffAng += Math.PI * 2;
+      rb.angulo += diffAng * Math.min(1, dt * 6);
+
+      // Mover hacia el waypoint
+      const paso = rb.velocidad * dt;
+      if (dist <= paso) {
+        // Llegó al waypoint — detener motor y pausar
+        rb.x = destino[0];
+        rb.y = destino[1];
+        rb.indice = (rb.indice + 1) % rb.ruta.length;
+        rb.pausa = 0.3 + Math.random() * 0.4;
+        this.sfx.robotFLLDetener();
+      } else {
+        // Avanzar en línea recta
+        rb.x += (dx / dist) * paso;
+        rb.y += (dy / dist) * paso;
+      }
+    }
+  }
+
   _dibujarEstructura(ctx, est) {
+    const textos = this._obtenerTextos();
     switch (est.tipo) {
-      case 'mesa':
+      case 'mesa': {
+        // Mesa de trabajo con teclado y pantalla Scratch
         ctx.fillStyle = '#8B7355';
         ctx.fillRect(est.x, est.y, est.ancho, est.alto);
         ctx.strokeStyle = '#6B5335';
         ctx.lineWidth = 2;
         ctx.strokeRect(est.x, est.y, est.ancho, est.alto);
-        // Componentes sobre la mesa
-        ctx.fillStyle = '#44AA44';
-        ctx.fillRect(est.x + 10, est.y + 10, 20, 15);
-        ctx.fillStyle = '#AA4444';
-        ctx.fillRect(est.x + 40, est.y + 15, 15, 10);
+        // Función auxiliar: pantalla Scratch + teclado
+        const _dibujarEstacion = (sx, sy) => {
+          // Monitor (carcasa)
+          ctx.fillStyle = '#222222';
+          ctx.fillRect(sx, sy, 50, 35);
+          // Pantalla Scratch (fondo blanco con bloques de colores)
+          ctx.fillStyle = '#F0F0F0';
+          ctx.fillRect(sx + 3, sy + 3, 44, 28);
+          // Paleta lateral izquierda (gris oscuro, como la barra de Scratch)
+          ctx.fillStyle = '#E0E0E0';
+          ctx.fillRect(sx + 3, sy + 3, 10, 28);
+          // Bloques de código estilo Scratch (colores icónicos)
+          // Movimiento (azul)
+          ctx.fillStyle = '#4C97FF';
+          ctx.fillRect(sx + 15, sy + 6, 28, 4);
+          ctx.fillRect(sx + 15, sy + 12, 22, 4);
+          // Evento (amarillo/dorado — "al presionar bandera")
+          ctx.fillStyle = '#FFBF00';
+          ctx.fillRect(sx + 15, sy + 18, 26, 4);
+          // Control (naranja)
+          ctx.fillStyle = '#FFAB19';
+          ctx.fillRect(sx + 15, sy + 24, 20, 4);
+          // Categorías en la paleta (puntitos de colores)
+          ctx.fillStyle = '#4C97FF';
+          ctx.fillRect(sx + 5, sy + 6, 5, 3);
+          ctx.fillStyle = '#9966FF';
+          ctx.fillRect(sx + 5, sy + 11, 5, 3);
+          ctx.fillStyle = '#FFAB19';
+          ctx.fillRect(sx + 5, sy + 16, 5, 3);
+          ctx.fillStyle = '#44CC44';
+          ctx.fillRect(sx + 5, sy + 21, 5, 3);
+          ctx.fillStyle = '#FF6680';
+          ctx.fillRect(sx + 5, sy + 26, 5, 3);
+          // Pie del monitor
+          ctx.fillStyle = '#333333';
+          ctx.fillRect(sx + 20, sy + 35, 10, 5);
+          // Teclado
+          ctx.fillStyle = '#444444';
+          ctx.fillRect(sx - 3, sy + 44, 55, 18);
+          // Teclas
+          ctx.fillStyle = '#666666';
+          for (let fila = 0; fila < 3; fila++) {
+            for (let col = 0; col < 8; col++) {
+              ctx.fillRect(sx + col * 6, sy + 47 + fila * 5, 4, 3);
+            }
+          }
+        };
+        _dibujarEstacion(est.x + 15, est.y + 8);
+        _dibujarEstacion(est.x + 130, est.y + 8);
         break;
+      }
+      case 'mesaFLL': {
+        // Mesa con el mapa de FIRST LEGO League
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(est.x, est.y, est.ancho, est.alto);
+        ctx.strokeStyle = '#6B5335';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(est.x, est.y, est.ancho, est.alto);
+        // Tapete del mapa (fondo blanco)
+        const mx = est.x + 10, my = est.y + 8;
+        ctx.fillStyle = '#EEEEEE';
+        ctx.fillRect(mx, my, 180, 84);
+        ctx.strokeStyle = '#333333';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(mx, my, 180, 84);
+        // Caminos negros con borde blanco (rutas que siguen los robots)
+        const caminos = [
+          [[mx + 12, my + 42], [mx + 55, my + 42], [mx + 90, my + 30], [mx + 130, my + 30], [mx + 168, my + 50]],
+          [[mx + 35, my + 10], [mx + 35, my + 42], [mx + 35, my + 72]],
+          [[mx + 130, my + 12], [mx + 130, my + 30], [mx + 145, my + 60], [mx + 145, my + 78]],
+          [[mx + 55, my + 42], [mx + 80, my + 65], [mx + 110, my + 72]],
+          [[mx + 90, my + 30], [mx + 90, my + 12]],
+        ];
+        for (const ruta of caminos) {
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.lineWidth = 5;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.beginPath();
+          ctx.moveTo(ruta[0][0], ruta[0][1]);
+          for (let i = 1; i < ruta.length; i++) ctx.lineTo(ruta[i][0], ruta[i][1]);
+          ctx.stroke();
+          ctx.strokeStyle = '#111111';
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.moveTo(ruta[0][0], ruta[0][1]);
+          for (let i = 1; i < ruta.length; i++) ctx.lineTo(ruta[i][0], ruta[i][1]);
+          ctx.stroke();
+        }
+        // Zonas de misión (bloques de colores)
+        ctx.fillStyle = '#DD4444';
+        ctx.fillRect(mx + 10, my + 8, 18, 14);
+        ctx.fillStyle = '#44AA44';
+        ctx.fillRect(mx + 75, my + 10, 16, 14);
+        ctx.fillStyle = '#4488DD';
+        ctx.fillRect(mx + 130, my + 55, 20, 14);
+        ctx.fillStyle = '#DDAA22';
+        ctx.fillRect(mx + 65, my + 58, 14, 16);
+        ctx.fillStyle = '#AA44AA';
+        ctx.fillRect(mx + 148, my + 10, 14, 14);
+        // Bases de inicio (esquinas inferiores)
+        ctx.fillStyle = '#44CC44';
+        ctx.fillRect(mx + 2, my + 66, 22, 16);
+        ctx.fillStyle = '#CC4444';
+        ctx.fillRect(mx + 156, my + 66, 22, 16);
+
+        // --- Robot LEGO que recorre los caminos ---
+        // Inicializar estado del robot (se guarda en la estructura)
+        if (!est._robot) {
+          // Ruta continua que el robot recorre en loop (waypoints absolutos)
+          // Sale de la base verde, recorre los caminos y vuelve
+          est._robot = {
+            // Ruta completa que recorre el robot (waypoints conectados)
+            ruta: [
+              [mx + 12, my + 72],   // Base verde (inicio)
+              [mx + 35, my + 72],   // Baja por ruta vertical izquierda
+              [mx + 35, my + 42],   // Cruce central
+              [mx + 55, my + 42],   // Sigue horizontal
+              [mx + 80, my + 65],   // Diagonal abajo
+              [mx + 110, my + 72],  // Final diagonal
+              [mx + 145, my + 78],  // Ruta vertical derecha abajo
+              [mx + 145, my + 60],  // Sube
+              [mx + 130, my + 30],  // Cruce superior derecho
+              [mx + 130, my + 12],  // Sube al tope
+              [mx + 130, my + 30],  // Vuelve al cruce
+              [mx + 90, my + 30],   // Horizontal hacia la izquierda
+              [mx + 90, my + 12],   // Ruta corta arriba
+              [mx + 90, my + 30],   // Regresa
+              [mx + 55, my + 42],   // Cruce central
+              [mx + 35, my + 42],   // Vertical izquierda
+              [mx + 35, my + 10],   // Sube al tope izquierdo
+              [mx + 35, my + 42],   // Baja al cruce
+              [mx + 90, my + 30],   // Horizontal
+              [mx + 130, my + 30],  // Sigue
+              [mx + 168, my + 50],  // Final derecho
+              [mx + 130, my + 30],  // Regresa
+              [mx + 55, my + 42],   // Vuelve al cruce
+              [mx + 12, my + 42],   // Inicio horizontal
+              [mx + 12, my + 72],   // Vuelve a la base
+            ],
+            indice: 0,        // Waypoint actual hacia el que se dirige
+            x: mx + 12,       // Posición actual X
+            y: my + 72,       // Posición actual Y
+            angulo: 0,        // Ángulo actual (para rotación suave)
+            velocidad: 25,    // Píxeles por segundo
+            pausa: 0,         // Segundos de pausa restante al llegar a un waypoint
+          };
+        }
+        // Dibujar el robot LEGO con orugas
+        const rb = est._robot;
+        ctx.save();
+        ctx.translate(rb.x, rb.y);
+        ctx.rotate(rb.angulo);
+        // Orugas (tracks) — dos rectángulos oscuros a los lados
+        ctx.fillStyle = '#333333';
+        ctx.fillRect(-5, -3, 10, 2);  // Oruga superior
+        ctx.fillRect(-5, 1, 10, 2);   // Oruga inferior
+        // Muescas de las orugas
+        ctx.fillStyle = '#555555';
+        for (let i = -4; i <= 3; i += 2) {
+          ctx.fillRect(i, -3, 1, 2);
+          ctx.fillRect(i, 1, 1, 2);
+        }
+        // Cuerpo del robot (bloque central)
+        ctx.fillStyle = '#FF8800';
+        ctx.fillRect(-4, -2, 8, 4);
+        // Sensor frontal (al frente = derecha en el eje local)
+        ctx.fillStyle = '#222222';
+        ctx.fillRect(4, -1, 2, 2);
+        // LED del sensor
+        ctx.fillStyle = '#44FF44';
+        ctx.fillRect(5, -0.5, 1, 1);
+        ctx.restore();
+
+        // Etiqueta
+        ctx.font = '8px monospace';
+        ctx.fillStyle = '#555555';
+        ctx.textAlign = 'center';
+        ctx.fillText('FIRST LEGO League', est.x + est.ancho / 2, est.y + est.alto + 12);
+        ctx.textAlign = 'left';
+        break;
+      }
       case 'estanteria':
         ctx.fillStyle = '#6B5335';
         ctx.fillRect(est.x, est.y, est.ancho, est.alto);
@@ -433,15 +670,25 @@ export class MundoLFSD {
         ctx.fillRect(est.x + 54, est.y + 28, 8, 8);
         break;
       case 'impresora':
+        // Impresora 3D con etiqueta
         ctx.fillStyle = '#555555';
         ctx.fillRect(est.x, est.y, est.ancho, est.alto);
         ctx.fillStyle = '#333333';
         ctx.fillRect(est.x + 10, est.y + 10, est.ancho - 20, 30);
+        // Pieza imprimiéndose (pequeño objeto naranja)
+        ctx.fillStyle = '#FF8800';
+        ctx.fillRect(est.x + 30, est.y + 45, 20, 15);
         // LED verde
         ctx.fillStyle = '#44FF44';
         ctx.beginPath();
         ctx.arc(est.x + est.ancho / 2, est.y + est.alto - 10, 4, 0, Math.PI * 2);
         ctx.fill();
+        // Etiqueta
+        ctx.font = '8px monospace';
+        ctx.fillStyle = '#AAAAAA';
+        ctx.textAlign = 'center';
+        ctx.fillText(textos?.lfsd?.impresora3D || 'Impresora 3D', est.x + est.ancho / 2, est.y + est.alto + 12);
+        ctx.textAlign = 'left';
         break;
     }
   }
@@ -495,20 +742,25 @@ export class MundoLFSD {
       ctx.fillStyle = '#A0784C';
       ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
     } else if (npc.id === 'profesor') {
-      ctx.fillStyle = '#DDDDDD';
+      // Pelo blanco y barba blanca (Nicolas Droulers)
+      ctx.fillStyle = '#EEEEEE';
       ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
+      // Barba blanca debajo de la cara
+      ctx.fillStyle = '#DDDDDD';
+      ctx.fillRect(npc.x + 8, npc.y + 11, 12, 5);
+      // Detalle: forma redondeada inferior de la barba
+      ctx.fillRect(npc.x + 10, npc.y + 16, 8, 2);
     } else {
       ctx.fillStyle = '#2a1a0a';
       ctx.fillRect(npc.x + 5, npc.y - 2, 18, 5);
     }
 
-    // El profesor es delgado — cuerpo más estrecho y sonrisa visible
+    // El profesor es delgado — cuerpo más estrecho y sonrisa visible sobre la barba
     if (npc.id === 'profesor') {
-      // Sonrisa (siempre sonriente)
       ctx.strokeStyle = '#8a5a3a';
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.arc(npc.x + 14, npc.y + 10, 4, 0.1, Math.PI - 0.1);
+      ctx.arc(npc.x + 14, npc.y + 9, 3, 0.1, Math.PI - 0.1);
       ctx.stroke();
     }
 

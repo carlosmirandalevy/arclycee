@@ -75,6 +75,7 @@ export class FinalCinematica {
     this._sonidoPasoTocado = -1;
     this._enCreditos = false;
     this._creditosY = 0;
+    this._yaTermino = false;
 
     // Determinar qué final mostrar basado en el progreso
     this.tipoFinal = this._determinarFinal(juego);
@@ -199,6 +200,15 @@ export class FinalCinematica {
     if (this._enCreditos) {
       // Los créditos suben automáticamente
       this._creditosY -= this._creditosVelocidad * dt;
+
+      // Scroll manual con flechas arriba/abajo (sin interrumpir el scroll natural)
+      const velocidadManual = 150 * dt;
+      if (entrada.estaPresionada('arriba')) {
+        this._creditosY += velocidadManual;
+      }
+      if (entrada.estaPresionada('abajo')) {
+        this._creditosY -= velocidadManual;
+      }
 
       // Permitir saltar créditos con E
       if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
@@ -490,6 +500,8 @@ export class FinalCinematica {
 
   // --- Ir al menú principal ---
   _irAlMenu() {
+    if (this._yaTermino) return; // Evitar llamadas múltiples
+    this._yaTermino = true;
     if (this.juego && this.juego.cambiarEscena) {
       this.juego.cambiarEscena('menuPrincipal');
     }
@@ -550,15 +562,15 @@ export class FinalCinematica {
         ctx.fillStyle = '#C8A84E';
         ctx.fillText(this._nivelReputacion, centroX, y);
       }
-      y += espacioSeccion - espacioLinea;
+      y += espacioSeccion;
     }
 
     // --- LOGO ---
     if (this._imagenLogo && this._imagenLogo.complete && this._imagenLogo.naturalWidth > 0) {
       const logoAlto = 120;
       const logoAncho = logoAlto * (this._imagenLogo.naturalWidth / this._imagenLogo.naturalHeight);
-      ctx.drawImage(this._imagenLogo, centroX - logoAncho / 2, y - logoAlto * 0.7, logoAncho, logoAlto);
-      y += logoAlto * 0.5;
+      ctx.drawImage(this._imagenLogo, centroX - logoAncho / 2, y, logoAncho, logoAlto);
+      y += logoAlto + 10;
     } else {
       ctx.font = 'bold 36px monospace';
       ctx.fillStyle = '#FFD700';
@@ -575,6 +587,12 @@ export class FinalCinematica {
     ctx.font = 'bold 18px monospace';
     ctx.fillStyle = '#FFD700';
     ctx.fillText(textos?.ui?.creadoPor || 'Creado por', centroX, y);
+    y += espacioLinea + 5;
+
+    // Nombre del equipo
+    ctx.font = 'italic 16px monospace';
+    ctx.fillStyle = '#CCAA44';
+    ctx.fillText('les fous du robot', centroX, y);
     y += espacioLinea + 5;
 
     ctx.font = '16px monospace';

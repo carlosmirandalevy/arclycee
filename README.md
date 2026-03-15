@@ -18,7 +18,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps y 4 capas de datos: 16 sitios taínos, 8 sitios coloniales, 12 naufragios históricos y 30 museos a lo largo de toda La Hispaniola (RD + Haití). Totalmente traducido en 3 idiomas
 - **Hero images**: pantalla de inicio con imagen hero por idioma (ES/EN/FR) con viñeta oscura en los bordes
 - **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer
-- **Créditos cinematográficos**: créditos estilo película tras el final con logo, nombres del equipo y el Liceo Francés
+- **Créditos cinematográficos**: créditos estilo película tras el final con logo, "les fous du robot", nombres del equipo y el Liceo Francés, scroll manual con flechas
 - **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
 - **Sonidos procedurales**: efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
@@ -50,7 +50,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), 4 especies de tortugas marinas (carey, tinglar, caguama, verde) con aletas animadas, ballenas jorobadas con canto, medusas con sacudida, pez león patrullero, combate ecológico, corales fotografiables (cerebro, cuerno, abanico, mesa). Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones con mordida y sacudida, lanchas rápidas con impacto + grito, sistema de oxígeno por apnea) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
-| LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers y 9 NPCs estudiantes (cada uno con avatar personalizado), 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
+| LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers (pelo y barba blanca) y 9 NPCs estudiantes (cada uno con avatar personalizado), estaciones con pantallas Scratch, mesa FIRST LEGO League con robot animado que recorre caminos negros con zumbido de motor, impresora 3D, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
 
 ## Tecnologías
 

@@ -846,7 +846,7 @@ const en = {
 
     // Carlos Guillermo — Percy Jackson, Hollow Knight, Adventure Time, etc.
     carlosG1: 'Percy Jackson taught me that Greek myths are real... well, almost. But archaeology also uncovers myths that turned out to be true.',
-    carlosG2: 'Do you know Hollow Knight? Hallownest is a lost civilization underground. Just like the Pomier caves! I can\'t wait for Silksong.',
+    carlosG2: 'Do you know Hollow Knight? Hallownest is a lost civilization underground. Just like the Pomier caves! Silksong is even better.',
     carlosG3: 'In Deltarune, Ralsei says choices matter. In archaeology too: every piece you protect changes history.',
     carlosG4: 'Gravity Falls is the best. Dipper investigating hidden mysteries is basically what we do, but with robots.',
     carlosG5: 'Adventure Time seems random, but it has the deepest lore. The Mushroom War is post-apocalyptic. Finn lives in the ruins of our civilization.',
@@ -1119,6 +1119,7 @@ const en = {
 
     lfsdTitulo: 'LFSD - Robotics Class',
     lfsdPizarra: 'Robotics Class - LFSD',
+    impresora3D: '3D Printer',
 
     hablarHabitantes: 'Talk to inhabitants',
 

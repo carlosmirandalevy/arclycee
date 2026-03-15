@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.16.5 — LFSD classroom details, cinematic ending polish (2026-03-15)
+
+### Agregado
+- **Prof. Nicolas Droulers avatar**: pelo blanco y barba blanca, cuerpo delgado, sonrisa — actualizado en el juego y en docs/character-sprites.js. Incluido en "El Equipo — Les Fous du Robot" en docs/characters (ES/EN/FR) con borde azul LFSD
+- **Pantallas Scratch** en mesas de trabajo LFSD: monitores muestran IDE de Scratch con paleta de categorías (colores icónicos) y bloques de código apilados
+- **Mesa FIRST LEGO League**: tapete blanco con caminos negros con borde blanco (line-following paths), zonas de misión de colores, bases de inicio verde/roja
+- **Robot LEGO animado**: robot con orugas naranja y sensor verde que recorre los caminos del mapa FLL, pausa en cada waypoint para girar, y continúa
+- **Sonido de motor robot**: zumbido continuo (`robotFLLIniciar`/`robotFLLDetener`) — oscilador sawtooth grave con filtro lowpass, se inicia al moverse y se detiene al pausar
+- **Etiqueta "Impresora 3D"** traducida (ES/EN/FR) con pieza imprimiéndose visible
+- **Scroll manual en créditos**: flechas arriba/abajo para navegar los créditos de cinemática final sin interrumpir el scroll automático
+- **"les fous du robot" en créditos**: mostrado bajo "Creado por" antes de los nombres del equipo en la cinemática final
+
+### Mejorado
+- **Logo en cinemática**: reposicionado debajo de la reputación, justo encima de "Aventura Arqueológica Dominicana"
+- **Menú principal**: bloqueo de entrada al iniciar — evita que presionar E en los créditos active "Nuevo Juego" inmediatamente
+- **Cinemática final**: protección contra llamadas múltiples a `_irAlMenu()` al terminar los créditos
+
+---
+
 ## v0.16.4 — Hero images, logo, world previews, branding overhaul (2026-03-15)
 
 ### Agregado

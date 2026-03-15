@@ -846,7 +846,7 @@ const fr = {
 
     // Carlos Guillermo — fan de Percy Jackson, Hollow Knight, Adventure Time, etc.
     carlosG1: 'Percy Jackson m\'a appris que les mythes grecs sont réels... enfin, presque. Mais l\'archéologie aussi découvre des mythes qui se sont avérés vrais.',
-    carlosG2: 'Tu connais Hollow Knight ? Hallownest est une civilisation perdue sous terre. Comme les grottes du Pomier ! J\'ai trop hâte pour Silksong.',
+    carlosG2: 'Tu connais Hollow Knight ? Hallownest est une civilisation perdue sous terre. Comme les grottes du Pomier ! Silksong est encore mieux.',
     carlosG3: 'Dans Deltarune, Ralsei dit que les choix comptent. En archéologie aussi : chaque pièce que tu protèges change l\'histoire.',
     carlosG4: 'Gravity Falls, c\'est le meilleur. Dipper qui enquête sur des mystères cachés, c\'est exactement ce qu\'on fait, mais avec des robots.',
     carlosG5: 'Adventure Time a l\'air random, mais le lore est ultra profond. La Guerre des Champignons est post-apocalyptique. Finn vit dans les ruines de notre civilisation.',
@@ -1119,6 +1119,7 @@ const fr = {
 
     lfsdTitulo: 'LFSD - Cours de Robotique',
     lfsdPizarra: 'Cours de Robotique - LFSD',
+    impresora3D: 'Imprimante 3D',
 
     hablarHabitantes: 'Parler aux habitants',
 
