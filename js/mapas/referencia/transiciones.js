@@ -23,8 +23,9 @@ export const ZOOM_DETALLE = 14;
  *
  * @param {HTMLElement} contenedor - El div del mapa Leaflet
  * @param {L.Map} mapa - Instancia del mapa
+ * @param {Object} textosMapa - Traducciones de la sección mapaReal del idioma activo
  */
-export function abrirMapaReferencia(contenedor, mapa) {
+export function abrirMapaReferencia(contenedor, mapa, textosMapa) {
   contenedor.style.display = 'block';
   contenedor.style.opacity = '0';
   contenedor.style.transition = 'opacity 0.4s ease-in';
@@ -33,7 +34,7 @@ export function abrirMapaReferencia(contenedor, mapa) {
   if (!contenedor.querySelector('.mapa-cerrar-hint')) {
     const hint = document.createElement('div');
     hint.className = 'mapa-cerrar-hint';
-    hint.textContent = 'R / Esc — cerrar mapa';
+    hint.textContent = textosMapa?.cerrarMapa || 'R / Esc — cerrar mapa';
     hint.style.cssText = `
       position: absolute;
       top: 12px;

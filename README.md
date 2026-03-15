@@ -15,7 +15,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Justicia patrimonial**: combate legal contra el traficante Rodrigo Torres con Ley 318, evidencia forense, INTERPOL y UNESCO 1970
 - **3 idiomas completos**: Español, Français, English — toda la interfaz, controles, combate, cinemáticas, mini-juegos, toasts, nombres de estructuras y cultivos traducidos (~210 claves)
 - **Mapa de isla con tiles**: bitmap de 128×68 tiles trazado desde imagen de referencia, con 8 tipos de terreno, 8 cordilleras, 5 ríos, 2 lagos, cámara libre con zoom (0.25×-3×), drag táctil/ratón y colisiones
-- **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps y 4 capas de datos: 16 sitios taínos, 8 sitios coloniales, 12 naufragios históricos y 30 museos a lo largo de toda La Hispaniola (RD + Haití)
+- **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps y 4 capas de datos: 16 sitios taínos, 8 sitios coloniales, 12 naufragios históricos y 30 museos a lo largo de toda La Hispaniola (RD + Haití). Totalmente traducido en 3 idiomas
 - **Créditos cinematográficos**: créditos estilo película tras el final con nombres del equipo y el Liceo Francés
 - **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
 - **Sonidos procedurales**: efectos generados por código con Web Audio API (sin archivos de audio)
@@ -32,6 +32,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Múltiples finales** (5) según tus decisiones: completo, pacifista, museo, ecológico u oscuro
 - **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas, efectos en jugador y sonido ambiental (lluvia continua, truenos)
 - **Álbum de fotos**: toma fotos y selfies de NPCs, petroglifos y objetos — las fotos renderizan solo el sprite del NPC/objeto centrado sobre fondo oscuro (bloque cuadrado), las selfies muestran al NPC y al jugador lado a lado (rectángulo vertical). Sin capturas de pantalla
+- **Sistema de oxígeno**: en el Santuario del Manatí el jugador nada a pulmón con snorkel — barra de O₂ que se agota en ~60s y se recarga en la superficie (zona de lanchas rápidas)
 - **Misiones secundarias**: 5 sidequests: batú (pelota taína), rescate del manatí, y 3 del LFSD (calibración de señal, programación de robot, conexión de cables) con mini-juegos únicos
 - **Registro de juego**: Game Log con tecla L, pestañas de misiones principales y secundarias
 - **Sistema de reputación**: puntuación 0-100 que afecta combates y diálogos
@@ -43,7 +44,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 |---|---|
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos, vasija curativa de Anacaona), Asentamiento II (agricultura, areíto, mini-juego de batú, curación del Behique, guanábana de Guarionex) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
-| Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león, Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones patrulleros) |
+| Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), 4 especies de tortugas marinas (carey, tinglar, caguama, verde) con aletas animadas, ballenas jorobadas con canto, medusas, pez león patrullero, combate ecológico. Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones patrulleros, lanchas rápidas, sistema de oxígeno por apnea) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
 | LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers y 8 NPCs estudiantes, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |

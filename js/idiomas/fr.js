@@ -29,6 +29,7 @@ const fr = {
 
   interfaz: {
     vida: 'Vie',
+    oxigeno: 'O₂',
     inventario: 'Inventaire',
     guardar: 'Sauvegarder',
     mapa: 'Carte',
@@ -330,6 +331,18 @@ const fr = {
       arqueologaRobot4: 'J\'ai ajouté les nouvelles découvertes à ta carte des épaves. La technologie et l\'archéologie font une super équipe !',
       arqueologaPostRobot: 'Le robot continue de scanner les fonds marins. Il trouve quelque chose de nouveau chaque jour. Merci de l\'avoir apporté !',
 
+      // Tortue luth (Dermochelys coriacea) — la plus grande du monde
+      tinglar1: 'Je suis une tortue luth, la plus grande du monde. Je peux peser jusqu\'à 700 kg.',
+      tinglar2: 'Ma carapace n\'a pas d\'écailles dures comme les autres tortues — elle est souple, comme du cuir.',
+      tinglar3: 'Je mange presque uniquement des méduses. Je peux en manger 200 kg par jour. Les sacs en plastique me trompent car ils ressemblent à des méduses !',
+      tinglar4: 'Je peux plonger à plus de 1 000 mètres de profondeur. Je suis le reptile qui plonge le plus profond au monde.',
+
+      // Tortue caouanne (Caretta caretta) — grosse tête, mâchoires puissantes
+      caguama1: 'Je suis une tortue caouanne. J\'ai la plus grosse tête de toutes les tortues marines.',
+      caguama2: 'Mes mâchoires sont si puissantes que je peux broyer des crabes, des oursins et des escargots.',
+      caguama3: 'Les lumières artificielles sur les plages désorientent nos bébés. Ils marchent vers la lumière au lieu de la mer.',
+      caguama4: 'Les filets de pêche nous piègent par accident. La pêche responsable et les dispositifs d\'échappement sauvent des vies.',
+
       pezLeonIntro1: 'Un poisson-lion ! Cette espèce invasive de l\'Indo-Pacifique détruit les récifs des Caraïbes.',
       pezLeonIntro2: 'Il mange jusqu\'à 30 espèces indigènes et n\'a aucun prédateur naturel ici. Il faut agir !',
       pezLeonPaz1: 'La pêche contrôlée maintiendra l\'équilibre du récif.',
@@ -356,7 +369,10 @@ const fr = {
       cantoBallenaCerca: 'Tu entends le chant d\'une baleine à bosse au loin !',
 
       misionExplorar: 'Explore l\'épave de la Santa María',
-      misionCompleta: 'Épave explorée ! Retour à la carte (M)'
+      misionCompleta: 'Épave explorée ! Retour à la carte (M)',
+
+      // Transition vers le sanctuaire
+      transicionSantuario: '🤿 Nous laissons les bouteilles d\'oxygène et l\'équipement de plongée. Nous nageons en apnée avec tuba dans les eaux peu profondes du sanctuaire, nous déplaçant avec grâce parmi les coraux sans les toucher ni perturber la vie locale...'
     },
 
     // Sanctuaire du Lamantin — sous-niveau marin avec actions écologiques
@@ -391,6 +407,8 @@ const fr = {
 
       tiburonAlerta: 'Requin à proximité ! Éloigne-toi !',
       zonaHelice: 'Zone d\'hélices ! Danger !',
+      golpeLancha: 'Un hors-bord t\'a percuté ! Éloigne-toi de la surface !',
+      oxigenoBajo: 'Oxygène faible ! Remonte à la surface pour respirer !',
 
       dienteDescripcion: 'Dent fossile de requin mégalodon. La preuve que ces géants nageaient ici il y a des millions d\'années.',
 
@@ -401,7 +419,10 @@ const fr = {
       biologaRobot2: 'Avec ça je pourrai explorer les zones les plus profondes du sanctuaire et les récifs alentour.',
       biologaRobot3: 'Regarde ! Le robot a déjà détecté des signaux de 4 épaves qu\'on n\'avait pas recensées.',
       biologaRobot4: 'J\'ai ajouté les découvertes à ta carte des épaves. La technologie et la biologie marine font une super équipe !',
-      biologaPostRobot: 'Le robot continue de scanner les fonds marins. Chaque jour il trouve quelque chose de nouveau. Merci de l\'avoir apporté !'
+      biologaPostRobot: 'Le robot continue de scanner les fonds marins. Chaque jour il trouve quelque chose de nouveau. Merci de l\'avoir apporté !',
+
+      // Transition retour vers l'épave
+      transicionNaufragio: '🫧 Nous récupérons les bouteilles d\'oxygène et l\'équipement de plongée pour plonger dans les eaux profondes à la recherche des vestiges de l\'épave...'
     },
 
     // Monde Juridique — Aéroport de Punta Cana (Acte 4)
@@ -623,7 +644,7 @@ const fr = {
 
   objetos: {
     linterna: 'Lampe torche',
-    navaja: 'Couteau suisse',
+    navaja: 'Couteau Suisse Archéologique',
     brujula: 'Boussole',
     mapa: 'Carte Ancienne',
     magnetometro: 'Magnétomètre',
@@ -631,7 +652,7 @@ const fr = {
     artefactoTaino: 'Artefact Taïno',
 
     descLinterna: 'Éclaire l\'obscurité des grottes. Augmente ton rayon de vision.',
-    descNavaja: 'Outil multifonction. Utile pour couper des lianes et ouvrir des serrures.',
+    descNavaja: 'Outil polyvalent conçu par Diana et imprimé en 3D. Comprend brosse, spatule, loupe et règle d\'échelle.',
     descBrujula: 'Indique le nord. T\'aide à ne pas te perdre dans les grands espaces.',
     descMapa: 'Une carte ancienne avec des marques mystérieuses de sites archéologiques.',
     descFragmentoMapa: 'Un morceau de carte ancienne. Il semble montrer d\'autres grottes.',
@@ -748,15 +769,16 @@ const fr = {
     emile6a: 'Au LFSD on apprend en trois langues : espagnol, français et anglais. Ça nous aide à collaborer avec des équipes internationales !',
     emile6b: 'On va présenter notre projet dans une foire scientifique. Ça va être incroyable !',
 
-    // Sofía — programmeuse (chemise verte)
-    sofia1: 'Salut ! Je suis Sofía, la programmeuse de l\'équipe. Je développe les algorithmes de navigation pour notre robot sous-marin.',
-    sofia2: 'Notre robot peut plonger jusqu\'à 50 mètres. Mais il a besoin d\'instructions précises pour atteindre le point de scan.',
-    sofia3: 'Programmer un robot, c\'est comme écrire une recette : chaque étape doit être dans le bon ordre.',
+    // Diana — programmeuse et designeuse (chemise verte)
+    sofiaNombre: 'Diana',
+    sofia1: 'Salut ! Je suis Diana, la programmeuse de l\'équipe. Je développe les algorithmes de navigation pour notre robot sous-marin.',
+    sofia2: 'J\'ai aussi conçu un « couteau suisse » pour archéologues : un outil polyvalent que j\'ai modélisé en 3D. Je veux l\'imprimer avec notre imprimante !',
+    sofia3: 'Le couteau suisse a été le point de départ de notre réflexion sur comment la technologie peut aider l\'archéologie.',
     sofia4: 'Tu veux programmer une mission ? Il faudra utiliser des commandes comme avancer, tourner, plonger et scanner.',
 
-    // Sofía — dialogues supplémentaires (paires a/b affichées en séquence)
-    sofia5a: 'Tu savais que la République Dominicaine a plus de 400 épaves le long de ses côtes ?',
-    sofia5b: 'C\'est pour ça qu\'on conçoit des robots sous-marins. Il y a tant de patrimoine immergé à découvrir !',
+    // Diana — dialogues supplémentaires (paires a/b affichées en séquence)
+    sofia5a: 'Mon couteau suisse archéologique a une brosse, une spatule, une loupe et une règle d\'échelle. Tout ce qu\'un archéologue a besoin sur le terrain !',
+    sofia5b: 'Je l\'ai modélisé dans Tinkercad. C\'était mon premier projet de design 3D, et maintenant il est inclus dans le jeu.',
     sofia6a: 'Ce que j\'aime le plus dans le club, c\'est combiner science et histoire. Ce n\'est pas juste coder pour coder.',
     sofia6b: 'Chaque robot qu\'on construit a un but : protéger le patrimoine archéologique dominicain.',
 
@@ -1209,6 +1231,239 @@ const fr = {
     vitrinaColonial: 'Vitrine Coloniale',
     vitrinaSubmarina: 'Vitrine Sous-marine',
     almacenPiezas: 'Réserve de Pièces'
+  },
+
+  // ==========================================================
+  // CARTE DE RÉFÉRENCE LEAFLET — textes de la carte réelle
+  // ==========================================================
+  mapaReal: {
+    // --- Interface ---
+    cerrarMapa: 'R / Échap — fermer la carte',
+    completado: '✅ Terminé',
+    bloqueado: '🔒 Verrouillé',
+    disponible: '🟡 Disponible',
+    viajarAqui: '🗺️ Voyager ici',
+    descubiertoRobot: '📡 Découvert par le Robot LFSD',
+
+    // --- Couches de tuiles de base ---
+    capas: {
+      acuarela: 'Aquarelle',
+      terreno: 'Terrain',
+      toner: 'Toner',
+      oscuro: 'Sombre',
+      suave: 'Doux',
+      osm: 'OSM Moderne',
+      voyager: 'Voyager (CARTO)'
+    },
+
+    // --- Overlays (couches de sites activables) ---
+    overlays: {
+      tainos: '🗿 Sites Taïnos',
+      coloniales: '🏰 Sites Coloniaux',
+      naufragios: '⚓ Naufrages',
+      museos: '🏛 Musées',
+      inexplorados: '🔍 Sites Inexplorés'
+    },
+
+    // --- Emplacements du jeu (marqueurs principaux) ---
+    ubicaciones: {
+      cuevasPomier: 'Cuevas del Pomier',
+      descCuevasPomier: 'Système de 55 grottes avec plus de 6 000 pétroglyphes taïnos. Patrimoine national.',
+      asentamiento1: 'Établissement Taïno I',
+      descAsentamiento1: 'Village taïno reconstitué avec bohíos, conucos et place cérémonielle.',
+      asentamiento2: 'Établissement Taïno II',
+      descAsentamiento2: 'Centre agricole et cérémoniel taïno. Conucos, areíto et rites de cohoba.',
+      isabela: 'La Isabela',
+      descIsabela: 'Premier établissement européen permanent en Amérique, fondé par Colomb en 1493.',
+      zonaColonial: 'Zone Coloniale',
+      descZonaColonial: 'Première ville permanente d\'Amérique. Patrimoine UNESCO depuis 1990.',
+      santaMaria: 'Naufrage Santa María',
+      descSantaMaria: 'Épave du navire amiral de Colomb, échoué la nuit de Noël 1492 près de Cap-Haïtien.',
+      aeropuerto: 'Aéroport de Punta Cana',
+      descAeropuerto: 'Aéroport International de Punta Cana (PUJ). Point de contrôle douanier.',
+      atarazanas: 'Musée des Atarazanas Reales',
+      descAtarazanas: 'Musée des Atarazanas Reales. Artefacts de naufrages et patrimoine maritime.'
+    },
+
+    // --- Sites taïnos / précolombiens réels ---
+    sitiosTainos: {
+      cuevasPomierBorbon: 'Cuevas del Pomier (Borbón)',
+      descCuevasPomierBorbon: 'Système de 55 grottes avec plus de 6 000 pictographies et pétroglyphes taïnos et igneris.',
+      cuevaMaravillas: 'Cueva de las Maravillas',
+      descCuevaMaravillas: 'Plus de 500 pétroglyphes et pictographies taïnos, dont des scènes de rituels funéraires.',
+      losHaitises: 'Parc National Los Haitises',
+      descLosHaitises: 'Grottes accessibles uniquement par mer avec plus de 1 000 pictographies et pétroglyphes taïnos.',
+      cuevaFunFun: 'Cueva Fun Fun',
+      descCuevaFunFun: 'Immense système de grottes avec rivière souterraine et art rupestre indigène à Hato Mayor.',
+      cuevaBerna: 'Cueva de Berna',
+      descCuevaBerna: 'Environ 300 pétroglyphes taïnos gravés dans la roche au Parc National Cotubanamá.',
+      cuevaPadreNuestro: 'Cueva Padre Nuestro',
+      descCuevaPadreNuestro: 'Cénotes avec bassins d\'eau douce et pétroglyphes au Parc National Cotubanamá.',
+      lasCaritas: 'Las Caritas de los Indios',
+      descLasCaritas: 'Pétroglyphes pré-taïnos gravés dans le corail face au Lac Enriquillo.',
+      guacarasCotui: 'Guácaras de Cotuí',
+      descGuacarasCotui: 'Cavernes avec pétroglyphes taïnos à Sánchez Ramírez (Hoyo de Sanabe, Guácara del Lago).',
+      chacuey: 'Pétroglyphes de Chacuey',
+      descChacuey: 'Des centaines de pétroglyphes sur les rives du río Chacuey à Dajabón, près de la frontière.',
+      laCaleta: 'Parc Sous-marin La Caleta',
+      descLaCaleta: 'Cimetière précolombien et musée, parc sous-marin avec sculptures de dieux taïnos.',
+      juanDolio: 'Place Cérémonielle de Juan Dolio',
+      descJuanDolio: 'Site archéologique taïno côtier avec vestiges de place cérémonielle et batey.',
+      enBasSaline: 'En Bas Saline',
+      descEnBasSaline: 'Un des plus grands établissements taïnos (95 000 m²), possible village du cacique Guacanagarí.',
+      fortLiberte: 'Fort-Liberté (Bayajá)',
+      descFortLiberte: '164 vestiges d\'établissements taïnos documentés et ruines coloniales dans la baie.',
+      grotteMarieJeanne: 'Grotte Marie-Jeanne',
+      descGrotteMarieJeanne: 'Grotte naturelle la plus longue d\'Haïti (5,3 km) avec vestiges précolombiens près de Port-à-Piment.',
+      museoTainoCapHaitien: 'Musée Taïno de Cap-Haïtien',
+      descMuseoTainoCapHaitien: 'Collection de bracelets, cemís et artefacts cérémoniels taïnos du nord d\'Haïti.',
+      petroSainteSuzanne: 'Pétroglyphes de Sainte-Suzanne',
+      descPetroSainteSuzanne: 'Gorge avec pétroglyphes taïnos remarquables dans le nord d\'Haïti.'
+    },
+
+    // --- Sites coloniaux réels ---
+    sitiosColoniales: {
+      zonaColonialSD: 'Zone Coloniale de Saint-Domingue',
+      descZonaColonialSD: 'Première ville coloniale permanente du Nouveau Monde. Patrimoine UNESCO depuis 1990.',
+      laIsabela: 'La Isabela',
+      descLaIsabela: 'Premier établissement européen planifié en Amérique, fondé par Colomb en 1493.',
+      alcazarColon: 'Alcázar de Colón',
+      descAlcazarColon: 'Palais vice-royal de Diego Colomb (1510), aujourd\'hui musée avec mobilier et art colonial.',
+      sanFrancisco: 'Ruines du Monastère de San Francisco',
+      descSanFrancisco: 'Premier monastère construit en Amérique (1508), détruit par des tremblements de terre.',
+      vegaVieja: 'La Vega Vieja',
+      descVegaVieja: 'Ruines de la première ville minière d\'or en Amérique, détruite par un séisme en 1562.',
+      sanFelipe: 'Forteresse San Felipe',
+      descSanFelipe: 'Forteresse du XVIe siècle à Puerto Plata pour défendre la côte nord des corsaires.',
+      capHaitien: 'Cap-Haïtien (Centre Historique)',
+      descCapHaitien: 'Ancienne capitale de Saint-Domingue, "Paris des Antilles", avec architecture coloniale française.',
+      jacmel: 'Jacmel (Centre Historique)',
+      descJacmel: 'Ville coloniale avec architecture en fer forgé du XIXe siècle, patrimoine culturel haïtien.'
+    },
+
+    // --- Naufrages historiques ---
+    naufragios: {
+      santaMaria1492: 'Santa María (1492)',
+      descSantaMaria1492: 'Navire amiral de Colomb, échoué la nuit de Noël près de Cap-Haïtien. Ses bois ont servi à construire le fort La Navidad.',
+      sanMiguel1551: 'San Miguel (1551)',
+      descSanMiguel1551: 'Galion espagnol chargé de trésors, naufragé sur la côte nord près de Río San Juan.',
+      concepcion1641: 'Ntra. Sra. de la Concepción (1641)',
+      descConcepcion1641: 'Galion de la flotte d\'argent sur le Banco de la Plata. Burt Webber a récupéré 25 tonnes d\'argent en 1978.',
+      monteCristi1660: 'Monte Cristi Pipe Wreck (1660)',
+      descMonteCristi1660: 'Navire marchand hollandais avec plus de 10 000 pipes en argile, la plus grande collection d\'artefacts sous-marins liés au tabac.',
+      quedagh1699: 'Quedagh Merchant (1699)',
+      descQuedagh1699: 'Navire arménien capturé par le pirate Capitaine Kidd, abandonné près de l\'Île Catalina. Aujourd\'hui musée sous-marin.',
+      guadalupe1724: 'Ntra. Sra. de Guadalupe (1724)',
+      descGuadalupe1724: 'Galion espagnol de mercure coulé dans la Baie de Samaná lors d\'un ouragan avec 400 tonnes de mercure.',
+      tolosa1724: 'Conde de Tolosa (1724)',
+      descTolosa1724: 'Compagnon de la Guadalupe dans la Flotte d\'Azogues, naufragé à Samaná avec plus de 550 victimes.',
+      scipion1782: 'Le Scipion (1782)',
+      descScipion1782: 'Navire français de 74 canons, vétéran de la Bataille de Chesapeake, échoué sur un rocher dans la Baie de Samaná.',
+      goldenFleece1827: 'Golden Fleece (1827)',
+      descGoldenFleece1827: 'Navire marchand américain perdu sur le Banco de la Plata, récifs traîtres au nord de l\'île.',
+      astron1978: 'Astron (1978)',
+      descAstron1978: 'Cargo soviétique de 127 m échoué face à Playa Bávaro, Punta Cana. Site de plongée populaire.',
+      hickory1944: 'Hickory (1944)',
+      descHickory1944: 'Navire de la Marine américaine coulé près de la côte sud-est pendant la Seconde Guerre mondiale.',
+      zonaSantoDomingo: 'Zone de naufrages de Saint-Domingue',
+      descZonaSantoDomingo: 'Zone avec de multiples naufrages coloniaux au sud de Saint-Domingue. Archéologie sous-marine active.'
+    },
+
+    // --- Musées ---
+    museos: {
+      hombreDominicano: 'Musée de l\'Homme Dominicain',
+      descHombreDominicano: 'Principal musée anthropologique des Caraïbes avec la plus grande collection d\'artefacts taïnos.',
+      atarazanasReales: 'Musée des Atarazanas Reales',
+      descAtarazanasReales: 'Ancien arsenal naval colonial avec archéologie subaquatique et vestiges de naufrages du XVIe s.',
+      alcazarColonMuseo: 'Musée Alcázar de Colón',
+      descAlcazarColonMuseo: 'Palais vice-royal de Diego Colomb (1510), le bâtiment colonial le plus important du Nouveau Monde.',
+      casasReales: 'Musée des Casas Reales',
+      descCasasReales: 'Ancienne Audience Royale avec l\'histoire coloniale d\'Hispaniola depuis 1492.',
+      catedralPrimada: 'Musée de la Cathédrale Primada',
+      descCatedralPrimada: 'Trésor d\'art sacré colonial au sein de la première cathédrale du Nouveau Monde (1512-1540).',
+      historiaNatural: 'Musée National d\'Histoire Naturelle',
+      descHistoriaNatural: 'Biodiversité et géologie d\'Hispaniola avec des écosystèmes caribéens et des espèces endémiques.',
+      resistencia: 'Musée de la Résistance Dominicaine',
+      descResistencia: 'Mémorial sur la lutte contre la dictature de Trujillo (1930-1961).',
+      bellapart: 'Musée Bellapart',
+      descBellapart: 'Collection privée d\'art dominicain des XIXe et XXe siècles.',
+      arteModerno: 'Musée d\'Art Moderne',
+      descArteModerno: 'Principal musée d\'art contemporain dominicain à la Plaza de la Cultura.',
+      trampolin: 'Musée pour Enfants Trampolín',
+      descTrampolin: 'Musée interactif pour enfants dans la Casa de Rodrigo de Bastidas, Calle Las Damas.',
+      mundoAmbar: 'Musée Mundo del Ámbar',
+      descMundoAmbar: 'Ambre dominicain avec insectes fossilisés vieux de millions d\'années, dans la Zone Coloniale.',
+      larimar: 'Musée du Larimar',
+      descLarimar: 'Pierre semi-précieuse bleue exclusive à la RD, avec des expositions sur la géologie et l\'extraction.',
+      fortalezaOzama: 'Musée Forteresse Ozama',
+      descFortalezaOzama: 'Forteresse militaire la plus ancienne d\'Amérique (1502) avec la Tour du Hommage.',
+      faroColon: 'Faro a Colón',
+      descFaroColon: 'Musée-mausolée monumental en forme de croix avec les restes attribués à Christophe Colomb.',
+      centroLeon: 'Centro León',
+      descCentroLeon: 'Centre culturel avec des collections d\'art, d\'histoire et d\'anthropologie dominicaine.',
+      tabacoAurora: 'Musée du Tabac La Aurora',
+      descTabacoAurora: 'Histoire du tabac dominicain au sein de la fabrique La Aurora (fondée en 1903).',
+      ambarPP: 'Musée de l\'Ambre (Puerto Plata)',
+      descAmbarPP: 'Ambre et ambre bleu dominicain à la Villa Bentz avec des insectes préhistoriques.',
+      fortalezaSanFelipe: 'Musée Forteresse San Felipe',
+      descFortalezaSanFelipe: 'Forteresse espagnole du XVIe s. reconvertie en musée militaire et historique.',
+      arqueologicoIsabela: 'Musée Archéologique La Isabela',
+      descArqueologicoIsabela: 'Site du premier établissement européen permanent en Amérique (1493).',
+      altosChavon: 'Musée Archéologique Altos de Chavón',
+      descAltosChavon: 'Plus de 3 000 pièces précolumbiennes taïnos au bord du río Chavón à La Romana.',
+      ballenasSamana: 'Musée des Baleines (Samaná)',
+      descBallenasSamana: 'Histoire naturelle marine dédiée aux baleines à bosse qui migrent dans la baie.',
+      vegaViejaMuseo: 'Parc-Musée La Vega Vieja',
+      descVegaViejaMuseo: 'Ruines de la ville fondée par Colomb (1494) avec artefacts taïnos et coloniaux.',
+      hermanasMirabal: 'Casa Museo Hermanas Mirabal',
+      descHermanasMirabal: 'Maison-musée des héroïnes de la résistance contre Trujillo à Salcedo.',
+      altagracia: 'Musée Basilique de l\'Altagracia',
+      descAltagracia: 'Art sacré auprès de la basilique patronale de la RD à Higüey.',
+      sanPedroMacoris: 'Musée de San Pedro de Macorís',
+      descSanPedroMacoris: 'Histoire sucrière et l\'immigration des cocolos antillais anglophones.',
+      mupanah: 'MUPANAH (Panthéon National Haïtien)',
+      descMupanah: 'Musée national haïtien avec les héros de l\'indépendance et l\'ancre de la Santa María.',
+      arteHaitiano: "Musée d'Art Haïtien",
+      descArteHaitiano: 'La plus grande collection d\'art haïtien avec des chefs-d\'œuvre du mouvement naïf.',
+      centreArt: "Centre d'Art (Port-au-Prince)",
+      descCentreArt: 'Institution fondée en 1944 qui a lancé le mouvement artistique haïtien.',
+      saintMartial: 'Musée Saint-Martial',
+      descSaintMartial: 'Historique collège-séminaire (1864) avec collection d\'histoire naturelle et culturelle.',
+      ogierFombrun: 'Musée Ogier-Fombrun',
+      descOgierFombrun: 'Plantation sucrière du XVIIIe s. à Montrouis avec artefacts taïnos et de la Révolution Haïtienne.'
+    },
+
+    // --- Naufrages découverts par le robot du LFSD ---
+    naufragiosRobot: {
+      luperon: 'Épave de Luperón (XVIIe s.)',
+      descLuperon: 'Vestiges d\'un navire marchand espagnol trouvés par le robot dans la baie de Luperón. Cargaison de céramiques et d\'outils.',
+      islaSaona: 'Épave de l\'Île Saona (XVIIIe s.)',
+      descIslaSaona: 'Navire négrier coulé au sud de l\'Île Saona. Le robot a détecté des ancres et des chaînes sur le fond sableux.',
+      galeonPP: 'Galion de Puerto Plata (1563)',
+      descGaleonPP: 'Galion de la flotte de Nouvelle-Espagne perdu lors d\'un ouragan. Le robot a trouvé des canons et des lingots.',
+      sanAndres: 'Vapeur côtier San Andrés (1891)',
+      descSanAndres: 'Vapeur dominicain coulé près de Boca Chica. Le robot a scanné les chaudières et la structure métallique intacte.'
+    },
+
+    // --- Sites archéologiques inexplorés ---
+    sitiosInexplorados: {
+      cuevaBerna: 'Cueva de Berna',
+      descCuevaBerna: 'Parc National de l\'Est — pictographies précolumbiennes dans des grottes côtières peu documentées.',
+      puntaMacao: 'Punta Macao',
+      descPuntaMacao: 'Zone de Higüey — site précéramique avec des traces d\'occupation humaine antérieure aux Taïnos.',
+      elCabo: 'El Cabo',
+      descElCabo: 'Côte est — grand village taïno avec vestiges de bohíos, céramiques et outils lithiques.',
+      playaGrande: 'Playa Grande',
+      descPlayaGrande: 'Río San Juan — site de la période céramique avec fragments de poteries et dépôts culturels.',
+      lomaGuayacanes: 'Loma de Guayacanes',
+      descLomaGuayacanes: 'San Pedro de Macorís — site funéraire avec enterrements précolombiens et offrandes rituelles.',
+      padreNuestro: 'Padre Nuestro',
+      descPadreNuestro: 'Bayahíbe — système de grottes avec pétroglyphes, cénotes et preuves d\'usage cérémoniel taïno.',
+      cuevaMaravillasInex: 'Cueva de las Maravillas',
+      descCuevaMaravillasInex: 'San Pedro — chambres inexplorées au-delà de la zone touristique avec d\'éventuelles pictographies inédites.',
+      bocaYuma: 'Boca de Yuma',
+      descBocaYuma: 'Grottes côtières avec stratigraphie archéologique couvrant de multiples périodes d\'occupation.'
+    }
   }
 };
 

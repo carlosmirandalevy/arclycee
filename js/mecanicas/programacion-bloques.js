@@ -5,7 +5,7 @@
 // escanear, sumergir, ascender) para guiar un robot submarino
 // a través de una cuadrícula 6×4 hasta un punto de escaneo.
 //
-// Se accede desde el LFSD hablando con Sofía.
+// Se accede desde el LFSD hablando con Diana.
 // Al completar, desbloquea la capa de sitios arqueológicos
 // inexplorados en el mapa Leaflet.
 // ============================================================

@@ -7,7 +7,7 @@
 // ofrecen misiones secundarias con mini-juegos únicos:
 //
 // - Émile (electrónica) → Calibración de señal (magnetómetro)
-// - Sofía (programación) → Programación de bloques (robot submarino)
+// - Diana (programación) → Programación de bloques (robot submarino)
 // - Lucas (mecánica) → Conexión de cables (equipo de análisis)
 //
 // MODO: Top-down interior (como mundo-laboratorio.js)
@@ -102,7 +102,7 @@ export class MundoLFSD {
       },
       {
         id: 'sofia', x: 500, y: 340, ancho: 28, alto: 36,
-        nombre: lfsd?.sofiaNombre || 'Sofía',
+        nombre: lfsd?.sofiaNombre || 'Diana',
         color: '#44AA44', // Verde
         dialogoHecho: false, esMentor: false, esQuestGiver: true,
         quest: 'metalCompleto'
@@ -779,7 +779,7 @@ export class MundoLFSD {
       if (!this._dialogoRotativo['sofia']) this._dialogoRotativo['sofia'] = 0;
       const idx = this._dialogoRotativo['sofia'];
       const pares = [
-        [lfsd?.sofia1 || 'Soy Sofía, programo robots.',
+        [lfsd?.sofia1 || 'Soy Diana, programo robots.',
          lfsd?.sofia2 || 'Estoy trabajando en un robot submarino para explorar sitios arqueológicos.'],
         [lfsd?.sofia5a || '¿Sabías que RD tiene más de 400 naufragios?',
          lfsd?.sofia5b || 'Por eso diseñamos robots submarinos.'],

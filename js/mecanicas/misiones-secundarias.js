@@ -5,7 +5,7 @@
 // 1. batu — jugar batú con Higüemota (Asentamiento Taíno 2)
 // 2. rescateManati — liberar al manatí + limpiar arrecife (Santuario)
 // 3. buenasVibraciones — calibrar el magnetómetro (Émile, LFSD)
-// 4. metalCompleto — programar el robot submarino (Sofía, LFSD)
+// 4. metalCompleto — programar el robot submarino (Diana, LFSD)
 // 5. cienciaLoca — reparar el equipo de análisis (Lucas, LFSD)
 //
 // Cada misión pasa por 4 estados:

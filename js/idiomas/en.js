@@ -29,6 +29,7 @@ const en = {
 
   interfaz: {
     vida: 'Health',
+    oxigeno: 'O₂',
     inventario: 'Inventory',
     guardar: 'Save',
     mapa: 'Map',
@@ -330,6 +331,18 @@ const en = {
       arqueologaRobot4: 'I\'ve added the new discoveries to your shipwreck map. Technology and archaeology make a great team!',
       arqueologaPostRobot: 'The robot is still scanning the seabed. It finds something new every day. Thanks for bringing it!',
 
+      // Leatherback turtle (Dermochelys coriacea) — the largest in the world
+      tinglar1: 'I\'m a leatherback turtle, the largest in the world. I can weigh up to 700 kg.',
+      tinglar2: 'My shell doesn\'t have hard scales like other turtles — it\'s leathery, like leather.',
+      tinglar3: 'I eat almost only jellyfish. I can eat 200 kg a day. Plastic bags confuse me because they look like jellyfish!',
+      tinglar4: 'I can dive over 1,000 meters deep. I\'m the deepest-diving reptile in the world.',
+
+      // Loggerhead turtle (Caretta caretta) — big head, powerful jaws
+      caguama1: 'I\'m a loggerhead turtle. I have the largest head of all sea turtles.',
+      caguama2: 'My jaws are so powerful I can crush crabs, sea urchins, and snails.',
+      caguama3: 'Artificial lights on beaches confuse our hatchlings. They walk toward the light instead of the sea.',
+      caguama4: 'Fishing nets trap us by accident. Responsible fishing and escape devices save lives.',
+
       pezLeonIntro1: 'A lionfish! This invasive species from the Indo-Pacific is destroying Caribbean reefs.',
       pezLeonIntro2: 'It eats up to 30 native species and has no natural predators here. We must act!',
       pezLeonPaz1: 'Controlled fishing will maintain the reef\'s balance.',
@@ -356,7 +369,10 @@ const en = {
       cantoBallenaCerca: 'You hear a humpback whale singing in the distance!',
 
       misionExplorar: 'Explore the wreck of the Santa María',
-      misionCompleta: 'Shipwreck explored! Return to map (M)'
+      misionCompleta: 'Shipwreck explored! Return to map (M)',
+
+      // Transition to sanctuary
+      transicionSantuario: '🤿 We leave our oxygen tanks and diving gear behind. We swim on lung power with snorkels in the shallow sanctuary waters, moving gracefully among the corals without touching them or disturbing local life...'
     },
 
     // Manatee Sanctuary — marine sub-level with ecological actions
@@ -391,6 +407,8 @@ const en = {
 
       tiburonAlerta: 'Shark nearby! Stay away!',
       zonaHelice: 'Propeller zone! Danger!',
+      golpeLancha: 'A speedboat hit you! Stay away from the surface!',
+      oxigenoBajo: 'Low oxygen! Swim to the surface to breathe!',
 
       dienteDescripcion: 'Fossil megalodon shark tooth. Proof these giants swam here millions of years ago.',
 
@@ -401,7 +419,10 @@ const en = {
       biologaRobot2: 'With this I can explore the deepest areas of the sanctuary and nearby reefs.',
       biologaRobot3: 'Look! The robot already detected signals from 4 shipwrecks we didn\'t have on record.',
       biologaRobot4: 'I\'ve added the discoveries to your shipwreck map. Technology and marine biology make a great team!',
-      biologaPostRobot: 'The robot keeps scanning the ocean floor. Every day it finds something new. Thanks for bringing it!'
+      biologaPostRobot: 'The robot keeps scanning the ocean floor. Every day it finds something new. Thanks for bringing it!',
+
+      // Transition back to shipwreck
+      transicionNaufragio: '🫧 We pick up our oxygen tanks and diving gear to dive into the deep waters in search of the shipwreck remnants...'
     },
 
     // Legal World — Punta Cana Airport (Act 4)
@@ -623,7 +644,7 @@ const en = {
 
   objetos: {
     linterna: 'Flashlight',
-    navaja: 'Swiss Knife',
+    navaja: 'Archaeological Swiss Knife',
     brujula: 'Compass',
     mapa: 'Ancient Map',
     magnetometro: 'Magnetometer',
@@ -631,7 +652,7 @@ const en = {
     artefactoTaino: 'Taíno Artifact',
 
     descLinterna: 'Lights up the darkness of caves. Increases your vision radius.',
-    descNavaja: 'Multi-tool. Useful for cutting vines and picking locks.',
+    descNavaja: 'Multi-purpose tool designed by Diana and 3D-printed. Includes brush, spatula, magnifying glass, and scale ruler.',
     descBrujula: 'Points north. Helps you navigate large areas.',
     descMapa: 'An ancient map with mysterious marks of archaeological sites.',
     descFragmentoMapa: 'A piece of an ancient map. It seems to show the location of other caves.',
@@ -748,15 +769,16 @@ const en = {
     emile6a: 'At LFSD we learn in three languages: Spanish, French, and English. It helps us collaborate with international teams!',
     emile6b: 'We\'re going to present our project at a science fair. It\'s going to be amazing!',
 
-    // Sofía — programmer (green shirt)
-    sofia1: 'Hi! I\'m Sofía, the team\'s programmer. I develop the navigation algorithms for our submarine robot.',
-    sofia2: 'Our robot can dive to 50 meters. But it needs precise instructions to reach the scan point.',
-    sofia3: 'Programming a robot is like writing a recipe: each step must be in the right order.',
+    // Diana — programmer and designer (green shirt)
+    sofiaNombre: 'Diana',
+    sofia1: 'Hi! I\'m Diana, the team\'s programmer. I develop the navigation algorithms for our submarine robot.',
+    sofia2: 'I also designed a "Swiss army knife" for archaeologists: a multi-purpose tool that I modeled in 3D. I want to print it with our printer!',
+    sofia3: 'The knife was the starting point of our thinking about how technology can help archaeology.',
     sofia4: 'Want to program a mission? You\'ll need to use commands like forward, turn, dive, and scan.',
 
-    // Sofía — extra dialogue (flavor, a/b pairs shown in sequence)
-    sofia5a: 'Did you know the Dominican Republic has over 400 shipwrecks along its coasts?',
-    sofia5b: 'That\'s why we design submarine robots. There\'s so much submerged heritage waiting to be discovered!',
+    // Diana — extra dialogue (flavor, a/b pairs shown in sequence)
+    sofia5a: 'My archaeological Swiss army knife has a brush, spatula, magnifying glass, and scale ruler. Everything an archaeologist needs in the field!',
+    sofia5b: 'I modeled it in Tinkercad. It was my first 3D design project, and now it\'s included in the game.',
     sofia6a: 'What I love most about the club is combining science with history. It\'s not just coding for coding\'s sake.',
     sofia6b: 'Every robot we build has a purpose: protecting Dominican archaeological heritage.',
 
@@ -1209,6 +1231,175 @@ const en = {
     vitrinaColonial: 'Colonial Display Case',
     vitrinaSubmarina: 'Underwater Display Case',
     almacenPiezas: 'Artifact Storage'
+  },
+
+  // ==========================================================
+  // REAL LEAFLET MAP — texts for the real-world reference map
+  // ==========================================================
+  mapaReal: {
+    // --- UI ---
+    cerrarMapa: 'R / Esc — close map',
+    completado: '✅ Completed',
+    bloqueado: '🔒 Locked',
+    disponible: '🟡 Available',
+    viajarAqui: '🗺️ Travel here',
+    descubiertoRobot: '📡 Discovered by LFSD Robot',
+
+    // --- Base tile layers ---
+    capas: {
+      acuarela: 'Watercolor',
+      terreno: 'Terrain',
+      toner: 'Toner',
+      oscuro: 'Dark',
+      suave: 'Soft',
+      osm: 'Modern OSM',
+      voyager: 'Voyager (CARTO)'
+    },
+
+    // --- Overlays (toggleable site layers) ---
+    overlays: {
+      tainos: '🗿 Taíno Sites',
+      coloniales: '🏰 Colonial Sites',
+      naufragios: '⚓ Shipwrecks',
+      museos: '🏛 Museums',
+      inexplorados: '🔍 Unexplored Sites'
+    },
+
+    // --- In-game locations (main markers) ---
+    ubicaciones: {
+      cuevasPomier: 'Cuevas del Pomier',
+      descCuevasPomier: 'System of 55 caves with over 6,000 Taíno petroglyphs. National Heritage site.',
+      asentamiento1: 'Taíno Settlement I',
+      descAsentamiento1: 'Reconstructed Taíno village with bohíos, conucos and a ceremonial plaza.',
+      asentamiento2: 'Taíno Settlement II',
+      descAsentamiento2: 'Taíno agricultural and ceremonial center. Conucos, areíto and cohoba rites.',
+      isabela: 'La Isabela',
+      descIsabela: 'First permanent European settlement in the Americas, founded by Columbus in 1493.',
+      zonaColonial: 'Colonial Zone',
+      descZonaColonial: 'First permanent city in the Americas. UNESCO World Heritage Site since 1990.',
+      santaMaria: 'Santa María Shipwreck',
+      descSantaMaria: 'Remains of Columbus\'s flagship, run aground on Christmas Eve 1492 near Cap-Haïtien.',
+      aeropuerto: 'Punta Cana Airport',
+      descAeropuerto: 'Punta Cana International Airport (PUJ). Customs checkpoint.',
+      atarazanas: 'Museo Atarazanas Reales',
+      descAtarazanas: 'Museum of the Royal Shipyards. Shipwreck artifacts and maritime heritage.'
+    },
+
+    // --- Real Taíno / pre-Columbian sites ---
+    sitiosTainos: {
+      cuevasPomierBorbon: 'Cuevas del Pomier (Borbón)',
+      descCuevasPomierBorbon: 'System of 55 caves with over 6,000 Taíno and Igneri pictographs and petroglyphs.',
+      cuevaMaravillas: 'Cueva de las Maravillas',
+      descCuevaMaravillas: 'Over 500 Taíno petroglyphs and pictographs, including scenes of funerary rituals.',
+      losHaitises: 'Los Haitises National Park',
+      descLosHaitises: 'Caves accessible only by sea with over 1,000 Taíno pictographs and petroglyphs.',
+      cuevaFunFun: 'Cueva Fun Fun',
+      descCuevaFunFun: 'Vast cave system with an underground river and indigenous rock art in Hato Mayor.',
+      cuevaBerna: 'Cueva de Berna',
+      descCuevaBerna: 'About 300 Taíno petroglyphs carved into rock in Cotubanamá National Park.',
+      cuevaPadreNuestro: 'Cueva Padre Nuestro',
+      descCuevaPadreNuestro: 'Cenotes with freshwater pools and petroglyphs in Cotubanamá National Park.',
+      lasCaritas: 'Las Caritas de los Indios',
+      descLasCaritas: 'Pre-Taíno petroglyphs carved into coral rock overlooking Lake Enriquillo.',
+      guacarasCotui: 'Guácaras de Cotuí',
+      descGuacarasCotui: 'Caverns with Taíno petroglyphs in Sánchez Ramírez (Hoyo de Sanabe, Guácara del Lago).',
+      chacuey: 'Petroglifos de Chacuey',
+      descChacuey: 'Hundreds of petroglyphs along the Chacuey river in Dajabón, near the border.',
+      laCaleta: 'La Caleta Underwater Park',
+      descLaCaleta: 'Pre-Columbian cemetery and museum, underwater park with sculptures of Taíno gods.',
+      juanDolio: 'Juan Dolio Ceremonial Plaza',
+      descJuanDolio: 'Coastal Taíno archaeological site with remains of a ceremonial plaza and batey.',
+      enBasSaline: 'En Bas Saline',
+      descEnBasSaline: 'One of the largest Taíno settlements (95,000 m²), likely the village of chief Guacanagarí.',
+      fortLiberte: 'Fort-Liberté (Bayajá)',
+      descFortLiberte: '164 documented Taíno settlement vestiges and colonial ruins in the bay.',
+      grotteMarieJeanne: 'Grotte Marie-Jeanne',
+      descGrotteMarieJeanne: 'Longest natural cave in Haiti (5.3 km) with pre-Columbian vestiges near Port-à-Piment.',
+      museoTainoCapHaitien: 'Musée Taíno de Cap-Haïtien',
+      descMuseoTainoCapHaitien: 'Collection of bracelets, cemís and Taíno ceremonial artifacts from northern Haiti.',
+      petroSainteSuzanne: 'Petroglifos de Sainte-Suzanne',
+      descPetroSainteSuzanne: 'Gorge with notable Taíno petroglyphs in northern Haiti.'
+    },
+
+    // --- Real colonial sites ---
+    sitiosColoniales: {
+      zonaColonialSD: 'Colonial Zone of Santo Domingo',
+      descZonaColonialSD: 'First permanent colonial city of the New World. UNESCO World Heritage Site since 1990.',
+      laIsabela: 'La Isabela',
+      descLaIsabela: 'First planned European settlement in the Americas, founded by Columbus in 1493.',
+      alcazarColon: 'Alcázar de Colón',
+      descAlcazarColon: 'Viceregal palace of Diego Columbus (1510), now a museum of colonial furniture and art.',
+      sanFrancisco: 'Ruins of the San Francisco Monastery',
+      descSanFrancisco: 'First monastery built in the Americas (1508), destroyed by earthquakes.',
+      vegaVieja: 'La Vega Vieja',
+      descVegaVieja: 'Ruins of the first gold-mining town in the Americas, destroyed by earthquake in 1562.',
+      sanFelipe: 'Fortaleza San Felipe',
+      descSanFelipe: '16th-century fortress in Puerto Plata built to defend the northern coast from privateers.',
+      capHaitien: 'Cap-Haïtien (Historic Center)',
+      descCapHaitien: 'Former capital of Saint-Domingue, the "Paris of the Antilles", with French colonial architecture.',
+      jacmel: 'Jacmel (Historic Center)',
+      descJacmel: 'Colonial city with 19th-century wrought-iron architecture, Haitian cultural heritage.'
+    },
+
+    // --- Historic shipwrecks ---
+    naufragios: {
+      santaMaria1492: 'Santa María (1492)',
+      descSantaMaria1492: 'Columbus\'s flagship, ran aground on Christmas night near Cap-Haïtien. Its timbers were used to build Fort La Navidad.',
+      sanMiguel1551: 'San Miguel (1551)',
+      descSanMiguel1551: 'Spanish galleon laden with treasure, wrecked on the northern coast near Río San Juan.',
+      concepcion1641: 'Ntra. Sra. de la Concepción (1641)',
+      descConcepcion1641: 'Silver fleet galleon on the Silver Bank. Burt Webber recovered 25 tonnes of silver in 1978.',
+      monteCristi1660: 'Monte Cristi Pipe Wreck (1660)',
+      descMonteCristi1660: 'Dutch merchant ship carrying over 10,000 clay pipes — the largest underwater collection of tobacco artifacts.',
+      quedagh1699: 'Quedagh Merchant (1699)',
+      descQuedagh1699: 'Armenian ship captured by pirate Captain Kidd, abandoned near Isla Catalina. Now an underwater museum.',
+      guadalupe1724: 'Ntra. Sra. de Guadalupe (1724)',
+      descGuadalupe1724: 'Spanish mercury galleon sunk in Samaná Bay during a hurricane, carrying 400 tonnes of mercury.',
+      tolosa1724: 'Conde de Tolosa (1724)',
+      descTolosa1724: 'Companion of the Guadalupe in the Quicksilver Fleet, wrecked in Samaná with over 550 casualties.',
+      scipion1782: 'Le Scipion (1782)',
+      descScipion1782: '74-gun French warship, veteran of the Battle of Chesapeake, struck a rock in Samaná Bay.',
+      goldenFleece1827: 'Golden Fleece (1827)',
+      descGoldenFleece1827: 'American merchant vessel lost on the Silver Bank, treacherous reefs north of the island.',
+      astron1978: 'Astron (1978)',
+      descAstron1978: '127-metre Soviet cargo ship grounded off Playa Bávaro, Punta Cana. Popular diving site.',
+      hickory1944: 'Hickory (1944)',
+      descHickory1944: 'US Navy vessel sunk near the southeastern coast during World War II.',
+      zonaSantoDomingo: 'Santo Domingo Shipwreck Zone',
+      descZonaSantoDomingo: 'Area with multiple colonial-era wrecks south of Santo Domingo. Active underwater archaeology.'
+    },
+
+    // --- Shipwrecks discovered by the LFSD robot ---
+    naufragiosRobot: {
+      luperon: 'Luperón Wreck (17th c.)',
+      descLuperon: 'Remains of a Spanish merchant ship found by the robot in Luperón bay. Cargo of ceramics and tools.',
+      islaSaona: 'Isla Saona Wreck (18th c.)',
+      descIslaSaona: 'Slave ship sunk south of Isla Saona. The robot detected anchors and chains on the sandy seabed.',
+      galeonPP: 'Puerto Plata Galleon (1563)',
+      descGaleonPP: 'New Spain fleet galleon lost during a hurricane. The robot found cannons and ingots.',
+      sanAndres: 'Coastal Steamer San Andrés (1891)',
+      descSanAndres: 'Dominican steamship sunk near Boca Chica. The robot scanned intact boilers and metal structure.'
+    },
+
+    // --- Unexplored archaeological sites ---
+    sitiosInexplorados: {
+      cuevaBerna: 'Cueva de Berna',
+      descCuevaBerna: 'Parque Nacional del Este — pre-Columbian pictographs in poorly documented coastal caves.',
+      puntaMacao: 'Punta Macao',
+      descPuntaMacao: 'Higüey area — pre-ceramic site with evidence of human occupation predating the Taíno.',
+      elCabo: 'El Cabo',
+      descElCabo: 'Eastern coast — large Taíno village with remains of bohíos, ceramics and lithic tools.',
+      playaGrande: 'Playa Grande',
+      descPlayaGrande: 'Río San Juan — ceramic-period site with pottery fragments and cultural deposits.',
+      lomaGuayacanes: 'Loma de Guayacanes',
+      descLomaGuayacanes: 'San Pedro de Macorís — funerary site with pre-Columbian burials and ritual offerings.',
+      padreNuestro: 'Padre Nuestro',
+      descPadreNuestro: 'Bayahíbe — cave system with petroglyphs, cenotes and evidence of Taíno ceremonial use.',
+      cuevaMaravillasInex: 'Cueva de las Maravillas',
+      descCuevaMaravillasInex: 'San Pedro — unexplored chambers beyond the tourist zone with possible undocumented pictographs.',
+      bocaYuma: 'Boca de Yuma',
+      descBocaYuma: 'Coastal caves with archaeological stratigraphy spanning multiple periods of occupation.'
+    }
   }
 };
 

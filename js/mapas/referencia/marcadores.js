@@ -17,6 +17,7 @@
 const UBICACIONES_REALES = [
   {
     id: 0,
+    clave: 'cuevasPomier',
     nombre: 'Cuevas del Pomier',
     lat: 18.4667, lng: -70.1500,
     descripcion: 'Sistema de 55 cuevas con más de 6,000 petroglifos taínos. Patrimonio Nacional.',
@@ -25,6 +26,7 @@ const UBICACIONES_REALES = [
   },
   {
     id: 1,
+    clave: 'asentamiento1',
     nombre: 'Asentamiento Taíno I',
     lat: 18.4700, lng: -70.1500,
     descripcion: 'Aldea taína reconstruida con bohíos, conucos y plaza ceremonial.',
@@ -33,6 +35,7 @@ const UBICACIONES_REALES = [
   },
   {
     id: 2,
+    clave: 'asentamiento2',
     nombre: 'Asentamiento Taíno II',
     lat: 18.4750, lng: -70.1450,
     descripcion: 'Centro agrícola y ceremonial taíno. Conucos, areíto y ritos de cohoba.',
@@ -41,6 +44,7 @@ const UBICACIONES_REALES = [
   },
   {
     id: 3,
+    clave: 'isabela',
     nombre: 'La Isabela',
     lat: 19.8898, lng: -71.0834,
     descripcion: 'Primer asentamiento europeo permanente en América, fundado por Colón en 1493.',
@@ -49,6 +53,7 @@ const UBICACIONES_REALES = [
   },
   {
     id: 4,
+    clave: 'zonaColonial',
     nombre: 'Zona Colonial',
     lat: 18.4719, lng: -69.8828,
     descripcion: 'Primera ciudad permanente de América. Patrimonio UNESCO desde 1990.',
@@ -57,6 +62,7 @@ const UBICACIONES_REALES = [
   },
   {
     id: 5,
+    clave: 'santaMaria',
     nombre: 'Naufragio Santa María',
     lat: 19.9200, lng: -72.2000,
     descripcion: 'Restos de la nave capitana de Colón, encallada la Nochebuena de 1492 cerca de Cap-Haïtien.',
@@ -65,6 +71,7 @@ const UBICACIONES_REALES = [
   },
   {
     id: 6,
+    clave: 'aeropuerto',
     nombre: 'Aeropuerto Punta Cana',
     lat: 18.5674, lng: -68.3634,
     descripcion: 'Aeropuerto Internacional de Punta Cana (PUJ). Punto de control aduanero.',
@@ -73,6 +80,7 @@ const UBICACIONES_REALES = [
   },
   {
     id: 7,
+    clave: 'atarazanas',
     nombre: 'Museo Atarazanas Reales',
     lat: 18.4738, lng: -69.8812,
     descripcion: 'Museo de las Atarazanas Reales. Artefactos de naufragios y patrimonio marítimo.',
@@ -129,15 +137,23 @@ function crearIconoMarcador(icono, color, completado, bloqueado) {
  * @param {L.Map} mapa - Instancia del mapa de Leaflet
  * @param {Object} progreso - Progreso del jugador (nodosCompletados, nodosDesbloqueados)
  * @param {Function} alViajar - Callback cuando el jugador hace click para viajar (recibe id del nodo)
+ * @param {Object} textosMapa - Objeto de traducciones del mapa real (puede ser undefined)
  * @returns {L.Marker[]} Array de marcadores creados
  */
-export function crearMarcadoresJuego(mapa, progreso, alViajar) {
+export function crearMarcadoresJuego(mapa, progreso, alViajar, textosMapa) {
   const marcadores = [];
   const grupo = L.layerGroup().addTo(mapa);
+
+  // Sub-objeto con las ubicaciones traducidas
+  const ub = textosMapa?.ubicaciones;
 
   for (const ubicacion of UBICACIONES_REALES) {
     const completado = progreso.nodosCompletados?.includes(ubicacion.id) || false;
     const bloqueado = !progreso.nodosDesbloqueados?.includes(ubicacion.id);
+
+    // Obtener nombre y descripción traducidos (con fallback a strings en español)
+    const nombre = ub?.[ubicacion.clave] || ubicacion.nombre;
+    const descripcion = ub?.['desc' + ubicacion.clave[0].toUpperCase() + ubicacion.clave.slice(1)] || ubicacion.descripcion;
 
     // Crear el ícono personalizado
     const icono = crearIconoMarcador(
@@ -150,8 +166,13 @@ export function crearMarcadoresJuego(mapa, progreso, alViajar) {
     // Crear el marcador
     const marcador = L.marker([ubicacion.lat, ubicacion.lng], { icon: icono });
 
-    // Popup con información del lugar
-    const estado = completado ? '✅ Completado' : bloqueado ? '🔒 Bloqueado' : '🟡 Disponible';
+    // Popup con información del lugar (textos traducidos)
+    const estado = completado
+      ? (textosMapa?.completado || '✅ Completado')
+      : bloqueado
+        ? (textosMapa?.bloqueado || '🔒 Bloqueado')
+        : (textosMapa?.disponible || '🟡 Disponible');
+    const textoBoton = textosMapa?.viajarAqui || '🗺️ Viajar aquí';
     const botonViajar = !bloqueado
       ? `<br><button onclick="window._viajarANodo(${ubicacion.id})" style="
           margin-top: 8px;
@@ -163,15 +184,15 @@ export function crearMarcadoresJuego(mapa, progreso, alViajar) {
           cursor: pointer;
           font-family: monospace;
           font-weight: bold;
-        ">🗺️ Viajar aquí</button>`
+        ">${textoBoton}</button>`
       : '';
 
     marcador.bindPopup(`
       <div style="font-family: monospace; min-width: 180px;">
-        <strong>${ubicacion.icono} ${ubicacion.nombre}</strong>
+        <strong>${ubicacion.icono} ${nombre}</strong>
         <br><small>${estado}</small>
         <hr style="border: none; border-top: 1px solid #ddd; margin: 6px 0;">
-        <p style="margin: 4px 0; font-size: 12px;">${ubicacion.descripcion}</p>
+        <p style="margin: 4px 0; font-size: 12px;">${descripcion}</p>
         ${botonViajar}
       </div>
     `);
@@ -220,56 +241,70 @@ export function actualizarMarcadores(marcadores, progreso) {
  * que los jugadores desbloquean al programar el robot explorador.
  *
  * @param {L.LayerGroup} capaDestino - Capa donde agregar los marcadores
+ * @param {Object} textosMapa - Objeto de traducciones del mapa real (puede ser undefined)
  * @returns {L.LayerGroup} La misma capa con los marcadores agregados
  */
-export function crearMarcadoresSitiosArqueologicos(capaDestino) {
+export function crearMarcadoresSitiosArqueologicos(capaDestino, textosMapa) {
   // --- Sitios arqueológicos poco estudiados en RD ---
   // Lugares reales con gran potencial de investigación arqueológica
   const sitios = [
     {
       lat: 18.32, lng: -68.75,
+      clave: 'cuevaBerna',
       nombre: 'Cueva de Berna',
       desc: 'Parque Nacional del Este — pictografías precolombinas en cuevas costeras poco documentadas.'
     },
     {
       lat: 18.73, lng: -68.43,
+      clave: 'puntaMacao',
       nombre: 'Punta Macao',
       desc: 'Zona de Higüey — sitio precerámico con evidencia de ocupación humana anterior a los taínos.'
     },
     {
       lat: 18.33, lng: -68.58,
+      clave: 'elCabo',
       nombre: 'El Cabo',
       desc: 'Costa este — gran aldea taína con restos de bohíos, cerámicas y herramientas líticas.'
     },
     {
       lat: 19.62, lng: -70.07,
+      clave: 'playaGrande',
       nombre: 'Playa Grande',
       desc: 'Río San Juan — sitio del período cerámico con fragmentos de vasijas y depósitos culturales.'
     },
     {
       lat: 18.47, lng: -69.42,
+      clave: 'lomaGuayacanes',
       nombre: 'Loma de Guayacanes',
       desc: 'San Pedro de Macorís — sitio funerario con enterramientos precolombinos y ofrendas rituales.'
     },
     {
       lat: 18.35, lng: -68.82,
+      clave: 'padreNuestro',
       nombre: 'Padre Nuestro',
       desc: 'Bayahíbe — sistema de cuevas con petroglifos, cenotes y evidencia de uso ceremonial taíno.'
     },
     {
       lat: 18.45, lng: -69.55,
+      clave: 'cuevaMaravillasInex',
       nombre: 'Cueva de las Maravillas',
       desc: 'San Pedro — cámaras inexploradas más allá de la zona turística con posibles pictografías inéditas.'
     },
     {
       lat: 18.36, lng: -68.62,
+      clave: 'bocaYuma',
       nombre: 'Boca de Yuma',
       desc: 'Cuevas costeras con estratigrafía arqueológica que abarca múltiples períodos de ocupación.'
     }
   ];
 
+  // Sub-objeto con los sitios inexplorados traducidos
+  const t = textosMapa?.sitiosInexplorados;
+
   // Color púrpura (#9B59B6) con ícono 🔍 para sitios inexplorados
   for (const s of sitios) {
+    const nombre = t?.[s.clave] || s.nombre;
+    const desc = t?.['desc' + s.clave[0].toUpperCase() + s.clave.slice(1)] || s.desc;
     const marcador = L.marker([s.lat, s.lng], {
       icon: L.divIcon({
         className: 'marcador-sitio',
@@ -297,9 +332,9 @@ export function crearMarcadoresSitiosArqueologicos(capaDestino) {
     });
     marcador.bindPopup(`
       <div style="font-family: monospace; min-width: 180px;">
-        <strong>🔍 ${s.nombre}</strong>
+        <strong>🔍 ${nombre}</strong>
         <hr style="border: none; border-top: 1px solid #ddd; margin: 6px 0;">
-        <p style="margin: 4px 0; font-size: 12px;">${s.desc}</p>
+        <p style="margin: 4px 0; font-size: 12px;">${desc}</p>
       </div>
     `);
     marcador.addTo(capaDestino);

@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.16.0 — Aquatic world overhaul: whales, turtles, corals, oxygen, speedboats + map i18n + Diana rename (2026-03-15)
+
+### Agregado
+- **3 nuevas especies de tortuga**: Tinglar (laúd, azul oscuro con crestas, la más grande), Caguama (boba, marrón rojizo, marca en forma de corazón) y Verde (ya existente en el santuario) — cada una con diálogo educativo de 4 líneas en 3 idiomas
+- **Animación de aletas**: las 4 especies de tortuga mueven sus aletas al nadar con pares diagonales alternados (patrón `Math.sin`)
+- **Pez león móvil**: patrulla en figura de 8 (curva de Lissajous) en vez de quedarse estático
+- **Lanchas rápidas en Santuario del Manatí**: speedboats cruzan la zona de hélices cada 8-15 segundos con estela de olas, espuma y motor fuera de borda. Cascos de 5 colores aleatorios. Golpe = -8 vida con invulnerabilidad de 2s
+- **Sonido de motor de lancha** (`lanchaMotor()`): motor fuera de borda con efecto Doppler (onda cuadrada + ruido de agua filtrado)
+- **Sistema de oxígeno en Santuario del Manatí**: barra O₂ azul en HUD, se agota en ~60s nadando, se recarga al subir a la superficie (zona peligrosa). Alerta sonora + toast al 25%. Daño por asfixia (-3 vida/1.5s) al 0%
+- **Rotación de nado**: avatar rota ~75° al nadar lateralmente, 180° (cabeza abajo) al nadar hacia abajo, transición suave con lerp
+- **Mensajes de transición acuática**: al cruzar entre Naufragio y Santuario se muestra un mensaje sobre dejar/recoger el equipo de buceo (tanques de oxígeno, snorkel vs. buceo profundo)
+- **Mapa Leaflet trilingüe**: ~200 claves de traducción para los 150+ sitios, capas, overlays y UI del mapa de referencia real (ES/EN/FR). Patrón `clave` en cada marcador, lookup via `_textosMapa()`
+- **Diana renombrada** (antes Sofía en LFSD): nueva historia sobre su navaja suiza arqueológica diseñada en 3D e impresa, incluida como objeto en el juego
+
+### Mejorado
+- **Ballenas jorobadas reescritas**: silueta completa como un solo path Bezier continuo (hocico → joroba → fluke → vientre) — elimina artefacto de "cabeza cuadrada" por doble-alfa en formas superpuestas. Ambos mundos acuáticos
+- **Ballenas más visibles**: opacidad base 0.22-0.32 (antes 0.12-0.20), opacidad cantando 0.50 (antes 0.35), hasta 2 simultáneas, spawn rate +67%, cooldown de canto 12s (antes 20s), `vidaMax` corregido para fade-in inmediato
+- **Coral cerebro realista**: gradiente radial 3D, surcos meándricos multi-Bezier clipeados a la forma, valles intermedios, brillo especular, sombra inferior (4 instancias actualizadas)
+- **Coral abanico realista**: tallo leñoso con textura, gradiente radial, vena central + 6-8 venas radiales curvas con sub-venas bifurcadas, malla de arcos concéntricos como red de gorgonia (4 instancias actualizadas)
+- **Tortuga carey**: ahora siempre mira en la dirección en que nada (tracking de `mirandoDerecha` con flip de sprite)
+
+---
+
 ## v0.15.8 — Complete i18n: structure names, LFSD dialogues, Alberto pranks (2026-03-15)
 
 ### Agregado

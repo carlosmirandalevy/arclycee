@@ -70,6 +70,9 @@ export class MundoAcuatico {
     // --- Tiempo total (para animaciones) ---
     this.tiempoTotal = 0;
 
+    // Ángulo de nado del jugador — rota suavemente al moverse horizontalmente
+    this._anguloNado = 0; // radianes: 0 = vertical, ±π/2 = horizontal
+
     // --- Misión ---
     this.misionActual = '';
     this.npcsHablados = 0;
@@ -177,7 +180,36 @@ export class MundoAcuatico {
         // La tortuga nada en un circuito ovalado alrededor del arrecife
         centroX: 850, centroY: 250,
         radioX: 120, radioY: 60,
-        fase: 0
+        fase: 0,
+        mirandoDerecha: true
+      },
+      {
+        id: 'tortugaTinglar',
+        x: 400, y: 600,
+        ancho: 42, alto: 32,  // La más grande de las 4 especies
+        nombre: 'Tortuga Tinglar',
+        color: '#1a1a2e',
+        dialogoHecho: false,
+        esCombate: false,
+        // El tinglar nada en un circuito amplio (es la más grande y viajera)
+        centroX: 400, centroY: 600,
+        radioX: 180, radioY: 80,
+        fase: Math.PI * 0.5,
+        mirandoDerecha: true
+      },
+      {
+        id: 'tortugaCaguama',
+        x: 1100, y: 400,
+        ancho: 34, alto: 26,
+        nombre: 'Tortuga Caguama',
+        color: '#8B4513',
+        dialogoHecho: false,
+        esCombate: false,
+        // La caguama nada cerca del fondo buscando crustáceos
+        centroX: 1100, centroY: 400,
+        radioX: 100, radioY: 50,
+        fase: Math.PI,
+        mirandoDerecha: false
       },
       {
         id: 'arqueologa',
@@ -195,7 +227,12 @@ export class MundoAcuatico {
         nombre: 'Pez León',
         color: '#CC4444',
         dialogoHecho: false,
-        esCombate: true // Inicia combate
+        esCombate: true, // Inicia combate
+        // Patrulla territorial errática — el pez león defiende su zona del arrecife
+        centroX: 1000, centroY: 400,
+        radioX: 60, radioY: 30,
+        fase: 0,
+        mirandoDerecha: true
       }
     ];
 
@@ -362,6 +399,19 @@ export class MundoAcuatico {
       jugador.cuadroAnimacion += 0.12; // Animación un poco más lenta bajo el agua
     }
 
+    // --- Ángulo de nado: rota suavemente según dirección ---
+    // ±75° al nadar lateralmente, 180° al nadar hacia abajo, 0° al estar quieto o subiendo
+    const moviHorizontal = entrada.estaPresionada('izquierda') || entrada.estaPresionada('derecha');
+    const moviAbajo = entrada.estaPresionada('abajo') && !moviHorizontal;
+    let anguloObjetivo = 0;
+    if (moviHorizontal) {
+      anguloObjetivo = jugador.direccion === 'izquierda' ? -Math.PI * 0.42 : Math.PI * 0.42;
+    } else if (moviAbajo) {
+      anguloObjetivo = Math.PI; // 180° — cabeza hacia abajo
+    }
+    // Lerp suave (8× dt para transición rápida pero no instantánea)
+    this._anguloNado += (anguloObjetivo - this._anguloNado) * Math.min(1, 8 * dt);
+
     // --- Bordes del nivel ---
     jugador.x = Math.max(0, Math.min(this.anchoNivel - jugador.ancho, jugador.x));
     jugador.y = Math.max(0, Math.min(this.altoNivel - jugador.alto, jugador.y));
@@ -370,6 +420,14 @@ export class MundoAcuatico {
     if (jugador.x >= this.anchoNivel - jugador.ancho - 5) {
       if (this.juego && this.juego.cambiarEscena) {
         this.juego.cambiarEscena('santuarioManati');
+        // Mensaje: dejamos el equipo pesado para nadar a pulmón
+        const textos = this._obtenerTextos();
+        if (this.juego.mostrarToast) {
+          this.juego.mostrarToast(
+            textos?.dialogos?.acuatico?.transicionSantuario
+            || '🤿 Dejamos los tanques de oxígeno y el equipo de buceo para nadar a pulmón con snorkel en las aguas poco profundas del santuario...'
+          , 6);
+        }
       }
       return;
     }
@@ -395,9 +453,51 @@ export class MundoAcuatico {
     // --- Tortuga carey: nada en un circuito ovalado ---
     const tortuga = this.npcs.find(n => n.id === 'tortugaCarey');
     if (tortuga && tortuga.centroX !== undefined) {
+      const prevTortX = tortuga.x;
       tortuga.fase += dt * 0.4; // Velocidad de nado lenta y elegante
       tortuga.x = tortuga.centroX + Math.cos(tortuga.fase) * tortuga.radioX;
       tortuga.y = tortuga.centroY + Math.sin(tortuga.fase) * tortuga.radioY;
+      // Dirección: la tortuga mira hacia donde nada
+      if (Math.abs(tortuga.x - prevTortX) > 0.01) {
+        tortuga.mirandoDerecha = tortuga.x > prevTortX;
+      }
+    }
+
+    // --- Tinglar: nada en circuito amplio (es la más grande y viajera) ---
+    const tinglar = this.npcs.find(n => n.id === 'tortugaTinglar');
+    if (tinglar && tinglar.centroX !== undefined) {
+      const prevTingX = tinglar.x;
+      tinglar.fase += dt * 0.25; // Más lenta — majestuosa
+      tinglar.x = tinglar.centroX + Math.cos(tinglar.fase) * tinglar.radioX;
+      tinglar.y = tinglar.centroY + Math.sin(tinglar.fase) * tinglar.radioY;
+      if (Math.abs(tinglar.x - prevTingX) > 0.01) {
+        tinglar.mirandoDerecha = tinglar.x > prevTingX;
+      }
+    }
+
+    // --- Caguama: nada cerca del fondo buscando crustáceos ---
+    const caguama = this.npcs.find(n => n.id === 'tortugaCaguama');
+    if (caguama && caguama.centroX !== undefined) {
+      const prevCagX = caguama.x;
+      caguama.fase += dt * 0.35;
+      caguama.x = caguama.centroX + Math.cos(caguama.fase) * caguama.radioX;
+      caguama.y = caguama.centroY + Math.sin(caguama.fase) * caguama.radioY;
+      if (Math.abs(caguama.x - prevCagX) > 0.01) {
+        caguama.mirandoDerecha = caguama.x > prevCagX;
+      }
+    }
+
+    // --- Pez león: patrulla territorial errática ---
+    const pezLeon = this.npcs.find(n => n.id === 'pezLeon');
+    if (pezLeon && pezLeon.centroX !== undefined && !this.combateTerminado) {
+      const prevPezX = pezLeon.x;
+      pezLeon.fase += dt * 0.6; // Más rápido y nervioso que las tortugas
+      // Movimiento en forma de 8 (Lissajous) — errático y territorial
+      pezLeon.x = pezLeon.centroX + Math.sin(pezLeon.fase) * pezLeon.radioX;
+      pezLeon.y = pezLeon.centroY + Math.sin(pezLeon.fase * 2) * pezLeon.radioY;
+      if (Math.abs(pezLeon.x - prevPezX) > 0.01) {
+        pezLeon.mirandoDerecha = pezLeon.x > prevPezX;
+      }
     }
 
     // --- Medusas: movimiento y colisión ---
@@ -453,12 +553,15 @@ export class MundoAcuatico {
         this.ballenasJorobadas.splice(i, 1);
       }
     }
-    // Respawnear si no hay ballenas
-    if (this.ballenasJorobadas.length < 1 && Math.random() < 0.005) {
+    // Respawnear ballenas — permite hasta 2 simultáneas
+    if (this.ballenasJorobadas.length < 2 && Math.random() < 0.025) {
       this._spawnBallena();
-      // Canto + mensaje (cooldown de 30s para no repetir seguido)
+      // Canto + mensaje (cooldown de 20s para no repetir seguido)
       if (this._cooldownCantoballena <= 0) {
-        this._cooldownCantoballena = 30;
+        this._cooldownCantoballena = 12;
+        // La ballena se hace más visible al cantar
+        const bNueva = this.ballenasJorobadas[this.ballenasJorobadas.length - 1];
+        if (bNueva) bNueva._cantando = true;
         this.sfx.cantoBallenaCerca();
         if (this.juego && this.juego.mostrarToast) {
           const textos = this._obtenerTextos();
@@ -987,30 +1090,69 @@ export class MundoAcuatico {
       ctx.ellipse(x + a * 0.7, y + h * 0.5, 10, 6, -0.2, 0, Math.PI * 2);
       ctx.fill();
 
-      // --- Coral cerebro (brain coral) — hemisferio con surcos ---
+      // --- Coral cerebro (brain coral) — hemisferio 3D con surcos meándricos ---
       const cerebroX = x + 20;
       const cerebroY = y + h * 0.45;
-      ctx.fillStyle = '#c4956a';
+      const cRx = 14, cRy = 11;
+      // Base con gradiente para volumen 3D
+      const gCerebro = ctx.createRadialGradient(
+        cerebroX - 3, cerebroY - 3, 1,
+        cerebroX, cerebroY, cRx
+      );
+      gCerebro.addColorStop(0, '#D8B08A');
+      gCerebro.addColorStop(0.5, '#C4956A');
+      gCerebro.addColorStop(1, '#8A6540');
+      ctx.fillStyle = gCerebro;
       ctx.beginPath();
-      ctx.ellipse(cerebroX, cerebroY, 14, 11, 0, 0, Math.PI * 2);
+      ctx.ellipse(cerebroX, cerebroY, cRx, cRy, 0, 0, Math.PI * 2);
       ctx.fill();
-      // Surcos sinuosos del coral cerebro
-      ctx.strokeStyle = '#9a7050';
-      ctx.lineWidth = 1.5;
-      for (let i = -2; i <= 2; i++) {
+      // Surcos meándricos — curvas sinuosas que serpentean como un cerebro real
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(cerebroX, cerebroY, cRx - 1, cRy - 1, 0, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.strokeStyle = '#7A5535';
+      ctx.lineWidth = 1.8;
+      for (let i = -3; i <= 3; i++) {
         ctx.beginPath();
-        ctx.moveTo(cerebroX - 10, cerebroY + i * 4);
+        const sy = cerebroY + i * 3.2;
+        const zigzag = i % 2 === 0 ? 1 : -1;
+        ctx.moveTo(cerebroX - 14, sy);
+        // Múltiples ondulaciones por surco para efecto meándrico
         ctx.bezierCurveTo(
-          cerebroX - 4, cerebroY + i * 4 - 3,
-          cerebroX + 4, cerebroY + i * 4 + 3,
-          cerebroX + 10, cerebroY + i * 4
+          cerebroX - 9, sy + zigzag * 3.5,
+          cerebroX - 4, sy - zigzag * 2.5,
+          cerebroX, sy + zigzag * 1.5
+        );
+        ctx.bezierCurveTo(
+          cerebroX + 4, sy + zigzag * 4,
+          cerebroX + 9, sy - zigzag * 2,
+          cerebroX + 14, sy + zigzag * 1
         );
         ctx.stroke();
       }
-      // Brillo húmedo
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+      // Valles entre surcos (líneas más finas entre las principales)
+      ctx.strokeStyle = 'rgba(100, 65, 40, 0.4)';
+      ctx.lineWidth = 0.6;
+      for (let i = -3; i <= 2; i++) {
+        ctx.beginPath();
+        const sy = cerebroY + i * 3.2 + 1.6;
+        ctx.moveTo(cerebroX - 12, sy);
+        ctx.bezierCurveTo(
+          cerebroX - 5, sy - 2, cerebroX + 5, sy + 2, cerebroX + 12, sy
+        );
+        ctx.stroke();
+      }
+      ctx.restore();
+      // Brillo húmedo (reflejo especular)
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
       ctx.beginPath();
-      ctx.ellipse(cerebroX - 3, cerebroY - 4, 5, 3, -0.3, 0, Math.PI * 2);
+      ctx.ellipse(cerebroX - 4, cerebroY - 4, 5, 2.5, -0.4, 0, Math.PI * 2);
+      ctx.fill();
+      // Sombra sutil debajo
+      ctx.fillStyle = 'rgba(60, 30, 10, 0.15)';
+      ctx.beginPath();
+      ctx.ellipse(cerebroX + 1, cerebroY + cRy - 1, cRx * 0.8, 2, 0, 0, Math.PI);
       ctx.fill();
 
       // --- Coral cuerno de ciervo (staghorn) — ramas hacia arriba ---
@@ -1052,38 +1194,87 @@ export class MundoAcuatico {
         ctx.fill();
       }
 
-      // --- Coral abanico (sea fan) — estructura en abanico ---
+      // --- Coral abanico (gorgonia) — abanico con red de venación ---
       const abanicoX = x + a * 0.82;
       const abanicoY = y + h * 0.35;
-      // Tallo
-      ctx.strokeStyle = '#8a4060';
-      ctx.lineWidth = 2;
+      // Tallo leñoso con textura
+      ctx.strokeStyle = '#6A3040';
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
       ctx.beginPath();
-      ctx.moveTo(abanicoX, abanicoY + 12);
-      ctx.lineTo(abanicoX, abanicoY);
+      ctx.moveTo(abanicoX, abanicoY + 14);
+      ctx.quadraticCurveTo(abanicoX - 1, abanicoY + 6, abanicoX, abanicoY);
       ctx.stroke();
-      // Abanico (forma de arco con nervaduras)
-      ctx.fillStyle = 'rgba(180, 60, 100, 0.6)';
+      ctx.strokeStyle = '#8A4858';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(abanicoX + 0.5, abanicoY + 12);
+      ctx.lineTo(abanicoX + 0.5, abanicoY + 2);
+      ctx.stroke();
+      // Forma del abanico con gradiente
+      const gAbanico = ctx.createRadialGradient(
+        abanicoX, abanicoY - 8, 2,
+        abanicoX, abanicoY - 6, 22
+      );
+      gAbanico.addColorStop(0, 'rgba(220, 100, 160, 0.7)');
+      gAbanico.addColorStop(0.6, 'rgba(190, 70, 130, 0.5)');
+      gAbanico.addColorStop(1, 'rgba(160, 50, 110, 0.15)');
+      ctx.fillStyle = gAbanico;
       ctx.beginPath();
       ctx.moveTo(abanicoX, abanicoY);
       ctx.bezierCurveTo(
-        abanicoX - 16, abanicoY - 8,
-        abanicoX - 14, abanicoY - 28,
-        abanicoX, abanicoY - 24
+        abanicoX - 18, abanicoY - 6,
+        abanicoX - 16, abanicoY - 30,
+        abanicoX, abanicoY - 26
       );
       ctx.bezierCurveTo(
-        abanicoX + 14, abanicoY - 28,
-        abanicoX + 16, abanicoY - 8,
+        abanicoX + 16, abanicoY - 30,
+        abanicoX + 18, abanicoY - 6,
         abanicoX, abanicoY
       );
       ctx.fill();
-      // Nervaduras del abanico
-      ctx.strokeStyle = 'rgba(200, 80, 120, 0.7)';
+      // Vena central (más gruesa)
+      ctx.strokeStyle = 'rgba(180, 70, 120, 0.6)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(abanicoX, abanicoY);
+      ctx.lineTo(abanicoX, abanicoY - 24);
+      ctx.stroke();
+      // Venas radiales principales (bifurcadas)
+      ctx.strokeStyle = 'rgba(170, 65, 115, 0.5)';
       ctx.lineWidth = 0.8;
-      for (let i = -3; i <= 3; i++) {
+      const venasAng = [-0.55, -0.35, -0.15, 0.15, 0.35, 0.55];
+      for (const ang of venasAng) {
+        const largo = 18 + Math.abs(ang) * -6;
+        const vx = abanicoX + Math.sin(ang) * largo;
+        const vy = abanicoY - Math.cos(ang) * largo;
         ctx.beginPath();
-        ctx.moveTo(abanicoX, abanicoY);
-        ctx.lineTo(abanicoX + i * 3, abanicoY - 22 + Math.abs(i) * 2);
+        ctx.moveTo(abanicoX, abanicoY - 2);
+        ctx.quadraticCurveTo(
+          abanicoX + Math.sin(ang) * largo * 0.5,
+          abanicoY - Math.cos(ang) * largo * 0.6,
+          vx, vy
+        );
+        ctx.stroke();
+        // Sub-venas (ramas secundarias)
+        ctx.strokeStyle = 'rgba(160, 60, 110, 0.3)';
+        ctx.lineWidth = 0.4;
+        ctx.beginPath();
+        ctx.moveTo(
+          abanicoX + Math.sin(ang) * largo * 0.5,
+          abanicoY - Math.cos(ang) * largo * 0.5
+        );
+        ctx.lineTo(vx + Math.sin(ang + 0.3) * 4, vy - 3);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(170, 65, 115, 0.5)';
+        ctx.lineWidth = 0.8;
+      }
+      // Malla de interconexión (las venas se conectan entre sí como una red)
+      ctx.strokeStyle = 'rgba(150, 55, 100, 0.2)';
+      ctx.lineWidth = 0.3;
+      for (let r = 6; r <= 18; r += 6) {
+        ctx.beginPath();
+        ctx.arc(abanicoX, abanicoY, r, -Math.PI * 0.85, -Math.PI * 0.15);
         ctx.stroke();
       }
 
@@ -1247,6 +1438,14 @@ export class MundoAcuatico {
 
     } else if (npc.id === 'tortugaCarey') {
       // Tortuga carey — especie en peligro de extinción
+      // Espejo horizontal: si nada a la izquierda, invertir sprite
+      ctx.save();
+      if (npc.mirandoDerecha === false) {
+        ctx.translate(nx + npc.ancho / 2, ny + npc.alto / 2);
+        ctx.scale(-1, 1);
+        ctx.translate(-(nx + npc.ancho / 2), -(ny + npc.alto / 2));
+      }
+
       // Caparazón
       ctx.fillStyle = '#6B8E23';
       ctx.beginPath();
@@ -1275,12 +1474,134 @@ export class MundoAcuatico {
       ctx.arc(nx + npc.ancho + 7, ny + npc.alto / 2 - 1, 1.5, 0, Math.PI * 2);
       ctx.fill();
 
-      // Aletas
+      // Aletas animadas — se mueven al nadar como remando
       ctx.fillStyle = '#556B2F';
-      ctx.fillRect(nx - 4, ny + 5, 6, 4);
-      ctx.fillRect(nx + npc.ancho - 2, ny + npc.alto - 8, 6, 4);
-      ctx.fillRect(nx - 4, ny + npc.alto - 8, 6, 4);
-      ctx.fillRect(nx + npc.ancho - 2, ny + 5, 6, 4);
+      const aletaAng = Math.sin(this.tiempoTotal * 3 + (npc.fase || 0)) * 4;
+      // Delanteras (las dos de arriba oscilan en fase opuesta)
+      ctx.fillRect(nx + npc.ancho - 2, ny + 5 + aletaAng, 6, 4);
+      ctx.fillRect(nx - 4, ny + 5 - aletaAng, 6, 4);
+      // Traseras (oscilan opuesto a las delanteras)
+      ctx.fillRect(nx + npc.ancho - 2, ny + npc.alto - 8 - aletaAng, 6, 4);
+      ctx.fillRect(nx - 4, ny + npc.alto - 8 + aletaAng, 6, 4);
+
+      ctx.restore();
+
+    } else if (npc.id === 'tortugaTinglar') {
+      // Tinglar (Dermochelys coriacea) — la tortuga marina más grande del mundo
+      // Caparazón coriáceo sin escamas, color azul-negro oscuro con crestas longitudinales
+      ctx.save();
+      if (npc.mirandoDerecha === false) {
+        ctx.translate(nx + npc.ancho / 2, ny + npc.alto / 2);
+        ctx.scale(-1, 1);
+        ctx.translate(-(nx + npc.ancho / 2), -(ny + npc.alto / 2));
+      }
+
+      // Caparazón (más grande que las otras especies)
+      ctx.fillStyle = '#1a1a2e';
+      ctx.beginPath();
+      ctx.ellipse(nx + npc.ancho / 2, ny + npc.alto / 2, npc.ancho / 2, npc.alto / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Crestas longitudinales (7 crestas, característica del tinglar)
+      ctx.strokeStyle = '#3d3d5c';
+      ctx.lineWidth = 1.5;
+      for (let i = -3; i <= 3; i++) {
+        ctx.beginPath();
+        ctx.moveTo(nx + npc.ancho / 2 + i * 3, ny + 2);
+        ctx.lineTo(nx + npc.ancho / 2 + i * 3, ny + npc.alto - 2);
+        ctx.stroke();
+      }
+
+      // Manchas claras (el tinglar tiene puntos blancos dispersos)
+      ctx.fillStyle = '#E8E8E8';
+      for (let i = 0; i < 5; i++) {
+        const px = nx + 6 + Math.sin(i * 2.3) * 10 + npc.ancho / 2;
+        const py = ny + 5 + Math.cos(i * 1.7) * 8 + npc.alto / 4;
+        ctx.beginPath();
+        ctx.arc(px, py, 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Cabeza
+      ctx.fillStyle = '#4a5568';
+      ctx.beginPath();
+      ctx.arc(nx + npc.ancho + 6, ny + npc.alto / 2, 7, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ojo
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.arc(nx + npc.ancho + 9, ny + npc.alto / 2 - 1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Aletas animadas — más grandes que las otras especies (1.3×)
+      ctx.fillStyle = '#4a5568';
+      const aletaTing = Math.sin(this.tiempoTotal * 3 + (npc.fase || 0)) * 5;
+      ctx.fillRect(nx + npc.ancho - 2, ny + 4 + aletaTing, 8, 5);
+      ctx.fillRect(nx - 6, ny + 4 - aletaTing, 8, 5);
+      ctx.fillRect(nx + npc.ancho - 2, ny + npc.alto - 8 - aletaTing, 8, 5);
+      ctx.fillRect(nx - 6, ny + npc.alto - 8 + aletaTing, 8, 5);
+
+      ctx.restore();
+
+    } else if (npc.id === 'tortugaCaguama') {
+      // Caguama (Caretta caretta) — cabeza grande y mandíbulas poderosas
+      // Caparazón marrón rojizo con marca central en forma de corazón
+      ctx.save();
+      if (npc.mirandoDerecha === false) {
+        ctx.translate(nx + npc.ancho / 2, ny + npc.alto / 2);
+        ctx.scale(-1, 1);
+        ctx.translate(-(nx + npc.ancho / 2), -(ny + npc.alto / 2));
+      }
+
+      // Caparazón
+      ctx.fillStyle = '#8B4513';
+      ctx.beginPath();
+      ctx.ellipse(nx + npc.ancho / 2, ny + npc.alto / 2, npc.ancho / 2, npc.alto / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Marca en forma de corazón (característica visual de la caguama)
+      ctx.strokeStyle = '#D2691E';
+      ctx.lineWidth = 1.5;
+      const cx = nx + npc.ancho / 2;
+      const cy = ny + npc.alto / 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + 5);
+      ctx.bezierCurveTo(cx - 7, cy - 2, cx - 7, cy - 7, cx, cy - 4);
+      ctx.bezierCurveTo(cx + 7, cy - 7, cx + 7, cy - 2, cx, cy + 5);
+      ctx.stroke();
+
+      // Líneas del caparazón (cruz central)
+      ctx.strokeStyle = '#5a3520';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(nx + 5, ny + npc.alto / 2);
+      ctx.lineTo(nx + npc.ancho - 5, ny + npc.alto / 2);
+      ctx.moveTo(nx + npc.ancho / 2, ny + 4);
+      ctx.lineTo(nx + npc.ancho / 2, ny + npc.alto - 4);
+      ctx.stroke();
+
+      // Cabeza — 1.3× más grande (mandíbulas poderosas para triturar crustáceos)
+      ctx.fillStyle = '#8B7355';
+      ctx.beginPath();
+      ctx.arc(nx + npc.ancho + 5, ny + npc.alto / 2, 8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ojo
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.arc(nx + npc.ancho + 8, ny + npc.alto / 2 - 1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Aletas animadas
+      ctx.fillStyle = '#8B7355';
+      const aletaCag = Math.sin(this.tiempoTotal * 3 + (npc.fase || 0)) * 4;
+      ctx.fillRect(nx + npc.ancho - 2, ny + 5 + aletaCag, 6, 4);
+      ctx.fillRect(nx - 4, ny + 5 - aletaCag, 6, 4);
+      ctx.fillRect(nx + npc.ancho - 2, ny + npc.alto - 8 - aletaCag, 6, 4);
+      ctx.fillRect(nx - 4, ny + npc.alto - 8 + aletaCag, 6, 4);
+
+      ctx.restore();
 
     } else if (npc.id === 'arqueologa') {
       // Arqueóloga submarina — traje de buceo con equipo
@@ -1319,6 +1640,13 @@ export class MundoAcuatico {
 
     } else if (npc.id === 'pezLeon') {
       // Pez león — especie invasora del Caribe
+      // Espejo horizontal según dirección de nado
+      ctx.save();
+      if (npc.mirandoDerecha === false) {
+        ctx.translate(nx + npc.ancho / 2, ny + npc.alto / 2);
+        ctx.scale(-1, 1);
+        ctx.translate(-(nx + npc.ancho / 2), -(ny + npc.alto / 2));
+      }
       // Cuerpo con rayas rojas y blancas
       ctx.fillStyle = '#CC4444';
       ctx.beginPath();
@@ -1371,13 +1699,15 @@ export class MundoAcuatico {
       ctx.lineTo(nx, ny + npc.alto * 0.7);
       ctx.closePath();
       ctx.fill();
+      ctx.restore();
     }
 
     // Nombre
     ctx.font = '10px monospace';
     ctx.fillStyle = '#FFFFFF';
     ctx.textAlign = 'center';
-    const nombreY = npc.id === 'tortugaCarey' ? ny - 10 : ny - 22;
+    const esTortuga = npc.id === 'tortugaCarey' || npc.id === 'tortugaTinglar' || npc.id === 'tortugaCaguama';
+    const nombreY = esTortuga ? ny - 10 : ny - 22;
     ctx.fillText(npc.nombre, nx + npc.ancho / 2, nombreY);
 
     // Indicador de interacción
@@ -1410,6 +1740,16 @@ export class MundoAcuatico {
     ctx.beginPath();
     ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
+
+    // --- Rotación de nado: el avatar rota al moverse horizontalmente ---
+    ctx.save();
+    if (Math.abs(this._anguloNado) > 0.01) {
+      const centroX = px + jugador.ancho / 2;
+      const centroY = py + jugador.alto / 2;
+      ctx.translate(centroX, centroY);
+      ctx.rotate(this._anguloNado);
+      ctx.translate(-centroX, -centroY);
+    }
 
     // Cuerpo
     const colorCuerpo = genero === 'pepito' ? '#4488ff' : '#aa44ff';
@@ -1476,6 +1816,8 @@ export class MundoAcuatico {
       ctx.fill();
     }
 
+    ctx.restore(); // Fin de la rotación de nado
+
     // Efecto visual de lentitud (aura morada)
     if (this.efectoLentitud > 0) {
       const parpadeo = Math.sin(this.tiempoTotal * 6) * 0.15 + 0.15;
@@ -1505,6 +1847,22 @@ export class MundoAcuatico {
         { personaje: '🐢 Tortuga Carey', texto: ac?.tortuga2 || 'Estamos en peligro crítico de extinción. Nos cazan por nuestro caparazón, que usan para joyería.' },
         { personaje: '🐢 Tortuga Carey', texto: ac?.tortuga3 || 'Los arrecifes de coral son nuestro hogar. Si el coral muere, nosotros también.' },
         { personaje: '🐢 Tortuga Carey', texto: ac?.tortuga4 || 'Las tortugas carey comemos esponjas marinas que son tóxicas para otros animales. ¡Somos las guardianas del arrecife!' }
+      ], () => { npc.dialogoHecho = true; });
+
+    } else if (npc.id === 'tortugaTinglar') {
+      this.dialogos.iniciarDialogo([
+        { personaje: '🐢 Tortuga Tinglar', texto: ac?.tinglar1 || 'Soy una tortuga tinglar, la más grande del mundo. Puedo pesar hasta 700 kg.' },
+        { personaje: '🐢 Tortuga Tinglar', texto: ac?.tinglar2 || 'Mi caparazón no tiene escamas duras como las otras tortugas — es coriáceo, como cuero.' },
+        { personaje: '🐢 Tortuga Tinglar', texto: ac?.tinglar3 || 'Como casi solo medusas. Puedo comer 200 kg al día. ¡Las bolsas de plástico me confunden porque parecen medusas!' },
+        { personaje: '🐢 Tortuga Tinglar', texto: ac?.tinglar4 || 'Puedo bucear a más de 1,000 metros de profundidad. Soy el reptil que más profundo se sumerge en el mundo.' }
+      ], () => { npc.dialogoHecho = true; });
+
+    } else if (npc.id === 'tortugaCaguama') {
+      this.dialogos.iniciarDialogo([
+        { personaje: '🐢 Tortuga Caguama', texto: ac?.caguama1 || 'Soy una tortuga caguama. Tengo la cabeza más grande de todas las tortugas marinas.' },
+        { personaje: '🐢 Tortuga Caguama', texto: ac?.caguama2 || 'Mis mandíbulas son tan poderosas que puedo triturar cangrejos, erizos y caracoles.' },
+        { personaje: '🐢 Tortuga Caguama', texto: ac?.caguama3 || 'Las luces artificiales en las playas confunden a nuestras crías. Caminan hacia la luz en vez del mar.' },
+        { personaje: '🐢 Tortuga Caguama', texto: ac?.caguama4 || 'Las redes de pesca nos atrapan por accidente. La pesca responsable y los dispositivos de escape salvan vidas.' }
       ], () => { npc.dialogoHecho = true; });
 
     } else if (npc.id === 'arqueologa') {
@@ -1666,8 +2024,8 @@ export class MundoAcuatico {
     this.ballenasJorobadas.push({
       x: desdeIzquierda ? -150 : this.anchoNivel + 150,
       y: 200 + Math.random() * 400,
-      // Tamaño grande: 80-120px (cary: 65-100)
-      tamano: 80 + Math.random() * 40,
+      // Tamaño grande: 140-200px — sombra majestuosa visible
+      tamano: 140 + Math.random() * 60,
       // Velocidad lenta: cruzan en ~30 segundos
       vx: desdeIzquierda ? (0.3 + Math.random() * 0.3) : -(0.3 + Math.random() * 0.3),
       // Bobbing vertical suave
@@ -1675,55 +2033,66 @@ export class MundoAcuatico {
       frecuenciaY: 0.15 + Math.random() * 0.1,
       // Duración de vida
       vida: 25 + Math.random() * 10,
-      vidaMax: 35,
-      // Opacidad base baja (son sombras lejanas)
-      opacidadBase: 0.12 + Math.random() * 0.08
+      vidaMax: 25, // Coincide con vida mínima para que el fade-in sea inmediato
+      // Opacidad base más alta para que las sombras sean visibles
+      opacidadBase: 0.22 + Math.random() * 0.1
     });
   }
 
   // --- Dibujar silueta de ballena jorobada ---
-  // Adaptado de cary Phase3Scene: cuerpo elipse + cola triangular
-  // + aletas pectorales largas (características de la jorobada)
+  // Cuerpo completo trazado como un único path continuo con curvas Bezier
+  // para evitar artefactos de doble-alfa donde las formas se solapan.
+  // La jorobada tiene cabeza ancha, cuerpo robusto y cola bifurcada.
   _dibujarBallenaJorobada(ctx, ballena, offsetX, offsetY) {
     const bx = ballena.x + offsetX;
     const by = ballena.y + offsetY;
     const s = ballena.tamano;
     // Opacidad que sube y baja con la vida (fade in/out)
+    // Si la ballena está cantando, su sombra es mucho más visible
     const vidaNorm = ballena.vida / ballena.vidaMax;
     const fadeInOut = vidaNorm > 0.8 ? (1 - vidaNorm) / 0.2 : (vidaNorm < 0.2 ? vidaNorm / 0.2 : 1);
-    const alpha = ballena.opacidadBase * fadeInOut;
+    const baseOpacidad = ballena._cantando ? 0.5 : ballena.opacidadBase;
+    const alpha = baseOpacidad * fadeInOut;
 
-    // Dirección (la cola va opuesta al movimiento)
+    // Dirección: dir=1 va a la derecha, dir=-1 a la izquierda
     const dir = ballena.vx > 0 ? 1 : -1;
 
     ctx.save();
     ctx.globalAlpha = alpha;
-
-    // --- Cuerpo principal (elipse grande) ---
-    // Color azul muy oscuro, como cary Phase3: 0x142846
     ctx.fillStyle = '#142846';
-    ctx.beginPath();
-    ctx.ellipse(bx, by, s * 0.5, s * 0.18, 0, 0, Math.PI * 2);
-    ctx.fill();
 
-    // --- Cabeza ancha y cuadrada (característica de la jorobada) ---
-    ctx.fillRect(bx + dir * s * 0.3, by - s * 0.12, s * 0.2 * dir, s * 0.24);
-
-    // --- Cola (fluke) — triángulo bifurcado ---
+    // --- Cuerpo entero como un solo path (sin solapamiento) ---
+    // Recorrido: hocico → lomo (arriba) → pedúnculo → fluke sup → centro cola
+    //            → fluke inf → pedúnculo → vientre (abajo) → hocico
     ctx.beginPath();
-    ctx.moveTo(bx - dir * s * 0.5, by);
-    ctx.lineTo(bx - dir * s * 0.75, by - s * 0.18);
-    ctx.lineTo(bx - dir * s * 0.6, by);
-    ctx.closePath();
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(bx - dir * s * 0.5, by);
-    ctx.lineTo(bx - dir * s * 0.75, by + s * 0.18);
-    ctx.lineTo(bx - dir * s * 0.6, by);
+    // Hocico (punta delantera, redondeada)
+    ctx.moveTo(bx + dir * s * 0.52, by);
+    // Lomo: del hocico hacia atrás por arriba (curva convexa = joroba)
+    ctx.bezierCurveTo(
+      bx + dir * s * 0.5, by - s * 0.18,   // cp1: frente alta
+      bx + dir * s * 0.1, by - s * 0.2,     // cp2: pico de la joroba
+      bx - dir * s * 0.35, by - s * 0.06    // fin: pedúnculo caudal arriba
+    );
+    // Pedúnculo → punta de la fluke superior
+    ctx.lineTo(bx - dir * s * 0.5, by - s * 0.03);
+    ctx.lineTo(bx - dir * s * 0.72, by - s * 0.18);
+    // Vuelta al centro de la cola
+    ctx.lineTo(bx - dir * s * 0.55, by);
+    // Punta de la fluke inferior → pedúnculo
+    ctx.lineTo(bx - dir * s * 0.72, by + s * 0.18);
+    ctx.lineTo(bx - dir * s * 0.5, by + s * 0.03);
+    ctx.lineTo(bx - dir * s * 0.35, by + s * 0.06);
+    // Vientre: del pedúnculo hacia adelante por abajo
+    ctx.bezierCurveTo(
+      bx + dir * s * 0.1, by + s * 0.2,     // cp1: vientre ancho
+      bx + dir * s * 0.5, by + s * 0.18,     // cp2: frente baja
+      bx + dir * s * 0.52, by                 // fin: hocico (cierra el path)
+    );
     ctx.closePath();
     ctx.fill();
 
     // --- Aletas pectorales largas (la jorobada tiene las más largas) ---
+    // Se dibujan aparte con tono ligeramente distinto
     ctx.fillStyle = '#1a3050';
     // Aleta superior
     ctx.beginPath();

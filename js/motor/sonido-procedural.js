@@ -1684,6 +1684,74 @@ export class SonidoProcedural {
    * Sonido de trueno — retumbar grave con eco.
    * Se usa durante tormentas para acompañar los destellos de rayo.
    */
+  // --- MOTOR DE LANCHA RÁPIDA ---
+  // Ruido grave de motor fuera de borda que se acerca y se aleja (efecto Doppler)
+  // Mezcla de onda cuadrada (motor) + ruido filtrado (agua/estela)
+  lanchaMotor() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const duracion = 3.0;
+
+    const ganancia = this._crearGanancia(this.volumen * 0.2);
+
+    // Motor: onda cuadrada grave que sube y baja (efecto Doppler)
+    const motor = ctx.createOscillator();
+    motor.type = 'square';
+    motor.frequency.setValueAtTime(60, ahora);
+    motor.frequency.linearRampToValueAtTime(90, ahora + 0.8);
+    motor.frequency.linearRampToValueAtTime(95, ahora + 1.5);
+    motor.frequency.linearRampToValueAtTime(70, ahora + 2.5);
+    motor.frequency.linearRampToValueAtTime(50, ahora + duracion);
+
+    // Filtro para suavizar la cuadrada
+    const filtroMotor = ctx.createBiquadFilter();
+    filtroMotor.type = 'lowpass';
+    filtroMotor.frequency.setValueAtTime(200, ahora);
+    filtroMotor.frequency.linearRampToValueAtTime(400, ahora + 1.0);
+    filtroMotor.frequency.linearRampToValueAtTime(150, ahora + duracion);
+
+    const gMotor = ctx.createGain();
+    gMotor.gain.setValueAtTime(0.001, ahora);
+    gMotor.gain.linearRampToValueAtTime(0.5, ahora + 0.6);
+    gMotor.gain.setValueAtTime(0.5, ahora + 1.5);
+    gMotor.gain.linearRampToValueAtTime(0.1, ahora + 2.5);
+    gMotor.gain.exponentialRampToValueAtTime(0.001, ahora + duracion);
+
+    motor.connect(filtroMotor);
+    filtroMotor.connect(gMotor);
+    gMotor.connect(ganancia);
+    motor.start(ahora);
+    motor.stop(ahora + duracion);
+
+    // Ruido de agua/estela — ruido blanco filtrado
+    const muestras = ctx.sampleRate * duracion;
+    const buffer = ctx.createBuffer(1, muestras, ctx.sampleRate);
+    const datos = buffer.getChannelData(0);
+    for (let i = 0; i < muestras; i++) {
+      datos[i] = Math.random() * 2 - 1;
+    }
+    const ruido = ctx.createBufferSource();
+    ruido.buffer = buffer;
+
+    const filtroAgua = ctx.createBiquadFilter();
+    filtroAgua.type = 'bandpass';
+    filtroAgua.frequency.setValueAtTime(800, ahora);
+    filtroAgua.Q.setValueAtTime(1.5, ahora);
+
+    const gAgua = ctx.createGain();
+    gAgua.gain.setValueAtTime(0.001, ahora);
+    gAgua.gain.linearRampToValueAtTime(0.3, ahora + 0.5);
+    gAgua.gain.linearRampToValueAtTime(0.3, ahora + 1.5);
+    gAgua.gain.exponentialRampToValueAtTime(0.001, ahora + duracion);
+
+    ruido.connect(filtroAgua);
+    filtroAgua.connect(gAgua);
+    gAgua.connect(ganancia);
+    ruido.start(ahora);
+    ruido.stop(ahora + duracion);
+  }
+
   trueno() {
     if (!this._asegurarContexto()) return;
     const ctx = this.contexto;

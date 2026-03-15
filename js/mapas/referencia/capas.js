@@ -21,15 +21,16 @@ const STADIA_API_KEY = '4df3a58b-73b6-4d51-88f9-cacb7bea238f';
  * Configuraciones de capas de tiles disponibles.
  * Las capas de Stadia usan la API key; las de CARTO son libres.
  *
+ * @param {Object} textosMapa - Traducciones de la sección mapaReal del idioma activo
  * @returns {Object[]} Array de configuraciones de capas
  */
-export function obtenerCapasDisponibles() {
+export function obtenerCapasDisponibles(textosMapa) {
   const stadiaKey = STADIA_API_KEY ? `?api_key=${STADIA_API_KEY}` : '';
 
   return [
     {
       id: 'acuarela',
-      nombre: 'Acuarela',
+      nombre: textosMapa?.capas?.acuarela || 'Acuarela',
       descripcion: 'Estilo artístico de acuarela — parece pintado a mano',
       url: `https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://stamen.com/">Stamen Design</a>',
@@ -38,7 +39,7 @@ export function obtenerCapasDisponibles() {
     },
     {
       id: 'terreno',
-      nombre: 'Terreno',
+      nombre: textosMapa?.capas?.terreno || 'Terreno',
       descripcion: 'Muestra montañas, ríos y elevación del terreno',
       url: `https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://stamen.com/">Stamen Design</a>',
@@ -47,7 +48,7 @@ export function obtenerCapasDisponibles() {
     },
     {
       id: 'toner',
-      nombre: 'Tóner',
+      nombre: textosMapa?.capas?.toner || 'Tóner',
       descripcion: 'Blanco y negro limpio — resalta fronteras y nombres',
       url: `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://stamen.com/">Stamen Design</a>',
@@ -56,7 +57,7 @@ export function obtenerCapasDisponibles() {
     },
     {
       id: 'oscuro',
-      nombre: 'Oscuro',
+      nombre: textosMapa?.capas?.oscuro || 'Oscuro',
       descripcion: 'Tema oscuro elegante — ideal para ver marcadores brillantes',
       url: `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -65,7 +66,7 @@ export function obtenerCapasDisponibles() {
     },
     {
       id: 'suave',
-      nombre: 'Suave',
+      nombre: textosMapa?.capas?.suave || 'Suave',
       descripcion: 'Colores suaves y claros — fácil de leer',
       url: `https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -74,7 +75,7 @@ export function obtenerCapasDisponibles() {
     },
     {
       id: 'osm',
-      nombre: 'OSM Moderno',
+      nombre: textosMapa?.capas?.osm || 'OSM Moderno',
       descripcion: 'OpenStreetMap con estilo moderno y limpio',
       url: `https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}.png${stadiaKey}`,
       atribucion: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -84,7 +85,7 @@ export function obtenerCapasDisponibles() {
     // --- Capa de respaldo sin API key (siempre funciona) ---
     {
       id: 'voyager',
-      nombre: 'Voyager (CARTO)',
+      nombre: textosMapa?.capas?.voyager || 'Voyager (CARTO)',
       descripcion: 'Mapa moderno gratuito — no necesita API key',
       url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
       atribucion: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
@@ -113,10 +114,11 @@ export function crearCapaTiles(config) {
  * Aparece como un selector en la esquina del mapa.
  *
  * @param {L.Map} mapa - Instancia del mapa de Leaflet
+ * @param {Object} textosMapa - Traducciones de la sección mapaReal del idioma activo
  * @returns {Object} Objeto con las capas creadas y el control
  */
-export function configurarControlCapas(mapa) {
-  const configuraciones = obtenerCapasDisponibles();
+export function configurarControlCapas(mapa, textosMapa) {
+  const configuraciones = obtenerCapasDisponibles(textosMapa);
   const capasBase = {};
   let capaActiva = null;
 
@@ -149,20 +151,24 @@ export function configurarControlCapas(mapa) {
  * @param {L.Map} mapa - Instancia del mapa de Leaflet
  * @param {Object} capas - Objeto con las capas { taino, colonial, naufragios, museos, sitiosArqueologicos? }
  * @param {Object} progreso - Progreso del jugador para verificar condiciones
+ * @param {Object} textosMapa - Traducciones de la sección mapaReal del idioma activo
  * @returns {L.Control.Layers} Control de overlays creado
  */
-export function configurarControlOverlays(mapa, capas, progreso) {
+export function configurarControlOverlays(mapa, capas, progreso, textosMapa) {
+  // Nombres traducidos de los overlays
+  const ov = textosMapa?.overlays;
+
   // Capas base de sitios siempre disponibles
   const capasSitios = {
-    '🗿 Sitios Taínos': capas.taino,
-    '🏰 Sitios Coloniales': capas.colonial,
-    '⚓ Naufragios': capas.naufragios,
-    '🏛 Museos': capas.museos
+    [ov?.tainos || '🗿 Sitios Taínos']: capas.taino,
+    [ov?.coloniales || '🏰 Sitios Coloniales']: capas.colonial,
+    [ov?.naufragios || '⚓ Naufragios']: capas.naufragios,
+    [ov?.museos || '🏛 Museos']: capas.museos
   };
 
   // La capa de sitios inexplorados solo aparece si el robot fue programado
   if (progreso?.robotProgramado === true && capas.sitiosArqueologicos) {
-    capasSitios['🔍 Sitios Inexplorados'] = capas.sitiosArqueologicos;
+    capasSitios[ov?.inexplorados || '🔍 Sitios Inexplorados'] = capas.sitiosArqueologicos;
   }
 
   const control = L.control.layers(null, capasSitios, {

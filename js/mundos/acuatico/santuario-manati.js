@@ -77,6 +77,22 @@ export class SantuarioManati {
     this.tiempoEnHelice = 0;
     this.cooldownHelice = 0;
 
+    // --- Lanchas rápidas (speedboats que cruzan la zona de hélices) ---
+    // Cada cierto tiempo una lancha cruza a toda velocidad por la superficie,
+    // dejando estela de olas y haciendo ruido de motor. Si el jugador está
+    // en la zona superior puede ser golpeado y perder vida.
+    this.lanchas = [];
+    this._cooldownLancha = 5; // Segundos hasta la primera lancha
+    this._olasDeLancha = [];  // Estelas de olas que persisten tras pasar
+
+    // --- Oxígeno (apnea con snorkel en aguas poco profundas) ---
+    // El jugador nada a pulmón: el oxígeno se agota lentamente y debe
+    // subir a la superficie (zona de hélices, peligrosa) para respirar.
+    this.oxigeno = 100;          // 0-100, empieza lleno
+    this.oxigenoMax = 100;
+    this._oxigenoAlerta = false;  // true cuando ya sonó la alerta de bajo oxígeno
+    this._oxigenoCooldownDano = 0; // Cooldown entre daños por asfixia
+
     // --- Diálogos ---
     this.dialogos = new SistemaDialogos();
 
@@ -88,6 +104,9 @@ export class SantuarioManati {
 
     // --- Tiempo total (para animaciones) ---
     this.tiempoTotal = 0;
+
+    // Ángulo de nado del jugador — rota suavemente al moverse horizontalmente
+    this._anguloNado = 0;
 
     // --- Misión ---
     this.misionActual = '';
@@ -369,6 +388,18 @@ export class SantuarioManati {
       jugador.cuadroAnimacion += 0.12;
     }
 
+    // --- Ángulo de nado: rota suavemente según dirección ---
+    // ±75° al nadar lateralmente, 180° al nadar hacia abajo, 0° al estar quieto o subiendo
+    const moviHorizontal = entrada.estaPresionada('izquierda') || entrada.estaPresionada('derecha');
+    const moviAbajo = entrada.estaPresionada('abajo') && !moviHorizontal;
+    let anguloObjetivo = 0;
+    if (moviHorizontal) {
+      anguloObjetivo = jugador.direccion === 'izquierda' ? -Math.PI * 0.42 : Math.PI * 0.42;
+    } else if (moviAbajo) {
+      anguloObjetivo = Math.PI; // 180° — cabeza hacia abajo
+    }
+    this._anguloNado += (anguloObjetivo - this._anguloNado) * Math.min(1, 8 * dt);
+
     // --- Bordes del nivel ---
     jugador.x = Math.max(0, Math.min(this.anchoNivel - jugador.ancho, jugador.x));
     jugador.y = Math.max(0, Math.min(this.altoNivel - jugador.alto, jugador.y));
@@ -390,6 +421,39 @@ export class SantuarioManati {
       }
     }
 
+    // --- Sistema de oxígeno (apnea) ---
+    // El oxígeno baja lentamente bajo el agua (~60 segundos hasta agotarse)
+    // Subir a la superficie (zona de hélices) lo recarga rápido
+    if (jugador.y < this.zonaHelice.alto + 15) {
+      // En la superficie: respirar — recarga rápida (lleno en ~2s)
+      this.oxigeno = Math.min(this.oxigenoMax, this.oxigeno + 50 * dt);
+      this._oxigenoAlerta = false;
+    } else {
+      // Sumergido: el oxígeno baja (~1.7 por segundo → ~60s de autonomía)
+      this.oxigeno = Math.max(0, this.oxigeno - 1.7 * dt);
+    }
+    // Alerta sonora cuando baja del 25%
+    if (this.oxigeno < 25 && !this._oxigenoAlerta) {
+      this._oxigenoAlerta = true;
+      this.sfx.dano();
+      const textos = this._obtenerTextos();
+      if (this.juego && this.juego.mostrarToast) {
+        this.juego.mostrarToast(
+          textos?.dialogos?.santuario?.oxigenoBajo
+          || '🫁 ¡Oxígeno bajo! ¡Sube a la superficie para respirar!'
+        , 3);
+      }
+    }
+    // Daño por asfixia cuando llega a 0
+    if (this.oxigeno <= 0) {
+      this._oxigenoCooldownDano -= dt;
+      if (this._oxigenoCooldownDano <= 0) {
+        jugador.vida = Math.max(0, jugador.vida - 3);
+        this._oxigenoCooldownDano = 1.5;
+        this.sfx.dano();
+      }
+    }
+
     // --- Zona de hélices (parte superior del nivel) ---
     if (jugador.y < this.zonaHelice.alto && this.cooldownHelice <= 0) {
       jugador.vida = Math.max(0, jugador.vida - 2);
@@ -402,6 +466,62 @@ export class SantuarioManati {
           || '⚠ ¡Zona de hélices! ¡Peligro!'
         );
       }
+    }
+
+    // --- Lanchas rápidas (speedboats en la zona de hélices) ---
+    // Cada 8-15 segundos una lancha cruza la superficie a gran velocidad
+    this._cooldownLancha -= dt;
+    if (this._cooldownLancha <= 0 && this.lanchas.length < 2) {
+      this._spawnLancha();
+      this._cooldownLancha = 8 + Math.random() * 7; // 8-15s entre lanchas
+    }
+    // Actualizar lanchas activas
+    for (let i = this.lanchas.length - 1; i >= 0; i--) {
+      const lancha = this.lanchas[i];
+      lancha.x += lancha.vx * dt * 60;
+      // Bobbing vertical leve (la lancha sube y baja con las olas)
+      lancha.yOffset = Math.sin(this.tiempoTotal * 8 + lancha.fase) * 2;
+      // Generar estela de olas cada pocos frames
+      lancha.tiempoOla -= dt;
+      if (lancha.tiempoOla <= 0) {
+        lancha.tiempoOla = 0.06;
+        this._olasDeLancha.push({
+          x: lancha.x - lancha.dir * 15,
+          y: lancha.y + 8,
+          radio: 4 + Math.random() * 3,
+          opacidad: 0.6,
+          vida: 1.5
+        });
+      }
+      // Colisión con jugador — la lancha golpea fuerte
+      if (jugador.y < this.zonaHelice.alto + 10 && this.invulnerabilidad <= 0) {
+        const dx = Math.abs((jugador.x + jugador.ancho / 2) - lancha.x);
+        const dy = Math.abs((jugador.y + jugador.alto / 2) - lancha.y);
+        if (dx < 30 && dy < 20) {
+          jugador.vida = Math.max(0, jugador.vida - 8);
+          this.invulnerabilidad = 2.0;
+          this.sfx.dano();
+          const textos = this._obtenerTextos();
+          if (this.juego && this.juego.mostrarToast) {
+            this.juego.mostrarToast(
+              textos?.dialogos?.santuario?.golpeLancha
+              || '💥 ¡Una lancha te golpeó! ¡Aléjate de la superficie!'
+            , 3);
+          }
+        }
+      }
+      // Eliminar lanchas que salieron del nivel
+      if (lancha.x < -100 || lancha.x > this.anchoNivel + 100) {
+        this.lanchas.splice(i, 1);
+      }
+    }
+    // Actualizar estelas de olas (se desvanecen con el tiempo)
+    for (let i = this._olasDeLancha.length - 1; i >= 0; i--) {
+      const ola = this._olasDeLancha[i];
+      ola.vida -= dt;
+      ola.radio += dt * 8; // Se expanden lentamente
+      ola.opacidad = Math.max(0, ola.vida / 1.5) * 0.6;
+      if (ola.vida <= 0) this._olasDeLancha.splice(i, 1);
     }
 
     // --- Tiburones: patrulla, persecución y retirada tras morder ---
@@ -705,6 +825,14 @@ export class SantuarioManati {
           mundoAcuatico._spawnDesdeSubnivel = true;
         }
         this.juego.cambiarEscena('mundoAcuatico');
+        // Mensaje: recogemos el equipo de buceo para explorar aguas profundas
+        const textos = this._obtenerTextos();
+        if (this.juego.mostrarToast) {
+          this.juego.mostrarToast(
+            textos?.dialogos?.santuario?.transicionNaufragio
+            || '🫧 Recogemos los tanques de oxígeno y el equipo de buceo para explorar las aguas profundas en busca de restos del naufragio...'
+          , 6);
+        }
       }
       return;
     }
@@ -939,9 +1067,10 @@ export class SantuarioManati {
     }
 
     // =========================================================
-    // CAPA 10: Zona de hélices (indicador visual arriba)
+    // CAPA 10: Zona de hélices + lanchas rápidas
     // =========================================================
     this._dibujarZonaHelice(ctx, ancho, offsetY);
+    this._dibujarLanchas(ctx, offsetX, offsetY);
 
     // =========================================================
     // CAPA 11: Tinte de agua + rayos de luz
@@ -970,6 +1099,16 @@ export class SantuarioManati {
     renderizador.dibujarBarra(10, 10, 120, 14, jugador.vida / jugador.vidaMaxima,
       '#333333', '#44CC44');
     renderizador.dibujarTexto(textos?.interfaz?.vida || 'Vida', 15, 22, {
+      tamano: 10, color: '#FFFFFF'
+    });
+
+    // --- Barra de oxígeno (azul, parpadea en rojo cuando baja) ---
+    const oxiPct = this.oxigeno / this.oxigenoMax;
+    const oxiColor = oxiPct < 0.25
+      ? (Math.sin(this.tiempoTotal * 8) > 0 ? '#FF4444' : '#CC2222')
+      : '#4488DD';
+    renderizador.dibujarBarra(140, 10, 100, 14, oxiPct, '#333333', oxiColor);
+    renderizador.dibujarTexto(textos?.interfaz?.oxigeno || 'O₂', 145, 22, {
       tamano: 10, color: '#FFFFFF'
     });
 
@@ -1177,21 +1316,72 @@ export class SantuarioManati {
     const h = est.alto;
 
     if (est.tipo === 'coralCerebro') {
-      // Coral cerebro — forma redondeada con surcos sinuosos
-      ctx.fillStyle = '#8B6040';
+      // Coral cerebro — hemisferio 3D con surcos meándricos realistas
+      const cx = x + a / 2;
+      const cy = y + h / 2;
+      const rx = a / 2;
+      const ry = h / 2;
+      // Gradiente radial para volumen 3D
+      const gCerebro = ctx.createRadialGradient(
+        cx - rx * 0.2, cy - ry * 0.25, rx * 0.1,
+        cx, cy, rx
+      );
+      gCerebro.addColorStop(0, '#D8B08A');
+      gCerebro.addColorStop(0.4, '#C4956A');
+      gCerebro.addColorStop(0.8, '#9A7050');
+      gCerebro.addColorStop(1, '#6B4530');
+      ctx.fillStyle = gCerebro;
       ctx.beginPath();
-      ctx.ellipse(x + a / 2, y + h / 2, a / 2, h / 2, 0, 0, Math.PI * 2);
+      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
       ctx.fill();
-      // Surcos del coral cerebro
+      // Surcos meándricos — clipeados a la forma del coral
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx - 2, ry - 2, 0, 0, Math.PI * 2);
+      ctx.clip();
+      // Surcos principales (líneas gruesas serpeteantes)
       ctx.strokeStyle = '#6B4030';
-      ctx.lineWidth = 1.5;
-      for (let i = 0; i < 5; i++) {
+      ctx.lineWidth = 2;
+      const pasos = Math.round(h / 7);
+      for (let i = -pasos; i <= pasos; i++) {
         ctx.beginPath();
-        const sy = y + 10 + i * (h / 6);
-        ctx.moveTo(x + 10, sy);
-        ctx.quadraticCurveTo(x + a / 2, sy + (i % 2 === 0 ? 8 : -8), x + a - 10, sy);
+        const sy = cy + i * 3.8;
+        const zigzag = i % 2 === 0 ? 1 : -1;
+        ctx.moveTo(x + 2, sy);
+        // Ondulación triple para efecto meándrico natural
+        ctx.bezierCurveTo(
+          cx - rx * 0.5, sy + zigzag * 5,
+          cx - rx * 0.15, sy - zigzag * 4,
+          cx, sy + zigzag * 2
+        );
+        ctx.bezierCurveTo(
+          cx + rx * 0.15, sy + zigzag * 5,
+          cx + rx * 0.5, sy - zigzag * 3,
+          x + a - 2, sy + zigzag * 1
+        );
         ctx.stroke();
       }
+      // Valles entre surcos (más finos, más oscuros)
+      ctx.strokeStyle = 'rgba(80, 45, 25, 0.35)';
+      ctx.lineWidth = 0.7;
+      for (let i = -pasos; i < pasos; i++) {
+        ctx.beginPath();
+        const sy = cy + i * 3.8 + 1.9;
+        ctx.moveTo(x + 8, sy);
+        ctx.bezierCurveTo(cx - rx * 0.3, sy - 2, cx + rx * 0.3, sy + 2, x + a - 8, sy);
+        ctx.stroke();
+      }
+      ctx.restore();
+      // Brillo húmedo (reflejo especular)
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+      ctx.beginPath();
+      ctx.ellipse(cx - rx * 0.2, cy - ry * 0.3, rx * 0.35, ry * 0.2, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+      // Sombra sutil debajo
+      ctx.fillStyle = 'rgba(40, 20, 5, 0.12)';
+      ctx.beginPath();
+      ctx.ellipse(cx + 2, cy + ry - 2, rx * 0.7, 3, 0, 0, Math.PI);
+      ctx.fill();
     } else if (est.tipo === 'coralCuerno') {
       // Coral cuerno de alce — ramas que salen de una base
       ctx.fillStyle = '#CC9955';
@@ -1210,20 +1400,83 @@ export class SantuarioManati {
         ctx.stroke();
       }
     } else if (est.tipo === 'coralAbanico') {
-      // Coral abanico — forma de abanico con vetas
-      ctx.fillStyle = 'rgba(200, 100, 150, 0.7)';
+      // Coral abanico (gorgonia) — abanico con red de venación ramificada
+      const fx = x + a / 2;
+      const fy = y + h;
+      // Tallo leñoso
+      ctx.strokeStyle = '#6A3040';
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
       ctx.beginPath();
-      ctx.moveTo(x + a / 2, y + h);
-      ctx.quadraticCurveTo(x, y, x + a / 2, y - 5);
-      ctx.quadraticCurveTo(x + a, y, x + a / 2, y + h);
+      ctx.moveTo(fx, fy);
+      ctx.quadraticCurveTo(fx - 1, fy - h * 0.3, fx, fy - h * 0.15);
+      ctx.stroke();
+      ctx.strokeStyle = '#8A4858';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(fx + 1, fy - 2);
+      ctx.lineTo(fx + 1, fy - h * 0.12);
+      ctx.stroke();
+      // Abanico con gradiente radial
+      const gFan = ctx.createRadialGradient(
+        fx, y + h * 0.4, a * 0.05,
+        fx, y + h * 0.35, a * 0.55
+      );
+      gFan.addColorStop(0, 'rgba(220, 100, 160, 0.7)');
+      gFan.addColorStop(0.5, 'rgba(190, 70, 130, 0.5)');
+      gFan.addColorStop(1, 'rgba(160, 50, 110, 0.12)');
+      ctx.fillStyle = gFan;
+      ctx.beginPath();
+      ctx.moveTo(fx, fy - h * 0.1);
+      ctx.quadraticCurveTo(x - 2, y + h * 0.2, fx, y - 5);
+      ctx.quadraticCurveTo(x + a + 2, y + h * 0.2, fx, fy - h * 0.1);
       ctx.fill();
-      // Vetas del abanico
-      ctx.strokeStyle = 'rgba(180, 80, 130, 0.5)';
-      ctx.lineWidth = 0.5;
-      for (let v = 0; v < 6; v++) {
+      // Vena central
+      ctx.strokeStyle = 'rgba(180, 70, 120, 0.6)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(fx, fy - h * 0.1);
+      ctx.lineTo(fx, y);
+      ctx.stroke();
+      // Venas radiales con bifurcación
+      ctx.strokeStyle = 'rgba(170, 65, 115, 0.45)';
+      ctx.lineWidth = 1;
+      const numVenas = 8;
+      for (let v = 0; v < numVenas; v++) {
+        const ang = -Math.PI * 0.42 + v * (Math.PI * 0.84 / (numVenas - 1));
+        const largo = (h * 0.8) * (1 - Math.abs(ang) * 0.3);
+        const vx = fx + Math.sin(ang) * largo * 0.55;
+        const vy = fy - h * 0.1 - Math.cos(ang) * largo;
         ctx.beginPath();
-        ctx.moveTo(x + a / 2, y + h);
-        ctx.lineTo(x + 10 + v * ((a - 20) / 5), y + 5);
+        ctx.moveTo(fx, fy - h * 0.15);
+        ctx.quadraticCurveTo(
+          fx + Math.sin(ang) * largo * 0.3,
+          fy - h * 0.1 - Math.cos(ang) * largo * 0.5,
+          vx, vy
+        );
+        ctx.stroke();
+        // Sub-venas
+        ctx.strokeStyle = 'rgba(160, 60, 110, 0.25)';
+        ctx.lineWidth = 0.5;
+        const mx = fx + Math.sin(ang) * largo * 0.3;
+        const my = fy - h * 0.1 - Math.cos(ang) * largo * 0.45;
+        ctx.beginPath();
+        ctx.moveTo(mx, my);
+        ctx.lineTo(vx + Math.sin(ang + 0.4) * 6, vy - 4);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(mx, my);
+        ctx.lineTo(vx + Math.sin(ang - 0.4) * 6, vy - 3);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(170, 65, 115, 0.45)';
+        ctx.lineWidth = 1;
+      }
+      // Malla de interconexión (arcos concéntricos = red de gorgonia)
+      ctx.strokeStyle = 'rgba(150, 55, 100, 0.15)';
+      ctx.lineWidth = 0.4;
+      for (let r = h * 0.2; r < h * 0.75; r += h * 0.15) {
+        ctx.beginPath();
+        ctx.arc(fx, fy - h * 0.1, r, -Math.PI * 0.82, -Math.PI * 0.18);
         ctx.stroke();
       }
     } else if (est.tipo === 'coralMesa') {
@@ -1261,30 +1514,66 @@ export class SantuarioManati {
     const balanceo = Math.sin(this.tiempoTotal * 0.5 + coral.fase) * 1.5;
 
     if (coral.tipo === 'brain') {
-      // Coral cerebro — masa redondeada con surcos meándricos
-      ctx.fillStyle = '#C4956A';
+      // Coral cerebro — hemisferio 3D con surcos meándricos realistas
+      const rx = 20 * s, ry = 16 * s;
+      // Gradiente radial para volumen 3D
+      const gCerebro = ctx.createRadialGradient(
+        cx - rx * 0.2, cy - ry * 0.25, rx * 0.1,
+        cx, cy, rx
+      );
+      gCerebro.addColorStop(0, '#D8B08A');
+      gCerebro.addColorStop(0.4, '#C4956A');
+      gCerebro.addColorStop(0.8, '#9A7050');
+      gCerebro.addColorStop(1, '#6B4530');
+      ctx.fillStyle = gCerebro;
       ctx.beginPath();
-      ctx.ellipse(cx, cy, 20 * s, 16 * s, 0, 0, Math.PI * 2);
+      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
       ctx.fill();
-      // Capa más clara arriba (iluminación)
-      ctx.fillStyle = '#D4A57A';
+      // Surcos meándricos clipeados a la forma
+      ctx.save();
       ctx.beginPath();
-      ctx.ellipse(cx - 3 * s, cy - 4 * s, 12 * s, 8 * s, -0.3, 0, Math.PI * 2);
-      ctx.fill();
-      // Surcos meándricos característicos
-      ctx.strokeStyle = '#9A7050';
-      ctx.lineWidth = 1.2;
-      for (let i = -2; i <= 2; i++) {
+      ctx.ellipse(cx, cy, rx - 1, ry - 1, 0, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.strokeStyle = '#6B4030';
+      ctx.lineWidth = 1.8 * s;
+      for (let i = -4; i <= 4; i++) {
         ctx.beginPath();
-        const sy = cy + i * 5 * s;
-        ctx.moveTo(cx - 14 * s, sy);
+        const sy = cy + i * 3.5 * s;
+        const zigzag = i % 2 === 0 ? 1 : -1;
+        ctx.moveTo(cx - rx, sy);
         ctx.bezierCurveTo(
-          cx - 6 * s, sy + (i % 2 === 0 ? 4 : -4) * s,
-          cx + 6 * s, sy + (i % 2 === 0 ? -3 : 3) * s,
-          cx + 14 * s, sy
+          cx - rx * 0.5, sy + zigzag * 4 * s,
+          cx - rx * 0.15, sy - zigzag * 3 * s,
+          cx, sy + zigzag * 1.5 * s
+        );
+        ctx.bezierCurveTo(
+          cx + rx * 0.15, sy + zigzag * 4 * s,
+          cx + rx * 0.5, sy - zigzag * 2.5 * s,
+          cx + rx, sy + zigzag * 1 * s
         );
         ctx.stroke();
       }
+      // Valles intermedios
+      ctx.strokeStyle = 'rgba(80, 45, 25, 0.35)';
+      ctx.lineWidth = 0.5 * s;
+      for (let i = -4; i < 4; i++) {
+        ctx.beginPath();
+        const sy = cy + i * 3.5 * s + 1.75 * s;
+        ctx.moveTo(cx - rx * 0.7, sy);
+        ctx.bezierCurveTo(cx - rx * 0.2, sy - 1.5 * s, cx + rx * 0.2, sy + 1.5 * s, cx + rx * 0.7, sy);
+        ctx.stroke();
+      }
+      ctx.restore();
+      // Brillo húmedo
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.18)';
+      ctx.beginPath();
+      ctx.ellipse(cx - rx * 0.2, cy - ry * 0.3, rx * 0.3, ry * 0.15, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+      // Sombra debajo
+      ctx.fillStyle = 'rgba(40, 20, 5, 0.12)';
+      ctx.beginPath();
+      ctx.ellipse(cx + 1, cy + ry - 1, rx * 0.6, 2 * s, 0, 0, Math.PI);
+      ctx.fill();
 
     } else if (coral.tipo === 'staghorn') {
       // Coral cuerno de ciervo — ramas bifurcadas que crecen hacia arriba
@@ -1325,34 +1614,75 @@ export class SantuarioManati {
       }
 
     } else if (coral.tipo === 'fan') {
-      // Coral abanico (gorgonia) — forma de abanico semitransparente
+      // Coral abanico (gorgonia) — abanico con red de venación ramificada
       ctx.save();
       ctx.translate(cx + balanceo, cy);
-      // Tallo
-      ctx.strokeStyle = '#8A5060';
-      ctx.lineWidth = 2.5 * s;
+      // Tallo leñoso con textura
+      ctx.strokeStyle = '#6A3040';
+      ctx.lineWidth = 3 * s;
+      ctx.lineCap = 'round';
       ctx.beginPath();
       ctx.moveTo(0, 15 * s);
-      ctx.lineTo(0, 2 * s);
+      ctx.quadraticCurveTo(-0.5 * s, 8 * s, 0, 2 * s);
       ctx.stroke();
-      // Abanico con gradiente
-      const grad = ctx.createRadialGradient(0, -5 * s, 2 * s, 0, -5 * s, 18 * s);
-      grad.addColorStop(0, 'rgba(200, 80, 140, 0.6)');
-      grad.addColorStop(1, 'rgba(180, 60, 120, 0.15)');
+      ctx.strokeStyle = '#8A4858';
+      ctx.lineWidth = 1.5 * s;
+      ctx.beginPath();
+      ctx.moveTo(0.5 * s, 13 * s);
+      ctx.lineTo(0.5 * s, 3 * s);
+      ctx.stroke();
+      // Abanico con gradiente radial
+      const grad = ctx.createRadialGradient(0, -5 * s, 2 * s, 0, -5 * s, 20 * s);
+      grad.addColorStop(0, 'rgba(220, 100, 160, 0.7)');
+      grad.addColorStop(0.5, 'rgba(190, 70, 130, 0.5)');
+      grad.addColorStop(1, 'rgba(160, 50, 110, 0.12)');
       ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.moveTo(0, 12 * s);
-      ctx.bezierCurveTo(-16 * s, 0, -14 * s, -18 * s, 0, -20 * s);
-      ctx.bezierCurveTo(14 * s, -18 * s, 16 * s, 0, 0, 12 * s);
+      ctx.moveTo(0, 10 * s);
+      ctx.bezierCurveTo(-18 * s, -2 * s, -16 * s, -20 * s, 0, -22 * s);
+      ctx.bezierCurveTo(16 * s, -20 * s, 18 * s, -2 * s, 0, 10 * s);
       ctx.fill();
-      // Red de venas del abanico
-      ctx.strokeStyle = 'rgba(160, 60, 110, 0.4)';
-      ctx.lineWidth = 0.7;
-      for (let v = 0; v < 7; v++) {
-        const ang = -Math.PI * 0.7 + v * (Math.PI * 0.4 / 6);
+      // Vena central
+      ctx.strokeStyle = 'rgba(180, 70, 120, 0.6)';
+      ctx.lineWidth = 1.2 * s;
+      ctx.beginPath();
+      ctx.moveTo(0, 8 * s);
+      ctx.lineTo(0, -20 * s);
+      ctx.stroke();
+      // Venas radiales con bifurcación
+      ctx.strokeStyle = 'rgba(170, 65, 115, 0.45)';
+      ctx.lineWidth = 0.8 * s;
+      const venasAng = [-0.55, -0.38, -0.2, -0.05, 0.05, 0.2, 0.38, 0.55];
+      for (const ang of venasAng) {
+        const largo = 17 * s * (1 - Math.abs(ang) * 0.4);
+        const vx = Math.sin(ang) * largo;
+        const vy = 4 * s - Math.cos(ang) * largo;
         ctx.beginPath();
         ctx.moveTo(0, 5 * s);
-        ctx.lineTo(Math.cos(ang) * 16 * s, Math.sin(ang) * 16 * s - 5 * s);
+        ctx.quadraticCurveTo(
+          Math.sin(ang) * largo * 0.4,
+          4 * s - Math.cos(ang) * largo * 0.5,
+          vx, vy
+        );
+        ctx.stroke();
+        // Sub-venas (ramificación)
+        ctx.strokeStyle = 'rgba(160, 60, 110, 0.25)';
+        ctx.lineWidth = 0.4 * s;
+        const mx = Math.sin(ang) * largo * 0.4;
+        const my = 4 * s - Math.cos(ang) * largo * 0.45;
+        ctx.beginPath();
+        ctx.moveTo(mx, my);
+        ctx.lineTo(vx + Math.sin(ang + 0.35) * 4 * s, vy - 3 * s);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(170, 65, 115, 0.45)';
+        ctx.lineWidth = 0.8 * s;
+      }
+      // Malla de interconexión (arcos concéntricos)
+      ctx.strokeStyle = 'rgba(150, 55, 100, 0.15)';
+      ctx.lineWidth = 0.3 * s;
+      for (let r = 5 * s; r <= 16 * s; r += 4 * s) {
+        ctx.beginPath();
+        ctx.arc(0, 4 * s, r, -Math.PI * 0.85, -Math.PI * 0.15);
         ctx.stroke();
       }
       ctx.restore();
@@ -1940,6 +2270,112 @@ export class SantuarioManati {
     ctx.textAlign = 'left';
   }
 
+  // --- Crear una lancha rápida que cruce la zona superior ---
+  _spawnLancha() {
+    const desdeIzquierda = Math.random() > 0.5;
+    const dir = desdeIzquierda ? 1 : -1;
+    this.lanchas.push({
+      x: desdeIzquierda ? -60 : this.anchoNivel + 60,
+      y: 15 + Math.random() * 20, // Dentro de la zona de hélices
+      vx: dir * (4 + Math.random() * 2), // Muy rápida: 4-6 px/frame
+      dir: dir,
+      fase: Math.random() * Math.PI * 2,
+      yOffset: 0,
+      tiempoOla: 0,
+      // Color aleatorio del casco
+      color: ['#C0392B', '#2980B9', '#F39C12', '#1ABC9C', '#8E44AD'][
+        Math.floor(Math.random() * 5)
+      ]
+    });
+    // Sonido de motor al aparecer
+    this.sfx.lanchaMotor?.();
+  }
+
+  // --- Dibujar lanchas y sus estelas ---
+  _dibujarLanchas(ctx, offsetX, offsetY) {
+    // Primero las estelas de olas (debajo de las lanchas)
+    for (const ola of this._olasDeLancha) {
+      const ox = ola.x + offsetX;
+      const oy = ola.y + offsetY;
+      ctx.strokeStyle = `rgba(255, 255, 255, ${ola.opacidad})`;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(ox, oy, ola.radio, 0, Math.PI); // Semicírculo = ola
+      ctx.stroke();
+    }
+
+    // Luego las lanchas
+    for (const lancha of this.lanchas) {
+      const lx = lancha.x + offsetX;
+      const ly = lancha.y + lancha.yOffset + offsetY;
+
+      ctx.save();
+      // Voltear si va hacia la izquierda
+      if (lancha.dir < 0) {
+        ctx.translate(lx, ly);
+        ctx.scale(-1, 1);
+        ctx.translate(-lx, -ly);
+      }
+
+      // --- Casco de la lancha (vista cenital) ---
+      // Forma de bote: proa puntiaguda + popa ancha
+      ctx.fillStyle = lancha.color;
+      ctx.beginPath();
+      ctx.moveTo(lx + 25, ly);       // Proa (punta delantera)
+      ctx.lineTo(lx + 10, ly - 8);   // Lado superior
+      ctx.lineTo(lx - 20, ly - 7);   // Popa superior
+      ctx.lineTo(lx - 20, ly + 7);   // Popa inferior
+      ctx.lineTo(lx + 10, ly + 8);   // Lado inferior
+      ctx.closePath();
+      ctx.fill();
+
+      // Borde del casco
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Línea central del casco (quilla)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(lx - 18, ly);
+      ctx.lineTo(lx + 22, ly);
+      ctx.stroke();
+
+      // Parabrisas
+      ctx.fillStyle = 'rgba(150, 200, 255, 0.6)';
+      ctx.fillRect(lx + 2, ly - 4, 6, 8);
+
+      // Motor fuera de borda (popa)
+      ctx.fillStyle = '#333';
+      ctx.fillRect(lx - 23, ly - 4, 5, 8);
+
+      // --- Espuma/estela blanca detrás del motor ---
+      const espumaAncho = 15 + Math.sin(this.tiempoTotal * 12) * 3;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.beginPath();
+      ctx.moveTo(lx - 23, ly - 3);
+      ctx.lineTo(lx - 23 - espumaAncho, ly - 6 - Math.random() * 2);
+      ctx.lineTo(lx - 23 - espumaAncho - 5, ly);
+      ctx.lineTo(lx - 23 - espumaAncho, ly + 6 + Math.random() * 2);
+      ctx.lineTo(lx - 23, ly + 3);
+      ctx.closePath();
+      ctx.fill();
+
+      // Salpicaduras laterales (proa cortando el agua)
+      const salpicadura = Math.sin(this.tiempoTotal * 15) * 2;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.beginPath();
+      ctx.arc(lx + 20, ly - 9 + salpicadura, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(lx + 20, ly + 9 - salpicadura, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+  }
+
   // --- Dibujar NPC ---
   _dibujarNPC(ctx, npc, offsetX, offsetY, jugador) {
     const nx = npc.x + offsetX;
@@ -2015,12 +2451,13 @@ export class SantuarioManati {
       ctx.arc(nx + npc.ancho + 8, ny + npc.alto / 2 - 1, 1.5, 0, Math.PI * 2);
       ctx.fill();
 
-      // Aletas
+      // Aletas animadas — se mueven al nadar como remando
       ctx.fillStyle = '#3A6A2A';
-      ctx.fillRect(nx - 5, ny + 4, 7, 5);
-      ctx.fillRect(nx + npc.ancho - 3, ny + npc.alto - 8, 7, 5);
-      ctx.fillRect(nx - 5, ny + npc.alto - 8, 7, 5);
-      ctx.fillRect(nx + npc.ancho - 3, ny + 4, 7, 5);
+      const aletaVerde = Math.sin(this.tiempoTotal * 3 + (npc.fase || 0)) * 4;
+      ctx.fillRect(nx + npc.ancho - 3, ny + 4 + aletaVerde, 7, 5);
+      ctx.fillRect(nx - 5, ny + 4 - aletaVerde, 7, 5);
+      ctx.fillRect(nx + npc.ancho - 3, ny + npc.alto - 8 - aletaVerde, 7, 5);
+      ctx.fillRect(nx - 5, ny + npc.alto - 8 + aletaVerde, 7, 5);
       ctx.restore();
 
     } else if (npc.id === 'manatiBebe') {
@@ -2097,6 +2534,16 @@ export class SantuarioManati {
     ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
+    // --- Rotación de nado: el avatar rota al moverse horizontalmente ---
+    ctx.save();
+    if (Math.abs(this._anguloNado) > 0.01) {
+      const centroX = px + jugador.ancho / 2;
+      const centroY = py + jugador.alto / 2;
+      ctx.translate(centroX, centroY);
+      ctx.rotate(this._anguloNado);
+      ctx.translate(-centroX, -centroY);
+    }
+
     // Cuerpo
     const colorCuerpo = genero === 'pepito' ? '#4488ff' : '#aa44ff';
     ctx.fillStyle = colorCuerpo;
@@ -2161,6 +2608,8 @@ export class SantuarioManati {
       ctx.arc(bx + 4 + Math.sin(fase + 1) * 2, by - 3 - Math.abs(Math.sin(fase * 0.9)) * 6, 1.5, 0, Math.PI * 2);
       ctx.fill();
     }
+
+    ctx.restore(); // Fin de la rotación de nado
 
     // Efecto visual de lentitud
     if (this.efectoLentitud > 0) {
@@ -2319,6 +2768,9 @@ export class SantuarioManati {
     });
   }
 
+  // --- Dibujar silueta de ballena jorobada ---
+  // Cuerpo completo como un único path continuo con curvas Bezier
+  // para evitar artefactos de doble-alfa donde las formas se solapan
   _dibujarBallenaJorobada(ctx, ballena, offsetX, offsetY) {
     const bx = ballena.x + offsetX;
     const by = ballena.y + offsetY;
@@ -2330,27 +2782,31 @@ export class SantuarioManati {
 
     ctx.save();
     ctx.globalAlpha = alpha;
-
-    // Cuerpo principal (elipse)
     ctx.fillStyle = '#142846';
-    ctx.beginPath();
-    ctx.ellipse(bx, by, s * 0.5, s * 0.18, 0, 0, Math.PI * 2);
-    ctx.fill();
 
-    // Cabeza ancha
-    ctx.fillRect(bx + dir * s * 0.3, by - s * 0.12, s * 0.2 * dir, s * 0.24);
-
-    // Cola (fluke) — dos triángulos
+    // Cuerpo entero como un solo path (sin solapamiento)
     ctx.beginPath();
-    ctx.moveTo(bx - dir * s * 0.5, by);
-    ctx.lineTo(bx - dir * s * 0.75, by - s * 0.18);
-    ctx.lineTo(bx - dir * s * 0.6, by);
-    ctx.closePath();
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(bx - dir * s * 0.5, by);
-    ctx.lineTo(bx - dir * s * 0.75, by + s * 0.18);
-    ctx.lineTo(bx - dir * s * 0.6, by);
+    ctx.moveTo(bx + dir * s * 0.52, by);
+    // Lomo (joroba característica)
+    ctx.bezierCurveTo(
+      bx + dir * s * 0.5, by - s * 0.18,
+      bx + dir * s * 0.1, by - s * 0.2,
+      bx - dir * s * 0.35, by - s * 0.06
+    );
+    // Pedúnculo → fluke superior
+    ctx.lineTo(bx - dir * s * 0.5, by - s * 0.03);
+    ctx.lineTo(bx - dir * s * 0.72, by - s * 0.18);
+    ctx.lineTo(bx - dir * s * 0.55, by);
+    // Fluke inferior → pedúnculo
+    ctx.lineTo(bx - dir * s * 0.72, by + s * 0.18);
+    ctx.lineTo(bx - dir * s * 0.5, by + s * 0.03);
+    ctx.lineTo(bx - dir * s * 0.35, by + s * 0.06);
+    // Vientre
+    ctx.bezierCurveTo(
+      bx + dir * s * 0.1, by + s * 0.2,
+      bx + dir * s * 0.5, by + s * 0.18,
+      bx + dir * s * 0.52, by
+    );
     ctx.closePath();
     ctx.fill();
 
