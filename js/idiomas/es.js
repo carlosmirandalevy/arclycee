@@ -135,6 +135,8 @@ const es = {
       alfarera2: 'Los taínos éramos grandes alfareros. Nuestras vasijas se decoraban con caras y figuras.',
       alfarera3: 'Con el barro hacíamos ollas, platos y burenes — el burén es para tostar el casabe.',
       alfarera4: 'El casabe se hace con yuca rallada y prensada. ¡Es el pan de nuestro pueblo!',
+      alfarerVasija: 'Toma esta vasija con pulpa de higüero, savia de maguey y tuna. ¡Es nuestra medicina natural!',
+      alfareraSaludo: '¡Sigue creando arte con la arcilla de nuestra tierra!',
 
       pescador1: '¡Buenos días! Hoy la pesca ha sido buena en el río.',
       pescador2: 'Los taínos pescábamos con redes de algodón, nasas de mimbre y anzuelos de hueso.',
@@ -155,11 +157,16 @@ const es = {
       behique2: 'Las plantas de esta isla tienen grandes poderes curativos que los dioses nos enseñaron.',
       behique3: 'El tabaco lo usamos en la ceremonia de la cohoba, para comunicarnos con los cemíes.',
       behique4: 'La guayaba cura la fiebre, la jagua protege la piel y la sábila sana las heridas.',
+      behiqueCurar: 'Déjame prepararte un remedio con hierbas sagradas. ¡Quedarás como nuevo!',
+      behiqueCuroToast: 'El behique te ha curado',
+      behiqueSano: 'Te veo bien de salud. ¡Que los cemíes te protejan en tu viaje!',
 
       agricultor1: '¡Mira nuestros conucos! Cada montículo de tierra es un jardín de comida.',
       agricultor2: 'Los conucos son montículos donde plantamos. Así la tierra drena mejor y las raíces crecen fuertes.',
       agricultor3: 'Cultivamos yuca, maíz, batata, ají picante y tabaco — todo lo que necesitamos para vivir.',
       agricultor4: 'La yuca es lo más importante. Con ella hacemos el casabe, que es nuestro pan de cada día.',
+      agricultorGuanabana: 'Toma estas hojas y semillas de guanábana. ¡Son muy medicinales para el camino!',
+      agricultorSaludo: '¡Los conucos están dando buena cosecha hoy!',
 
       musico1: '¡Bienvenido/a al batey, el corazón de nuestra aldea!',
       musico2: 'Aquí celebramos el areíto — nuestra gran ceremonia de música, danza y memoria.',
@@ -703,7 +710,11 @@ const es = {
     casabe: 'Casabe',
     descCasabe: 'Pan taíno hecho de yuca rallada y tostada. Restaura 25 de vida.',
     hierbasCurativas: 'Hierbas Curativas',
-    descHierbasCurativas: 'Plantas medicinales del behique. Restauran 30 de vida.'
+    descHierbasCurativas: 'Plantas medicinales del behique. Restauran 30 de vida.',
+    guanabana: 'Hojas de Guanábana',
+    descGuanabana: 'Hojas y semillas medicinales de guanábana. Restauran 30 de vida.',
+    vasijaCurativa: 'Vasija Curativa',
+    descVasijaCurativa: 'Vasija con pulpa de higüero, savia de maguey y tuna. Restaura 35 de vida.'
   },
 
   inventario: {

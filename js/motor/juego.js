@@ -152,6 +152,12 @@ export class Juego {
     // El inventario vive en el juego (no en el jugador) porque es una
     // UI global que se puede abrir en cualquier escena jugable.
     this.inventario = new Inventario();
+    // Mostrar toast al usar un objeto curativo desde el inventario
+    this.inventario.alUsar = (objeto, jugador) => {
+      if (objeto.tipo === 'curacion') {
+        this.mostrarToast(`💚 ${objeto.nombre} — +${objeto.valor || 20} vida`);
+      }
+    };
 
     // --- Combate ---
     // Sistema de combate estilo Undertale con opción pacifista
@@ -1068,6 +1074,11 @@ export class Juego {
     this.companeros = [];
     // Inventario (UI y jugador)
     this.inventario = new Inventario();
+    this.inventario.alUsar = (objeto, jugador) => {
+      if (objeto.tipo === 'curacion') {
+        this.mostrarToast(`💚 ${objeto.nombre} — +${objeto.valor || 20} vida`);
+      }
+    };
     // Álbum de fotos
     this.album = new AlbumFotos();
     // Reputación

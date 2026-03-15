@@ -133,6 +133,8 @@ const fr = {
       alfarera2: 'Les Taïnos étaient de grands potiers. Nos vases étaient décorés de visages et de figures.',
       alfarera3: 'Avec l\'argile nous faisions des marmites, des assiettes et des burenes — le burén sert à griller le casabe.',
       alfarera4: 'Le casabe est fait de yuca râpée et pressée. C\'est le pain de notre peuple !',
+      alfarerVasija: 'Prends ce vase avec de la pulpe de calebasse, de la sève de maguey et du figuier de barbarie. C\'est notre médecine naturelle !',
+      alfareraSaludo: 'Continue à créer de l\'art avec l\'argile de notre terre !',
 
       pescador1: 'Bonjour ! La pêche a été bonne dans la rivière aujourd\'hui.',
       pescador2: 'Les Taïnos pêchaient avec des filets de coton, des nasses en osier et des hameçons en os.',
@@ -153,11 +155,16 @@ const fr = {
       behique2: 'Les plantes de cette île ont de grands pouvoirs curatifs que les dieux nous ont enseignés.',
       behique3: 'Nous utilisons le tabac dans la cérémonie de la cohoba, pour communiquer avec les cemíes.',
       behique4: 'La goyave guérit la fièvre, le jagua protège la peau et l\'aloès soigne les blessures.',
+      behiqueCurar: 'Laisse-moi te préparer un remède avec des herbes sacrées. Tu seras comme neuf !',
+      behiqueCuroToast: 'Le behique t\'a soigné',
+      behiqueSano: 'Tu as l\'air en bonne santé. Que les cemíes te protègent dans ton voyage !',
 
       agricultor1: 'Regarde nos conucos ! Chaque monticule de terre est un jardin de nourriture.',
       agricultor2: 'Les conucos sont des monticules où nous plantons. Ainsi la terre draine mieux et les racines poussent fortes.',
       agricultor3: 'Nous cultivons le yuca, le maïs, la patate douce, le piment et le tabac — tout ce dont nous avons besoin.',
       agricultor4: 'Le yuca est le plus important. Avec lui nous faisons le casabe, qui est notre pain quotidien.',
+      agricultorGuanabana: 'Prends ces feuilles et graines de corossol. Elles sont très médicinales pour le voyage !',
+      agricultorSaludo: 'Les conucos donnent une bonne récolte aujourd\'hui !',
 
       musico1: 'Bienvenue au batey, le cœur de notre village !',
       musico2: 'Ici nous célébrons l\'areíto — notre grande cérémonie de musique, danse et mémoire.',
@@ -668,7 +675,11 @@ const fr = {
     casabe: 'Casabe',
     descCasabe: 'Pain taïno fait de manioc râpé et grillé. Restaure 25 points de vie.',
     hierbasCurativas: 'Herbes Médicinales',
-    descHierbasCurativas: 'Plantes médicinales du behique. Restaurent 30 points de vie.'
+    descHierbasCurativas: 'Plantes médicinales du behique. Restaurent 30 points de vie.',
+    guanabana: 'Feuilles de Corossol',
+    descGuanabana: 'Feuilles et graines médicinales de corossol. Restaurent 30 points de vie.',
+    vasijaCurativa: 'Vase Curatif',
+    descVasijaCurativa: 'Vase d\'argile avec pulpe de calebasse, sève de maguey et figue de barbarie. Restaure 35 points de vie.'
   },
 
   inventario: {

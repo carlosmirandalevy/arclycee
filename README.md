@@ -22,7 +22,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
 - **NPCs mentores recurrentes**: Roberto Cassá (7 conversaciones de historia) y Lcda. Carmen Vidal (5 temas legales)
 - **Guardia Presidencial**: cambio de guardia ceremonial animado en el Panteón Nacional
-- **Inventario visual**: mochila de 20 slots con grilla navegable, íconos únicos y descripciones traducidas
+- **Inventario visual**: mochila de 20 slots con grilla navegable, íconos únicos, descripciones traducidas y objetos usables (curación desde inventario con E)
+- **Sistema de curación**: el Behique Yuisa cura completamente al jugador, Guarionex da hojas de guanábana (+30 vida) y Anacaona da vasija curativa (+35 vida) — objetos usables desde el inventario en cualquier momento
 - **Guardado automático**: el progreso se guarda al volver al mapa del mundo (localStorage)
 - **Sprites de enemigos**: cada enemigo tiene su sprite único en combate (soldado, constructor, pez león, traficante)
 - **Mini-juego de batú**: juego de pelota taíno con física 2D, golpes por cadera/hombro/cabeza/rodilla, IA vencible, datos educativos entre puntos
@@ -40,7 +41,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 | Mundo | Descripción |
 |---|---|
-| Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura, areíto y mini-juego de batú) |
+| Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos, vasija curativa de Anacaona), Asentamiento II (agricultura, areíto, mini-juego de batú, curación del Behique, guanábana de Guarionex) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
 | Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león, Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones patrulleros) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |

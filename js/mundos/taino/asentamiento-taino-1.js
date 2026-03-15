@@ -107,7 +107,8 @@ export class AsentamientoTaino1 {
         ancho: 28, alto: 32,
         nombre: 'Anacaona (Alfarera)',
         color: '#CD853F',
-        dialogoHecho: false
+        dialogoHecho: false,
+        esCurandero: true  // Siempre muestra [E] — da vasija curativa
       },
       {
         id: 'pescador',
@@ -126,16 +127,6 @@ export class AsentamientoTaino1 {
         ancho: 16, alto: 16,
         tipo: 'brujula',
         recogido: false
-      },
-      // Casabe curativo — pan taíno que restaura vida
-      // Se resetea cada vez que el jugador entra a la aldea
-      {
-        x: 260, y: 280,
-        ancho: 16, alto: 16,
-        tipo: 'casabe',
-        recogido: false,
-        esCurativo: true,
-        curacion: 25
       }
     ];
 
@@ -734,16 +725,16 @@ export class AsentamientoTaino1 {
     ctx.textAlign = 'center';
     ctx.fillText(npc.nombre, nx + npc.ancho / 2, ny - 20);
 
-    // Indicador de interacción
-    if (this._estaCerca(jugador, npc, 45) && !npc.dialogoHecho) {
+    // Indicador de interacción — curanderos siempre muestran [E]
+    if (this._estaCerca(jugador, npc, 45) && (!npc.dialogoHecho || npc.esCurandero)) {
       const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
       ctx.fillText('[E] Hablar', nx + npc.ancho / 2, ny - 32);
     }
 
-    // Palomita si ya habló con el NPC
-    if (npc.dialogoHecho) {
+    // Palomita si ya habló con el NPC (no para curanderos)
+    if (npc.dialogoHecho && !npc.esCurandero) {
       ctx.font = 'bold 14px monospace';
       ctx.fillStyle = '#44CC44';
       ctx.fillText('✓', nx + npc.ancho / 2, ny - 32);
@@ -906,12 +897,58 @@ export class AsentamientoTaino1 {
         { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
       ], () => { npc.dialogoHecho = true; });
     } else if (npc.id === 'alfarera') {
+      // Anacaona da vasija curativa al jugador (usable desde inventario)
+      const yaTieneVasija = this.juego?.inventario?.tieneObjeto('vasijaCurativa');
+
+      // Re-visita: solo ofrece vasija si la usó
+      if (npc.dialogoHecho) {
+        if (!yaTieneVasija) {
+          this.dialogos.iniciarDialogo([
+            { personaje: '🏺 Anacaona', texto: aldea?.alfarerVasija || 'Toma otra vasija curativa. ¡Cuídate en el camino!' }
+          ], () => {
+            const t = textos?.objetos || {};
+            this.juego.inventario.agregar({
+              id: 'vasijaCurativa',
+              nombre: t.vasijaCurativa || 'Vasija Curativa',
+              descripcion: t.descVasijaCurativa || 'Vasija con pulpa de higüero, savia de maguey y tuna. Restaura 35 de vida.',
+              tipo: 'curacion', cantidad: 1, color: '#B8860B', esUsable: true, valor: 35
+            });
+            this.sfx.recoger();
+            if (this.juego.mostrarToast) {
+              this.juego.mostrarToast(`✦ ${t.vasijaCurativa || 'Vasija Curativa'} — ítem añadido`);
+            }
+          });
+        } else {
+          this.dialogos.iniciarDialogo([
+            { personaje: '🏺 Anacaona', texto: aldea?.alfareraSaludo || '¡Sigue creando arte con la arcilla de nuestra tierra!' }
+          ]);
+        }
+        return;
+      }
+
+      // Primera visita: diálogo completo + dar vasija
       this.dialogos.iniciarDialogo([
         { personaje: '🏺 Anacaona', texto: aldea?.alfarera1 || '¡Hola! Estoy haciendo una vasija de barro.' },
         { personaje: '🏺 Anacaona', texto: aldea?.alfarera2 || 'Los taínos éramos grandes alfareros.' },
         { personaje: '🏺 Anacaona', texto: aldea?.alfarera3 || 'Hacíamos ollas, platos y burenes para cocinar el casabe.' },
-        { personaje: '🏺 Anacaona', texto: aldea?.alfarera4 || 'El casabe se hace con yuca rallada — ¡es delicioso!' }
-      ], () => { npc.dialogoHecho = true; });
+        { personaje: '🏺 Anacaona', texto: aldea?.alfarera4 || 'El casabe se hace con yuca rallada — ¡es delicioso!' },
+        { personaje: '🏺 Anacaona', texto: aldea?.alfarerVasija || 'Toma esta vasija con pulpa de higüero, savia de maguey y tuna. ¡Te curará!' }
+      ], () => {
+        npc.dialogoHecho = true;
+        if (this.juego?.inventario) {
+          const t = textos?.objetos || {};
+          this.juego.inventario.agregar({
+            id: 'vasijaCurativa',
+            nombre: t.vasijaCurativa || 'Vasija Curativa',
+            descripcion: t.descVasijaCurativa || 'Vasija con pulpa de higüero, savia de maguey y tuna. Restaura 35 de vida.',
+            tipo: 'curacion', cantidad: 1, color: '#B8860B', esUsable: true, valor: 35
+          });
+          this.sfx.recoger();
+          if (this.juego.mostrarToast) {
+            this.juego.mostrarToast(`✦ ${t.vasijaCurativa || 'Vasija Curativa'} — ítem añadido`);
+          }
+        }
+      });
     } else if (npc.id === 'pescador') {
       this.dialogos.iniciarDialogo([
         { personaje: '🐟 Caonabó', texto: aldea?.pescador1 || '¡Buenos días! Hoy la pesca ha sido buena.' },

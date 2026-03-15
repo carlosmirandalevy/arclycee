@@ -133,6 +133,8 @@ const en = {
       alfarera2: 'The Taínos were great potters. Our vessels were decorated with faces and figures.',
       alfarera3: 'With clay we made pots, plates, and burenes — the burén is for toasting casabe.',
       alfarera4: 'Casabe is made from grated and pressed yuca. It\'s the bread of our people!',
+      alfarerVasija: 'Take this vessel with higüero pulp, maguey sap, and prickly pear. It\'s our natural medicine!',
+      alfareraSaludo: 'Keep creating art with the clay of our land!',
 
       pescador1: 'Good morning! The fishing has been good in the river today.',
       pescador2: 'The Taínos fished with cotton nets, wicker traps, and bone hooks.',
@@ -153,11 +155,16 @@ const en = {
       behique2: 'The plants of this island have great healing powers that the gods taught us.',
       behique3: 'We use tobacco in the cohoba ceremony, to communicate with the cemíes.',
       behique4: 'Guava cures fever, jagua protects the skin, and aloe heals wounds.',
+      behiqueCurar: 'Let me prepare a remedy with sacred herbs. You\'ll feel brand new!',
+      behiqueCuroToast: 'The behique healed you',
+      behiqueSano: 'You look healthy to me. May the cemíes protect you on your journey!',
 
       agricultor1: 'Look at our conucos! Each mound of earth is a garden of food.',
       agricultor2: 'Conucos are raised mounds where we plant. This way the soil drains better and roots grow strong.',
       agricultor3: 'We grow yuca, corn, sweet potato, hot peppers, and tobacco — everything we need to live.',
       agricultor4: 'Yuca is the most important. With it we make casabe, which is our daily bread.',
+      agricultorGuanabana: 'Take these soursop leaves and seeds. They\'re very medicinal for the journey!',
+      agricultorSaludo: 'The conucos are giving a great harvest today!',
 
       musico1: 'Welcome to the batey, the heart of our village!',
       musico2: 'Here we celebrate the areíto — our great ceremony of music, dance, and memory.',
@@ -668,7 +675,11 @@ const en = {
     casabe: 'Casabe',
     descCasabe: 'Taíno bread made from grated and toasted cassava. Restores 25 health.',
     hierbasCurativas: 'Healing Herbs',
-    descHierbasCurativas: 'Medicinal plants from the behique. Restore 30 health.'
+    descHierbasCurativas: 'Medicinal plants from the behique. Restore 30 health.',
+    guanabana: 'Soursop Leaves',
+    descGuanabana: 'Medicinal soursop leaves and seeds. Restore 30 health.',
+    vasijaCurativa: 'Healing Vessel',
+    descVasijaCurativa: 'Clay vessel with higüero fruit pulp, maguey sap, and prickly pear. Restores 35 health.'
   },
 
   inventario: {

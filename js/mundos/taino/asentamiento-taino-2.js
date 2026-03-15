@@ -104,7 +104,8 @@ export class AsentamientoTaino2 {
         ancho: 28, alto: 32,
         nombre: 'Behique Yuisa',
         color: '#6B8E23',
-        dialogoHecho: false
+        dialogoHecho: false,
+        esCurandero: true  // Siempre muestra [E] y permite re-interacción para curar
       },
       {
         id: 'agricultor',
@@ -112,7 +113,8 @@ export class AsentamientoTaino2 {
         ancho: 28, alto: 32,
         nombre: 'Guarionex (Agricultor)',
         color: '#8B6914',
-        dialogoHecho: false
+        dialogoHecho: false,
+        esCurandero: true  // Siempre muestra [E] — da guanábana
       },
       {
         id: 'musico',
@@ -131,16 +133,6 @@ export class AsentamientoTaino2 {
         ancho: 16, alto: 16,
         tipo: 'navaja',
         recogido: false
-      },
-      // Hierbas curativas del behique — restauran vida
-      // Se resetean cada vez que el jugador entra a la aldea
-      {
-        x: 310, y: 330,
-        ancho: 16, alto: 16,
-        tipo: 'hierbasCurativas',
-        recogido: false,
-        esCurativo: true,
-        curacion: 30
       }
     ];
 
@@ -854,15 +846,16 @@ export class AsentamientoTaino2 {
     ctx.textAlign = 'center';
     ctx.fillText(npc.nombre, nx + npc.ancho / 2, ny - 20);
 
-    // Interacción
-    if (this._estaCerca(jugador, npc, 45) && !npc.dialogoHecho) {
+    // Interacción — el curandero siempre muestra [E] para poder curar
+    if (this._estaCerca(jugador, npc, 45) && (!npc.dialogoHecho || npc.esCurandero)) {
       const parpadeo = Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4;
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
-      ctx.fillText('[E] Hablar', nx + npc.ancho / 2, ny - 32);
+      const etiqueta = npc.esCurandero && npc.dialogoHecho ? '[E] Curar' : '[E] Hablar';
+      ctx.fillText(etiqueta, nx + npc.ancho / 2, ny - 32);
     }
 
-    if (npc.dialogoHecho) {
+    if (npc.dialogoHecho && !npc.esCurandero) {
       ctx.font = 'bold 14px monospace';
       ctx.fillStyle = '#44CC44';
       ctx.fillText('✓', nx + npc.ancho / 2, ny - 32);
@@ -956,6 +949,27 @@ export class AsentamientoTaino2 {
     const aldea2 = textos?.dialogos?.aldea2;
 
     if (npc.id === 'behique') {
+      // Si ya habló, solo curar (visita de regreso)
+      if (npc.dialogoHecho) {
+        const jugador = this.juego.jugador;
+        if (jugador && jugador.vida < jugador.vidaMaxima) {
+          this.dialogos.iniciarDialogo([
+            { personaje: '🌿 Behique Yuisa', texto: aldea2?.behiqueCurar || 'Déjame prepararte un remedio con hierbas. ¡Quedarás como nuevo!' }
+          ], () => {
+            const cantidadCurada = jugador.vidaMaxima - jugador.vida;
+            jugador.curar(cantidadCurada);
+            if (this.juego.mostrarToast) {
+              this.juego.mostrarToast(`💚 ${aldea2?.behiqueCuroToast || 'El behique te ha curado'} — +${cantidadCurada} vida`);
+            }
+          });
+        } else {
+          this.dialogos.iniciarDialogo([
+            { personaje: '🌿 Behique Yuisa', texto: aldea2?.behiqueSano || 'Te veo bien de salud. ¡Que los cemíes te protejan!' }
+          ]);
+        }
+        return;
+      }
+
       // El behique da el Cemí Murciélago al jugador después de hablar
       const yaTieneCemi = this.juego.companeros.some(c => c.tipo === 'cemiMurcielago');
 
@@ -967,7 +981,9 @@ export class AsentamientoTaino2 {
         // Solo muestra la línea del Cemí si no lo tiene todavía
         ...(yaTieneCemi ? [] : [
           { personaje: '🦇 Behique Yuisa', texto: aldea2?.behiqueCemi || '¡El espíritu del Cemí Murciélago te ha elegido! Él te guiará en las cuevas.' }
-        ])
+        ]),
+        // El behique siempre ofrece curar al jugador
+        { personaje: '🌿 Behique Yuisa', texto: aldea2?.behiqueCurar || 'Déjame prepararte un remedio con hierbas. ¡Quedarás como nuevo!' }
       ], () => {
         npc.dialogoHecho = true;
         // Dar el Cemí Murciélago si no lo tiene
@@ -977,14 +993,69 @@ export class AsentamientoTaino2 {
           this.juego.companeros.push(cemi);
           this.sfx.recoger();
         }
+        // El behique cura al jugador completamente
+        const jugador = this.juego.jugador;
+        if (jugador && jugador.vida < jugador.vidaMaxima) {
+          const cantidadCurada = jugador.vidaMaxima - jugador.vida;
+          jugador.curar(cantidadCurada);
+          if (this.juego.mostrarToast) {
+            this.juego.mostrarToast(`💚 ${aldea2?.behiqueCuroToast || 'El behique te ha curado'} — +${cantidadCurada} vida`);
+          }
+        }
       });
     } else if (npc.id === 'agricultor') {
+      // Guarionex da hojas de guanábana al jugador (curativas, usables desde inventario)
+      const yaTieneGuanabana = this.juego?.inventario?.tieneObjeto('guanabana');
+
+      // Re-visita: solo ofrece guanábana si la usó
+      if (npc.dialogoHecho) {
+        if (!yaTieneGuanabana) {
+          this.dialogos.iniciarDialogo([
+            { personaje: '🌱 Guarionex', texto: aldea2?.agricultorGuanabana || 'Toma más hojas de guanábana. ¡Cuídate!' }
+          ], () => {
+            const t = textos?.objetos || {};
+            this.juego.inventario.agregar({
+              id: 'guanabana',
+              nombre: t.guanabana || 'Hojas de Guanábana',
+              descripcion: t.descGuanabana || 'Hojas y semillas medicinales. Restauran 30 de vida.',
+              tipo: 'curacion', cantidad: 1, color: '#44AA44', esUsable: true, valor: 30
+            });
+            this.sfx.recoger();
+            if (this.juego.mostrarToast) {
+              this.juego.mostrarToast(`✦ ${t.guanabana || 'Hojas de Guanábana'} — ítem añadido`);
+            }
+          });
+        } else {
+          this.dialogos.iniciarDialogo([
+            { personaje: '🌱 Guarionex', texto: aldea2?.agricultorSaludo || '¡Los conucos están dando buena cosecha hoy!' }
+          ]);
+        }
+        return;
+      }
+
+      // Primera visita: diálogo completo + dar guanábana
       this.dialogos.iniciarDialogo([
         { personaje: '🌱 Guarionex', texto: aldea2?.agricultor1 || '¡Mira nuestros conucos!' },
         { personaje: '🌱 Guarionex', texto: aldea2?.agricultor2 || 'Hacemos montículos de tierra para plantar.' },
         { personaje: '🌱 Guarionex', texto: aldea2?.agricultor3 || 'Cultivamos yuca, maíz, batata, ají y tabaco.' },
-        { personaje: '🌱 Guarionex', texto: aldea2?.agricultor4 || 'La yuca es lo más importante — con ella hacemos el casabe.' }
-      ], () => { npc.dialogoHecho = true; });
+        { personaje: '🌱 Guarionex', texto: aldea2?.agricultor4 || 'La yuca es lo más importante — con ella hacemos el casabe.' },
+        { personaje: '🌱 Guarionex', texto: aldea2?.agricultorGuanabana || 'Toma estas hojas y semillas de guanábana. ¡Son medicinales!' }
+      ], () => {
+        npc.dialogoHecho = true;
+        if (this.juego?.inventario) {
+          const t = textos?.objetos || {};
+          this.juego.inventario.agregar({
+            id: 'guanabana',
+            nombre: t.guanabana || 'Hojas de Guanábana',
+            descripcion: t.descGuanabana || 'Hojas y semillas medicinales. Restauran 30 de vida.',
+            tipo: 'curacion', cantidad: 1, color: '#44AA44', esUsable: true, valor: 30
+          });
+          this.sfx.recoger();
+          if (this.juego.mostrarToast) {
+            this.juego.mostrarToast(`✦ ${t.guanabana || 'Hojas de Guanábana'} — ítem añadido`);
+          }
+        }
+      });
     } else if (npc.id === 'musico') {
       // Higüemota: areíto + misión secundaria de batú
       // Primera vez: diálogo sobre el areíto, luego ofrece batú con opción sí/no

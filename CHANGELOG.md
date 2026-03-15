@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.15.3 — Sistema de curación con NPCs taínos (2026-03-14)
+
+### Agregado
+- **Curación del Behique**: interactuar con Behique Yuisa en Asentamiento II cura al jugador a 100 HP. En re-visitas muestra `[E] Curar` y cura sin repetir el diálogo largo
+- **Hojas de Guanábana**: Guarionex (agricultor) da hojas y semillas de guanábana como ítem usable de inventario (+30 vida). Se puede obtener de nuevo si se usó
+- **Vasija Curativa**: Anacaona (alfarera) da vasija de barro con pulpa de higüero, savia de maguey y tuna como ítem usable de inventario (+35 vida). Se puede obtener de nuevo si se usó
+- **Toast de curación en inventario**: al usar un objeto curativo desde el inventario, se muestra toast con el nombre del ítem y vida restaurada
+- **Íconos de inventario**: íconos pixel art para guanábana (hojas verdes con semillas) y vasija curativa (vasija de barro con decoración taína)
+- **Flag `esCurandero`**: NPCs curanderos siempre muestran `[E]` y permiten re-interacción (no se ocultan tras hablar)
+- **Callback `alUsar`** en Inventario: permite que juego.js muestre toasts al usar objetos
+
+### Eliminado
+- **Casabe de piso**: eliminado el pickup de casabe curativo del Asentamiento I (reemplazado por vasija de Anacaona)
+- **Hierbas curativas de piso**: eliminadas las hierbas curativas del Asentamiento II (reemplazadas por curación del Behique + guanábana de Guarionex)
+
+### Traducciones
+- Nuevas cadenas en ES/EN/FR: guanábana, vasija curativa, behiqueCurar, behiqueSano, agricultorGuanabana, agricultorSaludo, alfarerVasija, alfareraSaludo
+
+---
+
 ## v0.15.2 — Documentación de personajes, canvas tile map, mejoras de fotos (2026-03-14)
 
 ### Agregado

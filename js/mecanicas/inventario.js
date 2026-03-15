@@ -25,6 +25,10 @@ export class Inventario {
 
     // Bloqueo de entrada para evitar pulsaciones repetidas
     this.bloqueoEntrada = false;
+
+    // Callback que se llama al usar un objeto exitosamente
+    // juego.js lo asigna para mostrar toasts de curación
+    this.alUsar = null;
   }
 
   // --- Agregar un objeto ---
@@ -78,6 +82,11 @@ export class Inventario {
         break;
       default:
         return false;
+    }
+
+    // Notificar al juego (para mostrar toast de curación)
+    if (this.alUsar) {
+      this.alUsar(objeto, jugador);
     }
 
     this.remover(id);
@@ -666,6 +675,60 @@ export class Inventario {
       ctx.fillRect(x + 12, y + 10, 10, 1);
       ctx.fillRect(x + 12, y + 14, 8, 1);
       ctx.fillRect(x + 12, y + 18, 10, 1);
+
+    } else if (id === 'guanabana') {
+      // Hojas de guanábana — hojas verdes con semillas
+      // Hoja grande
+      ctx.fillStyle = '#228B22';
+      ctx.beginPath();
+      ctx.ellipse(x + 16, y + 10, 8, 5, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+      // Hoja pequeña
+      ctx.fillStyle = '#2E8B57';
+      ctx.beginPath();
+      ctx.ellipse(x + 10, y + 16, 6, 4, 0.4, 0, Math.PI * 2);
+      ctx.fill();
+      // Semillas (puntos marrones)
+      ctx.fillStyle = '#6B3410';
+      ctx.beginPath();
+      ctx.arc(x + 20, y + 18, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x + 16, y + 22, 2, 0, Math.PI * 2);
+      ctx.fill();
+      // Nervaduras de la hoja
+      ctx.strokeStyle = '#1a6b1a';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(x + 10, y + 10);
+      ctx.lineTo(x + 22, y + 10);
+      ctx.stroke();
+
+    } else if (id === 'vasijaCurativa') {
+      // Vasija de barro con mezcla curativa
+      // Cuerpo de la vasija
+      ctx.fillStyle = '#B8860B';
+      ctx.beginPath();
+      ctx.ellipse(x + 16, y + 18, 9, 7, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Boca de la vasija
+      ctx.fillStyle = '#D4A860';
+      ctx.fillRect(x + 10, y + 8, 12, 4);
+      // Contenido verde (mezcla medicinal)
+      ctx.fillStyle = '#44AA44';
+      ctx.beginPath();
+      ctx.ellipse(x + 16, y + 10, 5, 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Decoración taína (línea zigzag)
+      ctx.strokeStyle = '#8B4513';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + 9, y + 16);
+      ctx.lineTo(x + 12, y + 14);
+      ctx.lineTo(x + 15, y + 16);
+      ctx.lineTo(x + 18, y + 14);
+      ctx.lineTo(x + 21, y + 16);
+      ctx.stroke();
 
     } else {
       // Genérico: cuadrado con color del objeto
