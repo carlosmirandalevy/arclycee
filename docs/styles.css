@@ -637,7 +637,8 @@ footer .equipo {
   border: 1px solid var(--borde);
   background: var(--fondo-tarjeta);
 }
-.game-map-container svg {
+.game-map-container svg,
+.game-map-container canvas {
   display: block;
   width: 100%;
   height: auto;

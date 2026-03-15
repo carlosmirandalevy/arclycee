@@ -538,7 +538,7 @@ export class Inventario {
       ctx.fillRect(x + 20, y + 9, 3, 5);
 
     } else if (id === 'clavoBronce') {
-      // Clavo de bronce de La Pinta — forma de clavo con cabeza ancha
+      // Clavo de bronce de la Santa María — forma de clavo con cabeza ancha
       ctx.fillStyle = '#B87333';
       // Cabeza del clavo
       ctx.fillRect(x + 10, y + 5, 12, 4);

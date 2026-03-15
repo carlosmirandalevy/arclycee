@@ -4,7 +4,7 @@ Un videojuego RPG 2D educativo para explorar el patrimonio arqueológico de la R
 
 ## El Juego
 
-Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 5 mundos interconectados: Taíno, Colonial, Acuático, Jurídico y Laboratorio/Museo.
+Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 9 mundos interconectados: Taíno (3 niveles), Colonial (2), Acuático (2), Jurídico, Laboratorio y LFSD.
 
 ### Características
 
@@ -30,8 +30,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
 - **Múltiples finales** (4) según tus decisiones: completo, museo, ecológico u oscuro
 - **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas, efectos en jugador y sonido ambiental (lluvia continua, truenos)
-- **Álbum de fotos**: toma fotos y selfies de NPCs, petroglifos y objetos — genera retratos desde sprites con fondos temáticos
-- **Misiones secundarias**: 3 sidequests en el LFSD (calibración de señal, programación de robot, conexión de cables) con mini-juegos únicos
+- **Álbum de fotos**: toma fotos y selfies de NPCs, petroglifos y objetos — las fotos renderizan solo el sprite del NPC/objeto centrado sobre fondo oscuro (bloque cuadrado), las selfies muestran al NPC y al jugador lado a lado (rectángulo vertical). Sin capturas de pantalla
+- **Misiones secundarias**: 5 sidequests: batú (pelota taína), rescate del manatí, y 3 del LFSD (calibración de señal, programación de robot, conexión de cables) con mini-juegos únicos
 - **Registro de juego**: Game Log con tecla L, pestañas de misiones principales y secundarias
 - **Sistema de reputación**: puntuación 0-100 que afecta combates y diálogos
 - **Desktop y móvil** con controles táctiles virtuales (joystick analógico o cruceta, configurable desde Opciones), touch/pinch zoom en mapa
@@ -42,7 +42,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 |---|---|
 | Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos), Asentamiento II (agricultura, areíto y mini-juego de batú) |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
-| Acuático | Naufragio de La Pinta (exploración submarina), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león, Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones patrulleros) |
+| Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), fauna marina educativa (tortuga carey nadadora), medusas como peligros pasivos (daño + lentitud), combate ecológico contra pez león, Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones patrulleros) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
 | LFSD | Liceo Francés de Santo Domingo — aula de robótica con 8 NPCs estudiantes, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
@@ -62,6 +62,8 @@ Elian · Théo · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Nael
 ## Documentación
 
 Disponible en 3 idiomas: [`docs/index.html`](docs/index.html) (ES), [`docs/en.html`](docs/en.html) (EN), [`docs/fr.html`](docs/fr.html) (FR). También accesible desde el menú principal del juego (opción "Documentación").
+
+La documentación incluye una página de **Characters** con todos los NPCs y miembros del equipo: [`docs/characters.html`](docs/characters.html) (ES), [`docs/characters-en.html`](docs/characters-en.html) (EN), [`docs/characters-fr.html`](docs/characters-fr.html) (FR).
 
 ## Licencia
 

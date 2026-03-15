@@ -998,6 +998,12 @@ export class SantuarioManati {
       { tamano: 10, color: colorArrecife }
     );
 
+    // 4. Objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 84, {
+      tamano: 10, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
@@ -1005,7 +1011,7 @@ export class SantuarioManati {
 
     // Indicador de lentitud
     if (this.efectoLentitud > 0) {
-      renderizador.dibujarTexto('🦈 ¡Lentitud!', 15, 88, {
+      renderizador.dibujarTexto('🦈 ¡Lentitud!', 15, 100, {
         tamano: 10, color: '#CC77FF'
       });
     }
@@ -1025,7 +1031,7 @@ export class SantuarioManati {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: nadar | E: interactuar | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: nadar | E: interactuar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: 'rgba(150, 200, 180, 0.6)', alineacion: 'center'
       });
     }
@@ -1077,6 +1083,16 @@ export class SantuarioManati {
     if (this.juego && this.juego.mostrarToast) {
       this.juego.mostrarToast('🐋 ¡Acción ecológica completada!');
     }
+
+    // Reputación por liberar al manatí
+    if (this.juego && this.juego.reputacion) {
+      const textos = this._obtenerTextos();
+      this.juego.reputacion.modificar(10,
+        textos?.misiones?.rescateManatiReputacion || 'Manatí liberado');
+    }
+
+    // Verificar si ambas acciones ecológicas están completas
+    this._verificarMisionRescate();
   }
 
   // --- Recoger un desecho del arrecife ---
@@ -1105,11 +1121,42 @@ export class SantuarioManati {
       if (this.juego && this.juego.mostrarToast) {
         this.juego.mostrarToast('🪸 ¡Acción ecológica completada!');
       }
+
+      // Reputación por limpiar el arrecife
+      if (this.juego && this.juego.reputacion) {
+        this.juego.reputacion.modificar(10,
+          textos?.misiones?.limpiezaReputacion || 'Arrecife limpiado');
+      }
+
+      // Verificar si ambas acciones ecológicas están completas
+      this._verificarMisionRescate();
     } else {
       if (this.juego && this.juego.mostrarToast) {
         this.juego.mostrarToast(
           `${textos?.dialogos?.santuario?.recogerDesecho || 'Desecho recogido'} (${this.desechosRecogidos}/3)`
         );
+      }
+    }
+  }
+
+  // --- Verificar si la misión de rescate está completa (ambas acciones) ---
+  _verificarMisionRescate() {
+    if (!this.manatiLiberado || !this.limpiezaCompleta) return;
+    if (!this.juego) return;
+
+    // Completar la misión secundaria
+    if (this.juego.misiones && this.juego.misiones.estaEnProgreso('rescateManati')) {
+      this.juego.misiones.completar('rescateManati');
+
+      // Marcar en el registro de juego
+      if (this.juego.registro) {
+        const textos = this._obtenerTextos();
+        const titulo = textos?.misiones?.rescateManatiTitulo || 'Rescate del manatí';
+        this.juego.registro.marcarCompletada(titulo);
+      }
+
+      if (this.juego.mostrarToast) {
+        this.juego.mostrarToast('✅ ¡Misión completada: Rescate del manatí!');
       }
     }
   }
@@ -2175,10 +2222,26 @@ export class SantuarioManati {
           { personaje: '🧪 Dra. Sofía', texto: san?.biologa1 || '¡Bienvenida al Santuario del Manatí! Soy la Dra. Sofía, bióloga marina.' },
           { personaje: '🧪 Dra. Sofía', texto: san?.biologa2 || 'Los manatíes antillanos están en peligro de extinción. Quedan menos de 2,500 en todo el Caribe.' },
           { personaje: '🧪 Dra. Sofía', texto: san?.biologa3 || 'La Ley 64-00 protege la biodiversidad dominicana. Dañar a un manatí es un delito ambiental.' },
-          { personaje: '🧪 Dra. Sofía', texto: san?.biologa4 || '¡Hay un manatí adulto atrapado en una red fantasma! Son redes de pesca abandonadas — una trampa mortal.' }
+          { personaje: '🧪 Dra. Sofía', texto: san?.biologa4 || 'Los manatíes quedan atrapados por accidente en redes de pesca abandonadas — las llamamos "redes fantasma".' },
+          { personaje: '🧪 Dra. Sofía', texto: san?.biologa5 || 'Para liberarlos sin hacerles daño, hay que cortar la red con cuidado, sin tocar al animal. Un manatí asustado puede agitarse y lastimarse más.' },
+          { personaje: '🧪 Dra. Sofía', texto: san?.biologa6 || '¡Hay un manatí adulto atrapado ahora mismo! Ve a la red fantasma al este y usa [E] para cortarla. ¡Rápido, pero con calma!' }
         ], () => {
           npc.dialogoHecho = true;
           this.biologaHablada = true;
+
+          // --- Descubrimiento de misión secundaria: Rescate del Manatí ---
+          if (this.juego && this.juego.misiones && !this.juego.misiones.estaDescubierta('rescateManati')) {
+            this.juego.misiones.descubrir('rescateManati');
+            this.juego.misiones.iniciar('rescateManati');
+            const textosMision = this._obtenerTextos();
+            const mis = textosMision?.misiones || {};
+            const titulo = mis.rescateManatiTitulo || 'Rescate del Manatí';
+            if (this.juego.registro) {
+              this.juego.registro.agregarEntrada('secundaria', titulo,
+                mis.rescateManatiDesc || 'Liberar al manatí y limpiar el arrecife en el Santuario.');
+            }
+            this.juego.mostrarToast(`📋 ${textosMision?.misiones?.descubierta || 'Misión descubierta'}: ${titulo}`);
+          }
 
           // --- Descubrimiento de misión secundaria: Full Metal Archeologist ---
           if (this.juego && this.juego.misiones && !this.juego.misiones.estaDescubierta('metalCompleto')) {

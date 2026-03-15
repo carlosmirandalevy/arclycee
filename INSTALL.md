@@ -77,7 +77,10 @@ arclycee/
 ├── docs/
 │   ├── index.html          ← Documentación completa (ES)
 │   ├── en.html             ← Documentación completa (EN)
-│   └── fr.html             ← Documentación completa (FR)
+│   ├── fr.html             ← Documentación completa (FR)
+│   ├── characters.html     ← Personajes: NPCs y equipo (ES)
+│   ├── characters-en.html  ← Personajes: NPCs y equipo (EN)
+│   └── characters-fr.html  ← Personajes: NPCs y equipo (FR)
 ├── estilos/
 │   └── principal.css       ← Estilos del juego
 ├── js/
@@ -88,7 +91,7 @@ arclycee/
 │   │   ├── mapa-principal.js ← Mapa del mundo con cámara y colisiones
 │   │   ├── taino/          ← Mundo Taíno (Cuevas, Asentamiento I y II)
 │   │   ├── colonial/       ← Mundo Colonial (La Isabela, Zona Colonial)
-│   │   ├── acuatico/       ← Mundo Acuático (Naufragio de La Pinta)
+│   │   ├── acuatico/       ← Mundo Acuático (Naufragio de la Santa María)
 │   │   ├── juridico/       ← Mundo Jurídico (Aeropuerto de Punta Cana)
 │   │   ├── laboratorio/    ← Mundo Laboratorio (Museo Atarazanas Reales)
 │   │   └── lfsd/           ← LFSD (Liceo Francés — misiones secundarias)

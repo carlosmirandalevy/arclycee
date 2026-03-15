@@ -57,7 +57,7 @@ export class MundoLaboratorio {
     // --- Misión ---
     this.misionActual = '';
     this.npcsHablados = 0;
-    this.totalNPCs = 3; // Solo cuentan Morbán, López y Ana
+    this.totalNPCs = 4; // Morbán, López, Ana y Roberto Cassá
 
     // --- Roberto Cassá — mentor con diálogo rotativo ---
     this._cassaConversacion = 0;
@@ -143,7 +143,7 @@ export class MundoLaboratorio {
         nombre: 'Roberto Cassá',
         color: '#8a6a4a',
         dialogoHecho: false,
-        esMentor: true
+        esMentor: false
       },
       {
         id: 'sospechoso',
@@ -365,6 +365,10 @@ export class MundoLaboratorio {
     // Marcar nodo como completado
     if (!this.juego.progreso.nodosCompletados.includes(7)) {
       this.juego.progreso.nodosCompletados.push(7);
+    }
+    // Desbloquear LFSD (nodo 8)
+    if (!this.juego.progreso.nodosDesbloqueados.includes(8)) {
+      this.juego.progreso.nodosDesbloqueados.push(8);
     }
 
     // Guardar y ir a cinemática final
@@ -762,6 +766,15 @@ export class MundoLaboratorio {
     ctx.textAlign = 'right';
     ctx.fillText(`NPCs: ${this.npcsHablados}/${this.totalNPCs}`, ancho - 15, 23);
 
+    // --- Contador de objetos ---
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(ancho - 160, 32, 150, 18);
+    ctx.fillStyle = objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700';
+    ctx.font = '11px monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(`📦 ${objRecogidos}/${this.objetos.length}`, ancho - 15, 45);
+
     // --- Misión actual ---
     ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     ctx.fillRect(ancho / 2 - 200, alto - 55, 400, 20);
@@ -773,7 +786,7 @@ export class MundoLaboratorio {
     // --- Controles ---
     ctx.fillStyle = '#AAAAAA';
     ctx.font = '11px monospace';
-    ctx.fillText('WASD: mover | E: hablar/recoger | M: mapa | I: inventario', ancho / 2, alto - 15);
+    ctx.fillText('WASD: mover | E: hablar/recoger | M: mapa | I: inventario | P: fotos | L: misiones', ancho / 2, alto - 15);
     ctx.textAlign = 'left';
 
     // --- Diálogos ---
@@ -1026,6 +1039,7 @@ export class MundoLaboratorio {
     const indice = this._cassaConversacion % conversaciones.length;
     this.dialogos.iniciarDialogo(conversaciones[indice], () => {
       this._cassaConversacion++;
+      npc.dialogoHecho = true;
 
       // --- Descubrimiento de misión secundaria: Weird Science ---
       // Cassá menciona que el equipo de análisis está averiado

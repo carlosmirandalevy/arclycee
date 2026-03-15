@@ -171,7 +171,11 @@ const es = {
       // Batú — diálogos de Higüemota para el mini-juego
       batuOferta1: '¿Quieres jugar batú? Es nuestro juego de pelota sagrado.',
       batuOferta2: 'Se golpea con la cadera, los hombros y la cabeza. ¡Nunca con las manos!',
-      batuOferta3: '¡Vamos al batey! Primero en 3 puntos gana.',
+      batuAceptar: '¡Sí, vamos a jugar!',
+      batuRechazar: 'Ahora no, quizás después.',
+      batuOfertaRepite: '¿Listo para el batú? ¡El batey te espera!',
+      batuPendiente: '🏐 Misión pendiente: Batú',
+      batuReputacion: 'Batú completado',
       batuVictoria: '¡Impresionante! Juegas como un verdadero taíno.',
       batuDerrota: '¡Buen intento! El batú requiere mucha práctica.',
       batuRepite: '¡Fue un gran partido! El batú une a las aldeas y resuelve conflictos sin violencia.',
@@ -302,14 +306,14 @@ const es = {
       misionCompleta: '¡Zona Colonial explorada! Vuelve al mapa (M)'
     },
 
-    // Mundo Acuático — Naufragio de La Pinta
+    // Mundo Acuático — Naufragio de la Santa María
     // Un pescador lleva a Pepito a explorar los restos submarinos
-    // de La Pinta, donde aprende sobre fauna marina y especies invasoras
+    // de la Santa María, donde aprende sobre fauna marina y especies invasoras
     acuatico: {
       // Pescador Manuel — introduce la historia del naufragio
       pescador1: '¡Bienvenido al fondo del mar, muchacho! Soy Manuel, pescador de Montecristi.',
-      pescador2: 'Aquí abajo están los restos de La Pinta, una de las tres carabelas de Colón.',
-      pescador3: 'Los maderos de La Pinta se usaron para construir el Fuerte Navidad — la primera estructura europea en América.',
+      pescador2: 'Aquí abajo están los restos de la Santa María, la nave capitana de Colón.',
+      pescador3: 'La Santa María encalló en un arrecife la Nochebuena de 1492. Con sus maderos construyeron el Fuerte Navidad.',
       pescador4: '¡Cuidado con las medusas! Su picadura duele y te hace nadar más lento.',
 
       // Tortuga carey — educación sobre especies en peligro
@@ -359,7 +363,7 @@ const es = {
       // Misión
       cantoBallenaCerca: '🐋 ¡Escuchas el canto de una ballena jorobada a lo lejos!',
 
-      misionExplorar: 'Explora el naufragio de La Pinta',
+      misionExplorar: 'Explora el naufragio de la Santa María',
       misionCompleta: '¡Naufragio explorado! Vuelve al mapa (M)'
     },
 
@@ -370,7 +374,9 @@ const es = {
       biologa1: '¡Bienvenida al Santuario del Manatí! Soy la Dra. Sofía, bióloga marina.',
       biologa2: 'Los manatíes antillanos están en peligro de extinción. Quedan menos de 2,500 en todo el Caribe.',
       biologa3: 'La Ley 64-00 protege la biodiversidad dominicana. Dañar a un manatí es un delito ambiental.',
-      biologa4: '¡Hay un manatí adulto atrapado en una red fantasma! Son redes de pesca abandonadas — una trampa mortal.',
+      biologa4: 'Los manatíes quedan atrapados por accidente en redes de pesca abandonadas — las llamamos "redes fantasma".',
+      biologa5: 'Para liberarlos sin hacerles daño, hay que cortar la red con cuidado, sin tocar al animal. Un manatí asustado puede agitarse y lastimarse más.',
+      biologa6: '¡Hay un manatí adulto atrapado ahora mismo! Ve a la red fantasma al este y usa [E] para cortarla. ¡Rápido, pero con calma!',
 
       // Tortuga Verde — conciencia sobre contaminación marina
       tortugaVerde1: 'Soy una tortuga verde. A diferencia de la carey, como algas y pastos marinos.',
@@ -463,6 +469,14 @@ const es = {
       traficantePaz2: 'Los artefactos serán devueltos al Museo del Hombre Dominicano.',
       traficanteDerrota: 'Torres es detenido. El caso pasa a los tribunales.',
       traficantePostCombate: 'Me atraparon... pero esto es más grande que yo. Hay toda una red.',
+
+      // Arresto cinematográfico — Inspector y Agente escoltan a Torres
+      arrestoInspector1: 'Rodrigo Torres, queda usted detenido por tráfico ilícito de bienes culturales.',
+      arrestoAgente1: 'Tiene derecho a un abogado. Todo lo que diga será usado en su contra.',
+      arrestoTorres1: '¡No pueden hacerme esto! ¡Tengo contactos!',
+      arrestoInspector2: 'Sus contactos no le servirán. INTERPOL ya notificó a todas las aduanas del Caribe.',
+      arrestoAgente2: 'Llévenselo. Los artefactos quedan confiscados como evidencia.',
+      inspectorPostArresto: 'Torres está bajo custodia. INTERPOL investigará toda su red de contactos.',
 
       // Opciones de combate legal
       etiquetaEvidencia: 'Evidencia:',
@@ -660,7 +674,7 @@ const es = {
     descLlaveHierro: 'Llave colonial de hierro forjado. Podría abrir alguna puerta antigua.',
 
     clavoBronce: 'Clavo de Bronce',
-    descClavoBronce: 'Clavo de bronce del casco de La Pinta. Resistía la corrosión del agua salada.',
+    descClavoBronce: 'Clavo de bronce del casco de la Santa María. Resistía la corrosión del agua salada.',
     mapaNaufragios: 'Mapa de Naufragios',
     descMapaNaufragios: 'Mapa con la ubicación de naufragios en el Caribe dominicano. Regalo de la arqueóloga submarina.',
 
@@ -876,7 +890,19 @@ const es = {
     titulo: 'Registro de Misiones',
     principal: 'Historia Principal',
     secundaria: 'Misiones Secundarias',
-    vacio: 'No hay misiones registradas'
+    vacio: 'No hay misiones registradas',
+    bloqueado: '???',
+    nodos: {
+      nodo0: { nombre: 'Cuevas del Pomier', desc: 'Explora las cuevas con petroglifos y pictografías taínas.' },
+      nodo1: { nombre: 'Asentamiento Taíno I', desc: 'Descubre la vida cotidiana de una aldea taína.' },
+      nodo2: { nombre: 'Asentamiento Taíno II', desc: 'Visita el batey y las ceremonias del cacicazgo.' },
+      nodo3: { nombre: 'La Isabela', desc: 'Investiga las ruinas del segundo asentamiento europeo (1494).' },
+      nodo4: { nombre: 'Zona Colonial', desc: 'Recorre la primera ciudad europea permanente de América.' },
+      nodo5: { nombre: 'Naufragio Santa María', desc: 'Sumérgete para explorar los restos de la nave capitana de Colón.' },
+      nodo6: { nombre: 'Aeropuerto Punta Cana', desc: 'Detén el tráfico ilegal de artefactos arqueológicos.' },
+      nodo7: { nombre: 'Museo Atarazanas', desc: 'Analiza los artefactos recuperados en el museo.' },
+      nodo8: { nombre: 'LFSD', desc: 'Completa misiones de robótica con les fous du robot.' }
+    }
   },
 
   // Reputación — niveles de reconocimiento del jugador
@@ -927,14 +953,20 @@ const es = {
     chispa: '¡Conexión incorrecta!'
   },
 
-  // Misiones — títulos y descripciones de las quests del LFSD
+  // Misiones — títulos y descripciones de las sidequests
   misiones: {
+    batuTitulo: 'Batú',
+    batuDesc: 'Jugar un partido de batú contra Higüemota en el batey.',
     buenasVibracionesTitulo: 'Good Vibrations',
     buenasVibracionesDesc: 'Calibra el magnetómetro en la clase de robótica del LFSD.',
     metalCompletoTitulo: 'Full Metal Archeologist',
     metalCompletoDesc: 'Programa el robot submarino en el LFSD.',
     cienciaLocaTitulo: 'Weird Science',
     cienciaLocaDesc: 'Repara el equipo de análisis en el LFSD.',
+    rescateManatiTitulo: 'Rescate del manatí',
+    rescateManatiDesc: 'Libera al manatí atrapado y limpia el arrecife en el Santuario.',
+    rescateManatiReputacion: 'Manatí liberado',
+    limpiezaReputacion: 'Arrecife limpiado',
     descubierta: '¡Misión descubierta!'
   },
 

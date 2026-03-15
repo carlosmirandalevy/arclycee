@@ -579,7 +579,7 @@ export class MundoLFSD {
 
     // Controles
     ctx.fillStyle = '#AAAAAA';
-    ctx.fillText('WASD: mover | E: hablar | M: mapa | I: inventario', ancho / 2, alto - 15);
+    ctx.fillText('WASD: mover | E: hablar | M: mapa | I: inventario | P: fotos | L: misiones', ancho / 2, alto - 15);
     ctx.textAlign = 'left';
 
     // Diálogos

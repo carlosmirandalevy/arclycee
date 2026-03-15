@@ -525,6 +525,12 @@ export class AsentamientoTaino1 {
       tamano: 11, color: '#FFD700'
     });
 
+    // Objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
@@ -537,7 +543,7 @@ export class AsentamientoTaino1 {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }

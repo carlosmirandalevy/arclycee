@@ -380,8 +380,10 @@ export class ZonaColonial {
       // --- Rastrear resultado para el sistema de finales ---
       if (this.juego.combate.resultado === 'pacificado') {
         this.juego.progreso.combatesPacificados++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(15, 'Victoria pacífica');
       } else if (this.juego.combate.resultado === 'victoria') {
         this.juego.progreso.combatesViolentos++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(5, 'Victoria en combate');
       }
 
       // Diálogo de resolución
@@ -712,7 +714,7 @@ export class ZonaColonial {
         if (!this.juego.progreso.nodosCompletados.includes(4)) {
           this.juego.progreso.nodosCompletados.push(4);
         }
-        // Desbloquear el naufragio de La Pinta (nodo 5, Mundo Acuático)
+        // Desbloquear el naufragio de la Santa María (nodo 5, Mundo Acuático)
         if (!this.juego.progreso.nodosDesbloqueados.includes(5)) {
           this.juego.progreso.nodosDesbloqueados.push(5);
         }
@@ -961,11 +963,17 @@ export class ZonaColonial {
       tamano: 11, color: '#FFD700'
     });
 
+    // Objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     // Contador de excavaciones
     const totalExcavaciones = this.zonasExcavacion.length;
     const excavadas = this.zonasExcavacion.filter(z => z.excavada).length;
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto(`⛏️ ${excavadas}/${totalExcavaciones}`, 15, 58, {
+      renderizador.dibujarTexto(`⛏️ ${excavadas}/${totalExcavaciones}`, 15, 74, {
         tamano: 11, color: '#44FFFF'
       });
     }
@@ -976,7 +984,7 @@ export class ZonaColonial {
 
     // --- Indicador de F para Magnoboot ---
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto('[F] Detectar Metal', 15, 74, {
+      renderizador.dibujarTexto('[F] Detectar Metal', 15, 90, {
         tamano: 10, color: '#44FFFF'
       });
     }
@@ -991,7 +999,7 @@ export class ZonaColonial {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar/excavar | F: detectar | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | E: hablar/excavar | F: detectar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }

@@ -12,8 +12,11 @@
 
 export class RegistroJuego {
 
-  constructor() {
-    // Lista de entradas del registro
+  constructor(juego) {
+    // Referencia al juego para leer el progreso de nodos
+    this.juego = juego;
+
+    // Lista de entradas del registro (solo para sidequests ahora)
     // Cada entrada: { tipo, titulo, descripcion, completada }
     this.entradas = [];
 
@@ -28,6 +31,20 @@ export class RegistroJuego {
 
     // Bloqueo de entrada para evitar inputs repetidos
     this._bloqueoEntrada = true;
+
+    // Nodos del mundo en orden — corresponden a los IDs de mapa-tiles.js
+    // Cada nodo tiene su clave de traducción en textos.registro.nodos
+    this._nodosMundo = [
+      { id: 0, clave: 'nodo0' },  // Cuevas del Pomier
+      { id: 1, clave: 'nodo1' },  // Asentamiento Taíno I
+      { id: 2, clave: 'nodo2' },  // Asentamiento Taíno II
+      { id: 3, clave: 'nodo3' },  // La Isabela
+      { id: 4, clave: 'nodo4' },  // Zona Colonial
+      { id: 5, clave: 'nodo5' },  // Naufragio Santa María
+      { id: 6, clave: 'nodo6' },  // Aeropuerto Punta Cana
+      { id: 7, clave: 'nodo7' },  // Museo Atarazanas
+      { id: 8, clave: 'nodo8' }   // LFSD
+    ];
   }
 
   // --- Agregar una nueva entrada al registro ---
@@ -131,20 +148,121 @@ export class RegistroJuego {
     ctx.fillStyle = esSecundaria ? '#FFD700' : '#AAAAAA';
     ctx.fillText(reg.secundaria || 'Misiones Secundarias', ancho / 2 + tabAncho / 2 + 10, tabY + 19);
 
-    // --- Entradas de la sección activa ---
-    const entradasFiltradas = this.entradas.filter(e => e.tipo === this.seccionActiva);
+    const inicioY = 130;
+    const altoEntrada = 50;
+
+    // --- Contenido según la pestaña activa ---
+    if (this.seccionActiva === 'principal') {
+      // Historia Principal: muestra los mundos en orden con su estado
+      this._dibujarNodosMundo(ctx, ancho, inicioY, altoEntrada, reg);
+    } else {
+      // Misiones Secundarias: muestra las entradas tipo 'secundaria'
+      this._dibujarEntradas(ctx, ancho, inicioY, altoEntrada, reg);
+    }
+
+    // --- Controles ---
+    ctx.fillStyle = '#888888';
+    ctx.font = '11px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('← → cambiar pestaña | ↑ ↓ scroll | Q cerrar', ancho / 2, alto - 45);
+
+    ctx.textAlign = 'left';
+  }
+
+  // --- Dibujar los nodos del mundo (pestaña Historia Principal) ---
+  _dibujarNodosMundo(ctx, ancho, inicioY, altoEntrada, reg) {
+    const nodos = this._nodosMundo;
+    const progreso = this.juego?.progreso || {};
+    const completados = progreso.nodosCompletados || [];
+    const desbloqueados = progreso.nodosDesbloqueados || [0];
+    const nodosTextos = reg.nodos || {};
+
+    // Limitar scroll (9 nodos, 7 visibles a la vez)
+    const maxScroll = Math.max(0, nodos.length - 7);
+    this.scrollY = Math.min(this.scrollY, maxScroll);
+
+    for (let i = this.scrollY; i < Math.min(nodos.length, this.scrollY + 7); i++) {
+      const nodo = nodos[i];
+      const y = inicioY + (i - this.scrollY) * altoEntrada;
+
+      // Determinar estado del nodo
+      const completado = completados.includes(nodo.id);
+      const desbloqueado = desbloqueados.includes(nodo.id);
+
+      // Fondo según estado
+      if (completado) {
+        ctx.fillStyle = 'rgba(68, 170, 68, 0.15)';
+      } else if (desbloqueado) {
+        ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
+      } else {
+        ctx.fillStyle = 'rgba(80, 80, 80, 0.1)';
+      }
+      ctx.fillRect(60, y, ancho - 120, altoEntrada - 5);
+
+      // Icono de estado
+      ctx.font = 'bold 16px monospace';
+      ctx.textAlign = 'left';
+      if (completado) {
+        ctx.fillStyle = '#44CC44';
+        ctx.fillText('✅', 68, y + 20);
+      } else if (desbloqueado) {
+        ctx.fillStyle = '#FFD700';
+        ctx.fillText('🔓', 68, y + 20);
+      } else {
+        ctx.fillStyle = '#666666';
+        ctx.fillText('🔒', 68, y + 20);
+      }
+
+      // Número de capítulo
+      ctx.font = 'bold 12px monospace';
+      ctx.fillStyle = completado ? '#88CC88' : desbloqueado ? '#FFD700' : '#555555';
+      ctx.fillText(`${nodo.id + 1}.`, 92, y + 18);
+
+      // Nombre del nodo (traducido o fallback)
+      const infoNodo = nodosTextos[nodo.clave] || {};
+      const nombre = infoNodo.nombre || `Mundo ${nodo.id + 1}`;
+
+      ctx.font = 'bold 13px monospace';
+      if (completado) {
+        ctx.fillStyle = '#88CC88';
+      } else if (desbloqueado) {
+        ctx.fillStyle = '#FFFFFF';
+      } else {
+        // Mundo bloqueado — nombre oscurecido
+        ctx.fillStyle = '#555555';
+      }
+      ctx.fillText(nombre, 112, y + 18);
+
+      // Descripción (solo si desbloqueado o completado)
+      if (desbloqueado || completado) {
+        const desc = infoNodo.desc || '';
+        ctx.fillStyle = '#AAAAAA';
+        ctx.font = '11px monospace';
+        const texto = desc.length > 75 ? desc.substring(0, 72) + '...' : desc;
+        ctx.fillText(texto, 112, y + 36);
+      } else {
+        ctx.fillStyle = '#444444';
+        ctx.font = '11px monospace';
+        ctx.fillText(reg.bloqueado || '???', 112, y + 36);
+      }
+    }
+  }
+
+  // --- Dibujar entradas de sidequests (pestaña Secundaria) ---
+  _dibujarEntradas(ctx, ancho, inicioY, altoEntrada, reg) {
+    const entradasFiltradas = this.entradas.filter(e => e.tipo === 'secundaria');
 
     // Limitar scroll
     const maxScroll = Math.max(0, entradasFiltradas.length - 7);
     this.scrollY = Math.min(this.scrollY, maxScroll);
 
-    const inicioY = 130;
-    const altoEntrada = 50;
-
     if (entradasFiltradas.length === 0) {
       ctx.fillStyle = '#888888';
       ctx.font = '14px monospace';
+      ctx.textAlign = 'center';
       ctx.fillText(reg.vacio || 'No hay misiones registradas', ancho / 2, inicioY + 40);
+      ctx.textAlign = 'left';
+      return;
     }
 
     for (let i = this.scrollY; i < Math.min(entradasFiltradas.length, this.scrollY + 7); i++) {
@@ -169,19 +287,10 @@ export class RegistroJuego {
       // Descripción
       ctx.fillStyle = '#AAAAAA';
       ctx.font = '11px monospace';
-      // Truncar si es muy largo
       const desc = entrada.descripcion.length > 80
         ? entrada.descripcion.substring(0, 77) + '...'
         : entrada.descripcion;
       ctx.fillText(desc, 90, y + 36);
     }
-
-    // --- Controles ---
-    ctx.fillStyle = '#888888';
-    ctx.font = '11px monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText('← → cambiar pestaña | ↑ ↓ scroll | Q cerrar', ancho / 2, alto - 45);
-
-    ctx.textAlign = 'left';
   }
 }

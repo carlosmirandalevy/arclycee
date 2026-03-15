@@ -169,7 +169,11 @@ const fr = {
       // Batú — dialogues de Higüemota pour le mini-jeu
       batuOferta1: 'Tu veux jouer au batú ? C\'est notre jeu de balle sacré.',
       batuOferta2: 'On frappe avec les hanches, les épaules et la tête. Jamais avec les mains !',
-      batuOferta3: 'Allons au batey ! Le premier à 3 points gagne.',
+      batuAceptar: 'Oui, jouons !',
+      batuRechazar: 'Pas maintenant, peut-être plus tard.',
+      batuOfertaRepite: 'Prêt pour le batú ? Le batey t\'attend !',
+      batuPendiente: '🏐 Quête en attente : Batú',
+      batuReputacion: 'Batú terminé',
       batuVictoria: 'Impressionnant ! Tu joues comme un vrai Taïno.',
       batuDerrota: 'Bon essai ! Le batú demande beaucoup de pratique.',
       batuRepite: 'C\'était un super match ! Le batú unit les villages et résout les conflits sans violence.',
@@ -296,11 +300,11 @@ const fr = {
       misionCompleta: 'Zone Coloniale explorée ! Retour à la carte (M)'
     },
 
-    // Monde Aquatique — Épave de La Pinta
+    // Monde Aquatique — Épave de la Santa María
     acuatico: {
       pescador1: 'Bienvenue au fond de la mer, gamin ! Je suis Manuel, pêcheur de Montecristi.',
-      pescador2: 'Ici reposent les restes de La Pinta, l\'une des trois caravelles de Colomb.',
-      pescador3: 'Les bois de La Pinta ont servi à construire le Fort Navidad — la première structure européenne en Amérique.',
+      pescador2: 'Ici reposent les restes de la Santa María, le navire amiral de Colomb.',
+      pescador3: 'La Santa María s\'est échouée sur un récif la nuit de Noël 1492. Ses bois ont servi à construire le Fort Navidad.',
       pescador4: 'Attention aux méduses ! Leur piqûre fait mal et te ralentit.',
 
       tortuga1: 'Je suis une tortue imbriquée. Mon espèce nage dans ces mers depuis 100 millions d\'années.',
@@ -344,7 +348,7 @@ const fr = {
 
       cantoBallenaCerca: 'Tu entends le chant d\'une baleine à bosse au loin !',
 
-      misionExplorar: 'Explore l\'épave de La Pinta',
+      misionExplorar: 'Explore l\'épave de la Santa María',
       misionCompleta: 'Épave explorée ! Retour à la carte (M)'
     },
 
@@ -353,7 +357,9 @@ const fr = {
       biologa1: 'Bienvenue au Sanctuaire du Lamantin ! Je suis le Dr Sofía, biologiste marine.',
       biologa2: 'Les lamantins des Antilles sont en danger d\'extinction. Il en reste moins de 2 500 dans toutes les Caraïbes.',
       biologa3: 'La Loi 64-00 protège la biodiversité dominicaine. Blesser un lamantin est un délit environnemental.',
-      biologa4: 'Il y a un lamantin adulte piégé dans un filet fantôme ! Ce sont des filets de pêche abandonnés — un piège mortel.',
+      biologa4: 'Les lamantins se retrouvent piégés par accident dans des filets de pêche abandonnés — on les appelle « filets fantômes ».',
+      biologa5: 'Pour les libérer sans leur faire de mal, il faut couper le filet avec précaution, sans toucher l\'animal. Un lamantin effrayé peut s\'agiter et se blesser davantage.',
+      biologa6: 'Il y a un lamantin adulte piégé en ce moment ! Va au filet fantôme à l\'est et appuie sur [E] pour le couper. Vite, mais calmement !',
 
       tortugaVerde1: 'Je suis une tortue verte. Contrairement à l\'imbriquée, je mange des algues et des herbiers marins.',
       tortugaVerde2: 'Les déchets marins nous tuent. Nous confondons les sacs plastiques avec des méduses et les mangeons.',
@@ -432,6 +438,14 @@ const fr = {
       traficantePaz2: 'Les artefacts seront rendus au Musée de l\'Homme Dominicain.',
       traficanteDerrota: 'Torres est arrêté. L\'affaire passe devant les tribunaux.',
       traficantePostCombate: 'Vous m\'avez eu... mais c\'est plus grand que moi. Il y a tout un réseau.',
+
+      // Cinématique d'arrestation
+      arrestoInspector1: 'Rodrigo Torres, vous êtes en état d\'arrestation pour trafic illicite de biens culturels.',
+      arrestoAgente1: 'Vous avez le droit à un avocat. Tout ce que vous direz pourra être retenu contre vous.',
+      arrestoTorres1: 'Vous ne pouvez pas me faire ça ! J\'ai des contacts !',
+      arrestoInspector2: 'Vos contacts ne vous sauveront pas. INTERPOL a alerté toutes les douanes des Caraïbes.',
+      arrestoAgente2: 'Emmenez-le. Les artefacts sont confisqués comme pièces à conviction.',
+      inspectorPostArresto: 'Torres est en détention. INTERPOL enquêtera sur tout son réseau.',
 
       etiquetaEvidencia: 'Preuve :',
       combatePista: 'Utilise les lois et les preuves pour construire un dossier juridique',
@@ -625,7 +639,7 @@ const fr = {
     descLlaveHierro: 'Clé coloniale en fer forgé. Elle pourrait ouvrir une porte ancienne.',
 
     clavoBronce: 'Clou en Bronze',
-    descClavoBronce: 'Clou en bronze de la coque de La Pinta. Il résistait à la corrosion de l\'eau salée.',
+    descClavoBronce: 'Clou en bronze de la coque de la Santa María. Il résistait à la corrosion de l\'eau salée.',
     mapaNaufragios: 'Carte des Épaves',
     descMapaNaufragios: 'Carte indiquant l\'emplacement des épaves dans les Caraïbes dominicaines. Cadeau de l\'archéologue sous-marine.',
 
@@ -841,7 +855,19 @@ const fr = {
     titulo: 'Journal de Missions',
     principal: 'Histoire Principale',
     secundaria: 'Quêtes Secondaires',
-    vacio: 'Aucune mission enregistrée'
+    vacio: 'Aucune mission enregistrée',
+    bloqueado: '???',
+    nodos: {
+      nodo0: { nombre: 'Grottes du Pomier', desc: 'Explore les grottes aux pétroglyphes et pictographies taïnos.' },
+      nodo1: { nombre: 'Village Taïno I', desc: 'Découvre la vie quotidienne d\'un village taïno.' },
+      nodo2: { nombre: 'Village Taïno II', desc: 'Visite le batey et les cérémonies du caciquat.' },
+      nodo3: { nombre: 'La Isabela', desc: 'Enquête sur les ruines du deuxième établissement européen (1494).' },
+      nodo4: { nombre: 'Zone Coloniale', desc: 'Parcours la première ville européenne permanente des Amériques.' },
+      nodo5: { nombre: 'Épave Santa María', desc: 'Plonge pour explorer les restes du navire amiral de Colomb.' },
+      nodo6: { nombre: 'Aéroport Punta Cana', desc: 'Arrête le trafic illégal d\'artefacts archéologiques.' },
+      nodo7: { nombre: 'Musée Atarazanas', desc: 'Analyse les artefacts récupérés au musée.' },
+      nodo8: { nombre: 'LFSD', desc: 'Complète des missions de robotique avec les fous du robot.' }
+    }
   },
 
   // Réputation — niveaux de reconnaissance du joueur
@@ -892,14 +918,20 @@ const fr = {
     chispa: 'Mauvaise connexion !'
   },
 
-  // Quêtes — titres et descriptions des quêtes du LFSD
+  // Quêtes — titres et descriptions des quêtes secondaires
   misiones: {
+    batuTitulo: 'Batú',
+    batuDesc: 'Jouer un match de batú contre Higüemota au batey.',
     buenasVibracionesTitulo: 'Good Vibrations',
     buenasVibracionesDesc: 'Calibre le magnétomètre au cours de robotique du LFSD.',
     metalCompletoTitulo: 'Full Metal Archeologist',
     metalCompletoDesc: 'Programme le robot sous-marin au LFSD.',
     cienciaLocaTitulo: 'Weird Science',
     cienciaLocaDesc: 'Répare l\'équipement d\'analyse au LFSD.',
+    rescateManatiTitulo: 'Sauvetage du lamantin',
+    rescateManatiDesc: 'Libère le lamantin piégé et nettoie le récif au Sanctuaire.',
+    rescateManatiReputacion: 'Lamantin libéré',
+    limpiezaReputacion: 'Récif nettoyé',
     descubierta: 'Quête découverte !'
   },
 

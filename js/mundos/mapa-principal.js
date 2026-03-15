@@ -268,15 +268,26 @@ export class MapaPrincipal {
       }
     }
 
-    // Posicionar al jugador en el último nodo desbloqueado
+    // Posicionar al jugador — si murió en un mundo, respawnear en ese nodo
     if (juego.jugador) {
       juego.jugador.modoJuego = 'topdown';
 
       let nodoInicio = this.nodos[0];
-      for (let i = this.nodos.length - 1; i >= 0; i--) {
-        if (!this.nodos[i].bloqueado) {
-          nodoInicio = this.nodos[i];
-          break;
+
+      // Si el jugador murió, buscar el nodo de la escena donde murió
+      if (juego._escenaMuerte) {
+        const nodoMuerte = this.nodos.find(n => n.escena === juego._escenaMuerte);
+        if (nodoMuerte) {
+          nodoInicio = nodoMuerte;
+        }
+        juego._escenaMuerte = null;
+      } else {
+        // Caso normal: posicionar en el último nodo desbloqueado
+        for (let i = this.nodos.length - 1; i >= 0; i--) {
+          if (!this.nodos[i].bloqueado) {
+            nodoInicio = this.nodos[i];
+            break;
+          }
         }
       }
 

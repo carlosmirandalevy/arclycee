@@ -19,13 +19,13 @@ import { SonidoProcedural } from '../motor/sonido-procedural.js';
 
 // --- Constantes de física ---
 // Calibradas para que la pelota se sienta elástica y satisfactoria
-const GRAVEDAD = 600;              // px/s² — aceleración hacia abajo
+const GRAVEDAD = 480;              // px/s² — aceleración hacia abajo (menor para vuelos más largos)
 const REBOTE_PELOTA = 0.8;         // Coeficiente de rebote contra el suelo
 const REBOTE_PARED = 0.9;          // Coeficiente de rebote contra las paredes
-const FRICCION_AIRE = 0.995;       // La pelota pierde velocidad gradualmente
-const VELOCIDAD_SAQUE = 300;       // px/s al servir
-const VELOCIDAD_GOLPE_MIN = 250;   // px/s golpe débil
-const VELOCIDAD_GOLPE_MAX = 450;   // px/s golpe fuerte
+const FRICCION_AIRE = 0.998;       // La pelota pierde velocidad más gradualmente
+const VELOCIDAD_SAQUE = 400;       // px/s al servir (más fuerte para cruzar la cancha)
+const VELOCIDAD_GOLPE_MIN = 280;   // px/s golpe débil
+const VELOCIDAD_GOLPE_MAX = 500;   // px/s golpe fuerte
 const VELOCIDAD_JUGADOR = 200;     // px/s movimiento horizontal del jugador
 const RADIO_PELOTA = 8;            // px
 const PUNTOS_PARA_GANAR = 3;       // Primero en llegar gana
@@ -43,9 +43,10 @@ const JUGADOR_ALTO = 40;
 
 // --- IA del rival ---
 // Diseñada para ser vencible por jugadores de ~13 años
-const IA_VELOCIDAD_FACTOR = 0.85;  // 85% de la velocidad del jugador
-const IA_RETARDO_REACCION = 0.15;  // Segundos antes de reaccionar
-const IA_PROBABILIDAD_ERROR = 0.15; // 15% de fallar intencionalmente
+const IA_VELOCIDAD_FACTOR = 0.72;  // 72% de la velocidad del jugador
+const IA_RETARDO_REACCION = 0.3;   // Segundos antes de reaccionar (más lento)
+const IA_PROBABILIDAD_ERROR = 0.30; // 30% de fallar intencionalmente
+const IA_IMPRECISION = 25;          // px de error al apuntar a la pelota
 
 // --- Datos educativos sobre el batú (se muestran entre puntos) ---
 const DATOS_EDUCATIVOS = [
@@ -208,20 +209,23 @@ export class JuegoBatu {
   // --- Fase: Saque (la pelota se lanza al aire) ---
   _actualizarSaque(dt, entrada) {
     if (this._tiempoFase > 0.5) {
-      // Lanzar la pelota
+      // Lanzar la pelota — arco más plano para que siempre cruce la línea central
       const direccion = this._saqueJugador ? 1 : -1;
       this.pelota.x = this._saqueJugador
         ? this.jugadorX + JUGADOR_ANCHO / 2
         : this.rivalX + JUGADOR_ANCHO / 2;
       this.pelota.y = CANCHA_SUELO - JUGADOR_ALTO - 10;
-      this.pelota.vx = VELOCIDAD_SAQUE * direccion;
-      this.pelota.vy = -VELOCIDAD_SAQUE * 0.8;
+      // Variación aleatoria en el saque (±10%) para que no sea siempre igual
+      const varSaque = 0.9 + Math.random() * 0.2;
+      this.pelota.vx = VELOCIDAD_SAQUE * direccion * varSaque;
+      this.pelota.vy = -VELOCIDAD_SAQUE * 0.5 * varSaque;  // Arco más bajo y rápido
 
       this._sfx.batuSaque();
 
-      // Decidir si la IA falla este punto
+      // Decidir si la IA falla este punto (se re-evalúa cada pocos segundos)
       this._iaErrorActivo = Math.random() < IA_PROBABILIDAD_ERROR;
       this._iaRetardo = IA_RETARDO_REACCION;
+      this._iaProximoReeval = 1.5 + Math.random() * 2; // Re-evaluar error cada 1.5-3.5s
 
       this.fase = 'jugando';
       this._tiempoFase = 0;
@@ -244,6 +248,15 @@ export class JuegoBatu {
 
     // --- IA del rival ---
     this._actualizarIA(dt);
+
+    // Re-evaluar si la IA falla periódicamente (no solo al inicio del punto)
+    if (this._iaProximoReeval !== undefined) {
+      this._iaProximoReeval -= dt;
+      if (this._iaProximoReeval <= 0) {
+        this._iaErrorActivo = Math.random() < IA_PROBABILIDAD_ERROR;
+        this._iaProximoReeval = 1.5 + Math.random() * 2;
+      }
+    }
 
     // --- Física de la pelota ---
     // Gravedad
@@ -351,10 +364,13 @@ export class JuegoBatu {
         anguloGolpe = -30 * (Math.PI / 180);
       }
 
-      // Aplicar velocidad con un poco de variación aleatoria
-      const variacion = 0.9 + Math.random() * 0.2;
-      this.pelota.vx = Math.cos(anguloGolpe) * velocidadGolpe * direccion * variacion;
-      this.pelota.vy = Math.sin(anguloGolpe) * velocidadGolpe * variacion;
+      // Aplicar velocidad con variación aleatoria significativa
+      // Esto hace que los golpes sean impredecibles — a veces fuertes, a veces débiles
+      const variacion = 0.75 + Math.random() * 0.5;  // ±25% de variación
+      // El ángulo también varía ligeramente para trayectorias impredecibles
+      const variacionAngulo = (Math.random() - 0.5) * 0.3;  // ±~8° de variación
+      this.pelota.vx = Math.cos(anguloGolpe + variacionAngulo) * velocidadGolpe * direccion * variacion;
+      this.pelota.vy = Math.sin(anguloGolpe + variacionAngulo) * velocidadGolpe * variacion;
 
       // Empujar la pelota fuera del jugador para evitar doble colisión
       this.pelota.x += direccion * (RADIO_PELOTA + 5);
@@ -363,34 +379,44 @@ export class JuegoBatu {
     }
   }
 
-  // --- IA del rival (simple pero creíble) ---
+  // --- IA del rival (vencible, con errores realistas) ---
   _actualizarIA(dt) {
-    // Retardo de reacción
+    // Retardo de reacción — no se mueve hasta que pasa el retardo
     if (this._iaRetardo > 0) {
       this._iaRetardo -= dt;
       return;
     }
 
-    // Objetivo: ir hacia donde está la pelota (con margen)
+    // Objetivo: ir hacia donde CREE que está la pelota (con imprecisión)
     let objetivo;
-    if (this._iaErrorActivo && Math.random() < 0.03) {
-      // Movimiento errático cuando "falla"
-      objetivo = this.rivalX + (Math.random() - 0.5) * 100;
+    if (this._iaErrorActivo) {
+      // Cuando está en "modo error", se mueve de forma errática
+      // y a veces se queda quieto o va en la dirección equivocada
+      if (Math.random() < 0.08) {
+        // Moverse al azar — falla de lectura de la pelota
+        objetivo = this.rivalX + (Math.random() - 0.5) * 150;
+      } else {
+        // Quedarse quieto o ir lento hacia el centro
+        objetivo = CANCHA_X + CANCHA_ANCHO * 0.75 - JUGADOR_ANCHO / 2;
+      }
     } else {
       // Seguir la pelota, pero solo si está en su lado o acercándose
       if (this.pelota.x > LINEA_CENTRAL || this.pelota.vx > 0) {
-        objetivo = this.pelota.x - JUGADOR_ANCHO / 2;
+        // Imprecisión: el rival no apunta exactamente a la pelota
+        const error = (Math.random() - 0.5) * IA_IMPRECISION * 2;
+        objetivo = this.pelota.x - JUGADOR_ANCHO / 2 + error;
       } else {
-        // Pelota lejos, volver al centro de su zona
+        // Pelota lejos, volver al centro de su zona (a veces se relaja)
         objetivo = CANCHA_X + CANCHA_ANCHO * 0.75 - JUGADOR_ANCHO / 2;
       }
     }
 
     // Moverse hacia el objetivo con velocidad limitada
-    const velocidadIA = VELOCIDAD_JUGADOR * IA_VELOCIDAD_FACTOR;
+    // La velocidad también varía un poco para hacerlo más humano
+    const velocidadIA = VELOCIDAD_JUGADOR * IA_VELOCIDAD_FACTOR * (0.85 + Math.random() * 0.3);
     const diferencia = objetivo - this.rivalX;
 
-    if (Math.abs(diferencia) > 3) {
+    if (Math.abs(diferencia) > 5) {
       const direccionIA = diferencia > 0 ? 1 : -1;
       this.rivalX += direccionIA * velocidadIA * dt;
     }

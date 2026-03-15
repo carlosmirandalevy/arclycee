@@ -1,10 +1,10 @@
 // ============================================================
-// MUNDO-ACUATICO.JS - Naufragio de La Pinta (Acto 3)
+// MUNDO-ACUATICO.JS - Naufragio de la Santa María (Acto 3)
 // ============================================================
 // Después de explorar la Zona Colonial, un pescador lleva a
-// Pepito en canoa a explorar los restos submarinos de La Pinta,
-// la carabela cuyos maderos sirvieron para construir el Fuerte
-// Navidad — la primera estructura europea en América.
+// Pepito en canoa a explorar los restos submarinos de la Santa
+// María, la nave capitana de Colón que encalló cerca de
+// Cap-Haïtien la noche del 25 de diciembre de 1492.
 //
 // El jugador explora el fondo marino, habla con fauna marina,
 // enfrenta a un pez león invasor y recibe un mapa de naufragios
@@ -111,15 +111,17 @@ export class MundoAcuatico {
       juego.jugador.direccion = 'arriba';
     }
 
-    // --- Estructuras del naufragio de La Pinta ---
-    // La Pinta fue una de las tres carabelas de Colón. Sus maderos
-    // se usaron para construir el Fuerte Navidad en Haití (1492).
+    // --- Estructuras del naufragio de la Santa María ---
+    // La Santa María, nave capitana de Colón, encalló en un arrecife
+    // cerca de Cap-Haïtien la Nochebuena de 1492. Sus maderos
+    // se usaron para construir el Fuerte Navidad — la primera
+    // estructura europea en América.
     this.estructuras = [
       {
         x: 600, y: 350,
         ancho: 180, alto: 90,
         tipo: 'cascoGrande',
-        nombre: 'Casco de La Pinta'
+        nombre: 'Casco de la Santa María'
       },
       {
         x: 900, y: 500,
@@ -248,7 +250,7 @@ export class MundoAcuatico {
     // Misión inicial
     const textos = this._obtenerTextos();
     this.misionActual = textos?.dialogos?.acuatico?.misionExplorar
-      || 'Explora el naufragio de La Pinta';
+      || 'Explora el naufragio de la Santa María';
   }
 
   // --- Lógica de cada frame ---
@@ -277,8 +279,10 @@ export class MundoAcuatico {
       if (this.juego.combate.resultado === 'pacificado') {
         this.juego.progreso.combatesPacificados++;
         this.juego.progreso.accionesEcologicas++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(15, 'Victoria pacífica');
       } else if (this.juego.combate.resultado === 'victoria') {
         this.juego.progreso.combatesViolentos++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(5, 'Victoria en combate');
       }
 
       // Diálogo de resolución según el resultado
@@ -802,6 +806,12 @@ export class MundoAcuatico {
       tamano: 11, color: '#FFD700'
     });
 
+    // Objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
@@ -809,7 +819,7 @@ export class MundoAcuatico {
 
     // Indicador de lentitud por medusa
     if (this.efectoLentitud > 0) {
-      renderizador.dibujarTexto('🪼 ¡Lentitud!', 15, 60, {
+      renderizador.dibujarTexto('🪼 ¡Lentitud!', 15, 74, {
         tamano: 10, color: '#CC77FF'
       });
     }
@@ -821,7 +831,7 @@ export class MundoAcuatico {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: nadar | E: hablar | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: nadar | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: 'rgba(150, 180, 200, 0.6)', alineacion: 'center'
       });
     }
@@ -837,7 +847,7 @@ export class MundoAcuatico {
     const h = est.alto;
 
     if (est.tipo === 'cascoGrande') {
-      // Casco principal de La Pinta — madera oscura cubierta de algas
+      // Casco principal de la Santa María — madera oscura cubierta de algas
       ctx.fillStyle = '#4a3520';
       ctx.fillRect(x, y, a, h);
 
@@ -1311,8 +1321,8 @@ export class MundoAcuatico {
     if (npc.id === 'pescador') {
       this.dialogos.iniciarDialogo([
         { personaje: '🚣 Pescador Manuel', texto: ac?.pescador1 || '¡Bienvenido al fondo del mar, muchacho! Soy Manuel, pescador de Montecristi.' },
-        { personaje: '🚣 Pescador Manuel', texto: ac?.pescador2 || 'Aquí abajo están los restos de La Pinta, una de las tres carabelas de Colón.' },
-        { personaje: '🚣 Pescador Manuel', texto: ac?.pescador3 || 'Los maderos de La Pinta se usaron para construir el Fuerte Navidad — la primera estructura europea en América.' },
+        { personaje: '🚣 Pescador Manuel', texto: ac?.pescador2 || 'Aquí abajo están los restos de la Santa María, la nave capitana de Colón.' },
+        { personaje: '🚣 Pescador Manuel', texto: ac?.pescador3 || 'La Santa María encalló en un arrecife la Nochebuena de 1492. Con sus maderos construyeron el Fuerte Navidad.' },
         { personaje: '🚣 Pescador Manuel', texto: ac?.pescador4 || '¡Cuidado con las medusas! Su picadura duele y te hace nadar más lento.' }
       ], () => { npc.dialogoHecho = true; });
 

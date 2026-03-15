@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Personnages</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../resources/favicon-32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <!-- ============================================================ -->
+    <!-- SECTION 1 : LE JOUEUR                                        -->
+    <!-- ============================================================ -->
+    <section id="joueur">
+      <h2><span class="icono">🧑</span> Le Joueur</h2>
+      <p class="intro">Le joueur choisit son personnage au debut (garcon ou fille) et explore les 9 mondes d'Hispaniola. Son objectif : decouvrir le patrimoine archeologique de la Republique Dominicaine tout en protegeant les sites historiques et les ecosystemes marins.</p>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 2 : COMPAGNONS                                       -->
+    <!-- ============================================================ -->
+    <section id="compagnons">
+      <h2><span class="icono">🤝</span> Compagnons</h2>
+      <p class="intro">Trois compagnons rejoignent le joueur au cours de l'aventure. Chacun possede des capacites uniques qui aident a l'exploration.</p>
+
+      <div class="companero-card">
+        <div class="companero-visual" style="font-size:2.5rem;align-items:center;justify-content:center;">🤖</div>
+        <div>
+          <h3>🤖 Magnoboot</h3>
+          <p><strong>Robot excavateur avec detection de metal</strong></p>
+          <p>Obtenu aux Cuevas del Pomier. Detecte les objets enterres avec un pulse radar (touche F). Indispensable pour trouver les artefacts caches sous terre.</p>
+        </div>
+      </div>
+
+      <div class="companero-card">
+        <div class="companero-visual" style="font-size:2.5rem;align-items:center;justify-content:center;">🐕</div>
+        <div>
+          <h3>🐕 Viralata</h3>
+          <p><strong>Chien errant pisteur</strong></p>
+          <p>Adopte au Campement Taino I. Detecte les objets caches grace a son flair. Son instinct guide le joueur vers les secrets de chaque monde.</p>
+        </div>
+      </div>
+
+      <div class="companero-card">
+        <div class="companero-visual" style="font-size:2.5rem;align-items:center;justify-content:center;">🦇</div>
+        <div>
+          <h3>🦇 Cemi Murcielago</h3>
+          <p><strong>Esprit chauve-souris taino</strong></p>
+          <p>Trouve au Campement Taino II. Gagne des pouvoirs en collectant des botijas (6 niveaux). Un esprit ancestral qui protege le joueur dans les zones sombres.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 3 : PERSONNAGES PAR MONDE                            -->
+    <!-- ============================================================ -->
+    <section id="personnages">
+      <h2><span class="icono">🗺️</span> Personnages par Monde</h2>
+      <p class="intro">Tous les PNJ du jeu, organises par monde.</p>
+
+      <!-- Cuevas del Pomier -->
+      <h3>🕳️ Cuevas del Pomier</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">🔬</div>
+        <div class="npc-info">
+          <h5>Dra. Martinez</h5>
+          <div class="npc-role">Archeologue</div>
+          <p>Vous donne Magnoboot et guide l'exploration des grottes.</p>
+        </div>
+      </div>
+
+      <!-- Campement Taino I -->
+      <h3>🏘️ Campement Taino I</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">👑</div>
+        <div class="npc-info">
+          <h5>Cacique Guacanagarix</h5>
+          <div class="npc-role">Chef du village</div>
+          <p>Enseigne l'organisation sociale taino et le systeme des cacicats.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🏺</div>
+        <div class="npc-info">
+          <h5>Anacaona</h5>
+          <div class="npc-role">Potiere</div>
+          <p>Montre l'art de la ceramique taino et les techniques ancestrales.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🐟</div>
+        <div class="npc-info">
+          <h5>Caonabo</h5>
+          <div class="npc-role">Pecheur</div>
+          <p>Explique les techniques de peche taino, l'usage des canots et la vie cotiere.</p>
+        </div>
+      </div>
+
+      <!-- Campement Taino II -->
+      <h3>🌾 Campement Taino II</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">🌿</div>
+        <div class="npc-info">
+          <h5>Behique Yuisa</h5>
+          <div class="npc-role">Chaman / Guerisseur</div>
+          <p>Enseigne la medecine traditionnelle taino, le rite de la cohoba et la spiritualite.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🌽</div>
+        <div class="npc-info">
+          <h5>Guarionex</h5>
+          <div class="npc-role">Agriculteur</div>
+          <p>Explique les conucos, la culture du manioc, du mais et de la patate douce.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🎵</div>
+        <div class="npc-info">
+          <h5>Higuemota</h5>
+          <div class="npc-role">Musicienne</div>
+          <p>Parle de l'areito, la musique et la danse ceremonielle taino. Invite le joueur a jouer au batu.</p>
+        </div>
+      </div>
+
+      <!-- La Isabela -->
+      <h3>⚓ La Isabela</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">⚔️</div>
+        <div class="npc-info">
+          <h5>Soldat Diego</h5>
+          <div class="npc-role">Gardien / Combat</div>
+          <p>Garde les ruines. Premier combat du jeu. Peut etre pacifie par la diplomatie.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">📜</div>
+        <div class="npc-info">
+          <h5>Fray Ramon Pane</h5>
+          <div class="npc-role">Premier chroniqueur des Indes</div>
+          <p>Ecrivit le premier ouvrage sur les coutumes taino.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🪶</div>
+        <div class="npc-info">
+          <h5>Guatiguaná</h5>
+          <div class="npc-role">Chef taino</div>
+          <p>Parle de la resistance indigene et de la survie de la culture taino.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">📚</div>
+        <div class="npc-info">
+          <h5>Roberto Cassa</h5>
+          <div class="npc-role">Historien dominicain</div>
+          <p>Vous donne la Carte Coloniale. Sa premiere apparition comme mentor.</p>
+        </div>
+      </div>
+
+      <!-- Zona Colonial -->
+      <h3>🏛️ Zona Colonial</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">🔨</div>
+        <div class="npc-info">
+          <h5>Constructeur Mendez</h5>
+          <div class="npc-role">Constructeur corrompu / Combat</div>
+          <p>Menace le patrimoine colonial. Deuxieme combat du jeu.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🏺</div>
+        <div class="npc-info">
+          <h5>Dra. Perez</h5>
+          <div class="npc-role">Archeologue</div>
+          <p>Etudie les vestiges coloniaux de la ville.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🎩</div>
+        <div class="npc-info">
+          <h5>Don Rafael</h5>
+          <div class="npc-role">Guide touristique</div>
+          <p>Connait chaque recoin de la Zona Colonial.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🎓</div>
+        <div class="npc-info">
+          <h5>Maria</h5>
+          <div class="npc-role">Etudiante en architecture</div>
+          <p>Etudie la preservation des batiments historiques.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">📚</div>
+        <div class="npc-info">
+          <h5>Roberto Cassa</h5>
+          <div class="npc-role">Historien (Mentor)</div>
+          <p>Reapparait avec des dialogues rotatifs sur l'histoire dominicaine.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🏛️</div>
+        <div class="npc-info">
+          <h5>Fabiola Herrera</h5>
+          <div class="npc-role">Directrice du musee</div>
+          <p>Gere le patrimoine culturel de la zone.</p>
+        </div>
+      </div>
+
+      <!-- Monde Aquatique -->
+      <h3>🌊 Monde Aquatique — Epave de la Santa Maria</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">🎣</div>
+        <div class="npc-info">
+          <h5>Pecheur Manuel</h5>
+          <div class="npc-role">Pecheur local</div>
+          <p>Raconte comment la Santa Maria s'echoua la nuit de Noel 1492.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🐢</div>
+        <div class="npc-info">
+          <h5>Tortue Imbriquee</h5>
+          <div class="npc-role">Tortue marine</div>
+          <p>Guide le joueur a travers le recif.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🤿</div>
+        <div class="npc-info">
+          <h5>Archeologue Sous-marine</h5>
+          <div class="npc-role">Archeologue amateur</div>
+          <p>Etudie les restes de l'epave.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🐡</div>
+        <div class="npc-info">
+          <h5>Poisson-lion</h5>
+          <div class="npc-role">Espece invasive / Combat</div>
+          <p>Menace l'ecosysteme marin. Combat ecologique avec 4 options.</p>
+        </div>
+      </div>
+
+      <!-- Sanctuaire du Lamantin -->
+      <h3>🐋 Sanctuaire du Lamantin</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">🧪</div>
+        <div class="npc-info">
+          <h5>Dra. Sofia</h5>
+          <div class="npc-role">Biologiste marine</div>
+          <p>Etudie la vie marine du sanctuaire.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🐢</div>
+        <div class="npc-info">
+          <h5>Tortue Verte</h5>
+          <div class="npc-role">Tortue marine</div>
+          <p>Habite le sanctuaire.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🐋</div>
+        <div class="npc-info">
+          <h5>Bebe Lamantin</h5>
+          <div class="npc-role">Lamantin piege</div>
+          <p>Le joueur le libere comme action ecologique.</p>
+        </div>
+      </div>
+
+      <!-- Monde Juridique -->
+      <h3>⚖️ Monde Juridique — Aeroport de Punta Cana</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">👮</div>
+        <div class="npc-info">
+          <h5>Dra. Martinez</h5>
+          <div class="npc-role">Officiere des douanes</div>
+          <p>Controle l'aeroport international.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🕵️</div>
+        <div class="npc-info">
+          <h5>Agent Rosa Montero</h5>
+          <div class="npc-role">Agente douaniere</div>
+          <p>Inspecte les bagages suspects.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🔍</div>
+        <div class="npc-info">
+          <h5>Inspecteur Ramirez</h5>
+          <div class="npc-role">Inspecteur INTERPOL</div>
+          <p>Enquete sur le trafic international d'artefacts.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">⚖️</div>
+        <div class="npc-info">
+          <h5>Lcda. Carmen Vidal</h5>
+          <div class="npc-role">Avocate (Mentor)</div>
+          <p>Enseigne les lois de protection du patrimoine culturel.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🕶️</div>
+        <div class="npc-info">
+          <h5>Rodrigo Torres</h5>
+          <div class="npc-role">Trafiquant d'artefacts / Combat</div>
+          <p>Antagoniste principal. Combat juridique avec 4 options legales.</p>
+        </div>
+      </div>
+
+      <!-- Musee des Atarazanas Reales -->
+      <h3>🔬 Musee des Atarazanas Reales</h3>
+      <div class="npc-card">
+        <div class="npc-avatar">🎓</div>
+        <div class="npc-info">
+          <h5>Dr. Fernando Morban</h5>
+          <div class="npc-role">Directeur du musee</div>
+          <p>Explique l'histoire du batiment et ses collections.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🧪</div>
+        <div class="npc-info">
+          <h5>Dra. Lopez</h5>
+          <div class="npc-role">Scientifique (Labo C-14)</div>
+          <p>Travaille sur la datation d'artefacts archeologiques.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🎨</div>
+        <div class="npc-info">
+          <h5>Restauratrice Ana</h5>
+          <div class="npc-role">Specialiste en restauration</div>
+          <p>Restaure les pieces historiques endommagees.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">📚</div>
+        <div class="npc-info">
+          <h5>Roberto Cassa</h5>
+          <div class="npc-role">Historien (recurrent)</div>
+          <p>Troisieme et derniere apparition du mentor.</p>
+        </div>
+      </div>
+      <div class="npc-card">
+        <div class="npc-avatar">🕵️</div>
+        <div class="npc-info">
+          <h5>Visiteur Suspect</h5>
+          <div class="npc-role">Visiteur mysterieux</div>
+          <p>Comportement etrange au musee.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 4 : ANTAGONISTES                                     -->
+    <!-- ============================================================ -->
+    <section id="antagonistes">
+      <h2><span class="icono">⚔️</span> Antagonistes</h2>
+      <p class="intro">Le jeu comporte 4 combats principaux, chacun avec des mecaniques uniques. Tous peuvent etre resolus pacifiquement.</p>
+
+      <div class="npc-card" style="border-left: 3px solid var(--rojo);">
+        <div class="npc-avatar">⚔️</div>
+        <div class="npc-info">
+          <h5>Soldat Diego</h5>
+          <div class="npc-role">La Isabela — Combat diplomatique</div>
+          <p>Premier combat du jeu. Un soldat qui garde les ruines de La Isabela. Le joueur peut le convaincre par la parole et la negociation. Introduction au systeme de combat pacifiste.</p>
+        </div>
+      </div>
+
+      <div class="npc-card" style="border-left: 3px solid var(--rojo);">
+        <div class="npc-avatar">🔨</div>
+        <div class="npc-info">
+          <h5>Constructeur Mendez</h5>
+          <div class="npc-role">Zona Colonial — Combat de preservation</div>
+          <p>Deuxieme combat. Un constructeur corrompu qui menace le patrimoine colonial. 4 options d'activisme citoyen : reseaux sociaux, manifestations, denonciation et voie legale.</p>
+        </div>
+      </div>
+
+      <div class="npc-card" style="border-left: 3px solid var(--rojo);">
+        <div class="npc-avatar">🐡</div>
+        <div class="npc-info">
+          <h5>Poisson-lion</h5>
+          <div class="npc-role">Monde Aquatique — Combat ecologique</div>
+          <p>Troisieme combat. Une espece invasive qui menace l'ecosysteme marin. 4 options ecologiques : capturer, pecher, proteger le corail et alerter les plongeurs. La jauge affiche « Controle » au lieu de « Convaincu ».</p>
+        </div>
+      </div>
+
+      <div class="npc-card" style="border-left: 3px solid var(--rojo);">
+        <div class="npc-avatar">🕶️</div>
+        <div class="npc-info">
+          <h5>Rodrigo Torres</h5>
+          <div class="npc-role">Monde Juridique — Combat juridique</div>
+          <p>Quatrieme et dernier combat. Le trafiquant d'artefacts, antagoniste principal du jeu. 4 options legales : Loi 318, preuve medico-legale, INTERPOL et UNESCO 1970. La jauge affiche « Preuve » au lieu de « Convaincu ».</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 5 : MENTORS                                          -->
+    <!-- ============================================================ -->
+    <section id="mentors">
+      <h2><span class="icono">📚</span> Mentors</h2>
+      <p class="intro">Deux mentors recurrents guident le joueur tout au long de l'aventure avec des dialogues rotatifs.</p>
+
+      <div class="npc-card">
+        <div class="npc-avatar">📚</div>
+        <div class="npc-info">
+          <h5>Roberto Cassa</h5>
+          <div class="npc-role">Historien dominicain</div>
+          <p>Apparait a La Isabela, Zona Colonial et au Musee. Dialogues rotatifs avec des themes differents a chaque rencontre. Enseigne l'histoire de la Republique Dominicaine, de la periode taino a l'epoque coloniale.</p>
+        </div>
+      </div>
+
+      <div class="npc-card">
+        <div class="npc-avatar">⚖️</div>
+        <div class="npc-info">
+          <h5>Lcda. Carmen Vidal</h5>
+          <div class="npc-role">Specialiste du droit du patrimoine</div>
+          <p>Apparait dans le Monde Juridique. Enseigne les lois internationales et dominicaines de protection culturelle. Ses dialogues couvrent la Loi 318, la Convention UNESCO 1970 et la cooperation avec INTERPOL.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION 6 : L'EQUIPE                                        -->
+    <!-- ============================================================ -->
+    <section id="equipe">
+      <h2><span class="icono">🎮</span> L'Equipe — Les Fous du Robot</h2>
+      <p class="intro">Createurs du jeu, Lycee Francais de Saint-Domingue, classe de robotique 2026.</p>
+
+      <div class="grid-2">
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Elian</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Theo</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Carlos Guillermo</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Jules</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Alberto</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Rafael</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Tom</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+        <div class="npc-card" style="border-left: 3px solid var(--dorado);">
+          <div class="npc-avatar">🎮</div>
+          <div class="npc-info">
+            <h5>Nael</h5>
+            <div class="npc-role">Les Fous du Robot</div>
+            <p>Lycee Francais de Saint-Domingue — Classe de Robotique 2026</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top:2rem; color: var(--texto-secundario);">Cree avec HTML5 Canvas + JavaScript vanilla, Web Audio API, LeafletJS — sans frameworks.</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>ArcLycée v0.15.1 — Aventure Archéologique Dominicaine</p>
+    <p class="equipo">Lycée Français de Saint-Domingue — Classe de Robotique 2026<br><a href="../index.html">Jouer à ArcLycée</a></p>
+  </footer>
+
+  <script src="navigation.js"></script>
+</body>
+</html>

@@ -59,11 +59,6 @@ export class AsentamientoTaino2 {
     this.npcsHablados = 0;
     this.totalNPCs = 3;
 
-    // --- Batú (juego de pelota taíno) ---
-    // Se activa al hablar con Higüemota una segunda vez
-    this._batuOfrecido = false;
-    this._batuCompletado = false;
-
     // --- Referencia al juego ---
     this.juego = null;
   }
@@ -171,12 +166,37 @@ export class AsentamientoTaino2 {
     // --- Diálogo activo ---
     if (this.dialogos.estaActivo()) {
       this.dialogos.actualizar(dt);
+
+      // Navegar opciones con arriba/abajo (para diálogos con elección)
+      if (entrada.estaPresionada('arriba') && !this.bloqueoEntrada) {
+        this.dialogos.seleccionarOpcion(-1);
+        this.bloqueoEntrada = true;
+      }
+      if (entrada.estaPresionada('abajo') && !this.bloqueoEntrada) {
+        this.dialogos.seleccionarOpcion(1);
+        this.bloqueoEntrada = true;
+      }
+
       if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
-        this.dialogos.avanzar();
+        // Si la línea actual tiene opciones, confirmar la selección
+        const lineaActual = this.dialogos.lineas[this.dialogos.lineaActual];
+        if (lineaActual && lineaActual.opciones && lineaActual.opciones.length > 0 && this.dialogos._textoCompleto) {
+          const opcion = this.dialogos.confirmarOpcion();
+          if (opcion && opcion.valor === 'aceptar_batu') {
+            this._aceptarBatu();
+          } else if (opcion && opcion.valor === 'rechazar_batu') {
+            this._rechazarBatu();
+          }
+        } else {
+          this.dialogos.avanzar();
+        }
         this.sfx.dialogo();
         this.bloqueoEntrada = true;
       }
-      if (!entrada.estaPresionada('accion')) {
+
+      if (!entrada.estaPresionada('accion') &&
+          !entrada.estaPresionada('arriba') &&
+          !entrada.estaPresionada('abajo')) {
         this.bloqueoEntrada = false;
       }
       return;
@@ -509,6 +529,12 @@ export class AsentamientoTaino2 {
       tamano: 11, color: '#FFD700'
     });
 
+    // Objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
     });
@@ -520,14 +546,14 @@ export class AsentamientoTaino2 {
 
     // --- Indicador de F para Magnoboot ---
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto('[F] Detectar Metal', 15, 60, {
+      renderizador.dibujarTexto('[F] Detectar Metal', 15, 74, {
         tamano: 10, color: '#44FFFF'
       });
     }
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }
@@ -908,46 +934,122 @@ export class AsentamientoTaino2 {
         { personaje: '🌱 Guarionex', texto: aldea2?.agricultor4 || 'La yuca es lo más importante — con ella hacemos el casabe.' }
       ], () => { npc.dialogoHecho = true; });
     } else if (npc.id === 'musico') {
-      // Primera vez: diálogo sobre el areíto → marca como hablado
-      // Segunda vez (si ya completó el diálogo): ofrece jugar batú
-      // Después de jugar: diálogo de victoria/derrota o repetir
+      // Higüemota: areíto + misión secundaria de batú
+      // Primera vez: diálogo sobre el areíto, luego ofrece batú con opción sí/no
+      // Si rechazó: queda como misión pendiente, puede aceptar al volver a hablar
+      // Si aceptó: juega batú inmediatamente
+      // Si completó: diálogo de cierre
+      const misionBatu = this.juego?.misiones?.misiones?.batu;
+      const batuCompletado = misionBatu?.estado === 'completada';
+      const batuDescubierto = misionBatu && misionBatu.estado !== 'no_descubierta';
+
       if (!npc.dialogoHecho) {
+        // Primera conversación: areíto + oferta de batú
         this.dialogos.iniciarDialogo([
           { personaje: '🎵 Higüemota', texto: aldea2?.musico1 || '¡Bienvenido al batey!' },
           { personaje: '🎵 Higüemota', texto: aldea2?.musico2 || 'Aquí celebramos el areíto — nuestra ceremonia de música y danza.' },
           { personaje: '🎵 Higüemota', texto: aldea2?.musico3 || 'Usamos maracas, güiros y tambores hechos de troncos.' },
-          { personaje: '🎵 Higüemota', texto: aldea2?.musico4 || 'En el areíto contamos la historia de nuestro pueblo cantando.' }
-        ], () => { npc.dialogoHecho = true; });
-      } else if (!this._batuCompletado) {
-        // Ofrecer el batú
-        this.dialogos.iniciarDialogo([
+          { personaje: '🎵 Higüemota', texto: aldea2?.musico4 || 'En el areíto contamos la historia de nuestro pueblo cantando.' },
           { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta1 || '¿Quieres jugar batú? Es nuestro juego de pelota sagrado.' },
-          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta2 || 'Se golpea con la cadera, los hombros y la cabeza. ¡Nunca con las manos!' },
-          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta3 || '¡Vamos al batey! Primero en 3 puntos gana.' }
-        ], () => {
-          // Iniciar el juego de batú como overlay
-          if (this.juego && this.juego.batu) {
-            this.juego.batu.iniciar({
-              historia: 'ceremonia',
-              alTerminar: (gano) => {
-                this._batuCompletado = true;
-                // Mostrar mensaje de resultado
-                const msg = gano
-                  ? (aldea2?.batuVictoria || '¡Higüemota: Impresionante! Juegas como un verdadero taíno.')
-                  : (aldea2?.batuDerrota || '¡Higüemota: Buen intento! El batú requiere mucha práctica.');
-                if (this.juego && this.juego.mostrarToast) {
-                  this.juego.mostrarToast(msg, 4);
-                }
-              }
-            });
+          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta2 || 'Se golpea con la cadera, los hombros y la cabeza. ¡Nunca con las manos!',
+            opciones: [
+              { texto: aldea2?.batuAceptar || '¡Sí, vamos a jugar!', valor: 'aceptar_batu' },
+              { texto: aldea2?.batuRechazar || 'Ahora no, quizás después.', valor: 'rechazar_batu' }
+            ]
           }
-        });
-      } else {
+        ], () => { npc.dialogoHecho = true; });
+      } else if (batuDescubierto && !batuCompletado) {
+        // Ya conoce la misión pero no la ha completado — ofrecer de nuevo
+        this.dialogos.iniciarDialogo([
+          { personaje: '🎵 Higüemota', texto: aldea2?.batuOfertaRepite || '¿Listo para el batú? ¡El batey te espera!',
+            opciones: [
+              { texto: aldea2?.batuAceptar || '¡Sí, vamos a jugar!', valor: 'aceptar_batu' },
+              { texto: aldea2?.batuRechazar || 'Ahora no, quizás después.', valor: 'rechazar_batu' }
+            ]
+          }
+        ]);
+      } else if (batuCompletado) {
         // Ya completó el batú — diálogo de cierre
         this.dialogos.iniciarDialogo([
           { personaje: '🎵 Higüemota', texto: aldea2?.batuRepite || '¡Fue un gran partido! El batú une a las aldeas y resuelve conflictos sin violencia.' }
         ]);
       }
+    }
+  }
+
+  // --- Aceptar la misión de batú e iniciar el mini-juego ---
+  _aceptarBatu() {
+    const textos = this._obtenerTextos();
+    const aldea2 = textos?.dialogos?.aldea2;
+    const mis = textos?.misiones || {};
+
+    // Registrar como misión secundaria descubierta + en progreso
+    if (this.juego && this.juego.misiones) {
+      // Si no estaba descubierta, descubrir primero
+      if (!this.juego.misiones.estaDescubierta('batu')) {
+        this.juego.misiones.descubrir('batu');
+        // Agregar al registro de misiones
+        if (this.juego.registro) {
+          const titulo = mis.batuTitulo || 'Batú';
+          this.juego.registro.agregarEntrada('secundaria', titulo,
+            mis.batuDesc || 'Jugar un partido de batú contra Higüemota en el batey.');
+        }
+      }
+      this.juego.misiones.iniciar('batu');
+    }
+
+    // Iniciar el juego de batú como overlay
+    if (this.juego && this.juego.batu) {
+      this.juego.batu.iniciar({
+        historia: 'ceremonia',
+        alTerminar: (gano) => {
+          // Marcar misión como completada
+          if (this.juego.misiones) {
+            this.juego.misiones.completar('batu');
+          }
+          if (this.juego.registro) {
+            const titulo = mis.batuTitulo || 'Batú';
+            this.juego.registro.marcarCompletada(titulo);
+          }
+
+          // Reputación +10 por completar la misión
+          if (this.juego.reputacion) {
+            this.juego.reputacion.modificar(10, aldea2?.batuReputacion || 'Batú completado');
+          }
+
+          // Mostrar mensaje de resultado
+          const msg = gano
+            ? (aldea2?.batuVictoria || '¡Higüemota: Impresionante! Juegas como un verdadero taíno.')
+            : (aldea2?.batuDerrota || '¡Higüemota: Buen intento! El batú requiere mucha práctica.');
+          if (this.juego.mostrarToast) {
+            this.juego.mostrarToast(msg, 4);
+          }
+        }
+      });
+    }
+  }
+
+  // --- Rechazar la misión de batú (queda como pendiente) ---
+  _rechazarBatu() {
+    const textos = this._obtenerTextos();
+    const mis = textos?.misiones || {};
+
+    // Descubrir la misión para que aparezca en el registro como pendiente
+    if (this.juego && this.juego.misiones) {
+      if (!this.juego.misiones.estaDescubierta('batu')) {
+        this.juego.misiones.descubrir('batu');
+        if (this.juego.registro) {
+          const titulo = mis.batuTitulo || 'Batú';
+          this.juego.registro.agregarEntrada('secundaria', titulo,
+            mis.batuDesc || 'Jugar un partido de batú contra Higüemota en el batey.');
+        }
+      }
+    }
+
+    // Toast informando que queda pendiente
+    if (this.juego && this.juego.mostrarToast) {
+      const aldea2 = textos?.dialogos?.aldea2;
+      this.juego.mostrarToast(aldea2?.batuPendiente || '🏐 Misión pendiente: Batú', 3);
     }
   }
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ArcLycée — Game Mechanics</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../resources/favicon-32.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -93,6 +93,14 @@
       <h3>Toasts</h3>
       <p>Non-intrusive floating messages. Entry animation, dark background with golden border, max 4 simultaneous.</p>
 
+      <h3>Photo Album (P key)</h3>
+      <p>A visual collection system that records characters and objects encountered during the adventure. Two capture modes:</p>
+      <ul>
+        <li><strong>Photo</strong>: renders ONLY the NPC/object sprite, centered in a square block on a dark background. No screen capture — the sprite is auto-centered.</li>
+        <li><strong>Selfie</strong>: renders the NPC/object next to the player avatar, in a vertical rectangular block on a dark background. Sprites are auto-centered.</li>
+      </ul>
+      <p>Photos and selfies are saved in the player's album and can be reviewed at any time.</p>
+
       <h3>Magnoboot Detection</h3>
       <p>Radar pulse (F key) that reveals buried excavation zones.</p>
 
@@ -111,8 +119,15 @@
         <tr><td>Earthquake</td><td>1%</td><td>Stumbles, shaking</td><td>Dust, cracks, stones</td></tr>
       </table>
 
+      <h3>Game Log (L key)</h3>
+      <p>Press L to open the game log with two tabs:</p>
+      <ul>
+        <li><strong>Main Story</strong>: shows 9 worlds with status icons — completed, unlocked, or locked.</li>
+        <li><strong>Side Quests</strong>: shows discovered and completed sidequests with progress details.</li>
+      </ul>
+
       <h3>Free-Roam Map</h3>
-      <p>8 nodes activated by approaching with the sprite:</p>
+      <p>9 nodes activated by approaching with the sprite:</p>
       <table>
         <tr><th>#</th><th>Node</th><th>Location</th></tr>
         <tr><td>1</td><td>Pomier Caves</td><td>San Cristóbal (south-center)</td></tr>
@@ -120,9 +135,10 @@
         <tr><td>3</td><td>Taíno Settlement II</td><td>Island interior</td></tr>
         <tr><td>4</td><td>La Isabela</td><td>Puerto Plata (north coast)</td></tr>
         <tr><td>5</td><td>Zona Colonial</td><td>Santo Domingo (south coast)</td></tr>
-        <tr><td>6</td><td>La Pinta Shipwreck</td><td>North coast (sea)</td></tr>
+        <tr><td>6</td><td>Santa María Shipwreck</td><td>North coast (sea)</td></tr>
         <tr><td>7</td><td>Punta Cana Airport</td><td>La Altagracia</td></tr>
         <tr><td>8</td><td>Royal Shipyards Museum</td><td>Zona Colonial, Santo Domingo</td></tr>
+        <tr><td>9</td><td>LFSD Robotics Class</td><td>Santo Domingo</td></tr>
       </table>
 
       <h3>4 Endings</h3>
@@ -133,9 +149,21 @@
         <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>💀 Dark Ending</h5><p>More violence than pacifism. Pieces in the hands of private collectors.</p></div>
       </div>
 
-      <h3>Batú Mini-Game</h3>
+      <h3>Reputation System</h3>
+      <p>A <strong>reputation score (0-100)</strong> tracks the player's standing throughout the game:</p>
+      <ul>
+        <li><strong>Pacifist combat resolution</strong>: +15 reputation</li>
+        <li><strong>Violent combat resolution</strong>: +5 reputation</li>
+        <li><strong>Ecological actions</strong> (manatee rescue, reef cleanup, etc.): +10 each</li>
+      </ul>
+      <p>4 reputation levels: Unknown (0-24), Known (25-49), Respected (50-74), Legendary (75-100).</p>
+
+      <h3>Arrest Cutscene</h3>
+      <p>After defeating trafficker Rodrigo Torres in the Punta Cana Airport, an <strong>arrest cutscene</strong> plays: airport security arrives, the artifacts are confiscated, and Torres is taken into custody. This transitions the story toward the final laboratory chapter.</p>
+
+      <h3>Batú Mini-Game (Sidequest)</h3>
       <p><strong>Batú</strong> was the sacred ball game of the Taínos. It was hit with hips (using a stone yoke), shoulders, elbows, knees, and head — never with hands or feet.</p>
-      <p>Triggered by Higüemota in Taíno Settlement II. Side view with 2D physics:</p>
+      <p>Offered as a <strong>sidequest</strong> by Higüemota in Taíno Settlement II — the player can accept or refuse. Side view with 2D physics:</p>
       <table>
         <tr><th>Hit</th><th>Zone</th><th>Angle</th><th>Power</th></tr>
         <tr><td>Hip (yoke)</td><td>Waist</td><td>45°</td><td>Maximum</td></tr>
@@ -143,7 +171,7 @@
         <tr><td>Head</td><td>Head</td><td>~Vertical</td><td>Medium</td></tr>
         <tr><td>Knee</td><td>Legs</td><td>30°</td><td>Low (defensive)</td></tr>
       </table>
-      <p>Rival AI: 85% speed, 150ms delay, 15% errors. First to 3 points wins.</p>
+      <p>Rival AI: rebalanced to 72% speed with 30% intentional errors. First to 3 points wins.</p>
 
       <h3>Easter Eggs</h3>
       <p>8 personalized secret items:</p>
@@ -162,7 +190,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.14.0 — Dominican Archaeological Adventure</p>
+    <p>ArcLycée v0.15.1 — Dominican Archaeological Adventure</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Robotics Class 2026<br><a href="../index.html">Play ArcLycée</a></p>
   </footer>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ArcLycée — Documentación del Proyecto</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../resources/favicon-32.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
        HERO / PORTADA
        ============================================================ -->
   <div class="hero">
-    <img src="resources/cemi-logo-just-icon.png" alt="Logo ArcLycée — Cemí">
+    <img src="../resources/cemi-logo-just-icon.png" alt="Logo ArcLycée — Cemí">
     <h1>ArcLycée</h1>
     <p class="subtitulo">Aventura Arqueológica Dominicana</p>
     <p class="descripcion">
@@ -64,7 +64,7 @@
          ============================================================ -->
     <section id="flujo">
       <h2><span class="icono">🗺️</span> Flujo del Juego</h2>
-      <p class="intro">Mapa de libre exploración con 8 nodos, estilo Super Mario World. El jugador
+      <p class="intro">Mapa de libre exploración con 9 nodos, estilo Super Mario World. El jugador
       se mueve libremente con un sprite sobre el mapa y activa los nodos al acercarse.</p>
 
       <div class="flujo">
@@ -111,8 +111,8 @@
         <div class="flujo-nodo">
           <div class="flujo-icono" style="border-color: #4488cc;">🌊</div>
           <div class="flujo-texto">
-            <strong>Naufragio de La Pinta</strong><br>
-            <span>Un pescador ofrece su canoa. Exploras el naufragio de La Pinta y combates al pez león invasor.</span>
+            <strong>Naufragio de la Santa María</strong><br>
+            <span>Un pescador ofrece su canoa. Exploras el naufragio de la Santa María, combates al pez león invasor y accedes al Santuario del Manatí (misión secundaria de rescate).</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
@@ -120,7 +120,7 @@
           <div class="flujo-icono" style="border-color: #cc8844;">⚖️</div>
           <div class="flujo-texto">
             <strong>Aeropuerto de Punta Cana</strong><br>
-            <span>Interior del aeropuerto. Combate legal contra el traficante Rodrigo Torres con Ley 318, INTERPOL y UNESCO.</span>
+            <span>Interior del aeropuerto. Combate legal contra el traficante Rodrigo Torres con Ley 318, INTERPOL y UNESCO. Cinemática de arresto al vencer.</span>
           </div>
         </div>
         <div class="flujo-flecha">↓</div>
@@ -131,7 +131,25 @@
             <span>Autenticación de piezas con ciencia real (carbono-14). 4 finales posibles según tus decisiones.</span>
           </div>
         </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">
+          <div class="flujo-icono" style="border-color: #88aaff;">🤖</div>
+          <div class="flujo-texto">
+            <strong>LFSD — Clase de Robótica</strong><br>
+            <span>Misiones secundarias con mini-juegos: calibración de magnetómetro, programación de robot submarino, conexión de cables.</span>
+          </div>
+        </div>
       </div>
+
+      <h3>Misiones Secundarias</h3>
+      <p>5 misiones opcionales que se descubren durante la historia principal:</p>
+      <ul>
+        <li><strong>Batú</strong> — Juego de pelota taína. Se desbloquea al hablar con Higüemota en el Asentamiento Taíno II.</li>
+        <li><strong>Rescate del Manatí</strong> — Liberar un manatí y limpiar el arrecife en el Santuario del Manatí (accesible desde el Mundo Acuático).</li>
+        <li><strong>Good Vibrations</strong> — Calibrar el magnetómetro ajustando frecuencia, amplitud y fase. Se descubre en La Isabela, se completa en LFSD.</li>
+        <li><strong>Full Metal Archeologist</strong> — Programar un robot submarino con bloques de instrucciones. Se descubre en el Santuario del Manatí, se completa en LFSD.</li>
+        <li><strong>Weird Science</strong> — Conectar 6 cables de colores en 30 segundos. Se descubre en el Museo, se completa en LFSD.</li>
+      </ul>
     </section>
 
     <!-- ============================================================
@@ -265,7 +283,7 @@
        FOOTER
        ============================================================ -->
   <footer>
-    <p>ArcLycée v0.14.0 — Aventura Arqueológica Dominicana</p>
+    <p>ArcLycée v0.15.1 — Aventura Arqueológica Dominicana</p>
     <p class="equipo">
       Liceo Francés de Santo Domingo — Clase de Robótica 2026<br>
       <a href="../index.html">Jugar ArcLycée</a>

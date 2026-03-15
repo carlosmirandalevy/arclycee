@@ -1,5 +1,52 @@
 # Changelog
 
+## v0.15.2 — Documentación de personajes, canvas tile map, mejoras de fotos (2026-03-14)
+
+### Agregado
+- **Página de personajes en docs**: nueva pestaña en la documentación con todos los NPCs organizados por mundo, avatares, y el equipo creador ("les fous du robot")
+- **Canvas tile map en docs**: reemplazado SVG de islas en la documentación de mundos con `<canvas>` inline que renderiza el mapa real de 128×68 tiles del juego con posiciones reales de nodos
+- **Sistema de fotos para Dra. Martínez**: Cuevas del Pomier ahora expone la NPC arqueóloga para el sistema de foto/selfie (T=foto, G=selfie)
+
+### Mejorado
+- **Renderizado de fotos/selfies**: las fotos ahora muestran solo el sprite del NPC/objeto centrado sobre fondo oscuro neutro (cuadrado). Las selfies muestran NPC y jugador lado a lado en rectángulo vertical. Ya no usa fondos temáticos que parecían capturas de pantalla. Usa detección de bounding-box para auto-centrar cualquier sprite
+- **Diálogos LFSD en docs**: los 11 personajes estudiantes ahora tienen líneas de diálogo completas en la documentación ES/EN/FR (antes solo 3 estudiantes con diálogos parciales)
+- **Navegación de documentación**: corregido el highlighting de pestañas que siempre mostraba "Inicio", el idioma que siempre mostraba "ES", y la imagen del cemí que no se mostraba. Añadido soporte para URLs sin extensión (/docs/mechanics → mechanics.html)
+- **Rutas de recursos**: corregidas las rutas de favicon y logo cemí en los 18 archivos HTML de documentación (resources/ → ../resources/)
+
+### Corregido
+- **Bucle de redirección en navegación**: `/docs/mechanics` ya no redirige a `/docs/mechanics/` (lo cual rompía la carga de CSS/JS). Ahora maneja URLs sin extensión directamente
+- **`/docs` sin trailing slash**: redirige correctamente `/docs` → `/docs/` sin afectar subpáginas
+
+---
+
+## v0.15.1 — Sidequests, reputación en combate, corrección histórica Santa María (2026-03-14)
+
+### Agregado
+- **Batú como sidequest**: Higüemota ofrece el batú como misión secundaria — el jugador puede aceptar o rechazar. Si rechaza, queda como misión pendiente que puede retomar al hablar de nuevo
+- **Rescate del manatí como sidequest**: liberar al manatí y limpiar el arrecife ahora son objetivos de la misión secundaria "Rescate del manatí". Al completar ambas acciones ecológicas, la misión se marca como completada
+- **Reputación por combate**: derrotar enemigos aumenta la reputación — victoria pacífica +15, victoria por fuerza +5. Aplicado en La Isabela, Zona Colonial, Mundo Acuático y Aeropuerto de Punta Cana
+- **Reputación por acciones ecológicas**: liberar al manatí (+10) y limpiar el arrecife (+10)
+- **Arresto cinematográfico**: al derrotar al traficante Rodrigo Torres en el Aeropuerto, Inspector Ramírez y Agente Montero caminan hacia él, lo arrestan con diálogo, y lo escoltan fuera de la escena
+- **Diálogo post-arresto**: Inspector Ramírez tiene diálogo nuevo tras el arresto
+- **Opciones de diálogo**: sistema de ↑↓ para elegir opciones en conversaciones (usado en oferta de batú)
+- **Historia Principal en Registro (L)**: la pestaña muestra los 9 mundos en orden con íconos de estado (✅ completado, 🔓 desbloqueado, 🔒 bloqueado), nombre traducido y descripción
+- **5 misiones secundarias**: batú, rescate del manatí, buenas vibraciones, metal completo, ciencia loca
+
+### Mejorado
+- **Batú rebalanceado**: gravedad reducida (600→480), saque más rápido (300→400) con arco más plano, IA más lenta (85%→72%) con mayor retardo de reacción (0.15s→0.3s), 30% errores e imprecisión posicional de 25px
+- **Selfies lado a lado**: en selfies con NPCs, el avatar del jugador y el NPC aparecen uno al lado del otro en vez de arriba/abajo
+- **Fotos con sprites reales**: las fotos y selfies muestran el avatar real del NPC con su apariencia y accesorios, no un sprite genérico
+
+### Corregido
+- **Corrección histórica — Santa María**: renombrado "Naufragio La Pinta" a "Naufragio Santa María". No hay registro histórico del hundimiento de La Pinta. La Santa María, nave capitana de Colón, encalló cerca de Cap-Haïtien la Nochebuena de 1492
+- **Reubicación del naufragio**: nodo movido de la costa sureste (tileX: 100, tileY: 44) a la costa norte de Haití (tileX: 36, tileY: 10) cerca de Cap-Haïtien
+- **Respawn al morir**: el jugador ahora reaparece en el mundo donde murió, no en el siguiente mundo desbloqueado
+- **Roberto Cassá en Museo Atarazanas**: ahora cuenta como conversación (era 3/3, corregido a 4/4). Se cambió `esMentor: false` y se incrementó `totalNPCs` a 4
+- **Orden Judicial reubicada**: movida junto a Inspector Ramírez cerca de la oficina de INTERPOL
+- **Torres oculto post-arresto**: Rodrigo Torres se oculta del renderizado e interacción tras ser escoltado fuera
+
+---
+
 ## v0.15.0 — Mapa geográfico, LFSD, misiones secundarias y sonido ambiental (2026-03-14)
 
 ### Agregado
@@ -317,7 +364,7 @@
 
 **Integración con el mapa del mundo** (`mapa-principal.js`)
 - Nodo 6: "Aeropuerto de Punta Cana" (tipo jurídico)
-- Conectado desde nodo 5 (Naufragio La Pinta)
+- Conectado desde nodo 5 (Naufragio la Santa María)
 - Título del mundo cambia a "Mundo Jurídico" al seleccionar nodo 6+
 - Se desbloquea automáticamente al completar el Mundo Acuático
 
@@ -411,12 +458,12 @@
 
 ---
 
-## v0.9.0 — Mundo Acuático: Naufragio de La Pinta (2026-03-12)
+## v0.9.0 — Mundo Acuático: Naufragio de la Santa María (2026-03-12)
 
 ### Agregado
 
-**Mundo Acuático — Naufragio de La Pinta** (`js/mundos/acuatico/mundo-acuatico.js`)
-- Primer nivel jugable del Mundo Acuático: exploración submarina del naufragio de La Pinta
+**Mundo Acuático — Naufragio de la Santa María** (`js/mundos/acuatico/mundo-acuatico.js`)
+- Primer nivel jugable del Mundo Acuático: exploración submarina del naufragio de la Santa María
 - Nivel top-down 1600x1100 con tratamiento visual submarino completo:
   - Degradado azul profundo (`#0a1a3a` → `#1a3a5a`)
   - Fondo arenoso con textura sutil
@@ -425,14 +472,14 @@
   - 4 rayos de luz diagonales desde la superficie (oscilantes)
   - Tinte de agua overlay `rgba(20, 60, 120, 0.15)`
 - 6 estructuras del naufragio con colisión:
-  - Casco principal de La Pinta (madera oscura con algas y agujero)
+  - Casco principal de la Santa María (madera oscura con algas y agujero)
   - Fragmento del casco (con coral creciendo)
   - Mástil roto (con grietas y restos de cuerda animados)
   - Ancla de hierro oxidado (con brazos curvos y puntas)
   - Arrecife de coral (formas irregulares multicolor)
   - Canoa del pescador (cerca de la entrada)
 - 4 NPCs con sprites detallados:
-  - Pescador Manuel: traje de neopreno, máscara de buceo, historia de La Pinta
+  - Pescador Manuel: traje de neopreno, máscara de buceo, historia de la Santa María
   - Tortuga Carey: caparazón con patrón carey, aletas, educación sobre extinción
   - Arqueóloga Submarina: escafandra, tanque de oxígeno, libreta impermeable, da mapa de naufragios
   - Pez León: rayas rojas/blancas, espinas venenosas, cola, combate ecológico
@@ -463,12 +510,12 @@
 - Pista personalizada: "Usa acciones ecológicas para controlar al invasor"
 
 **Objetos coleccionables** (2 nuevos)
-- `clavoBronce`: clavo de bronce del casco de La Pinta (aparece tras combate)
+- `clavoBronce`: clavo de bronce del casco de la Santa María (aparece tras combate)
 - `mapaNaufragios`: mapa de naufragios del Caribe (dado por la arqueóloga vía diálogo)
 - Íconos de inventario: clavo con cabeza ancha (#B87333), mapa azulado con siluetas de barcos (#4488cc)
 
 **Integración con el mapa del mundo** (`mapa-principal.js`)
-- Nodo 5: "Naufragio La Pinta" (tipo `naufragio`, ícono ⚓)
+- Nodo 5: "Naufragio la Santa María" (tipo `naufragio`, ícono ⚓)
 - Conectado desde nodo 4 (Zona Colonial)
 - Título del mundo cambia a "Mundo Acuático" al seleccionar nodo 5+
 - Lógica de título actualizada para 3 mundos (Taíno < 3, Colonial 3-4, Acuático 5+)
@@ -479,7 +526,7 @@
 **Registro de escena** (`juego.js`)
 - `MundoAcuatico` importado y registrado como `'mundoAcuatico'`
 - Añadido a `escenasJugables` (crea jugador al entrar)
-- Añadido al selector de niveles Konami: "Naufragio La Pinta (Acuático)"
+- Añadido al selector de niveles Konami: "Naufragio la Santa María (Acuático)"
 
 **Traducciones** (ES/FR/EN)
 - ~35 strings nuevas por idioma en `dialogos.acuatico`:

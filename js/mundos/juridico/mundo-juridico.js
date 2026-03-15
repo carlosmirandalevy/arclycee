@@ -1,7 +1,7 @@
 // ============================================================
 // MUNDO-JURIDICO.JS - Aeropuerto de Punta Cana (Acto 4)
 // ============================================================
-// Después de explorar el Naufragio de La Pinta, el mapa de
+// Después de explorar el Naufragio de la Santa María, el mapa de
 // naufragios de la arqueóloga submarina revela una red de
 // tráfico de artefactos arqueológicos que opera desde el
 // Aeropuerto Internacional de Punta Cana (PUJ).
@@ -69,6 +69,16 @@ export class MundoJuridico {
 
     // --- Contador de conversaciones de la mentora (diálogo rotativo) ---
     this._carmenConversacion = 0;
+
+    // --- Arresto cinematográfico post-combate ---
+    // Inspector Ramírez y Agente Montero caminan hacia Torres
+    this._arrestoEnCurso = false;
+    this._arrestoFase = 'esperando'; // 'esperando' → 'caminando' → 'dialogo' → 'completado'
+    this._arrestoTiempo = 0;
+    this._torresSacado = false; // Torres fue escoltado fuera de la escena
+    // Posiciones originales de los NPCs (se guardan al iniciar arresto)
+    this._posOriginalInspector = null;
+    this._posOriginalAgente = null;
 
     // --- Referencia al juego ---
     this.juego = null;
@@ -201,7 +211,7 @@ export class MundoJuridico {
         requiereNPC: 'agenteAduanas'
       },
       {
-        x: 1410, y: 260,
+        x: 1560, y: 860,
         ancho: 16, alto: 16,
         tipo: 'ordenJudicial',
         recogido: false,
@@ -240,22 +250,118 @@ export class MundoJuridico {
       // --- Rastrear resultado para el sistema de finales ---
       if (this.juego.combate.resultado === 'pacificado') {
         this.juego.progreso.combatesPacificados++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(15, 'Victoria pacífica');
       } else if (this.juego.combate.resultado === 'victoria') {
         this.juego.progreso.combatesViolentos++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(5, 'Victoria en combate');
       }
 
-      // Diálogo de resolución según el resultado
+      // Diálogo de resolución según el resultado, luego iniciar arresto
       const textos = this._obtenerTextos();
       const jur = textos?.dialogos?.juridico;
       if (this.juego.combate.resultado === 'pacificado') {
         this.dialogos.iniciarDialogo([
           { personaje: '⚖️ Narrador', texto: jur?.traficantePaz1 || 'La evidencia es abrumadora. Torres se rinde ante las autoridades.' },
           { personaje: '⚖️ Narrador', texto: jur?.traficantePaz2 || 'Los artefactos serán devueltos al Museo del Hombre Dominicano.' }
-        ]);
+        ], () => { this._iniciarArresto(); });
       } else if (this.juego.combate.resultado === 'victoria') {
         this.dialogos.iniciarDialogo([
           { personaje: '⚖️ Narrador', texto: jur?.traficanteDerrota || 'Torres es detenido. El caso pasa a los tribunales.' }
-        ]);
+        ], () => { this._iniciarArresto(); });
+      }
+    }
+
+    // --- Animación de arresto: Inspector y Agente caminan hacia Torres ---
+    if (this._arrestoEnCurso && this._arrestoFase === 'caminando') {
+      this._arrestoTiempo += dt;
+
+      const inspector = this.npcs.find(n => n.id === 'inspector');
+      const agente = this.npcs.find(n => n.id === 'agenteAduanas');
+      const traficante = this.npcs.find(n => n.id === 'traficante');
+
+      if (inspector && agente && traficante) {
+        // Velocidad de caminata de los NPCs hacia Torres
+        const velArresto = 120 * dt;
+        let inspectorLlego = false;
+        let agenteLlego = false;
+
+        // Mover inspector hacia Torres (a su izquierda)
+        const objetivoIX = traficante.x - 40;
+        const objetivoIY = traficante.y;
+        const dxI = objetivoIX - inspector.x;
+        const dyI = objetivoIY - inspector.y;
+        const distI = Math.sqrt(dxI * dxI + dyI * dyI);
+        if (distI > 5) {
+          inspector.x += (dxI / distI) * velArresto;
+          inspector.y += (dyI / distI) * velArresto;
+        } else {
+          inspectorLlego = true;
+        }
+
+        // Mover agente hacia Torres (a su derecha)
+        const objetivoAX = traficante.x + traficante.ancho + 12;
+        const objetivoAY = traficante.y;
+        const dxA = objetivoAX - agente.x;
+        const dyA = objetivoAY - agente.y;
+        const distA = Math.sqrt(dxA * dxA + dyA * dyA);
+        if (distA > 5) {
+          agente.x += (dxA / distA) * velArresto;
+          agente.y += (dyA / distA) * velArresto;
+        } else {
+          agenteLlego = true;
+        }
+
+        // Cuando ambos llegan, iniciar diálogo de arresto
+        if (inspectorLlego && agenteLlego) {
+          this._arrestoFase = 'dialogo';
+          const textos = this._obtenerTextos();
+          const jur = textos?.dialogos?.juridico;
+          this.dialogos.iniciarDialogo([
+            { personaje: '🔵 Inspector Ramírez', texto: jur?.arrestoInspector1 || 'Rodrigo Torres, queda usted detenido por tráfico ilícito de bienes culturales.' },
+            { personaje: '🛃 Agente Montero', texto: jur?.arrestoAgente1 || 'Tiene derecho a un abogado. Todo lo que diga será usado en su contra.' },
+            { personaje: '💼 Rodrigo Torres', texto: jur?.arrestoTorres1 || '¡No pueden hacerme esto! ¡Tengo contactos!' },
+            { personaje: '🔵 Inspector Ramírez', texto: jur?.arrestoInspector2 || 'Sus contactos no le servirán. INTERPOL ya notificó a todas las aduanas del Caribe.' },
+            { personaje: '🛃 Agente Montero', texto: jur?.arrestoAgente2 || 'Llévenselo. Los artefactos quedan confiscados como evidencia.' }
+          ], () => {
+            // Torres es escoltado fuera — los 3 caminan hacia la salida
+            this._arrestoFase = 'escoltando';
+            this._arrestoTiempo = 0;
+          });
+        }
+      }
+    }
+
+    // --- Fase de escolta: los 3 caminan hacia la puerta de embarque y desaparecen ---
+    if (this._arrestoEnCurso && this._arrestoFase === 'escoltando') {
+      this._arrestoTiempo += dt;
+
+      const inspector = this.npcs.find(n => n.id === 'inspector');
+      const agente = this.npcs.find(n => n.id === 'agenteAduanas');
+      const traficante = this.npcs.find(n => n.id === 'traficante');
+
+      if (inspector && agente && traficante) {
+        // Los tres caminan hacia arriba (fuera de la escena, hacia la puerta)
+        const velEscolta = 80 * dt;
+        traficante.y -= velEscolta;
+        inspector.y -= velEscolta;
+        agente.y -= velEscolta;
+
+        // Cuando salen del nivel, completar arresto
+        if (traficante.y < -50) {
+          this._arrestoFase = 'completado';
+          this._arrestoEnCurso = false;
+          this._torresSacado = true;
+
+          // Devolver inspector y agente a sus posiciones originales
+          if (this._posOriginalInspector) {
+            inspector.x = this._posOriginalInspector.x;
+            inspector.y = this._posOriginalInspector.y;
+          }
+          if (this._posOriginalAgente) {
+            agente.x = this._posOriginalAgente.x;
+            agente.y = this._posOriginalAgente.y;
+          }
+        }
       }
     }
 
@@ -270,6 +376,14 @@ export class MundoJuridico {
       if (!entrada.estaPresionada('accion')) {
         this.bloqueoEntrada = false;
       }
+      return;
+    }
+
+    // --- Si el arresto está en curso, bloquear movimiento del jugador ---
+    if (this._arrestoEnCurso && (this._arrestoFase === 'caminando' || this._arrestoFase === 'escoltando')) {
+      jugador.velocidadX = 0;
+      jugador.velocidadY = 0;
+      jugador.esAnimando = false;
       return;
     }
 
@@ -333,6 +447,8 @@ export class MundoJuridico {
 
     // --- Interacción con NPCs ---
     for (const npc of this.npcs) {
+      // No interactuar con Torres si fue sacado o si el arresto está en curso
+      if (npc.id === 'traficante' && (this._torresSacado || this._arrestoEnCurso)) continue;
       if (this._estaCerca(jugador, npc, 45)) {
         if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
           this.bloqueoEntrada = true;
@@ -393,6 +509,10 @@ export class MundoJuridico {
       if (this.juego && this.juego.progreso) {
         if (!this.juego.progreso.nodosCompletados.includes(6)) {
           this.juego.progreso.nodosCompletados.push(6);
+        }
+        // Desbloquear el Museo Atarazanas (nodo 7)
+        if (!this.juego.progreso.nodosDesbloqueados.includes(7)) {
+          this.juego.progreso.nodosDesbloqueados.push(7);
         }
       }
     }
@@ -522,7 +642,8 @@ export class MundoJuridico {
     const entidades = [];
 
     for (const npc of this.npcs) {
-      // Si el traficante fue detenido, dejarlo pero con aspecto diferente
+      // Si Torres fue sacado del aeropuerto, no dibujarlo
+      if (npc.id === 'traficante' && this._torresSacado) continue;
       entidades.push({ tipo: 'npc', datos: npc, y: npc.y });
     }
     entidades.push({ tipo: 'jugador', datos: jugador, y: jugador.y });
@@ -572,6 +693,12 @@ export class MundoJuridico {
       tamano: 11, color: '#FFD700'
     });
 
+    // Objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
@@ -584,7 +711,7 @@ export class MundoJuridico {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: caminar | E: hablar | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: caminar | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: 'rgba(100, 100, 120, 0.6)', alineacion: 'center'
       });
     }
@@ -1018,7 +1145,11 @@ export class MundoJuridico {
     } else if (npc.id === 'inspector') {
       // Inspector Ramírez — enseña sobre cooperación internacional
       if (npc.dialogoHecho) {
-        if (this.combateTerminado) {
+        if (this._torresSacado) {
+          this.dialogos.iniciarDialogo([
+            { personaje: '🔵 Inspector Ramírez', texto: jur?.inspectorPostArresto || 'Torres está bajo custodia. INTERPOL investigará toda su red de contactos.' }
+          ]);
+        } else if (this.combateTerminado) {
           this.dialogos.iniciarDialogo([
             { personaje: '🔵 Inspector Ramírez', texto: jur?.inspectorPostCombate || 'INTERPOL ya emitió la alerta. Este traficante no escapará de la justicia internacional.' }
           ]);
@@ -1161,6 +1292,24 @@ export class MundoJuridico {
         ]);
       }
     }
+  }
+
+  // --- Iniciar la secuencia de arresto cinematográfico ---
+  _iniciarArresto() {
+    const inspector = this.npcs.find(n => n.id === 'inspector');
+    const agente = this.npcs.find(n => n.id === 'agenteAduanas');
+
+    // Guardar posiciones originales para restaurar después
+    if (inspector) {
+      this._posOriginalInspector = { x: inspector.x, y: inspector.y };
+    }
+    if (agente) {
+      this._posOriginalAgente = { x: agente.x, y: agente.y };
+    }
+
+    this._arrestoEnCurso = true;
+    this._arrestoFase = 'caminando';
+    this._arrestoTiempo = 0;
   }
 
   // ============================================================

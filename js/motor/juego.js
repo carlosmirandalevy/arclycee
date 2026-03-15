@@ -175,7 +175,7 @@ export class Juego {
 
     // --- Sistemas de misiones secundarias ---
     // Registro de misiones (diario del jugador, tecla L)
-    this.registro = new RegistroJuego();
+    this.registro = new RegistroJuego(this);
     // Reputación del jugador (0-100, afecta combates)
     this.reputacion = new SistemaReputacion();
     // Estado de las 3 sidequests del LFSD
@@ -228,7 +228,7 @@ export class Juego {
       { nombre: 'Asentamiento Taíno II', escena: 'asentamientoTaino2' },
       { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
       { nombre: 'Zona Colonial',        escena: 'zonaColonial' },
-      { nombre: 'Naufragio La Pinta (Acuático)', escena: 'mundoAcuatico' },
+      { nombre: 'Naufragio Santa María (Acuático)', escena: 'mundoAcuatico' },
       { nombre: 'Santuario del Manatí', escena: 'santuarioManati' },
       { nombre: 'Aeropuerto Punta Cana (Jurídico)', escena: 'mundoJuridico' },
       { nombre: 'Museo Atarazanas Reales (Laboratorio)', escena: 'mundoLaboratorio' },
@@ -371,7 +371,7 @@ export class Juego {
     const zonaColonial = new ZonaColonial();
     this.registrarEscena('zonaColonial', zonaColonial);
 
-    // Mundo Acuático — Naufragio de La Pinta (primer nivel submarino)
+    // Mundo Acuático — Naufragio de la Santa María (primer nivel submarino)
     const mundoAcuatico = new MundoAcuatico();
     this.registrarEscena('mundoAcuatico', mundoAcuatico);
 
@@ -612,7 +612,8 @@ export class Juego {
             objetivoCercano.descripcion || '',
             this.nombreEscenaActual,
             objetivoCercano.entidad,
-            objetivoCercano.tipoEntidad
+            objetivoCercano.tipoEntidad,
+            this.escenaActual
           );
           if (exito) {
             const textos = this.idiomas.traducciones[this.idiomas.idiomaActual];
@@ -633,7 +634,8 @@ export class Juego {
             this.nombreEscenaActual,
             objetivoCercano.entidad,
             objetivoCercano.tipoEntidad,
-            this.jugador
+            this.jugador,
+            this.escenaActual
           );
           if (exito) {
             const textos = this.idiomas.traducciones[this.idiomas.idiomaActual];
@@ -693,6 +695,9 @@ export class Juego {
       ];
       const frase = frases[Math.floor(Math.random() * frases.length)];
       this.mostrarToast(frase, 4);
+
+      // Guardar la escena donde murió para respawnear en el nodo correcto
+      this._escenaMuerte = this.nombreEscenaActual;
 
       // Pausa de 2.5 segundos antes de volver al mapa
       setTimeout(() => {

@@ -1,10 +1,12 @@
 // ============================================================
 // MISIONES-SECUNDARIAS.JS - Estado de las 3 sidequests
 // ============================================================
-// Controla el estado de las 3 misiones secundarias del LFSD:
-// 1. buenasVibraciones — calibrar el magnetómetro (Émile)
-// 2. metalCompleto — programar el robot submarino (Sofía)
-// 3. cienciaLoca — reparar el equipo de análisis (Lucas)
+// Controla el estado de las 5 misiones secundarias:
+// 1. batu — jugar batú con Higüemota (Asentamiento Taíno 2)
+// 2. rescateManati — liberar al manatí + limpiar arrecife (Santuario)
+// 3. buenasVibraciones — calibrar el magnetómetro (Émile, LFSD)
+// 4. metalCompleto — programar el robot submarino (Sofía, LFSD)
+// 5. cienciaLoca — reparar el equipo de análisis (Lucas, LFSD)
 //
 // Cada misión pasa por 4 estados:
 //   no_descubierta → descubierta → en_progreso → completada
@@ -16,8 +18,10 @@
 export class MisionesSecundarias {
 
   constructor() {
-    // Estado de las 3 misiones
+    // Estado de las 5 misiones (batú + rescate manatí + 3 del LFSD)
     this.misiones = {
+      batu: { estado: 'no_descubierta', datos: {} },
+      rescateManati: { estado: 'no_descubierta', datos: {} },
       buenasVibraciones: { estado: 'no_descubierta', datos: {} },
       metalCompleto: { estado: 'no_descubierta', datos: {} },
       cienciaLoca: { estado: 'no_descubierta', datos: {} }

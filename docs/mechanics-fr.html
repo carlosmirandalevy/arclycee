@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ArcLycée — Mécaniques du Jeu</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../resources/favicon-32.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -60,6 +60,19 @@
         <div class="combat-option"><h5>🏛️ UNESCO 1970</h5><p>Convention contre le trafic illicite.</p><div class="efecto">+20-28 Preuve, -15-22 Hostilité</div><div class="contra">Contre : Invoque la non-rétroactivité.</div></div>
       </div>
 
+      <h3>Système de Réputation</h3>
+      <p>Un score de <strong>0 à 100</strong> qui évolue selon tes choix :</p>
+      <table>
+        <tr><th>Action</th><th>Réputation gagnée</th></tr>
+        <tr><td>Victoire pacifiste (combat)</td><td>+15</td></tr>
+        <tr><td>Victoire par la force (combat)</td><td>+5</td></tr>
+        <tr><td>Action écologique (lamantin, arrecife, etc.)</td><td>+10 chacune</td></tr>
+      </table>
+      <p>4 niveaux : <strong>Inconnu</strong> (0-24), <strong>Connu</strong> (25-49), <strong>Respecté</strong> (50-74), <strong>Légendaire</strong> (75-100).</p>
+
+      <h3>Cinématique d'Arrestation</h3>
+      <p>Après avoir vaincu le trafiquant Rodrigo Torres (pacifiquement ou par la force), une <strong>cinématique d'arrestation</strong> se déclenche : les autorités interviennent et confisquent les artefacts trafiqués. Cette scène conclut le Monde Juridique et débloque le dernier noeud.</p>
+
       <h3>Sons de Combat</h3>
       <p><strong>22 effets sonores procéduraux</strong> générés avec Web Audio API. Zéro fichier audio :</p>
       <ul>
@@ -93,6 +106,14 @@
       <h3>Toasts</h3>
       <p>Messages flottants non intrusifs. Animation d'entrée, fond sombre avec bordure dorée, max 4 simultanés.</p>
 
+      <h3>Album Photo (touche P)</h3>
+      <p>Système de collection visuelle qui enregistre les personnages et objets rencontrés au cours de l'aventure. Deux modes de capture :</p>
+      <ul>
+        <li><strong>Photo</strong> : affiche UNIQUEMENT le sprite du PNJ ou de l'objet, centré dans un bloc carré sur fond sombre. Pas de capture d'écran — le sprite est centré automatiquement.</li>
+        <li><strong>Selfie</strong> : affiche le PNJ ou l'objet à côté de l'avatar du joueur, dans un bloc rectangulaire vertical sur fond sombre. Les sprites sont centrés automatiquement.</li>
+      </ul>
+      <p>Les photos et selfies sont sauvegardés dans l'album du joueur et consultables à tout moment.</p>
+
       <h3>Détection Magnoboot</h3>
       <p>Impulsion radar (touche F) qui révèle les zones de fouilles enterrées.</p>
 
@@ -120,7 +141,7 @@
         <tr><td>3</td><td>Village Taïno II</td><td>Intérieur de l'île</td></tr>
         <tr><td>4</td><td>La Isabela</td><td>Puerto Plata (côte nord)</td></tr>
         <tr><td>5</td><td>Zona Colonial</td><td>Santo Domingo (côte sud)</td></tr>
-        <tr><td>6</td><td>Épave de La Pinta</td><td>Côte nord (mer)</td></tr>
+        <tr><td>6</td><td>Épave de la Santa María</td><td>Côte nord (mer)</td></tr>
         <tr><td>7</td><td>Aéroport de Punta Cana</td><td>La Altagracia</td></tr>
         <tr><td>8</td><td>Musée des Atarazanas Reales</td><td>Zona Colonial, Santo Domingo</td></tr>
       </table>
@@ -133,9 +154,9 @@
         <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>💀 Fin Sombre</h5><p>Plus de violence que de pacifisme. Pièces entre les mains de collectionneurs privés.</p></div>
       </div>
 
-      <h3>Mini-jeu du Batú</h3>
+      <h3>Quête Secondaire : Batú</h3>
       <p>Le <strong>batú</strong> était le jeu de balle sacré des Taïnos. On frappait avec les hanches (à l'aide d'un joug de pierre), les épaules, les coudes, les genoux et la tête — jamais avec les mains ni les pieds.</p>
-      <p>Déclenché par Higüemota dans le Village Taïno II. Vue latérale avec physique 2D :</p>
+      <p>Déclenché par Higüemota dans le Village Taïno II (le joueur peut <strong>accepter ou refuser</strong>). Vue latérale avec physique 2D :</p>
       <table>
         <tr><th>Frappe</th><th>Zone</th><th>Angle</th><th>Puissance</th></tr>
         <tr><td>Hanche (joug)</td><td>Taille</td><td>45°</td><td>Maximale</td></tr>
@@ -143,7 +164,7 @@
         <tr><td>Tête</td><td>Tête</td><td>~Vertical</td><td>Moyenne</td></tr>
         <tr><td>Genou</td><td>Jambes</td><td>30°</td><td>Basse (défensif)</td></tr>
       </table>
-      <p>IA rivale : 85% vitesse, 150ms délai, 15% erreurs. Premier à 3 points gagne.</p>
+      <p>IA rééquilibrée : <strong>72% vitesse</strong>, 150ms délai, <strong>30% erreurs intentionnelles</strong>. Premier à 3 points gagne.</p>
 
       <h3>Easter Eggs</h3>
       <p>8 objets secrets personnalisés :</p>
@@ -162,7 +183,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.14.0 — Aventure Archéologique Dominicaine</p>
+    <p>ArcLycée v0.15.1 — Aventure Archéologique Dominicaine</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Cours de Robotique 2026<br><a href="../index.html">Jouer à ArcLycée</a></p>
   </footer>
 

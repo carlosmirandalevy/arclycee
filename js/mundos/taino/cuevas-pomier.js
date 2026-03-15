@@ -159,8 +159,13 @@ export class CuevasPomier {
     ];
 
     // --- NPC Arqueóloga (cerca de la salida) ---
-    this.arqueologa = { x: 2750, y: 398, ancho: 24, alto: 32 };
+    // nombre y color son necesarios para el sistema de fotos (album-fotos.js)
+    this.arqueologa = { x: 2750, y: 398, ancho: 24, alto: 32, nombre: 'Dra. Martínez', color: '#DDDDDD' };
     this.arqueologaDialogoHecho = false;
+
+    // Exponer como array npcs para que el sistema de fotos (juego._buscarObjetivoFotografico)
+    // pueda detectar a la arqueóloga y permitir fotos/selfies con T/G
+    this.npcs = [this.arqueologa];
 
     // La salida está al extremo derecho
     this.salidaX = 2850;
@@ -762,6 +767,12 @@ export class CuevasPomier {
       tamano: 11, color: '#FFD700'
     });
 
+    // Contador de objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     // Misión actual
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
@@ -775,7 +786,7 @@ export class CuevasPomier {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | Espacio: saltar | E: examinar | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | Espacio: saltar | E: examinar | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }
@@ -1130,6 +1141,15 @@ export class CuevasPomier {
     ctx.textAlign = 'center';
     ctx.fillText('Dra. Martínez', x + 12, y - 8);
     ctx.textAlign = 'left';
+  }
+
+  // --- Dibujar NPC genérico (requerido por album-fotos.js) ---
+  // El sistema de fotos llama escena._dibujarNPC(ctx, npc, offsetX, offsetY)
+  // para renderizar el sprite real del NPC en los retratos y selfies.
+  _dibujarNPC(ctx, npc, offsetX, offsetY) {
+    if (npc === this.arqueologa) {
+      this._dibujarArqueologa(ctx, npc.x + offsetX, npc.y + offsetY);
+    }
   }
 
   // --- Dibujar íconos de objetos coleccionables ---

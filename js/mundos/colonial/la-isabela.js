@@ -226,8 +226,10 @@ export class LaIsabela {
       // --- Rastrear resultado para el sistema de finales ---
       if (this.juego.combate.resultado === 'pacificado') {
         this.juego.progreso.combatesPacificados++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(15, 'Victoria pacífica');
       } else if (this.juego.combate.resultado === 'victoria') {
         this.juego.progreso.combatesViolentos++;
+        if (this.juego.reputacion) this.juego.reputacion.modificar(5, 'Victoria en combate');
       }
 
       // Mostrar un diálogo de resolución según el resultado
@@ -368,11 +370,8 @@ export class LaIsabela {
         if (!this.juego.progreso.nodosCompletados.includes(3)) {
           this.juego.progreso.nodosCompletados.push(3);
         }
-        // Desbloquear la Zona Colonial (nodo 4) si el jugador
-        // tiene el mapa colonial que le dio Roberto Cassá
-        const tieneMapaColonial = this.juego.inventario &&
-          this.juego.inventario.objetos.some(o => o.id === 'mapaColonial');
-        if (tieneMapaColonial && !this.juego.progreso.nodosDesbloqueados.includes(4)) {
+        // Desbloquear la Zona Colonial (nodo 4) al completar La Isabela
+        if (!this.juego.progreso.nodosDesbloqueados.includes(4)) {
           this.juego.progreso.nodosDesbloqueados.push(4);
         }
       }
@@ -595,13 +594,19 @@ export class LaIsabela {
       tamano: 11, color: '#FFD700'
     });
 
+    // Objetos recogidos
+    const objRecogidos = this.objetos.filter(o => o.recogido).length;
+    renderizador.dibujarTexto(`📦 ${objRecogidos}/${this.objetos.length}`, 15, 58, {
+      tamano: 11, color: objRecogidos >= this.objetos.length ? '#44CC44' : '#FFD700'
+    });
+
     renderizador.dibujarTexto(this.misionActual, ancho - 10, 20, {
       tamano: 12, color: '#CCCCCC', alineacion: 'right'
     });
 
     // --- Indicador de F para Magnoboot ---
     if (companeros && companeros.some(c => c.tipo === 'magnoboot' && c.activo)) {
-      renderizador.dibujarTexto('[F] Detectar Metal', 15, 60, {
+      renderizador.dibujarTexto('[F] Detectar Metal', 15, 74, {
         tamano: 10, color: '#44FFFF'
       });
     }
@@ -613,7 +618,7 @@ export class LaIsabela {
 
     // --- Controles ---
     if (!this.dialogos.estaActivo()) {
-      renderizador.dibujarTexto('WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa', ancho / 2, alto - 10, {
+      renderizador.dibujarTexto('WASD: mover | E: hablar | F: habilidad | I: inventario | M: mapa | P: fotos | L: misiones', ancho / 2, alto - 10, {
         tamano: 10, color: '#555555', alineacion: 'center'
       });
     }
@@ -1075,7 +1080,7 @@ export class LaIsabela {
         this.dialogos.iniciarDialogo([
           { personaje: '📚 Roberto Cassá', texto: isabela?.cassa1 || 'Soy Roberto Cassá, historiador. Estudio los orígenes de nuestra nación.' },
           { personaje: '📚 Roberto Cassá', texto: isabela?.cassaSinArcabuz || 'Busco artefactos coloniales de La Isabela. Si encuentras algo, tráemelo — tengo algo valioso que ofrecerte a cambio.' }
-        ]);
+        ], () => { npc.dialogoHecho = true; });
       }
     }
   }

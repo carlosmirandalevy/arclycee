@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ArcLycée — Mecánicas del Juego</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../resources/favicon-32.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -83,6 +83,18 @@
         <div class="combat-option"><h5>🏛️ UNESCO 1970</h5><p>Convención contra tráfico ilícito.</p><div class="efecto">+20-28 Evidencia, -15-22 Hostilidad</div><div class="contra">Contra: Alega no retroactividad.</div></div>
       </div>
 
+      <h3>Sistema de Reputación</h3>
+      <p>Medidor de 0 a 100 que refleja el impacto del jugador:</p>
+      <ul>
+        <li><strong>+15</strong> por victoria pacifista en combate</li>
+        <li><strong>+5</strong> por victoria por fuerza</li>
+        <li><strong>+10</strong> por cada acción ecológica (liberar manatí, limpiar arrecife, etc.)</li>
+      </ul>
+      <p>4 niveles: <strong>Desconocido</strong> (0-24), <strong>Conocido</strong> (25-49), <strong>Respetado</strong> (50-74), <strong>Legendario</strong> (75-100).</p>
+
+      <h3>Cinemática de Arresto</h3>
+      <p>Tras derrotar al traficante Rodrigo Torres en el Aeropuerto de Punta Cana, se reproduce una cinemática de arresto donde agentes de INTERPOL lo escoltan fuera del aeropuerto. El resultado (pacífico o por fuerza) se refleja en el tracking de combate que determina el final del juego.</p>
+
       <h3>Sonidos de Combate</h3>
       <p><strong>22 efectos de sonido procedurales</strong> generados con Web Audio API. Cero archivos de audio:</p>
       <ul>
@@ -119,6 +131,14 @@
       <h3>Toasts</h3>
       <p>Mensajes flotantes no intrusivos. Animación de entrada, fondo oscuro con borde dorado, máximo 4 simultáneos.</p>
 
+      <h3>Álbum de Fotos (tecla P)</h3>
+      <p>Sistema de colección visual que registra los personajes y objetos encontrados durante la aventura. Dos modos de captura:</p>
+      <ul>
+        <li><strong>Foto</strong>: renderiza SOLO el sprite del NPC u objeto, centrado en un bloque cuadrado sobre fondo oscuro. Sin captura de pantalla — el sprite se dibuja automáticamente centrado.</li>
+        <li><strong>Selfie</strong>: renderiza el NPC u objeto junto al avatar del jugador, en un bloque rectangular vertical sobre fondo oscuro. Los sprites se centran automáticamente.</li>
+      </ul>
+      <p>Las fotos y selfies se guardan en el álbum del jugador y se pueden revisar en cualquier momento.</p>
+
       <h3>Detección con Magnoboot</h3>
       <p>Pulso de radar (tecla F) que revela zonas de excavación enterradas.</p>
 
@@ -138,7 +158,7 @@
       </table>
 
       <h3>Mapa de Libre Exploración</h3>
-      <p>8 nodos activados al acercarse con el sprite:</p>
+      <p>9 nodos activados al acercarse con el sprite:</p>
       <table>
         <tr><th>#</th><th>Nodo</th><th>Ubicación</th></tr>
         <tr><td>1</td><td>Cuevas del Pomier</td><td>San Cristóbal (centro-sur)</td></tr>
@@ -146,9 +166,10 @@
         <tr><td>3</td><td>Asentamiento Taíno II</td><td>Interior de la isla</td></tr>
         <tr><td>4</td><td>La Isabela</td><td>Puerto Plata (costa norte)</td></tr>
         <tr><td>5</td><td>Zona Colonial</td><td>Santo Domingo (costa sur)</td></tr>
-        <tr><td>6</td><td>Naufragio de La Pinta</td><td>Costa norte (mar)</td></tr>
+        <tr><td>6</td><td>Naufragio de la Santa María</td><td>Costa norte (mar)</td></tr>
         <tr><td>7</td><td>Aeropuerto de Punta Cana</td><td>La Altagracia</td></tr>
         <tr><td>8</td><td>Museo de las Atarazanas Reales</td><td>Zona Colonial, Santo Domingo</td></tr>
+        <tr><td>9</td><td>LFSD — Clase de Robótica</td><td>Santo Domingo</td></tr>
       </table>
 
       <h3>4 Finales</h3>
@@ -159,9 +180,22 @@
         <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>💀 Final Oscuro</h5><p>Más violencia que pacifismo. Piezas en manos de coleccionistas privados.</p></div>
       </div>
 
-      <h3>Mini-juego de Batú</h3>
+      <h3>Registro de Misiones (tecla L)</h3>
+      <p>Diario del jugador con dos pestañas navegables:</p>
+      <ul>
+        <li><strong>Historia Principal</strong> — Muestra los 9 mundos del juego con iconos de estado:
+          <ul>
+            <li>&#x2705; Completado — nodo ya terminado</li>
+            <li>&#x1F513; Desbloqueado — disponible para jugar</li>
+            <li>&#x1F512; Bloqueado — aún no accesible</li>
+          </ul>
+        </li>
+        <li><strong>Misiones Secundarias</strong> — Lista las misiones descubiertas y su estado (pendiente / completada). Las misiones no descubiertas no aparecen.</li>
+      </ul>
+
+      <h3>Mini-juego de Batú (Misión Secundaria)</h3>
       <p>El <strong>batú</strong> era el juego de pelota sagrado de los taínos. Se golpeaba con caderas (usando un yugo de piedra), hombros, codos, rodillas y cabeza — nunca con manos ni pies.</p>
-      <p>Se activa con Higüemota en el Asentamiento Taíno II. Vista lateral con física 2D:</p>
+      <p>Se ofrece como <strong>misión secundaria</strong> al hablar con Higüemota en el Asentamiento Taíno II. El jugador puede aceptar o rechazar la invitación. Vista lateral con física 2D:</p>
       <table>
         <tr><th>Golpe</th><th>Zona</th><th>Ángulo</th><th>Potencia</th></tr>
         <tr><td>Cadera (yugo)</td><td>Cintura</td><td>45°</td><td>Máxima</td></tr>
@@ -169,7 +203,7 @@
         <tr><td>Cabeza</td><td>Cabeza</td><td>~Vertical</td><td>Media</td></tr>
         <tr><td>Rodilla</td><td>Piernas</td><td>30°</td><td>Baja (defensivo)</td></tr>
       </table>
-      <p>IA rival: 85% velocidad, 150ms retardo, 15% errores. Primero en 3 puntos gana.</p>
+      <p>IA rival rebalanceada: 72% velocidad, 30% errores intencionales. Primero en 3 puntos gana.</p>
 
       <h3>Easter Eggs</h3>
       <p>8 objetos secretos personalizados:</p>
@@ -188,7 +222,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.14.0 — Aventura Arqueológica Dominicana</p>
+    <p>ArcLycée v0.15.1 — Aventura Arqueológica Dominicana</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
   </footer>
 

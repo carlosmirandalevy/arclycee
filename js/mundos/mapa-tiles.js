@@ -403,12 +403,13 @@ export function obtenerNodosIsla() {
       conectadoA: [5]
     },
     {
-      // Costa sureste — cerca de Bayahíbe / Parque Nacional del Este.
-      // Zona de arrecifes de coral donde se encuentran naufragios
-      // coloniales reales. El jugador llega a la costa y se sumerge.
+      // Costa norte de Haití — en el agua frente a Cap-Haïtien.
+      // La Santa María, nave capitana de Colón, encalló aquí la
+      // noche del 25 de diciembre de 1492. El nodo está en el agua
+      // porque es un sitio de naufragio submarino.
       id: 5,
-      tileX: 100, tileY: 44,
-      nombre: 'Naufragio La Pinta',
+      tileX: 36, tileY: 5,
+      nombre: 'Naufragio Santa María',
       tipo: 'naufragio',
       escena: 'mundoAcuatico',
       conectadoA: [6]

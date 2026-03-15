@@ -57,9 +57,9 @@ const UBICACIONES_REALES = [
   },
   {
     id: 5,
-    nombre: 'Naufragio La Pinta',
-    lat: 18.4500, lng: -69.8500,
-    descripcion: 'Zona de naufragios coloniales al sur de Santo Domingo. Arqueología submarina.',
+    nombre: 'Naufragio Santa María',
+    lat: 19.9200, lng: -72.2000,
+    descripcion: 'Restos de la nave capitana de Colón, encallada la Nochebuena de 1492 cerca de Cap-Haïtien.',
     icono: '⚓',
     color: '#1E90FF'
   },

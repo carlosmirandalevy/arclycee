@@ -169,7 +169,11 @@ const en = {
       // Batú — Higüemota dialogues for the mini-game
       batuOferta1: 'Want to play batú? It\'s our sacred ball game.',
       batuOferta2: 'You hit the ball with your hips, shoulders, and head. Never with your hands!',
-      batuOferta3: 'Let\'s go to the batey! First to 3 points wins.',
+      batuAceptar: 'Yes, let\'s play!',
+      batuRechazar: 'Not now, maybe later.',
+      batuOfertaRepite: 'Ready for batú? The batey awaits!',
+      batuPendiente: '🏐 Pending quest: Batú',
+      batuReputacion: 'Batú completed',
       batuVictoria: 'Impressive! You play like a true Taíno.',
       batuDerrota: 'Good try! Batú takes a lot of practice.',
       batuRepite: 'That was a great match! Batú unites villages and resolves conflicts without violence.',
@@ -296,11 +300,11 @@ const en = {
       misionCompleta: 'Zona Colonial explored! Return to map (M)'
     },
 
-    // Aquatic World — La Pinta Shipwreck
+    // Aquatic World — Santa María Shipwreck
     acuatico: {
       pescador1: 'Welcome to the ocean floor, kid! I\'m Manuel, a fisherman from Montecristi.',
-      pescador2: 'Down here lie the remains of La Pinta, one of Columbus\'s three ships.',
-      pescador3: 'La Pinta\'s timbers were used to build Fort Navidad — the first European structure in the Americas.',
+      pescador2: 'Down here lie the remains of the Santa María, Columbus\'s flagship.',
+      pescador3: 'The Santa María ran aground on a reef on Christmas Eve 1492. Her timbers were used to build Fort Navidad.',
       pescador4: 'Watch out for jellyfish! Their sting hurts and slows you down.',
 
       tortuga1: 'I\'m a hawksbill turtle. My species has been swimming these seas for 100 million years.',
@@ -344,7 +348,7 @@ const en = {
 
       cantoBallenaCerca: 'You hear a humpback whale singing in the distance!',
 
-      misionExplorar: 'Explore the wreck of La Pinta',
+      misionExplorar: 'Explore the wreck of the Santa María',
       misionCompleta: 'Shipwreck explored! Return to map (M)'
     },
 
@@ -353,7 +357,9 @@ const en = {
       biologa1: 'Welcome to the Manatee Sanctuary! I\'m Dr. Sofía, marine biologist.',
       biologa2: 'Antillean manatees are endangered. Fewer than 2,500 remain in the entire Caribbean.',
       biologa3: 'Law 64-00 protects Dominican biodiversity. Harming a manatee is an environmental crime.',
-      biologa4: 'There\'s an adult manatee trapped in a ghost net! Abandoned fishing nets are deadly traps.',
+      biologa4: 'Manatees get caught accidentally in abandoned fishing nets — we call them "ghost nets".',
+      biologa5: 'To free them without harm, you must cut the net carefully without touching the animal. A scared manatee can thrash and injure itself further.',
+      biologa6: 'There\'s an adult manatee trapped right now! Go to the ghost net to the east and press [E] to cut it. Quickly, but calmly!',
 
       tortugaVerde1: 'I\'m a green turtle. Unlike the hawksbill, I eat algae and seagrass.',
       tortugaVerde2: 'Ocean trash kills us. We mistake plastic bags for jellyfish and eat them.',
@@ -432,6 +438,14 @@ const en = {
       traficantePaz2: 'The artifacts will be returned to the Museum of the Dominican Man.',
       traficanteDerrota: 'Torres is arrested. The case goes to court.',
       traficantePostCombate: 'You got me... but this is bigger than me. There\'s a whole network.',
+
+      // Arrest cutscene
+      arrestoInspector1: 'Rodrigo Torres, you are under arrest for illicit trafficking of cultural property.',
+      arrestoAgente1: 'You have the right to an attorney. Anything you say can be used against you.',
+      arrestoTorres1: 'You can\'t do this to me! I have connections!',
+      arrestoInspector2: 'Your connections won\'t help you. INTERPOL has notified every customs office in the Caribbean.',
+      arrestoAgente2: 'Take him away. The artifacts are confiscated as evidence.',
+      inspectorPostArresto: 'Torres is in custody. INTERPOL will investigate his entire network.',
 
       etiquetaEvidencia: 'Evidence:',
       combatePista: 'Use laws and evidence to build a legal case',
@@ -625,7 +639,7 @@ const en = {
     descLlaveHierro: 'A colonial wrought-iron key. It might open some old door.',
 
     clavoBronce: 'Bronze Nail',
-    descClavoBronce: 'A bronze nail from La Pinta\'s hull. It resisted saltwater corrosion.',
+    descClavoBronce: 'A bronze nail from the Santa María\'s hull. It resisted saltwater corrosion.',
     mapaNaufragios: 'Shipwreck Map',
     descMapaNaufragios: 'Map showing shipwreck locations in the Dominican Caribbean. Gift from the underwater archaeologist.',
 
@@ -841,7 +855,19 @@ const en = {
     titulo: 'Mission Log',
     principal: 'Main Story',
     secundaria: 'Side Quests',
-    vacio: 'No missions logged'
+    vacio: 'No missions logged',
+    bloqueado: '???',
+    nodos: {
+      nodo0: { nombre: 'Pomier Caves', desc: 'Explore caves with Taíno petroglyphs and pictographs.' },
+      nodo1: { nombre: 'Taíno Settlement I', desc: 'Discover the daily life of a Taíno village.' },
+      nodo2: { nombre: 'Taíno Settlement II', desc: 'Visit the batey and chiefdom ceremonies.' },
+      nodo3: { nombre: 'La Isabela', desc: 'Investigate the ruins of the second European settlement (1494).' },
+      nodo4: { nombre: 'Colonial Zone', desc: 'Tour the first permanent European city in the Americas.' },
+      nodo5: { nombre: 'Santa María Shipwreck', desc: 'Dive to explore the remains of Columbus\'s flagship.' },
+      nodo6: { nombre: 'Punta Cana Airport', desc: 'Stop the illegal trafficking of archaeological artifacts.' },
+      nodo7: { nombre: 'Atarazanas Museum', desc: 'Analyze the recovered artifacts at the museum.' },
+      nodo8: { nombre: 'LFSD', desc: 'Complete robotics missions with les fous du robot.' }
+    }
   },
 
   // Reputation — player recognition levels
@@ -892,14 +918,20 @@ const en = {
     chispa: 'Wrong connection!'
   },
 
-  // Quests — LFSD quest titles and descriptions
+  // Quests — sidequest titles and descriptions
   misiones: {
+    batuTitulo: 'Batú',
+    batuDesc: 'Play a batú match against Higüemota at the batey.',
     buenasVibracionesTitulo: 'Good Vibrations',
     buenasVibracionesDesc: 'Calibrate the magnetometer at the LFSD robotics class.',
     metalCompletoTitulo: 'Full Metal Archeologist',
     metalCompletoDesc: 'Program the submarine robot at LFSD.',
     cienciaLocaTitulo: 'Weird Science',
     cienciaLocaDesc: 'Repair the analysis equipment at LFSD.',
+    rescateManatiTitulo: 'Manatee Rescue',
+    rescateManatiDesc: 'Free the trapped manatee and clean the reef at the Sanctuary.',
+    rescateManatiReputacion: 'Manatee freed',
+    limpiezaReputacion: 'Reef cleaned',
     descubierta: 'Quest discovered!'
   },
 

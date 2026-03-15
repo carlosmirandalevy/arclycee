@@ -23,9 +23,9 @@
 // Tamaño de las fotos (cuadradas)
 const FOTO_TAMANO = 160;
 
-// Tamaño de las selfies (verticales, para que quepan dos personajes)
-const SELFIE_ANCHO = 120;
-const SELFIE_ALTO = 180;
+// Tamaño de las selfies (verticales, dos personajes uno al lado del otro)
+const SELFIE_ANCHO = 160;
+const SELFIE_ALTO = 200;
 
 // Disposición de la cuadrícula de fotos en el álbum
 const FOTOS_POR_FILA = 3;
@@ -71,12 +71,13 @@ export class AlbumFotos {
   // - mundo: nombre del mundo donde se tomó (ej: 'cuevasPomier')
   // - entidad: referencia directa al NPC/petroglifo/objeto
   // - tipoEntidad: 'npc', 'petroglifo' u 'objeto'
-  tomarFoto(objetivo, descripcion, mundo, entidad, tipoEntidad) {
+  tomarFoto(objetivo, descripcion, mundo, entidad, tipoEntidad, escena) {
     // Evitar duplicados exactos (misma foto del mismo objetivo en el mismo mundo)
     if (this.tieneFoto(objetivo)) return false;
 
     // Generar la imagen del retrato con sprites
-    const miniatura = this._generarRetrato(entidad, tipoEntidad);
+    // Se pasa la escena para que pueda usar _dibujarNPC con los sprites reales
+    const miniatura = this._generarRetrato(entidad, tipoEntidad, escena);
 
     // Crear la entrada del álbum
     this.fotos.push({
@@ -97,12 +98,13 @@ export class AlbumFotos {
   //
   // Parámetros extra respecto a tomarFoto:
   // - jugador: referencia al objeto jugador (para dibujar su sprite)
-  tomarSelfie(objetivo, descripcion, mundo, entidad, tipoEntidad, jugador) {
+  tomarSelfie(objetivo, descripcion, mundo, entidad, tipoEntidad, jugador, escena) {
     // Evitar duplicados
     if (this.tieneSelfie(objetivo)) return false;
 
-    // Generar la selfie con ambos personajes
-    const miniatura = this._generarSelfie(entidad, tipoEntidad, jugador);
+    // Generar la selfie con ambos personajes lado a lado
+    // Se pasa la escena para que pueda usar _dibujarNPC con los sprites reales
+    const miniatura = this._generarSelfie(entidad, tipoEntidad, jugador, escena);
 
     this.fotos.push({
       tipo: 'selfie',
@@ -119,34 +121,33 @@ export class AlbumFotos {
   // ============================================================
   // GENERACIÓN DE RETRATOS CON SPRITES
   // ============================================================
-  // En lugar de capturar el canvas del juego, dibujamos sprites
-  // sobre fondos temáticos en un canvas temporal. Esto produce
-  // imágenes más bonitas y no depende del estado de renderizado.
+  // Cada foto/selfie dibuja sprites sobre un fondo oscuro neutro
+  // en un canvas temporal. NO se captura la pantalla del juego.
+  // Para NPCs, se usa un canvas auxiliar para detectar el bounding
+  // box del sprite y centrarlo automáticamente.
 
   // --- GENERAR RETRATO (FOTO) ---
-  // Crea una imagen cuadrada con el sprite de la entidad centrado
-  // sobre un fondo temático según el tipo de entidad.
-  _generarRetrato(entidad, tipoEntidad) {
+  // Crea una imagen cuadrada con SOLO el sprite de la entidad,
+  // centrado sobre un fondo oscuro neutro. Sin captura de pantalla.
+  _generarRetrato(entidad, tipoEntidad, escena) {
     try {
-      // Canvas temporal cuadrado para la foto
       const canvas = document.createElement('canvas');
       canvas.width = FOTO_TAMANO;
       canvas.height = FOTO_TAMANO;
       const ctx = canvas.getContext('2d');
 
-      // Fondo temático según el tipo de entidad
-      this._renderizarFondo(ctx, FOTO_TAMANO, FOTO_TAMANO, tipoEntidad);
+      // Fondo oscuro neutro (no temático — evita confusión con pantalla)
+      this._renderizarFondo(ctx, FOTO_TAMANO, FOTO_TAMANO);
 
-      // Sprite de la entidad centrado en la imagen
+      // Sprite de la entidad centrado y grande
+      // Usamos un canvas auxiliar para capturar el sprite y centrarlo
       const centroX = FOTO_TAMANO / 2;
       const centroY = FOTO_TAMANO / 2;
-      const escala = 2.5; // Escalamos el sprite para que se vea bien
-      this._renderizarEntidad(ctx, entidad, tipoEntidad, centroX, centroY, escala);
+      this._renderizarEntidadCentrada(ctx, entidad, tipoEntidad, centroX, centroY, 3.5, escena);
 
-      // Marco decorativo alrededor
+      // Marco dorado sencillo
       this._renderizarMarco(ctx, FOTO_TAMANO, FOTO_TAMANO, false);
 
-      // Convertir a JPEG comprimido (calidad 60%)
       return canvas.toDataURL('image/jpeg', 0.6);
     } catch (error) {
       console.warn('No se pudo generar la foto:', error.message);
@@ -155,31 +156,38 @@ export class AlbumFotos {
   }
 
   // --- GENERAR SELFIE ---
-  // Crea una imagen vertical con la entidad arriba y el jugador
-  // abajo, simulando que se toman una foto juntos.
-  _generarSelfie(entidad, tipoEntidad, jugador) {
+  // Crea una imagen vertical con la entidad a la izquierda y el
+  // jugador a la derecha, ambos centrados verticalmente.
+  _generarSelfie(entidad, tipoEntidad, jugador, escena) {
     try {
-      // Canvas temporal vertical para la selfie
       const canvas = document.createElement('canvas');
       canvas.width = SELFIE_ANCHO;
       canvas.height = SELFIE_ALTO;
       const ctx = canvas.getContext('2d');
 
-      // Fondo temático
-      this._renderizarFondo(ctx, SELFIE_ANCHO, SELFIE_ALTO, tipoEntidad);
+      // Fondo oscuro neutro
+      this._renderizarFondo(ctx, SELFIE_ANCHO, SELFIE_ALTO);
 
-      // La entidad se dibuja en la parte superior
-      const entidadY = SELFIE_ALTO * 0.33;
-      this._renderizarEntidad(ctx, entidad, tipoEntidad, SELFIE_ANCHO / 2, entidadY, 2.0);
+      // Línea divisoria sutil en el centro
+      ctx.strokeStyle = 'rgba(255, 215, 0, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(SELFIE_ANCHO / 2, 20);
+      ctx.lineTo(SELFIE_ANCHO / 2, SELFIE_ALTO - 20);
+      ctx.stroke();
 
-      // El jugador se dibuja en la parte inferior
-      const jugadorY = SELFIE_ALTO * 0.72;
-      this._renderizarJugador(ctx, jugador, SELFIE_ANCHO / 2, jugadorY, 2.0);
+      // Entidad a la izquierda, jugador a la derecha
+      const centroY = SELFIE_ALTO / 2;
+      const escalaPersonajes = 2.5;
+      const entidadX = SELFIE_ANCHO * 0.28;
+      const jugadorX = SELFIE_ANCHO * 0.72;
 
-      // Marco estilo polaroid (más grueso abajo)
+      this._renderizarEntidadCentrada(ctx, entidad, tipoEntidad, entidadX, centroY, escalaPersonajes, escena);
+      this._renderizarJugador(ctx, jugador, jugadorX, centroY, escalaPersonajes);
+
+      // Marco polaroid blanco
       this._renderizarMarco(ctx, SELFIE_ANCHO, SELFIE_ALTO, true);
 
-      // Convertir a JPEG comprimido
       return canvas.toDataURL('image/jpeg', 0.6);
     } catch (error) {
       console.warn('No se pudo generar la selfie:', error.message);
@@ -195,12 +203,14 @@ export class AlbumFotos {
   // - Petroglifos: piedra con símbolo grabado
   // - Objetos: ítem brillante con resplandor
 
-  // --- RENDERIZAR UNA ENTIDAD ---
-  // Dibuja el sprite de la entidad centrado en (cx, cy) con la escala dada.
-  // Delega al método apropiado según el tipo.
-  _renderizarEntidad(ctx, entidad, tipoEntidad, cx, cy, escala) {
+  // --- RENDERIZAR ENTIDAD CENTRADA ---
+  // Dibuja el sprite en un canvas auxiliar, detecta los píxeles
+  // dibujados, y los centra correctamente en la posición (cx, cy).
+  // Esto funciona con cualquier escena y cualquier método _dibujarNPC
+  // sin importar cómo ese método posicione el sprite internamente.
+  _renderizarEntidadCentrada(ctx, entidad, tipoEntidad, cx, cy, escala, escena) {
     if (tipoEntidad === 'npc') {
-      this._renderizarNPC(ctx, entidad, cx, cy, escala);
+      this._renderizarNPCCentrado(ctx, entidad, cx, cy, escala, escena);
     } else if (tipoEntidad === 'petroglifo') {
       this._renderizarPetroglifo(ctx, entidad, cx, cy, escala);
     } else if (tipoEntidad === 'objeto') {
@@ -208,13 +218,72 @@ export class AlbumFotos {
     }
   }
 
-  // --- RENDERIZAR NPC ---
-  // Dibuja un personaje humanoide con cabeza, pelo, ojos, cuerpo,
-  // pantalones y zapatos. El color del cuerpo viene de entidad.color.
-  _renderizarNPC(ctx, entidad, cx, cy, escala) {
+  // --- RENDERIZAR NPC CENTRADO ---
+  // Dibuja el NPC en un canvas auxiliar para capturar su sprite,
+  // luego lo copia centrado en la posición deseada. Esto asegura
+  // que el sprite quede centrado sin importar los offsets internos
+  // del método _dibujarNPC de cada escena.
+  _renderizarNPCCentrado(ctx, entidad, cx, cy, escala, escena) {
+    // Tamaño del canvas auxiliar (suficiente para cualquier sprite)
+    const auxTamano = 200;
+    const auxCanvas = document.createElement('canvas');
+    auxCanvas.width = auxTamano;
+    auxCanvas.height = auxTamano;
+    const auxCtx = auxCanvas.getContext('2d');
+
+    // Dibujar el sprite del NPC en el centro del canvas auxiliar
+    if (escena && typeof escena._dibujarNPC === 'function') {
+      // Usamos _dibujarNPC con offsets que posicionen el NPC en el centro
+      escena._dibujarNPC(auxCtx, entidad, auxTamano / 2 - entidad.x, auxTamano / 2 - entidad.y, entidad);
+    } else {
+      // Fallback: dibujar personaje genérico centrado
+      this._dibujarNPCGenerico(auxCtx, entidad, auxTamano / 2, auxTamano / 2);
+    }
+
+    // Detectar los límites reales del sprite dibujado (bounding box)
+    const datos = auxCtx.getImageData(0, 0, auxTamano, auxTamano).data;
+    let minX = auxTamano, minY = auxTamano, maxX = 0, maxY = 0;
+    for (let py = 0; py < auxTamano; py++) {
+      for (let px = 0; px < auxTamano; px++) {
+        // Canal alfa > 0 significa que hay un pixel dibujado
+        if (datos[(py * auxTamano + px) * 4 + 3] > 0) {
+          if (px < minX) minX = px;
+          if (px > maxX) maxX = px;
+          if (py < minY) minY = py;
+          if (py > maxY) maxY = py;
+        }
+      }
+    }
+
+    // Si no se dibujó nada, usar fallback
+    if (maxX <= minX || maxY <= minY) {
+      this._dibujarNPCGenerico(ctx, entidad, cx, cy);
+      return;
+    }
+
+    // Recortar solo la zona del sprite y dibujarla centrada + escalada
+    const spriteAncho = maxX - minX + 1;
+    const spriteAlto = maxY - minY + 1;
+
+    ctx.save();
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(
+      auxCanvas,
+      minX, minY, spriteAncho, spriteAlto,           // Fuente: solo el sprite
+      cx - spriteAncho * escala / 2,                   // Destino X centrado
+      cy - spriteAlto * escala / 2,                    // Destino Y centrado
+      spriteAncho * escala,                            // Ancho escalado
+      spriteAlto * escala                              // Alto escalado
+    );
+    ctx.restore();
+  }
+
+  // --- DIBUJAR NPC GENÉRICO ---
+  // Sprite de personaje centrado en (cx, cy) para cuando la escena
+  // no tiene un método _dibujarNPC propio.
+  _dibujarNPCGenerico(ctx, entidad, cx, cy) {
     ctx.save();
     ctx.translate(cx, cy);
-    ctx.scale(escala, escala);
 
     // Cuerpo (camisa con el color del NPC)
     ctx.fillStyle = entidad.color || '#4488ff';
@@ -413,56 +482,23 @@ export class AlbumFotos {
   // ============================================================
 
   // --- RENDERIZAR FONDO ---
-  // Dibuja un fondo temático según el tipo de entidad fotografiada.
-  // Cada tipo tiene un ambiente diferente para hacer las fotos
-  // más interesantes visualmente.
-  _renderizarFondo(ctx, ancho, alto, tipoEntidad) {
-    if (tipoEntidad === 'npc') {
-      // NPCs: cielo azul con degradado a verde (exterior soleado)
-      const gradiente = ctx.createLinearGradient(0, 0, 0, alto);
-      gradiente.addColorStop(0, '#87CEEB');   // Azul cielo arriba
-      gradiente.addColorStop(0.6, '#B0E0B0'); // Verdoso en el medio
-      gradiente.addColorStop(1, '#4A7A4A');   // Verde oscuro abajo
-      ctx.fillStyle = gradiente;
-      ctx.fillRect(0, 0, ancho, alto);
+  // Fondo oscuro neutro con viñeta sutil. Igual para todos los tipos
+  // de entidad. Esto evita que el fondo se confunda con una captura
+  // de pantalla del juego.
+  _renderizarFondo(ctx, ancho, alto) {
+    // Fondo base gris oscuro
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fillRect(0, 0, ancho, alto);
 
-    } else if (tipoEntidad === 'petroglifo') {
-      // Petroglifos: cueva oscura con textura rocosa sutil
-      const gradiente = ctx.createRadialGradient(
-        ancho / 2, alto / 2, 10,
-        ancho / 2, alto / 2, ancho * 0.8
-      );
-      gradiente.addColorStop(0, '#3A2A1A'); // Centro un poco más claro
-      gradiente.addColorStop(1, '#1A0E05'); // Bordes muy oscuros
-      ctx.fillStyle = gradiente;
-      ctx.fillRect(0, 0, ancho, alto);
-
-      // Textura sutil de roca (puntos aleatorios pero deterministas)
-      ctx.fillStyle = 'rgba(100, 80, 60, 0.15)';
-      for (let i = 0; i < 30; i++) {
-        // Usamos una fórmula simple para posiciones "aleatorias" pero fijas
-        const px = ((i * 37 + 13) % ancho);
-        const py = ((i * 53 + 7) % alto);
-        ctx.fillRect(px, py, 2, 2);
-      }
-
-    } else if (tipoEntidad === 'objeto') {
-      // Objetos: degradado ámbar cálido (como un tesoro iluminado)
-      const gradiente = ctx.createRadialGradient(
-        ancho / 2, alto / 2, 5,
-        ancho / 2, alto / 2, ancho * 0.7
-      );
-      gradiente.addColorStop(0, '#FFE4B5'); // Centro dorado claro
-      gradiente.addColorStop(0.5, '#DEB887');
-      gradiente.addColorStop(1, '#8B6914'); // Bordes marrón dorado
-      ctx.fillStyle = gradiente;
-      ctx.fillRect(0, 0, ancho, alto);
-
-    } else {
-      // Fallback: gris neutro
-      ctx.fillStyle = '#333333';
-      ctx.fillRect(0, 0, ancho, alto);
-    }
+    // Viñeta radial sutil (centro un poco más claro)
+    const gradiente = ctx.createRadialGradient(
+      ancho / 2, alto / 2, 10,
+      ancho / 2, alto / 2, Math.max(ancho, alto) * 0.7
+    );
+    gradiente.addColorStop(0, 'rgba(60, 60, 80, 0.5)');
+    gradiente.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = gradiente;
+    ctx.fillRect(0, 0, ancho, alto);
   }
 
   // --- RENDERIZAR MARCO ---
