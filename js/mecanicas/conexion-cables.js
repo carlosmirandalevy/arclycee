@@ -4,7 +4,7 @@
 // El jugador conecta 6 cables coloreados del lado izquierdo
 // al lado derecho, emparejando colores y símbolos.
 //
-// Se accede desde el LFSD hablando con Lucas.
+// Se accede desde el LFSD hablando con Hugo.
 // Al completar, el jugador recibe un periódico coleccionable
 // y puntos de reputación (bonus si lo hace en <15 segundos).
 // ============================================================

@@ -66,6 +66,22 @@ function obtenerInfoSprite(tipo) {
         'tom':       '#4466aa',
     };
 
+    // Alias de nombres actualizados → mismos colores que los IDs internos
+    const aliasEstudiantes = {
+        'leonardo':   estudiantesSimples['emile'],
+        'hugo':       estudiantesSimples['lucas'],
+        'tea':        estudiantesSimples['nael'],
+        'theo-jules': estudiantesSimples['theo'],
+    };
+
+    if (aliasEstudiantes[tipo]) {
+        return spriteHumanoide((ctx) => {
+            dibujarBaseHumanoide(ctx, {
+                colorCuerpo: aliasEstudiantes[tipo],
+            });
+        });
+    }
+
     if (estudiantesSimples[tipo]) {
         return spriteHumanoide((ctx) => {
             // Estudiantes: cuerpo de color, pelo estándar

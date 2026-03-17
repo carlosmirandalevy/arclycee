@@ -5,7 +5,7 @@
 // (frecuencia, amplitud, fase) para que la onda generada
 // coincida con la onda objetivo en un osciloscopio.
 //
-// Se accede desde el LFSD hablando con Émile cuando se tiene
+// Se accede desde el LFSD hablando con Leonardo cuando se tiene
 // el magnetómetro en el inventario y la misión descubierta.
 // ============================================================
 

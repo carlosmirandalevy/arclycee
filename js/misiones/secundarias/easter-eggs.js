@@ -79,7 +79,7 @@ export const EASTER_EGGS = [
   {
     id: 'hamburguesa_nael',
     nombre: "Hamburguesa Legendaria de Wendy's",
-    descripcion: 'La hamburguesa perfecta. Nael dice que es la mejor del mundo. Tiene poderes misteriosos.',
+    descripcion: 'La hamburguesa perfecta. Tea dice que es la mejor del mundo. Tiene poderes misteriosos.',
     tipo: 'consumible',
     efecto: 'Restaura TODA la vida y hambre. Ultra raro.',
     ubicacion: 'barrio'

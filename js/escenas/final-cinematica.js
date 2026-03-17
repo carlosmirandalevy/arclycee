@@ -598,8 +598,8 @@ export class FinalCinematica {
     ctx.font = '16px monospace';
     ctx.fillStyle = '#FFFFFF';
     const creadores = [
-      'Elian', 'Théo', 'Carlos Guillermo', 'Jules',
-      'Alberto', 'Rafael', 'Tom', 'Nael', 'Diana'
+      'Elian', 'Theo Jules', 'Carlos Guillermo', 'Jules',
+      'Alberto', 'Rafael', 'Tom', 'Tea', 'Diana'
     ];
     for (const nombre of creadores) {
       ctx.fillText(nombre, centroX, y);

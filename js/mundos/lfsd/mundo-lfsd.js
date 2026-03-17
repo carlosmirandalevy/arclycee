@@ -6,9 +6,9 @@
 // Prof. Nicolas Droulers y a 8 estudiantes, 3 de los cuales
 // ofrecen misiones secundarias con mini-juegos únicos:
 //
-// - Émile (electrónica) → Calibración de señal (magnetómetro)
+// - Leonardo (electrónica) → Calibración de señal (magnetómetro)
 // - Diana (programación) → Programación de bloques (robot submarino)
-// - Lucas (mecánica) → Conexión de cables (equipo de análisis)
+// - Hugo (mecánica) → Conexión de cables (equipo de análisis)
 //
 // MODO: Top-down interior (como mundo-laboratorio.js)
 // ENTRADA: Desde nodo en el mapa de tiles (Santo Domingo)
@@ -65,6 +65,12 @@ export class MundoLFSD {
     this.bloqueoEntrada = true;
     this.tiempoTotal = 0;
 
+    // Mensaje de bienvenida
+    const textos = this._obtenerTextos();
+    if (juego.mostrarToast) {
+      juego.mostrarToast(textos?.lfsd?.bienvenida || '🤖 Bienvenido a les Fous du Robot', 3);
+    }
+
     // Configurar jugador para vista top-down
     if (juego.jugador) {
       juego.jugador.modoJuego = 'topdown';
@@ -100,7 +106,7 @@ export class MundoLFSD {
       // Quest-givers (camisas de colores)
       {
         id: 'emile', x: 150, y: 340, ancho: 28, alto: 36,
-        nombre: lfsd?.emileNombre || 'Émile',
+        nombre: lfsd?.emileNombre || 'Leonardo',
         color: '#4488FF', // Azul
         dialogoHecho: false, esMentor: false, esQuestGiver: true,
         quest: 'buenasVibraciones'
@@ -114,7 +120,7 @@ export class MundoLFSD {
       },
       {
         id: 'lucas', x: 850, y: 340, ancho: 28, alto: 36,
-        nombre: lfsd?.lucasNombre || 'Lucas',
+        nombre: lfsd?.lucasNombre || 'Hugo',
         color: '#FF8844', // Naranja
         dialogoHecho: false, esMentor: false, esQuestGiver: true,
         quest: 'cienciaLoca'
@@ -129,13 +135,13 @@ export class MundoLFSD {
       // Estudiantes de relleno
       {
         id: 'estudiante1', x: 200, y: 450, ancho: 28, alto: 36,
-        nombre: lfsd?.est1Nombre || 'Théo',
+        nombre: lfsd?.est1Nombre || 'Theo Jules',
         color: '#888888',
         dialogoHecho: false, esMentor: false, esQuestGiver: false
       },
       {
         id: 'estudiante2', x: 700, y: 450, ancho: 28, alto: 36,
-        nombre: lfsd?.est2Nombre || 'Nael',
+        nombre: lfsd?.est2Nombre || 'Tea',
         color: '#777777',
         dialogoHecho: false, esMentor: false, esQuestGiver: false
       },
@@ -991,7 +997,7 @@ export class MundoLFSD {
       if (!this._dialogoRotativo['emile']) this._dialogoRotativo['emile'] = 0;
       const idx = this._dialogoRotativo['emile'];
       const pares = [
-        [lfsd?.emile1 || 'Soy Émile, me encanta la electrónica.',
+        [lfsd?.emile1 || 'Soy Leonardo, me encanta la electrónica.',
          lfsd?.emile2 || 'Si encuentras un magnetómetro, puedo calibrarlo para que detecte objetos con más precisión.'],
         [lfsd?.emile5a || '¿Conoces nuestro club? ¡Somos "les fous du robot"!',
          lfsd?.emile5b || 'Usamos Arduino, sensores ultrasónicos y hasta cámaras infrarrojas.'],
@@ -1102,7 +1108,7 @@ export class MundoLFSD {
       const yaEntrego = this.juego?.progreso?.equipoEntregado;
       const yaDescubrimiento = this.juego?.progreso?.descubrimientoCientifico;
       if (yaDescubrimiento) {
-        // Después del descubrimiento científico — Lucas está orgulloso
+        // Después del descubrimiento científico — Hugo está orgulloso
         this.dialogos.iniciarDialogo([
           { personaje: nombre, texto: lfsd?.lucasPostDescubrimiento || '¡Salimos en el periódico! El artículo dice que nuestro club ayudó a un descubrimiento científico.' },
           { personaje: nombre, texto: lfsd?.lucasPostDescubrimiento2 || 'Mi mamá lo recortó y lo pegó en la nevera. ¡Dice que soy famoso!' }
@@ -1175,7 +1181,7 @@ export class MundoLFSD {
       if (!this._dialogoRotativo['lucas']) this._dialogoRotativo['lucas'] = 0;
       const idx = this._dialogoRotativo['lucas'];
       const pares = [
-        [lfsd?.lucas1 || 'Soy Lucas, me gusta arreglar cosas.',
+        [lfsd?.lucas1 || 'Soy Hugo, me gusta arreglar cosas.',
          lfsd?.lucas2 || 'Estoy tratando de reparar un equipo de análisis para el museo, pero los cables están revueltos.'],
         [lfsd?.lucas5a || '¿Sabías que los taínos eran excelentes ingenieros?',
          lfsd?.lucas5b || 'Nosotros seguimos esa tradición de innovación.']
@@ -1202,7 +1208,7 @@ export class MundoLFSD {
     if (!this._dialogoRotativo[key]) this._dialogoRotativo[key] = 0;
 
     const dialogos = {
-      // Théo — Sonic, velocidad, papas fritas, lore
+      // Theo Jules — Sonic, velocidad, papas fritas, lore
       estudiante1: [
         lfsd?.theo1 || '¡Sonic X Shadow Generations es el MEJOR juego!',
         lfsd?.theo2 || 'Siempre elijo al personaje más rápido. La velocidad es todo.',
@@ -1213,7 +1219,7 @@ export class MundoLFSD {
         lfsd?.theo7 || 'Shadow es el mejor personaje de Sonic. Rápido, oscuro, con historia.',
         lfsd?.theo8 || 'Si nuestro robot fuera a la velocidad de Sonic, ya habríamos explorado todo.'
       ],
-      // Nael — One Piece, Blue Lock, Roblox, hamburguesas, travesuras
+      // Tea — One Piece, Blue Lock, Roblox, hamburguesas, travesuras
       estudiante2: [
         lfsd?.nael1 || '¿Juegas Roblox? Tengo como 500 horas.',
         lfsd?.nael2 || 'Las hamburguesas de Wendy\'s son superiores. El Baconator es arte.',
@@ -1296,7 +1302,7 @@ export class MundoLFSD {
         lfsd?.tom4 || '¿Y si le ponemos IA al robot para que tome decisiones solo?',
         lfsd?.tom5 || 'Pasta con salsa boloñesa. La mejor comida. No acepto debate.',
         lfsd?.tom6 || 'Juego handball en el LFSD. Calcular ángulos, como programar.',
-        lfsd?.tom7 || '*mira a Nael* Acabo de cambiarle el fondo de pantalla. No le digas.',
+        lfsd?.tom7 || '*mira a Tea* Acabo de cambiarle el fondo de pantalla. No le digas.',
         lfsd?.tom8 || 'Algún día la IA analizará artefactos arqueológicos automáticamente.'
       ]
     };

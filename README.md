@@ -64,7 +64,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 ## Equipo
 
-Elian · Théo · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Nael · Diana
+Elian · Theo Jules · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Tea · Diana
 
 ## Documentación
 

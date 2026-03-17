@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.17.1 — Student renames, combat pacing, LFSD welcome (2026-03-17)
+
+### Agregado
+- **Bienvenida LFSD**: toast "🤖 Bienvenido a les Fous du Robot" al entrar (traducido ES/EN/FR)
+- **Botón [E] Continuar en combate**: tras 2.5s de mostrar el resultado de cada acción (ataque y contraataque), aparece un botón pulsante "[E] Continuar" — el jugador controla el ritmo del combate
+
+### Mejorado
+- **Renombrado de estudiantes LFSD**: Émile → Leonardo, Lucas → Hugo, Nael → Tea, Théo → Theo Jules — en diálogos (3 idiomas), créditos, docs, sprites, comentarios. IDs internos y claves de diálogo sin cambios (sidequests intactas)
+- **Combate más legible**: ambas fases (acción del jugador y contraataque del enemigo) muestran el mensaje 2.5s y esperan E, en vez de auto-avanzar
+
+---
+
 ## v0.17.0 — Background music system, batú improvements (2026-03-16)
 
 ### Agregado

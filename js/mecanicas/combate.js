@@ -69,10 +69,11 @@ export class SistemaCombate {
     this._mensaje = '';
 
     // --- Temporizador del turno del enemigo ---
-    // El enemigo espera un momento antes de actuar para que el jugador
-    // pueda leer el resultado de su propia acción
+    // Muestra el mensaje 2.5s, luego espera que el jugador presione E
     this._tiempoEsperaEnemigo = 0;
     this._esperandoEnemigo = false;
+    this._esperandoContinuar = false;  // true cuando muestra "[E] Continuar"
+    this._pausaLectura = 2.5;
 
     // --- Opciones personalizadas por enemigo ---
     // Si el enemigo trae opcionesPersonalizadas, se usan en vez de las genéricas.
@@ -100,6 +101,10 @@ export class SistemaCombate {
     this._mensaje = '';
     this._tiempoEsperaEnemigo = 0;
     this._esperandoEnemigo = false;
+    this._esperandoContinuar = false;
+    this._esperandoContinuarEnemigo = false;
+    this._tiempoMensajeEnemigo = 0;
+    this._mostrarBotonEnemigo = false;
     this._bloqueoEntrada = true; // Empieza bloqueado para no capturar la E del diálogo
 
     // Si el enemigo trae opciones personalizadas, usarlas en vez de las genéricas
@@ -162,12 +167,12 @@ export class SistemaCombate {
       }
     }
 
-    // Si el combate sigue, esperar antes del turno enemigo.
-    // Mensajes largos (opciones personalizadas) necesitan más tiempo de lectura.
+    // Si el combate sigue, mostrar el mensaje 2.5s y luego esperar E
     if (this.enCombate) {
       this._esperandoEnemigo = true;
       this._tiempoEsperaEnemigo = 0;
-      this._pausaLectura = this._mensaje.length > 40 ? 2.5 : 1.8;
+      this._esperandoContinuar = false;
+      this._pausaLectura = 2.5;
       this.turnoJugador = false;
     }
   }
@@ -256,6 +261,7 @@ export class SistemaCombate {
       if (this.enCombate) {
         this._esperandoEnemigo = true;
         this._tiempoEsperaEnemigo = 0;
+        this._esperandoContinuar = false;
         this.turnoJugador = false;
       }
     }
@@ -334,9 +340,12 @@ export class SistemaCombate {
       this._sfx.combateContraataque();
     }
 
-    this.turnoJugador = true;
     this._esperandoEnemigo = false;
-    this.verificarFinCombate(jugador);
+    // Mostrar el mensaje del enemigo 2.5s, luego esperar E antes de devolver el turno
+    this._esperandoContinuarEnemigo = true;
+    this._tiempoMensajeEnemigo = 0;
+    this._mostrarBotonEnemigo = false;
+    this._jugadorRef = jugador; // Guardar referencia para verificar fin después
   }
 
   // --- Verificar si el combate terminó ---
@@ -372,12 +381,46 @@ export class SistemaCombate {
   actualizar(dt, entrada, jugador, inventario) {
     if (!this.enCombate) return;
 
-    // --- Turno del enemigo con pausa ---
-    // Mensajes cortos (genéricos) esperan 1.8s, largos (personalizados) 2.5s
+    // --- Turno del enemigo con pausa + botón de continuar ---
+    // Muestra el mensaje 2.5s, luego "[E] Continuar" hasta que presione E
     if (this._esperandoEnemigo) {
       this._tiempoEsperaEnemigo += dt;
-      if (this._tiempoEsperaEnemigo >= (this._pausaLectura || 1.8)) {
-        this.turnoEnemigo(jugador);
+      if (!this._esperandoContinuar && this._tiempoEsperaEnemigo >= this._pausaLectura) {
+        // Pasaron 2.5s — mostrar botón de continuar
+        this._esperandoContinuar = true;
+        this._bloqueoEntrada = true;
+      }
+      if (this._esperandoContinuar) {
+        // Desbloquear cuando suelta E
+        if (!entrada.estaPresionada('accion')) {
+          this._bloqueoEntrada = false;
+        }
+        // Avanzar cuando presiona E
+        if (entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
+          this.turnoEnemigo(jugador);
+          this._bloqueoEntrada = true;
+        }
+      }
+      return;
+    }
+
+    // --- Mensaje del enemigo con pausa + botón de continuar ---
+    if (this._esperandoContinuarEnemigo) {
+      this._tiempoMensajeEnemigo += dt;
+      if (!this._mostrarBotonEnemigo && this._tiempoMensajeEnemigo >= this._pausaLectura) {
+        this._mostrarBotonEnemigo = true;
+        this._bloqueoEntrada = true;
+      }
+      if (this._mostrarBotonEnemigo) {
+        if (!entrada.estaPresionada('accion')) {
+          this._bloqueoEntrada = false;
+        }
+        if (entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
+          this._esperandoContinuarEnemigo = false;
+          this.turnoJugador = true;
+          this._bloqueoEntrada = true;
+          this.verificarFinCombate(this._jugadorRef);
+        }
       }
       return;
     }
@@ -542,14 +585,23 @@ export class SistemaCombate {
       ctx.fillText(this._mensaje, anchoCanvas / 2, medidorY + 65);
     }
 
-    // --- Pista para el jugador ---
-    ctx.font = '11px monospace';
-    ctx.fillStyle = '#777777';
-    ctx.textAlign = 'center';
-    const pista = this.enemigo?.pistaPersonalizada
-      || ui?.pistaDefecto
-      || 'Usa Hablar o Negociar para convencer al oponente';
-    ctx.fillText(pista, anchoCanvas / 2, medidorY + 85);
+    // --- Botón "[E] Continuar" cuando espera input del jugador ---
+    if (this._esperandoContinuar || this._mostrarBotonEnemigo) {
+      const parpadeo = 0.5 + Math.sin(Date.now() / 300) * 0.3;
+      ctx.font = 'bold 12px monospace';
+      ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
+      ctx.textAlign = 'center';
+      ctx.fillText(ui?.presionaE || '[E] Continuar', anchoCanvas / 2, medidorY + 85);
+    } else {
+      // --- Pista para el jugador ---
+      ctx.font = '11px monospace';
+      ctx.fillStyle = '#777777';
+      ctx.textAlign = 'center';
+      const pista = this.enemigo?.pistaPersonalizada
+        || ui?.pistaDefecto
+        || 'Usa Hablar o Negociar para convencer al oponente';
+      ctx.fillText(pista, anchoCanvas / 2, medidorY + 85);
+    }
 
     // --- Opciones de combate (parte inferior) ---
     const opcionesY = altoCanvas - 90;

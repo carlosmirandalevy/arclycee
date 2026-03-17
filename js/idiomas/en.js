@@ -760,13 +760,13 @@ const en = {
   // LFSD — Lycée Français de Santo Domingo classroom dialogues
   // Three students offer quests related to robotics and archaeology
   lfsd: {
-    // Émile — electronics expert (blue shirt)
-    emile1: 'Hi! I\'m Émile, from the robotics club "les fous du robot". I work with electromagnetic sensors.',
+    // Leonardo — electronics expert (blue shirt)
+    emile1: 'Hi! I\'m Leonardo, from the robotics club "les fous du robot". I work with electromagnetic sensors.',
     emile2: 'I\'m calibrating a magnetometer to detect metal artifacts underground. Electromagnetic fields are fascinating.',
     emile3: 'The magnetometer measures variations in Earth\'s magnetic field. Any metal object disrupts that field.',
     emile4: 'Want to try calibrating it? You need to adjust frequency, amplitude, and phase to match the reference waveform.',
 
-    // Émile — extra dialogue (flavor, a/b pairs shown in sequence)
+    // Leonardo — extra dialogue (flavor, a/b pairs shown in sequence)
     emile5a: 'Know our club? We\'re "les fous du robot"! We build robots for archaeological exploration.',
     emile5b: 'We use Arduino, ultrasonic sensors, and even infrared cameras. Technology in the service of history!',
     emile6a: 'At LFSD we learn in three languages: Spanish, French, and English. It helps us collaborate with international teams!',
@@ -785,17 +785,17 @@ const en = {
     sofia6a: 'What I love most about the club is combining science with history. It\'s not just coding for coding\'s sake.',
     sofia6b: 'Every robot we build has a purpose: protecting Dominican archaeological heritage.',
 
-    // Lucas — mechanic (orange shirt)
-    lucas1: 'Hey! I\'m Lucas, the team\'s mechanic. I maintain the analysis equipment.',
+    // Hugo — mechanic (orange shirt)
+    lucas1: 'Hey! I\'m Hugo, the team\'s mechanic. I maintain the analysis equipment.',
     lucas2: 'The analysis equipment has a connection circuit that got damaged. The colored wires came loose.',
     lucas3: 'Each wire needs to connect with its matching color pair. Get it wrong and sparks fly!',
     lucas4: 'Can you help me fix it? It\'s like an electric puzzle. You have to match the correct pairs.',
 
-    // Lucas — extra dialogue (flavor, a/b pairs shown in sequence)
+    // Hugo — extra dialogue (flavor, a/b pairs shown in sequence)
     lucas5a: 'Did you know the Taínos were excellent engineers? Their canoes could carry 50 people.',
     lucas5b: 'We carry on that tradition of innovation. Only now we use circuits instead of ceiba tree trunks.',
 
-    // Théo — Sonic fan, speed, fries
+    // Theo Jules — Sonic fan, speed, fries
     theo1: 'Sonic X Shadow Generations is the BEST game ever! Shadow using Chaos Control is insane.',
     theo2: 'In games I always pick the fastest character. Speed is everything. Like Sonic!',
     theo3: 'I love Sonic\'s moves: spin dash, homing attack, boost... perfection!',
@@ -805,7 +805,7 @@ const en = {
     theo7: 'Shadow is the best Sonic character. Fast, dark, with a story. Sonic is cool but Shadow is EPIC.',
     theo8: 'If our robot could move at Sonic speed, we\'d have explored every cave in the country.',
 
-    // Nael — One Piece, Blue Lock, Roblox, Wendy's, pranks
+    // Tea — One Piece, Blue Lock, Roblox, Wendy's, pranks
     nael1: 'Do you play Roblox? I have like 500 hours. There\'s everything there!',
     nael2: 'Wendy\'s burgers are superior. The Baconator is a culinary masterpiece.',
     nael3: 'In One Piece, Luffy never gives up. Gear Fifth is the most epic thing I\'ve ever seen!',
@@ -881,7 +881,7 @@ const en = {
     tom4: 'AI fascinates me. What if we add AI to the robot so it makes decisions on its own?',
     tom5: 'Pasta with bolognese sauce is the best food in the world. I don\'t accept debate.',
     tom6: 'I play handball on the LFSD team. It\'s like coding: calculate angles and anticipate moves.',
-    tom7: '*looks at Nael* Hehe... I just changed his desktop wallpaper. Don\'t tell him.',
+    tom7: '*looks at Tea* Hehe... I just changed her desktop wallpaper. Don\'t tell her.',
     tom8: 'Someday AI will analyze archaeological artifacts automatically. And we\'ll be the first to use it!',
 
     // Prof. Nicolas Droulers — robotics teacher and project leader
@@ -1122,6 +1122,7 @@ const en = {
     conexionBonus: 'Speed bonus! +5 extra reputation',
 
     lfsdTitulo: 'LFSD - Robotics Class',
+    bienvenida: '🤖 Welcome to les Fous du Robot',
     lfsdPizarra: 'Robotics Class - LFSD',
     impresora3D: '3D Printer',
 

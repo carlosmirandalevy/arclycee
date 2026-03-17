@@ -760,13 +760,13 @@ const fr = {
   // LFSD — Dialogues de la salle de classe du Lycée Français de Santo Domingo
   // Trois élèves proposent des quêtes liées à la robotique et l'archéologie
   lfsd: {
-    // Émile — expert en électronique (chemise bleue)
-    emile1: 'Salut ! Je suis Émile, du club de robotique « les fous du robot ». Je travaille avec des capteurs électromagnétiques.',
+    // Leonardo — expert en électronique (chemise bleue)
+    emile1: 'Salut ! Je suis Leonardo, du club de robotique « les fous du robot ». Je travaille avec des capteurs électromagnétiques.',
     emile2: 'Je calibre un magnétomètre pour détecter des artefacts métalliques souterrains. Les champs électromagnétiques sont fascinants.',
     emile3: 'Le magnétomètre mesure les variations du champ magnétique terrestre. Tout objet métallique perturbe ce champ.',
     emile4: 'Tu veux essayer de le calibrer ? Il faut ajuster la fréquence, l\'amplitude et la phase pour correspondre à l\'onde de référence.',
 
-    // Émile — dialogues supplémentaires (paires a/b affichées en séquence)
+    // Leonardo — dialogues supplémentaires (paires a/b affichées en séquence)
     emile5a: 'Tu connais notre club ? On est « les fous du robot » ! On construit des robots pour l\'exploration archéologique.',
     emile5b: 'On utilise Arduino, des capteurs ultrasoniques et même des caméras infrarouges. La technologie au service de l\'histoire !',
     emile6a: 'Au LFSD on apprend en trois langues : espagnol, français et anglais. Ça nous aide à collaborer avec des équipes internationales !',
@@ -785,17 +785,17 @@ const fr = {
     sofia6a: 'Ce que j\'aime le plus dans le club, c\'est combiner science et histoire. Ce n\'est pas juste coder pour coder.',
     sofia6b: 'Chaque robot qu\'on construit a un but : protéger le patrimoine archéologique dominicain.',
 
-    // Lucas — mécanicien (chemise orange)
-    lucas1: 'Hé ! Je suis Lucas, le mécanicien de l\'équipe. Je m\'occupe de l\'entretien de l\'équipement d\'analyse.',
+    // Hugo — mécanicien (chemise orange)
+    lucas1: 'Hé ! Je suis Hugo, le mécanicien de l\'équipe. Je m\'occupe de l\'entretien de l\'équipement d\'analyse.',
     lucas2: 'L\'équipement d\'analyse a un circuit de connexion endommagé. Les fils de couleur se sont débranchés.',
     lucas3: 'Chaque fil doit être connecté avec son homologue de la même couleur. Si tu te trompes, ça fait des étincelles !',
     lucas4: 'Tu peux m\'aider à le réparer ? C\'est comme un puzzle électrique. Il faut relier les bonnes paires.',
 
-    // Lucas — dialogues supplémentaires (paires a/b affichées en séquence)
+    // Hugo — dialogues supplémentaires (paires a/b affichées en séquence)
     lucas5a: 'Tu savais que les Taïnos étaient d\'excellents ingénieurs ? Leurs pirogues pouvaient transporter 50 personnes.',
     lucas5b: 'On perpétue cette tradition d\'innovation. Sauf que maintenant on utilise des circuits au lieu de troncs de ceiba.',
 
-    // Théo — fan de Sonic, vitesse et frites
+    // Theo Jules — fan de Sonic, vitesse et frites
     theo1: 'Sonic X Shadow Generations est le MEILLEUR jeu ! Shadow qui utilise le Chaos Control, c\'est trop fort.',
     theo2: 'Dans les jeux je choisis toujours le personnage le plus rapide. La vitesse, c\'est tout. Comme Sonic !',
     theo3: 'J\'adore les mouvements de Sonic : spin dash, homing attack, boost... la perfection !',
@@ -805,7 +805,7 @@ const fr = {
     theo7: 'Shadow est le meilleur personnage de Sonic. Rapide, sombre, avec une histoire. Sonic est cool mais Shadow est ÉPIQUE.',
     theo8: 'Si notre robot bougeait à la vitesse de Sonic, on aurait exploré toutes les grottes du pays.',
 
-    // Nael — fan de One Piece, Blue Lock, Roblox, Wendy's, farces
+    // Tea — fan de One Piece, Blue Lock, Roblox, Wendy's, farces
     nael1: 'Tu joues à Roblox ? J\'ai genre 500 heures. Y\'a de tout là-dedans !',
     nael2: 'Les burgers de Wendy\'s sont supérieurs. Le Baconator est une œuvre d\'art culinaire.',
     nael3: 'Dans One Piece, Luffy n\'abandonne jamais. Gear Fifth c\'est le truc le plus épique que j\'ai vu de ma vie !',
@@ -881,7 +881,7 @@ const fr = {
     tom4: 'L\'intelligence artificielle me fascine. Et si on mettait de l\'IA dans le robot pour qu\'il prenne des décisions tout seul ?',
     tom5: 'Les pâtes à la bolognaise c\'est la meilleure nourriture du monde. Je n\'accepte pas le débat.',
     tom6: 'Je joue au handball dans l\'équipe du LFSD. C\'est comme programmer : calculer les angles et anticiper les mouvements.',
-    tom7: '*regarde Nael* Hé hé... Je viens de changer son fond d\'écran. Ne lui dis pas.',
+    tom7: '*regarde Tea* Hé hé... Je viens de changer son fond d\'écran. Ne lui dis pas.',
     tom8: 'Un jour l\'IA pourra analyser les artefacts archéologiques automatiquement. Et on sera les premiers à l\'utiliser !',
 
     // Prof. Nicolas Droulers — professeur de robotique et leader du projet
@@ -1122,6 +1122,7 @@ const fr = {
     conexionBonus: 'Bonus de vitesse ! +5 réputation en plus',
 
     lfsdTitulo: 'LFSD - Cours de Robotique',
+    bienvenida: '🤖 Bienvenue chez les Fous du Robot',
     lfsdPizarra: 'Cours de Robotique - LFSD',
     impresora3D: 'Imprimante 3D',
 

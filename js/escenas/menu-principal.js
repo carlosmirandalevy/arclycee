@@ -590,8 +590,8 @@ export class MenuPrincipal {
 
       // Nombres del equipo real del proyecto — les fous du robot
       const miembros = [
-        'Elian', 'Théo', 'Carlos Guillermo', 'Jules', 'Alberto',
-        'Rafael', 'Tom', 'Naël', 'Diana'
+        'Elian', 'Theo Jules', 'Carlos Guillermo', 'Jules', 'Alberto',
+        'Rafael', 'Tom', 'Tea', 'Diana'
       ];
 
       ctx.font = '15px monospace';

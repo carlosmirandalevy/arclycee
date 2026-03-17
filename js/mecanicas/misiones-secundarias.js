@@ -4,9 +4,9 @@
 // Controla el estado de las 5 misiones secundarias:
 // 1. batu — jugar batú con Higüemota (Asentamiento Taíno 2)
 // 2. rescateManati — liberar al manatí + limpiar arrecife (Santuario)
-// 3. buenasVibraciones — calibrar el magnetómetro (Émile, LFSD)
+// 3. buenasVibraciones — calibrar el magnetómetro (Leonardo, LFSD)
 // 4. metalCompleto — programar el robot submarino (Diana, LFSD)
-// 5. cienciaLoca — reparar el equipo de análisis (Lucas, LFSD)
+// 5. cienciaLoca — reparar el equipo de análisis (Hugo, LFSD)
 //
 // Cada misión pasa por 4 estados:
 //   no_descubierta → descubierta → en_progreso → completada
