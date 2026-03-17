@@ -1077,6 +1077,7 @@ const fr = {
     estadoPeligro: '⚠️ Très hostile !',
     estadoBien: '✓ En progrès',
     estadoMal: '✗ Situation tendue',
+    pistaMapaReal: '🗺️ Appuie sur R pour voir la carte réelle',
 
     presionaEContinuar: 'Appuie sur E pour continuer ▶',
 

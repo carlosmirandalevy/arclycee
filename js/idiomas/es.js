@@ -1117,6 +1117,7 @@ const es = {
     estadoPeligro: '⚠️ ¡Muy hostil!',
     estadoBien: '✓ Progresando',
     estadoMal: '✗ Situación tensa',
+    pistaMapaReal: '🗺️ Presiona R para ver el mapa real',
 
     // --- Diálogos ---
     presionaEContinuar: 'Presiona E para continuar ▶',

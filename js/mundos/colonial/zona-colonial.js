@@ -1802,6 +1802,14 @@ export class ZonaColonial {
     const indice = this._cassaConversacion % conversaciones.length;
     this.dialogos.iniciarDialogo(conversaciones[indice], () => {
       this._cassaConversacion++;
+      // Recordar al jugador que puede explorar el mapa real con R
+      // cuando Cassá menciona sitios históricos o ubicaciones
+      if (indice === 2 || indice === 3 || indice === 4 || indice === 5 || indice === 6) {
+        const _t = this._obtenerTextos();
+        if (this.juego?.mostrarToast) {
+          this.juego.mostrarToast(_t?.ui?.pistaMapaReal || '🗺️ Presiona R para ver el mapa real', 3);
+        }
+      }
     });
   }
 

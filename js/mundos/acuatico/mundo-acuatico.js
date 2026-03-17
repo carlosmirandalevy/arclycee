@@ -1907,10 +1907,15 @@ export class MundoAcuatico {
         ]);
 
       } else if (npc.dialogoHecho || tieneMapaNaufragios) {
-        // Ya dio el mapa — repite información
+        // Ya dio el mapa — repite información y recuerda el mapa real
         this.dialogos.iniciarDialogo([
           { personaje: '🤿 Arqueóloga Submarina', texto: ac?.arqueologaRepite || 'Usa el mapa de naufragios para encontrar más restos submarinos. ¡El mar Caribe esconde muchos secretos!' }
-        ]);
+        ], () => {
+          const _t = this._obtenerTextos();
+          if (this.juego?.mostrarToast) {
+            this.juego.mostrarToast(_t?.ui?.pistaMapaReal || '🗺️ Presiona R para ver el mapa real', 3);
+          }
+        });
       } else {
         this.dialogos.iniciarDialogo([
           { personaje: '🤿 Arqueóloga Submarina', texto: ac?.arqueologa1 || 'Soy arqueóloga submarina. Estudio los naufragios del Caribe dominicano.' },
@@ -1936,6 +1941,10 @@ export class MundoAcuatico {
 
           if (this.juego.mostrarToast) {
             this.juego.mostrarToast(`🗺️ ${nombreMapa} — ${textos2?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
+            // Recordar al jugador que puede explorar los naufragios en el mapa real
+            setTimeout(() => {
+              this.juego.mostrarToast(textos2?.ui?.pistaMapaReal || '🗺️ Presiona R para ver el mapa real', 3);
+            }, 3500);
           }
 
           npc.dialogoHecho = true;

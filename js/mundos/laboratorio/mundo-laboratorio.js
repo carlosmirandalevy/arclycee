@@ -1054,6 +1054,14 @@ export class MundoLaboratorio {
       this._cassaConversacion++;
       npc.dialogoHecho = true;
 
+      // Recordar al jugador sobre el mapa real cuando menciona museos/lugares
+      if (indice === 0 || indice === 3) {
+        const _tMapa = this._obtenerTextos();
+        if (this.juego?.mostrarToast) {
+          this.juego.mostrarToast(_tMapa?.ui?.pistaMapaReal || '🗺️ Presiona R para ver el mapa real', 3);
+        }
+      }
+
       // --- Descubrimiento de misión secundaria: Weird Science ---
       // Cassá menciona que el equipo de análisis está averiado
       if (this.juego && this.juego.misiones && !this.juego.misiones.estaDescubierta('cienciaLoca')) {
