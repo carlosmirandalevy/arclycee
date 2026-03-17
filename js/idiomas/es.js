@@ -1113,6 +1113,10 @@ const es = {
     infoConv: '■ Convencido: sube con Hablar/Negociar → 100% = paz',
     infoHost: '■ Hostilidad: sube al atacar, baja al hablar',
     infoCerrar: '[H] Cerrar',
+    estadoCasiPaz: '☮️ ¡Casi convencido!',
+    estadoPeligro: '⚠️ ¡Muy hostil!',
+    estadoBien: '✓ Progresando',
+    estadoMal: '✗ Situación tensa',
 
     // --- Diálogos ---
     presionaEContinuar: 'Presiona E para continuar ▶',

@@ -497,81 +497,114 @@ export class SistemaCombate {
 
     // Nombre del enemigo
     ctx.fillStyle = '#ffffff';
-    ctx.font = '14px monospace';
+    ctx.font = 'bold 16px monospace';
     ctx.textAlign = 'center';
     const nombreEnemigo = this.enemigo?.nombre || 'Enemigo';
-    ctx.fillText(nombreEnemigo, anchoCanvas / 2, enemigoY + enemigoAlto + 20);
+    ctx.fillText(nombreEnemigo, anchoCanvas / 2, enemigoY + enemigoAlto + 22);
 
-    // Barra de vida del enemigo
-    const barraAncho = 150;
-    const barraAlto = 10;
+    // Barra de vida del enemigo (ancha y prominente)
+    const barraAncho = 200;
+    const barraAlto = 14;
     const barraX = anchoCanvas / 2 - barraAncho / 2;
-    const barraY = enemigoY + enemigoAlto + 30;
+    const barraY = enemigoY + enemigoAlto + 32;
     const vidaEnemigo = this.enemigo ? this.enemigo.vida / (this.enemigo.vidaMaxima || 100) : 1;
+    const vidaEnemigoNum = Math.max(0, Math.floor(this.enemigo?.vida || 0));
+    const vidaEnemigoMax = this.enemigo?.vidaMaxima || 100;
 
-    ctx.fillStyle = '#333333';
+    ctx.fillStyle = '#222222';
+    ctx.fillRect(barraX - 1, barraY - 1, barraAncho + 2, barraAlto + 2);
+    ctx.fillStyle = '#441111';
     ctx.fillRect(barraX, barraY, barraAncho, barraAlto);
-    ctx.fillStyle = '#ff4444';
+    ctx.fillStyle = vidaEnemigo > 0.5 ? '#cc3333' : vidaEnemigo > 0.25 ? '#cc6633' : '#cc2222';
     ctx.fillRect(barraX, barraY, barraAncho * Math.max(0, vidaEnemigo), barraAlto);
-    ctx.strokeStyle = '#555555';
+    ctx.strokeStyle = '#666666';
     ctx.lineWidth = 1;
     ctx.strokeRect(barraX, barraY, barraAncho, barraAlto);
+    // HP text inside bar
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 10px monospace';
+    ctx.fillText(`${vidaEnemigoNum} / ${vidaEnemigoMax}`, anchoCanvas / 2, barraY + 11);
 
-    // --- Medidores de paciencia y hostilidad ---
+    // --- Medidores de convencimiento y hostilidad (más grandes, lado izquierdo) ---
     const medidorY = 175;
-    ctx.font = '12px monospace';
-    ctx.textAlign = 'left';
+    const medBarAncho = 160;
+    const medBarAlto = 16;
+    const medBarX = 160;
 
     // Medidor de convencimiento (verde = bueno, sube al hablar/negociar)
-    // Antes se llamaba "Paciencia" pero realmente estamos convenciendo
-    // al oponente, no esperando a que se calme.
-    const etiquetaConv = this.enemigo?.etiquetaConvencimiento || 'Convencido:';
-    ctx.fillStyle = '#aaaaaa';
-    ctx.fillText(etiquetaConv, 30, medidorY);
-    ctx.fillStyle = '#333333';
-    ctx.fillRect(140, medidorY - 10, 100, 12);
-    ctx.fillStyle = '#44cc44';
-    ctx.fillRect(140, medidorY - 10, this.paciencia, 12);
+    const etiquetaConv = this.enemigo?.etiquetaConvencimiento
+      || (ui?.convencido || 'Convencido:');
+    ctx.font = 'bold 12px monospace';
+    ctx.fillStyle = '#88cc88';
+    ctx.textAlign = 'left';
+    ctx.fillText(etiquetaConv, 30, medidorY + 2);
+    // Barra
+    ctx.fillStyle = '#1a331a';
+    ctx.fillRect(medBarX, medidorY - 10, medBarAncho, medBarAlto);
+    // Relleno con gradiente de intensidad según el progreso
+    const convPorcentaje = this.paciencia / 100;
+    ctx.fillStyle = convPorcentaje > 0.7 ? '#44ee44' : convPorcentaje > 0.4 ? '#44cc44' : '#44aa44';
+    ctx.fillRect(medBarX, medidorY - 10, medBarAncho * convPorcentaje, medBarAlto);
     ctx.strokeStyle = '#555555';
-    ctx.strokeRect(140, medidorY - 10, 100, 12);
+    ctx.strokeRect(medBarX, medidorY - 10, medBarAncho, medBarAlto);
+    // Porcentaje inside bar
     ctx.fillStyle = '#ffffff';
-    ctx.font = '10px monospace';
-    ctx.fillText(`${Math.floor(this.paciencia)}%`, 245, medidorY);
+    ctx.font = 'bold 11px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${Math.floor(this.paciencia)}%`, medBarX + medBarAncho / 2, medidorY + 3);
 
     // Medidor de hostilidad (rojo = peligro, baja al hablar)
-    ctx.font = '12px monospace';
-    ctx.fillStyle = '#aaaaaa';
-    ctx.fillText(ui?.hostilidad || 'Hostilidad:', 30, medidorY + 25);
-    ctx.fillStyle = '#333333';
-    ctx.fillRect(140, medidorY + 15, 100, 12);
-    ctx.fillStyle = '#cc4444';
-    ctx.fillRect(140, medidorY + 15, this.hostilidad, 12);
+    ctx.font = 'bold 12px monospace';
+    ctx.fillStyle = '#cc8888';
+    ctx.textAlign = 'left';
+    ctx.fillText(ui?.hostilidad || 'Hostilidad:', 30, medidorY + 32);
+    ctx.fillStyle = '#331a1a';
+    ctx.fillRect(medBarX, medidorY + 20, medBarAncho, medBarAlto);
+    const hostPorcentaje = this.hostilidad / 100;
+    ctx.fillStyle = hostPorcentaje > 0.7 ? '#ee4444' : hostPorcentaje > 0.4 ? '#cc4444' : '#aa4444';
+    ctx.fillRect(medBarX, medidorY + 20, medBarAncho * hostPorcentaje, medBarAlto);
     ctx.strokeStyle = '#555555';
-    ctx.strokeRect(140, medidorY + 15, 100, 12);
+    ctx.strokeRect(medBarX, medidorY + 20, medBarAncho, medBarAlto);
     ctx.fillStyle = '#ffffff';
-    ctx.font = '10px monospace';
-    ctx.fillText(`${Math.floor(this.hostilidad)}%`, 245, medidorY + 25);
+    ctx.font = 'bold 11px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${Math.floor(this.hostilidad)}%`, medBarX + medBarAncho / 2, medidorY + 33);
 
-    // --- Vida del jugador (lado derecho) ---
+    // --- Indicador de estado (quién va ganando) ---
+    ctx.textAlign = 'right';
+    ctx.font = 'bold 13px monospace';
+    if (this.paciencia >= 70) {
+      ctx.fillStyle = '#44ee44';
+      ctx.fillText(ui?.estadoCasiPaz || '☮️ ¡Casi convencido!', anchoCanvas - 40, medidorY + 2);
+    } else if (this.hostilidad >= 80) {
+      ctx.fillStyle = '#ee4444';
+      ctx.fillText(ui?.estadoPeligro || '⚠️ ¡Muy hostil!', anchoCanvas - 40, medidorY + 2);
+    } else if (this.paciencia > this.hostilidad) {
+      ctx.fillStyle = '#88cc88';
+      ctx.fillText(ui?.estadoBien || '✓ Progresando', anchoCanvas - 40, medidorY + 2);
+    } else {
+      ctx.fillStyle = '#cc8888';
+      ctx.fillText(ui?.estadoMal || '✗ Situación tensa', anchoCanvas - 40, medidorY + 2);
+    }
+
+    // --- Vida del jugador (lado derecho, más grande) ---
     if (jugador) {
-      const jpX = anchoCanvas - 270; // Posición X del bloque del jugador
-      const jpY = medidorY - 10;
+      const jpX = anchoCanvas - 310;
+      const jpY = medidorY + 20;
 
-      // Nombre del jugador
-      ctx.font = '12px monospace';
-      ctx.fillStyle = '#aaaaaa';
+      ctx.font = 'bold 12px monospace';
+      ctx.fillStyle = '#88cc88';
       ctx.textAlign = 'left';
-      ctx.fillText(ui?.tuVida || 'Tu vida:', jpX, jpY + 10);
+      ctx.fillText(ui?.tuVida || 'Tu vida:', jpX, jpY + 12);
 
-      // Barra de vida del jugador (verde)
       const vidaMax = jugador.vidaMaxima || 100;
       const vidaActual = Math.max(0, jugador.vida || 0);
       const porcentajeVida = vidaActual / vidaMax;
 
-      ctx.fillStyle = '#333333';
-      ctx.fillRect(jpX + 80, jpY, 100, 12);
+      const vidaBarX = jpX + 90;
+      ctx.fillStyle = '#1a331a';
+      ctx.fillRect(vidaBarX, jpY, medBarAncho, medBarAlto);
 
-      // Color cambia según la vida: verde → amarillo → rojo
       if (porcentajeVida > 0.5) {
         ctx.fillStyle = '#44cc44';
       } else if (porcentajeVida > 0.25) {
@@ -579,16 +612,15 @@ export class SistemaCombate {
       } else {
         ctx.fillStyle = '#cc4444';
       }
-      ctx.fillRect(jpX + 80, jpY, 100 * porcentajeVida, 12);
-
+      ctx.fillRect(vidaBarX, jpY, medBarAncho * porcentajeVida, medBarAlto);
       ctx.strokeStyle = '#555555';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(jpX + 80, jpY, 100, 12);
+      ctx.strokeRect(vidaBarX, jpY, medBarAncho, medBarAlto);
 
-      // Número de vida
+      // HP inside bar
       ctx.fillStyle = '#ffffff';
-      ctx.font = '10px monospace';
-      ctx.fillText(`${Math.floor(vidaActual)}/${vidaMax}`, jpX + 185, jpY + 10);
+      ctx.font = 'bold 11px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${Math.floor(vidaActual)} / ${vidaMax}`, vidaBarX + medBarAncho / 2, jpY + 13);
     }
 
     // --- Mensaje de feedback (centro de la pantalla) ---

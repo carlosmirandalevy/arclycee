@@ -1073,6 +1073,10 @@ const en = {
     infoConv: '■ Convinced: rises with Talk/Negotiate → 100% = peace',
     infoHost: '■ Hostility: rises when attacking, drops when talking',
     infoCerrar: '[H] Close',
+    estadoCasiPaz: '☮️ Almost convinced!',
+    estadoPeligro: '⚠️ Very hostile!',
+    estadoBien: '✓ Making progress',
+    estadoMal: '✗ Tense situation',
 
     presionaEContinuar: 'Press E to continue ▶',
 

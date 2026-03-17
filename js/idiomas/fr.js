@@ -1073,6 +1073,10 @@ const fr = {
     infoConv: '■ Convaincu : monte avec Parler/Négocier → 100% = paix',
     infoHost: '■ Hostilité : monte en attaquant, baisse en parlant',
     infoCerrar: '[H] Fermer',
+    estadoCasiPaz: '☮️ Presque convaincu !',
+    estadoPeligro: '⚠️ Très hostile !',
+    estadoBien: '✓ En progrès',
+    estadoMal: '✗ Situation tendue',
 
     presionaEContinuar: 'Appuie sur E pour continuer ▶',
 
