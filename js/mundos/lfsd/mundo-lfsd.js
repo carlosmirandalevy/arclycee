@@ -99,7 +99,6 @@ export class MundoLFSD {
     ];
 
     // --- NPCs del aula ---
-    const textos = this._obtenerTextos();
     const lfsd = textos?.lfsd;
 
     this.npcs = [
