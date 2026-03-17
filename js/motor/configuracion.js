@@ -85,6 +85,7 @@ export const TECLAS_POR_DEFECTO = {
   foto:       ['t', 'T'],                 // Tomar foto de un objeto/NPC cercano
   selfie:     ['g', 'G'],                 // Tomar selfie con un objeto/NPC cercano
   album:      ['p', 'P'],                 // Abrir/cerrar el álbum de fotos
+  ayuda:      ['h', 'H'],                 // Ayuda / instrucciones contextuales
   zoomIn:     ['+', '='],                // Acercar la cámara en el mapa del mundo
   zoomOut:    ['-', '_']                 // Alejar la cámara en el mapa del mundo
 };

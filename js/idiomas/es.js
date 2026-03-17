@@ -1097,6 +1097,23 @@ const es = {
     controlesCombate: 'Flechas: elegir | E: confirmar',
     pistaDefecto: 'Usa Hablar o Negociar para convencer al oponente',
 
+    // --- Panel de ayuda de combate (H) ---
+    infoCombateTitulo: 'Cómo funciona el combate',
+    infoObjetivo: '🏆 OBJETIVO:',
+    infoObj1: 'Convence al oponente (barra verde al 100%)',
+    infoObj2: 'O derrótalo reduciendo su vida a 0',
+    infoPacifista: '☮️ RUTA PACIFISTA (recomendada):',
+    infoPac1: 'Usa "Hablar" y "Negociar" para subir Convencido',
+    infoPac2: 'Convencido al 100% = victoria pacífica (+15 reputación)',
+    infoPac3: 'La hostilidad baja al hablar con calma',
+    infoAgresivo: '⚔️ RUTA AGRESIVA:',
+    infoAgr1: '"Atacar" hace daño pero sube la hostilidad',
+    infoAgr2: 'Victoria por fuerza = solo +5 reputación',
+    infoMedidores: '📊 MEDIDORES:',
+    infoConv: '■ Convencido: sube con Hablar/Negociar → 100% = paz',
+    infoHost: '■ Hostilidad: sube al atacar, baja al hablar',
+    infoCerrar: '[H] Cerrar',
+
     // --- Diálogos ---
     presionaEContinuar: 'Presiona E para continuar ▶',
 

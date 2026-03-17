@@ -1058,6 +1058,22 @@ const fr = {
     controlesCombate: 'Flèches : choisir | E : confirmer',
     pistaDefecto: 'Utilise Parler ou Négocier pour convaincre l\'adversaire',
 
+    infoCombateTitulo: 'Comment fonctionne le combat',
+    infoObjetivo: '🏆 OBJECTIF :',
+    infoObj1: 'Convaincre l\'adversaire (barre verte à 100%)',
+    infoObj2: 'Ou le vaincre en réduisant sa vie à 0',
+    infoPacifista: '☮️ VOIE PACIFISTE (recommandée) :',
+    infoPac1: 'Utilise « Parler » et « Négocier » pour augmenter Convaincu',
+    infoPac2: 'Convaincu à 100% = victoire pacifique (+15 réputation)',
+    infoPac3: 'L\'hostilité baisse quand tu parles calmement',
+    infoAgresivo: '⚔️ VOIE AGRESSIVE :',
+    infoAgr1: '« Attaquer » fait des dégâts mais augmente l\'hostilité',
+    infoAgr2: 'Victoire par la force = seulement +5 réputation',
+    infoMedidores: '📊 JAUGES :',
+    infoConv: '■ Convaincu : monte avec Parler/Négocier → 100% = paix',
+    infoHost: '■ Hostilité : monte en attaquant, baisse en parlant',
+    infoCerrar: '[H] Fermer',
+
     presionaEContinuar: 'Appuie sur E pour continuer ▶',
 
     descripcionPersonaje: '14 ans. Ascendance taïno, espagnole et africaine.',

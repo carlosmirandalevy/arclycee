@@ -64,6 +64,10 @@ export class SistemaCombate {
     // Bloqueo de entrada para evitar que una tecla se procese varias veces
     this._bloqueoEntrada = false;
 
+    // --- Panel de instrucciones (tecla I) ---
+    this._infoVisible = false;
+    this._bloqueoInfo = false;
+
     // --- Mensaje de feedback ---
     // Muestra al jugador qué pasó en el último turno
     this._mensaje = '';
@@ -381,6 +385,17 @@ export class SistemaCombate {
   actualizar(dt, entrada, jugador, inventario) {
     if (!this.enCombate) return;
 
+    // --- Panel de instrucciones (H para abrir/cerrar) ---
+    if (entrada.estaPresionada('ayuda') && !this._bloqueoInfo) {
+      this._infoVisible = !this._infoVisible;
+      this._bloqueoInfo = true;
+    }
+    if (!entrada.estaPresionada('ayuda')) {
+      this._bloqueoInfo = false;
+    }
+    // Mientras la info está visible, no procesar otras entradas
+    if (this._infoVisible) return;
+
     // --- Turno del enemigo con pausa + botón de continuar ---
     // Muestra el mensaje 2.5s, luego "[E] Continuar" hasta que presione E
     if (this._esperandoEnemigo) {
@@ -655,10 +670,89 @@ export class SistemaCombate {
     // --- Controles ---
     ctx.font = '10px monospace';
     ctx.fillStyle = '#444444';
-    ctx.fillText(ui?.controlesCombate || 'Flechas: elegir | E: confirmar', anchoCanvas / 2, altoCanvas - 12);
+    ctx.fillText(
+      (ui?.controlesCombate || 'Flechas: elegir | E: confirmar') + '  |  [H] Ayuda',
+      anchoCanvas / 2, altoCanvas - 12
+    );
+
+    // --- Panel de instrucciones (overlay sobre todo) ---
+    if (this._infoVisible) {
+      this._dibujarPanelInfo(ctx, anchoCanvas, altoCanvas, ui);
+    }
 
     // Restaurar alineación
     ctx.textAlign = 'left';
+  }
+
+  // --- Panel de instrucciones de combate ---
+  _dibujarPanelInfo(ctx, ancho, alto, ui) {
+    // Fondo oscuro
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.92)';
+    ctx.fillRect(40, 30, ancho - 80, alto - 60);
+    ctx.strokeStyle = '#FFD700';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(40, 30, ancho - 80, alto - 60);
+
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 18px monospace';
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText(ui?.infoCombateTitulo || 'Cómo funciona el combate', ancho / 2, 65);
+
+    ctx.textAlign = 'left';
+    ctx.font = '13px monospace';
+    const x = 70;
+    let y = 100;
+    const linea = 22;
+
+    // Objetivo
+    ctx.fillStyle = '#44CC44';
+    ctx.fillText(ui?.infoObjetivo || '🏆 OBJETIVO:', x, y);
+    y += linea;
+    ctx.fillStyle = '#DDDDDD';
+    ctx.fillText(ui?.infoObj1 || 'Convence al oponente (barra verde al 100%)', x + 20, y);
+    y += linea;
+    ctx.fillText(ui?.infoObj2 || 'O derrótalo reduciendo su vida a 0', x + 20, y);
+    y += linea + 8;
+
+    // Ruta pacifista
+    ctx.fillStyle = '#66AAFF';
+    ctx.fillText(ui?.infoPacifista || '☮️ RUTA PACIFISTA (recomendada):', x, y);
+    y += linea;
+    ctx.fillStyle = '#DDDDDD';
+    ctx.fillText(ui?.infoPac1 || 'Usa "Hablar" y "Negociar" para subir Convencido', x + 20, y);
+    y += linea;
+    ctx.fillText(ui?.infoPac2 || 'Convencido al 100% = victoria pacífica (+15 reputación)', x + 20, y);
+    y += linea;
+    ctx.fillText(ui?.infoPac3 || 'La hostilidad baja al hablar con calma', x + 20, y);
+    y += linea + 8;
+
+    // Ruta agresiva
+    ctx.fillStyle = '#FF6666';
+    ctx.fillText(ui?.infoAgresivo || '⚔️ RUTA AGRESIVA:', x, y);
+    y += linea;
+    ctx.fillStyle = '#DDDDDD';
+    ctx.fillText(ui?.infoAgr1 || '"Atacar" hace daño pero sube la hostilidad', x + 20, y);
+    y += linea;
+    ctx.fillText(ui?.infoAgr2 || 'Victoria por fuerza = solo +5 reputación', x + 20, y);
+    y += linea + 8;
+
+    // Medidores
+    ctx.fillStyle = '#CCAA44';
+    ctx.fillText(ui?.infoMedidores || '📊 MEDIDORES:', x, y);
+    y += linea;
+    ctx.fillStyle = '#44CC44';
+    ctx.fillText(ui?.infoConv || '■ Convencido: sube con Hablar/Negociar → 100% = paz', x + 20, y);
+    y += linea;
+    ctx.fillStyle = '#CC4444';
+    ctx.fillText(ui?.infoHost || '■ Hostilidad: sube al atacar, baja al hablar', x + 20, y);
+    y += linea + 10;
+
+    // Cerrar
+    ctx.textAlign = 'center';
+    const parpadeo = 0.5 + Math.sin(Date.now() / 300) * 0.3;
+    ctx.fillStyle = `rgba(255, 215, 0, ${parpadeo})`;
+    ctx.font = 'bold 13px monospace';
+    ctx.fillText(ui?.infoCerrar || '[H] Cerrar', ancho / 2, alto - 50);
   }
 
   // --- Terminar el combate ---

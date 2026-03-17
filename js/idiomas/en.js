@@ -1058,6 +1058,22 @@ const en = {
     controlesCombate: 'Arrows: choose | E: confirm',
     pistaDefecto: 'Use Talk or Negotiate to convince the opponent',
 
+    infoCombateTitulo: 'How combat works',
+    infoObjetivo: '🏆 OBJECTIVE:',
+    infoObj1: 'Convince the opponent (green bar to 100%)',
+    infoObj2: 'Or defeat them by reducing their health to 0',
+    infoPacifista: '☮️ PACIFIST PATH (recommended):',
+    infoPac1: 'Use "Talk" and "Negotiate" to raise Convinced',
+    infoPac2: 'Convinced at 100% = peaceful victory (+15 reputation)',
+    infoPac3: 'Hostility drops when you speak calmly',
+    infoAgresivo: '⚔️ AGGRESSIVE PATH:',
+    infoAgr1: '"Attack" deals damage but raises hostility',
+    infoAgr2: 'Victory by force = only +5 reputation',
+    infoMedidores: '📊 METERS:',
+    infoConv: '■ Convinced: rises with Talk/Negotiate → 100% = peace',
+    infoHost: '■ Hostility: rises when attacking, drops when talking',
+    infoCerrar: '[H] Close',
+
     presionaEContinuar: 'Press E to continue ▶',
 
     descripcionPersonaje: '14 years old. Taíno, Spanish and African ancestry.',
