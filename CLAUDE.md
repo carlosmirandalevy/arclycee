@@ -58,6 +58,11 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - `etiquetaConvencimiento` en el enemigo personaliza el nombre del medidor verde (ej: "Controlado:" para pez león)
 - `tipoSprite` en el enemigo selecciona el sprite de combate: `'soldado'`, `'constructor'`, `'pezLeon'`, `'traficante'`
 - Sprites de enemigos: `_dibujarSoldado()`, `_dibujarConstructor()`, `_dibujarPezLeon()`, `_dibujarTraficante()` — cada uno con diseño único
+- **Selección de compañero**: al atacar con compañeros activos, sub-menú `_seleccionandoCompanero` muestra Solo/Magnoboot(+3)/Viralata(+2)/Cemí(+4). Q cancela. `_ejecutarAtaque(jugador, companeroTipo)` aplica bonus
+- **Panel de ayuda (H)**: `_infoVisible` toggle, overlay con instrucciones de combate, rutas pacifista/agresiva, medidores. Tecla `ayuda` en `configuracion.js`
+- **Indicador de estado**: muestra dinámicamente quién va ganando (casi convencido, muy hostil, progresando, tenso)
+- **Barra HP enemigo oculta** para combates con `opcionesPersonalizadas` (pez león, traficante) — se ganan por convicción
+- **[E] Continuar**: ambas fases (acción jugador + contraataque enemigo) muestran mensaje 2.5s y esperan E, `_esperandoContinuar` / `_esperandoContinuarEnemigo`
 
 ### Guardado (`js/motor/guardado.js`, `juego.js`)
 - `juego.guardarPartida()` — guarda en localStorage, muestra toast

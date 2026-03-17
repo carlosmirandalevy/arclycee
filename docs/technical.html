@@ -472,6 +472,38 @@ lfo → lfoGain → osc.frequency</pre>
         <code>_dibujarPezLeon()</code>, <code>_dibujarTraficante()</code>. Cada uno con diseño único y animación.
       </p>
 
+      <h3>Sub-menú de Compañeros al Atacar</h3>
+      <p>
+        Cuando el jugador elige atacar y tiene compañeros activos, aparece un sub-menú que pregunta
+        "¿Con quién atacas?" con las opciones: Solo / Magnoboot +3 / Viralata +2 / Cemí +4.
+        Se navega con flechas (↑↓), E para confirmar y Q para cancelar y volver al menú principal de combate.
+      </p>
+
+      <h3>Panel de Ayuda (tecla H)</h3>
+      <p>
+        Un overlay togglable con la tecla H que explica los objetivos del combate, las diferencias entre la ruta
+        pacifista y la agresiva, el significado de los medidores (paciencia, hostilidad, vida) y las recompensas
+        de reputación según el tipo de victoria.
+      </p>
+
+      <h3>Indicador de Estado</h3>
+      <p>
+        Texto dinámico que muestra quién va ganando en el combate. Cambia según los valores de paciencia y hostilidad:
+        "Casi convencido", "Muy hostil", "Progresando", "Situación tensa".
+      </p>
+
+      <h3>[E] Continuar</h3>
+      <p>
+        Tanto los mensajes de acción del jugador como los contra-ataques del enemigo se muestran durante 2.5 segundos.
+        Al terminar, aparece un botón pulsante <strong>[E] Continuar</strong> que el jugador debe presionar para avanzar al siguiente turno.
+      </p>
+
+      <h3>Barra de Vida Oculta</h3>
+      <p>
+        Para los enemigos que tienen <code>opcionesPersonalizadas</code>, la barra de vida del enemigo se oculta.
+        Estos enemigos se vencen por convencimiento (paciencia = 100), no por daño de vida.
+      </p>
+
       <h3>Integración con Reputación</h3>
       <p>
         Victoria pacífica = +15 reputación. Victoria por fuerza = +5. Además, la reputación actual del jugador
@@ -1009,7 +1041,7 @@ donde t = (x − 40) / (ancho − 80) × π × 2 × frecuencia</pre>
       <h3>Configuración</h3>
       <p>
         Centro: 19.0°N, -70.5°W (República Dominicana). Zoom por defecto: 8.
-        Se abre con tecla R desde el mapa del mundo.
+        Se abre con tecla R desde cualquier escena jugable (no solo el mapa del mundo).
         Tiles de Stadia Maps (6 capas estéticas: Watercolor, Terrain, Toner, Dark, Smooth, OSM Bright)
         con fallback a CARTO Voyager.
       </p>
@@ -1197,7 +1229,7 @@ const texto = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
   </div>
 
   <footer>
-    <p>ArcLycée v0.17.1 — Aventura Arqueológica Dominicana</p>
+    <p>ArcLycée v0.17.2 — Aventura Arqueológica Dominicana</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../index.html">Jugar ArcLycée</a></p>
   </footer>
 

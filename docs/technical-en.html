@@ -471,6 +471,38 @@ lfo → lfoGain → osc.frequency</pre>
         <code>_dibujarPezLeon()</code>, <code>_dibujarTraficante()</code>. Each with unique design and animation.
       </p>
 
+      <h3>Companion Attack Sub-menu</h3>
+      <p>
+        When the player chooses to attack and has active companions, a sub-menu appears asking
+        "Who do you attack with?" showing: Solo / Magnoboot +3 / Viralata +2 / Cemí +4.
+        Navigate with arrows (up/down), E to confirm, Q to cancel and return to the main combat menu.
+      </p>
+
+      <h3>Help Panel (H key)</h3>
+      <p>
+        A toggleable overlay activated with the H key that explains combat objectives, the differences between
+        the pacifist and aggressive paths, the meaning of the meters (patience, hostility, health), and
+        the reputation rewards depending on the type of victory.
+      </p>
+
+      <h3>Status Indicator</h3>
+      <p>
+        Dynamic text showing who is winning the combat. Changes based on patience and hostility values:
+        "Almost convinced", "Very hostile", "Making progress", "Tense situation".
+      </p>
+
+      <h3>[E] Continue</h3>
+      <p>
+        Both player action messages and enemy counter-attack messages are displayed for 2.5 seconds.
+        Afterwards, a pulsing <strong>[E] Continue</strong> button appears that the player must press to advance to the next turn.
+      </p>
+
+      <h3>Hidden Enemy HP Bar</h3>
+      <p>
+        For enemies that have <code>opcionesPersonalizadas</code>, the enemy HP bar is hidden.
+        These enemies are defeated by conviction (patience = 100), not by HP damage.
+      </p>
+
       <h3>Reputation Integration</h3>
       <p>
         Pacifist victory = +15 reputation. Force victory = +5. Additionally, the player's current reputation
@@ -1008,7 +1040,7 @@ where t = (x − 40) / (width − 80) × π × 2 × frequency</pre>
       <h3>Configuration</h3>
       <p>
         Center: 19.0°N, -70.5°W (Dominican Republic). Default zoom: 8.
-        Opens with R key from the world map.
+        Opens with R key from any playable scene (not just the world map).
         Stadia Maps tiles (6 aesthetic layers: Watercolor, Terrain, Toner, Dark, Smooth, OSM Bright)
         with CARTO Voyager fallback.
       </p>
@@ -1196,7 +1228,7 @@ const text = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
   </div>
 
   <footer>
-    <p>ArcLycée v0.17.1 — Dominican Archaeological Adventure</p>
+    <p>ArcLycée v0.17.2 — Dominican Archaeological Adventure</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Robotics Class 2026<br><a href="../index.html">Play ArcLycée</a></p>
   </footer>
 

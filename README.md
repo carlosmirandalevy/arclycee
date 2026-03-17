@@ -19,7 +19,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Hero images**: pantalla de inicio con imagen hero por idioma (ES/EN/FR) con viñeta oscura en los bordes
 - **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer
 - **Créditos cinematográficos**: créditos estilo película tras el final con logo, "les fous du robot", nombres del equipo y el Liceo Francés, scroll manual con flechas
-- **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
+- **Sistema de compañeros**: Magnoboot (robot excavador +3 daño, detección de metal vía tecla F), Viralata (perro rastreador +2 daño) y Cemí Murciélago (espíritu de cueva +4 daño) — seleccionables en combate antes de atacar
 - **Música de fondo**: 12 temas musicales (24 pistas MP3) con crossfade suave entre 2 variantes por escenario, override temporal para combate/batú, volumen ajustable desde el menú de opciones
 - **Sonidos procedurales**: 60+ efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción

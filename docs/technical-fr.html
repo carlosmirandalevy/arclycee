@@ -471,6 +471,38 @@ lfo → lfoGain → osc.frequency</pre>
         <code>_dibujarPezLeon()</code>, <code>_dibujarTraficante()</code>. Chacun avec un design et une animation uniques.
       </p>
 
+      <h3>Sous-menu de Compagnons en Attaque</h3>
+      <p>
+        Lorsque le joueur choisit d'attaquer et a des compagnons actifs, un sous-menu apparaît demandant
+        « Avec qui attaquez-vous ? » avec les options : Solo / Magnoboot +3 / Viralata +2 / Cemí +4.
+        Navigation avec les flèches (haut/bas), E pour confirmer, Q pour annuler et revenir au menu principal de combat.
+      </p>
+
+      <h3>Panneau d'Aide (touche H)</h3>
+      <p>
+        Un overlay basculable avec la touche H qui explique les objectifs du combat, les différences entre la voie
+        pacifiste et la voie agressive, la signification des jauges (patience, hostilité, vie) et les récompenses
+        de réputation selon le type de victoire.
+      </p>
+
+      <h3>Indicateur d'État</h3>
+      <p>
+        Texte dynamique indiquant qui a l'avantage dans le combat. Change selon les valeurs de patience et d'hostilité :
+        « Presque convaincu », « Très hostile », « En progression », « Situation tendue ».
+      </p>
+
+      <h3>[E] Continuer</h3>
+      <p>
+        Les messages d'action du joueur et les contre-attaques de l'ennemi s'affichent pendant 2,5 secondes.
+        Ensuite, un bouton pulsant <strong>[E] Continuer</strong> apparaît, que le joueur doit presser pour passer au tour suivant.
+      </p>
+
+      <h3>Barre de Vie Cachée</h3>
+      <p>
+        Pour les ennemis ayant des <code>opcionesPersonalizadas</code>, la barre de vie de l'ennemi est masquée.
+        Ces ennemis se battent par conviction (patience = 100), pas par dégâts de vie.
+      </p>
+
       <h3>Intégration de la Réputation</h3>
       <p>
         Victoire pacifiste = +15 réputation. Victoire par la force = +5. De plus, la réputation actuelle du joueur
@@ -1008,7 +1040,7 @@ where t = (x − 40) / (width − 80) × π × 2 × frequency</pre>
       <h3>Configuration</h3>
       <p>
         Centre : 19,0°N, -70,5°O (République Dominicaine). Zoom par défaut : 8.
-        S'ouvre avec la touche R depuis la carte du monde.
+        S'ouvre avec la touche R depuis n'importe quelle scène jouable (pas seulement la carte du monde).
         Tuiles Stadia Maps (6 couches esthétiques : Watercolor, Terrain, Toner, Dark, Smooth, OSM Bright)
         avec CARTO Voyager en solution de repli.
       </p>
@@ -1196,7 +1228,7 @@ const text = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
   </div>
 
   <footer>
-    <p>ArcLycée v0.17.1 — Aventure Archéologique Dominicaine</p>
+    <p>ArcLycée v0.17.2 — Aventure Archéologique Dominicaine</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Classe de Robotique 2026<br><a href="../index.html">Jouer à ArcLycée</a></p>
   </footer>
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.17.2 — Companion combat, Real Map access, manatee selfie (2026-03-17)
+
+### Agregado
+- **Selección de compañero en combate**: al atacar con compañeros activos, sub-menú pregunta "¿Con quién atacas?" — Solo / 🤖 Magnoboot +3 / 🐕 Viralata +2 / 🦇 Cemí +4. Q para cancelar
+- **Panel de ayuda de combate (H)**: overlay con instrucciones de objetivos, ruta pacifista vs agresiva, significado de medidores y recompensas de reputación (traducido ES/EN/FR)
+- **Indicador de estado en combate**: muestra dinámicamente "☮️ ¡Casi convencido!", "⚠️ ¡Muy hostil!", "✓ Progresando" o "✗ Situación tensa"
+- **Manatí adulto fotografiable**: tras liberar al manatí, el adulto aparece nadando en circuito cerca de la red — se puede tomar foto/selfie
+- **Real Map desde cualquier mundo**: tecla R ahora abre el mapa Leaflet desde cualquier escena jugable (no solo el mapa del mundo)
+- **Pista de mapa real**: toast "🗺️ Presiona R para ver el mapa real" tras diálogos de Roberto Cassá sobre sitios históricos y tras la arqueóloga submarina con el mapa de naufragios
+
+### Mejorado
+- **UI de combate más grande**: barras de vida 200px con HP dentro, medidores 160px con porcentaje, fondos coloreados, estado dinámico
+- **Barra de HP enemigo oculta** para combates con opciones personalizadas (pez león, traficante) — se ganan por convicción, no por HP
+- **Cartel anti-grafiti**: movido a x:80 para no solapar con el petroglifo del Sol
+- **Tecla H**: nueva acción `ayuda` en configuracion.js para instrucciones contextuales
+
+---
+
 ## v0.17.1 — Student renames, combat pacing, LFSD welcome (2026-03-17)
 
 ### Agregado
