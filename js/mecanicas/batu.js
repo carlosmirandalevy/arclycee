@@ -164,7 +164,13 @@ export class JuegoBatu {
 
     // --- Desbloquear entrada cuando se sueltan las teclas ---
     if (this._bloqueoEntrada) {
-      if (!entrada.estaPresionada('accion') &&
+      // En fin de juego, solo necesita soltar E para desbloquear
+      // (el jugador puede seguir con flechas presionadas)
+      if (this.fase === 'finJuego' || this.fase === 'educativo') {
+        if (!entrada.estaPresionada('accion')) {
+          this._bloqueoEntrada = false;
+        }
+      } else if (!entrada.estaPresionada('accion') &&
           !entrada.estaPresionada('izquierda') &&
           !entrada.estaPresionada('derecha')) {
         this._bloqueoEntrada = false;

@@ -1090,6 +1090,9 @@ const fr = {
     mensajeFinal2: 'L\'histoire nous appartient à tous.',
     copyright: 'Lycée Français de Saint-Domingue © 2026',
 
+    volumenMusica: 'Volume Musique',
+    volumenSonidos: 'Volume Sons',
+
     controlesBatu: '← → bouger | Frappe avec le corps (hanche, épaule, tête, genou)',
     tu: 'Toi',
     rival: 'Guarocuya',

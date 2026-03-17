@@ -20,6 +20,7 @@ import { CargadorRecursos } from './recursos.js';
 import { Sonido } from './sonido.js';
 import { SonidoProcedural } from './sonido-procedural.js';
 import { SistemaGuardado } from './guardado.js';
+import { SistemaMusica } from './musica.js';
 
 // --- Importar el inventario ---
 import { Inventario } from '../mecanicas/inventario.js';
@@ -87,6 +88,17 @@ export class Juego {
     this.renderizador = null;
     this.sonido = null;
     this.sfx = new SonidoProcedural();
+    this.musica = new SistemaMusica();
+
+    // Restaurar volumen de sonidos desde localStorage
+    try {
+      const volSonidos = localStorage.getItem('arclycee_volumen_sonidos');
+      if (volSonidos !== null) this.sfx.volumen = parseFloat(volSonidos);
+    } catch (_e) { /* localStorage no disponible */ }
+
+    // Flags para detectar transiciones de combate/batú → override de música
+    this._musicaCombateActiva = false;
+    this._musicaBatuActiva = false;
 
     // Flag para evitar múltiples triggers de muerte simultáneos
     this._muerteEnCurso = false;
@@ -560,6 +572,24 @@ export class Juego {
       }
     }
 
+    // --- Override de música para combate/batú ---
+    if (this.combate.enCombate && !this._musicaCombateActiva) {
+      this.musica.override('combate');
+      this._musicaCombateActiva = true;
+    }
+    if (!this.combate.enCombate && this._musicaCombateActiva) {
+      this.musica.restaurar();
+      this._musicaCombateActiva = false;
+    }
+    if (this.batu.enJuego && !this._musicaBatuActiva) {
+      this.musica.override('batu');
+      this._musicaBatuActiva = true;
+    }
+    if (!this.batu.enJuego && this._musicaBatuActiva) {
+      this.musica.restaurar();
+      this._musicaBatuActiva = false;
+    }
+
     // --- Combate: si hay un combate activo, consume toda la entrada ---
     if (this.combate.enCombate) {
       this.combate.actualizar(dt, this.entrada, this.jugador, this.inventario);
@@ -884,6 +914,11 @@ export class Juego {
       this._climaActivo = false;
       // Detener sonidos ambientales al salir de escenas con clima
       this.clima.detenerSonidos();
+    }
+
+    // --- Música de fondo según la escena ---
+    if (this.musica) {
+      this.musica.cambiarParaEscena(nombreEscena);
     }
 
     // Preparar la nueva escena.

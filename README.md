@@ -20,7 +20,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer
 - **Créditos cinematográficos**: créditos estilo película tras el final con logo, "les fous du robot", nombres del equipo y el Liceo Francés, scroll manual con flechas
 - **Sistema de compañeros**: Magnoboot (robot excavador con detección de metal vía tecla F), Viralata (perro rastreador) y Cemí Murciélago (espíritu de cueva)
-- **Sonidos procedurales**: efectos generados por código con Web Audio API (sin archivos de audio)
+- **Música de fondo**: 12 temas musicales (24 pistas MP3) con crossfade suave entre 2 variantes por escenario, override temporal para combate/batú, volumen ajustable desde el menú de opciones
+- **Sonidos procedurales**: 60+ efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
 - **NPCs mentores recurrentes**: Roberto Cassá (7 conversaciones de historia) y Lcda. Carmen Vidal (5 temas legales)
 - **Guardia Presidencial**: cambio de guardia ceremonial animado en el Panteón Nacional
@@ -55,7 +56,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 ## Tecnologías
 
 - **HTML5 Canvas + JavaScript vanilla** — código legible y educativo
-- **Web Audio API** — sonidos procedurales generados por código (salto, pasos, goteo, acordes)
+- **HTML5 Audio** — música de fondo MP3 con crossfade y loop entre 2 pistas por escenario
+- **Web Audio API** — 60+ sonidos procedurales generados por código (salto, pasos, goteo, acordes)
 - **Kaplay.js** — solo para touch input
 - **LeafletJS** — mapas interactivos con sitios arqueológicos reales
 - **CSS3** — estilos responsivos para desktop y móvil

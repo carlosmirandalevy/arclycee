@@ -39,8 +39,8 @@ export class MenuPrincipal {
 
     // Índice de la opción seleccionada dentro del submenú de opciones
     this.seleccionOpciones = 0;
-    // Las opciones configurables (por ahora solo controles táctiles)
-    this.opcionesConfig = ['controlesTactiles'];
+    // Las opciones configurables: volumen de música, volumen de sonidos, controles
+    this.opcionesConfig = ['volumenMusica', 'volumenSonidos', 'controlesTactiles'];
 
     // Índice del idioma seleccionado actualmente: 0=ES, 1=FR, 2=EN
     this.idiomaIndice = 0;
@@ -119,6 +119,13 @@ export class MenuPrincipal {
 
   // --- Crear una partícula con posición y velocidad aleatorias ---
   // Cada partícula es un puntito blanco semitransparente que flota
+  // --- Generar barra visual de volumen (ej: "████░░░░░░") ---
+  _dibujarBarraVolumen(porcentaje) {
+    const llenos = Math.round(porcentaje / 10);
+    const vacios = 10 - llenos;
+    return '█'.repeat(llenos) + '░'.repeat(vacios);
+  }
+
   _crearParticula() {
     return {
       x: Math.random() * ANCHO_JUEGO,
@@ -136,6 +143,18 @@ export class MenuPrincipal {
   // --- Lógica que corre cada frame ---
   // Recibimos dt, entrada, y parámetros extra del juego que no usamos aquí
   actualizar(dt, entrada, _jugador, _companeros) {
+    // Intentar iniciar la música al primer input del usuario
+    // (el navegador bloquea audio hasta la primera interacción)
+    if (!this._musicaIniciada && this.juego?.musica) {
+      const hayInput = entrada.estaPresionada('accion') || entrada.estaPresionada('arriba')
+        || entrada.estaPresionada('abajo') || entrada.estaPresionada('izquierda')
+        || entrada.estaPresionada('derecha') || entrada.estaPresionada('cancelar');
+      if (hayInput) {
+        this.juego.musica.cambiarParaEscena('menuPrincipal');
+        this._musicaIniciada = true;
+      }
+    }
+
     // Animación del título: oscila suavemente usando seno
     // Math.sin produce una onda suave entre -1 y 1, perfecta para flotar
     this.tiempoAnimacion += dt * 2;
@@ -261,18 +280,54 @@ export class MenuPrincipal {
   // Las opciones se cambian con izquierda/derecha (como el selector de idioma)
   _actualizarSubmenuOpciones(entrada) {
     if (entrada.estaPresionada('cancelar') && !this.bloqueoEntrada) {
-      // Salir del submenú de opciones
       this.submenuActivo = null;
       this.bloqueoEntrada = true;
       return;
     }
 
-    // Cambiar el valor de la opción seleccionada con izquierda/derecha
+    // Navegar entre opciones con arriba/abajo
+    if (entrada.estaPresionada('arriba') && !this.bloqueoEntrada) {
+      this.seleccionOpciones = Math.max(0, this.seleccionOpciones - 1);
+      this.bloqueoEntrada = true;
+    }
+    if (entrada.estaPresionada('abajo') && !this.bloqueoEntrada) {
+      this.seleccionOpciones = Math.min(this.opcionesConfig.length - 1, this.seleccionOpciones + 1);
+      this.bloqueoEntrada = true;
+    }
+
     const opcionActual = this.opcionesConfig[this.seleccionOpciones];
 
+    // --- Volumen de música (0-100%, pasos de 10%) ---
+    if (opcionActual === 'volumenMusica' && !this.bloqueoEntrada) {
+      if (entrada.estaPresionada('izquierda')) {
+        const nuevo = Math.max(0, this.juego.musica.volumen - 0.1);
+        this.juego.musica.ajustarVolumen(nuevo);
+        this.bloqueoEntrada = true;
+      }
+      if (entrada.estaPresionada('derecha')) {
+        const nuevo = Math.min(1, this.juego.musica.volumen + 0.1);
+        this.juego.musica.ajustarVolumen(nuevo);
+        this.bloqueoEntrada = true;
+      }
+    }
+
+    // --- Volumen de sonidos (0-100%, pasos de 10%) ---
+    if (opcionActual === 'volumenSonidos' && !this.bloqueoEntrada) {
+      if (entrada.estaPresionada('izquierda')) {
+        this.juego.sfx.volumen = Math.max(0, Math.round((this.juego.sfx.volumen - 0.1) * 10) / 10);
+        try { localStorage.setItem('arclycee_volumen_sonidos', this.juego.sfx.volumen.toFixed(2)); } catch (_e) {}
+        this.bloqueoEntrada = true;
+      }
+      if (entrada.estaPresionada('derecha')) {
+        this.juego.sfx.volumen = Math.min(1, Math.round((this.juego.sfx.volumen + 0.1) * 10) / 10);
+        try { localStorage.setItem('arclycee_volumen_sonidos', this.juego.sfx.volumen.toFixed(2)); } catch (_e) {}
+        this.bloqueoEntrada = true;
+      }
+    }
+
+    // --- Controles táctiles ---
     if (opcionActual === 'controlesTactiles' && !this.bloqueoEntrada) {
       if (entrada.estaPresionada('izquierda') || entrada.estaPresionada('derecha') || entrada.estaPresionada('accion')) {
-        // Alternar entre joystick y d-pad
         const modoActual = this.juego.entrada.modoControlTactil;
         const nuevoModo = modoActual === 'joystick' ? 'dpad' : 'joystick';
         this.juego.entrada.cambiarModoTactil(nuevoModo);
@@ -475,28 +530,48 @@ export class MenuPrincipal {
       ctx.fillStyle = '#FFD700';
       ctx.fillText(textos.menu.opciones, ancho / 2, 130);
 
+      let yOpcion = 180;
+      const espacioOpcion = 70;
+
+      // --- Volumen de música ---
+      const selMusica = this.seleccionOpciones === 0;
+      ctx.font = selMusica ? 'bold 16px monospace' : '15px monospace';
+      ctx.fillStyle = selMusica ? '#FFD700' : '#999999';
+      ctx.fillText(textos.ui?.volumenMusica || 'Volumen Música', ancho / 2, yOpcion);
+      const volMusica = Math.round(this.juego.musica.volumen * 100);
+      ctx.font = '14px monospace';
+      ctx.fillStyle = selMusica ? '#FFFFFF' : '#777777';
+      const barraMusica = this._dibujarBarraVolumen(volMusica);
+      ctx.fillText(`< ${barraMusica} ${volMusica}% >`, ancho / 2, yOpcion + 22);
+
+      yOpcion += espacioOpcion;
+
+      // --- Volumen de sonidos ---
+      const selSonidos = this.seleccionOpciones === 1;
+      ctx.font = selSonidos ? 'bold 16px monospace' : '15px monospace';
+      ctx.fillStyle = selSonidos ? '#FFD700' : '#999999';
+      ctx.fillText(textos.ui?.volumenSonidos || 'Volumen Sonidos', ancho / 2, yOpcion);
+      const volSonidos = Math.round(this.juego.sfx.volumen * 100);
+      ctx.font = '14px monospace';
+      ctx.fillStyle = selSonidos ? '#FFFFFF' : '#777777';
+      const barraSonidos = this._dibujarBarraVolumen(volSonidos);
+      ctx.fillText(`< ${barraSonidos} ${volSonidos}% >`, ancho / 2, yOpcion + 22);
+
+      yOpcion += espacioOpcion;
+
       // --- Controles táctiles ---
+      const selTactil = this.seleccionOpciones === 2;
       const modoActual = this.juego.entrada.modoControlTactil;
       const nombreModo = modoActual === 'joystick'
         ? (textos.menu.joystick || 'Joystick')
         : (textos.menu.cruceta || 'D-Pad');
-
-      ctx.font = 'bold 18px monospace';
-      ctx.fillStyle = '#FFD700';
+      ctx.font = selTactil ? 'bold 16px monospace' : '15px monospace';
+      ctx.fillStyle = selTactil ? '#FFD700' : '#999999';
       const etiqueta = textos.menu.controlesTactiles || 'Controles táctiles';
-      ctx.fillText(`${etiqueta}:`, ancho / 2, 195);
-
-      ctx.font = '16px monospace';
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillText(`< ${nombreModo} >`, ancho / 2, 225);
-
-      // Descripción del modo seleccionado
-      ctx.font = '13px monospace';
-      ctx.fillStyle = '#888888';
-      const desc = modoActual === 'joystick'
-        ? (textos.menu.descJoystick || 'Stick analógico — arrastra para moverte')
-        : (textos.menu.descCruceta || 'Botones de dirección clásicos');
-      ctx.fillText(desc, ancho / 2, 260);
+      ctx.fillText(etiqueta, ancho / 2, yOpcion);
+      ctx.font = '14px monospace';
+      ctx.fillStyle = selTactil ? '#FFFFFF' : '#777777';
+      ctx.fillText(`< ${nombreModo} >`, ancho / 2, yOpcion + 22);
 
       ctx.font = '14px monospace';
       ctx.fillStyle = '#888888';

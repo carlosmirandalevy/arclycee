@@ -1090,6 +1090,9 @@ const en = {
     mensajeFinal2: 'History belongs to all of us.',
     copyright: 'Lycée Français de Saint-Domingue © 2026',
 
+    volumenMusica: 'Music Volume',
+    volumenSonidos: 'Sound Volume',
+
     controlesBatu: '← → move | Hit with your body (hip, shoulder, head, knee)',
     tu: 'You',
     rival: 'Guarocuya',

@@ -36,6 +36,13 @@ export class AsentamientoTaino2 {
     // --- Batey para el areíto ---
     this.batey = { x: 700, y: 500, radio: 90 };
 
+    // --- Elementos fotografiables ---
+    // El dujo ceremonial se puede fotografiar (asiento tallado del cacique)
+    const textos = this._obtenerTextos();
+    this.fotografiables = [
+      { x: 690, y: 470, ancho: 20, alto: 20, nombre: textos?.lugares?.dujo || 'Dujo', tipoEntidad: 'objeto' }
+    ];
+
     // --- Objetos coleccionables ---
     this.objetos = [];
 

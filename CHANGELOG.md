@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.17.0 — Background music system, batú improvements (2026-03-16)
+
+### Agregado
+- **Sistema de música de fondo** (`js/motor/musica.js`): 12 grupos musicales (24 pistas MP3, 2 por escenario) con crossfade suave de 2s entre variantes. Override temporal para combate/batú que restaura la música del mundo al terminar. Volumen por defecto 20%, guardado en localStorage
+- **Menú de opciones expandido**: 3 opciones configurables — Volumen Música (0-100%), Volumen Sonidos (0-100%), Controles Táctiles. Barras visuales `████░░░░░░`, navegación arriba/abajo entre opciones
+- **Dujo fotografiable**: el asiento ceremonial taíno en Asentamiento Taíno II ahora se puede fotografiar y tomar selfie
+- **Batú revancha**: Higüemota ofrece volver a jugar después de completar la misión
+- **Batú primer saque**: fly ball alto y lento para dar tiempo al jugador
+- **Music prompts** (`resources/music-prompts.md`): prompts de Suno para los 12 temas
+
+### Mejorado
+- **Batú rival**: renombrado de "Rival" a "Guarocuya" (nombre taíno histórico, nacimiento de Enriquillo)
+- **Batú IA**: error intencional reducido de 15% a 10%
+- **Batú desbloqueo de input**: en pantalla de fin/dato educativo, solo necesita soltar E (no todas las teclas)
+- **Pista de foto/selfie**: se oculta durante diálogos y mini-juegos para no solapar con otras instrucciones
+- **Silksong**: diálogo de Carlos Guillermo actualizado — ya no espera Silksong, ahora lo juega
+- **Volumen de sonidos**: preferencia guardada en localStorage, restaurada al iniciar
+
+---
+
 ## v0.16.5 — LFSD classroom details, cinematic ending polish (2026-03-15)
 
 ### Agregado

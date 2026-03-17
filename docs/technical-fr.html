@@ -18,8 +18,8 @@
       <h2><span class="icono">📊</span> Vue d'Ensemble du Code</h2>
       <p class="intro">
         ArcLycée est un RPG 2D écrit en JavaScript vanilla (ES Modules) sans frameworks ni bundlers.
-        Tout le rendu est réalisé avec HTML5 Canvas, tous les sons sont générés par code avec Web Audio API,
-        et tous les sprites sont dessinés de manière procédurale.
+        Tout le rendu est réalisé avec HTML5 Canvas, les effets sonores sont générés par code avec Web Audio API,
+        la musique de fond utilise des fichiers MP3 avec fondu enchaîné, et tous les sprites sont dessinés de manière procédurale.
       </p>
 
       <table>
@@ -53,7 +53,7 @@
         <tr><th>Technologie</th><th>Utilisation</th></tr>
         <tr><td>HTML5 Canvas</td><td>Rendu du jeu — tout est dessiné par code, aucun sprite externe</td></tr>
         <tr><td>JavaScript ES Modules</td><td>Architecture modulaire sans frameworks ni bundlers</td></tr>
-        <tr><td>Web Audio API</td><td>60 sons procéduraux — zéro fichier audio</td></tr>
+        <tr><td>Web Audio API</td><td>60 effets sonores procéduraux + musique de fond avec 24 MP3</td></tr>
         <tr><td>LeafletJS + Stadia Maps</td><td>Cartes interactives avec 76 sites archéologiques réels de RD et Haïti</td></tr>
         <tr><td>Kaplay.js</td><td>Entrée tactile (joystick analogique et D-pad)</td></tr>
         <tr><td>CSS3</td><td>Écran de chargement, contrôles tactiles responsive</td></tr>
@@ -63,7 +63,7 @@
       <ul>
         <li><strong>Lisibilité avant tout</strong> : code commenté en espagnol, lisible par des élèves de 13 ans</li>
         <li><strong>Pas de dépendances lourdes</strong> : uniquement LeafletJS pour les cartes, tout le reste est vanilla</li>
-        <li><strong>Son procédural</strong> : tous les effets générés avec Web Audio API, aucun fichier audio</li>
+        <li><strong>Son procédural</strong> : 60 effets générés avec Web Audio API + musique de fond avec fichiers MP3</li>
         <li><strong>Sprites programmatiques</strong> : tous les personnages, bâtiments et objets dessinés avec Canvas 2D</li>
         <li><strong>Trois langues complètes</strong> : espagnol, français et anglais — chaque chaîne visible est traduite</li>
         <li><strong>Conventions en espagnol</strong> : variables (<code>velocidadJugador</code>), fonctions (<code>estaPresionada</code>), constantes (<code>ANCHO_JUEGO</code>)</li>
@@ -254,9 +254,9 @@
       <p>Fichier : <code>js/motor/sonido-procedural.js</code> (1 931 lignes) — 60 effets sonores générés par code.</p>
 
       <p class="intro">
-        Aucun fichier audio n'est utilisé dans le jeu. Chaque son est synthétisé en temps réel en combinant
+        Les effets sonores sont synthétisés en temps réel en combinant
         des oscillateurs (sinusoïdal, carré, dent de scie, triangle), des filtres (passe-bas, passe-haut, passe-bande),
-        des tampons de bruit blanc et des enveloppes de gain.
+        des tampons de bruit blanc et des enveloppes de gain. La musique de fond est lue depuis des fichiers MP3 avec fondu enchaîné automatique.
       </p>
 
       <h3>Motifs Fondamentaux</h3>
@@ -377,6 +377,55 @@ lfo → lfoGain → osc.frequency</pre>
         <tr><td><code>selfieCaptura()</code></td><td>Bruit 0,06 s + sinusoïdal ascendant 400→1200 Hz (obturateur + flash)</td></tr>
         <tr><td><code>lluviaAmbiente()</code></td><td>Boucle continue : bruit filtré + gouttes périodiques toutes les 150-350 ms</td></tr>
       </table>
+
+      <h3>Musique de Fond (<code>js/motor/musica.js</code>)</h3>
+      <p>
+        La classe <code>SistemaMusica</code> gère la musique de fond du jeu à l'aide de fichiers MP3.
+        Contrairement aux effets sonores (procéduraux), la musique utilise 24 fichiers audio réels
+        organisés en 12 groupes thématiques (2 pistes par groupe).
+      </p>
+
+      <h4>Groupes Musicaux (12 groupes, 24 MP3)</h4>
+      <table>
+        <tr><th>Groupe</th><th>Scène(s)</th><th>Description</th></tr>
+        <tr><td><code>menu</code></td><td>menuPrincipal</td><td>Musique du menu principal</td></tr>
+        <tr><td><code>cuevas</code></td><td>cuevasPomier</td><td>Ambiance de grottes</td></tr>
+        <tr><td><code>taino</code></td><td>Mondes taïnos (villages)</td><td>Musique indigène</td></tr>
+        <tr><td><code>colonial</code></td><td>Mondes coloniaux</td><td>Époque coloniale</td></tr>
+        <tr><td><code>acuatico</code></td><td>Monde Aquatique</td><td>Ambiance sous-marine</td></tr>
+        <tr><td><code>aeropuerto</code></td><td>Monde Juridique</td><td>Aéroport de Punta Cana</td></tr>
+        <tr><td><code>museo</code></td><td>Monde Laboratoire</td><td>Intérieur de musée</td></tr>
+        <tr><td><code>lfsd</code></td><td>LFSD</td><td>Salle de robotique</td></tr>
+        <tr><td><code>mapa</code></td><td>mapaPrincipal</td><td>Carte du monde</td></tr>
+        <tr><td><code>creditos</code></td><td>finalCinematica</td><td>Cinématique finale et crédits</td></tr>
+      </table>
+
+      <h4>Fondu Enchaîné A-B</h4>
+      <p>
+        Chaque groupe possède 2 pistes (A et B). Lorsqu'une piste se termine, le système effectue un fondu enchaîné
+        de 2 secondes vers l'autre piste, créant une boucle continue sans silence (A → B → A → B...).
+        Les deux pistes utilisent <code>HTMLAudioElement</code> et le volume est interpolé linéairement pendant la transition.
+      </p>
+
+      <h4>Interruption Combat et Batú</h4>
+      <p>
+        Lorsqu'un combat ou une partie de batú commence, la musique de fond est temporairement mise en pause.
+        À la fin de l'overlay, la musique du scénario est automatiquement restaurée.
+      </p>
+
+      <h4>Contrôle du Volume</h4>
+      <p>
+        Le volume de la musique (0-100 %) se configure depuis le menu Options.
+        La préférence est sauvegardée dans <code>localStorage</code> sous la clé <code>arclycee_volumen_musica</code>
+        et restaurée au démarrage du jeu.
+      </p>
+
+      <h4>Autoplay du Navigateur</h4>
+      <p>
+        Les navigateurs bloquent la lecture automatique de l'audio jusqu'à la première interaction utilisateur.
+        Si la tentative de lecture initiale échoue, le système réessaie automatiquement
+        lorsque la première pression de touche est détectée dans le menu principal.
+      </p>
     </section>
 
     <!-- ============================================================
@@ -1147,7 +1196,7 @@ const text = juego.idiomas.t('dialogos.cueva.petroSol');</pre>
   </div>
 
   <footer>
-    <p>ArcLycée v0.16.5 — Aventure Archéologique Dominicaine</p>
+    <p>ArcLycée v0.17.0 — Aventure Archéologique Dominicaine</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Classe de Robotique 2026<br><a href="../index.html">Jouer à ArcLycée</a></p>
   </footer>
 

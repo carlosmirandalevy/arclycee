@@ -1135,6 +1135,10 @@ const es = {
     mensajeFinal2: 'La historia nos pertenece a todos.',
     copyright: 'Lycée Français de Saint-Domingue © 2026',
 
+    // --- Opciones de volumen ---
+    volumenMusica: 'Volumen Música',
+    volumenSonidos: 'Volumen Sonidos',
+
     // --- Batú controles ---
     controlesBatu: '← → mover | Golpea con el cuerpo (cadera, hombro, cabeza, rodilla)',
     tu: 'Tú',

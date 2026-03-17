@@ -119,14 +119,20 @@ arclycee/
     ├── favicon-32.png       ← Favicon PNG 32x32
     ├── apple-touch-icon.png ← Ícono para iOS 180x180
     ├── og-share.png         ← Imagen para redes sociales 192x192
-    └── artes/               ← Hero images, logo original, favicon original
+    ├── artes/               ← Hero images, logo original, favicon original
+    ├── music/               ← 24 pistas MP3 (2 por escenario, ~122 MB)
+    └── music-prompts.md     ← Prompts de Suno para generar la música
 ```
 
 ## Audio
 
-El juego genera efectos de sonido proceduralmente usando la Web Audio API — no necesita archivos de audio. Los sonidos se crean automáticamente al saltar, aterrizar, caminar, recoger objetos y descubrir petroglifos. También hay goteos de agua ambientales.
+### Música de fondo
+El juego incluye 12 temas musicales (24 pistas MP3, 2 variantes por escenario) en `resources/music/`. El sistema `js/motor/musica.js` alterna las 2 pistas de cada grupo en loop con crossfade suave de 2 segundos. Combate y batú hacen override temporal de la música del mundo. El volumen se ajusta desde el menú de opciones y se guarda en localStorage.
 
-**Nota**: El navegador bloquea el audio hasta la primera interacción del usuario (click o tecla). Una vez que presionas cualquier tecla, los sonidos comenzarán a funcionar.
+### Efectos de sonido
+El juego genera 60+ efectos de sonido proceduralmente usando la Web Audio API — no necesita archivos de audio. Los sonidos se crean automáticamente al saltar, aterrizar, caminar, recoger objetos y descubrir petroglifos.
+
+**Nota**: El navegador bloquea el audio hasta la primera interacción del usuario (click o tecla). La música y los sonidos comienzan al presionar la primera tecla en el menú.
 
 ## Generar Assets
 
