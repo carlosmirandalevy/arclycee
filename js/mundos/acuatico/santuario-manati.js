@@ -201,6 +201,18 @@ export class SantuarioManati {
       }
     ];
 
+    // Si el manatí ya fue liberado previamente, agregar el adulto como NPC
+    if (this.manatiLiberado) {
+      const _tSan = this._obtenerTextos();
+      this.npcs.push({
+        id: 'manatiAdulto',
+        nombre: _tSan?.dialogos?.santuario?.manatiAdultoNombre || '🐋 Manatí Adulto',
+        x: 1350, y: 350, ancho: 40, alto: 25,
+        dialogoHecho: true,
+        centroX: 1350, centroY: 350, radioX: 80, radioY: 40, fase: 0
+      });
+    }
+
     // --- Tiburones patrulleros ---
     // 3 tiburones con rutas de patrulla entre waypoints
     this.tiburones = [
@@ -1270,6 +1282,17 @@ export class SantuarioManati {
       this.juego.reputacion.modificar(10,
         textos?.misiones?.rescateManatiReputacion || 'Manatí liberado');
     }
+
+    // Agregar manatí adulto liberado como NPC fotografiable
+    // Nada en un circuito suave cerca de donde estaba la red
+    const textosSan = this._obtenerTextos();
+    this.npcs.push({
+      id: 'manatiAdulto',
+      nombre: textosSan?.dialogos?.santuario?.manatiAdultoNombre || '🐋 Manatí Adulto',
+      x: 1350, y: 350, ancho: 40, alto: 25,
+      dialogoHecho: true,
+      centroX: 1350, centroY: 350, radioX: 80, radioY: 40, fase: 0
+    });
 
     // Verificar si ambas acciones ecológicas están completas
     this._verificarMisionRescate();
