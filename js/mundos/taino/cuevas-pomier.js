@@ -151,6 +151,11 @@ export class CuevasPomier {
       { x: 2700, y: 400, tipo: 'artefactoTaino', recogido: false }
     ];
 
+    // --- Cartel de advertencia contra el grafiti ---
+    // En las cuevas reales del Pomier, el grafiti es un problema grave
+    // que daña los petroglifos taínos de miles de años de antigüedad
+    this._cartelAntiGrafiti = { x: 220, y: 398 };
+
     // --- Graffitis vandálicos ---
     this.graffitis = [
       { x: 400, y: 400, texto: 'PEPE 2019', color: '#FF0000' },
@@ -654,6 +659,58 @@ export class CuevasPomier {
       ctx.font = 'bold 14px monospace';
       ctx.fillStyle = graffiti.color;
       ctx.fillText(graffiti.texto, gx, gy);
+    }
+
+    // --- Cartel de advertencia contra el grafiti ---
+    {
+      const cartel = this._cartelAntiGrafiti;
+      const cx = cartel.x + offsetX;
+      const cy = cartel.y + offsetY;
+      const distCartel = this._distancia(jugador.x, jugador.y, cartel.x, cartel.y);
+      if (distCartel < this.radioLuz) {
+        const textos = this._obtenerTextos();
+        // Poste de madera
+        ctx.fillStyle = '#5a3a1a';
+        ctx.fillRect(cx + 18, cy - 30, 4, 32);
+        // Tabla del cartel (fondo)
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(cx - 2, cy - 55, 44, 28);
+        ctx.strokeStyle = '#6B5335';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(cx - 2, cy - 55, 44, 28);
+        // Ícono de prohibido (círculo rojo con línea)
+        ctx.strokeStyle = '#CC2222';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx + 12, cy - 44, 7, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx + 7, cy - 49);
+        ctx.lineTo(cx + 17, cy - 39);
+        ctx.stroke();
+        // Spray can icon (small)
+        ctx.fillStyle = '#666666';
+        ctx.fillRect(cx + 24, cy - 49, 5, 10);
+        ctx.fillStyle = '#999999';
+        ctx.fillRect(cx + 25, cy - 52, 3, 3);
+        // Texto del cartel (visible al acercarse)
+        if (distCartel < 60) {
+          ctx.font = '9px monospace';
+          ctx.fillStyle = '#FFDD88';
+          ctx.textAlign = 'center';
+          ctx.fillText(
+            textos?.ui?.cartelNoGrafiti || 'No escribir en las paredes',
+            cx + 20, cy + 10
+          );
+          ctx.font = '8px monospace';
+          ctx.fillStyle = '#CC8844';
+          ctx.fillText(
+            textos?.ui?.cartelProteger || 'Protejamos los petroglifos',
+            cx + 20, cy + 20
+          );
+          ctx.textAlign = 'left';
+        }
+      }
     }
 
     // --- Objetos coleccionables ---

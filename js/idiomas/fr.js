@@ -1018,6 +1018,8 @@ const fr = {
   ui: {
     presionaE: 'Appuie sur E pour continuer',
     presionaESaltar: 'Appuie sur E pour passer',
+    cartelNoGrafiti: 'Ne pas écrire sur les murs',
+    cartelProteger: 'Protégeons les pétroglyphes',
     eContinuar: '[E] Continuer',
     eComenzar: '[E] Commencer',
     comenzar: 'Commencer',

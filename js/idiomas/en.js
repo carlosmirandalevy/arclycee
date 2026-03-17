@@ -1018,6 +1018,8 @@ const en = {
   ui: {
     presionaE: 'Press E to continue',
     presionaESaltar: 'Press E to skip',
+    cartelNoGrafiti: 'Do not write on the walls',
+    cartelProteger: 'Protect the petroglyphs',
     eContinuar: '[E] Continue',
     eComenzar: '[E] Start',
     comenzar: 'Start',

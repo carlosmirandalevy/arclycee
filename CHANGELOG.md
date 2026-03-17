@@ -5,6 +5,7 @@
 ### Agregado
 - **Bienvenida LFSD**: toast "🤖 Bienvenido a les Fous du Robot" al entrar (traducido ES/EN/FR)
 - **Botón [E] Continuar en combate**: tras 2.5s de mostrar el resultado de cada acción (ataque y contraataque), aparece un botón pulsante "[E] Continuar" — el jugador controla el ritmo del combate
+- **Cartel anti-grafiti en cuevas**: señal de advertencia con símbolo de prohibido + lata de spray cerca de la entrada de Cuevas del Pomier, texto "No escribir en las paredes / Protejamos los petroglifos" visible al acercarse (traducido ES/EN/FR)
 
 ### Mejorado
 - **Renombrado de estudiantes LFSD**: Émile → Leonardo, Lucas → Hugo, Nael → Tea, Théo → Theo Jules — en diálogos (3 idiomas), créditos, docs, sprites, comentarios. IDs internos y claves de diálogo sin cambios (sidequests intactas)

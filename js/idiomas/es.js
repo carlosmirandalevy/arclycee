@@ -1054,6 +1054,8 @@ const es = {
     // --- Indicadores de continuar ---
     presionaE: 'Presiona E para continuar',
     presionaESaltar: 'Presiona E para saltar',
+    cartelNoGrafiti: 'No escribir en las paredes',
+    cartelProteger: 'Protejamos los petroglifos',
     eContinuar: '[E] Continuar',
     eComenzar: '[E] Comenzar',
     comenzar: 'Comenzar',
