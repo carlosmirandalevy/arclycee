@@ -1078,6 +1078,11 @@ const fr = {
     estadoBien: '✓ En progrès',
     estadoMal: '✗ Situation tendue',
     pistaMapaReal: '🗺️ Appuie sur R pour voir la carte réelle',
+    elegirCompanero: 'Avec qui attaques-tu ?',
+    elegirCompaneroControles: '< Choisis un allié — Q pour annuler >',
+    elegir: 'choisir',
+    confirmar: 'confirmer',
+    cancelar: 'annuler',
 
     presionaEContinuar: 'Appuie sur E pour continuer ▶',
 

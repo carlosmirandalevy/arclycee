@@ -1078,6 +1078,11 @@ const en = {
     estadoBien: '✓ Making progress',
     estadoMal: '✗ Tense situation',
     pistaMapaReal: '🗺️ Press R to view the real map',
+    elegirCompanero: 'Who do you attack with?',
+    elegirCompaneroControles: '< Choose an ally — Q to cancel >',
+    elegir: 'choose',
+    confirmar: 'confirm',
+    cancelar: 'cancel',
 
     presionaEContinuar: 'Press E to continue ▶',
 

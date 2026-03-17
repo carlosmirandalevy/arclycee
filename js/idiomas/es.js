@@ -1118,6 +1118,11 @@ const es = {
     estadoBien: '✓ Progresando',
     estadoMal: '✗ Situación tensa',
     pistaMapaReal: '🗺️ Presiona R para ver el mapa real',
+    elegirCompanero: '¿Con quién atacas?',
+    elegirCompaneroControles: '< Elige un aliado — Q para cancelar >',
+    elegir: 'elegir',
+    confirmar: 'confirmar',
+    cancelar: 'cancelar',
 
     // --- Diálogos ---
     presionaEContinuar: 'Presiona E para continuar ▶',

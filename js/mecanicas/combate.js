@@ -64,9 +64,14 @@ export class SistemaCombate {
     // Bloqueo de entrada para evitar que una tecla se procese varias veces
     this._bloqueoEntrada = false;
 
-    // --- Panel de instrucciones (tecla I) ---
+    // --- Panel de instrucciones (tecla H) ---
     this._infoVisible = false;
     this._bloqueoInfo = false;
+
+    // --- Selección de compañero para ataque ---
+    this._seleccionandoCompanero = false;
+    this._companeroSeleccionado = 0;
+    this._opcionesCompanero = []; // Se llena al abrir el sub-menú
 
     // --- Mensaje de feedback ---
     // Muestra al jugador qué pasó en el último turno
@@ -155,7 +160,12 @@ export class SistemaCombate {
 
       switch (opcion) {
         case 'atacar':
-          this._ejecutarAtaque(jugador);
+          // Si hay compañeros activos, abrir sub-menú de selección
+          if (this._tieneCompanerosActivos()) {
+            this._abrirSeleccionCompanero();
+            return; // No avanzar turno aún — esperar selección
+          }
+          this._ejecutarAtaque(jugador, null);
           break;
         case 'hablar':
           this._ejecutarHablar();
@@ -183,34 +193,23 @@ export class SistemaCombate {
   }
 
   // --- Atacar: la opción directa ---
-  // Hace daño basado en la fuerza del jugador. Simple pero efectivo.
-  _ejecutarAtaque(jugador) {
+  // Hace daño basado en la fuerza del jugador + bonus del compañero elegido.
+  // companeroTipo: null (solo), 'magnoboot', 'viralata' o 'cemiMurcielago'
+  _ejecutarAtaque(jugador, companeroTipo) {
     this._sfx.combateAtacar();
     let dano = jugador.fuerza * 5 + Math.floor(Math.random() * 5);
-
-    // --- Bonus de compañeros activos ---
-    // Cada compañero aporta un bonus diferente al ataque
     let bonusTexto = '';
-    if (this._juego?.companeros) {
-      for (const comp of this._juego.companeros) {
-        if (!comp.activo) continue;
-        if (comp.tipo === 'magnoboot') {
-          // Magnoboot: pulso electromagnético (+3 daño)
-          const bonus = 3;
-          dano += bonus;
-          bonusTexto += ` 🤖+${bonus}`;
-        } else if (comp.tipo === 'viralata') {
-          // Viralata: distrae al enemigo (+2 daño)
-          const bonus = 2;
-          dano += bonus;
-          bonusTexto += ` 🐕+${bonus}`;
-        } else if (comp.tipo === 'cemiMurcielago') {
-          // Cemí Murciélago: ataque espiritual (+4 daño)
-          const bonus = 4;
-          dano += bonus;
-          bonusTexto += ` 🦇+${bonus}`;
-        }
-      }
+
+    // Bonus del compañero seleccionado (solo uno a la vez)
+    if (companeroTipo === 'magnoboot') {
+      dano += 3;
+      bonusTexto = ' 🤖+3';
+    } else if (companeroTipo === 'viralata') {
+      dano += 2;
+      bonusTexto = ' 🐕+2';
+    } else if (companeroTipo === 'cemiMurcielago') {
+      dano += 4;
+      bonusTexto = ' 🦇+4';
     }
 
     this.enemigo.vida -= dano;
@@ -221,6 +220,32 @@ export class SistemaCombate {
     this._mensaje = `¡Atacas! -${dano} HP` + bonusTexto;
 
     this.verificarFinCombate();
+  }
+
+  // --- Verificar si el jugador tiene compañeros activos ---
+  _tieneCompanerosActivos() {
+    if (!this._juego?.companeros) return false;
+    return this._juego.companeros.some(c => c.activo);
+  }
+
+  // --- Abrir sub-menú de selección de compañero ---
+  _abrirSeleccionCompanero() {
+    this._seleccionandoCompanero = true;
+    this._companeroSeleccionado = 0;
+    this._bloqueoEntrada = true;
+
+    // Construir lista de opciones: "Solo" + cada compañero activo
+    this._opcionesCompanero = [{ tipo: null, nombre: 'Solo', icono: '⚔️', bonus: 0 }];
+    for (const comp of this._juego.companeros) {
+      if (!comp.activo) continue;
+      if (comp.tipo === 'magnoboot') {
+        this._opcionesCompanero.push({ tipo: 'magnoboot', nombre: 'Magnoboot', icono: '🤖', bonus: 3 });
+      } else if (comp.tipo === 'viralata') {
+        this._opcionesCompanero.push({ tipo: 'viralata', nombre: 'Viralata', icono: '🐕', bonus: 2 });
+      } else if (comp.tipo === 'cemiMurcielago') {
+        this._opcionesCompanero.push({ tipo: 'cemiMurcielago', nombre: 'Cemí', icono: '🦇', bonus: 4 });
+      }
+    }
   }
 
   // --- Hablar: reducir hostilidad con palabras ---
@@ -467,9 +492,47 @@ export class SistemaCombate {
       return;
     }
 
+    // --- Sub-menú de selección de compañero ---
+    if (this._seleccionandoCompanero) {
+      if (entrada.estaPresionada('izquierda') && !this._bloqueoEntrada) {
+        this._companeroSeleccionado = Math.max(0, this._companeroSeleccionado - 1);
+        this._sfx.combateNavegar();
+        this._bloqueoEntrada = true;
+      }
+      if (entrada.estaPresionada('derecha') && !this._bloqueoEntrada) {
+        this._companeroSeleccionado = Math.min(this._opcionesCompanero.length - 1, this._companeroSeleccionado + 1);
+        this._sfx.combateNavegar();
+        this._bloqueoEntrada = true;
+      }
+      // Confirmar selección con E
+      if (entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
+        const elegido = this._opcionesCompanero[this._companeroSeleccionado];
+        this._seleccionandoCompanero = false;
+        this._ejecutarAtaque(jugador, elegido.tipo);
+        // Avanzar al turno del enemigo
+        if (this.enCombate) {
+          this._esperandoEnemigo = true;
+          this._tiempoEsperaEnemigo = 0;
+          this._esperandoContinuar = false;
+          this._pausaLectura = 2.5;
+          this.turnoJugador = false;
+        }
+        this._bloqueoEntrada = true;
+      }
+      // Cancelar con Q — volver al menú principal
+      if (entrada.estaPresionada('cancelar') && !this._bloqueoEntrada) {
+        this._seleccionandoCompanero = false;
+        this._bloqueoEntrada = true;
+      }
+      if (!entrada.estaPresionada('izquierda') && !entrada.estaPresionada('derecha')
+          && !entrada.estaPresionada('accion') && !entrada.estaPresionada('cancelar')) {
+        this._bloqueoEntrada = false;
+      }
+      return;
+    }
+
     if (this.turnoJugador) {
       // Navegar opciones con izquierda/derecha
-      // Usamos estaPresionada() que es el método de la clase Entrada
       if (entrada.estaPresionada('izquierda') && !this._bloqueoEntrada) {
         this.seleccionarOpcion('izquierda');
         this._bloqueoEntrada = true;
@@ -682,60 +745,94 @@ export class SistemaCombate {
 
     // --- Opciones de combate (parte inferior) ---
     const opcionesY = altoCanvas - 90;
-    const numOpciones = this._opcionesActivas.length;
-    // El ancho de cada botón se adapta: más opciones = botones más pequeños
-    const opcionAncho = numOpciones <= 4 ? 110 : 90;
-    const opcionesInicioX = (anchoCanvas - numOpciones * (opcionAncho + 10)) / 2;
 
-    for (let i = 0; i < numOpciones; i++) {
-      const opX = opcionesInicioX + i * (opcionAncho + 10);
-
-      // Fondo de la opción: amarillo si seleccionada, gris si no
-      const seleccionada = (i === this.opcionSeleccionada) && this.turnoJugador;
-      ctx.fillStyle = seleccionada ? '#ffcc00' : '#555555';
-      ctx.fillRect(opX, opcionesY, opcionAncho, 30);
-
-      // Borde
-      ctx.strokeStyle = seleccionada ? '#FFD700' : '#666666';
-      ctx.lineWidth = seleccionada ? 2 : 1;
-      ctx.strokeRect(opX, opcionesY, opcionAncho, 30);
-
-      // Texto de la opción
-      ctx.fillStyle = seleccionada ? '#000000' : '#ffffff';
-      ctx.font = seleccionada ? 'bold 11px monospace' : '11px monospace';
+    if (this._seleccionandoCompanero) {
+      // --- Sub-menú: selección de compañero para el ataque ---
+      ctx.font = 'bold 13px monospace';
+      ctx.fillStyle = '#FFD700';
       ctx.textAlign = 'center';
+      ctx.fillText(ui?.elegirCompanero || '¿Con quién atacas?', anchoCanvas / 2, opcionesY - 15);
 
-      // Para opciones personalizadas usar el nombre de la opción,
-      // para las genéricas buscar traducción en el sistema de idiomas
-      let nombreOpcion;
-      if (this.enemigo?.opcionesPersonalizadas) {
-        nombreOpcion = this.enemigo.opcionesPersonalizadas[i].nombre
-          || this._opcionesActivas[i];
-      } else {
-        nombreOpcion = idiomas?.[this._opcionesActivas[i]]
-          || this._opcionesActivas[i];
+      const numComp = this._opcionesCompanero.length;
+      const compAncho = 120;
+      const compInicioX = (anchoCanvas - numComp * (compAncho + 10)) / 2;
+
+      for (let i = 0; i < numComp; i++) {
+        const cx = compInicioX + i * (compAncho + 10);
+        const sel = i === this._companeroSeleccionado;
+        // Fondo
+        ctx.fillStyle = sel ? '#ffcc00' : '#444444';
+        ctx.fillRect(cx, opcionesY, compAncho, 30);
+        ctx.strokeStyle = sel ? '#FFD700' : '#666666';
+        ctx.lineWidth = sel ? 2 : 1;
+        ctx.strokeRect(cx, opcionesY, compAncho, 30);
+        // Texto: icono + nombre + bonus
+        ctx.fillStyle = sel ? '#000000' : '#ffffff';
+        ctx.font = sel ? 'bold 11px monospace' : '11px monospace';
+        ctx.textAlign = 'center';
+        const comp = this._opcionesCompanero[i];
+        const texto = comp.bonus > 0
+          ? `${comp.icono} ${comp.nombre} +${comp.bonus}`
+          : `${comp.icono} ${comp.nombre}`;
+        ctx.fillText(texto, cx + compAncho / 2, opcionesY + 20);
       }
-      ctx.fillText(nombreOpcion, opX + opcionAncho / 2, opcionesY + 20);
-    }
 
-    // Indicador de turno
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '13px monospace';
-    ctx.textAlign = 'center';
-    if (this.turnoJugador) {
-      ctx.fillText(ui?.tuTurno || '< Tu turno — elige una acción >', anchoCanvas / 2, altoCanvas - 30);
+      // Indicador
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '13px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(ui?.elegirCompaneroControles || '< Elige un aliado — Q para cancelar >', anchoCanvas / 2, altoCanvas - 30);
+
+      ctx.font = '10px monospace';
+      ctx.fillStyle = '#444444';
+      ctx.fillText('← → ' + (ui?.elegir || 'elegir') + ' | E: ' + (ui?.confirmar || 'confirmar') + ' | Q: ' + (ui?.cancelar || 'cancelar'), anchoCanvas / 2, altoCanvas - 12);
     } else {
-      ctx.fillStyle = '#ff8888';
-      ctx.fillText(ui?.turnoEnemigo || '... turno del enemigo ...', anchoCanvas / 2, altoCanvas - 30);
-    }
+      // --- Opciones principales de combate ---
+      const numOpciones = this._opcionesActivas.length;
+      const opcionAncho = numOpciones <= 4 ? 110 : 90;
+      const opcionesInicioX = (anchoCanvas - numOpciones * (opcionAncho + 10)) / 2;
 
-    // --- Controles ---
-    ctx.font = '10px monospace';
-    ctx.fillStyle = '#444444';
-    ctx.fillText(
-      (ui?.controlesCombate || 'Flechas: elegir | E: confirmar') + '  |  [H] Ayuda',
-      anchoCanvas / 2, altoCanvas - 12
-    );
+      for (let i = 0; i < numOpciones; i++) {
+        const opX = opcionesInicioX + i * (opcionAncho + 10);
+        const seleccionada = (i === this.opcionSeleccionada) && this.turnoJugador;
+        ctx.fillStyle = seleccionada ? '#ffcc00' : '#555555';
+        ctx.fillRect(opX, opcionesY, opcionAncho, 30);
+        ctx.strokeStyle = seleccionada ? '#FFD700' : '#666666';
+        ctx.lineWidth = seleccionada ? 2 : 1;
+        ctx.strokeRect(opX, opcionesY, opcionAncho, 30);
+        ctx.fillStyle = seleccionada ? '#000000' : '#ffffff';
+        ctx.font = seleccionada ? 'bold 11px monospace' : '11px monospace';
+        ctx.textAlign = 'center';
+        let nombreOpcion;
+        if (this.enemigo?.opcionesPersonalizadas) {
+          nombreOpcion = this.enemigo.opcionesPersonalizadas[i].nombre
+            || this._opcionesActivas[i];
+        } else {
+          nombreOpcion = idiomas?.[this._opcionesActivas[i]]
+            || this._opcionesActivas[i];
+        }
+        ctx.fillText(nombreOpcion, opX + opcionAncho / 2, opcionesY + 20);
+      }
+
+      // Indicador de turno
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '13px monospace';
+      ctx.textAlign = 'center';
+      if (this.turnoJugador) {
+        ctx.fillText(ui?.tuTurno || '< Tu turno — elige una acción >', anchoCanvas / 2, altoCanvas - 30);
+      } else {
+        ctx.fillStyle = '#ff8888';
+        ctx.fillText(ui?.turnoEnemigo || '... turno del enemigo ...', anchoCanvas / 2, altoCanvas - 30);
+      }
+
+      // Controles
+      ctx.font = '10px monospace';
+      ctx.fillStyle = '#444444';
+      ctx.fillText(
+        (ui?.controlesCombate || 'Flechas: elegir | E: confirmar') + '  |  [H] Ayuda',
+        anchoCanvas / 2, altoCanvas - 12
+      );
+    }
 
     // --- Panel de instrucciones (overlay sobre todo) ---
     if (this._infoVisible) {
