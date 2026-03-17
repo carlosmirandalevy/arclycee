@@ -185,6 +185,7 @@ const en = {
       batuVictoria: 'Impressive! You play like a true Taíno.',
       batuDerrota: 'Good try! Batú takes a lot of practice.',
       batuRepite: 'That was a great match! Batú unites villages and resolves conflicts without violence.',
+      batuRevancha: 'That was a great match! Want to play again?',
 
       misionHablar: 'Talk to the 3 villagers',
       misionCompleta: 'Village explored! Return to map (M)'
@@ -615,9 +616,9 @@ const en = {
     continuar: '[E] Continue',
     controles: '← → move | Hit with your body (hip, shoulder, head, knee)',
     saqueJugador: 'Your serve!',
-    saqueRival: 'Rival\'s serve!',
+    saqueRival: 'Guarocuya\'s serve!',
     puntoJugador: 'Your point!',
-    puntoRival: 'Point for the rival!',
+    puntoRival: 'Point for Guarocuya!',
     sabiasQue: 'Did you know...?',
     victoria: 'Victory!',
     derrota: 'Defeat!',
@@ -1091,7 +1092,7 @@ const en = {
 
     controlesBatu: '← → move | Hit with your body (hip, shoulder, head, knee)',
     tu: 'You',
-    rival: 'Rival',
+    rival: 'Guarocuya',
 
     controlesRegistro: '← → change tab | ↑ ↓ scroll | Q close',
 

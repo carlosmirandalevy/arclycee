@@ -187,6 +187,7 @@ const es = {
       batuVictoria: '¡Impresionante! Juegas como un verdadero taíno.',
       batuDerrota: '¡Buen intento! El batú requiere mucha práctica.',
       batuRepite: '¡Fue un gran partido! El batú une a las aldeas y resuelve conflictos sin violencia.',
+      batuRevancha: '¡Fue un gran partido! ¿Quieres jugar otra vez?',
 
       misionHablar: 'Habla con los 3 aldeanos de la aldea',
       misionCompleta: '¡Aldea explorada! Vuelve al mapa (M)'
@@ -650,9 +651,9 @@ const es = {
     continuar: '[E] Continuar',
     controles: '← → mover | Golpea con el cuerpo (cadera, hombro, cabeza, rodilla)',
     saqueJugador: '¡Tu saque!',
-    saqueRival: '¡Saque del rival!',
+    saqueRival: '¡Saque de Guarocuya!',
     puntoJugador: '¡Tu punto!',
-    puntoRival: '¡Punto para el rival!',
+    puntoRival: '¡Punto para Guarocuya!',
     sabiasQue: '¿Sabías que...?',
     victoria: '¡Victoria!',
     derrota: '¡Derrota!',
@@ -1137,7 +1138,7 @@ const es = {
     // --- Batú controles ---
     controlesBatu: '← → mover | Golpea con el cuerpo (cadera, hombro, cabeza, rodilla)',
     tu: 'Tú',
-    rival: 'Rival',
+    rival: 'Guarocuya',
 
     // --- Registro de misiones controles ---
     controlesRegistro: '← → cambiar pestaña | ↑ ↓ scroll | Q cerrar',

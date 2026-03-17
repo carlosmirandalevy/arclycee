@@ -185,6 +185,7 @@ const fr = {
       batuVictoria: 'Impressionnant ! Tu joues comme un vrai Taïno.',
       batuDerrota: 'Bon essai ! Le batú demande beaucoup de pratique.',
       batuRepite: 'C\'était un super match ! Le batú unit les villages et résout les conflits sans violence.',
+      batuRevancha: 'C\'était un super match ! Tu veux rejouer ?',
 
       misionHablar: 'Parle aux 3 villageois',
       misionCompleta: 'Village exploré ! Retour à la carte (M)'
@@ -615,9 +616,9 @@ const fr = {
     continuar: '[E] Continuer',
     controles: '← → bouger | Frappe avec le corps (hanche, épaule, tête, genou)',
     saqueJugador: 'Ton service !',
-    saqueRival: 'Service du rival !',
+    saqueRival: 'Service de Guarocuya !',
     puntoJugador: 'Ton point !',
-    puntoRival: 'Point pour le rival !',
+    puntoRival: 'Point pour Guarocuya !',
     sabiasQue: 'Le savais-tu... ?',
     victoria: 'Victoire !',
     derrota: 'Défaite !',
@@ -1091,7 +1092,7 @@ const fr = {
 
     controlesBatu: '← → bouger | Frappe avec le corps (hanche, épaule, tête, genou)',
     tu: 'Toi',
-    rival: 'Rival',
+    rival: 'Guarocuya',
 
     controlesRegistro: '← → changer d\'onglet | ↑ ↓ défiler | Q fermer',
 

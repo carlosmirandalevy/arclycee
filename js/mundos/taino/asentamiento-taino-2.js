@@ -1106,9 +1106,14 @@ export class AsentamientoTaino2 {
           }
         ]);
       } else if (batuCompletado) {
-        // Ya completó el batú — diálogo de cierre
+        // Ya completó el batú — ofrecer revancha
         this.dialogos.iniciarDialogo([
-          { personaje: '🎵 Higüemota', texto: aldea2?.batuRepite || '¡Fue un gran partido! El batú une a las aldeas y resuelve conflictos sin violencia.' }
+          { personaje: '🎵 Higüemota', texto: aldea2?.batuRevancha || '¡Fue un gran partido! ¿Quieres jugar otra vez?',
+            opciones: [
+              { texto: aldea2?.batuAceptar || '¡Sí, vamos a jugar!', valor: 'aceptar_batu' },
+              { texto: aldea2?.batuRechazar || 'Ahora no, quizás después.', valor: 'rechazar_batu' }
+            ]
+          }
         ]);
       }
     }

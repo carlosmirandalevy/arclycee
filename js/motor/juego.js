@@ -796,8 +796,12 @@ export class Juego {
 
     // --- Pista de foto/selfie cuando hay objetivo cercano ---
     // Muestra [T] Foto | [G] Selfie si el jugador está cerca de algo fotografiable
+    // Se oculta durante diálogos, combate, mini-juegos y overlays
+    const dialogoActivo = this.escenaActual?.dialogos?.estaActivo?.();
+    const miniJuegoActivo = this.calibracion?.enJuego || this.programacion?.enJuego || this.conexion?.enJuego;
     if (this.jugador && !this.album.visible && !this.inventario.abierto
-        && !this.registro.visible && !this.combate.enCombate && !this.batu.enJuego) {
+        && !this.registro.visible && !this.combate.enCombate && !this.batu.enJuego
+        && !dialogoActivo && !miniJuegoActivo) {
       this._dibujarPistaFoto(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
     }
 

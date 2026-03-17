@@ -16,6 +16,12 @@
 - **Logo en cinemática**: reposicionado debajo de la reputación, justo encima de "Aventura Arqueológica Dominicana"
 - **Menú principal**: bloqueo de entrada al iniciar — evita que presionar E en los créditos active "Nuevo Juego" inmediatamente
 - **Cinemática final**: protección contra llamadas múltiples a `_irAlMenu()` al terminar los créditos
+- **Batú rival renombrado**: "Rival" → "Guarocuya" (nombre taíno histórico) en los 3 idiomas
+- **Batú primer saque**: fly ball alto y lento para dar tiempo al jugador de prepararse
+- **Batú revancha**: Higüemota ofrece volver a jugar después de completar la misión
+- **Batú IA**: error intencional reducido de 15% a 10%
+- **Pista de foto/selfie**: se oculta durante diálogos y mini-juegos para no solapar con otras instrucciones
+- **Silksong**: diálogo de Carlos Guillermo actualizado — ya no espera Silksong, ahora lo juega
 
 ---
 

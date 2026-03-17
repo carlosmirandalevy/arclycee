@@ -45,7 +45,7 @@ const JUGADOR_ALTO = 40;
 // Diseñada para ser vencible por jugadores de ~13 años
 const IA_VELOCIDAD_FACTOR = 0.72;  // 72% de la velocidad del jugador
 const IA_RETARDO_REACCION = 0.3;   // Segundos antes de reaccionar (más lento)
-const IA_PROBABILIDAD_ERROR = 0.15; // 15% de fallar intencionalmente
+const IA_PROBABILIDAD_ERROR = 0.10; // 10% de fallar intencionalmente
 const IA_IMPRECISION = 25;          // px de error al apuntar a la pelota
 
 // --- Datos educativos sobre el batú (se muestran entre puntos) ---
@@ -217,8 +217,15 @@ export class JuegoBatu {
       this.pelota.y = CANCHA_SUELO - JUGADOR_ALTO - 10;
       // Variación aleatoria en el saque (±10%) para que no sea siempre igual
       const varSaque = 0.9 + Math.random() * 0.2;
-      this.pelota.vx = VELOCIDAD_SAQUE * direccion * varSaque;
-      this.pelota.vy = -VELOCIDAD_SAQUE * 0.5 * varSaque;  // Arco más bajo y rápido
+      // Primer saque: fly ball alto para dar tiempo al jugador de prepararse
+      const esPrimerSaque = this.puntosJugador === 0 && this.puntosRival === 0;
+      if (esPrimerSaque) {
+        this.pelota.vx = VELOCIDAD_SAQUE * 0.6 * direccion;
+        this.pelota.vy = -VELOCIDAD_SAQUE * 0.9;  // Arco alto y lento
+      } else {
+        this.pelota.vx = VELOCIDAD_SAQUE * direccion * varSaque;
+        this.pelota.vy = -VELOCIDAD_SAQUE * 0.5 * varSaque;  // Arco más bajo y rápido
+      }
 
       this._sfx.batuSaque();
 
