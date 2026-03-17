@@ -529,28 +529,31 @@ export class SistemaCombate {
     const nombreEnemigo = this.enemigo?.nombre || 'Enemigo';
     ctx.fillText(nombreEnemigo, anchoCanvas / 2, enemigoY + enemigoAlto + 22);
 
-    // Barra de vida del enemigo (ancha y prominente)
-    const barraAncho = 200;
-    const barraAlto = 14;
-    const barraX = anchoCanvas / 2 - barraAncho / 2;
-    const barraY = enemigoY + enemigoAlto + 32;
-    const vidaEnemigo = this.enemigo ? this.enemigo.vida / (this.enemigo.vidaMaxima || 100) : 1;
-    const vidaEnemigoNum = Math.max(0, Math.floor(this.enemigo?.vida || 0));
-    const vidaEnemigoMax = this.enemigo?.vidaMaxima || 100;
+    // Barra de vida del enemigo (solo para combates con daño HP directo)
+    // Los enemigos con opciones personalizadas se vencen por convicción, no por HP
+    if (!this.enemigo?.opcionesPersonalizadas) {
+      const barraAncho = 200;
+      const barraAlto = 14;
+      const barraX = anchoCanvas / 2 - barraAncho / 2;
+      const barraY = enemigoY + enemigoAlto + 32;
+      const vidaEnemigo = this.enemigo ? this.enemigo.vida / (this.enemigo.vidaMaxima || 100) : 1;
+      const vidaEnemigoNum = Math.max(0, Math.floor(this.enemigo?.vida || 0));
+      const vidaEnemigoMax = this.enemigo?.vidaMaxima || 100;
 
-    ctx.fillStyle = '#222222';
-    ctx.fillRect(barraX - 1, barraY - 1, barraAncho + 2, barraAlto + 2);
-    ctx.fillStyle = '#441111';
-    ctx.fillRect(barraX, barraY, barraAncho, barraAlto);
-    ctx.fillStyle = vidaEnemigo > 0.5 ? '#cc3333' : vidaEnemigo > 0.25 ? '#cc6633' : '#cc2222';
-    ctx.fillRect(barraX, barraY, barraAncho * Math.max(0, vidaEnemigo), barraAlto);
-    ctx.strokeStyle = '#666666';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(barraX, barraY, barraAncho, barraAlto);
-    // HP text inside bar
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 10px monospace';
-    ctx.fillText(`${vidaEnemigoNum} / ${vidaEnemigoMax}`, anchoCanvas / 2, barraY + 11);
+      ctx.fillStyle = '#222222';
+      ctx.fillRect(barraX - 1, barraY - 1, barraAncho + 2, barraAlto + 2);
+      ctx.fillStyle = '#441111';
+      ctx.fillRect(barraX, barraY, barraAncho, barraAlto);
+      ctx.fillStyle = vidaEnemigo > 0.5 ? '#cc3333' : vidaEnemigo > 0.25 ? '#cc6633' : '#cc2222';
+      ctx.fillRect(barraX, barraY, barraAncho * Math.max(0, vidaEnemigo), barraAlto);
+      ctx.strokeStyle = '#666666';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(barraX, barraY, barraAncho, barraAlto);
+      // HP text inside bar
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 10px monospace';
+      ctx.fillText(`${vidaEnemigoNum} / ${vidaEnemigoMax}`, anchoCanvas / 2, barraY + 11);
+    }
 
     // --- Medidores de convencimiento y hostilidad (más grandes, lado izquierdo) ---
     const medidorY = 175;

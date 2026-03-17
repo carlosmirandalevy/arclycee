@@ -154,7 +154,7 @@ export class CuevasPomier {
     // --- Cartel de advertencia contra el grafiti ---
     // En las cuevas reales del Pomier, el grafiti es un problema grave
     // que daña los petroglifos taínos de miles de años de antigüedad
-    this._cartelAntiGrafiti = { x: 220, y: 398 };
+    this._cartelAntiGrafiti = { x: 80, y: 398 };
 
     // --- Graffitis vandálicos ---
     this.graffitis = [
