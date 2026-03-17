@@ -94,6 +94,7 @@ export class SistemaCombate {
     this.enCombate = true;
     this.turnoJugador = true;
     this.enemigo = enemigo;
+    this._juego = juego; // Referencia al juego para acceder a compañeros
     this.opcionSeleccionada = 0;
     // Bonus de reputación: a mayor reputación, el enemigo empieza más convencido
     this.paciencia = juego?.reputacion
@@ -185,13 +186,39 @@ export class SistemaCombate {
   // Hace daño basado en la fuerza del jugador. Simple pero efectivo.
   _ejecutarAtaque(jugador) {
     this._sfx.combateAtacar();
-    const dano = jugador.fuerza * 5 + Math.floor(Math.random() * 5);
+    let dano = jugador.fuerza * 5 + Math.floor(Math.random() * 5);
+
+    // --- Bonus de compañeros activos ---
+    // Cada compañero aporta un bonus diferente al ataque
+    let bonusTexto = '';
+    if (this._juego?.companeros) {
+      for (const comp of this._juego.companeros) {
+        if (!comp.activo) continue;
+        if (comp.tipo === 'magnoboot') {
+          // Magnoboot: pulso electromagnético (+3 daño)
+          const bonus = 3;
+          dano += bonus;
+          bonusTexto += ` 🤖+${bonus}`;
+        } else if (comp.tipo === 'viralata') {
+          // Viralata: distrae al enemigo (+2 daño)
+          const bonus = 2;
+          dano += bonus;
+          bonusTexto += ` 🐕+${bonus}`;
+        } else if (comp.tipo === 'cemiMurcielago') {
+          // Cemí Murciélago: ataque espiritual (+4 daño)
+          const bonus = 4;
+          dano += bonus;
+          bonusTexto += ` 🦇+${bonus}`;
+        }
+      }
+    }
+
     this.enemigo.vida -= dano;
 
     // Atacar sube un poco la hostilidad (el enemigo se enoja más)
     this.hostilidad = Math.min(100, this.hostilidad + 5);
 
-    this._mensaje = `¡Atacas! -${dano} HP`;
+    this._mensaje = `¡Atacas! -${dano} HP` + bonusTexto;
 
     this.verificarFinCombate();
   }
