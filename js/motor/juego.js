@@ -685,8 +685,8 @@ export class Juego {
       }
     }
 
-    // --- Mapa de referencia: abrir/cerrar con R (solo en mapa del mundo) ---
-    if (this.nombreEscenaActual === 'mapaPrincipal') {
+    // --- Mapa de referencia: abrir/cerrar con R (desde cualquier escena jugable) ---
+    if (this.escenasJugables.includes(this.nombreEscenaActual) || this.nombreEscenaActual === 'mapaPrincipal') {
       if (this.entrada.estaPresionada('referencia') && !this._bloqueoReferencia) {
         this.mapaReferencia.alternar();
         this._bloqueoReferencia = true;
