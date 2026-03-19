@@ -112,9 +112,12 @@ export class CuevasPomier {
       { x: 500, y: 340, ancho: 100, alto: 20 },
       // Plataforma ancha intermedia
       { x: 650, y: 360, ancho: 250, alto: 20 },
-      // Saliente oculta debajo de la plataforma ancha (esconde La Cuchara Legendaria)
-      // El jugador debe retroceder y caer por el borde izquierdo para encontrarla
-      { x: 700, y: 420, ancho: 80, alto: 10 },
+      // Plataformas secretas debajo de la plataforma ancha (ruta a La Cuchara Legendaria)
+      // El jugador debe caer por el borde izquierdo de la plataforma ancha y
+      // saltar por estas plataformas escalonadas para llegar a la cuchara
+      { x: 600, y: 400, ancho: 60, alto: 10 },   // Escalón 1: caída desde borde izquierdo
+      { x: 660, y: 430, ancho: 60, alto: 10 },   // Escalón 2: más abajo a la derecha
+      { x: 720, y: 450, ancho: 80, alto: 10 },   // Escalón 3: plataforma de la cuchara
       // Salto largo sobre un vacío
       { x: 970, y: 330, ancho: 80, alto: 20 },
       // Zona baja
@@ -155,7 +158,7 @@ export class CuevasPomier {
       // Easter egg de Elian — escondido debajo de una plataforma
       // Solo se puede encontrar retrocediendo y bajando bajo la plataforma ancha
       // (x:650-900, y:360). No visible en un speed run.
-      { x: 720, y: 395, tipo: 'cucharaLegendaria', recogido: false }
+      { x: 740, y: 425, tipo: 'cucharaLegendaria', recogido: false }
     ];
 
     // --- Cartel de advertencia contra el grafiti ---
