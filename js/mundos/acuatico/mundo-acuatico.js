@@ -418,13 +418,24 @@ export class MundoAcuatico {
 
     // --- Ángulo de nado: rota suavemente según dirección ---
     // ±75° al nadar lateralmente, 180° al nadar hacia abajo, 0° al estar quieto o subiendo
-    const moviHorizontal = entrada.estaPresionada('izquierda') || entrada.estaPresionada('derecha');
-    const moviAbajo = entrada.estaPresionada('abajo') && !moviHorizontal;
+    // Diagonales: abajo+izquierda = +90° (giro horario), abajo+derecha = -90°
+    const moviIzq = entrada.estaPresionada('izquierda');
+    const moviDer = entrada.estaPresionada('derecha');
+    const moviAbajo = entrada.estaPresionada('abajo');
+    const moviArriba = entrada.estaPresionada('arriba');
     let anguloObjetivo = 0;
-    if (moviHorizontal) {
-      anguloObjetivo = jugador.direccion === 'izquierda' ? -Math.PI * 0.42 : Math.PI * 0.42;
+    if (moviAbajo && moviIzq) {
+      anguloObjetivo = Math.PI * 0.5; // 90° horario (abajo + izquierda)
+    } else if (moviAbajo && moviDer) {
+      anguloObjetivo = -Math.PI * 0.5; // 90° antihorario (abajo + derecha)
+    } else if (moviIzq || moviDer) {
+      anguloObjetivo = moviIzq ? -Math.PI * 0.42 : Math.PI * 0.42;
     } else if (moviAbajo) {
       anguloObjetivo = Math.PI; // 180° — cabeza hacia abajo
+    } else if (moviArriba && moviIzq) {
+      anguloObjetivo = -Math.PI * 0.25; // Diagonal arriba-izquierda
+    } else if (moviArriba && moviDer) {
+      anguloObjetivo = Math.PI * 0.25; // Diagonal arriba-derecha
     }
     // Lerp suave (8× dt para transición rápida pero no instantánea)
     this._anguloNado += (anguloObjetivo - this._anguloNado) * Math.min(1, 8 * dt);
