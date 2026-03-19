@@ -31,7 +31,7 @@
         <tr><td>Idiomas soportados</td><td>3 (Español, Français, English)</td></tr>
         <tr><td>Claves de traducción</td><td>~1,100+</td></tr>
         <tr><td>Efectos de sonido procedurales</td><td>60 métodos</td></tr>
-        <tr><td>Mundos jugables</td><td>9 + mapa del mundo</td></tr>
+        <tr><td>Mundos jugables</td><td>12 + mapa del mundo</td></tr>
         <tr><td>Mini-juegos</td><td>4 (batú, calibración, programación, cables)</td></tr>
       </table>
 
@@ -40,7 +40,7 @@
         <tr><th>Directorio</th><th>Contenido</th><th>Archivos</th></tr>
         <tr><td><code>js/motor/</code></td><td>Game loop, input, renderizado, sonido, guardado, configuración</td><td>6</td></tr>
         <tr><td><code>js/escenas/</code></td><td>Menú principal, selección de personaje, intro, final cinematográfico</td><td>4</td></tr>
-        <tr><td><code>js/mundos/</code></td><td>9 niveles jugables: cuevas, asentamientos, coloniales, acuáticos, jurídico, laboratorio, LFSD</td><td>12</td></tr>
+        <tr><td><code>js/mundos/</code></td><td>12 niveles jugables: cuevas, asentamientos, montaña, coloniales, acuáticos, jurídico, laboratorio, LFSD, lago</td><td>12</td></tr>
         <tr><td><code>js/mecanicas/</code></td><td>Combate, diálogo, inventario, álbum de fotos, 4 mini-juegos, misiones, reputación, registro</td><td>11</td></tr>
         <tr><td><code>js/personajes/</code></td><td>Jugador (Pepito/Pepita) + 3 compañeros (Magnoboot, Viralata, Cemí)</td><td>4</td></tr>
         <tr><td><code>js/idiomas/</code></td><td>Traducciones ES/FR/EN + gestor de idiomas</td><td>4</td></tr>
@@ -716,7 +716,7 @@ lfo → lfoGain → osc.frequency</pre>
 
       <h3>Nodos de Nivel</h3>
       <p>
-        9 nodos ubicados en coordenadas de tile verificadas como caminables.
+        11 nodos ubicados en coordenadas de tile verificadas como caminables.
         Cada nodo tiene: ID, posición, tipo (cueva, aldea, ciudad, naufragio, etc.), escena destino,
         y nodo previo en la cadena de progresión.
       </p>
@@ -992,7 +992,7 @@ donde t = (x − 40) / (ancho − 80) × π × 2 × frecuencia</pre>
       <p>
         Cada misión progresa: <code>no_descubierta → descubierta → en_progreso → completada</code>.
         El Registro de Juego (tecla L) muestra el estado de todas las misiones en dos pestañas:
-        Historia Principal (9 nodos con ✅/🔓/🔒) y Secundarias (con checkmarks).
+        Historia Principal (11 nodos con ✅/🔓/🔒) y Secundarias (con checkmarks).
       </p>
     </section>
 

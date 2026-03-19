@@ -31,7 +31,7 @@
         <tr><td>Langues supportées</td><td>3 (Español, Français, English)</td></tr>
         <tr><td>Clés de traduction</td><td>~1 100+</td></tr>
         <tr><td>Effets sonores procéduraux</td><td>60 méthodes</td></tr>
-        <tr><td>Mondes jouables</td><td>9 + carte du monde</td></tr>
+        <tr><td>Mondes jouables</td><td>12 + carte du monde</td></tr>
         <tr><td>Mini-jeux</td><td>4 (batú, calibration, programmation, câbles)</td></tr>
       </table>
 
@@ -40,7 +40,7 @@
         <tr><th>Répertoire</th><th>Contenu</th><th>Fichiers</th></tr>
         <tr><td><code>js/motor/</code></td><td>Boucle de jeu, entrée, rendu, son, sauvegarde, configuration</td><td>6</td></tr>
         <tr><td><code>js/escenas/</code></td><td>Menu principal, sélection du personnage, intro, cinématique finale</td><td>4</td></tr>
-        <tr><td><code>js/mundos/</code></td><td>9 niveaux jouables : grottes, asentamientos, colonial, aquatique, juridique, laboratoire, LFSD</td><td>12</td></tr>
+        <tr><td><code>js/mundos/</code></td><td>12 niveaux jouables : grottes, villages, montagne, colonial, aquatique, juridique, laboratoire, LFSD, lac</td><td>12</td></tr>
         <tr><td><code>js/mecanicas/</code></td><td>Combat, dialogue, inventaire, album photo, 4 mini-jeux, quêtes, réputation, journal</td><td>11</td></tr>
         <tr><td><code>js/personajes/</code></td><td>Joueur (Pepito/Pepita) + 3 compagnons (Magnoboot, Viralata, Cemí)</td><td>4</td></tr>
         <tr><td><code>js/idiomas/</code></td><td>Traductions ES/FR/EN + gestionnaire de langues</td><td>4</td></tr>
@@ -715,7 +715,7 @@ lfo → lfoGain → osc.frequency</pre>
 
       <h3>Nœuds de Niveau</h3>
       <p>
-        9 nœuds placés à des coordonnées de tuiles praticables vérifiées.
+        11 nœuds placés à des coordonnées de tuiles praticables vérifiées.
         Chacun possède : un ID, une position, un type (grotte, village, ville, naufrage, etc.), une scène de destination,
         et le nœud précédent dans la chaîne de progression.
       </p>
@@ -991,7 +991,7 @@ where t = (x − 40) / (width − 80) × π × 2 × frequency</pre>
       <p>
         Chaque quête progresse : <code>non_découverte → découverte → en_cours → complétée</code>.
         Le Journal de jeu (touche L) affiche tous les états de quête dans deux onglets :
-        Histoire Principale (9 nœuds avec ✅/🔓/🔒) et Quêtes Secondaires (avec coches).
+        Histoire Principale (11 nœuds avec ✅/🔓/🔒) et Quêtes Secondaires (avec coches).
       </p>
     </section>
 

@@ -28,7 +28,7 @@
     arch_title: { es: 'Arquitectura del Motor', en: 'Engine Architecture', fr: 'Architecture du Moteur' },
     arch_core: { es: 'Motor (núcleo)', en: 'Engine (core)', fr: 'Moteur (noyau)' },
     arch_mechanics: { es: 'Mecánicas', en: 'Mechanics', fr: 'Mécaniques' },
-    arch_worlds: { es: 'Mundos (9 niveles)', en: 'Worlds (9 levels)', fr: 'Mondes (9 niveaux)' },
+    arch_worlds: { es: 'Mundos (12 niveles)', en: 'Worlds (12 levels)', fr: 'Mondes (12 niveaux)' },
     arch_characters: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
     arch_support: { es: 'Soporte', en: 'Support', fr: 'Support' },
 
@@ -722,7 +722,7 @@
     svg.appendChild(svgLine(120, 207, 120, 240, { arrow: true, stroke: 'var(--verde)' }));
 
     // D3: 8 nodos + 7 sidequests?
-    svg.appendChild(diamond(120, 270, '8 nodos', '+ 5 side'));
+    svg.appendChild(diamond(120, 270, '8 nodos', '+ 7 side'));
     svg.appendChild(svgText(170, 250, t('endings_yes'), { size: 9, fill: 'var(--dorado)', anchor: 'start' }));
     svg.appendChild(svgLine(152, 270, 220, 270, { arrow: true, stroke: 'var(--dorado)' }));
     svg.appendChild(terminal(300, 270, t('endings_complete'), '#DAA520'));

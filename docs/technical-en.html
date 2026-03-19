@@ -31,7 +31,7 @@
         <tr><td>Supported languages</td><td>3 (Español, Français, English)</td></tr>
         <tr><td>Translation keys</td><td>~1,100+</td></tr>
         <tr><td>Procedural sound effects</td><td>60 methods</td></tr>
-        <tr><td>Playable worlds</td><td>9 + world map</td></tr>
+        <tr><td>Playable worlds</td><td>12 + world map</td></tr>
         <tr><td>Mini-games</td><td>4 (batú, calibration, programming, wires)</td></tr>
       </table>
 
@@ -40,7 +40,7 @@
         <tr><th>Directory</th><th>Contents</th><th>Files</th></tr>
         <tr><td><code>js/motor/</code></td><td>Game loop, input, rendering, sound, save, configuration</td><td>6</td></tr>
         <tr><td><code>js/escenas/</code></td><td>Main menu, character selection, intro, final cutscene</td><td>4</td></tr>
-        <tr><td><code>js/mundos/</code></td><td>9 playable levels: caves, settlements, colonial, aquatic, legal, laboratory, LFSD</td><td>12</td></tr>
+        <tr><td><code>js/mundos/</code></td><td>12 playable levels: caves, settlements, mountain, colonial, aquatic, legal, laboratory, LFSD, lake</td><td>12</td></tr>
         <tr><td><code>js/mecanicas/</code></td><td>Combat, dialogue, inventory, photo album, 4 mini-games, quests, reputation, log</td><td>11</td></tr>
         <tr><td><code>js/personajes/</code></td><td>Player (Pepito/Pepita) + 3 companions (Magnoboot, Viralata, Cemí)</td><td>4</td></tr>
         <tr><td><code>js/idiomas/</code></td><td>ES/FR/EN translations + language manager</td><td>4</td></tr>
@@ -715,7 +715,7 @@ lfo → lfoGain → osc.frequency</pre>
 
       <h3>Level Nodes</h3>
       <p>
-        9 nodes placed at verified walkable tile coordinates.
+        11 nodes placed at verified walkable tile coordinates.
         Each has: ID, position, type (cave, village, city, shipwreck, etc.), destination scene,
         and previous node in the progression chain.
       </p>
@@ -991,7 +991,7 @@ where t = (x − 40) / (width − 80) × π × 2 × frequency</pre>
       <p>
         Each quest progresses: <code>undiscovered → discovered → in_progress → completed</code>.
         The Game Log (L key) shows all quest states in two tabs:
-        Main Story (9 nodes with ✅/🔓/🔒) and Side Quests (with checkmarks).
+        Main Story (11 nodes with ✅/🔓/🔒) and Side Quests (with checkmarks).
       </p>
     </section>
 
