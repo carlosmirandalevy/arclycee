@@ -912,8 +912,54 @@ export class AsentamientoTaino1 {
       // Anacaona da vasija curativa al jugador (usable desde inventario)
       const yaTieneVasija = this.juego?.inventario?.tieneObjeto('vasijaCurativa');
 
-      // Re-visita: solo ofrece vasija si la usó
+      // Re-visita: ofrece sidequest de Enriquillo si aún no descubierta
       if (npc.dialogoHecho) {
+        const misiones = this.juego?.misiones;
+        const questEnriquillo = misiones && !misiones.estaDescubierta('idoloEnriquillo');
+
+        if (questEnriquillo && !this.juego?.progreso?.idoloCemiEntregado) {
+          // Descubrir la sidequest del ídolo para Enriquillo
+          this.dialogos.iniciarDialogo([
+            { personaje: '🏺 Anacaona', texto: aldea?.anacaonaIdolo1 || 'Tengo algo importante que pedirte.' },
+            { personaje: '🏺 Anacaona', texto: aldea?.anacaonaIdolo2 || 'He tallado un cemí sagrado. Necesito que se lo lleves a Enriquillo, en el Lago Enriquillo.' },
+            { personaje: '🏺 Anacaona', texto: aldea?.anacaonaIdolo3 || 'Enriquillo lucha contra los españoles en las montañas del Bahoruco. Este cemí le dará fuerza espiritual.' },
+            { personaje: '🏺 Anacaona', texto: aldea?.anacaonaIdolo4 || 'El lago está al suroeste de la isla. Cuidado con los cocodrilos — la Isla Cabritos está en el centro del lago.' }
+          ], () => {
+            // Dar el ídolo cemí al jugador
+            const t = textos?.objetos || {};
+            if (this.juego.jugador) this.juego.jugador.agregarAlInventario({ nombre: 'idoloCemi' });
+            if (this.juego.inventario) {
+              this.juego.inventario.agregar({
+                id: 'idoloCemi',
+                nombre: t.idoloCemi || 'Ídolo Cemí Sagrado',
+                descripcion: t.descIdoloCemi || 'Cemí tallado por Anacaona. Llévalo a Enriquillo en el Lago Enriquillo.',
+                tipo: 'clave', cantidad: 1, color: '#DAA520', esUsable: false
+              });
+            }
+            this.sfx.recoger();
+            if (this.juego.mostrarToast) {
+              this.juego.mostrarToast(`✦ ${t.idoloCemi || 'Ídolo Cemí Sagrado'} — ${textos?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
+            }
+            // Descubrir e iniciar la sidequest
+            if (misiones) {
+              misiones.descubrir('idoloEnriquillo');
+              misiones.iniciar('idoloEnriquillo');
+              const mis = textos?.misiones || {};
+              this.juego.mostrarToast(
+                (textos?.ui?.misionDescubierta || '📋 Misión descubierta:') + ' ' +
+                (mis.idoloEnriquilloTitulo || 'El Ídolo de Enriquillo'));
+              this.juego.registro?.agregarEntrada('secundaria',
+                mis.idoloEnriquilloTitulo || 'El Ídolo de Enriquillo',
+                mis.idoloEnriquilloDesc || 'Llevar el cemí sagrado a Enriquillo en el Lago Enriquillo.');
+            }
+            // Desbloquear nodo del Lago Enriquillo
+            if (this.juego.progreso && !this.juego.progreso.nodosDesbloqueados.includes(10)) {
+              this.juego.progreso.nodosDesbloqueados.push(10);
+            }
+          });
+          return;
+        }
+
         if (!yaTieneVasija) {
           this.dialogos.iniciarDialogo([
             { personaje: '🏺 Anacaona', texto: aldea?.alfarerVasija || 'Toma otra vasija curativa. ¡Cuídate en el camino!' }

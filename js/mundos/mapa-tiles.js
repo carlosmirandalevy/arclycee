@@ -455,6 +455,19 @@ export function obtenerNodosIsla() {
       tipo: 'escuela',
       escena: 'mundoLFSD',
       conectadoA: []
+    },
+    {
+      // Lago Enriquillo — el lago más grande del Caribe, 44m bajo
+      // el nivel del mar. El cacique Enriquillo (Guarocuya) lideró
+      // una rebelión de 13 años (1519-1533) desde el Bahoruco cercano.
+      // La Isla Cabritos en su centro alberga cocodrilos e iguanas.
+      // Nodo desbloqueado por la sidequest de Anacaona (ídolo cemí).
+      id: 10,
+      tileX: 70, tileY: 50,
+      nombre: 'Lago Enriquillo',
+      tipo: 'lago',
+      escena: 'lagoEnriquillo',
+      conectadoA: []
     }
   ];
 }

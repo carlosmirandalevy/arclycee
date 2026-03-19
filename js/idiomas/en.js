@@ -194,6 +194,56 @@ const en = {
       misionCompleta: 'Palenque explored! Return to map (M)',
     },
 
+    // Lago Enriquillo dialogues — indigenous rebellion
+    enriquillo: {
+      nombreLugar: '🐊 Lago Enriquillo — The largest lake in the Caribbean',
+      enriquilloNombre: 'Cacique Enriquillo',
+      menciaNombre: 'Mencía',
+      tamayoNombre: 'Tamayo',
+      mordidaCocodrilo: 'Crocodile bite!',
+      // Enriquillo — rotating (6 pairs)
+      enriquillo1: 'I am Guarocuya, but the Spaniards baptised me Enriquillo.',
+      enriquillo2: 'I was raised by Franciscan friars. I learned to read, to write, and the laws of Castile.',
+      enriquillo3: 'The Spaniards took everything from us. Our lands, our freedom, our dignity.',
+      enriquillo4: 'When the encomendero Valenzuela humiliated me and struck my wife Mencía, I said: enough!',
+      enriquillo5: 'Mencía is my strength. We met at the convent — she too was educated by the friars.',
+      enriquillo6: 'Our love was born between books and prayers, but was forged in resistance. Together we fled to the Bahoruco mountains.',
+      enriquillo7: 'Mencía is not just my wife — she is a leader. She organises the community, tends the wounded, and keeps hope alive.',
+      enriquillo8: 'They say a man alone can change the world, but without Mencía, I would have changed nothing.',
+      enriquillo9: 'We have been resisting for 13 years (1519-1533). The Spaniards sent armies, but the mountains protect us.',
+      enriquillo10: 'In the end, Charles V signed a peace treaty recognising our freedom. The first indigenous victory in the Americas!',
+      enriquillo11: 'This lake bears my name. But the true victory was not mine — it belonged to all who fought.',
+      enriquillo12: 'Resistance is not always violence. Sometimes it is surviving, preserving your culture, and never giving up.',
+      // Idol delivery
+      enriquilloRecibe1: 'A sacred cemí from Anacaona? This is a priceless gift!',
+      enriquilloRecibe2: 'The cemíes connect us with our ancestors and the spirits of the earth.',
+      enriquilloRecibe3: 'With this spiritual power, our struggle grows stronger. Thank you, young warrior.',
+      reputacionIdolo: 'Idol delivered to Enriquillo',
+      // Mencía
+      mencia1: 'I am Mencía. The friars educated me alongside Guarocuya — that is how we met.',
+      mencia2: 'When Valenzuela attacked me, Guarocuya swore we would never submit again.',
+      mencia3: 'Here in the mountains we are free. I care for our people and teach them to read.',
+      mencia4: 'Love is not just a feeling — it is action. We fight together every day for a dignified future.',
+      menciaSaludo: 'As long as there are mountains, there will be freedom. And as long as there is love, there will be hope.',
+      // Tamayo
+      tamayo1: 'I am Tamayo, warrior and ally of Enriquillo.',
+      tamayo2: 'I know every trail in these mountains. The Spaniards get lost, but we are part of the land.',
+      tamayo3: 'Our strategy is simple: know the terrain, move fast, and never fight where they want.',
+      tamayoSaludo: 'The Bahoruco mountains are invincible!',
+      // Mission
+      misionEntregar: 'Bring the cemí to Enriquillo on Isla Cabritos',
+      misionExplorar: 'Explore Lago Enriquillo',
+      misionCompleta: 'Idol delivered! Talk to Enriquillo to learn more.',
+    },
+
+    // Anacaona — Enriquillo idol sidequest (in aldea1)
+    anacaonaIdolo: {
+      anacaonaIdolo1: 'I have something important to ask of you.',
+      anacaonaIdolo2: 'I have carved a sacred cemí. I need you to take it to Enriquillo, at Lago Enriquillo.',
+      anacaonaIdolo3: 'Enriquillo fights against the Spaniards in the Bahoruco mountains. This cemí will give him spiritual strength.',
+      anacaonaIdolo4: 'The lake is to the south-west of the island. Beware of the crocodiles — Isla Cabritos is in the centre of the lake.',
+    },
+
     // Second village dialogues — agriculture, medicine, and ceremonies
     aldea2: {
       behique1: 'I am Yuisa, the behique — healer and spiritual guide of this village.',
@@ -713,6 +763,8 @@ const en = {
     descMapa: 'An ancient map with mysterious marks of archaeological sites.',
     descFragmentoMapa: 'A piece of an ancient map. It seems to show the location of other caves.',
     descArtefactoTaino: 'A cemí with golden details. It should be taken to the museum for study.',
+    idoloCemi: 'Sacred Cemí Idol',
+    descIdoloCemi: 'Cemí carved by Anacaona. Take it to Enriquillo at Lago Enriquillo.',
     macheteCimarron: 'Maroon Machete',
     descMacheteCimarron: 'Machete forged by African maroons. +2 damage in combat.',
     tamborGuerra: 'War Drum',
@@ -1054,6 +1106,9 @@ const en = {
     metalCompletoDesc: 'Program the submarine robot at LFSD.',
     cienciaLocaTitulo: 'Weird Science',
     cienciaLocaDesc: 'Repair the analysis equipment at LFSD.',
+    idoloEnriquilloTitulo: 'Enriquillo\'s Idol',
+    idoloEnriquilloDesc: 'Bring the sacred cemí to Enriquillo at Lago Enriquillo.',
+    idoloEnriquilloCompleta: 'Mission complete: Enriquillo\'s Idol!',
     museoCatedralTitulo: 'Cathedral Museum',
     museoCatedralDesc: 'Bring the religious artifact to Fabiola Herrera at the Cathedral Museum.',
     museoCatedralCompleta: 'Mission complete: Cathedral Museum!',

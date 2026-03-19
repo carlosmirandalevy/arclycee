@@ -196,6 +196,56 @@ const es = {
       misionCompleta: '¡Palenque explorado! Vuelve al mapa (M)',
     },
 
+    // Diálogos del Lago Enriquillo — rebelión indígena
+    enriquillo: {
+      nombreLugar: '🐊 Lago Enriquillo — El lago más grande del Caribe',
+      enriquilloNombre: 'Cacique Enriquillo',
+      menciaNombre: 'Mencía',
+      tamayoNombre: 'Tamayo',
+      mordidaCocodrilo: '¡Mordida de cocodrilo!',
+      // Enriquillo — rotativo (6 pares)
+      enriquillo1: 'Soy Guarocuya, pero los españoles me bautizaron Enriquillo.',
+      enriquillo2: 'Me criaron los frailes franciscanos. Aprendí a leer, a escribir y las leyes de Castilla.',
+      enriquillo3: 'Los españoles nos quitaron todo. Nuestras tierras, nuestra libertad, nuestra dignidad.',
+      enriquillo4: 'Cuando el encomendero Valenzuela me humilló y golpeó a mi esposa Mencía, dije: ¡basta!',
+      enriquillo5: 'Mencía es mi fuerza. Nos conocimos en el convento — ella también fue educada por los frailes.',
+      enriquillo6: 'Nuestro amor nació entre libros y oraciones, pero se forjó en la resistencia. Juntos escapamos a las montañas del Bahoruco.',
+      enriquillo7: 'Mencía no solo es mi esposa — es una líder. Organiza la comunidad, cuida a los heridos y mantiene viva la esperanza.',
+      enriquillo8: 'Dicen que un hombre solo puede cambiar el mundo, pero sin Mencía, yo no habría cambiado nada.',
+      enriquillo9: 'Llevamos 13 años resistiendo (1519-1533). Los españoles enviaron ejércitos, pero las montañas nos protegen.',
+      enriquillo10: 'Al final, Carlos V firmó un tratado de paz reconociendo nuestra libertad. ¡La primera victoria indígena de las Américas!',
+      enriquillo11: 'Este lago lleva mi nombre. Pero la verdadera victoria no fue mía — fue de todos los que lucharon.',
+      enriquillo12: 'La resistencia no siempre es violencia. A veces es sobrevivir, mantener tu cultura y nunca rendirte.',
+      // Entrega del ídolo
+      enriquilloRecibe1: '¿Un cemí sagrado de Anacaona? ¡Esto es un regalo invaluable!',
+      enriquilloRecibe2: 'Los cemíes nos conectan con nuestros ancestros y los espíritus de la tierra.',
+      enriquilloRecibe3: 'Con este poder espiritual, nuestra lucha se fortalece. Gracias, joven guerrero.',
+      reputacionIdolo: 'Ídolo entregado a Enriquillo',
+      // Mencía
+      mencia1: 'Soy Mencía. Los frailes me educaron junto a Guarocuya — así nos conocimos.',
+      mencia2: 'Cuando Valenzuela me atacó, Guarocuya juró que nunca más nos someteríamos.',
+      mencia3: 'Aquí en las montañas somos libres. Cuido a nuestra gente y les enseño a leer.',
+      mencia4: 'El amor no es solo sentimiento — es acción. Luchamos juntos cada día por un futuro digno.',
+      menciaSaludo: 'Mientras haya montañas, habrá libertad. Y mientras haya amor, habrá esperanza.',
+      // Tamayo
+      tamayo1: 'Soy Tamayo, guerrero y aliado de Enriquillo.',
+      tamayo2: 'Conozco cada sendero de estas montañas. Los españoles se pierden, pero nosotros somos parte de la tierra.',
+      tamayo3: 'Nuestra estrategia es simple: conocer el terreno, moverse rápido y nunca pelear donde ellos quieren.',
+      tamayoSaludo: '¡Las montañas del Bahoruco son invencibles!',
+      // Misión
+      misionEntregar: 'Lleva el cemí a Enriquillo en la Isla Cabritos',
+      misionExplorar: 'Explora el Lago Enriquillo',
+      misionCompleta: '¡Ídolo entregado! Habla con Enriquillo para aprender más.',
+    },
+
+    // Anacaona — sidequest del ídolo de Enriquillo (en aldea1)
+    anacaonaIdolo: {
+      anacaonaIdolo1: 'Tengo algo importante que pedirte.',
+      anacaonaIdolo2: 'He tallado un cemí sagrado. Necesito que se lo lleves a Enriquillo, en el Lago Enriquillo.',
+      anacaonaIdolo3: 'Enriquillo lucha contra los españoles en las montañas del Bahoruco. Este cemí le dará fuerza espiritual.',
+      anacaonaIdolo4: 'El lago está al suroeste de la isla. Cuidado con los cocodrilos — la Isla Cabritos está en el centro del lago.',
+    },
+
     // Diálogos de la segunda aldea — agricultura, medicina y ceremonias
     aldea2: {
       behique1: 'Soy Yuisa, el behique — curandero y guía espiritual de esta aldea.',
@@ -749,6 +799,8 @@ const es = {
     descMapa: 'Un mapa antiguo con marcas misteriosas de sitios arqueológicos.',
     descFragmentoMapa: 'Un pedazo de mapa antiguo. Parece mostrar la ubicación de otras cuevas.',
     descArtefactoTaino: 'Un cemí con detalles dorados. Debe ser llevado al museo para su estudio.',
+    idoloCemi: 'Ídolo Cemí Sagrado',
+    descIdoloCemi: 'Cemí tallado por Anacaona. Llévalo a Enriquillo en el Lago Enriquillo.',
     macheteCimarron: 'Machete Cimarrón',
     descMacheteCimarron: 'Machete forjado por cimarrones africanos. +2 daño en combate.',
     tamborGuerra: 'Tambor de Guerra',
@@ -1090,6 +1142,9 @@ const es = {
     metalCompletoDesc: 'Programa el robot submarino en el LFSD.',
     cienciaLocaTitulo: 'Weird Science',
     cienciaLocaDesc: 'Repara el equipo de análisis en el LFSD.',
+    idoloEnriquilloTitulo: 'El Ídolo de Enriquillo',
+    idoloEnriquilloDesc: 'Llevar el cemí sagrado a Enriquillo en el Lago Enriquillo.',
+    idoloEnriquilloCompleta: '¡Misión completada: El Ídolo de Enriquillo!',
     museoCatedralTitulo: 'Museo de la Catedral',
     museoCatedralDesc: 'Llevar el artefacto religioso a Fabiola Herrera en el Museo de la Catedral.',
     museoCatedralCompleta: '¡Misión completada: Museo de la Catedral!',

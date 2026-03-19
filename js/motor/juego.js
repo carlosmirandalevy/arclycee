@@ -64,6 +64,7 @@ import { MapaPrincipal } from '../mundos/mapa-principal.js';
 import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
 import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
 import { MundoMontana } from '../mundos/montana/mundo-montana.js';
+import { LagoEnriquillo } from '../mundos/enriquillo/lago-enriquillo.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
@@ -130,8 +131,9 @@ export class Juego {
     // Lista de escenas donde el jugador existe y puede recibir daño
     this.escenasJugables = [
       'mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'mundoMontana',
-      'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico',
-      'santuarioManati', 'mundoJuridico', 'mundoLaboratorio', 'mundoLFSD'
+      'asentamientoTaino2', 'lagoEnriquillo', 'mundoColonial', 'zonaColonial',
+      'mundoAcuatico', 'santuarioManati', 'mundoJuridico', 'mundoLaboratorio',
+      'mundoLFSD'
     ];
 
     // --- Estado del juego ---
@@ -246,6 +248,7 @@ export class Juego {
       { nombre: 'Asentamiento Taíno I',  escena: 'asentamientoTaino1' },
       { nombre: 'Palenque de Lemba',    escena: 'mundoMontana' },
       { nombre: 'Asentamiento Taíno II', escena: 'asentamientoTaino2' },
+      { nombre: 'Lago Enriquillo',      escena: 'lagoEnriquillo' },
       { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
       { nombre: 'Zona Colonial',        escena: 'zonaColonial' },
       { nombre: 'Naufragio Santa María (Acuático)', escena: 'mundoAcuatico' },
@@ -386,6 +389,10 @@ export class Juego {
     // Palenque de Lemba — comunidad cimarrona en las montañas
     const mundoMontana = new MundoMontana();
     this.registrarEscena('mundoMontana', mundoMontana);
+
+    // Lago Enriquillo — rebelión indígena, Isla Cabritos
+    const lagoEnriquillo = new LagoEnriquillo();
+    this.registrarEscena('lagoEnriquillo', lagoEnriquillo);
 
     // La Isabela — primer asentamiento europeo (Mundo Colonial)
     const laIsabela = new LaIsabela();
@@ -910,6 +917,7 @@ export class Juego {
       asentamientoTaino1: 'soleado',
       mundoMontana: 'nublado',
       asentamientoTaino2: 'soleado',
+      lagoEnriquillo: 'soleado',
       mundoColonial: 'nublado',
       zonaColonial: 'soleado'
     };

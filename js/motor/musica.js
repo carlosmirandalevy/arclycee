@@ -22,6 +22,7 @@ const MUSICA_POR_ESCENA = {
   asentamientoTaino1: 'taino',
   mundoMontana: 'taino',
   asentamientoTaino2: 'taino',
+  lagoEnriquillo: 'acuatico',
   mundoColonial: 'colonial',
   zonaColonial: 'colonial',
   mundoAcuatico: 'acuatico',
