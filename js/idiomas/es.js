@@ -695,6 +695,8 @@ const es = {
     descMapa: 'Un mapa antiguo con marcas misteriosas de sitios arqueológicos.',
     descFragmentoMapa: 'Un pedazo de mapa antiguo. Parece mostrar la ubicación de otras cuevas.',
     descArtefactoTaino: 'Un cemí con detalles dorados. Debe ser llevado al museo para su estudio.',
+    cucharaLegendaria: 'La Cuchara Legendaria',
+    descCucharaLegendaria: 'Una cuchara mística forjada en el Pomier. Aumenta el radio de detección de objetos ocultos. También es excelente para rascarse la espalda. 😄',
     descMagnetometro: 'Detecta objetos metálicos enterrados bajo la tierra.',
 
     arcabuz: 'Arcabuz Colonial',

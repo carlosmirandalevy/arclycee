@@ -660,6 +660,8 @@ const fr = {
     descMapa: 'Une carte ancienne avec des marques mystérieuses de sites archéologiques.',
     descFragmentoMapa: 'Un morceau de carte ancienne. Il semble montrer d\'autres grottes.',
     descArtefactoTaino: 'Un cemí aux détails dorés. Il doit être emmené au musée pour étude.',
+    cucharaLegendaria: 'La Cuillère Légendaire',
+    descCucharaLegendaria: 'Une cuillère mystique forgée dans les profondeurs du Pomier. Augmente le rayon de détection des objets cachés. Aussi excellente pour se gratter le dos. 😄',
     descMagnetometro: 'Détecte les objets métalliques enterrés sous terre.',
 
     arcabuz: 'Arquebuse Coloniale',

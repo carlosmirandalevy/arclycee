@@ -112,6 +112,9 @@ export class CuevasPomier {
       { x: 500, y: 340, ancho: 100, alto: 20 },
       // Plataforma ancha intermedia
       { x: 650, y: 360, ancho: 250, alto: 20 },
+      // Saliente oculta debajo de la plataforma ancha (esconde La Cuchara Legendaria)
+      // El jugador debe retroceder y caer por el borde izquierdo para encontrarla
+      { x: 700, y: 420, ancho: 80, alto: 10 },
       // Salto largo sobre un vacío
       { x: 970, y: 330, ancho: 80, alto: 20 },
       // Zona baja
@@ -148,7 +151,11 @@ export class CuevasPomier {
     this.objetos = [
       { x: 520, y: 310, tipo: 'linterna', recogido: false },
       { x: 1500, y: 290, tipo: 'fragmentoMapa', recogido: false },
-      { x: 2700, y: 400, tipo: 'artefactoTaino', recogido: false }
+      { x: 2700, y: 400, tipo: 'artefactoTaino', recogido: false },
+      // Easter egg de Elian — escondido debajo de una plataforma
+      // Solo se puede encontrar retrocediendo y bajando bajo la plataforma ancha
+      // (x:650-900, y:360). No visible en un speed run.
+      { x: 720, y: 395, tipo: 'cucharaLegendaria', recogido: false }
     ];
 
     // --- Cartel de advertencia contra el grafiti ---
@@ -436,6 +443,29 @@ export class CuevasPomier {
             });
           }
           this.misionActual = textos?.dialogos?.cueva?.misionArtefacto || 'Lleva el artefacto a la salida';
+        }
+
+        if (objeto.tipo === 'cucharaLegendaria') {
+          // Easter egg de Elian — La Cuchara Legendaria
+          // Aumenta el radio de detección y desbloquea artefactos ocultos
+          nombreObjeto = objTextos?.cucharaLegendaria || 'La Cuchara Legendaria';
+          jugador.agregarAlInventario({ nombre: 'cucharaLegendaria' });
+          if (this.juego && this.juego.inventario) {
+            this.juego.inventario.agregar({
+              id: 'cucharaLegendaria',
+              nombre: nombreObjeto,
+              descripcion: objTextos?.descCucharaLegendaria
+                || 'Una cuchara mística forjada en el Pomier. Aumenta el radio de detección de objetos ocultos. También es excelente para rascarse la espalda. 😄',
+              tipo: 'especial',
+              esUsable: false
+            });
+          }
+          // Efecto: aumentar el radio de luz (detección) permanentemente
+          this.radioLuz = Math.max(this.radioLuz, 180);
+          // Marcar en el progreso para que otros mundos puedan detectarlo
+          if (this.juego?.progreso) {
+            this.juego.progreso.cucharaLegendaria = true;
+          }
         }
 
         // Mostrar mensaje flotante indicando qué objeto se recogió
@@ -1256,6 +1286,26 @@ export class CuevasPomier {
       ctx.fillStyle = '#000000';
       ctx.fillRect(ox + 6, oy + 4, 2, 2);
       ctx.fillRect(ox + 9, oy + 4, 2, 2);
+    } else if (tipo === 'cucharaLegendaria') {
+      // La Cuchara Legendaria — brillo especial dorado intenso
+      // Mango de la cuchara
+      ctx.fillStyle = '#DAA520';
+      ctx.fillRect(ox + 6, oy, 3, 10);
+      // Cabeza de la cuchara (óvalo)
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.ellipse(ox + 7, oy + 13, 5, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Brillo interior
+      ctx.fillStyle = '#FFEE88';
+      ctx.beginPath();
+      ctx.ellipse(ox + 7, oy + 12, 2, 1.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Destellos
+      ctx.fillStyle = `rgba(255, 255, 200, ${0.5 + Math.sin(this.tiempoTotal * 6) * 0.3})`;
+      ctx.fillRect(ox + 1, oy + 6, 2, 2);
+      ctx.fillRect(ox + 11, oy + 10, 2, 2);
+      ctx.fillRect(ox + 3, oy + 15, 2, 2);
     } else {
       // Genérico: cuadrado dorado
       ctx.fillStyle = '#FFD700';

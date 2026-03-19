@@ -23,9 +23,9 @@ export const EASTER_EGGS = [
   {
     id: 'cuchara_elian',
     nombre: 'La Cuchara Legendaria',
-    descripcion: 'Una cuchara mistica para rascarse la espalda. Segun la leyenda, pertenecio al gran explorador Elian.',
-    tipo: 'objeto',
-    efecto: 'Restaura 10 de resistencia al usarla',
+    descripcion: 'Una cuchara mística forjada en las profundidades del Pomier. Según la leyenda, perteneció al gran explorador Elian. También es excelente para rascarse la espalda. 😄',
+    tipo: 'especial',
+    efecto: 'Aumenta el radio de detección de objetos ocultos. Desbloquea artefactos secretos.',
     ubicacion: 'cueva_pomier'
   },
   {

@@ -660,6 +660,8 @@ const en = {
     descMapa: 'An ancient map with mysterious marks of archaeological sites.',
     descFragmentoMapa: 'A piece of an ancient map. It seems to show the location of other caves.',
     descArtefactoTaino: 'A cemí with golden details. It should be taken to the museum for study.',
+    cucharaLegendaria: 'The Legendary Spoon',
+    descCucharaLegendaria: 'A mystical spoon forged in the depths of Pomier. Increases hidden object detection range. Also great for scratching your back. 😄',
     descMagnetometro: 'Detects metallic objects buried underground.',
 
     arcabuz: 'Colonial Arquebus',
