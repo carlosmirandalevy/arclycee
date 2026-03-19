@@ -248,13 +248,21 @@ export class SistemaCombate {
     }
   }
 
+  // --- Bonus pacifista: completar Museo de la Catedral mejora la convicción ---
+  _bonusPacifista(valor) {
+    if (this._juego?.progreso?.museoCatedralCompletado) {
+      return Math.floor(valor * 1.25); // +25% de convicción
+    }
+    return valor;
+  }
+
   // --- Hablar: reducir hostilidad con palabras ---
   // Baja la hostilidad y sube la paciencia directamente.
   // Es la ruta pacifista principal — cada intento ayuda.
   _ejecutarHablar() {
     this._sfx.combateHablar();
     const reduccionHostilidad = 8 + Math.floor(Math.random() * 12);
-    const gananciaPatience = 12 + Math.floor(Math.random() * 13);
+    const gananciaPatience = this._bonusPacifista(12 + Math.floor(Math.random() * 13));
 
     this.hostilidad = Math.max(0, this.hostilidad - reduccionHostilidad);
     this.paciencia = Math.min(100, this.paciencia + gananciaPatience);
@@ -275,7 +283,7 @@ export class SistemaCombate {
 
     if (tirada < probabilidadExito) {
       // Negociación exitosa: gran ganancia de paciencia
-      const ganancia = 20 + Math.floor(Math.random() * 15);
+      const ganancia = this._bonusPacifista(20 + Math.floor(Math.random() * 15));
       this.hostilidad = Math.max(0, this.hostilidad - ganancia);
       this.paciencia = Math.min(100, this.paciencia + ganancia);
       this._mensaje = `¡Negociación exitosa! Convencido +${ganancia}`;

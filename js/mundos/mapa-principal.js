@@ -508,6 +508,15 @@ export class MapaPrincipal {
       ctx.arc(nx, ny, radio, 0, Math.PI * 2);
       ctx.fill();
 
+      // Brillo dorado del Museo de la Catedral (Zona Colonial, nodo 4)
+      if (nodo.id === 4 && this.juego?.progreso?.museoCatedralCompletado) {
+        const brillo = 0.2 + Math.sin(this.tiempoAnimacion * 2) * 0.15;
+        ctx.fillStyle = `rgba(255, 215, 0, ${brillo})`;
+        ctx.beginPath();
+        ctx.arc(nx, ny, radio + 8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       // Borde
       ctx.strokeStyle = esCercano ? '#FFD700' : '#222222';
       ctx.lineWidth = esCercano ? 3 : 2;

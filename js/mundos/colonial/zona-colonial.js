@@ -389,18 +389,35 @@ export class ZonaColonial {
       // Diálogo de resolución
       const textos = this._obtenerTextos();
       const zc = textos?.dialogos?.zonaColonial;
+
+      // Callback: tras el diálogo de resolución, aparece el artefacto
+      const _spawnArtefacto = () => {
+        if (!this._artefactoCatedralSpawned && !this.juego?.progreso?.artefactoCatedralRecogido) {
+          this._artefactoCatedralSpawned = true;
+          // Agregar el artefacto cerca del constructor
+          const cNpc = this.npcs.find(n => n.id === 'constructor');
+          const artX = cNpc ? cNpc.x + 40 : 500;
+          const artY = cNpc ? cNpc.y + 20 : 400;
+          this.objetos.push({
+            x: artX, y: artY, tipo: 'artefactoCatedral',
+            recogido: false, requiereCombate: true
+          });
+          this.juego.mostrarToast('✨ ' + (zc?.artefactoAparece || '¡Algo brilla entre los escombros!'), 3);
+        }
+      };
+
       if (this.juego.combate.resultado === 'pacificado') {
         this.dialogos.iniciarDialogo([
           { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorPaz1 || 'Espera... ¿Patrimonio de la Humanidad? No tenía idea.' },
           { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorPaz2 || 'Voy a reunir a mi equipo e inversionistas y traer historiadores para rediseñar el proyecto.' },
           { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorPaz3 || 'Un hotel que proteja y destaque estas ruinas... será más caro, pero le dará un valor único.' },
           { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorPaz4 || 'Incluso podría ser más rentable. Y además... es lo correcto.' }
-        ]);
+        ], _spawnArtefacto);
       } else if (this.juego.combate.resultado === 'victoria') {
         this.dialogos.iniciarDialogo([
           { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorDerrota1 || 'Está bien, está bien... me hiciste pensar.' },
           { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorDerrota2 || 'Hablaré con los inversionistas. Quizás podamos construir algo que respete la historia.' }
-        ]);
+        ], _spawnArtefacto);
       }
     }
 
@@ -643,6 +660,30 @@ export class ZonaColonial {
 
         if (this.juego && this.juego.mostrarToast) {
           this.juego.mostrarToast(`✦ ${nombreObjeto} — ${textos?.ui?.itemAnadido || 'ítem añadido al inventario'}`);
+        }
+
+        // --- Artefacto del Museo de la Catedral: diálogo + sidequest ---
+        if (obj.tipo === 'artefactoCatedral') {
+          if (this.juego.progreso) this.juego.progreso.artefactoCatedralRecogido = true;
+          const zc = textos?.dialogos?.zonaColonial;
+          this.dialogos.iniciarDialogo([
+            { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorArtefacto1 || 'Encontramos eso excavando los cimientos. Parece muy antiguo...' },
+            { personaje: '🏗️ Constructor Méndez', texto: zc?.constructorArtefacto2 || 'Llévalo al Museo de las Atarazanas Reales. Fabiola Herrera sabrá qué hacer con él.' }
+          ], () => {
+            // Descubrir e iniciar la sidequest
+            if (this.juego.misiones && !this.juego.misiones.estaDescubierta('museoCatedral')) {
+              this.juego.misiones.descubrir('museoCatedral');
+              this.juego.misiones.iniciar('museoCatedral');
+              const _t = this._obtenerTextos();
+              const mis = _t?.misiones || {};
+              this.juego.mostrarToast(
+                (_t?.ui?.misionDescubierta || '📋 Misión descubierta:') + ' ' +
+                (mis.museoCatedralTitulo || 'Museo de la Catedral'));
+              this.juego.registro?.agregarEntrada('secundaria',
+                mis.museoCatedralTitulo || 'Museo de la Catedral',
+                mis.museoCatedralDesc || 'Llevar el artefacto religioso a Fabiola Herrera en el museo.');
+            }
+          });
         }
       }
     }
@@ -902,6 +943,24 @@ export class ZonaColonial {
 
       // Brillo pulsante
       const brillo = 0.5 + Math.sin(this.tiempoTotal * 3) * 0.3;
+
+      if (obj.tipo === 'artefactoCatedral') {
+        // Artefacto sagrado — brillo dorado intenso con destellos
+        ctx.fillStyle = `rgba(255, 215, 0, ${brillo})`;
+        ctx.beginPath();
+        ctx.arc(ox + 8, oy + 8, 16, 0, Math.PI * 2);
+        ctx.fill();
+        // Cruz (pieza religiosa)
+        ctx.fillStyle = '#CCAA00';
+        ctx.fillRect(ox + 6, oy, 4, 16);
+        ctx.fillRect(ox + 2, oy + 4, 12, 4);
+        // Brillo interior
+        ctx.fillStyle = '#FFE880';
+        ctx.fillRect(ox + 7, oy + 1, 2, 14);
+        ctx.fillRect(ox + 3, oy + 5, 10, 2);
+        continue;
+      }
+
       ctx.fillStyle = `rgba(218, 165, 32, ${brillo})`;
       ctx.beginPath();
       ctx.arc(ox + 8, oy + 8, 12, 0, Math.PI * 2);
@@ -1733,15 +1792,60 @@ export class ZonaColonial {
       ], () => { npc.dialogoHecho = true; });
 
     } else if (npc.id === 'fabiola') {
-      // Fabiola Herrera — Directora del Voluntariado del Museo de la Catedral
-      this.dialogos.iniciarDialogo([
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola1 || '¡Bienvenido al Museo de la Catedral! Soy Fabiola Herrera, directora del voluntariado.' },
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola2 || 'Este museo está en la antigua Real Cárcel de Santo Domingo. La restauramos para preservar siglos de historia y fe.' },
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola3 || 'Tenemos 15 salas con tesoros del siglo XVI al XX: el portapaz de Colón, cruces pectorales, el Águila Bicéfala, el Coro Bajo de la Catedral...' },
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola4 || 'Yo soy matemática, trabajé proyectos de tecnología toda mi vida, pero un día descubrí que mi verdadera misión era transformar este sueño en realidad.' },
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola5 || 'Un museo no es solo un espacio de exhibición. Es un viaje que transporta al visitante a un pasado lleno de arte y devoción.' },
-        { personaje: '🏛️ Fabiola Herrera', texto: zc?.fabiola6 || 'Cada objeto aquí cuenta una historia. La Piedra Pentagonal, las esculturas restauradas con su pátina original... ¡todo habla!' }
-      ], () => { npc.dialogoHecho = true; });
+      const nombre = '🏛️ Fabiola Herrera';
+      const tieneArtefacto = this.juego?.jugador?.inventario?.some(i => i.nombre === 'artefactoCatedral');
+      const yaEntregado = this.juego?.progreso?.museoCatedralCompletado;
+
+      if (yaEntregado) {
+        // Ya completó la misión — diálogo de agradecimiento
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: zc?.fabiolaPostEntrega || '¡La nueva vitrina es un éxito! Los visitantes no paran de fotografiarla.' },
+          { personaje: nombre, texto: zc?.fabiolaPostEntrega2 || 'La empresa constructora está orgullosa de su placa. ¡Y el holograma del artefacto es espectacular!' }
+        ]);
+      } else if (tieneArtefacto && this.juego?.misiones?.estaEnProgreso('museoCatedral')) {
+        // Tiene el artefacto — entregarlo
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: zc?.fabiolaRecibe1 || '¿Un artefacto de la excavación? ¡Déjame ver!' },
+          { personaje: nombre, texto: zc?.fabiolaRecibe2 || '¡Es una pieza religiosa del siglo XVI! Un sagrario de plata con grabados originales.' },
+          { personaje: nombre, texto: zc?.fabiolaRecibe3 || 'Vamos a crear una vitrina especial con una placa para la empresa constructora.' },
+          { personaje: nombre, texto: zc?.fabiolaRecibe4 || 'Cuando patrimonio y construcción colaboran, todos ganamos. ¡Gracias!' }
+        ], () => {
+          // Completar la misión
+          if (this.juego.misiones) this.juego.misiones.completar('museoCatedral');
+          if (this.juego.progreso) this.juego.progreso.museoCatedralCompletado = true;
+
+          // Quitar el artefacto del inventario
+          if (this.juego.jugador?.inventario) {
+            const idx = this.juego.jugador.inventario.findIndex(i => i.nombre === 'artefactoCatedral');
+            if (idx >= 0) this.juego.jugador.inventario.splice(idx, 1);
+          }
+          if (this.juego.inventario) this.juego.inventario.quitar('artefactoCatedral');
+
+          // Reputación +15
+          if (this.juego.reputacion) {
+            const _t = this._obtenerTextos();
+            this.juego.reputacion.modificar(15, _t?.misiones?.museoCatedralReputacion || 'Museo de la Catedral');
+          }
+
+          // Registrar completado
+          const _t2 = this._obtenerTextos();
+          const mis = _t2?.misiones || {};
+          this.juego.registro?.marcarCompletada(mis.museoCatedralTitulo || 'Museo de la Catedral');
+          this.juego.mostrarToast('🏛️ ' + (mis.museoCatedralCompleta || '¡Misión completada: Museo de la Catedral!'));
+
+          npc.dialogoHecho = true;
+        });
+      } else {
+        // Diálogo normal de presentación
+        this.dialogos.iniciarDialogo([
+          { personaje: nombre, texto: zc?.fabiola1 || '¡Bienvenido al Museo de la Catedral! Soy Fabiola Herrera, directora del voluntariado.' },
+          { personaje: nombre, texto: zc?.fabiola2 || 'Este museo está en la antigua Real Cárcel de Santo Domingo. La restauramos para preservar siglos de historia y fe.' },
+          { personaje: nombre, texto: zc?.fabiola3 || 'Tenemos 15 salas con tesoros del siglo XVI al XX: el portapaz de Colón, cruces pectorales, el Águila Bicéfala, el Coro Bajo de la Catedral...' },
+          { personaje: nombre, texto: zc?.fabiola4 || 'Yo soy matemática, trabajé proyectos de tecnología toda mi vida, pero un día descubrí que mi verdadera misión era transformar este sueño en realidad.' },
+          { personaje: nombre, texto: zc?.fabiola5 || 'Un museo no es solo un espacio de exhibición. Es un viaje que transporta al visitante a un pasado lleno de arte y devoción.' },
+          { personaje: nombre, texto: zc?.fabiola6 || 'Cada objeto aquí cuenta una historia. La Piedra Pentagonal, las esculturas restauradas con su pátina original... ¡todo habla!' }
+        ], () => { npc.dialogoHecho = true; });
+      }
 
     } else if (npc.id === 'historiador') {
       // Roberto Cassá — diálogos rotativos (cada vez dice algo diferente)

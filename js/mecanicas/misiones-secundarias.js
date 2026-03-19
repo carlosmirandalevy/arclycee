@@ -18,13 +18,14 @@
 export class MisionesSecundarias {
 
   constructor() {
-    // Estado de las 5 misiones (batú + rescate manatí + 3 del LFSD)
+    // Estado de las 6 misiones (batú + rescate manatí + 3 del LFSD + museo catedral)
     this.misiones = {
       batu: { estado: 'no_descubierta', datos: {} },
       rescateManati: { estado: 'no_descubierta', datos: {} },
       buenasVibraciones: { estado: 'no_descubierta', datos: {} },
       metalCompleto: { estado: 'no_descubierta', datos: {} },
-      cienciaLoca: { estado: 'no_descubierta', datos: {} }
+      cienciaLoca: { estado: 'no_descubierta', datos: {} },
+      museoCatedral: { estado: 'no_descubierta', datos: {} }
     };
   }
 
