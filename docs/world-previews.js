@@ -723,6 +723,162 @@
     labelBar(ctx, 'LFSD — Robotics Classroom + 3 Side Quest mini-games');
   }
 
+  // ---- Palenque de Lemba (Mountain World) ----
+  function drawLemba(ctx) {
+    // Fondo de montaña verde oscuro
+    ctx.fillStyle = '#4a5a3a';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#5a6b4a';
+    for (var tx = 0; tx < W; tx += 40) {
+      for (var ty = 0; ty < H; ty += 40) {
+        ctx.fillRect(tx + 5, ty + 5, 30, 30);
+      }
+    }
+    // Montañas de fondo
+    ctx.fillStyle = '#3a4a2a';
+    var peaks = [[80, 40, 100], [200, 30, 120], [350, 45, 90], [450, 35, 80]];
+    for (var p = 0; p < peaks.length; p++) {
+      ctx.beginPath();
+      ctx.moveTo(peaks[p][0] - peaks[p][2] / 2, 70);
+      ctx.lineTo(peaks[p][0], peaks[p][1] - 20);
+      ctx.lineTo(peaks[p][0] + peaks[p][2] / 2, 70);
+      ctx.closePath();
+      ctx.fill();
+      // Nieve
+      ctx.fillStyle = '#CCCCCC';
+      ctx.beginPath();
+      ctx.moveTo(peaks[p][0] - 8, peaks[p][1] - 8);
+      ctx.lineTo(peaks[p][0], peaks[p][1] - 20);
+      ctx.lineTo(peaks[p][0] + 8, peaks[p][1] - 8);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#3a4a2a';
+    }
+    // Sendero
+    ctx.fillStyle = '#6B5335';
+    ctx.fillRect(230, 80, 8, 120);
+    ctx.fillRect(120, 120, 120, 6);
+    ctx.fillRect(240, 140, 100, 6);
+    // Chozas africanas
+    var huts = [[100, 100], [300, 110], [170, 180], [380, 160]];
+    for (var h = 0; h < huts.length; h++) {
+      circle(ctx, huts[h][0], huts[h][1], 18, '#6B4226');
+      ctx.fillStyle = '#7a5a3e';
+      ctx.beginPath();
+      ctx.moveTo(huts[h][0], huts[h][1] - 22);
+      ctx.lineTo(huts[h][0] - 20, huts[h][1] - 5);
+      ctx.lineTo(huts[h][0] + 20, huts[h][1] - 5);
+      ctx.closePath();
+      ctx.fill();
+    }
+    // Atalaya
+    ctx.fillStyle = '#5a3a1a';
+    ctx.fillRect(420, 80, 12, 35);
+    ctx.fillStyle = '#6B4226';
+    ctx.fillRect(414, 75, 24, 10);
+    // Hoguera central (animada)
+    var flicker = Math.sin(t * 8) * 2;
+    circle(ctx, 240, 170, 6, '#FF6600');
+    circle(ctx, 240, 168 + flicker, 4, '#FFAA00');
+    circle(ctx, 240, 166 + flicker, 2, '#FFDD44');
+    // Pinos
+    var pines = [[40, 90], [60, 200], [440, 200], [460, 100], [20, 160]];
+    for (var pi = 0; pi < pines.length; pi++) {
+      ctx.fillStyle = '#4a3520';
+      ctx.fillRect(pines[pi][0] - 1, pines[pi][1] - 8, 3, 12);
+      ctx.fillStyle = '#2a5a2a';
+      ctx.beginPath();
+      ctx.moveTo(pines[pi][0], pines[pi][1] - 22);
+      ctx.lineTo(pines[pi][0] - 10, pines[pi][1] - 6);
+      ctx.lineTo(pines[pi][0] + 10, pines[pi][1] - 6);
+      ctx.closePath();
+      ctx.fill();
+    }
+    // NPCs
+    var npcs = [[240, 95, '#8B4513'], [130, 135, '#4a4a4a'], [340, 140, '#8B0000'], [190, 195, '#2E8B57'], [430, 100, '#556B2F']];
+    for (var n = 0; n < npcs.length; n++) {
+      rect(ctx, npcs[n][0], npcs[n][1], 7, 7, '#8B5E3C');
+      rect(ctx, npcs[n][0] - 1, npcs[n][1] + 7, 9, 9, npcs[n][2]);
+    }
+    labelBar(ctx, 'Palenque de Lemba — Cimarron Mountain Community');
+  }
+
+  // ---- Lago Enriquillo ----
+  function drawEnriquillo(ctx) {
+    // Agua del lago
+    ctx.fillStyle = '#2a5a6a';
+    ctx.fillRect(0, 0, W, H);
+    // Ondas
+    ctx.fillStyle = 'rgba(60, 120, 140, 0.3)';
+    for (var wx = 0; wx < W; wx += 30) {
+      for (var wy = 0; wy < H; wy += 30) {
+        ctx.fillRect(wx + Math.sin(t * 2 + wx * 0.05) * 2, wy, 20, 1);
+      }
+    }
+    // Orillas áridas
+    ctx.fillStyle = '#8a7a5a';
+    ctx.fillRect(0, 0, W, 40); // Norte
+    ctx.fillRect(0, H - 40, W, 40); // Sur
+    ctx.fillRect(0, 0, 50, H); // Oeste
+    ctx.fillRect(W - 50, 0, 50, H); // Este
+    // Isla Cabritos (elipse central)
+    ctx.fillStyle = '#b8a882';
+    ctx.beginPath();
+    ctx.ellipse(W / 2, H / 2, 110, 60, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#9a8a6a';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.ellipse(W / 2, H / 2, 110, 60, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    // Cactus en la isla
+    var cacti = [[200, 120], [280, 130], [210, 155], [300, 115], [260, 100]];
+    for (var c = 0; c < cacti.length; c++) {
+      ctx.fillStyle = '#3a7a3a';
+      ctx.fillRect(cacti[c][0], cacti[c][1] - 10, 3, 14);
+      ctx.fillRect(cacti[c][0] - 6, cacti[c][1] - 6, 5, 3);
+      ctx.fillRect(cacti[c][0] + 4, cacti[c][1] - 3, 5, 3);
+    }
+    // Las Caritas (acantilado norte)
+    ctx.fillStyle = '#9a8a6a';
+    ctx.fillRect(180, 25, 80, 20);
+    ctx.strokeStyle = '#3a2a1a';
+    ctx.lineWidth = 1;
+    for (var face = 0; face < 4; face++) {
+      ctx.beginPath();
+      ctx.arc(195 + face * 18, 35, 5, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = '#3a2a1a';
+      ctx.fillRect(193 + face * 18, 33, 1.5, 1.5);
+      ctx.fillRect(196 + face * 18, 33, 1.5, 1.5);
+      ctx.fillStyle = '#9a8a6a';
+    }
+    // Cocodrilos (animados)
+    for (var cr = 0; cr < 4; cr++) {
+      var crx = 80 + cr * 100 + Math.sin(t * 0.5 + cr * 2) * 30;
+      var cry = 90 + cr * 30 + Math.cos(t * 0.3 + cr) * 15;
+      ctx.fillStyle = '#3a5a2a';
+      ctx.beginPath();
+      ctx.ellipse(crx, cry, 15, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FF4444';
+      ctx.fillRect(crx + 10, cry - 2, 2, 2);
+    }
+    // NPCs en la isla
+    // Enriquillo (corona dorada)
+    rect(ctx, 235, 128, 7, 7, '#C68642');
+    rect(ctx, 233, 135, 11, 10, '#DAA520');
+    ctx.fillStyle = '#DAA520';
+    for (var cr2 = 0; cr2 < 3; cr2++) ctx.fillRect(234 + cr2 * 3, 124, 2, 4);
+    // Mencía
+    rect(ctx, 255, 135, 7, 7, '#C68642');
+    rect(ctx, 253, 142, 11, 10, '#CD853F');
+    // Tamayo
+    rect(ctx, 215, 140, 7, 7, '#C68642');
+    rect(ctx, 213, 147, 11, 10, '#8B6914');
+    labelBar(ctx, 'Lago Enriquillo — Isla Cabritos + Las Caritas');
+  }
+
   // ============================================================
   // MATCHING — asociar cada renderer con su mundo-card
   // ============================================================
@@ -760,7 +916,14 @@
     { key: 'LFSD', fn: drawLFSD },
     { key: 'Robótica', fn: drawLFSD },
     { key: 'Side Quests Overview', fn: drawLFSD },
-    { key: 'Cours de Robotique', fn: drawLFSD }
+    { key: 'Cours de Robotique', fn: drawLFSD },
+    // Palenque de Lemba (ES/EN/FR)
+    { key: 'Palenque', fn: drawLemba },
+    { key: 'Lemba', fn: drawLemba },
+    // Lago Enriquillo (ES/EN/FR)
+    { key: 'Lago Enriquillo', fn: drawEnriquillo },
+    { key: 'Lake Enriquillo', fn: drawEnriquillo },
+    { key: 'Lac Enriquillo', fn: drawEnriquillo }
   ];
 
   function findRenderer(title) {
