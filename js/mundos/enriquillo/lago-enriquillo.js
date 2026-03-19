@@ -195,7 +195,12 @@ export class LagoEnriquillo {
       croc.y = croc.centroY + Math.cos(croc.fase * 0.7) * croc.radioY;
       croc.mirandoDerecha = croc.x > prevX;
 
-      // Daño por contacto
+      // Actualizar animación de giro (death roll) tras morder
+      if (croc._rolando > 0) {
+        croc._rolando -= dt;
+      }
+
+      // Daño por contacto + sacudida del jugador + death roll del cocodrilo
       if (!jugador._invulnerable) {
         const dx = (jugador.x + jugador.ancho / 2) - (croc.x + croc.ancho / 2);
         const dy = (jugador.y + jugador.alto / 2) - (croc.y + croc.alto / 2);
@@ -203,6 +208,10 @@ export class LagoEnriquillo {
           jugador.recibirDano(8);
           jugador._invulnerable = true;
           jugador._tiempoInvulnerable = 1.5;
+          // Sacudida del jugador (como en el mundo acuático)
+          jugador._sacudida = 0.5;
+          // Death roll del cocodrilo
+          croc._rolando = 0.8;
           this.sfx.mordidaTiburon();
           if (this.juego?.mostrarToast) {
             const eq = this._obtenerTextos()?.dialogos?.enriquillo;
@@ -497,43 +506,144 @@ export class LagoEnriquillo {
     const cx = croc.x + offsetX;
     const cy = croc.y + offsetY;
     const dir = croc.mirandoDerecha ? 1 : -1;
+    const bodyW = croc.ancho;
+    const bodyH = croc.alto;
+    const midX = cx + bodyW / 2;
+    const midY = cy + bodyH / 2;
 
-    // Cuerpo (verde oscuro)
-    ctx.fillStyle = '#3a5a2a';
-    ctx.beginPath();
-    ctx.ellipse(cx + croc.ancho / 2, cy + croc.alto / 2, croc.ancho / 2, croc.alto / 2, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Cabeza (triángulo hacia la dirección del movimiento)
-    ctx.fillStyle = '#4a6a3a';
-    const headX = cx + (dir > 0 ? croc.ancho : 0);
-    ctx.beginPath();
-    ctx.moveTo(headX, cy + 5);
-    ctx.lineTo(headX + dir * 20, cy + croc.alto / 2);
-    ctx.lineTo(headX, cy + croc.alto - 5);
-    ctx.closePath();
-    ctx.fill();
-
-    // Ojos (puntos rojos)
-    ctx.fillStyle = '#FF4444';
-    ctx.beginPath();
-    ctx.arc(headX + dir * 5, cy + 6, 2, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Escamas dorsales
-    ctx.fillStyle = '#2a4a1a';
-    for (let i = 0; i < 4; i++) {
-      ctx.fillRect(cx + 10 + i * 10, cy - 2, 6, 4);
+    // Si está rolando (death roll tras morder), rotar el sprite
+    const rolando = (croc._rolando || 0) > 0;
+    if (rolando) {
+      ctx.save();
+      ctx.translate(midX, midY);
+      ctx.rotate(Math.sin(this.tiempoTotal * 20) * Math.PI * 0.5);
+      ctx.translate(-midX, -midY);
     }
 
-    // Cola
-    ctx.strokeStyle = '#3a5a2a';
-    ctx.lineWidth = 4;
-    const tailX = cx + (dir > 0 ? 0 : croc.ancho);
+    // --- Cuerpo principal (elipse más larga y aplanada) ---
+    ctx.fillStyle = '#3a5a2a';
     ctx.beginPath();
-    ctx.moveTo(tailX, cy + croc.alto / 2);
-    ctx.lineTo(tailX - dir * 15, cy + croc.alto / 2 + Math.sin(this.tiempoTotal * 5 + croc.fase) * 8);
+    ctx.ellipse(midX, midY, bodyW / 2, bodyH / 2 - 2, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Vientre más claro
+    ctx.fillStyle = '#6a8a4a';
+    ctx.beginPath();
+    ctx.ellipse(midX, midY + 2, bodyW / 2 - 5, bodyH / 2 - 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // --- Hocico largo (snout) ---
+    const snoutX = cx + (dir > 0 ? bodyW : 0);
+    ctx.fillStyle = '#4a6a3a';
+    // Mandíbula superior (más larga y estrecha)
+    ctx.beginPath();
+    ctx.moveTo(snoutX, cy + 4);
+    ctx.lineTo(snoutX + dir * 28, midY - 1);
+    ctx.lineTo(snoutX, midY);
+    ctx.closePath();
+    ctx.fill();
+    // Mandíbula inferior
+    ctx.fillStyle = '#3a5a2a';
+    ctx.beginPath();
+    ctx.moveTo(snoutX, midY);
+    ctx.lineTo(snoutX + dir * 25, midY + 1);
+    ctx.lineTo(snoutX, cy + bodyH - 4);
+    ctx.closePath();
+    ctx.fill();
+    // Línea de la boca
+    ctx.strokeStyle = '#2a3a1a';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(snoutX, midY);
+    ctx.lineTo(snoutX + dir * 26, midY);
     ctx.stroke();
+    // Dientes (pequeños triángulos blancos)
+    ctx.fillStyle = '#EEEECC';
+    for (let d = 0; d < 4; d++) {
+      const dx = snoutX + dir * (8 + d * 5);
+      ctx.beginPath();
+      ctx.moveTo(dx, midY - 1);
+      ctx.lineTo(dx + dir * 1.5, midY + 2);
+      ctx.lineTo(dx - dir * 1.5, midY - 1);
+      ctx.closePath();
+      ctx.fill();
+    }
+    // Fosa nasal
+    ctx.fillStyle = '#2a3a1a';
+    ctx.beginPath();
+    ctx.arc(snoutX + dir * 24, midY - 3, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // --- Ojos (protuberantes, encima de la cabeza) ---
+    ctx.fillStyle = '#CCCC44';
+    ctx.beginPath();
+    ctx.arc(snoutX + dir * 2, cy + 3, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+    // Pupila vertical (como reptil)
+    ctx.fillStyle = '#111111';
+    ctx.fillRect(snoutX + dir * 1.5, cy + 1, 1.5, 4);
+
+    // --- Escamas dorsales (crestas a lo largo del lomo) ---
+    ctx.fillStyle = '#2a4a1a';
+    for (let i = 0; i < 6; i++) {
+      const sx = cx + 5 + i * (bodyW / 7);
+      ctx.beginPath();
+      ctx.moveTo(sx, cy - 1);
+      ctx.lineTo(sx + 3, cy - 4);
+      ctx.lineTo(sx + 6, cy - 1);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // --- Patas (4 patas cortas con movimiento al caminar) ---
+    const legSwing = Math.sin(this.tiempoTotal * 4 + croc.fase) * 3;
+    ctx.fillStyle = '#3a5a2a';
+    // Pata delantera izquierda
+    ctx.fillRect(cx + bodyW * 0.25, cy + bodyH - 2 + legSwing, 5, 8);
+    // Pata delantera derecha
+    ctx.fillRect(cx + bodyW * 0.35, cy + bodyH - 2 - legSwing, 5, 8);
+    // Pata trasera izquierda
+    ctx.fillRect(cx + bodyW * 0.65, cy + bodyH - 2 - legSwing, 5, 8);
+    // Pata trasera derecha
+    ctx.fillRect(cx + bodyW * 0.75, cy + bodyH - 2 + legSwing, 5, 8);
+    // Garras (pequeñas líneas en cada pata)
+    ctx.strokeStyle = '#2a3a1a';
+    ctx.lineWidth = 0.8;
+    const patas = [bodyW * 0.25, bodyW * 0.35, bodyW * 0.65, bodyW * 0.75];
+    const legOffsets = [legSwing, -legSwing, -legSwing, legSwing];
+    for (let p = 0; p < 4; p++) {
+      const px = cx + patas[p];
+      const py = cy + bodyH + 5 + legOffsets[p];
+      for (let g = 0; g < 3; g++) {
+        ctx.beginPath();
+        ctx.moveTo(px + 1 + g * 1.5, py);
+        ctx.lineTo(px + 1 + g * 1.5, py + 2);
+        ctx.stroke();
+      }
+    }
+
+    // --- Cola (ondulante, más larga) ---
+    const tailX = cx + (dir > 0 ? 0 : bodyW);
+    const tailWave = Math.sin(this.tiempoTotal * 5 + croc.fase);
+    ctx.strokeStyle = '#3a5a2a';
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(tailX, midY);
+    ctx.quadraticCurveTo(
+      tailX - dir * 12, midY + tailWave * 10,
+      tailX - dir * 22, midY + tailWave * 6
+    );
+    ctx.stroke();
+    // Punta de la cola (más fina)
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(tailX - dir * 22, midY + tailWave * 6);
+    ctx.lineTo(tailX - dir * 30, midY + tailWave * 3);
+    ctx.stroke();
+
+    if (rolando) {
+      ctx.restore();
+    }
   }
 
   _dibujarNPC(ctx, npc, jugador, offsetX, offsetY) {
@@ -762,8 +872,19 @@ export class LagoEnriquillo {
   }
 
   _dibujarJugador(ctx, jugador, offsetX, offsetY) {
-    const px = jugador.x + offsetX;
-    const py = jugador.y + offsetY;
+    let px = jugador.x + offsetX;
+    let py = jugador.y + offsetY;
+    // Sacudida tras mordida de cocodrilo (decae con el tiempo)
+    if (jugador._sacudida > 0) {
+      px += Math.sin(this.tiempoTotal * 50) * 3 * jugador._sacudida;
+      jugador._sacudida -= 1 / 60;
+      if (jugador._sacudida < 0) jugador._sacudida = 0;
+    }
+    // En el agua: inclinación lateral + ondulación vertical (simula nado)
+    const enAgua = !this._estaEnIsla(jugador);
+    if (enAgua) {
+      py += Math.sin(this.tiempoTotal * 3) * 2;
+    }
     const genero = jugador.genero || 'pepito';
     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
     ctx.beginPath();
@@ -792,13 +913,24 @@ export class LagoEnriquillo {
     ctx.fillStyle = '#000000';
     ctx.fillRect(px + 10 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
     ctx.fillRect(px + 17 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
-    ctx.fillStyle = '#2a5599';
-    const pasoAnim = jugador.esAnimando ? Math.sin(jugador.cuadroAnimacion * 5) * 3 : 0;
-    ctx.fillRect(px + 6, py + 26 + pasoAnim, 7, 8);
-    ctx.fillRect(px + 15, py + 26 - pasoAnim, 7, 8);
-    ctx.fillStyle = '#4a3520';
-    ctx.fillRect(px + 5, py + 32 + pasoAnim, 8, 3);
-    ctx.fillRect(px + 15, py + 32 - pasoAnim, 8, 3);
+    // Piernas y zapatos (ocultos en el agua — el jugador nada)
+    if (!enAgua) {
+      ctx.fillStyle = '#2a5599';
+      const pasoAnim = jugador.esAnimando ? Math.sin(jugador.cuadroAnimacion * 5) * 3 : 0;
+      ctx.fillRect(px + 6, py + 26 + pasoAnim, 7, 8);
+      ctx.fillRect(px + 15, py + 26 - pasoAnim, 7, 8);
+      ctx.fillStyle = '#4a3520';
+      ctx.fillRect(px + 5, py + 32 + pasoAnim, 8, 3);
+      ctx.fillRect(px + 15, py + 32 - pasoAnim, 8, 3);
+    } else {
+      // Ondas de agua alrededor del jugador (simula nado)
+      ctx.strokeStyle = 'rgba(100, 180, 200, 0.5)';
+      ctx.lineWidth = 1;
+      const ondaW = 10 + Math.sin(this.tiempoTotal * 4) * 3;
+      ctx.beginPath();
+      ctx.ellipse(px + 14, py + 28, ondaW, 4, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
   }
 
   _estaEnIsla(jugador) {
