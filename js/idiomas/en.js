@@ -230,6 +230,12 @@ const en = {
       tamayo2: 'I know every trail in these mountains. The Spaniards get lost, but we are part of the land.',
       tamayo3: 'Our strategy is simple: know the terrain, move fast, and never fight where they want.',
       tamayoSaludo: 'The Bahoruco mountains are invincible!',
+      // Las Caritas — petroglyphs on the north cliff
+      caritas1: 'Petroglyphs carved in limestone! These are "Las Caritas" — faces sculpted by the Taínos.',
+      caritas2: 'These faces are 500 to 1,000 years old. They represent spirits, ancestors, and deities.',
+      caritas3: 'The Taínos carved petroglyphs in caves and cliffs. These at Lago Enriquillo are among the most accessible.',
+      caritas4: 'Each face has a different expression: smiles, surprise, seriousness. What were they trying to communicate?',
+      caritasRepite: 'The ancient faces carved in stone watch you with timeless expressions. Each one is unique.',
       // Mission
       misionEntregar: 'Bring the cemí to Enriquillo on Isla Cabritos',
       misionExplorar: 'Explore Lago Enriquillo',
@@ -1202,6 +1208,8 @@ const en = {
     pistaMapaReal: '🗺️ Press R to view the real map',
     palenqueBienvenida: 'Palenque de Lemba — Maroon Community',
     danoEnCombate: 'damage in combat',
+    eExaminar: '[E] Examine',
+    caritasDescubiertas: 'Las Caritas discovered — Taíno petroglyphs',
     controlespalenque: 'WASD: move | E: talk | I: inventory | M: map | P: photos | L: quests',
     elegirCompanero: 'Who do you attack with?',
     elegirCompaneroControles: '< Choose an ally — Q to cancel >',

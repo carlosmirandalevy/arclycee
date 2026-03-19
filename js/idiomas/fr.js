@@ -230,6 +230,12 @@ const fr = {
       tamayo2: 'Je connais chaque sentier de ces montagnes. Les Espagnols se perdent, mais nous faisons partie de la terre.',
       tamayo3: 'Notre stratégie est simple : connaître le terrain, se déplacer vite et ne jamais se battre où ils le veulent.',
       tamayoSaludo: 'Les montagnes du Bahoruco sont invincibles !',
+      // Las Caritas — pétroglyphes sur la falaise nord
+      caritas1: 'Des pétroglyphes gravés dans le calcaire ! Ce sont « Las Caritas » — des visages sculptés par les Taïnos.',
+      caritas2: 'Ces visages ont entre 500 et 1 000 ans. Ils représentent des esprits, des ancêtres et des divinités.',
+      caritas3: 'Les Taïnos gravaient des pétroglyphes dans les grottes et les falaises. Ceux du Lago Enriquillo sont parmi les plus accessibles.',
+      caritas4: 'Chaque visage a une expression différente : sourires, surprise, sérieux. Que voulaient-ils communiquer ?',
+      caritasRepite: 'Les visages anciens gravés dans la pierre te regardent avec des expressions millénaires. Chacun est unique.',
       // Mission
       misionEntregar: 'Apporte le cemí à Enriquillo sur l\'Isla Cabritos',
       misionExplorar: 'Explore le Lago Enriquillo',
@@ -1202,6 +1208,8 @@ const fr = {
     pistaMapaReal: '🗺️ Appuie sur R pour voir la carte réelle',
     palenqueBienvenida: 'Palenque de Lemba — Communauté Marron',
     danoEnCombate: 'dégâts en combat',
+    eExaminar: '[E] Examiner',
+    caritasDescubiertas: 'Las Caritas découvertes — pétroglyphes taïnos',
     controlespalenque: 'WASD : déplacer | E : parler | I : inventaire | M : carte | P : photos | L : quêtes',
     elegirCompanero: 'Avec qui attaques-tu ?',
     elegirCompaneroControles: '< Choisis un allié — Q pour annuler >',

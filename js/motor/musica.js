@@ -20,9 +20,9 @@ const MUSICA_POR_ESCENA = {
   introCinematica: 'menu',
   cuevasPomier: 'cuevas',
   asentamientoTaino1: 'taino',
-  mundoMontana: 'taino',
+  mundoMontana: 'lemba',
   asentamientoTaino2: 'taino',
-  lagoEnriquillo: 'acuatico',
+  lagoEnriquillo: 'enriquillo',
   mundoColonial: 'colonial',
   zonaColonial: 'colonial',
   mundoAcuatico: 'acuatico',
@@ -47,6 +47,8 @@ const PISTAS_POR_GRUPO = {
   lfsd:       ['resources/music/Robotica_theme_1.mp3',           'resources/music/Robotica_theme_2.mp3'],
   mapa:       ['resources/music/Main_Map_Theme_1.mp3',           'resources/music/Main_Map_Theme_2.mp3'],
   batu:       ['resources/music/Batu_Theme_1.mp3',               'resources/music/Batu_Theme_2.mp3'],
+  lemba:      ['resources/music/Palenque_de_Lemba-01.mp3',       'resources/music/Palenque_de_Lemba-02.mp3'],
+  enriquillo: ['resources/music/Lago_Enriquillo-01.mp3',        'resources/music/Lago_Enriquillo-02.mp3'],
   creditos:   ['resources/music/End_credits_Theme_1.mp3',        'resources/music/End_credits_Theme_2.mp3']
 };
 
