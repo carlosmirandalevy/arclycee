@@ -212,6 +212,14 @@ export class SistemaCombate {
       bonusTexto = ' 🦇+4';
     }
 
+    // Bonus de artefactos africanos (machete cimarrón, tambor de guerra)
+    // Temáticamente opuesto al bonus pacifista del Museo de la Catedral
+    if (this._juego?.progreso?.artefactosAfricanos > 0) {
+      const bonusAfricano = this._juego.progreso.artefactosAfricanos * 2;
+      dano += bonusAfricano;
+      bonusTexto += ` 🗡️+${bonusAfricano}`;
+    }
+
     this.enemigo.vida -= dano;
 
     // Atacar sube un poco la hostilidad (el enemigo se enoja más)

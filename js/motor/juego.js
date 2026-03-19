@@ -63,6 +63,7 @@ import { CuevasPomier } from '../mundos/taino/cuevas-pomier.js';
 import { MapaPrincipal } from '../mundos/mapa-principal.js';
 import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
 import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
+import { MundoMontana } from '../mundos/montana/mundo-montana.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
@@ -128,9 +129,9 @@ export class Juego {
 
     // Lista de escenas donde el jugador existe y puede recibir daño
     this.escenasJugables = [
-      'mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'asentamientoTaino2',
-      'mundoColonial', 'zonaColonial', 'mundoAcuatico', 'santuarioManati',
-      'mundoJuridico', 'mundoLaboratorio', 'mundoLFSD'
+      'mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'mundoMontana',
+      'asentamientoTaino2', 'mundoColonial', 'zonaColonial', 'mundoAcuatico',
+      'santuarioManati', 'mundoJuridico', 'mundoLaboratorio', 'mundoLFSD'
     ];
 
     // --- Estado del juego ---
@@ -243,6 +244,7 @@ export class Juego {
       { nombre: 'Cuevas del Pomier',     escena: 'cuevasPomier' },
       { nombre: 'Mapa Principal',        escena: 'mapaPrincipal' },
       { nombre: 'Asentamiento Taíno I',  escena: 'asentamientoTaino1' },
+      { nombre: 'Palenque de Lemba',    escena: 'mundoMontana' },
       { nombre: 'Asentamiento Taíno II', escena: 'asentamientoTaino2' },
       { nombre: 'La Isabela (Colonial)', escena: 'mundoColonial' },
       { nombre: 'Zona Colonial',        escena: 'zonaColonial' },
@@ -380,6 +382,10 @@ export class Juego {
     // Asentamiento Taíno II — aldea agrícola con conucos y areíto
     const asentamientoTaino2 = new AsentamientoTaino2();
     this.registrarEscena('asentamientoTaino2', asentamientoTaino2);
+
+    // Palenque de Lemba — comunidad cimarrona en las montañas
+    const mundoMontana = new MundoMontana();
+    this.registrarEscena('mundoMontana', mundoMontana);
 
     // La Isabela — primer asentamiento europeo (Mundo Colonial)
     const laIsabela = new LaIsabela();
@@ -902,6 +908,7 @@ export class Juego {
     const climaPorEscena = {
       mapaPrincipal: 'soleado',
       asentamientoTaino1: 'soleado',
+      mundoMontana: 'nublado',
       asentamientoTaino2: 'soleado',
       mundoColonial: 'nublado',
       zonaColonial: 'soleado'

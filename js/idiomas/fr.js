@@ -150,6 +150,50 @@ const fr = {
       misionCompleta: 'Village exploré ! Retour à la carte (M)'
     },
 
+    // Monde Montagne — Palenque de Lemba (communauté marron, années 1540)
+    montana: {
+      nombreLugar: '⛰️ Palenque de Lemba',
+      lembaNombre: 'Sebastián Lemba',
+      herreroNombre: 'Kofi',
+      tamboraNombre: 'Amara',
+      curanderaNombre: 'Yemayá',
+      vigiaNombre: 'Marcos',
+      // Lemba — mentor rotatif (5 thèmes)
+      lemba1: 'Je suis Sebastián Lemba. J\'ai brisé mes chaînes et fondé ce palenque dans les montagnes.',
+      lemba2: 'Dans les années 1540, nous avons mené la première révolte d\'esclaves dans les Amériques.',
+      lemba3: 'Nous les cimarrones vivons libres. Ces montagnes sont notre refuge et notre forteresse.',
+      lemba4: 'Nous avons apporté notre culture africaine — nos rythmes, notre médecine, notre forge.',
+      lemba5: 'Les communautés de cimarrones ont laissé une empreinte profonde dans la culture dominicaine d\'aujourd\'hui.',
+      // Kofi — forgeron
+      herrero1: 'Je suis Kofi, forgeron de ce palenque. Je forge des outils avec l\'art de mes ancêtres d\'Afrique occidentale.',
+      herrero2: 'Dans ma terre, les forgerons étaient respectés comme gardiens du feu sacré.',
+      herrero3: 'Avec cette machette nous défendons notre liberté. Prends-la — elle te servira dans ton voyage.',
+      herreroSaludo: 'Le feu de la forge ne s\'éteint jamais, tout comme notre lutte pour la liberté !',
+      // Amara — tamborera
+      tambora1: 'Bienvenue au cercle de tambours ! Je suis Amara.',
+      tambora2: 'Les tambours sont notre voix. Avec eux nous transmettons des messages, nous célébrons et nous nous souvenons.',
+      tambora3: 'Les palos et atabales joués aujourd\'hui en République Dominicaine viennent de nos traditions africaines.',
+      tambora4: 'Ce tambour de guerre nous protège. Emporte-le avec toi — son rythme te donnera de la force.',
+      tamboraSaludo: 'Les tambours continuent de résonner — la liberté ne se tait jamais !',
+      // Yemayá — guérisseuse
+      curandera1: 'Je suis Yemayá, guérisseuse du palenque. Mon nom honore la déesse yoruba de la mer.',
+      curandera2: 'Nous mélangeons la médecine africaine avec les plantes que nous avons apprises des Taïnos.',
+      curandera3: 'Le corossol, le gingembre, l\'aloès — cette île a tout ce dont nous avons besoin pour guérir.',
+      curandera4: 'Laisse-moi te soigner avec mes remèdes. Tu seras comme neuf !',
+      curanderaCurar: 'Voilà ! Les herbes sacrées t\'ont guéri.',
+      curanderaSano: 'Tu m\'as l\'air en bonne santé. Que la force des ancêtres te protège !',
+      // Marcos — vigie
+      vigia1: 'Halte ! Je suis Marcos, le guetteur du palenque.',
+      vigia2: 'Attention ! Je vois un chasseur de cimarrones qui approche par le sentier.',
+      vigia3: 'Prépare-toi à défendre notre liberté !',
+      vigilaPaz: 'Le soldat a compris qu\'on ne peut pas enchaîner quelqu\'un qui est né libre.',
+      vigiaVictoria: 'Le chasseur a fui. Notre montagne reste libre !',
+      enemigoCazador: 'Chasseur de Cimarrones',
+      // Mission
+      misionHablar: 'Explore le palenque et parle aux cimarrones',
+      misionCompleta: 'Palenque exploré ! Retour à la carte (M)',
+    },
+
     // Dialogues du deuxième village — agriculture, médecine et cérémonies
     aldea2: {
       behique1: 'Je suis Yuisa, le behique — guérisseur et guide spirituel de ce village.',
@@ -669,6 +713,12 @@ const fr = {
     descMapa: 'Une carte ancienne avec des marques mystérieuses de sites archéologiques.',
     descFragmentoMapa: 'Un morceau de carte ancienne. Il semble montrer d\'autres grottes.',
     descArtefactoTaino: 'Un cemí aux détails dorés. Il doit être emmené au musée pour étude.',
+    macheteCimarron: 'Machette Cimarron',
+    descMacheteCimarron: 'Machette forgée par les cimarrones africains. +2 dégâts en combat.',
+    tamborGuerra: 'Tambour de Guerre',
+    descTamborGuerra: 'Tambour de guerre africain. Son rythme inspire le courage. +2 dégâts en combat.',
+    pergaminoLibertad: 'Parchemin de Liberté',
+    descPergaminoLibertad: 'Document proclamant la liberté des cimarrones du palenque de Lemba.',
     artefactoCatedral: 'Artefact du Musée de la Cathédrale',
     descArtefactoCatedral: 'Pièce religieuse du XVIe siècle découverte lors d\'une excavation. Fabiola Herrera l\'attend.',
     cucharaLegendaria: 'La Cuillère Légendaire',
@@ -1095,6 +1145,9 @@ const fr = {
     estadoBien: '✓ En progrès',
     estadoMal: '✗ Situation tendue',
     pistaMapaReal: '🗺️ Appuie sur R pour voir la carte réelle',
+    palenqueBienvenida: 'Palenque de Lemba — Communauté Marron',
+    danoEnCombate: 'dégâts en combat',
+    controlespalenque: 'WASD : déplacer | E : parler | I : inventaire | M : carte | P : photos | L : quêtes',
     elegirCompanero: 'Avec qui attaques-tu ?',
     elegirCompaneroControles: '< Choisis un allié — Q pour annuler >',
     elegir: 'choisir',
@@ -1263,6 +1316,11 @@ const fr = {
     bohioAgricultor: 'Bohío de l\'Agriculteur',
     caneyCeremonial: 'Caney Cérémoniel',
     dujo: 'Dujo',
+    chozaLider: 'Hutte du Chef',
+    chozaForja: 'Hutte de la Forge',
+    chozaTambores: 'Cercle de Tambours',
+    chozaSanacion: 'Hutte de Guérison',
+    atalaya: 'Tour de Guet',
 
     // Cultures taïnos
     yuca: 'manioc',

@@ -322,8 +322,8 @@ export class AsentamientoTaino1 {
         if (!this.juego.progreso.nodosCompletados.includes(1)) {
           this.juego.progreso.nodosCompletados.push(1);
         }
-        if (!this.juego.progreso.nodosDesbloqueados.includes(2)) {
-          this.juego.progreso.nodosDesbloqueados.push(2);
+        if (!this.juego.progreso.nodosDesbloqueados.includes(9)) {
+          this.juego.progreso.nodosDesbloqueados.push(9);
         }
       }
     }

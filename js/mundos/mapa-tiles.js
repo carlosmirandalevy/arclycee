@@ -367,6 +367,17 @@ export function obtenerNodosIsla() {
       nombre: 'Asentamiento Taino I',
       tipo: 'aldea',
       escena: 'asentamientoTaino1',
+      conectadoA: [9]
+    },
+    {
+      // Montañas del interior — Sebastián Lemba lideró la primera
+      // rebelión de esclavizados en las Américas (~1540s) y estableció
+      // comunidades cimarronas libres en las montañas de La Hispaniola.
+      id: 9,
+      tileX: 82, tileY: 36,
+      nombre: 'Palenque de Lemba',
+      tipo: 'montana',
+      escena: 'mundoMontana',
       conectadoA: [2]
     },
     {

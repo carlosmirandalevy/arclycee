@@ -20,6 +20,7 @@ const MUSICA_POR_ESCENA = {
   introCinematica: 'menu',
   cuevasPomier: 'cuevas',
   asentamientoTaino1: 'taino',
+  mundoMontana: 'taino',
   asentamientoTaino2: 'taino',
   mundoColonial: 'colonial',
   zonaColonial: 'colonial',

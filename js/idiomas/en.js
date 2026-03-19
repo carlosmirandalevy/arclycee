@@ -150,6 +150,50 @@ const en = {
       misionCompleta: 'Village explored! Return to map (M)'
     },
 
+    // Mountain World — Palenque de Lemba (maroon community, 1540s)
+    montana: {
+      nombreLugar: '⛰️ Palenque de Lemba',
+      lembaNombre: 'Sebastián Lemba',
+      herreroNombre: 'Kofi',
+      tamboraNombre: 'Amara',
+      curanderaNombre: 'Yemayá',
+      vigiaNombre: 'Marcos',
+      // Lemba — rotating mentor (5 topics)
+      lemba1: 'I am Sebastián Lemba. I escaped my chains and founded this palenque in the mountains.',
+      lemba2: 'In the 1540s, we led the first slave uprising in the Americas.',
+      lemba3: 'We maroons live free. These mountains are our refuge and our fortress.',
+      lemba4: 'We brought our African culture — our rhythms, our medicine, our forge.',
+      lemba5: 'Maroon communities left a deep mark on Dominican culture today.',
+      // Kofi — blacksmith
+      herrero1: 'I am Kofi, blacksmith of this palenque. I forge tools with the craft of my West African ancestors.',
+      herrero2: 'In my homeland, blacksmiths were revered as guardians of the sacred fire.',
+      herrero3: 'With this machete we defend our freedom. Take it — it will serve you well on your journey.',
+      herreroSaludo: 'The forge fire never dies out, just like our fight for freedom!',
+      // Amara — drummer
+      tambora1: 'Welcome to the drum circle! I am Amara.',
+      tambora2: 'The drums are our voice. With them we send messages, celebrate, and remember.',
+      tambora3: 'The palos and atabales played today in the Dominican Republic come from our African traditions.',
+      tambora4: 'This war drum protects us. Take it with you — its rhythm will give you strength.',
+      tamboraSaludo: 'The drums keep beating — freedom never falls silent!',
+      // Yemayá — healer
+      curandera1: 'I am Yemayá, healer of the palenque. My name honours the Yoruba goddess of the sea.',
+      curandera2: 'We blend African medicine with the plants we learned about from the Taínos.',
+      curandera3: 'Soursop, ginger, aloe — this island has everything we need to heal.',
+      curandera4: 'Let me heal you with my remedies. You will feel as good as new!',
+      curanderaCurar: 'Done! The sacred herbs have healed you.',
+      curanderaSano: 'You look healthy to me. May the strength of the ancestors protect you!',
+      // Marcos — lookout
+      vigia1: 'Halt! I am Marcos, the lookout of the palenque.',
+      vigia2: 'Watch out! I see a slave hunter approaching on the trail.',
+      vigia3: 'Get ready to defend our freedom!',
+      vigilaPaz: 'The soldier understood that you cannot chain someone who was born free.',
+      vigiaVictoria: 'The hunter has fled. Our mountain remains free!',
+      enemigoCazador: 'Maroon Hunter',
+      // Mission
+      misionHablar: 'Explore the palenque and talk to the maroons',
+      misionCompleta: 'Palenque explored! Return to map (M)',
+    },
+
     // Second village dialogues — agriculture, medicine, and ceremonies
     aldea2: {
       behique1: 'I am Yuisa, the behique — healer and spiritual guide of this village.',
@@ -669,6 +713,12 @@ const en = {
     descMapa: 'An ancient map with mysterious marks of archaeological sites.',
     descFragmentoMapa: 'A piece of an ancient map. It seems to show the location of other caves.',
     descArtefactoTaino: 'A cemí with golden details. It should be taken to the museum for study.',
+    macheteCimarron: 'Maroon Machete',
+    descMacheteCimarron: 'Machete forged by African maroons. +2 damage in combat.',
+    tamborGuerra: 'War Drum',
+    descTamborGuerra: 'African war drum. Its rhythm inspires courage. +2 damage in combat.',
+    pergaminoLibertad: 'Scroll of Freedom',
+    descPergaminoLibertad: 'Document proclaiming the freedom of the maroons of Lemba\'s palenque.',
     artefactoCatedral: 'Cathedral Museum Artifact',
     descArtefactoCatedral: '16th century religious piece discovered during excavation. Fabiola Herrera is expecting it.',
     cucharaLegendaria: 'The Legendary Spoon',
@@ -1095,6 +1145,9 @@ const en = {
     estadoBien: '✓ Making progress',
     estadoMal: '✗ Tense situation',
     pistaMapaReal: '🗺️ Press R to view the real map',
+    palenqueBienvenida: 'Palenque de Lemba — Maroon Community',
+    danoEnCombate: 'damage in combat',
+    controlespalenque: 'WASD: move | E: talk | I: inventory | M: map | P: photos | L: quests',
     elegirCompanero: 'Who do you attack with?',
     elegirCompaneroControles: '< Choose an ally — Q to cancel >',
     elegir: 'choose',
@@ -1263,6 +1316,11 @@ const en = {
     bohioAgricultor: 'Farmer\'s Bohío',
     caneyCeremonial: 'Ceremonial Caney',
     dujo: 'Dujo',
+    chozaLider: 'Leader\'s Hut',
+    chozaForja: 'Forge Hut',
+    chozaTambores: 'Drum Circle',
+    chozaSanacion: 'Healing Hut',
+    atalaya: 'Lookout Tower',
 
     // Taíno crops
     yuca: 'cassava',

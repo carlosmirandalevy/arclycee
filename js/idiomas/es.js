@@ -152,6 +152,50 @@ const es = {
       misionCompleta: '¡Aldea explorada! Vuelve al mapa (M)'
     },
 
+    // Diálogos del Palenque de Lemba — comunidad cimarrona
+    montana: {
+      nombreLugar: '⛰️ Palenque de Lemba',
+      lembaNombre: 'Sebastián Lemba',
+      herreroNombre: 'Kofi',
+      tamboraNombre: 'Amara',
+      curanderaNombre: 'Yemayá',
+      vigiaNombre: 'Marcos',
+      // Lemba — mentor rotativo (5 temas)
+      lemba1: 'Soy Sebastián Lemba. Escapé de las cadenas y fundé este palenque en las montañas.',
+      lemba2: 'En los años 1540, lideramos la primera rebelión de esclavizados en las Américas.',
+      lemba3: 'Los cimarrones vivimos libres. Estas montañas son nuestro refugio y nuestra fortaleza.',
+      lemba4: 'Trajimos nuestra cultura africana — nuestros ritmos, nuestra medicina, nuestra forja.',
+      lemba5: 'Las comunidades cimarronas dejaron una huella profunda en la cultura dominicana de hoy.',
+      // Kofi — herrero
+      herrero1: 'Soy Kofi, herrero de este palenque. Forjo herramientas con el arte de mis ancestros de África occidental.',
+      herrero2: 'En mi tierra, los herreros éramos respetados como guardianes del fuego sagrado.',
+      herrero3: 'Con este machete defendemos nuestra libertad. Tómalo — te servirá en tu camino.',
+      herreroSaludo: '¡El fuego de la forja nunca se apaga, como nuestra lucha por la libertad!',
+      // Amara — tamborera
+      tambora1: '¡Bienvenido al círculo de tambores! Soy Amara.',
+      tambora2: 'Los tambores son nuestra voz. Con ellos transmitimos mensajes, celebramos y recordamos.',
+      tambora3: 'Los palos y atabales que se tocan hoy en la República Dominicana vienen de nuestras tradiciones africanas.',
+      tambora4: 'Este tambor de guerra nos protege. Llévalo contigo — su ritmo te dará fuerza.',
+      tamboraSaludo: '¡Los tambores siguen sonando — la libertad nunca se calla!',
+      // Yemayá — curandera
+      curandera1: 'Soy Yemayá, curandera del palenque. Mi nombre honra a la diosa yoruba del mar.',
+      curandera2: 'Mezclamos la medicina africana con las plantas que aprendimos de los taínos.',
+      curandera3: 'La guanábana, el jengibre, la sábila — esta isla tiene todo lo que necesitamos para sanar.',
+      curandera4: 'Déjame curarte con mis remedios. ¡Quedarás como nuevo!',
+      curanderaCurar: '¡Listo! Las hierbas sagradas te han sanado.',
+      curanderaSano: 'Te veo bien de salud. ¡Que la fuerza de los ancestros te proteja!',
+      // Marcos — vigía
+      vigia1: '¡Alto! Soy Marcos, el vigía del palenque.',
+      vigia2: '¡Cuidado! Veo un cazador de cimarrones acercándose por el sendero.',
+      vigia3: '¡Prepárate para defender nuestra libertad!',
+      vigilaPaz: 'El soldado entendió que no puede encadenar a quien nació libre.',
+      vigiaVictoria: 'El cazador ha huido. ¡Nuestra montaña sigue siendo libre!',
+      enemigoCazador: 'Cazador de Cimarrones',
+      // Misión
+      misionHablar: 'Explora el palenque y habla con los cimarrones',
+      misionCompleta: '¡Palenque explorado! Vuelve al mapa (M)',
+    },
+
     // Diálogos de la segunda aldea — agricultura, medicina y ceremonias
     aldea2: {
       behique1: 'Soy Yuisa, el behique — curandero y guía espiritual de esta aldea.',
@@ -705,6 +749,12 @@ const es = {
     descMapa: 'Un mapa antiguo con marcas misteriosas de sitios arqueológicos.',
     descFragmentoMapa: 'Un pedazo de mapa antiguo. Parece mostrar la ubicación de otras cuevas.',
     descArtefactoTaino: 'Un cemí con detalles dorados. Debe ser llevado al museo para su estudio.',
+    macheteCimarron: 'Machete Cimarrón',
+    descMacheteCimarron: 'Machete forjado por cimarrones africanos. +2 daño en combate.',
+    tamborGuerra: 'Tambor de Guerra',
+    descTamborGuerra: 'Tambor africano de guerra. Su ritmo inspira coraje. +2 daño en combate.',
+    pergaminoLibertad: 'Pergamino de Libertad',
+    descPergaminoLibertad: 'Documento que proclama la libertad de los cimarrones del palenque de Lemba.',
     artefactoCatedral: 'Artefacto del Museo de la Catedral',
     descArtefactoCatedral: 'Pieza religiosa del siglo XVI descubierta durante una excavación. Fabiola Herrera la espera.',
     cucharaLegendaria: 'La Cuchara Legendaria',
@@ -1136,6 +1186,9 @@ const es = {
     estadoBien: '✓ Progresando',
     estadoMal: '✗ Situación tensa',
     pistaMapaReal: '🗺️ Presiona R para ver el mapa real',
+    palenqueBienvenida: 'Palenque de Lemba — Comunidad Cimarrona',
+    danoEnCombate: 'daño en combate',
+    controlespalenque: 'WASD: mover | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones',
     elegirCompanero: '¿Con quién atacas?',
     elegirCompaneroControles: '< Elige un aliado — Q para cancelar >',
     elegir: 'elegir',
@@ -1317,6 +1370,11 @@ const es = {
     bohioAgricultor: 'Bohío del Agricultor',
     caneyCeremonial: 'Caney Ceremonial',
     dujo: 'Dujo',
+    chozaLider: 'Choza del Líder',
+    chozaForja: 'Choza de la Forja',
+    chozaTambores: 'Círculo de Tambores',
+    chozaSanacion: 'Choza de Sanación',
+    atalaya: 'Atalaya del Vigía',
 
     // Cultivos taínos
     yuca: 'yuca',
