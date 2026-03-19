@@ -126,6 +126,26 @@ El estilo general: indie game OST, evocador, memorable, minimalista pero emotivo
 
 ---
 
+## 13. Palenque de Lemba — `lemba-theme.mp3`
+
+**Prompt:**
+> Powerful African-Caribbean mountain theme. Deep hand drums (djembe, atabales) with polyrhythmic patterns. Low wooden flute melody, minor key, defiant and proud. Distant call-and-response chanting texture in the background. Occasional metallic hammering sounds like a blacksmith. Feeling of a hidden mountain community, freedom fighters, cultural resistance. Warm but intense. Loopable. 50 seconds. No vocals.
+
+**Mood:** Resistance, pride, African heritage, mountain refuge, defiance
+**Reference feel:** Hollow Knight — Queen's Gardens intensity meets African percussion, Undertale — determination theme with tribal drums
+
+---
+
+## 14. Lago Enriquillo — `enriquillo-theme.mp3`
+
+**Prompt:**
+> Mysterious lake ambient with indigenous undertones. Slow marimba or kalimba melody over deep water-like synth pad. Occasional crocodile-like low rumble texture. Sparse percussion with wooden sticks. Feeling of a vast ancient lake in a dry valley, sacred and dangerous. Hints of heroism in the melody — a cacique's defiant spirit. Sun-baked and otherworldly. Loopable. 50 seconds. No vocals.
+
+**Mood:** Vast ancient lake, danger (crocodiles), indigenous heroism, dry heat, sacred ground
+**Reference feel:** Hollow Knight — Greenpath mystery meets dry desert ambience, Abzu — underwater reverence adapted to a lake
+
+---
+
 ## Tips para Suno
 
 - **Duración**: Pedir "30 seconds" o "60 seconds" según el track
