@@ -82,7 +82,7 @@ export class SistemaCombate {
     this._tiempoEsperaEnemigo = 0;
     this._esperandoEnemigo = false;
     this._esperandoContinuar = false;  // true cuando muestra "[E] Continuar"
-    this._pausaLectura = 2.5;
+    this._pausaLectura = 2.0;
 
     // --- Opciones personalizadas por enemigo ---
     // Si el enemigo trae opcionesPersonalizadas, se usan en vez de las genéricas.
@@ -187,7 +187,7 @@ export class SistemaCombate {
       this._esperandoEnemigo = true;
       this._tiempoEsperaEnemigo = 0;
       this._esperandoContinuar = false;
-      this._pausaLectura = 2.5;
+      this._pausaLectura = 2.0;
       this.turnoJugador = false;
     }
   }
@@ -530,7 +530,7 @@ export class SistemaCombate {
           this._esperandoEnemigo = true;
           this._tiempoEsperaEnemigo = 0;
           this._esperandoContinuar = false;
-          this._pausaLectura = 2.5;
+          this._pausaLectura = 2.0;
           this.turnoJugador = false;
         }
         this._bloqueoEntrada = true;

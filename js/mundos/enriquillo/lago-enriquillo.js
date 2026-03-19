@@ -130,6 +130,20 @@ export class LagoEnriquillo {
       { x: 1300, y: 600, ancho: 60, alto: 25, fase: 0.5, velocidad: 0.38, centroX: 1300, centroY: 600, radioX: 140, radioY: 70 }
     ];
 
+    // --- Iguanas rinoceronte (Cyclura cornuta) ---
+    // Endémicas de la Isla Cabritos, una de las poblaciones más grandes del mundo.
+    // Se mueven lentamente por la isla y las orillas del lago.
+    this.iguanas = [
+      // En la isla
+      { x: 850, y: 460, fase: 0, velocidad: 0.2, centroX: 850, centroY: 460, radioX: 40, radioY: 20, mirandoDerecha: true },
+      { x: 1000, y: 520, fase: Math.PI, velocidad: 0.15, centroX: 1000, centroY: 520, radioX: 30, radioY: 15, mirandoDerecha: false },
+      { x: 950, y: 400, fase: Math.PI / 2, velocidad: 0.18, centroX: 950, centroY: 400, radioX: 35, radioY: 18, mirandoDerecha: true },
+      // En las orillas
+      { x: 300, y: 1080, fase: 1, velocidad: 0.12, centroX: 300, centroY: 1080, radioX: 50, radioY: 10, mirandoDerecha: true },
+      { x: 1400, y: 80, fase: 2, velocidad: 0.14, centroX: 1400, centroY: 80, radioX: 40, radioY: 12, mirandoDerecha: false },
+      { x: 100, y: 200, fase: 3, velocidad: 0.16, centroX: 100, centroY: 200, radioX: 30, radioY: 15, mirandoDerecha: true }
+    ];
+
     // Misión
     const tieneIdolo = juego.jugador?.inventario?.some(i => i.nombre === 'idoloCemi');
     if (this._idoloEntregado) {
@@ -219,6 +233,15 @@ export class LagoEnriquillo {
           }
         }
       }
+    }
+
+    // --- Iguanas: movimiento lento ---
+    for (const ig of this.iguanas) {
+      const prevX = ig.x;
+      ig.fase += ig.velocidad * dt;
+      ig.x = ig.centroX + Math.sin(ig.fase) * ig.radioX;
+      ig.y = ig.centroY + Math.cos(ig.fase * 0.5) * ig.radioY;
+      ig.mirandoDerecha = ig.x > prevX;
     }
 
     // Invulnerabilidad temporal
@@ -420,6 +443,11 @@ export class LagoEnriquillo {
     // --- Cocodrilos ---
     for (const croc of this.cocodrilos) {
       this._dibujarCocodrilo(ctx, croc, offsetX, offsetY);
+    }
+
+    // --- Iguanas rinoceronte ---
+    for (const ig of this.iguanas) {
+      this._dibujarIguana(ctx, ig, offsetX, offsetY);
     }
 
     // --- Entidades ordenadas por Y ---
@@ -644,6 +672,129 @@ export class LagoEnriquillo {
     if (rolando) {
       ctx.restore();
     }
+  }
+
+  // --- Iguana rinoceronte (Cyclura cornuta) ---
+  // Lagarto grande, gris-verde, con cuernos en el hocico y cresta dorsal
+  _dibujarIguana(ctx, ig, offsetX, offsetY) {
+    const ix = ig.x + offsetX;
+    const iy = ig.y + offsetY;
+    const dir = ig.mirandoDerecha ? 1 : -1;
+    const legSwing = Math.sin(this.tiempoTotal * 3 + ig.fase) * 2;
+
+    // Sombra
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+    ctx.beginPath();
+    ctx.ellipse(ix + 10, iy + 12, 14, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cola larga y curvada
+    ctx.strokeStyle = '#5a6a4a';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    const tailBaseX = ix + (dir > 0 ? 0 : 20);
+    ctx.beginPath();
+    ctx.moveTo(tailBaseX, iy + 6);
+    ctx.quadraticCurveTo(
+      tailBaseX - dir * 10, iy + 4 + Math.sin(this.tiempoTotal * 2 + ig.fase) * 3,
+      tailBaseX - dir * 18, iy + 8
+    );
+    ctx.stroke();
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(tailBaseX - dir * 18, iy + 8);
+    ctx.lineTo(tailBaseX - dir * 24, iy + 6);
+    ctx.stroke();
+
+    // Cuerpo (elipse verde-gris)
+    ctx.fillStyle = '#6a7a5a';
+    ctx.beginPath();
+    ctx.ellipse(ix + 10, iy + 6, 12, 7, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Vientre más claro
+    ctx.fillStyle = '#8a9a7a';
+    ctx.beginPath();
+    ctx.ellipse(ix + 10, iy + 8, 8, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cresta dorsal (pequeños triángulos a lo largo del lomo)
+    ctx.fillStyle = '#5a6a4a';
+    for (let c = 0; c < 4; c++) {
+      const sx = ix + 4 + c * 5;
+      ctx.beginPath();
+      ctx.moveTo(sx, iy - 1);
+      ctx.lineTo(sx + 2, iy - 4);
+      ctx.lineTo(sx + 4, iy - 1);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Cabeza (más ancha y robusta que el cuerpo)
+    const headX = ix + (dir > 0 ? 20 : 0);
+    ctx.fillStyle = '#6a7a5a';
+    ctx.beginPath();
+    ctx.ellipse(headX, iy + 5, 7, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cuernos del rinoceronte (2-3 protuberancias en el hocico)
+    ctx.fillStyle = '#5a5a4a';
+    ctx.beginPath();
+    ctx.arc(headX + dir * 5, iy + 1, 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(headX + dir * 3, iy - 1, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Ojo (pequeño, amarillo con pupila negra)
+    ctx.fillStyle = '#CCAA44';
+    ctx.beginPath();
+    ctx.arc(headX + dir * 2, iy + 3, 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#111111';
+    ctx.beginPath();
+    ctx.arc(headX + dir * 2, iy + 3, 0.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Patas (4, con movimiento alternado realista)
+    ctx.fillStyle = '#5a6a4a';
+    // Delantera izquierda
+    ctx.save();
+    ctx.translate(ix + 15, iy + 11);
+    ctx.rotate(legSwing * 0.15);
+    ctx.fillRect(-1, 0, 3, 6);
+    // Dedos (3 garras)
+    ctx.fillRect(-2, 5, 2, 2);
+    ctx.fillRect(0, 6, 2, 2);
+    ctx.fillRect(2, 5, 2, 2);
+    ctx.restore();
+    // Delantera derecha
+    ctx.save();
+    ctx.translate(ix + 6, iy + 11);
+    ctx.rotate(-legSwing * 0.15);
+    ctx.fillRect(-1, 0, 3, 6);
+    ctx.fillRect(-2, 5, 2, 2);
+    ctx.fillRect(0, 6, 2, 2);
+    ctx.fillRect(2, 5, 2, 2);
+    ctx.restore();
+    // Trasera izquierda
+    ctx.save();
+    ctx.translate(ix + 18, iy + 10);
+    ctx.rotate(-legSwing * 0.12);
+    ctx.fillRect(-1, 0, 3, 5);
+    ctx.fillRect(-2, 4, 2, 2);
+    ctx.fillRect(0, 5, 2, 2);
+    ctx.fillRect(2, 4, 2, 2);
+    ctx.restore();
+    // Trasera derecha
+    ctx.save();
+    ctx.translate(ix + 3, iy + 10);
+    ctx.rotate(legSwing * 0.12);
+    ctx.fillRect(-1, 0, 3, 5);
+    ctx.fillRect(-2, 4, 2, 2);
+    ctx.fillRect(0, 5, 2, 2);
+    ctx.fillRect(2, 4, 2, 2);
+    ctx.restore();
   }
 
   _dibujarNPC(ctx, npc, jugador, offsetX, offsetY) {
