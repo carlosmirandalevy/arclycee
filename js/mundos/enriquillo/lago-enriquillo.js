@@ -313,7 +313,7 @@ export class LagoEnriquillo {
       if (ent.tipo === 'npc') {
         this._dibujarNPC(ctx, ent.datos, jugador, offsetX, offsetY);
       } else if (ent.tipo === 'jugador') {
-        jugador.dibujar(ctx, offsetX, offsetY);
+        this._dibujarJugador(ctx, jugador, offsetX, offsetY);
       } else if (ent.tipo === 'companero') {
         ctx.save();
         ctx.translate(offsetX, offsetY);
@@ -616,6 +616,46 @@ export class LagoEnriquillo {
   // ============================================================
 
   // Verificar si el jugador está en la Isla Cabritos (elipse central)
+  _dibujarJugador(ctx, jugador, offsetX, offsetY) {
+    const px = jugador.x + offsetX;
+    const py = jugador.y + offsetY;
+    const genero = jugador.genero || 'pepito';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.beginPath();
+    ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = genero === 'pepito' ? '#4488ff' : '#aa44ff';
+    ctx.fillRect(px + 4, py + 10, 20, 16);
+    ctx.fillStyle = '#D2956A';
+    ctx.fillRect(px + 6, py, 16, 14);
+    ctx.fillStyle = genero === 'pepito' ? '#2a1a0a' : '#1a0a00';
+    if (genero === 'pepito') {
+      ctx.fillRect(px + 5, py - 2, 18, 6);
+    } else {
+      ctx.fillRect(px + 4, py - 2, 20, 6);
+      ctx.fillRect(px + 3, py + 2, 4, 10);
+      ctx.fillRect(px + 21, py + 2, 4, 10);
+    }
+    ctx.fillStyle = '#FFFFFF';
+    let ojoDx = 0, ojoDy = 0;
+    if (jugador.direccion === 'izquierda') ojoDx = -1;
+    if (jugador.direccion === 'derecha') ojoDx = 1;
+    if (jugador.direccion === 'arriba') ojoDy = -1;
+    if (jugador.direccion === 'abajo') ojoDy = 1;
+    ctx.fillRect(px + 9 + ojoDx, py + 4 + ojoDy, 3, 3);
+    ctx.fillRect(px + 16 + ojoDx, py + 4 + ojoDy, 3, 3);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(px + 10 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
+    ctx.fillRect(px + 17 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
+    ctx.fillStyle = '#2a5599';
+    const pasoAnim = jugador.esAnimando ? Math.sin(jugador.cuadroAnimacion * 5) * 3 : 0;
+    ctx.fillRect(px + 6, py + 26 + pasoAnim, 7, 8);
+    ctx.fillRect(px + 15, py + 26 - pasoAnim, 7, 8);
+    ctx.fillStyle = '#4a3520';
+    ctx.fillRect(px + 5, py + 32 + pasoAnim, 8, 3);
+    ctx.fillRect(px + 15, py + 32 - pasoAnim, 8, 3);
+  }
+
   _estaEnIsla(jugador) {
     const cx = 950, cy = 500;
     const rx = 200, ry = 150;
