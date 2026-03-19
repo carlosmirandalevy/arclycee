@@ -15,6 +15,13 @@
 - **Diana → Sofia**: NPC renombrado a Sofia (estudiante regular, sin quest). Alberto hereda metalCompleto (programación robot). Diana eliminada de créditos y equipo (8 miembros)
 - **Nodo 9** (Palenque de Lemba) insertado entre Taíno I y Taíno II en el mapa
 - **Nodo 10** (Lago Enriquillo) desbloqueado por sidequest de Anacaona
+- **Las Caritas**: sitio arqueológico en el acantilado norte del Lago Enriquillo — 7 petroglifos taínos (rostros con expresiones variadas, espiral) tallados en roca caliza, diálogo educativo interactivo
+- **Música dedicada**: Palenque de Lemba (2 pistas) y Lago Enriquillo (2 pistas) — 14 grupos musicales, 28 MP3s totales
+- **Cuchara Legendaria**: plataformas escalonadas añadidas para hacerla alcanzable
+
+### Corregido
+- **Freeze en Lemba y Enriquillo**: `jugador.dibujar(ctx)` reemplazado por `_dibujarJugador()` local — la clase Jugador solo acepta `dibujar(renderizador)`
+- **`sfx.curar()`**: método inexistente reemplazado por `sfx.recoger()` en curandera de Montana
 
 ---
 

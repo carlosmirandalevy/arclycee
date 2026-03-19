@@ -20,7 +20,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - `configuracion.js` — constantes globales y mapeo de teclas (`TECLAS_POR_DEFECTO`)
 - `renderizado.js` — wrapper de Canvas 2D
 - `sonido-procedural.js` — efectos con Web Audio API
-- `musica.js` — `SistemaMusica` con 12 grupos musicales (24 MP3s, 2 por escenario), crossfade 2s, override para combate/batú, volumen en localStorage
+- `musica.js` — `SistemaMusica` con 14 grupos musicales (28 MP3s, 2 por escenario), crossfade 2s, override para combate/batú, volumen en localStorage
 - `guardado.js` — `SistemaGuardado` con `guardarLocal()`, `cargarLocal()`, `crearDatosGuardado(juego)`
 
 ### Escenas (`js/escenas/`)
