@@ -232,6 +232,12 @@ const es = {
       tamayo2: 'Conozco cada sendero de estas montañas. Los españoles se pierden, pero nosotros somos parte de la tierra.',
       tamayo3: 'Nuestra estrategia es simple: conocer el terreno, moverse rápido y nunca pelear donde ellos quieren.',
       tamayoSaludo: '¡Las montañas del Bahoruco son invencibles!',
+      // Las Caritas — petroglifos del acantilado norte
+      caritas1: '¡Petroglifos tallados en la roca caliza! Son "Las Caritas" — rostros esculpidos por los taínos.',
+      caritas2: 'Estas caras tienen entre 500 y 1,000 años. Representan espíritus, ancestros y divinidades.',
+      caritas3: 'Los taínos tallaban petroglifos en cuevas y acantilados. Estos del Lago Enriquillo son de los más accesibles.',
+      caritas4: 'Cada rostro tiene una expresión diferente: sonrisas, sorpresa, seriedad. ¿Qué querrían comunicar?',
+      caritasRepite: 'Los rostros tallados en la roca te observan con expresiones milenarias. Cada uno es único.',
       // Misión
       misionEntregar: 'Lleva el cemí a Enriquillo en la Isla Cabritos',
       misionExplorar: 'Explora el Lago Enriquillo',
@@ -1243,6 +1249,8 @@ const es = {
     pistaMapaReal: '🗺️ Presiona R para ver el mapa real',
     palenqueBienvenida: 'Palenque de Lemba — Comunidad Cimarrona',
     danoEnCombate: 'daño en combate',
+    eExaminar: '[E] Examinar',
+    caritasDescubiertas: 'Las Caritas descubiertas — petroglifos taínos',
     controlespalenque: 'WASD: mover | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones',
     elegirCompanero: '¿Con quién atacas?',
     elegirCompaneroControles: '< Elige un aliado — Q para cancelar >',

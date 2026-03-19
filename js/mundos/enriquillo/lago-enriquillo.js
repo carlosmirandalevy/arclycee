@@ -74,6 +74,25 @@ export class LagoEnriquillo {
 
     // Restaurar estado
     this._idoloEntregado = !!juego.progreso?.idoloCemiEntregado;
+    this._caritasExaminadas = false;
+
+    // --- Las Caritas: sitio arqueológico en el acantilado norte ---
+    // Petroglifos taínos tallados en la roca caliza de la orilla norte
+    // del Lago Enriquillo. Son rostros (caritas) con expresiones variadas,
+    // datados entre 500 y 1500 d.C. Patrimonio arqueológico real de RD.
+    this.caritas = {
+      x: 900, y: 50, ancho: 200, alto: 60,
+      // 7 caritas con expresiones diferentes
+      rostros: [
+        { dx: 20, dy: 15, tipo: 'sonrisa' },
+        { dx: 55, dy: 10, tipo: 'sorpresa' },
+        { dx: 90, dy: 20, tipo: 'serio' },
+        { dx: 120, dy: 8, tipo: 'ojo_grande' },
+        { dx: 150, dy: 18, tipo: 'triangular' },
+        { dx: 175, dy: 12, tipo: 'redondo' },
+        { dx: 40, dy: 40, tipo: 'espiral' }
+      ]
+    };
 
     // --- NPCs en la Isla Cabritos ---
     const eq = textos?.dialogos?.enriquillo;
@@ -201,13 +220,22 @@ export class LagoEnriquillo {
       }
     }
 
-    // --- Interacción con NPCs ---
+    // --- Interacción con NPCs y Las Caritas ---
     if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
-      for (const npc of this.npcs) {
-        if (this._estaCerca(jugador, npc, 45)) {
-          this._hablarConNPC(npc);
-          this.bloqueoEntrada = true;
-          break;
+      // Las Caritas — acantilado norte
+      const c = this.caritas;
+      const cerca = jugador.x > c.x - 30 && jugador.x < c.x + c.ancho + 30
+        && jugador.y < c.y + c.alto + 50;
+      if (cerca) {
+        this._examinarCaritas();
+        this.bloqueoEntrada = true;
+      } else {
+        for (const npc of this.npcs) {
+          if (this._estaCerca(jugador, npc, 45)) {
+            this._hablarConNPC(npc);
+            this.bloqueoEntrada = true;
+            break;
+          }
         }
       }
     }
@@ -262,6 +290,97 @@ export class LagoEnriquillo {
     ctx.fillRect(1650 + offsetX, 0 + offsetY, 150, this.altoNivel);
     // Orilla oeste
     ctx.fillRect(0 + offsetX, 0 + offsetY, 150, this.altoNivel);
+
+    // --- Las Caritas: acantilado con petroglifos en la orilla norte ---
+    {
+      const c = this.caritas;
+      const cx = c.x + offsetX;
+      const cy = c.y + offsetY;
+
+      // Acantilado de piedra caliza
+      ctx.fillStyle = '#9a8a6a';
+      ctx.fillRect(cx - 10, cy - 10, c.ancho + 20, c.alto + 20);
+      ctx.fillStyle = '#8a7a5a';
+      ctx.fillRect(cx, cy, c.ancho, c.alto);
+      // Bordes del acantilado (sombra)
+      ctx.fillStyle = '#6a5a3a';
+      ctx.fillRect(cx, cy + c.alto, c.ancho, 8);
+
+      // Dibujar las caritas (petroglifos tallados en la roca)
+      for (const rostro of c.rostros) {
+        const rx = cx + rostro.dx;
+        const ry = cy + rostro.dy;
+        ctx.strokeStyle = '#3a2a1a';
+        ctx.lineWidth = 1.5;
+
+        if (rostro.tipo === 'sonrisa') {
+          // Cara sonriente
+          ctx.beginPath(); ctx.arc(rx, ry, 8, 0, Math.PI * 2); ctx.stroke();
+          ctx.fillStyle = '#3a2a1a';
+          ctx.fillRect(rx - 4, ry - 3, 2, 2); ctx.fillRect(rx + 2, ry - 3, 2, 2);
+          ctx.beginPath(); ctx.arc(rx, ry + 2, 4, 0.1, Math.PI - 0.1); ctx.stroke();
+        } else if (rostro.tipo === 'sorpresa') {
+          // Cara sorprendida (boca abierta O)
+          ctx.beginPath(); ctx.arc(rx, ry, 8, 0, Math.PI * 2); ctx.stroke();
+          ctx.fillStyle = '#3a2a1a';
+          ctx.fillRect(rx - 4, ry - 3, 2, 2); ctx.fillRect(rx + 2, ry - 3, 2, 2);
+          ctx.beginPath(); ctx.arc(rx, ry + 3, 2, 0, Math.PI * 2); ctx.stroke();
+        } else if (rostro.tipo === 'serio') {
+          // Cara seria (línea recta como boca)
+          ctx.beginPath(); ctx.arc(rx, ry, 8, 0, Math.PI * 2); ctx.stroke();
+          ctx.fillStyle = '#3a2a1a';
+          ctx.fillRect(rx - 4, ry - 3, 2, 2); ctx.fillRect(rx + 2, ry - 3, 2, 2);
+          ctx.beginPath(); ctx.moveTo(rx - 3, ry + 3); ctx.lineTo(rx + 3, ry + 3); ctx.stroke();
+        } else if (rostro.tipo === 'ojo_grande') {
+          // Cara con ojos grandes (estilo taíno)
+          ctx.beginPath(); ctx.arc(rx, ry, 9, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(rx - 3, ry - 2, 3, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(rx + 3, ry - 2, 3, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(rx - 2, ry + 4); ctx.lineTo(rx + 2, ry + 4); ctx.stroke();
+        } else if (rostro.tipo === 'triangular') {
+          // Cara triangular
+          ctx.beginPath(); ctx.moveTo(rx, ry - 8); ctx.lineTo(rx - 7, ry + 6); ctx.lineTo(rx + 7, ry + 6); ctx.closePath(); ctx.stroke();
+          ctx.fillStyle = '#3a2a1a';
+          ctx.fillRect(rx - 3, ry - 2, 2, 2); ctx.fillRect(rx + 1, ry - 2, 2, 2);
+        } else if (rostro.tipo === 'redondo') {
+          // Cara redonda simple
+          ctx.beginPath(); ctx.arc(rx, ry, 7, 0, Math.PI * 2); ctx.stroke();
+          ctx.fillStyle = '#3a2a1a';
+          ctx.fillRect(rx - 3, ry - 2, 2, 2); ctx.fillRect(rx + 1, ry - 2, 2, 2);
+          ctx.beginPath(); ctx.arc(rx, ry + 2, 3, 0.2, Math.PI - 0.2); ctx.stroke();
+        } else if (rostro.tipo === 'espiral') {
+          // Espiral (motivo común en petroglifos)
+          ctx.beginPath();
+          for (let a = 0; a < Math.PI * 4; a += 0.2) {
+            const sr = a * 1.2;
+            ctx.lineTo(rx + Math.cos(a) * sr, ry + Math.sin(a) * sr);
+          }
+          ctx.stroke();
+        }
+      }
+
+      // Etiqueta "Las Caritas"
+      ctx.font = '10px monospace';
+      ctx.fillStyle = '#DDCCAA';
+      ctx.textAlign = 'center';
+      ctx.fillText('Las Caritas', cx + c.ancho / 2, cy + c.alto + 22);
+      ctx.textAlign = 'left';
+
+      // Indicador [E] si el jugador está cerca
+      if (jugador) {
+        const cerca = jugador.x > c.x - 30 && jugador.x < c.x + c.ancho + 30
+          && jugador.y < c.y + c.alto + 50;
+        if (cerca) {
+          const pulso = 0.7 + Math.sin(this.tiempoTotal * 3) * 0.3;
+          ctx.font = 'bold 11px monospace';
+          ctx.fillStyle = `rgba(255, 215, 0, ${pulso})`;
+          ctx.textAlign = 'center';
+          const textos = this._obtenerTextos();
+          ctx.fillText(textos?.ui?.eExaminar || '[E] Examinar', cx + c.ancho / 2, cy - 15);
+          ctx.textAlign = 'left';
+        }
+      }
+    }
 
     // --- Isla Cabritos (centro del lago) ---
     // La isla es ovalada, árida, con cactus y rocas
@@ -616,6 +735,32 @@ export class LagoEnriquillo {
   // ============================================================
 
   // Verificar si el jugador está en la Isla Cabritos (elipse central)
+  // --- Examinar Las Caritas (petroglifos del acantilado norte) ---
+  _examinarCaritas() {
+    const textos = this._obtenerTextos();
+    const eq = textos?.dialogos?.enriquillo;
+
+    if (this._caritasExaminadas) {
+      // Re-visita: dato extra
+      this.dialogos.iniciarDialogo([
+        { personaje: '🗿 Las Caritas', texto: eq?.caritasRepite || 'Los rostros tallados en la roca te observan con expresiones milenarias. Cada uno es único.' }
+      ]);
+      return;
+    }
+
+    this.dialogos.iniciarDialogo([
+      { personaje: '🗿 Las Caritas', texto: eq?.caritas1 || '¡Petroglifos tallados en la roca caliza! Son "Las Caritas" — rostros esculpidos por los taínos.' },
+      { personaje: '🗿 Las Caritas', texto: eq?.caritas2 || 'Estas caras tienen entre 500 y 1,000 años. Representan espíritus, ancestros y divinidades.' },
+      { personaje: '🗿 Las Caritas', texto: eq?.caritas3 || 'Los taínos tallaban petroglifos en cuevas y acantilados. Estos del Lago Enriquillo son de los más accesibles.' },
+      { personaje: '🗿 Las Caritas', texto: eq?.caritas4 || 'Cada rostro tiene una expresión diferente: sonrisas, sorpresa, seriedad. ¿Qué querrían comunicar?' }
+    ], () => {
+      this._caritasExaminadas = true;
+      if (this.juego?.mostrarToast) {
+        this.juego.mostrarToast('🗿 ' + (textos?.ui?.caritasDescubiertas || 'Las Caritas descubiertas — petroglifos taínos'), 3);
+      }
+    });
+  }
+
   _dibujarJugador(ctx, jugador, offsetX, offsetY) {
     const px = jugador.x + offsetX;
     const py = jugador.y + offsetY;
