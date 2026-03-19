@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.18.0 — Mountain World, Lago Enriquillo, Cuchara Legendaria, Diana removal (2026-03-19)
+
+### Agregado
+- **Palenque de Lemba** (`js/mundos/montana/mundo-montana.js`): nuevo mundo entre asentamientos taínos. Comunidad cimarrona de Sebastián Lemba (~1540s), primera rebelión de esclavizados en las Américas. 5 NPCs (Lemba mentor, Kofi herrero, Amara tamborera, Yemayá curandera, Marcos vigía), combate vs Cazador de Cimarrones, chozas africanas, atalaya, hoguera, pinos de montaña
+- **Lago Enriquillo** (`js/mundos/enriquillo/lago-enriquillo.js`): lago más grande del Caribe con Isla Cabritos. 5 cocodrilos patrullando (8 daño, 1.5s invulnerabilidad), movimiento lento en agua (60%). Enriquillo (6 diálogos rotativos: identidad, opresión, historia de amor con Mencía, rebelión de 13 años, tratado de paz), Mencía, Tamayo
+- **Sidequest Ídolo de Enriquillo**: Anacaona da un cemí sagrado → llevar a Enriquillo en Isla Cabritos → +15 reputación. Desbloquea nodo 10 (Lago Enriquillo)
+- **Sidequest Museo de la Catedral**: tras derrotar al Constructor Méndez, aparece artefacto sagrado → llevar a Fabiola Herrera → +15 reputación, +25% bonus pacifista en combate, brillo dorado en nodo del mapa
+- **Cuchara Legendaria**: easter egg de Elian escondido bajo plataforma oculta en Cuevas del Pomier. Aumenta radio de detección permanentemente. "También es excelente para rascarse la espalda. 😄"
+- **Artefactos africanos**: Machete Cimarrón (+2 daño) y Tambor de Guerra (+2 daño) dados por NPCs del Palenque. Bonus acumulativo en ataques (🗡️ icono)
+- **8 sidequests** totales (batú, manatí, 3 LFSD, museo catedral, ídolo Enriquillo, + museoCatedral)
+
+### Mejorado
+- **Diana → Sofia**: NPC renombrado a Sofia (estudiante regular, sin quest). Alberto hereda metalCompleto (programación robot). Diana eliminada de créditos y equipo (8 miembros)
+- **Nodo 9** (Palenque de Lemba) insertado entre Taíno I y Taíno II en el mapa
+- **Nodo 10** (Lago Enriquillo) desbloqueado por sidequest de Anacaona
+
+---
+
 ## v0.17.2 — Companion combat, Real Map access, manatee selfie (2026-03-17)
 
 ### Agregado

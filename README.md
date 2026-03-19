@@ -4,7 +4,7 @@ Un videojuego RPG 2D educativo para explorar el patrimonio arqueológico de la R
 
 ## El Juego
 
-Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 9 mundos interconectados: Taíno (3 niveles), Colonial (2), Acuático (2), Jurídico, Laboratorio y LFSD.
+Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 12 mundos interconectados: Taíno (3 niveles), Montaña (Palenque de Lemba), Colonial (2), Acuático (2), Jurídico, Laboratorio, LFSD y Lago Enriquillo.
 
 ### Características
 
@@ -46,7 +46,9 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 | Mundo | Descripción |
 |---|---|
-| Taíno | Cuevas del Pomier, Asentamiento I (aldea con bohíos, vasija curativa de Anacaona), Asentamiento II (agricultura, areíto, mini-juego de batú, curación del Behique, guanábana de Guarionex) |
+| Taíno | Cuevas del Pomier (cartel anti-grafiti, Cuchara Legendaria oculta), Asentamiento I (aldea con bohíos, vasija curativa de Anacaona, sidequest ídolo para Enriquillo), Asentamiento II (agricultura, areíto, mini-juego de batú, curación del Behique, guanábana de Guarionex) |
+| Montaña | Palenque de Lemba — comunidad cimarrona (~1540s), primera rebelión de esclavizados en las Américas. 5 NPCs (Sebastián Lemba mentor, Kofi herrero, Amara tamborera, Yemayá curandera, Marcos vigía), combate vs Cazador de Cimarrones, artefactos africanos (+2 daño por artefacto) |
+| Lago Enriquillo | El lago más grande del Caribe con Isla Cabritos al centro. 5 cocodrilos patrullando, movimiento lento en agua. Cacique Enriquillo (rebelión de 13 años 1519-1533, historia de amor con Mencía), Tamayo guerrero. Sidequest: entregar ídolo cemí de Anacaona |
 | Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
 | Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), 4 especies de tortugas marinas (carey, tinglar, caguama, verde) con aletas animadas, ballenas jorobadas con canto, medusas con sacudida, pez león patrullero, combate ecológico, corales fotografiables (cerebro, cuerno, abanico, mesa). Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones con mordida y sacudida, lanchas rápidas con impacto + grito, sistema de oxígeno por apnea) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
