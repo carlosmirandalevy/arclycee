@@ -111,11 +111,10 @@ export class MundoLFSD {
         quest: 'buenasVibraciones'
       },
       {
-        id: 'sofia', x: 500, y: 340, ancho: 28, alto: 36,
-        nombre: lfsd?.sofiaNombre || 'Diana',
+        id: 'sofia', x: 500, y: 450, ancho: 28, alto: 36,
+        nombre: lfsd?.sofiaNombre || 'Sofia',
         color: '#44AA44', // Verde
-        dialogoHecho: false, esMentor: false, esQuestGiver: true,
-        quest: 'metalCompleto'
+        dialogoHecho: false, esMentor: false, esQuestGiver: false
       },
       {
         id: 'lucas', x: 850, y: 340, ancho: 28, alto: 36,
@@ -157,10 +156,11 @@ export class MundoLFSD {
         dialogoHecho: false, esMentor: false, esQuestGiver: false
       },
       {
-        id: 'estudiante5', x: 1000, y: 650, ancho: 28, alto: 36,
+        id: 'estudiante5', x: 500, y: 340, ancho: 28, alto: 36,
         nombre: lfsd?.est5Nombre || 'Alberto',
-        color: '#AAAAAA',
-        dialogoHecho: false, esMentor: false, esQuestGiver: false
+        color: '#44AA44', // Verde — programador, hereda la misión metalCompleto
+        dialogoHecho: false, esMentor: false, esQuestGiver: true,
+        quest: 'metalCompleto'
       },
       // Miembros restantes del equipo
       {
@@ -707,7 +707,7 @@ export class MundoLFSD {
     ctx.ellipse(npc.x + npc.ancho / 2, npc.y + npc.alto + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cuerpo (camisa del color del NPC — profesor, Diana y Rafael más delgados)
+    // Cuerpo (camisa del color del NPC — profesor, Sofia y Rafael más delgados)
     ctx.fillStyle = npc.color;
     if (npc.id === 'profesor' || npc.id === 'sofia' || npc.id === 'estudiante4') {
       ctx.fillRect(npc.x + 6, npc.y + 10, 16, 16);
@@ -715,21 +715,18 @@ export class MundoLFSD {
       ctx.fillRect(npc.x + 4, npc.y + 10, 20, 16);
     }
 
-    // Cabeza (Diana, Carlos Guillermo y Rafael tienen piel clara)
+    // Cabeza (Sofia, Carlos Guillermo y Rafael tienen piel clara)
     const pielClara = npc.id === 'sofia' || npc.id === 'estudiante6' || npc.id === 'estudiante4';
     ctx.fillStyle = pielClara ? '#F5DEB3' : '#D2956A';
     ctx.fillRect(npc.x + 6, npc.y, 16, 14);
 
     // Pelo
     if (npc.id === 'sofia') {
-      // Diana: pelo rubio largo rizado
+      // Sofia: pelo rubio largo rizado
       ctx.fillStyle = '#E8C84A';
-      // Pelo arriba (flequillo)
       ctx.fillRect(npc.x + 4, npc.y - 3, 20, 6);
-      // Pelo largo a los lados (llega hasta la cintura)
       ctx.fillRect(npc.x + 3, npc.y - 3, 4, 22);
       ctx.fillRect(npc.x + 21, npc.y - 3, 4, 22);
-      // Rizos: pequeños píxeles que sobresalen
       ctx.fillRect(npc.x + 1, npc.y + 4, 2, 3);
       ctx.fillRect(npc.x + 25, npc.y + 4, 2, 3);
       ctx.fillRect(npc.x + 2, npc.y + 12, 2, 3);
@@ -938,8 +935,8 @@ export class MundoLFSD {
       case 'emile':
         this._hablarEmile(npc, lfsd, misiones);
         break;
-      case 'sofia':
-        this._hablarSofia(npc, lfsd, misiones);
+      case 'estudiante5':
+        this._hablarAlberto(npc, lfsd, misiones);
         break;
       case 'lucas':
         this._hablarLucas(npc, lfsd, misiones);
@@ -1013,12 +1010,13 @@ export class MundoLFSD {
     }
   }
 
-  _hablarSofia(npc, lfsd, misiones) {
+  // --- Alberto: programador, hereda la misión metalCompleto ---
+  _hablarAlberto(npc, lfsd, misiones) {
     const nombre = '💻 ' + npc.nombre;
 
     if (misiones.estaCompletada('metalCompleto')) {
       this.dialogos.iniciarDialogo([
-        { personaje: nombre, texto: lfsd?.sofiaCompleto || '¡El robot submarino está programado! Revisa el mapa para ver los sitios que descubrió.' }
+        { personaje: nombre, texto: lfsd?.albertoCompleto || '¡El robot submarino está programado! Revisa el mapa para ver los sitios que descubrió.' }
       ]);
       return;
     }
@@ -1030,9 +1028,9 @@ export class MundoLFSD {
       }
 
       this.dialogos.iniciarDialogo([
-        { personaje: nombre, texto: lfsd?.sofiaQuest1 || '¡Perfecto! Vamos a programar el robot submarino.' },
-        { personaje: nombre, texto: lfsd?.sofiaQuest2 || 'Ordena los bloques de instrucciones para que el robot llegue al punto de escaneo.' },
-        { personaje: nombre, texto: lfsd?.sofiaQuest3 || '¡Cuidado con los obstáculos!' }
+        { personaje: nombre, texto: lfsd?.albertoQuest1 || '¡Perfecto! Vamos a programar el robot submarino.' },
+        { personaje: nombre, texto: lfsd?.albertoQuest2 || 'Ordena los bloques de instrucciones para que el robot llegue al punto de escaneo.' },
+        { personaje: nombre, texto: lfsd?.albertoQuest3 || '¡Cuidado con los obstáculos!' }
       ], () => {
         if (this.juego?.programacion) {
           this.juego.programacion.iniciar({
@@ -1068,7 +1066,6 @@ export class MundoLFSD {
                   `🤖 ${objTextos?.robotSubmarino || 'Robot Submarino'} — ${textos2?.ui?.itemAnadidoCorto || 'añadido al inventario'}`
                 );
 
-                // Sub-misión: llevar el robot a la Dra. Sofía en el Santuario del Manatí
                 this.juego.registro?.agregarEntrada('secundaria',
                   lfsd?.subMisionRobot || 'Entregar Robot Submarino',
                   lfsd?.subMisionRobotDesc || 'Lleva el Robot Submarino a la Dra. Sofía en el Santuario del Manatí.');
@@ -1078,23 +1075,21 @@ export class MundoLFSD {
         }
       });
     } else {
-      // Diálogo rotativo — intro + pares de flavor sobre el club
-      if (!this._dialogoRotativo['sofia']) this._dialogoRotativo['sofia'] = 0;
-      const idx = this._dialogoRotativo['sofia'];
+      // Diálogo rotativo — Alberto habla de programación y games
+      if (!this._dialogoRotativo['alberto']) this._dialogoRotativo['alberto'] = 0;
+      const idx = this._dialogoRotativo['alberto'];
       const pares = [
-        [lfsd?.sofia1 || 'Soy Diana, programo robots.',
-         lfsd?.sofia2 || 'Estoy trabajando en un robot submarino para explorar sitios arqueológicos.'],
-        [lfsd?.sofia5a || '¿Sabías que RD tiene más de 400 naufragios?',
-         lfsd?.sofia5b || 'Por eso diseñamos robots submarinos.'],
-        [lfsd?.sofia6a || 'Lo que más me gusta del club es combinar ciencia con historia.',
-         lfsd?.sofia6b || 'Cada robot que construimos tiene un propósito.']
+        [lfsd?.alberto1 || 'The Binding of Isaac es perturbador pero genial. Cada partida es diferente, como cada excavación.',
+         lfsd?.alberto2 || '¿Has probado el sushi de salmón? Es mi comida favorita. Eso y panqueques con syrup.'],
+        [lfsd?.alberto5 || 'Core Keeper y Terraria son primos. Misma filosofía: excava, construye, sobrevive.',
+         lfsd?.alberto6 || '¿Leer libros? Nah, prefiero leer código. Los libros no tienen bugs.']
       ];
       const par = pares[idx % pares.length];
       this.dialogos.iniciarDialogo([
         { personaje: nombre, texto: par[0] },
         { personaje: nombre, texto: par[1] }
       ]);
-      this._dialogoRotativo['sofia']++;
+      this._dialogoRotativo['alberto']++;
       npc.dialogoHecho = true;
     }
   }
@@ -1250,6 +1245,17 @@ export class MundoLFSD {
         lfsd?.rafael6 || 'En Brawl Stars, mi main es León. Invisible y letal.',
         lfsd?.rafael7 || 'Presentamos nuestro proyecto en una feria de ciencias en París.',
         lfsd?.rafael8 || 'Las side quests son donde está la verdadera aventura.'
+      ],
+      // Sofia — diseño 3D, impresión, tecnología y arqueología
+      sofia: [
+        lfsd?.sofia1 || '¡Hola! Soy Sofia. Me encanta el diseño 3D y la impresión.',
+        lfsd?.sofia2 || 'Diseñé una cuchara arqueológica en Tinkercad. ¡Es mi primer proyecto de impresión 3D!',
+        lfsd?.sofia3 || 'Lo que más me gusta del club es combinar ciencia con historia.',
+        lfsd?.sofia4 || 'Cada robot que construimos tiene un propósito: proteger el patrimonio.',
+        lfsd?.sofia5a || 'En el LFSD aprendemos en tres idiomas. Eso nos ayuda a colaborar con equipos internacionales.',
+        lfsd?.sofia5b || 'Vamos a presentar nuestro proyecto en una feria de ciencias. ¡Será increíble!',
+        lfsd?.sofia6a || 'La tecnología puede ayudar a la arqueología de maneras increíbles.',
+        lfsd?.sofia6b || '¡Algún día quiero ser ingeniera y proteger el patrimonio con robots!'
       ],
       // Alberto — Terraria, Core Keeper, sushi, bromista
       estudiante5: [

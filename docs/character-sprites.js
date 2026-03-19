@@ -91,8 +91,8 @@ function obtenerInfoSprite(tipo) {
         });
     }
 
-    // Diana (sofia-lfsd): delgada, piel clara, pelo rubio largo rizado
-    if (tipo === 'sofia-lfsd' || tipo === 'diana') {
+    // Sofia (sofia-lfsd): delgada, piel clara, pelo rubio largo rizado
+    if (tipo === 'sofia-lfsd') {
         return spriteHumanoide((ctx) => {
             dibujarBaseHumanoide(ctx, {
                 colorCuerpo: '#44aa44',

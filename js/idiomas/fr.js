@@ -773,17 +773,17 @@ const fr = {
     emile6b: 'On va présenter notre projet dans une foire scientifique. Ça va être incroyable !',
 
     // Diana — programmeuse et designeuse (chemise verte)
-    sofiaNombre: 'Diana',
-    sofia1: 'Salut ! Je suis Diana, la programmeuse de l\'équipe. Je développe les algorithmes de navigation pour notre robot sous-marin.',
-    sofia2: 'J\'ai aussi conçu un « couteau suisse » pour archéologues : un outil polyvalent que j\'ai modélisé en 3D. Je veux l\'imprimer avec notre imprimante !',
-    sofia3: 'Le couteau suisse a été le point de départ de notre réflexion sur comment la technologie peut aider l\'archéologie.',
-    sofia4: 'Tu veux programmer une mission ? Il faudra utiliser des commandes comme avancer, tourner, plonger et scanner.',
+    sofiaNombre: 'Sofia',
+    sofia1: 'Salut ! Je suis Sofia. J\'adore le design 3D et l\'impression.',
+    sofia2: 'J\'ai conçu une cuillère archéologique dans Tinkercad. C\'est mon premier projet d\'impression 3D !',
+    sofia3: 'Ce que j\'aime le plus dans le club, c\'est combiner science et histoire.',
+    sofia4: 'Chaque robot qu\'on construit a un but : protéger le patrimoine.',
 
-    // Diana — dialogues supplémentaires (paires a/b affichées en séquence)
-    sofia5a: 'Mon couteau suisse archéologique a une brosse, une spatule, une loupe et une règle d\'échelle. Tout ce qu\'un archéologue a besoin sur le terrain !',
-    sofia5b: 'Je l\'ai modélisé dans Tinkercad. C\'était mon premier projet de design 3D, et maintenant il est inclus dans le jeu.',
-    sofia6a: 'Ce que j\'aime le plus dans le club, c\'est combiner science et histoire. Ce n\'est pas juste coder pour coder.',
-    sofia6b: 'Chaque robot qu\'on construit a un but : protéger le patrimoine archéologique dominicain.',
+    // Sofia — dialogues supplémentaires
+    sofia5a: 'Au LFSD on apprend en trois langues. Ça nous aide à collaborer avec des équipes internationales.',
+    sofia5b: 'On va présenter notre projet dans une foire scientifique. Ça va être incroyable !',
+    sofia6a: 'La technologie peut aider l\'archéologie de manières incroyables.',
+    sofia6b: 'Un jour je veux être ingénieure et protéger le patrimoine avec des robots !',
 
     // Hugo — mécanicien (chemise orange)
     lucas1: 'Hé ! Je suis Hugo, le mécanicien de l\'équipe. Je m\'occupe de l\'entretien de l\'équipement d\'analyse.',

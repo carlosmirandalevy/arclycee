@@ -808,17 +808,17 @@ const es = {
     emile6b: 'Vamos a presentar nuestro proyecto en una feria de ciencias. ¡Será increíble!',
 
     // Diana — programadora y diseñadora (camisa verde)
-    sofiaNombre: 'Diana',
-    sofia1: '¡Hola! Soy Diana, la programadora del equipo. Desarrollo los algoritmos de navegación para nuestro robot submarino.',
-    sofia2: 'También diseñé una « navaja suiza » para arqueólogos: una herramienta polivalente que modelé en 3D. ¡Quiero imprimirla con nuestra impresora!',
-    sofia3: 'La navaja fue el punto de partida de nuestra reflexión sobre cómo la tecnología puede ayudar a la arqueología.',
-    sofia4: '¿Quieres programar una misión? Hay que usar comandos de avanzar, girar, sumergir y escanear.',
+    sofiaNombre: 'Sofia',
+    sofia1: '¡Hola! Soy Sofia. Me encanta el diseño 3D y la impresión.',
+    sofia2: 'Diseñé una cuchara arqueológica en Tinkercad. ¡Es mi primer proyecto de impresión 3D!',
+    sofia3: 'Lo que más me gusta del club es combinar ciencia con historia.',
+    sofia4: 'Cada robot que construimos tiene un propósito: proteger el patrimonio.',
 
-    // Diana — diálogos extra (flavor, pares a/b se muestran en secuencia)
-    sofia5a: 'Mi navaja suiza arqueológica tiene cepillo, espátula, lupa y regla de escala. ¡Todo lo que un arqueólogo necesita en el campo!',
-    sofia5b: 'La modelé en Tinkercad. Fue mi primer proyecto de diseño 3D, y ahora está incluida en el juego.',
-    sofia6a: 'Lo que más me gusta del club es combinar ciencia con historia. No es solo programar por programar.',
-    sofia6b: 'Cada robot que construimos tiene un propósito: proteger el patrimonio arqueológico dominicano.',
+    // Sofia — diálogos extra (flavor)
+    sofia5a: 'En el LFSD aprendemos en tres idiomas. Eso nos ayuda a colaborar con equipos internacionales.',
+    sofia5b: 'Vamos a presentar nuestro proyecto en una feria de ciencias. ¡Será increíble!',
+    sofia6a: 'La tecnología puede ayudar a la arqueología de maneras increíbles.',
+    sofia6b: '¡Algún día quiero ser ingeniera y proteger el patrimonio con robots!',
 
     // Hugo — mecánico (camisa naranja)
     lucas1: '¡Hey! Soy Hugo, el mecánico del equipo. Me encargo del mantenimiento del equipo de análisis.',

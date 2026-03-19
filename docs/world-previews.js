@@ -701,7 +701,7 @@
     // Estudiantes NPC (9 — con camisetas de colores)
     var students = [
       [75, 125, '#4488DD'],   // Leonardo (blue)
-      [120, 125, '#44AA44'],  // Diana (green)
+      [120, 125, '#44AA44'],  // Sofia (green)
       [215, 125, '#DD6644'],  // Hugo (orange)
       [255, 125, '#AA44AA'],  // Theo Jules
       [75, 215, '#DD4444'],   // Tea

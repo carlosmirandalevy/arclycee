@@ -773,17 +773,17 @@ const en = {
     emile6b: 'We\'re going to present our project at a science fair. It\'s going to be amazing!',
 
     // Diana — programmer and designer (green shirt)
-    sofiaNombre: 'Diana',
-    sofia1: 'Hi! I\'m Diana, the team\'s programmer. I develop the navigation algorithms for our submarine robot.',
-    sofia2: 'I also designed a "Swiss army knife" for archaeologists: a multi-purpose tool that I modeled in 3D. I want to print it with our printer!',
-    sofia3: 'The knife was the starting point of our thinking about how technology can help archaeology.',
-    sofia4: 'Want to program a mission? You\'ll need to use commands like forward, turn, dive, and scan.',
+    sofiaNombre: 'Sofia',
+    sofia1: 'Hi! I\'m Sofia. I love 3D design and printing.',
+    sofia2: 'I designed an archaeological spoon in Tinkercad. It\'s my first 3D printing project!',
+    sofia3: 'What I love most about the club is combining science with history.',
+    sofia4: 'Every robot we build has a purpose: protecting heritage.',
 
-    // Diana — extra dialogue (flavor, a/b pairs shown in sequence)
-    sofia5a: 'My archaeological Swiss army knife has a brush, spatula, magnifying glass, and scale ruler. Everything an archaeologist needs in the field!',
-    sofia5b: 'I modeled it in Tinkercad. It was my first 3D design project, and now it\'s included in the game.',
-    sofia6a: 'What I love most about the club is combining science with history. It\'s not just coding for coding\'s sake.',
-    sofia6b: 'Every robot we build has a purpose: protecting Dominican archaeological heritage.',
+    // Sofia — extra dialogue (flavor)
+    sofia5a: 'At LFSD we learn in three languages. It helps us collaborate with international teams.',
+    sofia5b: 'We\'re going to present our project at a science fair. It\'s going to be amazing!',
+    sofia6a: 'Technology can help archaeology in incredible ways.',
+    sofia6b: 'Someday I want to be an engineer and protect heritage with robots!',
 
     // Hugo — mechanic (orange shirt)
     lucas1: 'Hey! I\'m Hugo, the team\'s mechanic. I maintain the analysis equipment.',
