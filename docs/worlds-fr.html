@@ -13,7 +13,7 @@
 
     <section id="mapa">
       <h2><span class="icono">🗺️</span> Carte du Jeu</h2>
-      <p class="intro">L'île d'Hispaniola avec les 9 nœuds du jeu et leurs connexions.</p>
+      <p class="intro">L'île d'Hispaniola avec les 11 nœuds du jeu et leurs connexions.</p>
 
       <div class="game-map-container">
         <canvas id="mapaCanvas" width="640" height="340" style="display:block;width:100%;height:auto;border-radius:12px;"></canvas>
@@ -164,6 +164,8 @@
           <li><strong>5 pétroglyphes</strong> : soleil, chauve-souris, visage, spirale, grenouille — chacun avec un dialogue éducatif</li>
           <li><strong>3 graffitis vandales</strong> : montrent le problème réel des dommages aux grottes</li>
           <li><strong>Plateformes moussues</strong>, gouttes d'eau, particules de poussière, parallaxe de profondeur</li>
+          <li><strong>Panneau anti-graffiti</strong> : panneau en bois près de l'entrée de la grotte avec un symbole d'interdiction et une bombe de peinture. En s'approchant, il affiche « N'écris pas sur les murs / Protège les pétroglyphes ». Reflète le problème réel du vandalisme aux grottes du Pomier.</li>
+          <li><strong>Cuillère Légendaire (easter egg)</strong> : la Cuillère Légendaire d'Elian est cachée sous la large plateforme intermédiaire, sur des plateformes secrètes. Le joueur doit se laisser tomber du bord gauche et descendre 3 marches pour la trouver. Augmente définitivement le rayon de détection/torche.</li>
         </ul>
 
         <h4>PNJ</h4>
@@ -222,6 +224,92 @@
 
         <h4>Compagnon obtenu</h4>
         <p>🐕 <strong>Viralata</strong> — chien errant adopté près de l'entrée du village.</p>
+      </div>
+
+      <!-- Palenque de Lemba -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🏔️ Palenque de Lemba</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Campement de cimarrones dans les montagnes, inspiré des véritables palenques fondés par les Africains
+          asservis qui s'échappaient des plantations coloniales. Sebastián Lemba a mené l'une des premières
+          révoltes d'esclaves en Amérique (~1540), résistant pendant plus de 15 ans dans les montagnes du sud.
+        </p>
+
+        <h4>Contexte Historique</h4>
+        <p>Les <strong>cimarrones</strong> (marrons) étaient des personnes asservies qui s'enfuyaient dans les montagnes
+        pour établir des communautés libres appelées <strong>palenques</strong>. Ces campements possédaient des
+        structures défensives, des guetteurs et une organisation sociale propre inspirée des traditions africaines.</p>
+
+        <h4>Structures</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🛖 Huttes Circulaires Africaines</h5><p>Habitations au toit de chaume conique de style africain.</p></div>
+          <div class="item-card"><h5>🗼 Tour de Guet</h5><p>Poste d'observation pour repérer les chasseurs de cimarrones.</p></div>
+          <div class="item-card"><h5>🔥 Feu de Camp Central</h5><p>Lieu de rassemblement de la communauté cimarronne.</p></div>
+          <div class="item-card"><h5>🌲 Pins de Montagne</h5><p>Végétation de la Cordillère Centrale dominicaine.</p></div>
+        </div>
+
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">⚔️</div>
+          <div class="npc-info">
+            <h5>Sebastián Lemba</h5>
+            <div class="npc-role">Chef cimarron — Mentor (dialogue rotatif)</div>
+            <p>Chef historique de la rébellion cimarronne. Raconte la résistance, la liberté et l'héritage africain sur l'île. Dialogue rotatif avec plusieurs thèmes.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🔨</div>
+          <div class="npc-info">
+            <h5>Kofi</h5>
+            <div class="npc-role">Forgeron</div>
+            <p>Forge des outils et des armes pour la communauté. Te donne la <strong>Machette Cimarronne</strong> (+2 attaque).</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🥁</div>
+          <div class="npc-info">
+            <h5>Amara</h5>
+            <div class="npc-role">Joueuse de tambour</div>
+            <p>Gardienne des traditions musicales africaines. Te donne le <strong>Tambour de Guerre</strong> (+2 attaque).</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🌿</div>
+          <div class="npc-info">
+            <h5>Yemayá</h5>
+            <div class="npc-role">Guérisseuse</div>
+            <p>Médecine traditionnelle africaine avec des plantes de montagne.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">👁️</div>
+          <div class="npc-info">
+            <h5>Marcos</h5>
+            <div class="npc-role">Guetteur — Déclenche le combat</div>
+            <p>Surveille l'entrée du palenque. En lui parlant, il repère un <strong>Chasseur de Cimarrones</strong> et le combat se déclenche.</p>
+          </div>
+        </div>
+
+        <h4>Combat : Chasseur de Cimarrones</h4>
+        <p>Un traqueur colonial envoyé pour capturer des cimarrones. Peut être vaincu par la force ou convaincu par des arguments sur la liberté et l'humanité.</p>
+
+        <h4>Objets</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🗡️ Machette Cimarronne</h5><p>Forgée par Kofi. +2 d'attaque en combat non pacifiste.</p></div>
+          <div class="item-card"><h5>🥁 Tambour de Guerre</h5><p>Instrument cérémoniel africain. +2 d'attaque en combat non pacifiste.</p></div>
+        </div>
+
+        <h4>Mécaniques</h4>
+        <ul>
+          <li>Carte de 1400x1000px — Terrain montagneux avec des pins</li>
+          <li>Les artefacts africains (machette + tambour) accordent +2 d'attaque chacun en combat non pacifiste</li>
+          <li>Nœud 9 sur la carte du monde</li>
+        </ul>
       </div>
 
       <!-- Village Taïno II -->
@@ -492,11 +580,82 @@
           <div class="item-card"><h5>📖 Catalogue du Musée</h5><p>Catalogue complet des Atarazanas Reales.</p></div>
         </div>
       </div>
+      <!-- Lac Enriquillo -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🐊 Lac Enriquillo</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Le Lac Enriquillo est le plus grand lac des Caraïbes et le point le plus bas des Antilles (44 mètres
+          sous le niveau de la mer). En son centre se trouve l'Isla Cabritos, habitat de crocodiles américains,
+          d'iguanes rhinocéros et de flamants roses. Sur les falaises nord se trouvent Las Caritas, un site
+          archéologique avec des pétroglyphes taïnos gravés dans la roche.
+        </p>
+
+        <h4>Contexte Historique</h4>
+        <p>Le cacique <strong>Enriquillo</strong> (Guarocuya) a mené la plus longue rébellion taïno contre les Espagnols
+        (1519-1533), se réfugiant dans les montagnes de Bahoruco près du lac qui porte aujourd'hui son nom. Son histoire
+        d'amour avec <strong>Mencía</strong> et son alliance avec <strong>Tamayo</strong> font partie intégrante de
+        l'identité dominicaine.</p>
+
+        <h4>Géographie</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🏝️ Isla Cabritos</h5><p>Île aride au centre du lac avec des cactus et un terrain sec. Habitat de crocodiles américains.</p></div>
+          <div class="item-card"><h5>🗿 Las Caritas</h5><p>Site archéologique sur la falaise nord avec 7 pétroglyphes taïnos (visages gravés dans la roche).</p></div>
+        </div>
+
+        <h4>Faune et Dangers</h4>
+        <div class="grid-2">
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🐊 Crocodiles (5)</h5><p>Patrouillent les eaux du lac. 8 de dégâts par morsure. Déplacement réduit à 60% dans l'eau.</p></div>
+        </div>
+
+        <h4>PNJ</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">👑</div>
+          <div class="npc-info">
+            <h5>Cacique Enriquillo</h5>
+            <div class="npc-role">Chef rebelle — 6 dialogues rotatifs</div>
+            <p>Raconte l'histoire de la rébellion de 13 ans (1519-1533), son amour pour Mencía, les négociations avec les Espagnols et l'héritage de la résistance taïno.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">💐</div>
+          <div class="npc-info">
+            <h5>Mencía</h5>
+            <div class="npc-role">Épouse d'Enriquillo</div>
+            <p>L'histoire d'amour qui inspira la rébellion. Parle de la vie dans les montagnes de Bahoruco et de la résistance pacifique.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🛡️</div>
+          <div class="npc-info">
+            <h5>Tamayo</h5>
+            <div class="npc-role">Guerrier allié</div>
+            <p>Compagnon d'armes d'Enriquillo. Parle des tactiques de guérilla et de l'alliance entre caciques.</p>
+          </div>
+        </div>
+
+        <h4>Quête Secondaire</h4>
+        <p>Anacaona (Village Taïno I) te demande de livrer une <strong>idole cemí sacrée</strong> à Enriquillo.
+        La livraison complétée accorde <strong>+15 de réputation</strong>.</p>
+
+        <h4>Mécaniques</h4>
+        <ul>
+          <li>Débloqué par la quête secondaire d'Anacaona (livraison de l'idole cemí)</li>
+          <li>5 crocodiles patrouillent les eaux — 8 de dégâts, déplacement à 60% dans l'eau</li>
+          <li>Isla Cabritos avec terrain aride et cactus au centre du lac</li>
+          <li>Las Caritas : 7 pétroglyphes taïnos sur la falaise nord</li>
+          <li>Nœud 10 sur la carte du monde</li>
+        </ul>
+      </div>
     </section>
 
     <section id="lfsd">
       <h2><span class="icono">🤖</span> LFSD — Quêtes Secondaires</h2>
-      <p class="intro">Le jeu propose 5 quêtes secondaires découvertes en explorant les mondes.</p>
+      <p class="intro">Le jeu propose 7 quêtes secondaires découvertes en explorant les mondes.</p>
 
       <div class="mundo-card">
         <div class="mundo-header"><div class="mundo-titulo">🔧 Cours de Robotique LFSD</div></div>
@@ -533,8 +692,8 @@
         <ul>
           <li><strong>Journal de Missions (touche L)</strong> — Journal avec deux onglets et défilement :
             <ul>
-              <li><em>Onglet Histoire Principale</em> : montre les 9 mondes avec icônes d'état (&#x2705; complété / &#x1F513; débloqué / &#x1F512; verrouillé)</li>
-              <li><em>Onglet Quêtes Secondaires</em> : montre les 5 quêtes découvertes et/ou complétées</li>
+              <li><em>Onglet Histoire Principale</em> : montre les 11 mondes avec icônes d'état (&#x2705; complété / &#x1F513; débloqué / &#x1F512; verrouillé)</li>
+              <li><em>Onglet Quêtes Secondaires</em> : montre les 7 quêtes découvertes et/ou complétées</li>
             </ul>
           </li>
           <li><strong>Réputation (0-100)</strong> — 4 niveaux : Inconnu, Connu, Respecté, Légendaire. Gagnée par combat (+15 pacifiste, +5 force) et actions écologiques (+10 chacune).</li>

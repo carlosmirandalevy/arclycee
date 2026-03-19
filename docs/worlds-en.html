@@ -16,7 +16,7 @@
          ============================================================ -->
     <section id="mapa">
       <h2><span class="icono">🗺️</span> Game Map</h2>
-      <p class="intro">The island of Hispaniola with the 9 game nodes and their connections.</p>
+      <p class="intro">The island of Hispaniola with the 11 game nodes and their connections.</p>
 
       <div class="game-map-container">
         <canvas id="mapaCanvas" width="640" height="340" style="display:block;width:100%;height:auto;border-radius:12px;"></canvas>
@@ -187,6 +187,8 @@
           <li><strong>5 petroglyphs</strong>: sun, bat, face, spiral, frog — each with educational dialogue</li>
           <li><strong>3 vandal graffiti</strong>: show the real problem of cave damage</li>
           <li><strong>Mossy platforms</strong>, water drips, dust particles, depth parallax</li>
+          <li><strong>Anti-graffiti warning sign</strong>: a wooden sign near the cave entrance with a prohibition symbol and spray can icon. When the player approaches, it shows "Do not write on the walls / Protect the petroglyphs". Reflects the real problem of vandalism at the Pomier caves.</li>
+          <li><strong>Legendary Spoon (easter egg)</strong>: Elian's Legendary Spoon is hidden under the wide intermediate platform on secret stepping platforms. The player must drop off the left edge and hop down 3 steps to find it. Permanently increases detection/torch radius.</li>
         </ul>
 
         <h4>NPCs</h4>
@@ -271,6 +273,92 @@
 
         <h4>Companion obtained</h4>
         <p>🐕 <strong>Viralata</strong> — stray dog you adopt near the village entrance.</p>
+      </div>
+
+      <!-- Palenque de Lemba -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🏔️ Palenque de Lemba</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          A maroon settlement in the mountains, inspired by the real palenques founded by enslaved Africans
+          who escaped colonial plantations. Sebastián Lemba led one of the first slave rebellions in the
+          Americas (~1540s), resisting for over 15 years in the southern mountains.
+        </p>
+
+        <h4>Historical Context</h4>
+        <p><strong>Cimarrones</strong> (maroons) were enslaved people who escaped to the mountains and established
+        free communities called <strong>palenques</strong>. These settlements had defensive structures,
+        lookouts, and their own social organization inspired by African traditions.</p>
+
+        <h4>Structures</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🛖 African-style Circular Huts</h5><p>Dwellings with conical thatched roofs in African style.</p></div>
+          <div class="item-card"><h5>🗼 Watchtower</h5><p>Observation point to spot maroon hunters.</p></div>
+          <div class="item-card"><h5>🔥 Central Bonfire</h5><p>Gathering place for the maroon community.</p></div>
+          <div class="item-card"><h5>🌲 Mountain Pines</h5><p>Vegetation from the Dominican Central Mountain Range.</p></div>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">⚔️</div>
+          <div class="npc-info">
+            <h5>Sebastián Lemba</h5>
+            <div class="npc-role">Maroon leader — Mentor (rotative dialogue)</div>
+            <p>Historical leader of the maroon rebellion. Tells about resistance, freedom, and the African heritage on the island. Rotative dialogue with multiple topics.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🔨</div>
+          <div class="npc-info">
+            <h5>Kofi</h5>
+            <div class="npc-role">Blacksmith</div>
+            <p>Forges tools and weapons for the community. Gives you the <strong>Maroon Machete</strong> (+2 attack).</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🥁</div>
+          <div class="npc-info">
+            <h5>Amara</h5>
+            <div class="npc-role">Drummer</div>
+            <p>Guardian of African musical traditions. Gives you the <strong>War Drum</strong> (+2 attack).</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🌿</div>
+          <div class="npc-info">
+            <h5>Yemayá</h5>
+            <div class="npc-role">Healer</div>
+            <p>Traditional African medicine with mountain plants.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">👁️</div>
+          <div class="npc-info">
+            <h5>Marcos</h5>
+            <div class="npc-role">Lookout — Triggers combat</div>
+            <p>Guards the palenque entrance. When you talk to him, he spots a <strong>Maroon Hunter</strong> and combat begins.</p>
+          </div>
+        </div>
+
+        <h4>Combat: Maroon Hunter</h4>
+        <p>A colonial tracker sent to capture maroons. Can be defeated by force or convinced with arguments about freedom and humanity.</p>
+
+        <h4>Items</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🗡️ Maroon Machete</h5><p>Forged by Kofi. +2 attack in non-pacifist combat.</p></div>
+          <div class="item-card"><h5>🥁 War Drum</h5><p>African ceremonial instrument. +2 attack in non-pacifist combat.</p></div>
+        </div>
+
+        <h4>Mechanics</h4>
+        <ul>
+          <li>1400x1000px map — Mountainous terrain with pine trees</li>
+          <li>African artifacts (machete + drum) grant +2 attack each in non-pacifist combat</li>
+          <li>Node 9 on the world map</li>
+        </ul>
       </div>
 
       <!-- Taíno Settlement II -->
@@ -626,6 +714,76 @@
           <div class="item-card"><h5>📖 Museum Catalog</h5><p>Complete catalog of the Royal Shipyards.</p></div>
         </div>
       </div>
+      <!-- Lake Enriquillo -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🐊 Lake Enriquillo</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Lake Enriquillo is the largest lake in the Caribbean and the lowest point in the Antilles (44 meters
+          below sea level). At its center lies Isla Cabritos, home to American crocodiles, rhinoceros iguanas,
+          and flamingos. On the northern cliffs sits Las Caritas, an archaeological site with Taíno petroglyphs
+          carved into the rock.
+        </p>
+
+        <h4>Historical Context</h4>
+        <p>Cacique <strong>Enriquillo</strong> (Guarocuya) led the longest Taíno rebellion against the Spanish
+        (1519-1533), taking refuge in the Bahoruco mountains near the lake that now bears his name. His love story
+        with <strong>Mencía</strong> and his alliance with <strong>Tamayo</strong> are a fundamental part of Dominican identity.</p>
+
+        <h4>Geography</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🏝️ Isla Cabritos</h5><p>Arid island in the center of the lake with cacti and dry terrain. Habitat of American crocodiles.</p></div>
+          <div class="item-card"><h5>🗿 Las Caritas</h5><p>Archaeological site on the northern cliff with 7 Taíno petroglyphs (faces carved in rock).</p></div>
+        </div>
+
+        <h4>Wildlife and Hazards</h4>
+        <div class="grid-2">
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🐊 Crocodiles (5)</h5><p>Patrol the lake waters. 8 damage per bite. Movement slowed to 60% in water.</p></div>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">👑</div>
+          <div class="npc-info">
+            <h5>Cacique Enriquillo</h5>
+            <div class="npc-role">Rebel leader — 6 rotative dialogues</div>
+            <p>Tells the story of the 13-year rebellion (1519-1533), his love for Mencía, negotiations with the Spanish, and the legacy of Taíno resistance.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">💐</div>
+          <div class="npc-info">
+            <h5>Mencía</h5>
+            <div class="npc-role">Enriquillo's wife</div>
+            <p>The love story that inspired the rebellion. Talks about life in the Bahoruco mountains and peaceful resistance.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🛡️</div>
+          <div class="npc-info">
+            <h5>Tamayo</h5>
+            <div class="npc-role">Allied warrior</div>
+            <p>Enriquillo's brother-in-arms. Talks about guerrilla tactics and the alliance between caciques.</p>
+          </div>
+        </div>
+
+        <h4>Side Quest</h4>
+        <p>Anacaona (Taíno Settlement I) asks you to deliver a <strong>sacred cemí idol</strong> to Enriquillo.
+        Completing the delivery grants <strong>+15 reputation</strong>.</p>
+
+        <h4>Mechanics</h4>
+        <ul>
+          <li>Unlocked by Anacaona's side quest (cemí idol delivery)</li>
+          <li>5 crocodiles patrol the waters — 8 damage, movement at 60% in water</li>
+          <li>Isla Cabritos with arid terrain and cacti in the center of the lake</li>
+          <li>Las Caritas: 7 Taíno petroglyphs on the northern cliff</li>
+          <li>Node 10 on the world map</li>
+        </ul>
+      </div>
     </section>
 
     <!-- ============================================================
@@ -633,7 +791,7 @@
          ============================================================ -->
     <section id="lfsd">
       <h2><span class="icono">🤖</span> Side Quests</h2>
-      <p class="intro">5 side quests discovered across the game world, each with unique mini-games or ecological challenges.</p>
+      <p class="intro">7 side quests discovered across the game world, each with unique mini-games or ecological challenges.</p>
 
       <div class="mundo-card">
         <div class="mundo-header">
@@ -687,7 +845,7 @@
         <ul>
           <li><strong>Game Log (L key)</strong> — Journal with two tabs:
             <ul>
-              <li><strong>Main Story</strong>: shows 9 worlds with status icons — &#x2705; completed, &#x1F513; unlocked, &#x1F512; locked.</li>
+              <li><strong>Main Story</strong>: shows 11 worlds with status icons — &#x2705; completed, &#x1F513; unlocked, &#x1F512; locked.</li>
               <li><strong>Side Quests</strong>: shows discovered and completed sidequests with progress details.</li>
             </ul>
           </li>

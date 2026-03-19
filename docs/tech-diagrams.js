@@ -721,7 +721,7 @@
     svg.appendChild(svgText(120, 215, t('endings_no'), { size: 9, fill: 'var(--verde)' }));
     svg.appendChild(svgLine(120, 207, 120, 240, { arrow: true, stroke: 'var(--verde)' }));
 
-    // D3: 8 nodos + 5 sidequests?
+    // D3: 8 nodos + 7 sidequests?
     svg.appendChild(diamond(120, 270, '8 nodos', '+ 5 side'));
     svg.appendChild(svgText(170, 250, t('endings_yes'), { size: 9, fill: 'var(--dorado)', anchor: 'start' }));
     svg.appendChild(svgLine(152, 270, 220, 270, { arrow: true, stroke: 'var(--dorado)' }));

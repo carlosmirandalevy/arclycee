@@ -89,6 +89,13 @@
         <li><strong>Poisson-lion</strong> : rayures rouges/blanches, nageoires en éventail, épines dorsales venimeuses</li>
         <li><strong>Trafiquant Torres</strong> : costume sombre, lunettes de soleil, mallette à double fond</li>
       </ul>
+
+      <h3>Artefacts Africains</h3>
+      <p>Deux armes obtenues au <strong>Palenque de Lemba</strong> qui augmentent les dégâts d'attaque non-pacifiste :</p>
+      <div class="grid-2">
+        <div class="item-card"><h5>🗡️ Machette Cimarrón</h5><p>+2 attaque. Forgée par les marrons dans les montagnes.</p></div>
+        <div class="item-card"><h5>🥁 Tambour de Guerre</h5><p>+2 attaque. Utilisé pour coordonner les rébellions marronnes.</p></div>
+      </div>
     </section>
 
     <section id="mecanicas">
@@ -153,7 +160,7 @@
       </table>
 
       <h3>Carte en Exploration Libre</h3>
-      <p>8 nœuds activés en s'approchant avec le sprite :</p>
+      <p>12 niveaux activés en s'approchant avec le sprite :</p>
       <table>
         <tr><th>#</th><th>Nœud</th><th>Emplacement</th></tr>
         <tr><td>1</td><td>Grottes du Pomier</td><td>San Cristóbal (centre-sud)</td></tr>
@@ -164,11 +171,14 @@
         <tr><td>6</td><td>Épave de la Santa María</td><td>Côte nord (mer)</td></tr>
         <tr><td>7</td><td>Aéroport de Punta Cana</td><td>La Altagracia</td></tr>
         <tr><td>8</td><td>Musée des Atarazanas Reales</td><td>Zona Colonial, Santo Domingo</td></tr>
+        <tr><td>9</td><td>LFSD — Classe de Robotique</td><td>Santo Domingo</td></tr>
+        <tr><td>10</td><td>Palenque de Lemba</td><td>Montagnes de Bahoruco</td></tr>
+        <tr><td>11</td><td>Lac Enriquillo</td><td>Sud-ouest (Independencia/Bahoruco)</td></tr>
       </table>
 
       <h3>5 Fins</h3>
       <div class="grid-2">
-        <div class="item-card" style="border-left: 3px solid var(--dorado);"><h5>👑 Fin Complète</h5><p>8+ nœuds complétés + 5 quêtes secondaires + tous pacifiés. Légende de Quisqueya.</p></div>
+        <div class="item-card" style="border-left: 3px solid var(--dorado);"><h5>👑 Fin Complète</h5><p>8+ nœuds complétés + 7 quêtes secondaires + tous pacifiés. Légende de Quisqueya.</p></div>
         <div class="item-card" style="border-left: 3px solid #ccaaff;"><h5>🕊️ Fin Pacifiste</h5><p>8+ nœuds complétés + tous pacifiés. Pepito ambassadeur jeunesse du patrimoine.</p></div>
         <div class="item-card" style="border-left: 3px solid var(--azul);"><h5>🏛️ Fin du Musée</h5><p>Fin par défaut. Pièces exposées au Musée des Atarazanas Reales.</p></div>
         <div class="item-card" style="border-left: 3px solid var(--verde);"><h5>🌍 Fin Écologique</h5><p>3+ actions écologiques sans violence. Fonde une organisation de conservation marine.</p></div>
@@ -187,10 +197,23 @@
       </table>
       <p>IA rééquilibrée : <strong>72% vitesse</strong>, 150ms délai, <strong>30% erreurs intentionnelles</strong>. Premier à 3 points gagne.</p>
 
+      <h3>7 Quêtes Secondaires</h3>
+      <p>Le jeu propose <strong>7 quêtes secondaires</strong> optionnelles découvertes en explorant les mondes :</p>
+      <table>
+        <tr><th>#</th><th>Quête</th><th>Origine</th><th>Description</th><th>Récompense</th></tr>
+        <tr><td>1</td><td>Batú</td><td>Higüemota (Village Taïno II)</td><td>Jeu de balle sacré taïno avec physique 2D</td><td>Quête complétée</td></tr>
+        <tr><td>2</td><td>Sauvetage du Lamantin</td><td>Dre Sofía (Sanctuaire du Lamantin)</td><td>Libérer le lamantin et nettoyer le récif</td><td>+10 réputation par action</td></tr>
+        <tr><td>3</td><td>Good Vibrations</td><td>Leonardo (LFSD)</td><td>Calibrer le magnétomètre dans la classe de robotique</td><td>Quête complétée</td></tr>
+        <tr><td>4</td><td>Full Metal Archeologist</td><td>Alberto (LFSD)</td><td>Programmer le robot sous-marin</td><td>Quête complétée</td></tr>
+        <tr><td>5</td><td>Weird Science</td><td>Hugo (LFSD)</td><td>Réparer l'équipement d'analyse</td><td>Quête complétée</td></tr>
+        <tr><td>6</td><td>Musée de la Cathédrale</td><td>Zona Colonial (après avoir vaincu Méndez)</td><td>Apporter un artefact sacré à Fabiola Herrera au Musée de la Cathédrale</td><td>+15 réputation, +25% bonus de conviction pacifiste dans tous les combats futurs, lueur dorée sur le nœud Zona Colonial</td></tr>
+        <tr><td>7</td><td>L'Idole d'Enriquillo</td><td>Anacaona (Village Taïno I)</td><td>Livrer un cemí sacré au Cacique Enriquillo au Lac Enriquillo (Isla Cabritos)</td><td>+15 réputation, débloque le nœud Lac Enriquillo</td></tr>
+      </table>
+
       <h3>Easter Eggs</h3>
       <p>8 objets secrets personnalisés :</p>
       <div class="grid-2">
-        <div class="item-card"><h5>🥄 Cuillère Légendaire</h5><p>Elian — +10 endurance</p></div>
+        <div class="item-card"><h5>🥄 Cuillère Légendaire</h5><p>Elian — Augmente en permanence le rayon de détection. Cachée sous une plateforme dans les Grottes du Pomier. Aussi pratique pour se gratter le dos 😄</p></div>
         <div class="item-card"><h5>🍟 Frites du Sprinteur</h5><p>Theo Jules — +50% vitesse 30s</p></div>
         <div class="item-card"><h5>🥙 Shawarma Archéologique</h5><p>Carlos Guillermo — +50 PV</p></div>
         <div class="item-card"><h5>🔦 Sabre Laser Antique</h5><p>Jules — arme lumineuse spéciale</p></div>

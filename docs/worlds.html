@@ -16,7 +16,7 @@
          ============================================================ -->
     <section id="mapa">
       <h2><span class="icono">🗺️</span> Mapa del Juego</h2>
-      <p class="intro">La isla de La Hispaniola con los 9 nodos del juego y sus conexiones.</p>
+      <p class="intro">La isla de La Hispaniola con los 11 nodos del juego y sus conexiones.</p>
 
       <div class="game-map-container">
         <canvas id="mapaCanvas" width="640" height="340" style="display:block;width:100%;height:auto;border-radius:12px;"></canvas>
@@ -201,6 +201,8 @@
           <li><strong>5 petroglifos</strong>: sol, murciélago, cara, espiral, rana — cada uno con diálogo educativo</li>
           <li><strong>3 graffitis vandálicos</strong>: muestran el problema real de daño a las cuevas</li>
           <li><strong>Plataformas con musgo</strong>, goteo de agua, partículas de polvo, parallax de profundidad</li>
+          <li><strong>Letrero anti-graffiti</strong>: cartel de madera cerca de la entrada con un símbolo de prohibición y un aerosol. Al acercarse, muestra "No escribas en las paredes / Protege los petroglifos". Refleja el problema real del vandalismo en las cuevas del Pomier.</li>
+          <li><strong>Cuchara Legendaria (easter egg)</strong>: la Cuchara Legendaria de Elian está escondida bajo la plataforma intermedia ancha, en plataformas secretas. El jugador debe dejarse caer por el borde izquierdo y saltar 3 escalones para encontrarla. Aumenta permanentemente el radio de detección/antorcha.</li>
         </ul>
 
         <h4>NPCs</h4>
@@ -323,6 +325,92 @@
 
         <h4>Compañero obtenido</h4>
         <p>🐕 <strong>Viralata</strong> — perro callejero que adoptas cerca de la entrada de la aldea.</p>
+      </div>
+
+      <!-- Palenque de Lemba -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🏔️ Palenque de Lemba</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          Asentamiento cimarrón en las montañas, inspirado en los palenques reales que fundaron los africanos
+          esclavizados que escaparon de las plantaciones coloniales. Sebastián Lemba lideró una de las primeras
+          rebeliones de esclavos en América (~1540s), resistiendo durante más de 15 años en las montañas del sur.
+        </p>
+
+        <h4>Contexto Histórico</h4>
+        <p>Los <strong>cimarrones</strong> (maroons) eran personas esclavizadas que escapaban a las montañas y establecían
+        comunidades libres llamadas <strong>palenques</strong>. Estos asentamientos tenían estructuras defensivas,
+        vigías y una organización social propia inspirada en tradiciones africanas.</p>
+
+        <h4>Estructuras</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🛖 Chozas Circulares Africanas</h5><p>Viviendas de estilo africano con techos de paja cónicos.</p></div>
+          <div class="item-card"><h5>🗼 Torre de Vigía</h5><p>Punto de observación para detectar cazadores de cimarrones.</p></div>
+          <div class="item-card"><h5>🔥 Fogata Central</h5><p>Lugar de reunión de la comunidad cimarrona.</p></div>
+          <div class="item-card"><h5>🌲 Pinos de Montaña</h5><p>Vegetación de la Cordillera Central dominicana.</p></div>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">⚔️</div>
+          <div class="npc-info">
+            <h5>Sebastián Lemba</h5>
+            <div class="npc-role">Líder cimarrón — Mentor (diálogo rotativo)</div>
+            <p>Líder histórico de la rebelión cimarrona. Cuenta sobre la resistencia, la libertad y la herencia africana en la isla. Diálogo rotativo con múltiples temas.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🔨</div>
+          <div class="npc-info">
+            <h5>Kofi</h5>
+            <div class="npc-role">Herrero</div>
+            <p>Forja herramientas y armas para la comunidad. Te entrega el <strong>Machete Cimarrón</strong> (+2 ataque).</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🥁</div>
+          <div class="npc-info">
+            <h5>Amara</h5>
+            <div class="npc-role">Tamborera</div>
+            <p>Guardiana de las tradiciones musicales africanas. Te entrega el <strong>Tambor de Guerra</strong> (+2 ataque).</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🌿</div>
+          <div class="npc-info">
+            <h5>Yemayá</h5>
+            <div class="npc-role">Curandera</div>
+            <p>Medicina tradicional africana con plantas de montaña.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">👁️</div>
+          <div class="npc-info">
+            <h5>Marcos</h5>
+            <div class="npc-role">Vigía — Dispara combate</div>
+            <p>Vigila la entrada del palenque. Al hablar con él, avista un <strong>Cazador de Cimarrones</strong> y se desencadena el combate.</p>
+          </div>
+        </div>
+
+        <h4>Combate: Cazador de Cimarrones</h4>
+        <p>Un rastreador colonial enviado para capturar cimarrones. Se puede derrotar por fuerza o convencer con argumentos sobre la libertad y la humanidad.</p>
+
+        <h4>Objetos</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🗡️ Machete Cimarrón</h5><p>Forjado por Kofi. +2 de ataque en combate no pacifista.</p></div>
+          <div class="item-card"><h5>🥁 Tambor de Guerra</h5><p>Instrumento ceremonial africano. +2 de ataque en combate no pacifista.</p></div>
+        </div>
+
+        <h4>Mecánicas</h4>
+        <ul>
+          <li>Mapa de 1400x1000px — Terreno montañoso con pinos</li>
+          <li>Los artefactos africanos (machete + tambor) otorgan +2 de ataque cada uno en combate no pacifista</li>
+          <li>Nodo 9 en el mapa del mundo</li>
+        </ul>
       </div>
 
       <!-- Asentamiento Taíno II -->
@@ -785,6 +873,76 @@
           <div class="item-card"><h5>📖 Catálogo del Museo</h5><p>Catálogo completo de las Atarazanas Reales.</p></div>
         </div>
       </div>
+      <!-- Lago Enriquillo -->
+      <div class="mundo-card taino">
+        <div class="mundo-header">
+          <div class="mundo-titulo">🐊 Lago Enriquillo</div>
+          <div class="mundo-meta">
+            <span class="tag topdown">Top-Down</span>
+          </div>
+        </div>
+        <p class="mundo-desc">
+          El Lago Enriquillo es el lago más grande del Caribe y el punto más bajo de las Antillas (44 metros
+          bajo el nivel del mar). En su centro se encuentra la Isla Cabritos, hábitat de cocodrilos americanos,
+          iguanas rinoceronte y flamencos. En los acantilados del norte están Las Caritas, un sitio arqueológico
+          con petroglifos taínos tallados en la roca.
+        </p>
+
+        <h4>Contexto Histórico</h4>
+        <p>El cacique <strong>Enriquillo</strong> (Guarocuya) lideró la rebelión taína más larga contra los españoles
+        (1519-1533), refugiándose en las montañas de Bahoruco junto al lago que hoy lleva su nombre. Su historia de amor
+        con <strong>Mencía</strong> y su alianza con <strong>Tamayo</strong> son parte fundamental de la identidad dominicana.</p>
+
+        <h4>Geografía</h4>
+        <div class="grid-2">
+          <div class="item-card"><h5>🏝️ Isla Cabritos</h5><p>Isla árida en el centro del lago con cactus y terreno seco. Hábitat de cocodrilos americanos.</p></div>
+          <div class="item-card"><h5>🗿 Las Caritas</h5><p>Sitio arqueológico en el acantilado norte con 7 petroglifos taínos (caras talladas en la roca).</p></div>
+        </div>
+
+        <h4>Fauna y peligros</h4>
+        <div class="grid-2">
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🐊 Cocodrilos (5)</h5><p>Patrullan las aguas del lago. 8 de daño por mordida. Movimiento reducido al 60% en el agua.</p></div>
+        </div>
+
+        <h4>NPCs</h4>
+        <div class="npc-card">
+          <div class="npc-avatar">👑</div>
+          <div class="npc-info">
+            <h5>Cacique Enriquillo</h5>
+            <div class="npc-role">Líder rebelde — 6 diálogos rotativos</div>
+            <p>Cuenta la historia de la rebelión de 13 años (1519-1533), su amor por Mencía, las negociaciones con los españoles y el legado de resistencia taína.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">💐</div>
+          <div class="npc-info">
+            <h5>Mencía</h5>
+            <div class="npc-role">Esposa de Enriquillo</div>
+            <p>La historia de amor que inspiró la rebelión. Habla sobre la vida en las montañas de Bahoruco y la resistencia pacífica.</p>
+          </div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-avatar">🛡️</div>
+          <div class="npc-info">
+            <h5>Tamayo</h5>
+            <div class="npc-role">Guerrero aliado</div>
+            <p>Compañero de armas de Enriquillo. Habla sobre las tácticas de guerrilla y la alianza entre caciques.</p>
+          </div>
+        </div>
+
+        <h4>Misión secundaria</h4>
+        <p>Anacaona (Asentamiento Taíno I) te pide entregar un <strong>ídolo cemí sagrado</strong> a Enriquillo.
+        Al completar la entrega recibes <strong>+15 de reputación</strong>.</p>
+
+        <h4>Mecánicas</h4>
+        <ul>
+          <li>Desbloqueado por misión secundaria de Anacaona (entrega del ídolo cemí)</li>
+          <li>5 cocodrilos patrullan las aguas — 8 de daño, movimiento al 60% en agua</li>
+          <li>Isla Cabritos con terreno árido y cactus en el centro del lago</li>
+          <li>Las Caritas: 7 petroglifos taínos en el acantilado norte</li>
+          <li>Nodo 10 en el mapa del mundo</li>
+        </ul>
+      </div>
     </section>
 
     <!-- ============================================================
@@ -792,7 +950,7 @@
          ============================================================ -->
     <section id="lfsd">
       <h2><span class="icono">🤖</span> LFSD — Misiones Secundarias</h2>
-      <p class="intro">5 misiones secundarias opcionales distribuidas por el mundo del juego. 3 de ellas se completan en la clase de robótica del Lycée Français de Saint-Domingue.</p>
+      <p class="intro">7 misiones secundarias opcionales distribuidas por el mundo del juego. 3 de ellas se completan en la clase de robótica del Lycée Français de Saint-Domingue.</p>
 
       <div class="mundo-card">
         <div class="mundo-header">
