@@ -499,33 +499,33 @@ export class LagoEnriquillo {
       this.fotografiables.push({
         x: ig.x - 5, y: ig.y - 5, ancho: 30, alto: 15,
         nombre: ig.tipo === 'ricord' ? 'Iguana de Ricord' : 'Iguana Rinoceronte',
-        tipoEntidad: 'objeto'
+        tipoEntidad: 'fauna'
       });
     }
     for (const fl of this.flamencos) {
       if (!fl.volando) {
         this.fotografiables.push({
           x: fl.x - 8, y: fl.y - 25, ancho: 16, alto: 30,
-          nombre: 'Flamenco Rosado', tipoEntidad: 'objeto'
+          nombre: 'Flamenco Rosado', tipoEntidad: 'fauna'
         });
       }
     }
     for (const cu of this.cucus) {
       this.fotografiables.push({
         x: cu.x - 5, y: cu.y - 8, ancho: 12, alto: 16,
-        nombre: 'Cucú', tipoEntidad: 'objeto'
+        nombre: 'Cucú', tipoEntidad: 'fauna'
       });
     }
     for (const cul of this.culebras) {
       this.fotografiables.push({
         x: cul.x - 10, y: cul.y - 5, ancho: 40, alto: 10,
-        nombre: 'Culebra Corredora', tipoEntidad: 'objeto'
+        nombre: 'Culebra Corredora', tipoEntidad: 'fauna'
       });
     }
     for (const croc of this.cocodrilos) {
       this.fotografiables.push({
         x: croc.x, y: croc.y, ancho: croc.ancho, alto: croc.alto,
-        nombre: 'Cocodrilo Americano', tipoEntidad: 'objeto'
+        nombre: 'Cocodrilo Americano', tipoEntidad: 'fauna'
       });
     }
 

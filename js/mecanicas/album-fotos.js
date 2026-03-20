@@ -217,6 +217,8 @@ export class AlbumFotos {
       this._renderizarNPCCentrado(ctx, entidad, cx, cy, escala, escena);
     } else if (tipoEntidad === 'petroglifo') {
       this._renderizarPetroglifo(ctx, entidad, cx, cy, escala);
+    } else if (tipoEntidad === 'fauna') {
+      this._renderizarFauna(ctx, entidad, cx, cy, escala);
     } else if (tipoEntidad === 'objeto') {
       this._renderizarObjeto(ctx, entidad, cx, cy, escala);
     }
@@ -405,6 +407,134 @@ export class AlbumFotos {
   // --- RENDERIZAR OBJETO COLECCIONABLE ---
   // Dibuja un ítem brillante con un resplandor dorado alrededor.
   // Simula los objetos que el jugador puede recoger en el mundo.
+  // --- RENDERIZAR FAUNA ---
+  // Dibuja un sprite simplificado de cada especie animal
+  _renderizarFauna(ctx, entidad, cx, cy, escala) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(escala, escala);
+
+    const nombre = entidad.nombre || '';
+
+    if (nombre.indexOf('Cocodrilo') >= 0 || nombre.indexOf('Crocodile') >= 0) {
+      // Cocodrilo — cuerpo verde alargado con mandíbula
+      ctx.fillStyle = '#3a5a2a';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 20, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#4a6a3a';
+      ctx.beginPath();
+      ctx.moveTo(18, -3); ctx.lineTo(28, 0); ctx.lineTo(18, 3);
+      ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#FF4444';
+      ctx.beginPath(); ctx.arc(20, -2, 1.5, 0, Math.PI * 2); ctx.fill();
+      // Patas
+      ctx.fillStyle = '#3a5a2a';
+      ctx.fillRect(-10, 5, 4, 5); ctx.fillRect(5, 5, 4, 5);
+    } else if (nombre.indexOf('Rinoceronte') >= 0 || nombre.indexOf('Rhinoceros') >= 0 || nombre.indexOf('Rhinoc') >= 0) {
+      // Iguana rinoceronte — verde-gris con cuernos
+      ctx.fillStyle = '#6a7a5a';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 14, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Cabeza
+      ctx.beginPath(); ctx.arc(12, -1, 5, 0, Math.PI * 2); ctx.fill();
+      // Cuernos
+      ctx.fillStyle = '#5a5a4a';
+      ctx.beginPath(); ctx.arc(15, -4, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(13, -5, 1.5, 0, Math.PI * 2); ctx.fill();
+      // Ojo amarillo
+      ctx.fillStyle = '#CCAA44';
+      ctx.beginPath(); ctx.arc(11, -2, 1.5, 0, Math.PI * 2); ctx.fill();
+      // Cresta dorsal
+      ctx.fillStyle = '#5a6a4a';
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath(); ctx.moveTo(-6 + i * 4, -4); ctx.lineTo(-4 + i * 4, -7); ctx.lineTo(-2 + i * 4, -4); ctx.closePath(); ctx.fill();
+      }
+    } else if (nombre.indexOf('Ricord') >= 0) {
+      // Iguana Ricord — gris-azul con ojos rojos
+      ctx.fillStyle = '#5a6a6a';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 14, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath(); ctx.arc(12, -1, 5, 0, Math.PI * 2); ctx.fill();
+      // Ojo ROJO
+      ctx.fillStyle = '#CC2222';
+      ctx.beginPath(); ctx.arc(11, -2, 2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#111';
+      ctx.beginPath(); ctx.arc(11, -2, 0.8, 0, Math.PI * 2); ctx.fill();
+      // Cresta
+      ctx.fillStyle = '#4a5a5a';
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath(); ctx.moveTo(-6 + i * 4, -4); ctx.lineTo(-4 + i * 4, -7); ctx.lineTo(-2 + i * 4, -4); ctx.closePath(); ctx.fill();
+      }
+    } else if (nombre.indexOf('Flamenco') >= 0 || nombre.indexOf('Flamingo') >= 0 || nombre.indexOf('Flamant') >= 0) {
+      // Flamenco rosado
+      ctx.fillStyle = '#FF8899';
+      ctx.beginPath(); ctx.ellipse(0, 5, 7, 5, 0, 0, Math.PI * 2); ctx.fill();
+      // Cuello en S
+      ctx.strokeStyle = '#FF8899';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(4, 2);
+      ctx.bezierCurveTo(6, -6, 1, -14, 4, -18);
+      ctx.stroke();
+      // Cabeza
+      ctx.fillStyle = '#FF8899';
+      ctx.beginPath(); ctx.arc(4, -18, 3, 0, Math.PI * 2); ctx.fill();
+      // Ojo
+      ctx.fillStyle = '#111';
+      ctx.beginPath(); ctx.arc(5, -19, 0.8, 0, Math.PI * 2); ctx.fill();
+      // Pico
+      ctx.fillStyle = '#222';
+      ctx.beginPath(); ctx.moveTo(7, -19); ctx.lineTo(12, -17); ctx.lineTo(10, -15); ctx.closePath(); ctx.fill();
+      // Pata
+      ctx.strokeStyle = '#CC6677'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(0, 9); ctx.lineTo(0, 20); ctx.stroke();
+    } else if (nombre.indexOf('Cuc') >= 0 || nombre.indexOf('Burrowing') >= 0 || nombre.indexOf('Hibou') >= 0) {
+      // Cucú — búho pequeño
+      ctx.fillStyle = '#8a7a5a';
+      ctx.beginPath(); ctx.ellipse(0, 2, 5, 6, 0, 0, Math.PI * 2); ctx.fill();
+      // Cabeza
+      ctx.beginPath(); ctx.arc(0, -5, 4, 0, Math.PI * 2); ctx.fill();
+      // Disco facial
+      ctx.fillStyle = '#DDCCAA';
+      ctx.beginPath(); ctx.arc(0, -5, 3, 0, Math.PI * 2); ctx.fill();
+      // Ojos amarillos grandes
+      ctx.fillStyle = '#DDAA22';
+      ctx.beginPath(); ctx.arc(-1.5, -6, 1.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(1.5, -6, 1.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#111';
+      ctx.beginPath(); ctx.arc(-1.5, -6, 0.6, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(1.5, -6, 0.6, 0, Math.PI * 2); ctx.fill();
+    } else if (nombre.indexOf('Culebra') >= 0 || nombre.indexOf('Racer') >= 0 || nombre.indexOf('Couleuvre') >= 0) {
+      // Culebra corredora — serpiente sinuosa
+      ctx.strokeStyle = '#6a5a2a';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-20, 0);
+      ctx.quadraticCurveTo(-10, -5, 0, 2);
+      ctx.quadraticCurveTo(10, 8, 18, 0);
+      ctx.stroke();
+      // Cabeza
+      ctx.fillStyle = '#6a5a2a';
+      ctx.beginPath(); ctx.moveTo(16, -2); ctx.lineTo(22, 0); ctx.lineTo(16, 2); ctx.closePath(); ctx.fill();
+      // Ojo
+      ctx.fillStyle = '#DDAA22';
+      ctx.beginPath(); ctx.arc(17, -1, 1, 0, Math.PI * 2); ctx.fill();
+    } else {
+      // Genérico — silueta de animal
+      ctx.fillStyle = '#888888';
+      ctx.beginPath(); ctx.ellipse(0, 0, 12, 8, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#AAAAAA';
+      ctx.font = '12px monospace'; ctx.textAlign = 'center';
+      ctx.fillText('🐾', 0, 4);
+    }
+
+    ctx.restore();
+  }
+
   _renderizarObjeto(ctx, entidad, cx, cy, escala) {
     ctx.save();
     ctx.translate(cx, cy);
