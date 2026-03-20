@@ -343,6 +343,25 @@ export class LagoEnriquillo {
       ig.mirandoDerecha = ig.x > prevX;
     }
 
+    // --- Cucú: toast educativo al acercarse por primera vez ---
+    if (!this._cucuAvistado) {
+      for (const cu of this.cucus) {
+        const dcx = (jugador.x + jugador.ancho / 2) - cu.x;
+        const dcy = (jugador.y + jugador.alto / 2) - cu.y;
+        if (Math.sqrt(dcx * dcx + dcy * dcy) < 50) {
+          this._cucuAvistado = true;
+          const eq = this._obtenerTextos()?.dialogos?.enriquillo;
+          if (this.juego?.mostrarToast) {
+            this.juego.mostrarToast('🦉 ' + (eq?.cucuInfo1 || 'Cucú (Athene cunicularia) — búho que vive en madrigueras en el suelo'), 4);
+            setTimeout(() => {
+              this.juego.mostrarToast('🦉 ' + (eq?.cucuInfo2 || '¡No excavan! Usan madrigueras abandonadas de otros animales. Son búhos que "piden prestado".'), 5);
+            }, 4500);
+          }
+          break;
+        }
+      }
+    }
+
     // Invulnerabilidad temporal
     if (jugador._invulnerable) {
       jugador._tiempoInvulnerable -= dt;
