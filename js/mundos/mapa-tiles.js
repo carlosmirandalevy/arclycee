@@ -771,9 +771,9 @@ function _dibujarDetalleTile(ctx, tipo, px, py, tam, col, fila, tiempo) {
       ctx.closePath();
       ctx.fill();
 
-      // Nieve en la cima (solo montañas altas)
+      // Cima rocosa (sin nieve — Caribe)
       if (hash > 0.6) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.fillStyle = 'rgba(80, 75, 65, 0.5)';
         ctx.beginPath();
         ctx.moveTo(px + tam / 2, py + 4);
         ctx.lineTo(px + tam / 2 + 5, py + 12);
