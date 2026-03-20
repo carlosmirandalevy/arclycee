@@ -200,6 +200,7 @@ export class SistemaBossCemi {
       }
       this._tiempoFase = 0;
       this._bossAturdido = false;
+      this._bossFlash = 0;
       this._bossY = 80;
       this._proyectiles = [];
       this._bloqueoEntrada = true;
@@ -215,6 +216,9 @@ export class SistemaBossCemi {
       this._tiempoPatron = 0;
       this._tiempoPatronGlobal = 0;
       this._duracionPatronActual = 8 + Math.random() * 4;
+      this._bossFlash = 0;
+      this._bossAturdido = false;
+      this._bossY = 80;
       this._bloqueoEntrada = true;
     }
   }
