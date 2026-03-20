@@ -162,6 +162,7 @@ export class SistemaBossCemi {
       this._tiempoFase = 0;
       this._proyectiles = [];
       this._bossAturdido = true;
+      this.sfx.bossAturdido();
     }
   }
 
@@ -225,7 +226,12 @@ export class SistemaBossCemi {
 
   // --- Victoria ---
   _actualizarVictoria(dt, entrada) {
-    if (this._tiempoFase > 3 && entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
+    // Sonido de bendición al llegar al momento de la bendición
+    if (!this._bendicionSonada && this._tiempoFase > 7) {
+      this._bendicionSonada = true;
+      this.sfx.bossBendicion();
+    }
+    if (this._tiempoFase > 8 && entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
       this.enJuego = false;
       if (this._alTerminar) this._alTerminar('victoria');
     }
@@ -315,6 +321,7 @@ export class SistemaBossCemi {
           radio: 6, color: '#FF5555'
         });
       }
+      this.sfx.bossAnillo();
     }
   }
 
@@ -357,6 +364,7 @@ export class SistemaBossCemi {
           radio: 7, color: '#FF2222'
         });
       }
+      this.sfx.bossDirigido();
     }
   }
 
@@ -473,21 +481,114 @@ export class SistemaBossCemi {
       return;
     }
 
-    // --- Fase VICTORIA ---
+    // --- Fase VICTORIA (cutscene animada con progresión emocional) ---
     if (this.fase === 'victoria') {
+      // Progresión emocional: furioso (rojo) → calmado (dorado/cálido)
+      // 0-3s: furioso (rojo), 3-6s: transición, 6+: cálido (dorado)
+      const progreso = Math.min(1, this._tiempoFase / 6); // 0→1 en 6 segundos
+
+      // Fondo cambia de rojo oscuro a púrpura cálido
+      const gradFondo = ctx.createLinearGradient(0, 0, 0, alto);
+      const rF = Math.floor(30 - progreso * 15);
+      const gF = Math.floor(5 + progreso * 15);
+      const bF = Math.floor(10 + progreso * 25);
+      gradFondo.addColorStop(0, `rgb(${rF}, ${gF}, ${bF})`);
+      gradFondo.addColorStop(1, `rgb(${rF - 5}, ${gF + 5}, ${bF + 10})`);
+      ctx.fillStyle = gradFondo;
+      ctx.fillRect(0, 0, ancho, alto);
+
+      // Relámpagos en el fondo (muestran el poder del ser)
+      if (Math.random() < 0.03 + (1 - progreso) * 0.05) {
+        // Rayo aleatorio
+        const rayoX = Math.random() * ancho;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 + Math.random() * 0.4})`;
+        ctx.lineWidth = 1 + Math.random() * 2;
+        ctx.beginPath();
+        ctx.moveTo(rayoX, 0);
+        let ry = 0;
+        while (ry < alto) {
+          ry += 20 + Math.random() * 30;
+          ctx.lineTo(rayoX + (Math.random() - 0.5) * 40, ry);
+        }
+        ctx.stroke();
+        // Flash del cielo
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.05 + (1 - progreso) * 0.08})`;
+        ctx.fillRect(0, 0, ancho, alto);
+      }
+
+      // Aura del boss: roja cuando furioso, dorada cuando calmado
+      const auraR = Math.floor(255 - progreso * 55);
+      const auraG = Math.floor(50 + progreso * 165);
+      const auraB = Math.floor(50 + progreso * 100);
+      const auraAlpha = 0.2 + Math.sin(this._tiempoTotal * 3) * 0.1;
+      ctx.fillStyle = `rgba(${auraR}, ${auraG}, ${auraB}, ${auraAlpha})`;
+      ctx.beginPath();
+      ctx.arc(this._bossX, this._bossY, 80 + Math.sin(this._tiempoTotal * 2) * 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Partículas: rojas al inicio, doradas al final
+      const numParticulas = Math.min(25, Math.floor(this._tiempoFase * 3));
+      for (let i = 0; i < numParticulas; i++) {
+        const angP = (i / numParticulas) * Math.PI * 2 + this._tiempoTotal * (1.5 - progreso * 0.5);
+        const radioP = 60 + Math.sin(this._tiempoTotal * 2 + i) * 20;
+        const px = this._bossX + Math.cos(angP) * radioP;
+        const py = this._bossY + Math.sin(angP) * radioP;
+        const pR = Math.floor(255 - progreso * 55);
+        const pG = Math.floor(80 + progreso * 135);
+        const pB = Math.floor(50 + progreso * 100);
+        const pAlpha = 0.3 + Math.sin(this._tiempoTotal * 4 + i) * 0.2;
+        ctx.fillStyle = `rgba(${pR}, ${pG}, ${pB}, ${pAlpha})`;
+        ctx.beginPath();
+        ctx.arc(px, py, 2 + Math.sin(i) * 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Haz de luz dorada que crece durante la bendición
+      if (this._tiempoFase > 6) {
+        const luzAlpha = Math.min(0.2, (this._tiempoFase - 6) * 0.06);
+        const gradLuz = ctx.createRadialGradient(this._bossX, this._bossY, 10, this._bossX, this._bossY, 250);
+        gradLuz.addColorStop(0, `rgba(255, 215, 0, ${luzAlpha})`);
+        gradLuz.addColorStop(1, 'rgba(255, 215, 0, 0)');
+        ctx.fillStyle = gradLuz;
+        ctx.fillRect(0, 0, ancho, alto);
+      }
+
       this._dibujarBoss(ctx, ancho);
       ctx.textAlign = 'center';
-      ctx.font = 'bold 20px monospace';
-      ctx.fillStyle = '#FFD700';
-      ctx.fillText(t.victoria || 'Has dominado al espíritu del cemí.', ancho / 2, alto / 2 - 20);
-      ctx.font = '14px monospace';
-      ctx.fillStyle = '#CCAAFF';
-      ctx.fillText(t.bendicion || 'Recibes la Bendición Divina', ancho / 2, alto / 2 + 15);
-      if (this._tiempoFase > 3) {
+
+      // Diálogo del espíritu (aparece gradualmente, color cambia con emoción)
+      const lineas = [
+        { texto: t.victoriaDialogo1 || '¡¿Cómo te ATREVES a despertarme de mi sueño eterno?!', color: '#FF4444' },
+        { texto: t.victoriaDialogo2 || 'Pero... debo admitir que esta gloriosa batalla ha sido lo más divertido que he tenido en siglos.', color: '#FF8866' },
+        { texto: t.victoriaDialogo3 || 'Así que he decidido bendecirte, hijo mío.', color: '#FFBB88' },
+        { texto: t.victoriaDialogo4 || 'Pero no me hagas enfadar de nuevo... o sentirás todo el poder de mi ira.', color: '#FFAA66' }
+      ];
+
+      const lineaVisible = Math.min(lineas.length, Math.floor(this._tiempoFase / 1.5) + 1);
+      let ly = alto / 2 - 50;
+
+      for (let i = 0; i < lineaVisible; i++) {
+        ctx.font = i === 0 ? 'bold 14px monospace' : '13px monospace';
+        ctx.fillStyle = lineas[i].color;
+        ctx.fillText(lineas[i].texto, ancho / 2, ly);
+        ly += 22;
+      }
+
+      // Después de todo el diálogo, mostrar la bendición
+      if (this._tiempoFase > 7) {
+        ctx.font = 'bold 16px monospace';
+        ctx.fillStyle = '#FFD700';
+        ctx.fillText(t.bendicion || '✨ Recibes la Bendición Divina ✨', ancho / 2, ly + 15);
+        ctx.font = '12px monospace';
+        ctx.fillStyle = '#CCAAFF';
+        ctx.fillText(t.bendicionDetalle || '+30 vida máxima | +5 fuerza | +20% velocidad', ancho / 2, ly + 35);
+      }
+
+      if (this._tiempoFase > 8) {
         const p = 0.5 + Math.sin(this._tiempoTotal * 4) * 0.3;
         ctx.fillStyle = `rgba(255, 215, 0, ${p})`;
         ctx.font = 'bold 13px monospace';
-        ctx.fillText('[E]', ancho / 2, alto / 2 + 60);
+        ctx.fillText('[E]', ancho / 2, ly + 65);
       }
       ctx.textAlign = 'left';
       return;

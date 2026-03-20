@@ -1834,6 +1834,11 @@ export class LagoEnriquillo {
       [
         { personaje: nombre, texto: eq?.enriquillo11 || 'Este lago lleva mi nombre. Pero la verdadera victoria no fue mía — fue de todos los que lucharon.' },
         { personaje: nombre, texto: eq?.enriquillo12 || 'La resistencia no siempre es violencia. A veces es sobrevivir, mantener tu cultura y nunca rendirte.' }
+      ],
+      [
+        { personaje: nombre, texto: eq?.enriquillo13 || 'Joven guerrero... deberías volver a esta isla más adelante en tu viaje.' },
+        { personaje: nombre, texto: eq?.enriquillo14 || 'Siento espíritus antiguos de cemíes en esta tierra. Y temo que uno podría despertar.' },
+        { personaje: nombre, texto: eq?.enriquillo15 || 'Si encuentras una espada ceremonial y un lugar de poder... prepárate. No todos los espíritus son benévolos.' }
       ]
     ];
 

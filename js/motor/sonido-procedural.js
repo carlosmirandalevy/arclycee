@@ -2084,4 +2084,82 @@ export class SonidoProcedural {
     ganancia.gain.setValueAtTime(this.volumen * 0.01, ahora);
     ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.06);
   }
+
+  // --- BOSS CEMÍ: sonido de ráfaga de anillo ---
+  // Pulso grave que suena cuando el boss lanza un anillo de orbes
+  bossAnillo() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.15);
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(200, ahora);
+    osc.frequency.exponentialRampToValueAtTime(80, ahora + 0.3);
+    osc.connect(ganancia);
+    osc.start(ahora);
+    osc.stop(ahora + 0.35);
+    ganancia.gain.setValueAtTime(this.volumen * 0.15, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.35);
+  }
+
+  // --- BOSS CEMÍ: sonido de disparo dirigido ---
+  // Zumbido agudo corto cuando el boss dispara orbes apuntados
+  bossDirigido() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.1);
+    const osc = ctx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(600, ahora);
+    osc.frequency.exponentialRampToValueAtTime(300, ahora + 0.15);
+    const filtro = ctx.createBiquadFilter();
+    filtro.type = 'lowpass';
+    filtro.frequency.setValueAtTime(800, ahora);
+    osc.connect(filtro);
+    filtro.connect(ganancia);
+    osc.start(ahora);
+    osc.stop(ahora + 0.18);
+    ganancia.gain.setValueAtTime(this.volumen * 0.1, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.2);
+  }
+
+  // --- BOSS CEMÍ: sonido de aturdimiento ---
+  // Tono descendente largo cuando el boss se aturde
+  bossAturdido() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.2);
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(400, ahora);
+    osc.frequency.exponentialRampToValueAtTime(80, ahora + 0.8);
+    osc.connect(ganancia);
+    osc.start(ahora);
+    osc.stop(ahora + 0.9);
+    ganancia.gain.setValueAtTime(this.volumen * 0.2, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 0.9);
+  }
+
+  // --- BOSS CEMÍ: sonido de bendición divina ---
+  // Arpegio ascendente brillante
+  bossBendicion() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.25);
+    const notas = [523, 659, 784, 1047, 1318];
+    for (let i = 0; i < notas.length; i++) {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(notas[i], ahora + i * 0.15);
+      osc.connect(ganancia);
+      osc.start(ahora + i * 0.15);
+      osc.stop(ahora + i * 0.15 + 0.3);
+    }
+    ganancia.gain.setValueAtTime(this.volumen * 0.25, ahora);
+    ganancia.gain.exponentialRampToValueAtTime(0.001, ahora + 1.2);
+  }
 }
