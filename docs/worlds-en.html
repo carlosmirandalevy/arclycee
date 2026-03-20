@@ -209,10 +209,10 @@
         </div>
       </div>
 
-      <!-- Taíno Settlement I -->
+      <!-- Yucayeque de Marién -->
       <div class="mundo-card taino">
         <div class="mundo-header">
-          <div class="mundo-titulo">🏘️ Taíno Settlement I</div>
+          <div class="mundo-titulo">🏘️ Yucayeque de Marién</div>
           <div class="mundo-meta"><span class="tag topdown">Top-Down</span></div>
         </div>
         <p class="mundo-desc">
@@ -257,7 +257,7 @@
             <line x1="420" y1="56" x2="420" y2="80" stroke="#6a4a2a" stroke-width="3"/>
             <circle cx="420" cy="54" r="8" fill="#3a8a3a"/>
             <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
-            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Taíno Settlement I — 1200x900px — Village with bohíos</text>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Yucayeque de Marién — 1200x900px — Village with bohíos</text>
           </svg>
         </div>
 
@@ -355,16 +355,17 @@
 
         <h4>Mechanics</h4>
         <ul>
-          <li>1400x1000px map — Mountainous terrain with pine trees</li>
+          <li>1400x1000px map — Mountainous terrain with pine trees and rocky gray peaks (no snow caps)</li>
           <li>African artifacts (machete + drum) grant +2 attack each in non-pacifist combat</li>
+          <li>M key to return to map</li>
           <li>Node 9 on the world map</li>
         </ul>
       </div>
 
-      <!-- Taíno Settlement II -->
+      <!-- Yucayeque de Maguá -->
       <div class="mundo-card taino">
         <div class="mundo-header">
-          <div class="mundo-titulo">🌾 Taíno Settlement II</div>
+          <div class="mundo-titulo">🌾 Yucayeque de Maguá</div>
           <div class="mundo-meta"><span class="tag topdown">Top-Down</span></div>
         </div>
         <p class="mundo-desc">
@@ -392,7 +393,7 @@
             <line x1="40" y1="145" x2="40" y2="165" stroke="#6a4a2a" stroke-width="3"/><circle cx="40" cy="143" r="7" fill="#3a8a3a"/>
             <line x1="460" y1="80" x2="460" y2="100" stroke="#6a4a2a" stroke-width="3"/><circle cx="460" cy="78" r="7" fill="#3a8a3a"/>
             <rect x="0" y="255" width="480" height="15" fill="#0a0a18"/>
-            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Taíno Settlement II — 1400x1000px — Agriculture and ceremony</text>
+            <text x="10" y="265" fill="#8888aa" font-size="8" font-family="monospace">Yucayeque de Maguá — 1400x1000px — Agriculture and ceremony</text>
           </svg>
         </div>
 
@@ -737,13 +738,13 @@
 
         <h4>Geography</h4>
         <div class="grid-2">
-          <div class="item-card"><h5>🏝️ Isla Cabritos (Guarizacca)</h5><p>Arid island in the center of the lake with xerophytic vegetation (columnar cacti, pitahaya, guayacán, bayahonda). Habitat of American crocodiles.</p></div>
+          <div class="item-card"><h5>🏝️ Isla Cabritos (Guarizacca)</h5><p>Arid island in the center of the lake, modeled as an irregular polygon of 36 points reflecting its real dimensions (12 km × 2.5 km, ~5:1 ratio). Jagged coastline with bays and protrusions. Xerophytic vegetation (columnar cacti, pitahaya, guayacán). Habitat of American crocodiles.</p></div>
           <div class="item-card"><h5>🗿 Las Caritas</h5><p>Archaeological site on the northern cliff with 7 Taíno petroglyphs (faces carved in rock).</p></div>
         </div>
 
         <h4>Wildlife and Hazards</h4>
         <div class="grid-2">
-          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🐊 Crocodiles (5)</h5><p>Patrol the lake waters. 8 damage per bite. Movement slowed to 60% in water.</p></div>
+          <div class="item-card" style="border-left: 3px solid var(--rojo);"><h5>🐊 Crocodiles (5)</h5><p>Patrol the lake waters. 8 damage per bite with procedural sound (jaw snap + deep thump + descending scream + guttural growl). Player shake + death roll animation. Movement slowed to 60% in water.</p></div>
           <div class="item-card"><h5>🦎 Rhinoceros Iguana</h5><p>Cyclura cornuta — recognizable by its 3 snout horns. Yellow eyes, triangular dorsal crest.</p></div>
           <div class="item-card"><h5>🦎 Ricord's Iguana</h5><p>Cyclura ricordii — critically endangered. Distinguished by its red eyes and gray-blue coloration.</p></div>
           <div class="item-card"><h5>🦩 Flamingos</h5><p>Walk slowly and take flight with flapping wings when the player approaches within 80 px. Return after 3 seconds.</p></div>
@@ -777,18 +778,25 @@
         </div>
 
         <h4>Side Quest</h4>
-        <p>Anacaona (Taíno Settlement I) asks you to deliver a <strong>sacred cemí idol</strong> to Enriquillo.
+        <p>Anacaona (Yucayeque de Marién) asks you to deliver a <strong>sacred cemí idol</strong> to Enriquillo.
         Completing the delivery grants <strong>+15 reputation</strong>.</p>
 
         <h4>Mechanics</h4>
         <ul>
           <li>Unlocked by Anacaona's side quest (cemí idol delivery)</li>
           <li>5 crocodiles patrol the waters — 8 damage, movement at 60% in water</li>
-          <li>Isla Cabritos (Guarizacca) with xerophytic vegetation: columnar cacti, pitahaya, guayacán, bayahonda</li>
+          <li>Isla Cabritos (Guarizacca) shaped as an irregular polygon (36 points) reflecting the real 12 km × 2.5 km dimensions (~5:1 ratio). Jagged coastline with bays and protrusions. Sandy texture patches in the interior</li>
+          <li>"Guarizacca" toast shown when the player first steps on the island</li>
+          <li>Xerophytic vegetation on land: columnar cacti, pitahaya, guayacán. Thorny shrubs (guasábara, bayahonda, alpargata) also grow in shallow water near the shore. Cactus and pitahaya do NOT grow in water</li>
+          <li>All fauna can be photographed (T) and selfied (G) with dedicated per-species sprites</li>
+          <li>Iguanas and snakes stay on land — they do not enter the water (land clamping)</li>
           <li>Flamingos with reactive flight (flapping when approached within 80 px, return after 3s)</li>
           <li>Hispaniola Racer snake (Haitiophis anomalus) along the shores</li>
           <li>Two iguana species: rhinoceros (horns, yellow eyes) and Ricord's (red eyes, gray-blue)</li>
+          <li>Player swims with rotation (same as aquatic worlds), kick animation, water ripples. Diagonal angles: ±135° down, ±45° up</li>
+          <li>Crocodile bite: custom procedural sound (mordidaCocodrilo) with jaw snap, deep thump, Wilhelm-style descending scream, and guttural growl. Player shake + death roll animation</li>
           <li>Las Caritas: 7 Taíno petroglyphs on the northern cliff</li>
+          <li>M key to return to map</li>
           <li>Node 10 on the world map</li>
         </ul>
       </div>
@@ -811,7 +819,7 @@
         <ul>
           <li>
             <strong>Batú</strong> — Sacred Taíno ball game (accept/refuse). Rebalanced AI: 72% speed, 30% errors. First to 3 points.<br>
-            <small>Discovered and played in Taíno Settlement II (talk to Higüemota a second time).</small>
+            <small>Discovered and played in Yucayeque de Maguá (talk to Higüemota a second time).</small>
           </li>
           <li>
             <strong>Manatee Rescue</strong> — Free a trapped manatee and clean a damaged reef in the Manatee Sanctuary.<br>
@@ -835,7 +843,7 @@
           </li>
           <li>
             <strong>The Idol of Enriquillo</strong> — Anacaona gives a sacred cemí to deliver to Cacique Enriquillo on Isla Cabritos in Lago Enriquillo.<br>
-            <small>Discovered by re-visiting Anacaona in Taíno Settlement I. Unlocks the Lago Enriquillo node. +15 reputation.</small>
+            <small>Discovered by re-visiting Anacaona in Yucayeque de Marién. Unlocks the Lago Enriquillo node. +15 reputation.</small>
           </li>
         </ul>
 
@@ -867,6 +875,8 @@
           </li>
           <li><strong>Reputation (0-100)</strong> — Earned through pacifist combat (+15), force (+5), and ecological actions (+10 each). 4 levels: Unknown, Known, Respected, Legendary.</li>
           <li><strong>Archaeological Sites</strong> — 8 real sites on the Leaflet map.</li>
+          <li><strong>Real Map (R key)</strong> — Accessible from all playable scenes.</li>
+          <li><strong>Full Screen</strong> — Toggle available in the game's Options menu.</li>
         </ul>
       </div>
     </section>
