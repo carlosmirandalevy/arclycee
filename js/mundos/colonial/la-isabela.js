@@ -379,6 +379,10 @@ export class LaIsabela {
         if (!this.juego.progreso.nodosDesbloqueados.includes(4)) {
           this.juego.progreso.nodosDesbloqueados.push(4);
         }
+        // Desbloquear el Santuario del Manatí (nodo 11) — Estero Hondo está cerca de La Isabela
+        if (!this.juego.progreso.nodosDesbloqueados.includes(11)) {
+          this.juego.progreso.nodosDesbloqueados.push(11);
+        }
       }
     }
 

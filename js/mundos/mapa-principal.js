@@ -529,7 +529,8 @@ export class MapaPrincipal {
 
       const iconos = {
         cueva: '⛏', aldea: '🏘', ciudad: '🏛',
-        naufragio: '⚓', juridico: '⚖️', museo: '🏛'
+        naufragio: '⚓', juridico: '⚖️', museo: '🏛',
+        montana: '⛰', lago: '🐊', escuela: '🤖'
       };
       ctx.fillText(iconos[nodo.tipo] || '●', nx, ny + 5);
 

@@ -400,7 +400,7 @@ export function obtenerNodosIsla() {
       nombre: 'La Isabela',
       tipo: 'ciudad',
       escena: 'mundoColonial',
-      conectadoA: [4]
+      conectadoA: [4, 11]
     },
     {
       // Santo Domingo — costa sur del Caribe. La Zona Colonial es
@@ -411,6 +411,17 @@ export function obtenerNodosIsla() {
       nombre: 'Zona Colonial',
       tipo: 'ciudad',
       escena: 'zonaColonial',
+      conectadoA: [5]
+    },
+    {
+      // Costa norte de RD — Santuario de Mamíferos Marinos de
+      // Estero Hondo, al oeste de La Isabela. Protege manatíes,
+      // tortugas y arrecifes de coral en aguas poco profundas.
+      id: 11,
+      tileX: 55, tileY: 12,
+      nombre: 'Santuario del Manatí',
+      tipo: 'naufragio',
+      escena: 'santuarioManati',
       conectadoA: [5]
     },
     {
