@@ -1441,7 +1441,8 @@ const en = {
       coloniales: '🏰 Colonial Sites',
       naufragios: '⚓ Shipwrecks',
       museos: '🏛 Museums',
-      inexplorados: '🔍 Unexplored Sites'
+      inexplorados: '🔍 Unexplored Sites',
+      potencial: '🔬 Archaeological Potential'
     },
 
     // --- In-game locations (main markers) ---
@@ -1578,6 +1579,39 @@ const en = {
       descCuevaMaravillasInex: 'San Pedro — unexplored chambers beyond the tourist zone with possible undocumented pictographs.',
       bocaYuma: 'Boca de Yuma',
       descBocaYuma: 'Coastal caves with archaeological stratigraphy spanning multiple periods of occupation.'
+    },
+
+    potencialArqueologico: {
+      elCabo: 'El Cabo and surroundings (Higüey)',
+      descElCabo: 'Unexcavated coastal Taíno settlements. Leiden University excavated the main village (600-1504 AD) but the surroundings have barely been explored.',
+      manantialAleta: 'Manantial de la Aleta (cenote)',
+      descManantialAleta: 'Sacred Taíno cenote 73m deep with extraordinary wooden offerings. Only "the tip of the iceberg" has been investigated — the depths remain unexplored.',
+      monteCristi: 'Montecristi coastal platform',
+      descMonteCristi: 'Over 400 colonial shipwrecks reported, fewer than 50 located. UNESCO priority underwater heritage zone.',
+      samanaBay: 'Samaná Bay',
+      descSamanaBay: 'Beyond the galleons Guadalupe and Tolosa (1724), the sheltered waters contain undiscovered shipwrecks. The archaic site El Pozito indicates pre-Columbian coastal occupation.',
+      fortLiberte: 'Fort-Liberté and En Bas Saline (Haiti)',
+      descFortLiberte: '~300 archaeological sites at risk of looting. Most likely candidate for La Navidad, the first European fort in the Americas (Columbus, 1492).',
+      pomierInexplorado: 'Cuevas del Pomier (unexplored sections)',
+      descPomierInexplorado: '55 caves with 6,000+ cave paintings — the largest concentration in the Caribbean. Only 5 open to the public; the ~50 remaining contain undocumented art.',
+      jaraguaCuevas: 'Jaragua National Park caves',
+      descJaraguaCuevas: 'Jaragua chiefdom. Caves with pictograms dated as far back as 2590 BC. The karst interior (1,374 km²) has never been systematically surveyed.',
+      grotteMarieJeanne: 'Grotte Marie-Jeanne (Haiti)',
+      descGrotteMarieJeanne: 'Potentially the largest cave system in the Caribbean (~1 km). Taíno ceramics, tools and cave art from sacred ritual use.',
+      manielOcoa: 'Maniel de Ocoa (maroon)',
+      descManielOcoa: 'First documented maroon settlement on Hispaniola (16th c., until ~1666). Never systematically excavated despite being historically documented.',
+      bahorucoMaroon: 'Sierra de Bahoruco (maroon)',
+      descBahorucoMaroon: 'For 85+ years large maroon communities occupied these mountains. Also refuge of Enriquillo (1519-1533). No systematic survey conducted.',
+      chacuey: 'Chacuey river valley',
+      descChacuey: 'Hundreds of petroglyphs and ceremonial plazas with sophisticated pathways. The agricultural settlement pattern of the valley has not been comprehensively excavated.',
+      cibaoInterior: 'Cibao Valley interior',
+      descCibaoInterior: 'Paleoecological evidence of pre-Columbian agriculture. ~300 indigenous sites recorded but the interior has received far less attention than the coast.',
+      bocaNigua: 'Boca de Nigua',
+      descBocaNigua: 'Unexcavated Taíno settlement remains. Site of the 1796 enslaved people\'s revolt — dual archaeological dimension: Taíno and maroon.',
+      islaCatalina: 'Catalina Island (underwater)',
+      descIslaCatalina: 'Captain Kidd\'s Quedagh Merchant discovered here in 2007. The reef system likely contains additional undocumented shipwrecks.',
+      costaHaitiSW: 'Southwest coast of Haiti',
+      descCostaHaitiSW: 'Jaragua chiefdom. Pre-Columbian fishing villages likely present along Les Cayes-Jérémie. No systematic coastal survey conducted.'
     }
   }
 };

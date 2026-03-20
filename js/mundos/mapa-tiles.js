@@ -463,7 +463,7 @@ export function obtenerNodosIsla() {
       // La Isla Cabritos en su centro alberga cocodrilos e iguanas.
       // Nodo desbloqueado por la sidequest de Anacaona (ídolo cemí).
       id: 10,
-      tileX: 70, tileY: 50,
+      tileX: 60, tileY: 41,
       nombre: 'Lago Enriquillo',
       tipo: 'lago',
       escena: 'lagoEnriquillo',

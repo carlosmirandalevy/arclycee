@@ -53,7 +53,8 @@ export class MapaLeaflet {
       colonial: null,
       naufragios: null,
       museos: null,
-      sitiosArqueologicos: null
+      sitiosArqueologicos: null,
+      potencialArqueologico: null
     };
 
     // Callback para cuando el jugador viaja a un nodo
@@ -119,6 +120,10 @@ export class MapaLeaflet {
       this.capas.sitiosArqueologicos = L.layerGroup().addTo(this.mapa);
       crearMarcadoresSitiosArqueologicos(this.capas.sitiosArqueologicos, this._textosMapa());
     }
+
+    // --- Capa de potencial arqueológico (siempre visible) ---
+    this.capas.potencialArqueologico = L.layerGroup().addTo(this.mapa);
+    this._agregarPotencialArqueologico();
 
     // --- Control para alternar capas de sitios ---
     // Usa configurarControlOverlays que incluye sitios inexplorados condicionalmente
@@ -439,6 +444,49 @@ export class MapaLeaflet {
     }
   }
 
+  // --- Potencial Arqueológico: sitios inexplorados o subexplorados ---
+  // 15 localizaciones reales con potencial arqueológico en la Hispaniola
+  _agregarPotencialArqueologico() {
+    const sitios = [
+      { lat: 18.36, lng: -68.62, clave: 'elCabo', nombre: 'El Cabo y alrededores', desc: 'Asentamientos taínos costeros no excavados (Higüey, RD). Leiden University excavó la aldea principal pero los alrededores apenas se han explorado.' },
+      { lat: 18.28, lng: -68.80, clave: 'manantialAleta', nombre: 'Manantial de la Aleta', desc: 'Cenote sagrado taíno de 73m de profundidad con ofrendas de madera. Solo se ha investigado "la punta del iceberg".' },
+      { lat: 19.85, lng: -71.65, clave: 'monteCristi', nombre: 'Plataforma costera de Montecristi', desc: 'Más de 400 naufragios coloniales reportados, menos de 50 localizados. Zona prioritaria de patrimonio subacuático UNESCO.' },
+      { lat: 19.17, lng: -69.33, clave: 'samanaBay', nombre: 'Bahía de Samaná', desc: 'Además de los galeones conocidos, las aguas protegidas contienen naufragios no descubiertos. El sitio arcaico El Pozito (hallazgo de Sapienza) indica ocupación pre-colombina costera.' },
+      { lat: 19.68, lng: -72.10, clave: 'fortLiberte', nombre: 'Fort-Liberté y En Bas Saline', desc: '~300 sitios arqueológicos registrados en la región, en riesgo de saqueo. Candidato más probable para La Navidad (fuerte de Colón, 1492).' },
+      { lat: 18.45, lng: -70.10, clave: 'pomierInexplorado', nombre: 'Cuevas del Pomier (secciones inexploradas)', desc: '55 cuevas, solo 5 abiertas al público. Las ~50 restantes contienen arte rupestre no documentado. Más de 6,000 pinturas conocidas.' },
+      { lat: 17.83, lng: -71.53, clave: 'jaraguaCuevas', nombre: 'Cuevas del Parque Nacional Jaragua', desc: 'Cacicazgo de Jaragua. Cuevas con pictogramas datados hasta 2590 a.C. El interior kárstico de 1,374 km² nunca se ha prospectado sistemáticamente.' },
+      { lat: 18.35, lng: -73.95, clave: 'grotteMarieJeanne', nombre: 'Grotte Marie-Jeanne (Haití)', desc: 'El sistema de cuevas más grande del Caribe (~1 km). Cerámica taína, herramientas y arte rupestre de uso ritual. Inventario arqueológico incompleto.' },
+      { lat: 18.58, lng: -70.50, clave: 'manielOcoa', nombre: 'Maniel de Ocoa (cimarrón)', desc: 'Primer asentamiento cimarrón documentado de la Hispaniola (s. XVI-XVII). Nunca excavado sistemáticamente pese a estar documentado históricamente.' },
+      { lat: 18.20, lng: -71.60, clave: 'bahorucoMaroon', nombre: 'Sierra de Bahoruco (cimarrón)', desc: 'Durante 85+ años grandes comunidades cimarronas ocuparon estas montañas. También refugio de Enriquillo (1519-1533). Sin prospección arqueológica sistemática.' },
+      { lat: 19.55, lng: -71.65, clave: 'chacuey', nombre: 'Valle del río Chacuey', desc: 'Cientos de petroglifos y plazas ceremoniales de piedra con caminos sofisticados. El patrón de asentamientos agrícolas del valle no se ha excavado.' },
+      { lat: 19.30, lng: -70.50, clave: 'cibaoInterior', nombre: 'Interior del Valle del Cibao', desc: 'Evidencia paleoecológica de agricultura pre-colombina. ~300 sitios indígenas registrados pero el interior del valle recibió mucha menos atención que la costa.' },
+      { lat: 18.38, lng: -70.12, clave: 'bocaNigua', nombre: 'Boca de Nigua', desc: 'Restos de asentamiento taíno sin excavar. Sitio de la revuelta de esclavizados de 1796. Doble dimensión arqueológica: taína y cimarrona.' },
+      { lat: 18.36, lng: -68.96, clave: 'islaCatalina', nombre: 'Isla Catalina (subacuático)', desc: 'El Quedagh Merchant del Capitán Kidd descubierto aquí en 2007. El sistema de arrecifes probablemente contiene naufragios adicionales no documentados.' },
+      { lat: 18.25, lng: -73.75, clave: 'costaHaitiSW', nombre: 'Costa suroeste de Haití (Les Cayes-Jérémie)', desc: 'Cacicazgo de Jaragua. Aldeas pesqueras pre-colombinas probablemente presentes pero sin prospección costera sistemática.' }
+    ];
+
+    const t = this._textosMapa()?.potencialArqueologico;
+
+    for (const s of sitios) {
+      const nombre = t?.[s.clave] || s.nombre;
+      const claveDesc = 'desc' + s.clave[0].toUpperCase() + s.clave.slice(1);
+      const desc = t?.[claveDesc] || s.desc;
+
+      const marcador = L.marker([s.lat, s.lng], {
+        icon: L.divIcon({
+          className: 'marcador-sitio',
+          html: '<span style="font-size: 24px;">🔬</span>',
+          iconSize: [28, 28],
+          iconAnchor: [14, 14]
+        })
+      });
+      marcador.bindPopup(
+        `<strong>🔬 ${nombre}</strong><br><small>${desc}</small>`
+      );
+      marcador.addTo(this.capas.potencialArqueologico);
+    }
+  }
+
   /** Limpiar y destruir el mapa */
   destruir() {
     if (this.mapa) {
@@ -454,6 +502,7 @@ export class MapaLeaflet {
     this.capas.naufragios = null;
     this.capas.museos = null;
     this.capas.sitiosArqueologicos = null;
+    this.capas.potencialArqueologico = null;
 
     // Limpiar referencia global
     if (window._viajarANodo) {

@@ -1503,7 +1503,8 @@ const es = {
       coloniales: '🏰 Sitios Coloniales',
       naufragios: '⚓ Naufragios',
       museos: '🏛 Museos',
-      inexplorados: '🔍 Sitios Inexplorados'
+      inexplorados: '🔍 Sitios Inexplorados',
+      potencial: '🔬 Potencial Arqueológico'
     },
 
     // --- Ubicaciones del juego (marcadores principales) ---
@@ -1704,6 +1705,40 @@ const es = {
       descCuevaMaravillasInex: 'San Pedro — cámaras inexploradas más allá de la zona turística con posibles pictografías inéditas.',
       bocaYuma: 'Boca de Yuma',
       descBocaYuma: 'Cuevas costeras con estratigrafía arqueológica que abarca múltiples períodos de ocupación.'
+    },
+
+    // --- Potencial Arqueológico (15 sitios inexplorados/subexplorados) ---
+    potencialArqueologico: {
+      elCabo: 'El Cabo y alrededores (Higüey)',
+      descElCabo: 'Asentamientos taínos costeros no excavados. Leiden University excavó la aldea principal (600-1504 d.C.) pero los alrededores apenas se han explorado.',
+      manantialAleta: 'Manantial de la Aleta (cenote)',
+      descManantialAleta: 'Cenote sagrado taíno de 73m con ofrendas de madera extraordinarias. Solo se ha investigado "la punta del iceberg" — las profundidades siguen inexploradas.',
+      monteCristi: 'Plataforma costera de Montecristi',
+      descMonteCristi: 'Más de 400 naufragios coloniales reportados, menos de 50 localizados. Zona prioritaria de patrimonio subacuático UNESCO.',
+      samanaBay: 'Bahía de Samaná',
+      descSamanaBay: 'Además de los galeones Guadalupe y Tolosa (1724), las aguas protegidas contienen naufragios no descubiertos. El sitio arcaico El Pozito indica ocupación costera pre-colombina.',
+      fortLiberte: 'Fort-Liberté y En Bas Saline (Haití)',
+      descFortLiberte: '~300 sitios arqueológicos en riesgo de saqueo. Candidato más probable para La Navidad, el primer fuerte europeo en las Américas (Colón, 1492).',
+      pomierInexplorado: 'Cuevas del Pomier (secciones inexploradas)',
+      descPomierInexplorado: '55 cuevas con 6,000+ pinturas rupestres — la mayor concentración del Caribe. Solo 5 abiertas al público; las ~50 restantes contienen arte no documentado.',
+      jaraguaCuevas: 'Cuevas del Parque Nacional Jaragua',
+      descJaraguaCuevas: 'Cacicazgo de Jaragua. Cuevas con pictogramas datados hasta 2590 a.C. El interior kárstico (1,374 km²) nunca se ha prospectado sistemáticamente.',
+      grotteMarieJeanne: 'Grotte Marie-Jeanne (Haití)',
+      descGrotteMarieJeanne: 'Potencialmente el sistema de cuevas más grande del Caribe (~1 km). Cerámica taína, herramientas y arte rupestre de uso ritual sagrado.',
+      manielOcoa: 'Maniel de Ocoa (cimarrón)',
+      descManielOcoa: 'Primer asentamiento cimarrón documentado de la Hispaniola (s. XVI, hasta ~1666). Nunca excavado sistemáticamente pese a estar documentado históricamente.',
+      bahorucoMaroon: 'Sierra de Bahoruco (cimarrón)',
+      descBahorucoMaroon: 'Durante 85+ años grandes comunidades cimarronas ocuparon estas montañas. También refugio de Enriquillo (1519-1533). Sin prospección sistemática.',
+      chacuey: 'Valle del río Chacuey',
+      descChacuey: 'Cientos de petroglifos y plazas ceremoniales con caminos sofisticados. El patrón de asentamientos agrícolas del valle no se ha excavado comprehensivamente.',
+      cibaoInterior: 'Interior del Valle del Cibao',
+      descCibaoInterior: 'Evidencia paleoecológica de agricultura pre-colombina. ~300 sitios indígenas registrados pero el interior ha recibido mucha menos atención que la costa.',
+      bocaNigua: 'Boca de Nigua',
+      descBocaNigua: 'Restos de asentamiento taíno sin excavar. Sitio de la revuelta de esclavizados de 1796 — doble dimensión arqueológica: taína y cimarrona.',
+      islaCatalina: 'Isla Catalina (subacuático)',
+      descIslaCatalina: 'El Quedagh Merchant del Capitán Kidd descubierto aquí en 2007. El sistema de arrecifes probablemente contiene naufragios adicionales no documentados.',
+      costaHaitiSW: 'Costa suroeste de Haití',
+      descCostaHaitiSW: 'Cacicazgo de Jaragua. Aldeas pesqueras pre-colombinas probablemente presentes a lo largo de Les Cayes-Jérémie. Sin prospección costera sistemática.'
     }
   }
 };

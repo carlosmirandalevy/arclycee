@@ -1441,7 +1441,8 @@ const fr = {
       coloniales: '🏰 Sites Coloniaux',
       naufragios: '⚓ Naufrages',
       museos: '🏛 Musées',
-      inexplorados: '🔍 Sites Inexplorés'
+      inexplorados: '🔍 Sites Inexplorés',
+      potencial: '🔬 Potentiel Archéologique'
     },
 
     // --- Emplacements du jeu (marqueurs principaux) ---
@@ -1642,6 +1643,39 @@ const fr = {
       descCuevaMaravillasInex: 'San Pedro — chambres inexplorées au-delà de la zone touristique avec d\'éventuelles pictographies inédites.',
       bocaYuma: 'Boca de Yuma',
       descBocaYuma: 'Grottes côtières avec stratigraphie archéologique couvrant de multiples périodes d\'occupation.'
+    },
+
+    potencialArqueologico: {
+      elCabo: 'El Cabo et environs (Higüey)',
+      descElCabo: 'Établissements taïnos côtiers non fouillés. L\'Université de Leiden a fouillé le village principal (600-1504 apr. J.-C.) mais les alentours ont à peine été explorés.',
+      manantialAleta: 'Manantial de la Aleta (cénote)',
+      descManantialAleta: 'Cénote sacré taïno de 73 m avec des offrandes en bois extraordinaires. Seule « la pointe de l\'iceberg » a été étudiée — les profondeurs restent inexplorées.',
+      monteCristi: 'Plateforme côtière de Montecristi',
+      descMonteCristi: 'Plus de 400 naufrages coloniaux signalés, moins de 50 localisés. Zone prioritaire du patrimoine subaquatique UNESCO.',
+      samanaBay: 'Baie de Samaná',
+      descSamanaBay: 'Au-delà des galions Guadalupe et Tolosa (1724), les eaux protégées contiennent des naufrages non découverts. Le site archaïque El Pozito indique une occupation côtière précolombienne.',
+      fortLiberte: 'Fort-Liberté et En Bas Saline (Haïti)',
+      descFortLiberte: '~300 sites archéologiques menacés de pillage. Candidat le plus probable pour La Navidad, le premier fort européen des Amériques (Colomb, 1492).',
+      pomierInexplorado: 'Cuevas del Pomier (sections inexplorées)',
+      descPomierInexplorado: '55 grottes avec plus de 6 000 peintures rupestres — la plus grande concentration des Caraïbes. Seulement 5 ouvertes au public ; les ~50 restantes contiennent de l\'art non documenté.',
+      jaraguaCuevas: 'Grottes du Parc National Jaragua',
+      descJaraguaCuevas: 'Caciquat de Jaragua. Grottes avec pictogrammes datés jusqu\'à 2590 av. J.-C. L\'intérieur karstique (1 374 km²) n\'a jamais été prospecté systématiquement.',
+      grotteMarieJeanne: 'Grotte Marie-Jeanne (Haïti)',
+      descGrotteMarieJeanne: 'Potentiellement le plus grand système de grottes des Caraïbes (~1 km). Céramique taïno, outils et art rupestre d\'usage rituel sacré.',
+      manielOcoa: 'Maniel de Ocoa (marron)',
+      descManielOcoa: 'Premier établissement marron documenté d\'Hispaniola (XVIe s., jusqu\'à ~1666). Jamais fouillé systématiquement malgré une documentation historique.',
+      bahorucoMaroon: 'Sierra de Bahoruco (marron)',
+      descBahorucoMaroon: 'Pendant plus de 85 ans, de grandes communautés marronnes ont occupé ces montagnes. Aussi refuge d\'Enriquillo (1519-1533). Aucune prospection systématique réalisée.',
+      chacuey: 'Vallée du río Chacuey',
+      descChacuey: 'Des centaines de pétroglyphes et places cérémonielles avec des chemins sophistiqués. Le schéma d\'établissements agricoles de la vallée n\'a pas été fouillé de manière exhaustive.',
+      cibaoInterior: 'Intérieur de la vallée du Cibao',
+      descCibaoInterior: 'Preuves paléoécologiques d\'agriculture précolombienne. ~300 sites indigènes enregistrés mais l\'intérieur a reçu beaucoup moins d\'attention que la côte.',
+      bocaNigua: 'Boca de Nigua',
+      descBocaNigua: 'Vestiges d\'établissement taïno non fouillés. Site de la révolte des personnes réduites en esclavage de 1796 — double dimension archéologique : taïno et marronne.',
+      islaCatalina: 'Île Catalina (subaquatique)',
+      descIslaCatalina: 'Le Quedagh Merchant du Capitaine Kidd découvert ici en 2007. Le système récifal contient probablement des naufrages supplémentaires non documentés.',
+      costaHaitiSW: 'Côte sud-ouest d\'Haïti',
+      descCostaHaitiSW: 'Caciquat de Jaragua. Villages de pêcheurs précolombiens probablement présents le long de Les Cayes-Jérémie. Aucune prospection côtière systématique réalisée.'
     }
   }
 };

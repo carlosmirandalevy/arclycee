@@ -171,6 +171,11 @@ export function configurarControlOverlays(mapa, capas, progreso, textosMapa) {
     capasSitios[ov?.inexplorados || '🔍 Sitios Inexplorados'] = capas.sitiosArqueologicos;
   }
 
+  // Potencial arqueológico — siempre disponible
+  if (capas.potencialArqueologico) {
+    capasSitios[ov?.potencial || '🔬 Potencial Arqueológico'] = capas.potencialArqueologico;
+  }
+
   const control = L.control.layers(null, capasSitios, {
     position: 'bottomright',
     collapsed: false
