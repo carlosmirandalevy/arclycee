@@ -132,12 +132,12 @@ const ISLA_BITMAP = [
 //   resources/hispaniola-map-pixelated-tiled.png (bitmap de referencia)
 //   resources/hispaniola-plain-topographic-map-nasa.jpg (elevación)
 const LAGOS = [
-  // Lago Enriquillo — el lago más grande del Caribe, 44m bajo nivel del mar
+  // Lago Enriquillo — el lago más grande del Caribe, 40m bajo nivel del mar
   // Ubicado en la Hoya de Enriquillo entre Sierra de Neiba y Sierra de Bahoruco
-  { cx: 56, cy: 42, rx: 4, ry: 1 },
+  { cx: 56, cy: 42, rx: 4, ry: 2 },
 
   // Étang Saumâtre (Lago Azuei) — lago salobre en Haití, al oeste del Enriquillo
-  { cx: 46, cy: 41, rx: 3, ry: 1 },
+  { cx: 46, cy: 41, rx: 3, ry: 2 },
 ];
 
 // --- Cordilleras ---
@@ -291,6 +291,25 @@ export function generarMapaIsla() {
     for (let col = 0; col < MAPA_ANCHO; col++) {
       if (tiles[fila][col] >= TILE.ARENA && _esLago(col, fila)) {
         tiles[fila][col] = TILE.RIO; // Lagos se dibujan como agua dulce
+      }
+    }
+  }
+
+  // --- Paso 5b: Tierra desértica alrededor de los lagos ---
+  // La Hoya de Enriquillo y el valle de Étang Saumâtre son zonas áridas
+  // con vegetación xerofítica. Convertir tiles cercanos a los lagos en ARENA.
+  for (let fila = 0; fila < MAPA_ALTO; fila++) {
+    for (let col = 0; col < MAPA_ANCHO; col++) {
+      // Solo convertir pradera, bosque o montaña a arena (no agua ni ríos)
+      if (tiles[fila][col] === TILE.PRADERA || tiles[fila][col] === TILE.BOSQUE || tiles[fila][col] === TILE.MONTANA) {
+        for (const lago of LAGOS) {
+          const dx = (col - lago.cx) / (lago.rx + 2); // 2 tiles más allá del lago
+          const dy = (fila - lago.cy) / (lago.ry + 2);
+          if (dx * dx + dy * dy <= 1) {
+            tiles[fila][col] = TILE.ARENA;
+            break;
+          }
+        }
       }
     }
   }
@@ -474,7 +493,7 @@ export function obtenerNodosIsla() {
       // La Isla Cabritos en su centro alberga cocodrilos e iguanas.
       // Nodo desbloqueado por la sidequest de Anacaona (ídolo cemí).
       id: 10,
-      tileX: 60, tileY: 41,
+      tileX: 57, tileY: 42,
       nombre: 'Lago Enriquillo',
       tipo: 'lago',
       escena: 'lagoEnriquillo',
