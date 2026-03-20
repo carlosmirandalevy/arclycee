@@ -196,6 +196,15 @@ export class LagoEnriquillo {
       { x: 170, y: 700, dir: -1, origenX: 170, origenY: 700, volando: false, vuelo: 0 }
     ];
 
+    // --- Pedestal oculto y Espada de Enriquillo (boss fight secreto) ---
+    // Solo visibles después de entregar el primer ídolo y que Enriquillo se haya ido
+    this._pedestalVisible = !!juego.progreso?.idoloCemiEntregado;
+    this._espadaRecogida = !!juego.progreso?.espadaEnriquillo;
+    // Pedestal detrás de un arbusto en la isla (x:1100, y:450)
+    this._pedestal = { x: 1100, y: 450 };
+    // Espada en el suelo cerca del pedestal
+    this._espada = { x: 1060, y: 480, recogida: this._espadaRecogida };
+
     // --- Elementos fotografiables (fauna del lago) ---
     // Se actualizan dinámicamente cada frame con las posiciones reales
     this.fotografiables = [];
@@ -469,6 +478,71 @@ export class LagoEnriquillo {
       jugador._tiempoInvulnerable -= dt;
       if (jugador._tiempoInvulnerable <= 0) {
         jugador._invulnerable = false;
+      }
+    }
+
+    // --- Espada de Enriquillo (pickup antes del boss fight) ---
+    if (this._pedestalVisible && !this._espada.recogida) {
+      const dex = (jugador.x + jugador.ancho / 2) - this._espada.x;
+      const dey = (jugador.y + jugador.alto / 2) - this._espada.y;
+      if (Math.sqrt(dex * dex + dey * dey) < 30 && entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
+        this._espada.recogida = true;
+        if (this.juego?.progreso) this.juego.progreso.espadaEnriquillo = true;
+        if (this.juego?.jugador) this.juego.jugador.agregarAlInventario({ nombre: 'espadaEnriquillo' });
+        if (this.juego?.inventario) {
+          const _t = this._obtenerTextos()?.objetos || {};
+          this.juego.inventario.agregar({
+            id: 'espadaEnriquillo',
+            nombre: _t.espadaEnriquillo || 'Espada de Enriquillo',
+            descripcion: _t.descEspadaEnriquillo || 'Espada ceremonial del cacique. Necesaria para enfrentar al espíritu del cemí.',
+            tipo: 'herramienta', cantidad: 1, color: '#DAA520', esUsable: false
+          });
+        }
+        this.sfx.recoger();
+        const _t2 = this._obtenerTextos();
+        if (this.juego?.mostrarToast) {
+          this.juego.mostrarToast('⚔️ ' + (_t2?.objetos?.espadaEnriquillo || 'Espada de Enriquillo'));
+        }
+        this.bloqueoEntrada = true;
+      }
+    }
+
+    // --- Pedestal oculto (activa el boss fight) ---
+    if (this._pedestalVisible && this._espada.recogida) {
+      const dpx = (jugador.x + jugador.ancho / 2) - this._pedestal.x;
+      const dpy = (jugador.y + jugador.alto / 2) - this._pedestal.y;
+      if (Math.sqrt(dpx * dpx + dpy * dpy) < 40 && entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
+        // Si ya tiene la bendición, reconocerlo
+        if (this.juego?.progreso?.bendicionDivina) {
+          const eq = this._obtenerTextos()?.dialogos?.enriquillo;
+          this.dialogos.iniciarDialogo([
+            { personaje: '☀ Espíritu', texto: eq?.yaBendecido || 'Ya posees la Bendición Divina. El espíritu te reconoce.' }
+          ]);
+        } else {
+          // Iniciar el boss fight
+          if (this.juego?.bossCemi) {
+            this.juego.bossCemi.iniciar({
+              alTerminar: (resultado) => {
+                if (resultado === 'victoria' && !this.juego.progreso.bendicionDivina) {
+                  this.juego.progreso.bendicionDivina = true;
+                  // Aplicar Bendición Divina
+                  if (this.juego.jugador) {
+                    this.juego.jugador.vidaMaxima = (this.juego.jugador.vidaMaxima || 100) + 30;
+                    this.juego.jugador.vida = this.juego.jugador.vidaMaxima;
+                    this.juego.jugador.fuerza = (this.juego.jugador.fuerza || 1) + 5;
+                  }
+                  if (this.juego.progreso) this.juego.progreso.bonusVelocidad = 1.2;
+                  const eq2 = this._obtenerTextos()?.dialogos?.enriquillo;
+                  if (this.juego.mostrarToast) {
+                    this.juego.mostrarToast('✨ ' + (eq2?.bendicionRecibida || 'Bendición Divina: +30 vida, +5 fuerza, +20% velocidad'), 5);
+                  }
+                }
+                // Derrota: no pasa nada, como un sueño
+              }
+            });
+          }
+        }
+        this.bloqueoEntrada = true;
       }
     }
 
@@ -764,6 +838,77 @@ export class LagoEnriquillo {
     ];
     for (const [vx, vy, tipo] of vegIsla.concat(vegOrilla).concat(vegAgua)) {
       this._dibujarVegetacion(ctx, vx + offsetX, vy + offsetY, tipo);
+    }
+
+    // --- Pedestal oculto + Espada de Enriquillo (visibles tras entregar ídolo) ---
+    if (this._pedestalVisible) {
+      // Arbusto que oculta parcialmente el pedestal
+      const arbX = this._pedestal.x + offsetX;
+      const arbY = this._pedestal.y + offsetY;
+      ctx.fillStyle = '#4a7a3a';
+      ctx.beginPath();
+      ctx.arc(arbX + 10, arbY - 5, 12, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#3a6a2a';
+      ctx.beginPath();
+      ctx.arc(arbX + 5, arbY, 10, 0, Math.PI * 2);
+      ctx.fill();
+      // Pedestal de piedra
+      ctx.fillStyle = '#777777';
+      ctx.fillRect(arbX - 8, arbY + 5, 16, 12);
+      ctx.fillStyle = '#999999';
+      ctx.fillRect(arbX - 10, arbY + 3, 20, 4);
+      // Brillo si el jugador se acerca
+      if (jugador) {
+        const dp = Math.sqrt(Math.pow((jugador.x + jugador.ancho / 2) - this._pedestal.x, 2) + Math.pow((jugador.y + jugador.alto / 2) - this._pedestal.y, 2));
+        if (dp < 50 && this._espada.recogida) {
+          const brillo = 0.3 + Math.sin(this.tiempoTotal * 3) * 0.2;
+          ctx.fillStyle = `rgba(200, 150, 255, ${brillo})`;
+          ctx.beginPath();
+          ctx.arc(arbX, arbY + 8, 15, 0, Math.PI * 2);
+          ctx.fill();
+          // Indicador [E]
+          ctx.font = 'bold 10px monospace';
+          ctx.fillStyle = '#CCAAFF';
+          ctx.textAlign = 'center';
+          ctx.fillText('[E]', arbX, arbY - 15);
+          ctx.textAlign = 'left';
+        }
+      }
+
+      // Espada en el suelo (si no recogida)
+      if (!this._espada.recogida) {
+        const esX = this._espada.x + offsetX;
+        const esY = this._espada.y + offsetY;
+        // Brillo
+        const brEsp = 0.4 + Math.sin(this.tiempoTotal * 4) * 0.3;
+        ctx.fillStyle = `rgba(218, 165, 32, ${brEsp})`;
+        ctx.beginPath();
+        ctx.arc(esX, esY, 12, 0, Math.PI * 2);
+        ctx.fill();
+        // Espada (rectángulo + empuñadura)
+        ctx.fillStyle = '#CCCCCC';
+        ctx.save();
+        ctx.translate(esX, esY);
+        ctx.rotate(-0.3);
+        ctx.fillRect(-2, -12, 4, 20);
+        ctx.fillStyle = '#DAA520';
+        ctx.fillRect(-5, 6, 10, 3);
+        ctx.fillStyle = '#8B4513';
+        ctx.fillRect(-2, 8, 4, 5);
+        ctx.restore();
+        // [E] indicador
+        if (jugador) {
+          const de = Math.sqrt(Math.pow((jugador.x + jugador.ancho / 2) - this._espada.x, 2) + Math.pow((jugador.y + jugador.alto / 2) - this._espada.y, 2));
+          if (de < 30) {
+            ctx.font = 'bold 10px monospace';
+            ctx.fillStyle = '#FFD700';
+            ctx.textAlign = 'center';
+            ctx.fillText('[E]', esX, esY - 18);
+            ctx.textAlign = 'left';
+          }
+        }
+      }
     }
 
     // --- Cocodrilos ---

@@ -237,6 +237,8 @@ const fr = {
       caritas4: 'Chaque visage a une expression différente : sourires, surprise, sérieux. Que voulaient-ils communiquer ?',
       caritasRepite: 'Les visages anciens gravés dans la pierre te regardent avec des expressions millénaires. Chacun est unique.',
       // Mission
+      yaBendecido: 'Tu possèdes déjà la Bénédiction Divine. L\'esprit te reconnaît comme allié.',
+      bendicionRecibida: 'Bénédiction Divine : +30 vie max, +5 force, +20% vitesse',
       misionEntregar: 'Apporte le cemí à Enriquillo sur l\'Isla Cabritos',
       misionExplorar: 'Explore le Lago Enriquillo',
       misionCompleta: 'Idole remise ! Parle avec Enriquillo pour en apprendre plus.',
@@ -710,6 +712,22 @@ const fr = {
     }
   },
 
+  // Boss fight — Esprit du Cemí (bullet hell sur Isla Cabritos)
+  bossCemi: {
+    titulo: 'Esprit du Cemí',
+    intro1: 'Le cemí brille d\'une lumière surnaturelle...',
+    intro2: 'Une présence ancienne s\'éveille. Ta conscience se déplace vers un autre plan.',
+    intro3: 'Esquive les orbes et survis jusqu\'à ce que l\'esprit s\'affaiblisse !',
+    continuar: '[E] Commencer',
+    ciclo: 'Cycle',
+    aturdido: 'L\'esprit est étourdi !',
+    atacar: '[E] Frapper avec l\'Épée d\'Enriquillo',
+    victoria: 'Tu as maîtrisé l\'esprit du cemí.',
+    bendicion: 'Tu reçois la Bénédiction Divine : +30 vie, +5 force, +20% vitesse',
+    derrota: 'La vision s\'estompe... tu te réveilles devant le piédestal.',
+    controles: 'WASD/Flèches : esquiver | E : attaquer (quand étourdi)',
+  },
+
   // Batú — jeu de balle taïno (mini-jeu)
   batu: {
     titulo: 'BATÚ',
@@ -771,6 +789,8 @@ const fr = {
     descArtefactoTaino: 'Un cemí aux détails dorés. Il doit être emmené au musée pour étude.',
     idoloCemi: 'Idole Cemí Sacré',
     descIdoloCemi: 'Cemí sculpté par Anacaona. Apporte-le à Enriquillo au Lago Enriquillo.',
+    espadaEnriquillo: 'Épée d\'Enriquillo',
+    descEspadaEnriquillo: 'Épée cérémonielle du cacique. Nécessaire pour affronter l\'esprit du cemí.',
     macheteCimarron: 'Machette Cimarron',
     descMacheteCimarron: 'Machette forgée par les cimarrones africains. +2 dégâts en combat.',
     tamborGuerra: 'Tambour de Guerre',

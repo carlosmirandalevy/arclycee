@@ -247,6 +247,8 @@ const es = {
       cucuInfo1: 'Cucú (Athene cunicularia) — búho diurno que vive en madrigueras en el suelo',
       cucuInfo2: '¡No excavan! Usan madrigueras abandonadas de otros animales. Son búhos que "piden prestado". 😄',
       guarizacca: 'Isla Cabritos — Guarizacca en lengua taína',
+      yaBendecido: 'Ya posees la Bendición Divina. El espíritu te reconoce como aliado.',
+      bendicionRecibida: 'Bendición Divina: +30 vida max, +5 fuerza, +20% velocidad',
       misionEntregar: 'Lleva el cemí a Enriquillo en la Isla Cabritos',
       misionExplorar: 'Explora el Lago Enriquillo',
       misionCompleta: '¡Ídolo entregado! Habla con Enriquillo para aprender más.',
@@ -755,6 +757,22 @@ const es = {
   },
 
   // Batú — juego de pelota taíno (mini-juego)
+  // Boss fight del Espíritu del Cemí (bullet hell en Isla Cabritos)
+  bossCemi: {
+    titulo: 'Espíritu del Cemí',
+    intro1: 'El cemí brilla con una luz sobrenatural...',
+    intro2: 'Una presencia antigua despierta. Tu conciencia se traslada a otro plano.',
+    intro3: '¡Esquiva los orbes y sobrevive hasta que el espíritu se debilite!',
+    continuar: '[E] Comenzar',
+    ciclo: 'Ciclo',
+    aturdido: '¡El espíritu está aturdido!',
+    atacar: '[E] Atacar con la Espada de Enriquillo',
+    victoria: 'Has dominado al espíritu del cemí.',
+    bendicion: 'Recibes la Bendición Divina: +30 vida, +5 fuerza, +20% velocidad',
+    derrota: 'La visión se desvanece... despiertas frente al pedestal.',
+    controles: 'WASD/Flechas: esquivar | E: atacar (cuando aturdido)',
+  },
+
   batu: {
     titulo: 'BATÚ',
     tituloIntro: '¡Juego de Batú!',
@@ -815,6 +833,8 @@ const es = {
     descArtefactoTaino: 'Un cemí con detalles dorados. Debe ser llevado al museo para su estudio.',
     idoloCemi: 'Ídolo Cemí Sagrado',
     descIdoloCemi: 'Cemí tallado por Anacaona. Llévalo a Enriquillo en el Lago Enriquillo.',
+    espadaEnriquillo: 'Espada de Enriquillo',
+    descEspadaEnriquillo: 'Espada ceremonial del cacique. Necesaria para enfrentar al espíritu del cemí.',
     macheteCimarron: 'Machete Cimarrón',
     descMacheteCimarron: 'Machete forjado por cimarrones africanos. +2 daño en combate.',
     tamborGuerra: 'Tambor de Guerra',

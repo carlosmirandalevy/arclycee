@@ -237,6 +237,8 @@ const en = {
       caritas4: 'Each face has a different expression: smiles, surprise, seriousness. What were they trying to communicate?',
       caritasRepite: 'The ancient faces carved in stone watch you with timeless expressions. Each one is unique.',
       // Mission
+      yaBendecido: 'You already possess the Godly Blessing. The spirit recognizes you as an ally.',
+      bendicionRecibida: 'Godly Blessing: +30 max health, +5 strength, +20% speed',
       misionEntregar: 'Bring the cemí to Enriquillo on Isla Cabritos',
       misionExplorar: 'Explore Lago Enriquillo',
       misionCompleta: 'Idol delivered! Talk to Enriquillo to learn more.',
@@ -710,6 +712,22 @@ const en = {
     }
   },
 
+  // Boss fight — Cemí Spirit (bullet hell on Isla Cabritos)
+  bossCemi: {
+    titulo: 'Spirit of the Cemí',
+    intro1: 'The cemí glows with a supernatural light...',
+    intro2: 'An ancient presence awakens. Your consciousness shifts to another plane.',
+    intro3: 'Dodge the orbs and survive until the spirit weakens!',
+    continuar: '[E] Begin',
+    ciclo: 'Cycle',
+    aturdido: 'The spirit is stunned!',
+    atacar: '[E] Strike with Enriquillo\'s Sword',
+    victoria: 'You have mastered the spirit of the cemí.',
+    bendicion: 'You receive the Godly Blessing: +30 health, +5 strength, +20% speed',
+    derrota: 'The vision fades... you wake up before the pedestal.',
+    controles: 'WASD/Arrows: dodge | E: attack (when stunned)',
+  },
+
   // Batú — Taíno ball game (mini-game)
   batu: {
     titulo: 'BATÚ',
@@ -771,6 +789,8 @@ const en = {
     descArtefactoTaino: 'A cemí with golden details. It should be taken to the museum for study.',
     idoloCemi: 'Sacred Cemí Idol',
     descIdoloCemi: 'Cemí carved by Anacaona. Take it to Enriquillo at Lago Enriquillo.',
+    espadaEnriquillo: 'Enriquillo\'s Sword',
+    descEspadaEnriquillo: 'Ceremonial sword of the cacique. Needed to face the spirit of the cemí.',
     macheteCimarron: 'Maroon Machete',
     descMacheteCimarron: 'Machete forged by African maroons. +2 damage in combat.',
     tamborGuerra: 'War Drum',

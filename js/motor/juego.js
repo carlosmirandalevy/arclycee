@@ -65,6 +65,7 @@ import { AsentamientoTaino1 } from '../mundos/taino/asentamiento-taino-1.js';
 import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
 import { MundoMontana } from '../mundos/montana/mundo-montana.js';
 import { LagoEnriquillo } from '../mundos/enriquillo/lago-enriquillo.js';
+import { SistemaBossCemi } from '../mecanicas/boss-cemi.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
@@ -91,6 +92,7 @@ export class Juego {
     this.sonido = null;
     this.sfx = new SonidoProcedural();
     this.musica = new SistemaMusica();
+    this.bossCemi = new SistemaBossCemi();
 
     // Restaurar volumen de sonidos desde localStorage
     try {
@@ -615,6 +617,12 @@ export class Juego {
       return;
     }
 
+    // --- Boss Cemí: bullet hell overlay ---
+    if (this.bossCemi.enJuego) {
+      this.bossCemi.actualizar(dt, this.entrada);
+      return;
+    }
+
     // --- Mini-juegos LFSD: si alguno está activo, consume toda la entrada ---
     if (this.calibracion.enJuego) {
       this.calibracion.actualizar(dt, this.entrada);
@@ -803,6 +811,11 @@ export class Juego {
     // --- Batú se dibuja ENCIMA de la escena (overlay) ---
     if (this.batu.enJuego) {
       this.batu.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.batu);
+    }
+
+    // --- Boss Cemí (bullet hell overlay) ---
+    if (this.bossCemi.enJuego) {
+      this.bossCemi.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.bossCemi);
     }
 
     // --- Mini-juegos LFSD se dibujan como overlays ---
