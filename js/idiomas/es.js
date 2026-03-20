@@ -241,6 +241,9 @@ const es = {
       // Misión
       datoGeografico: '40m bajo el nivel del mar — aguas hipersalinas, 3× más saladas que el mar',
       cocodriloInfo: 'Cocodrilo Americano (Crocodylus acutus) — la mayor población del Caribe vive en este lago',
+      culebraInfo: 'Culebra Corredora (Haitiophis anomalus) — la serpiente más larga de las Antillas, hasta 2m. La mayor colúbrida de las Américas.',
+      iguanaRinoceronteInfo: 'Iguana Rinoceronte (Cyclura cornuta) — reconocible por sus cuernos en el hocico. Endémica de la Hispaniola.',
+      iguanaRicordInfo: 'Iguana de Ricord (Cyclura ricordii) — ojos rojos distintivos. Una de las iguanas más amenazadas del mundo.',
       cucuInfo1: 'Cucú (Athene cunicularia) — búho diurno que vive en madrigueras en el suelo',
       cucuInfo2: '¡No excavan! Usan madrigueras abandonadas de otros animales. Son búhos que "piden prestado". 😄',
       guarizacca: 'Isla Cabritos — Guarizacca en lengua taína',

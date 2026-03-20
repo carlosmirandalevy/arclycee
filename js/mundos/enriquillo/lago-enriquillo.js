@@ -166,6 +166,15 @@ export class LagoEnriquillo {
       { x: 940, y: 550, fase: 3 }
     ];
 
+    // --- Culebras Corredoras (Haitiophis anomalus) ---
+    // La mayor serpiente colúbrida de las Américas y la más larga de las
+    // Antillas (hasta 2m). Se mueve por las orillas del lago.
+    this.culebras = [
+      { x: 250, y: 1060, fase: 0, velocidad: 0.5, centroX: 250, centroY: 1060, radioX: 60, radioY: 8, mirandoDerecha: true },
+      { x: 1500, y: 90, fase: 2, velocidad: 0.45, centroX: 1500, centroY: 90, radioX: 50, radioY: 10, mirandoDerecha: false },
+      { x: 120, y: 500, fase: 4, velocidad: 0.55, centroX: 120, centroY: 500, radioX: 40, radioY: 12, mirandoDerecha: true }
+    ];
+
     // --- Flamencos rosados (Phoenicopterus ruber) ---
     // Frecuentes en el Lago Enriquillo. Se paran en una pata en aguas poco
     // profundas de las orillas y cerca de la Isla Cabritos.
@@ -334,13 +343,58 @@ export class LagoEnriquillo {
     // --- Sacudida lateral (decae con dt, como en Santuario del Manatí) ---
     if (this._sacudida > 0) this._sacudida = Math.max(0, this._sacudida - dt);
 
-    // --- Iguanas: movimiento lento ---
+    // --- Iguanas: movimiento lento + toasts educativos por especie ---
+    for (const ig of this.iguanas) {
+      // Toast al acercarse por primera vez a cada especie
+      if (!ig._avistada) {
+        const dix = (jugador.x + jugador.ancho / 2) - ig.x;
+        const diy = (jugador.y + jugador.alto / 2) - ig.y;
+        if (Math.sqrt(dix * dix + diy * diy) < 60) {
+          ig._avistada = true;
+          const eq = this._obtenerTextos()?.dialogos?.enriquillo;
+          if (this.juego?.mostrarToast) {
+            if (ig.tipo === 'rinoceronte' && !this._iguanaRinoAvistada) {
+              this._iguanaRinoAvistada = true;
+              this.juego.mostrarToast('🦎 ' + (eq?.iguanaRinoceronteInfo || 'Iguana Rinoceronte (Cyclura cornuta) — reconocible por sus cuernos en el hocico'), 5);
+            } else if (ig.tipo === 'ricord' && !this._iguanaRicordAvistada) {
+              this._iguanaRicordAvistada = true;
+              this.juego.mostrarToast('🦎 ' + (eq?.iguanaRicordInfo || 'Iguana de Ricord (Cyclura ricordii) — ojos rojos distintivos. Muy amenazada.'), 5);
+            }
+          }
+        }
+      }
+    }
     for (const ig of this.iguanas) {
       const prevX = ig.x;
       ig.fase += ig.velocidad * dt;
       ig.x = ig.centroX + Math.sin(ig.fase) * ig.radioX;
       ig.y = ig.centroY + Math.cos(ig.fase * 0.5) * ig.radioY;
       ig.mirandoDerecha = ig.x > prevX;
+    }
+
+    // --- Culebras corredoras: movimiento rápido por las orillas ---
+    for (const cul of this.culebras) {
+      const prevX = cul.x;
+      cul.fase += cul.velocidad * dt;
+      cul.x = cul.centroX + Math.sin(cul.fase) * cul.radioX;
+      cul.y = cul.centroY + Math.sin(cul.fase * 1.3) * cul.radioY;
+      cul.mirandoDerecha = cul.x > prevX;
+    }
+
+    // Toast educativo al acercarse a una culebra por primera vez
+    if (!this._culebraAvistada) {
+      for (const cul of this.culebras) {
+        const dcx = (jugador.x + jugador.ancho / 2) - cul.x;
+        const dcy = (jugador.y + jugador.alto / 2) - cul.y;
+        if (Math.sqrt(dcx * dcx + dcy * dcy) < 80) {
+          this._culebraAvistada = true;
+          const eq = this._obtenerTextos()?.dialogos?.enriquillo;
+          if (this.juego?.mostrarToast) {
+            this.juego.mostrarToast('🐍 ' + (eq?.culebraInfo || 'Culebra Corredora (Haitiophis anomalus) — la serpiente más larga de las Antillas, hasta 2m'), 5);
+          }
+          break;
+        }
+      }
     }
 
     // --- Cucú: toast educativo al acercarse por primera vez ---
@@ -574,6 +628,11 @@ export class LagoEnriquillo {
     // --- Iguanas rinoceronte ---
     for (const ig of this.iguanas) {
       this._dibujarIguana(ctx, ig, offsetX, offsetY);
+    }
+
+    // --- Culebras corredoras ---
+    for (const cul of this.culebras) {
+      this._dibujarCulebra(ctx, cul, offsetX, offsetY);
     }
 
     // --- Cucú (burrowing owl) ---
@@ -946,6 +1005,86 @@ export class LagoEnriquillo {
     ctx.fillRect(0, 5, 2, 2);
     ctx.fillRect(2, 4, 2, 2);
     ctx.restore();
+  }
+
+  // --- Culebra Corredora de la Hispaniola (Haitiophis anomalus) ---
+  // La mayor serpiente colúbrida de las Américas (hasta 2m).
+  _dibujarCulebra(ctx, cul, offsetX, offsetY) {
+    const sx = cul.x + offsetX;
+    const sy = cul.y + offsetY;
+    const dir = cul.mirandoDerecha ? 1 : -1;
+
+    // Sombra
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.beginPath();
+    ctx.ellipse(sx, sy + 3, 20, 3, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cuerpo sinuoso (segmentos curvados que ondean)
+    ctx.strokeStyle = '#6a5a2a';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    const tailX = sx - dir * 25;
+    ctx.moveTo(tailX, sy + Math.sin(this.tiempoTotal * 4 + cul.fase) * 3);
+    for (let s = 0; s < 4; s++) {
+      const segX = tailX + dir * (s + 1) * 12;
+      const segY = sy + Math.sin(this.tiempoTotal * 4 + cul.fase + s * 1.2) * 4;
+      ctx.lineTo(segX, segY);
+    }
+    ctx.stroke();
+
+    // Centro más grueso
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#7a6a3a';
+    ctx.beginPath();
+    ctx.moveTo(sx - dir * 5, sy + Math.sin(this.tiempoTotal * 4 + cul.fase + 2) * 3);
+    ctx.lineTo(sx + dir * 8, sy + Math.sin(this.tiempoTotal * 4 + cul.fase + 3) * 3);
+    ctx.stroke();
+
+    // Patrón dorsal (línea más clara)
+    ctx.strokeStyle = '#9a8a4a';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(tailX + dir * 5, sy + Math.sin(this.tiempoTotal * 4 + cul.fase + 0.5) * 3);
+    for (let s = 1; s < 4; s++) {
+      ctx.lineTo(tailX + dir * (s + 1) * 12, sy + Math.sin(this.tiempoTotal * 4 + cul.fase + s * 1.2) * 3);
+    }
+    ctx.stroke();
+
+    // Cabeza triangular
+    const headX = sx + dir * 22;
+    const headY = sy + Math.sin(this.tiempoTotal * 4 + cul.fase + 3.5) * 3;
+    ctx.fillStyle = '#6a5a2a';
+    ctx.beginPath();
+    ctx.moveTo(headX - dir * 4, headY - 4);
+    ctx.lineTo(headX + dir * 6, headY);
+    ctx.lineTo(headX - dir * 4, headY + 4);
+    ctx.closePath();
+    ctx.fill();
+
+    // Ojo amarillo
+    ctx.fillStyle = '#DDAA22';
+    ctx.beginPath();
+    ctx.arc(headX - dir * 1, headY - 1.5, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#111111';
+    ctx.beginPath();
+    ctx.arc(headX - dir * 1, headY - 1.5, 0.6, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Lengua bífida (aparece periódicamente)
+    if (Math.sin(this.tiempoTotal * 2 + cul.fase) > 0.7) {
+      ctx.strokeStyle = '#CC3333';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(headX + dir * 6, headY);
+      ctx.lineTo(headX + dir * 10, headY - 2);
+      ctx.moveTo(headX + dir * 6, headY);
+      ctx.lineTo(headX + dir * 10, headY + 2);
+      ctx.stroke();
+    }
   }
 
   // --- Cucú / Burrowing Owl (Athene cunicularia) ---
