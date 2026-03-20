@@ -430,9 +430,9 @@ export class SantuarioManati {
     const moviArriba = entrada.estaPresionada('arriba');
     let anguloObjetivo = 0;
     if (moviAbajo && moviIzq) {
-      anguloObjetivo = Math.PI; // 180° — diagonal abajo-izquierda
+      anguloObjetivo = Math.PI - Math.PI * 0.25; // 135° — espejo de arriba-izquierda
     } else if (moviAbajo && moviDer) {
-      anguloObjetivo = -Math.PI; // -180° — diagonal abajo-derecha
+      anguloObjetivo = -(Math.PI - Math.PI * 0.25); // -135° — espejo de arriba-derecha
     } else if (moviArriba && moviIzq) {
       anguloObjetivo = -Math.PI * 0.25; // -45° — diagonal arriba-izquierda
     } else if (moviArriba && moviDer) {
@@ -442,7 +442,11 @@ export class SantuarioManati {
     } else if (moviAbajo) {
       anguloObjetivo = Math.PI; // 180° — cabeza hacia abajo
     }
-    this._anguloNado += (anguloObjetivo - this._anguloNado) * Math.min(1, 8 * dt);
+    // Lerp suave con shortest-path (evita girar el camino largo)
+    let diff = anguloObjetivo - this._anguloNado;
+    while (diff > Math.PI) diff -= Math.PI * 2;
+    while (diff < -Math.PI) diff += Math.PI * 2;
+    this._anguloNado += diff * Math.min(1, 8 * dt);
 
     // --- Bordes del nivel ---
     jugador.x = Math.max(0, Math.min(this.anchoNivel - jugador.ancho, jugador.x));
