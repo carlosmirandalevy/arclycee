@@ -22,34 +22,54 @@
       archivos: { es: 'index.html', en: 'en.html', fr: 'fr.html' }
     },
     // --- La Historia (grupo con subitems) ---
-    historia: {
+    historiaGrupo: {
       icono: '📜',
       label: { es: 'La Historia', en: 'The Story', fr: 'L\'Histoire' },
       grupo: true,
-      children: ['worlds', 'characters', 'dialogues']
+      children: ['historia', 'worlds', 'characters', 'dialogues']
+    },
+    historia: {
+      icono: '📖',
+      label: { es: 'Historia', en: 'Story', fr: 'Histoire' },
+      archivos: { es: 'historia.html', en: 'historia-en.html', fr: 'historia-fr.html' },
+      parent: 'historiaGrupo'
     },
     worlds: {
       icono: '🌍',
       label: { es: 'Mundos', en: 'Worlds', fr: 'Mondes' },
       archivos: { es: 'worlds.html', en: 'worlds-en.html', fr: 'worlds-fr.html' },
-      parent: 'historia'
+      parent: 'historiaGrupo'
     },
     characters: {
       icono: '👥',
       label: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
       archivos: { es: 'characters.html', en: 'characters-en.html', fr: 'characters-fr.html' },
-      parent: 'historia'
+      parent: 'historiaGrupo'
     },
     dialogues: {
       icono: '💬',
       label: { es: 'Diálogos', en: 'Dialogues', fr: 'Dialogues' },
       archivos: { es: 'dialogues.html', en: 'dialogues-en.html', fr: 'dialogues-fr.html' },
-      parent: 'historia'
+      parent: 'historiaGrupo'
+    },
+    // --- Técnico (grupo con subitems) ---
+    tecnicoGrupo: {
+      icono: '🔧',
+      label: { es: 'Técnico', en: 'Technical', fr: 'Technique' },
+      grupo: true,
+      children: ['mechanics', 'technical']
     },
     mechanics: {
       icono: '⚙️',
       label: { es: 'Mecánicas', en: 'Mechanics', fr: 'Mécaniques' },
-      archivos: { es: 'mechanics.html', en: 'mechanics-en.html', fr: 'mechanics-fr.html' }
+      archivos: { es: 'mechanics.html', en: 'mechanics-en.html', fr: 'mechanics-fr.html' },
+      parent: 'tecnicoGrupo'
+    },
+    technical: {
+      icono: '💻',
+      label: { es: 'Programación', en: 'Programming', fr: 'Programmation' },
+      archivos: { es: 'technical.html', en: 'technical-en.html', fr: 'technical-fr.html' },
+      parent: 'tecnicoGrupo'
     },
     archaeology: {
       icono: '🏛️',
@@ -60,11 +80,6 @@
       icono: '🌿',
       label: { es: 'Naturaleza', en: 'Nature', fr: 'Nature' },
       archivos: { es: 'nature.html', en: 'nature-en.html', fr: 'nature-fr.html' }
-    },
-    technical: {
-      icono: '💻',
-      label: { es: 'Programación', en: 'Programming', fr: 'Programmation' },
-      archivos: { es: 'technical.html', en: 'technical-en.html', fr: 'technical-fr.html' }
     }
   };
 

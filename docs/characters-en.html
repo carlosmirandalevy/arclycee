@@ -29,31 +29,48 @@
       <p class="intro">Three allies that join the player throughout the adventure, each with a unique ability.</p>
 
       <div class="companero-card">
-        <div class="companero-visual npc-avatar" data-sprite="magnoboot" style="font-size:2.5rem;align-items:center;justify-content:center;">🤖</div>
+        <div class="companero-visual npc-avatar" data-sprite="magnoboot" style="font-size:2.5rem;display:flex;align-items:center;justify-content:center;">🤖</div>
         <div>
           <h3>🤖 Magnoboot</h3>
-          <p><strong>Metal-detecting excavation robot</strong></p>
-          <p>Obtained at the Cuevas del Pomier. Magnoboot is a small robot equipped with a ground-penetrating radar that detects buried metallic objects. Press <span class="tecla">F</span> to activate its radar pulse and reveal hidden artifacts beneath the surface.</p>
+          <p><strong>Metal-detecting excavation robot (+3 combat damage)</strong></p>
+          <p>Obtained from Dra. Martínez at the Cuevas del Pomier. Can detect buried objects
+          with its radar pulse (F key). The pulse expands a 100px detection circle for 1.5
+          seconds. Has an energy system (100 max, 10 per use). In the Zona Colonial, it reveals
+          excavation zones containing colonial treasures.</p>
         </div>
       </div>
 
       <div class="companero-card">
-        <div class="companero-visual npc-avatar" data-sprite="viralata" style="font-size:2.5rem;align-items:center;justify-content:center;">🐕</div>
+        <div class="companero-visual npc-avatar" data-sprite="viralata" style="font-size:2.5rem;display:flex;align-items:center;justify-content:center;">🐕</div>
         <div>
           <h3>🐕 Viralata</h3>
-          <p><strong>Stray dog tracker</strong></p>
-          <p>Adopted at Taíno Settlement I. Viralata is a loyal stray dog with a keen sense of smell, capable of detecting hidden objects and secret passages that the player cannot see on their own.</p>
+          <p><strong>Stray dog tracker (+2 combat damage)</strong></p>
+          <p>Stray dog adopted at Yucayeque de Marién. Has a 50px "scent radius"
+          — when it detects hidden objects nearby, it wags its tail animatedly. Follows the player
+          with smooth lerp behind and to the left. Persists between scenes.</p>
         </div>
       </div>
 
       <div class="companero-card">
-        <div class="companero-visual npc-avatar" data-sprite="cemi" style="font-size:2.5rem;align-items:center;justify-content:center;">🦇</div>
+        <div class="companero-visual npc-avatar" data-sprite="cemi" style="font-size:2.5rem;display:flex;align-items:center;justify-content:center;">🦇</div>
         <div>
           <h3>🦇 Cemí Murciélago</h3>
-          <p><strong>Taíno bat spirit</strong></p>
-          <p>Found at Taíno Settlement II. The Cemí Murciélago is a Taíno spirit in the form of a bat that gains mystical powers by collecting botijas. It has 6 power levels, growing stronger with each botija found.</p>
+          <p><strong>Protective spirit with 6 power levels (+4 combat damage)</strong></p>
+          <p>Granted by Behique Yuisa at the Yucayeque de Maguá. Gains powers by finding
+          botijas (vessels):</p>
+          <table>
+            <tr><th>Level</th><th>Botijas</th><th>Power</th></tr>
+            <tr><td>1</td><td>1</td><td>Echo-Location</td></tr>
+            <tr><td>3</td><td>3</td><td>Wing Gust</td></tr>
+            <tr><td>5</td><td>5</td><td>Ear of the Past</td></tr>
+            <tr><td>8</td><td>8</td><td>Stunning Screech</td></tr>
+            <tr><td>10</td><td>10</td><td>Cemí Vision</td></tr>
+          </table>
         </div>
       </div>
+
+      <h3>In combat</h3>
+      <p>When attacking with active companions, a sub-menu appears to choose who to attack with: Solo / 🤖 Magnoboot (+3) / 🐕 Viralata (+2) / 🦇 Cemí (+4). Q cancels.</p>
     </section>
 
     <!-- ============================================================

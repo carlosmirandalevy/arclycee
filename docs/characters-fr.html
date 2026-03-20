@@ -27,31 +27,48 @@
       <p class="intro">Trois compagnons rejoignent le joueur au cours de l'aventure. Chacun possede des capacites uniques qui aident a l'exploration.</p>
 
       <div class="companero-card">
-        <div class="companero-visual npc-avatar" data-sprite="magnoboot" style="font-size:2.5rem;align-items:center;justify-content:center;">🤖</div>
+        <div class="companero-visual npc-avatar" data-sprite="magnoboot" style="font-size:2.5rem;display:flex;align-items:center;justify-content:center;">🤖</div>
         <div>
           <h3>🤖 Magnoboot</h3>
-          <p><strong>Robot excavateur avec detection de metal</strong></p>
-          <p>Obtenu aux Cuevas del Pomier. Detecte les objets enterres avec un pulse radar (touche F). Indispensable pour trouver les artefacts caches sous terre.</p>
+          <p><strong>Robot excavateur avec détection de métal (+3 dégâts en combat)</strong></p>
+          <p>Obtenu de la Dre Martínez aux Cuevas del Pomier. Détecte les objets enterrés
+          avec son impulsion radar (touche F). L'impulsion déploie un cercle de détection de 100px pendant 1,5
+          seconde. Dispose d'un système d'énergie (100 max, 10 par utilisation). Dans la Zona Colonial, il révèle
+          des zones de fouilles contenant des trésors coloniaux.</p>
         </div>
       </div>
 
       <div class="companero-card">
-        <div class="companero-visual npc-avatar" data-sprite="viralata" style="font-size:2.5rem;align-items:center;justify-content:center;">🐕</div>
+        <div class="companero-visual npc-avatar" data-sprite="viralata" style="font-size:2.5rem;display:flex;align-items:center;justify-content:center;">🐕</div>
         <div>
           <h3>🐕 Viralata</h3>
-          <p><strong>Chien errant pisteur</strong></p>
-          <p>Adopte au Campement Taino I. Detecte les objets caches grace a son flair. Son instinct guide le joueur vers les secrets de chaque monde.</p>
+          <p><strong>Chien errant pisteur (+2 dégâts en combat)</strong></p>
+          <p>Chien errant adopté au Yucayeque de Marién. Possède un « rayon de flair » de 50px
+          — quand il détecte des objets cachés à proximité, il remue la queue avec animation. Suit le joueur
+          avec un lerp souple en retrait à gauche. Persiste entre les scènes.</p>
         </div>
       </div>
 
       <div class="companero-card">
-        <div class="companero-visual npc-avatar" data-sprite="cemi" style="font-size:2.5rem;align-items:center;justify-content:center;">🦇</div>
+        <div class="companero-visual npc-avatar" data-sprite="cemi" style="font-size:2.5rem;display:flex;align-items:center;justify-content:center;">🦇</div>
         <div>
-          <h3>🦇 Cemi Murcielago</h3>
-          <p><strong>Esprit chauve-souris taino</strong></p>
-          <p>Trouve au Campement Taino II. Gagne des pouvoirs en collectant des botijas (6 niveaux). Un esprit ancestral qui protege le joueur dans les zones sombres.</p>
+          <h3>🦇 Cemí Murciélago</h3>
+          <p><strong>Esprit protecteur avec 6 niveaux de pouvoir (+4 dégâts en combat)</strong></p>
+          <p>Accordé par le Behique Yuisa au Yucayeque de Maguá. Gagne des pouvoirs en trouvant des
+          botijas (jarres) :</p>
+          <table>
+            <tr><th>Niveau</th><th>Botijas</th><th>Pouvoir</th></tr>
+            <tr><td>1</td><td>1</td><td>Écho-Localisation</td></tr>
+            <tr><td>3</td><td>3</td><td>Rafale d'Ailes</td></tr>
+            <tr><td>5</td><td>5</td><td>Oreille du Passé</td></tr>
+            <tr><td>8</td><td>8</td><td>Cri Étourdissant</td></tr>
+            <tr><td>10</td><td>10</td><td>Vision de Cemí</td></tr>
+          </table>
         </div>
       </div>
+
+      <h3>En combat</h3>
+      <p>En attaquant avec des compagnons actifs, un sous-menu apparaît pour choisir avec qui attaquer : Solo / 🤖 Magnoboot (+3) / 🐕 Viralata (+2) / 🦇 Cemí (+4). Q annule.</p>
     </section>
 
     <!-- ============================================================ -->
