@@ -351,12 +351,12 @@ export class MundoMontana {
       ctx.lineTo(mx + mw / 2 + offsetX, my + 50 + offsetY);
       ctx.closePath();
       ctx.fill();
-      // Nieve en la cima
-      ctx.fillStyle = '#CCCCCC';
+      // Cima rocosa (sin nieve — estamos en el Caribe)
+      ctx.fillStyle = '#5a5a4a';
       ctx.beginPath();
-      ctx.moveTo(mx - 15 + offsetX, my - 30 + offsetY);
+      ctx.moveTo(mx - 12 + offsetX, my - 30 + offsetY);
       ctx.lineTo(mx + offsetX, my - 50 + offsetY);
-      ctx.lineTo(mx + 15 + offsetX, my - 30 + offsetY);
+      ctx.lineTo(mx + 12 + offsetX, my - 30 + offsetY);
       ctx.closePath();
       ctx.fill();
       ctx.fillStyle = '#3a4a2a';

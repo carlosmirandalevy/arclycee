@@ -744,8 +744,8 @@
       ctx.lineTo(peaks[p][0] + peaks[p][2] / 2, 70);
       ctx.closePath();
       ctx.fill();
-      // Nieve
-      ctx.fillStyle = '#CCCCCC';
+      // Cima rocosa (Caribe, sin nieve)
+      ctx.fillStyle = '#5a5a4a';
       ctx.beginPath();
       ctx.moveTo(peaks[p][0] - 8, peaks[p][1] - 8);
       ctx.lineTo(peaks[p][0], peaks[p][1] - 20);
