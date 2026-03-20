@@ -430,9 +430,9 @@ export class SantuarioManati {
     const moviArriba = entrada.estaPresionada('arriba');
     let anguloObjetivo = 0;
     if (moviAbajo && moviIzq) {
-      anguloObjetivo = Math.PI * 0.75; // 135° — diagonal abajo-izquierda
+      anguloObjetivo = Math.PI; // 180° — diagonal abajo-izquierda
     } else if (moviAbajo && moviDer) {
-      anguloObjetivo = -Math.PI * 0.75; // -135° — diagonal abajo-derecha
+      anguloObjetivo = -Math.PI; // -180° — diagonal abajo-derecha
     } else if (moviArriba && moviIzq) {
       anguloObjetivo = -Math.PI * 0.25; // -45° — diagonal arriba-izquierda
     } else if (moviArriba && moviDer) {
