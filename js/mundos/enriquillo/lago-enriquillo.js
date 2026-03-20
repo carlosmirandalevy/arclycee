@@ -524,6 +524,7 @@ export class LagoEnriquillo {
             // Limpiar toasts y diálogos antes del boss fight
             if (this.juego._toasts) this.juego._toasts = [];
             this.juego.bossCemi.iniciar({
+              juego: this.juego,
               alTerminar: (resultado) => {
                 if (resultado === 'victoria' && !this.juego.progreso.bendicionDivina) {
                   this.juego.progreso.bendicionDivina = true;

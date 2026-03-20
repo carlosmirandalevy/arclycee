@@ -68,6 +68,9 @@ export class SistemaBossCemi {
     this.fase = 'intro';
     this._bloqueoEntrada = true;
     this._alTerminar = config?.alTerminar || null;
+    this._juego = config?.juego || null;
+    this._bloqueoFoto = false;
+    this._bendicionSonada = false;
 
     this._cicloActual = 0;
     this._tiempoFase = 0;
@@ -101,6 +104,33 @@ export class SistemaBossCemi {
     if (!this.enJuego) return;
     this._tiempoTotal += dt;
     this._tiempoFase += dt;
+
+    // --- Foto/Selfie durante el boss fight (captura la pantalla del boss) ---
+    if (this._juego?.album && (this.fase === 'combate' || this.fase === 'aturdido' || this.fase === 'victoria')) {
+      if (entrada.estaPresionada('foto') && !this._bloqueoFoto) {
+        this._bloqueoFoto = true;
+        const exito = this._juego.album.tomarFoto(
+          'Espíritu del Cemí', 'Boss fight en Isla Cabritos',
+          'lagoEnriquillo', null, 'fauna', null
+        );
+        if (exito && this._juego.mostrarToast) {
+          this._juego._toasts.push({ texto: '📸 ¡Foto del Espíritu del Cemí!', duracion: 2, tiempoRestante: 2 });
+        }
+      }
+      if (entrada.estaPresionada('selfie') && !this._bloqueoFoto) {
+        this._bloqueoFoto = true;
+        const exito = this._juego.album.tomarSelfie(
+          'Espíritu del Cemí', 'Boss fight en Isla Cabritos',
+          'lagoEnriquillo', null, 'fauna', this._juego.jugador, null
+        );
+        if (exito && this._juego.mostrarToast) {
+          this._juego._toasts.push({ texto: '🤳 ¡Selfie con el Espíritu del Cemí!', duracion: 2, tiempoRestante: 2 });
+        }
+      }
+      if (!entrada.estaPresionada('foto') && !entrada.estaPresionada('selfie')) {
+        this._bloqueoFoto = false;
+      }
+    }
 
     // Desbloquear input
     if (this._bloqueoEntrada) {
@@ -227,11 +257,11 @@ export class SistemaBossCemi {
   // --- Victoria ---
   _actualizarVictoria(dt, entrada) {
     // Sonido de bendición al llegar al momento de la bendición
-    if (!this._bendicionSonada && this._tiempoFase > 7) {
+    if (!this._bendicionSonada && this._tiempoFase > 11) {
       this._bendicionSonada = true;
       this.sfx.bossBendicion();
     }
-    if (this._tiempoFase > 8 && entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
+    if (this._tiempoFase > 12 && entrada.estaPresionada('accion') && !this._bloqueoEntrada) {
       this.enJuego = false;
       if (this._alTerminar) this._alTerminar('victoria');
     }
@@ -283,6 +313,19 @@ export class SistemaBossCemi {
     // En ciclo 2+, doble patrón simultáneo
     if (this._cicloActual >= 2) {
       this[patrones[(this._patronActual + 2) % 4]](dt);
+    }
+
+    // Corazones de vida entre los ataques (raro, ~1 cada 8-12 segundos)
+    this._tiempoCorazon = (this._tiempoCorazon || 0) + dt;
+    if (this._tiempoCorazon > 8 + Math.random() * 4) {
+      this._tiempoCorazon = 0;
+      // Corazón verde que cae desde arriba en posición aleatoria
+      this._proyectiles.push({
+        x: 100 + Math.random() * (ANCHO_JUEGO - 200), y: 40,
+        vx: (Math.random() - 0.5) * 30, vy: 50 + Math.random() * 30,
+        radio: 8, color: '#44FF44',
+        _esCorazon: true
+      });
     }
   }
 
@@ -389,13 +432,20 @@ export class SistemaBossCemi {
       }
 
       // Colisión con jugador
-      if (!this._invulnerable) {
-        const dx = p.x - this._jugadorX;
-        const dy = p.y - this._jugadorY;
-        if (Math.sqrt(dx * dx + dy * dy) < p.radio + this._jugadorRadio) {
+      const dx = p.x - this._jugadorX;
+      const dy = p.y - this._jugadorY;
+      if (Math.sqrt(dx * dx + dy * dy) < p.radio + this._jugadorRadio) {
+        if (p._esCorazon) {
+          // Corazón: recuperar 1 vida
+          if (this._corazones < this._corazonesMax) {
+            this._corazones++;
+            this.sfx.recoger();
+          }
+          this._proyectiles.splice(i, 1);
+        } else if (!this._invulnerable) {
+          // Orbe dañino
           this._recibirGolpe();
           this._proyectiles.splice(i, 1);
-          // Si murió, dejar de procesar proyectiles
           if (this.fase === 'derrota') return;
         }
       }
@@ -564,7 +614,7 @@ export class SistemaBossCemi {
         { texto: t.victoriaDialogo4 || 'Pero no me hagas enfadar de nuevo... o sentirás todo el poder de mi ira.', color: '#FFAA66' }
       ];
 
-      const lineaVisible = Math.min(lineas.length, Math.floor(this._tiempoFase / 1.5) + 1);
+      const lineaVisible = Math.min(lineas.length, Math.floor(this._tiempoFase / 2.5) + 1);
       let ly = alto / 2 - 50;
 
       for (let i = 0; i < lineaVisible; i++) {
@@ -575,7 +625,7 @@ export class SistemaBossCemi {
       }
 
       // Después de todo el diálogo, mostrar la bendición
-      if (this._tiempoFase > 7) {
+      if (this._tiempoFase > 11) {
         ctx.font = 'bold 16px monospace';
         ctx.fillStyle = '#FFD700';
         ctx.fillText(t.bendicion || '✨ Recibes la Bendición Divina ✨', ancho / 2, ly + 15);
@@ -584,7 +634,7 @@ export class SistemaBossCemi {
         ctx.fillText(t.bendicionDetalle || '+30 vida máxima | +5 fuerza | +20% velocidad', ancho / 2, ly + 35);
       }
 
-      if (this._tiempoFase > 8) {
+      if (this._tiempoFase > 12) {
         const p = 0.5 + Math.sin(this._tiempoTotal * 4) * 0.3;
         ctx.fillStyle = `rgba(255, 215, 0, ${p})`;
         ctx.font = 'bold 13px monospace';
@@ -599,16 +649,29 @@ export class SistemaBossCemi {
 
     // --- Proyectiles ---
     for (const p of this._proyectiles) {
-      // Resplandor (círculo más grande, semi-transparente)
-      ctx.fillStyle = 'rgba(255, 50, 50, 0.2)';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radio + 3, 0, Math.PI * 2);
-      ctx.fill();
-      // Orbe sólido
-      ctx.fillStyle = p.color;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radio, 0, Math.PI * 2);
-      ctx.fill();
+      if (p._esCorazon) {
+        // Corazón verde brillante (pickup de vida)
+        ctx.fillStyle = 'rgba(50, 255, 50, 0.2)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radio + 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#44FF44';
+        ctx.font = '14px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('♥', p.x, p.y + 5);
+        ctx.textAlign = 'left';
+      } else {
+        // Resplandor (círculo más grande, semi-transparente)
+        ctx.fillStyle = 'rgba(255, 50, 50, 0.2)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radio + 3, 0, Math.PI * 2);
+        ctx.fill();
+        // Orbe sólido
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radio, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
 
     // --- Jugador (hitbox visible) ---

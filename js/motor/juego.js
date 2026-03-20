@@ -867,7 +867,7 @@ export class Juego {
     const miniJuegoActivo = this.calibracion?.enJuego || this.programacion?.enJuego || this.conexion?.enJuego;
     if (this.jugador && !this.album.visible && !this.inventario.abierto
         && !this.registro.visible && !this.combate.enCombate && !this.batu.enJuego
-        && !dialogoActivo && !miniJuegoActivo) {
+        && !this.bossCemi.enJuego && !dialogoActivo && !miniJuegoActivo) {
       this._dibujarPistaFoto(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
     }
 
