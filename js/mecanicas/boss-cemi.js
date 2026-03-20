@@ -279,11 +279,11 @@ export class SistemaBossCemi {
   // Patrón 1: Espiral — orbes rotan desde el centro del boss
   _patronEspiral(dt) {
     this._tiempoPatron += dt;
-    const intervalo = 0.08 / this._factorDificultad();
+    const intervalo = 0.06 / this._factorDificultad();
     if (this._tiempoPatron >= intervalo) {
       this._tiempoPatron -= intervalo;
-      this._anguloEspiral += 0.3;
-      const vel = 120 * this._factorDificultad();
+      this._anguloEspiral += 0.18; // Columnas más juntas (era 0.3)
+      const vel = 110 * this._factorDificultad();
       for (let i = 0; i < 2; i++) {
         const ang = this._anguloEspiral + i * Math.PI;
         this._proyectiles.push({
@@ -594,6 +594,7 @@ export class SistemaBossCemi {
 
   // --- Dibujar el boss (ser divino) ---
   _dibujarBoss(ctx, ancho) {
+    ctx.save();
     const bx = this._bossX;
     const by = this._bossY;
     const float = Math.sin(this._tiempoTotal * 2) * 5;
@@ -604,6 +605,7 @@ export class SistemaBossCemi {
       ctx.beginPath();
       ctx.arc(bx, by + float, 60, 0, Math.PI * 2);
       ctx.fill();
+      ctx.restore();
       return;
     }
 
@@ -659,5 +661,6 @@ export class SistemaBossCemi {
     for (let g = 0; g < this._bossGolpes; g++) {
       ctx.fillRect(bx - 20 + g * 15, by + 30 + float, 10, 3);
     }
+    ctx.restore();
   }
 }
