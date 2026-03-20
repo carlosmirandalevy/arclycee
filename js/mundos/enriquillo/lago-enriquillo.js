@@ -58,6 +58,7 @@ export class LagoEnriquillo {
     this.bloqueoEntrada = true;
     this.tiempoTotal = 0;
     this._anguloNado = 0; // Rotación del avatar al nadar
+    this._sacudida = 0;   // Sacudida lateral al recibir daño (decae con dt)
 
     if (juego.jugador) {
       juego.jugador.modoJuego = 'topdown';
@@ -246,16 +247,17 @@ export class LagoEnriquillo {
       }
 
       // Daño por contacto + sacudida del jugador + death roll del cocodrilo
+      // Patrón idéntico al tiburón en el Santuario del Manatí
       if (!jugador._invulnerable) {
         const dx = (jugador.x + jugador.ancho / 2) - (croc.x + croc.ancho / 2);
         const dy = (jugador.y + jugador.alto / 2) - (croc.y + croc.alto / 2);
         if (Math.abs(dx) < 30 && Math.abs(dy) < 20) {
-          jugador.recibirDano(8);
+          jugador.vida = Math.max(0, jugador.vida - 8);
           jugador._invulnerable = true;
           jugador._tiempoInvulnerable = 1.5;
-          // Sacudida del jugador (como en el mundo acuático)
-          jugador._sacudida = 0.5;
-          // Death roll del cocodrilo
+          // Sacudida lateral del avatar (misma intensidad que el tiburón: 0.5s)
+          this._sacudida = 0.5;
+          // Death roll del cocodrilo (gira sobre sí mismo)
           croc._rolando = 0.8;
           this.sfx.mordidaTiburon();
           if (this.juego?.mostrarToast) {
@@ -265,6 +267,9 @@ export class LagoEnriquillo {
         }
       }
     }
+
+    // --- Sacudida lateral (decae con dt, como en Santuario del Manatí) ---
+    if (this._sacudida > 0) this._sacudida = Math.max(0, this._sacudida - dt);
 
     // --- Iguanas: movimiento lento ---
     for (const ig of this.iguanas) {
@@ -1056,12 +1061,6 @@ export class LagoEnriquillo {
   _dibujarJugador(ctx, jugador, offsetX, offsetY) {
     let px = jugador.x + offsetX;
     let py = jugador.y + offsetY;
-    // Sacudida tras mordida de cocodrilo (decae con el tiempo)
-    if (jugador._sacudida > 0) {
-      px += Math.sin(this.tiempoTotal * 50) * 3 * jugador._sacudida;
-      jugador._sacudida -= 1 / 60;
-      if (jugador._sacudida < 0) jugador._sacudida = 0;
-    }
     const enAgua = !this._estaEnIsla(jugador);
     // Ondulación vertical en el agua
     if (enAgua) {
@@ -1072,9 +1071,15 @@ export class LagoEnriquillo {
     const centroX = px + jugador.ancho / 2;
     const centroY = py + jugador.alto / 2;
 
-    // Aplicar rotación de nado (como en los mundos acuáticos)
+    ctx.save();
+    // Sacudida lateral tras mordida de cocodrilo (mismo patrón que tiburón)
+    if (this._sacudida > 0) {
+      const intensidad = this._sacudida / 0.5; // 1→0 mientras decae
+      const desplazamiento = Math.sin(this.tiempoTotal * 50) * 6 * intensidad;
+      ctx.translate(desplazamiento, 0);
+    }
+    // Rotación de nado (como en los mundos acuáticos)
     if (enAgua && Math.abs(this._anguloNado) > 0.01) {
-      ctx.save();
       ctx.translate(centroX, centroY);
       ctx.rotate(this._anguloNado);
       ctx.translate(-centroX, -centroY);
@@ -1140,10 +1145,7 @@ export class LagoEnriquillo {
       ctx.stroke();
     }
 
-    // Restaurar rotación
-    if (enAgua && Math.abs(this._anguloNado) > 0.01) {
-      ctx.restore();
-    }
+    ctx.restore(); // Restaurar sacudida + rotación
   }
 
   _estaEnIsla(jugador) {
