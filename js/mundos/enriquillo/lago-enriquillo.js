@@ -145,16 +145,18 @@ export class LagoEnriquillo {
     // Iguana de Ricord (Cyclura ricordii): sin cuernos, ojos rojos (más rara)
     this.iguanas = [
       // Rinocerontes en la isla (más comunes)
-      { x: 850, y: 460, fase: 0, velocidad: 0.2, centroX: 850, centroY: 460, radioX: 40, radioY: 20, mirandoDerecha: true, tipo: 'rinoceronte' },
-      { x: 1000, y: 520, fase: Math.PI, velocidad: 0.15, centroX: 1000, centroY: 520, radioX: 30, radioY: 15, mirandoDerecha: false, tipo: 'rinoceronte' },
-      { x: 950, y: 400, fase: Math.PI / 2, velocidad: 0.18, centroX: 950, centroY: 400, radioX: 35, radioY: 18, mirandoDerecha: true, tipo: 'rinoceronte' },
-      // Ricord en la isla (más rara — ojos rojos)
-      { x: 900, y: 480, fase: 1.5, velocidad: 0.13, centroX: 900, centroY: 480, radioX: 25, radioY: 15, mirandoDerecha: false, tipo: 'ricord' },
+      { x: 800, y: 480, fase: 0, velocidad: 0.2, centroX: 800, centroY: 480, radioX: 50, radioY: 25, mirandoDerecha: true, tipo: 'rinoceronte' },
+      { x: 1050, y: 540, fase: Math.PI, velocidad: 0.15, centroX: 1050, centroY: 540, radioX: 40, radioY: 20, mirandoDerecha: false, tipo: 'rinoceronte' },
+      { x: 950, y: 400, fase: Math.PI / 2, velocidad: 0.18, centroX: 950, centroY: 400, radioX: 45, radioY: 22, mirandoDerecha: true, tipo: 'rinoceronte' },
+      // Ricord en la isla (ojos rojos)
+      { x: 880, y: 520, fase: 1.5, velocidad: 0.13, centroX: 880, centroY: 520, radioX: 30, radioY: 18, mirandoDerecha: false, tipo: 'ricord' },
+      { x: 1000, y: 450, fase: 4, velocidad: 0.11, centroX: 1000, centroY: 450, radioX: 25, radioY: 15, mirandoDerecha: true, tipo: 'ricord' },
       // Rinocerontes en las orillas
       { x: 300, y: 1080, fase: 1, velocidad: 0.12, centroX: 300, centroY: 1080, radioX: 50, radioY: 10, mirandoDerecha: true, tipo: 'rinoceronte' },
       { x: 1400, y: 80, fase: 2, velocidad: 0.14, centroX: 1400, centroY: 80, radioX: 40, radioY: 12, mirandoDerecha: false, tipo: 'rinoceronte' },
-      // Ricord en la orilla (rara)
-      { x: 100, y: 200, fase: 3, velocidad: 0.16, centroX: 100, centroY: 200, radioX: 30, radioY: 15, mirandoDerecha: true, tipo: 'ricord' }
+      // Ricord en las orillas (más raras)
+      { x: 100, y: 200, fase: 3, velocidad: 0.16, centroX: 100, centroY: 200, radioX: 30, radioY: 15, mirandoDerecha: true, tipo: 'ricord' },
+      { x: 1600, y: 600, fase: 5, velocidad: 0.1, centroX: 1600, centroY: 600, radioX: 35, radioY: 10, mirandoDerecha: false, tipo: 'ricord' }
     ];
 
     // --- Cucú / Burrowing Owl (Athene cunicularia) ---
@@ -179,19 +181,19 @@ export class LagoEnriquillo {
     // Frecuentes en el Lago Enriquillo. Se paran en una pata en aguas poco
     // profundas de las orillas y cerca de la Isla Cabritos.
     this.flamencos = [
-      // Orilla sur (aguas poco profundas)
-      { x: 350, y: 1020, dir: 1 },
-      { x: 420, y: 1035, dir: -1 },
-      { x: 500, y: 1015, dir: 1 },
+      // Orilla sur
+      { x: 350, y: 1020, dir: 1, origenX: 350, origenY: 1020, volando: false, vuelo: 0 },
+      { x: 420, y: 1035, dir: -1, origenX: 420, origenY: 1035, volando: false, vuelo: 0 },
+      { x: 500, y: 1015, dir: 1, origenX: 500, origenY: 1015, volando: false, vuelo: 0 },
       // Orilla norte
-      { x: 600, y: 110, dir: -1 },
-      { x: 700, y: 105, dir: 1 },
-      // Cerca de la isla (aguas poco profundas)
-      { x: 780, y: 380, dir: 1 },
-      { x: 1120, y: 560, dir: -1 },
+      { x: 600, y: 110, dir: -1, origenX: 600, origenY: 110, volando: false, vuelo: 0 },
+      { x: 700, y: 105, dir: 1, origenX: 700, origenY: 105, volando: false, vuelo: 0 },
+      // Cerca de la isla
+      { x: 780, y: 380, dir: 1, origenX: 780, origenY: 380, volando: false, vuelo: 0 },
+      { x: 1120, y: 560, dir: -1, origenX: 1120, origenY: 560, volando: false, vuelo: 0 },
       // Orilla oeste
-      { x: 160, y: 600, dir: 1 },
-      { x: 170, y: 700, dir: -1 }
+      { x: 160, y: 600, dir: 1, origenX: 160, origenY: 600, volando: false, vuelo: 0 },
+      { x: 170, y: 700, dir: -1, origenX: 170, origenY: 700, volando: false, vuelo: 0 }
     ];
 
     // Misión
@@ -397,6 +399,34 @@ export class LagoEnriquillo {
       }
     }
 
+    // --- Flamencos: movimiento lento + vuelo si el jugador se acerca ---
+    for (const fl of this.flamencos) {
+      if (fl.volando) {
+        // Volando: asciende y se aleja rápido
+        fl.vuelo += dt;
+        fl.y -= 60 * dt;
+        fl.x += fl.dir * 40 * dt;
+        // Después de 3 segundos, regresa a su posición original
+        if (fl.vuelo > 3) {
+          fl.volando = false;
+          fl.vuelo = 0;
+          fl.x = fl.origenX;
+          fl.y = fl.origenY;
+        }
+      } else {
+        // Movimiento lento periódico (camina unos pasos cada tanto)
+        fl.x += Math.sin(this.tiempoTotal * 0.3 + fl.origenX * 0.01) * 0.15;
+        // Espantar si el jugador se acerca a menos de 60px
+        const dfx = (jugador.x + jugador.ancho / 2) - fl.x;
+        const dfy = (jugador.y + jugador.alto / 2) - fl.y;
+        if (Math.sqrt(dfx * dfx + dfy * dfy) < 60) {
+          fl.volando = true;
+          fl.vuelo = 0;
+          fl.dir = dfx < 0 ? 1 : -1; // Vuela en dirección opuesta al jugador
+        }
+      }
+    }
+
     // --- Cucú: toast educativo al acercarse por primera vez ---
     if (!this._cucuAvistado) {
       for (const cu of this.cucus) {
@@ -589,10 +619,10 @@ export class LagoEnriquillo {
     // --- Isla Cabritos / Guarizacca (centro del lago) ---
     // La isla es ovalada, árida, con cactus y rocas
     // Nombre taíno: Guarizacca
-    const islaX = 750 + offsetX;
-    const islaY = 350 + offsetY;
-    const islaW = 400;
-    const islaH = 300;
+    const islaX = 650 + offsetX;
+    const islaY = 300 + offsetY;
+    const islaW = 550;
+    const islaH = 400;
 
     // Arena de la isla
     ctx.fillStyle = '#b8a882';
@@ -1172,6 +1202,43 @@ export class LagoEnriquillo {
     const fy = fl.y + offsetY;
     const dir = fl.dir;
 
+    // Si está volando: dibujar silueta en vuelo (más simple, alas extendidas)
+    if (fl.volando) {
+      const wingFlap = Math.sin(this.tiempoTotal * 12) * 8;
+      ctx.fillStyle = '#FF8899';
+      // Cuerpo
+      ctx.beginPath();
+      ctx.ellipse(fx, fy, 6, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Ala izquierda
+      ctx.beginPath();
+      ctx.moveTo(fx - 3, fy);
+      ctx.lineTo(fx - 18, fy - 5 + wingFlap);
+      ctx.lineTo(fx - 12, fy + 2);
+      ctx.closePath();
+      ctx.fill();
+      // Ala derecha
+      ctx.beginPath();
+      ctx.moveTo(fx + 3, fy);
+      ctx.lineTo(fx + 18, fy - 5 - wingFlap);
+      ctx.lineTo(fx + 12, fy + 2);
+      ctx.closePath();
+      ctx.fill();
+      // Cuello extendido
+      ctx.strokeStyle = '#FF8899';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(fx + dir * 4, fy - 2);
+      ctx.lineTo(fx + dir * 14, fy - 6);
+      ctx.stroke();
+      // Sombra en el suelo
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.beginPath();
+      ctx.ellipse(fx, fl.origenY + offsetY + 28, 8, 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      return;
+    }
+
     // Reflejo en el agua (sutil)
     ctx.fillStyle = 'rgba(255, 130, 150, 0.15)';
     ctx.beginPath();
@@ -1584,8 +1651,8 @@ export class LagoEnriquillo {
   }
 
   _estaEnIsla(jugador) {
-    const cx = 950, cy = 500;
-    const rx = 200, ry = 150;
+    const cx = 925, cy = 500;
+    const rx = 275, ry = 200;
     const dx = (jugador.x + jugador.ancho / 2 - cx) / rx;
     const dy = (jugador.y + jugador.alto / 2 - cy) / ry;
     return (dx * dx + dy * dy) < 1;
