@@ -146,6 +146,25 @@ export class LagoEnriquillo {
       { x: 100, y: 200, fase: 3, velocidad: 0.16, centroX: 100, centroY: 200, radioX: 30, radioY: 15, mirandoDerecha: true }
     ];
 
+    // --- Flamencos rosados (Phoenicopterus ruber) ---
+    // Frecuentes en el Lago Enriquillo. Se paran en una pata en aguas poco
+    // profundas de las orillas y cerca de la Isla Cabritos.
+    this.flamencos = [
+      // Orilla sur (aguas poco profundas)
+      { x: 350, y: 1020, dir: 1 },
+      { x: 420, y: 1035, dir: -1 },
+      { x: 500, y: 1015, dir: 1 },
+      // Orilla norte
+      { x: 600, y: 110, dir: -1 },
+      { x: 700, y: 105, dir: 1 },
+      // Cerca de la isla (aguas poco profundas)
+      { x: 780, y: 380, dir: 1 },
+      { x: 1120, y: 560, dir: -1 },
+      // Orilla oeste
+      { x: 160, y: 600, dir: 1 },
+      { x: 170, y: 700, dir: -1 }
+    ];
+
     // Misión
     const tieneIdolo = juego.jugador?.inventario?.some(i => i.nombre === 'idoloCemi');
     if (this._idoloEntregado) {
@@ -484,6 +503,11 @@ export class LagoEnriquillo {
     // --- Iguanas rinoceronte ---
     for (const ig of this.iguanas) {
       this._dibujarIguana(ctx, ig, offsetX, offsetY);
+    }
+
+    // --- Flamencos rosados ---
+    for (const fl of this.flamencos) {
+      this._dibujarFlamenco(ctx, fl, offsetX, offsetY);
     }
 
     // --- Entidades ordenadas por Y ---
@@ -831,6 +855,109 @@ export class LagoEnriquillo {
     ctx.fillRect(0, 5, 2, 2);
     ctx.fillRect(2, 4, 2, 2);
     ctx.restore();
+  }
+
+  // --- Flamenco rosado parado en una pata ---
+  // Phoenicopterus ruber — ave icónica del Lago Enriquillo
+  _dibujarFlamenco(ctx, fl, offsetX, offsetY) {
+    const fx = fl.x + offsetX;
+    const fy = fl.y + offsetY;
+    const dir = fl.dir;
+
+    // Reflejo en el agua (sutil)
+    ctx.fillStyle = 'rgba(255, 130, 150, 0.15)';
+    ctx.beginPath();
+    ctx.ellipse(fx, fy + 28, 6, 3, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Una pata (la otra recogida — pose clásica del flamenco)
+    ctx.strokeStyle = '#CC6677';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(fx, fy + 10);
+    ctx.lineTo(fx, fy + 25);
+    ctx.stroke();
+    // Pie (3 dedos)
+    ctx.beginPath();
+    ctx.moveTo(fx - 2, fy + 25);
+    ctx.lineTo(fx + 2, fy + 25);
+    ctx.stroke();
+
+    // Pata recogida (doblada, visible a un lado)
+    ctx.strokeStyle = '#CC6677';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(fx + dir * 2, fy + 12);
+    ctx.lineTo(fx + dir * 4, fy + 16);
+    ctx.lineTo(fx + dir * 2, fy + 18);
+    ctx.stroke();
+
+    // Cuerpo (elipse rosada)
+    ctx.fillStyle = '#FF8899';
+    ctx.beginPath();
+    ctx.ellipse(fx, fy + 5, 8, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Plumas de la cola (más oscuras)
+    ctx.fillStyle = '#DD5566';
+    ctx.beginPath();
+    ctx.moveTo(fx - dir * 6, fy + 4);
+    ctx.lineTo(fx - dir * 12, fy + 2);
+    ctx.lineTo(fx - dir * 10, fy + 7);
+    ctx.closePath();
+    ctx.fill();
+
+    // Cuello largo y curvado (S-curve)
+    ctx.strokeStyle = '#FF8899';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(fx + dir * 5, fy + 2);
+    // Curva en S del cuello
+    ctx.bezierCurveTo(
+      fx + dir * 8, fy - 8,
+      fx + dir * 2, fy - 16,
+      fx + dir * 5, fy - 22
+    );
+    ctx.stroke();
+
+    // Cabeza (pequeño círculo)
+    ctx.fillStyle = '#FF8899';
+    ctx.beginPath();
+    ctx.arc(fx + dir * 5, fy - 22, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Ojo (punto negro)
+    ctx.fillStyle = '#111111';
+    ctx.beginPath();
+    ctx.arc(fx + dir * 6, fy - 23, 1, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Pico curvado hacia abajo (negro con punta rosa)
+    ctx.fillStyle = '#222222';
+    ctx.beginPath();
+    ctx.moveTo(fx + dir * 8, fy - 23);
+    ctx.lineTo(fx + dir * 14, fy - 21);
+    ctx.lineTo(fx + dir * 12, fy - 19);
+    ctx.lineTo(fx + dir * 8, fy - 21);
+    ctx.closePath();
+    ctx.fill();
+    // Punta rosada del pico
+    ctx.fillStyle = '#FFAAAA';
+    ctx.beginPath();
+    ctx.moveTo(fx + dir * 8, fy - 22);
+    ctx.lineTo(fx + dir * 10, fy - 22);
+    ctx.lineTo(fx + dir * 9, fy - 20.5);
+    ctx.closePath();
+    ctx.fill();
+
+    // Alas plegadas (línea oscura en el cuerpo)
+    ctx.strokeStyle = '#DD5566';
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    ctx.moveTo(fx - 5, fy + 3);
+    ctx.quadraticCurveTo(fx, fy + 1, fx + 5, fy + 3);
+    ctx.stroke();
   }
 
   _dibujarNPC(ctx, npc, jugador, offsetX, offsetY) {
