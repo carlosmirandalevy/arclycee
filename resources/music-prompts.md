@@ -146,6 +146,26 @@ El estilo general: indie game OST, evocador, memorable, minimalista pero emotivo
 
 ---
 
+## 15. Boss Fight Cemí — `boss-fight.mp3`
+
+**Prompt:**
+> Intense bullet hell boss fight theme. Fast tempo 160 BPM. Driving electronic bass with tribal drum patterns underneath. Aggressive synth lead melody in minor key, relentless and urgent. Rapid hi-hats and snare rolls building tension. Ancient indigenous flute weaving through the electronic chaos. Occasional thunder-like impacts on the downbeats. Feels like fighting an ancient god — primal power meets modern intensity. Think Undertale Megalovania energy crossed with tribal percussion. Loopable. 45 seconds. No vocals.
+
+**Mood:** Adrenaline, ancient power, desperate dodging, divine confrontation
+**Reference feel:** Undertale — Megalovania intensity + Bloody Hell — boss fight urgency + Hollow Knight — Nightmare King Grimm
+
+---
+
+## 16. Cutscene del Boss Cemí — `boss-cemi-cutscene.mp3`
+
+**Prompt:**
+> Epic boss victory cutscene theme. Starts with furious dissonant low brass and thunderous timpani — anger and raw divine power. Heavy distorted synth bass growls. After 15 seconds, the anger slowly dissolves into warmth: strings swell with an emotional major key melody, harp arpeggios shimmer, choir-like pads rise. The transition from wrath to blessing should feel like a storm clearing into golden sunlight. Final section: triumphant orchestral swell with bells and ascending chimes — a god bestowing power. 60 seconds. Cinematic. No vocals.
+
+**Mood:** Divine fury → grudging respect → warm blessing. Thunder to sunlight. Power incarnate.
+**Reference feel:** Hollow Knight — Sealed Vessel fury meets Undertale — His Theme emotional turn. Silksong — Lace boss victory moment.
+
+---
+
 ## Tips para Suno
 
 - **Duración**: Pedir "30 seconds" o "60 seconds" según el track
