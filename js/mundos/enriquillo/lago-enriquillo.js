@@ -751,7 +751,7 @@ export class LagoEnriquillo {
     // (arbustos espinosos y mangle que crecen parcialmente sumergidos)
     const vegAgua = [
       [350, 460, 'guasabara'], [420, 540, 'bayahonda'], [1400, 480, 'guasabara'],
-      [1380, 540, 'bayahonda'], [480, 420, 'cactus'], [1300, 560, 'alpargata']
+      [1380, 540, 'bayahonda'], [480, 430, 'alpargata'], [1300, 560, 'alpargata']
     ];
     for (const [vx, vy, tipo] of vegIsla.concat(vegOrilla).concat(vegAgua)) {
       this._dibujarVegetacion(ctx, vx + offsetX, vy + offsetY, tipo);
