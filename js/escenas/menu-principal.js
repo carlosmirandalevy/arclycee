@@ -40,7 +40,7 @@ export class MenuPrincipal {
     // Índice de la opción seleccionada dentro del submenú de opciones
     this.seleccionOpciones = 0;
     // Las opciones configurables: volumen de música, volumen de sonidos, controles
-    this.opcionesConfig = ['volumenMusica', 'volumenSonidos', 'controlesTactiles'];
+    this.opcionesConfig = ['volumenMusica', 'volumenSonidos', 'pantallaCompleta', 'controlesTactiles'];
 
     // Índice del idioma seleccionado actualmente: 0=ES, 1=FR, 2=EN
     this.idiomaIndice = 0;
@@ -325,6 +325,19 @@ export class MenuPrincipal {
       }
     }
 
+    // --- Pantalla completa ---
+    if (opcionActual === 'pantallaCompleta' && !this.bloqueoEntrada) {
+      if (entrada.estaPresionada('izquierda') || entrada.estaPresionada('derecha') || entrada.estaPresionada('accion')) {
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(() => {});
+        } else {
+          const canvas = document.querySelector('canvas');
+          if (canvas) canvas.requestFullscreen().catch(() => {});
+        }
+        this.bloqueoEntrada = true;
+      }
+    }
+
     // --- Controles táctiles ---
     if (opcionActual === 'controlesTactiles' && !this.bloqueoEntrada) {
       if (entrada.estaPresionada('izquierda') || entrada.estaPresionada('derecha') || entrada.estaPresionada('accion')) {
@@ -559,8 +572,22 @@ export class MenuPrincipal {
 
       yOpcion += espacioOpcion;
 
+      // --- Pantalla completa ---
+      const selFullscreen = this.seleccionOpciones === 2;
+      ctx.font = selFullscreen ? 'bold 16px monospace' : '15px monospace';
+      ctx.fillStyle = selFullscreen ? '#FFD700' : '#999999';
+      ctx.fillText(textos.ui?.pantallaCompleta || 'Pantalla Completa', ancho / 2, yOpcion);
+      ctx.font = '14px monospace';
+      ctx.fillStyle = selFullscreen ? '#FFFFFF' : '#777777';
+      const estadoFS = document.fullscreenElement
+        ? (textos.ui?.activada || 'Activada')
+        : (textos.ui?.desactivada || 'Desactivada');
+      ctx.fillText(`< ${estadoFS} >`, ancho / 2, yOpcion + 22);
+
+      yOpcion += espacioOpcion;
+
       // --- Controles táctiles ---
-      const selTactil = this.seleccionOpciones === 2;
+      const selTactil = this.seleccionOpciones === 3;
       const modoActual = this.juego.entrada.modoControlTactil;
       const nombreModo = modoActual === 'joystick'
         ? (textos.menu.joystick || 'Joystick')
