@@ -1896,6 +1896,88 @@ export class SonidoProcedural {
     grunido.stop(ahora + 0.45);
   }
 
+  // --- MORDIDA COCODRILO: mandíbulas pesadas + grito descendente ---
+  // Más grave y brutal que la mordida de tiburón, con un grito
+  // tipo Wilhelm (tono descendente rápido) que simula el susto
+  mordidaCocodrilo() {
+    if (!this._asegurarContexto()) return;
+    const ctx = this.contexto;
+    const ahora = ctx.currentTime;
+    const ganancia = this._crearGanancia(this.volumen * 0.55);
+
+    // 1) Chasquido de mandíbulas — ruido blanco con bandpass grave
+    // (mandíbulas más grandes que un tiburón = sonido más grueso)
+    const muestras = ctx.sampleRate * 0.12;
+    const buffer = ctx.createBuffer(1, muestras, ctx.sampleRate);
+    const datos = buffer.getChannelData(0);
+    for (let i = 0; i < muestras; i++) datos[i] = Math.random() * 2 - 1;
+    const snap = ctx.createBufferSource();
+    snap.buffer = buffer;
+    const filtroSnap = ctx.createBiquadFilter();
+    filtroSnap.type = 'bandpass';
+    filtroSnap.frequency.setValueAtTime(1500, ahora);
+    filtroSnap.Q.setValueAtTime(2, ahora);
+    const gSnap = ctx.createGain();
+    gSnap.gain.setValueAtTime(0.7, ahora);
+    gSnap.gain.exponentialRampToValueAtTime(0.001, ahora + 0.1);
+    snap.connect(filtroSnap);
+    filtroSnap.connect(gSnap);
+    gSnap.connect(ganancia);
+    snap.start(ahora);
+    snap.stop(ahora + 0.12);
+
+    // 2) Golpe grave pesado — mandíbulas cerrándose con fuerza
+    const golpe = ctx.createOscillator();
+    golpe.type = 'triangle';
+    golpe.frequency.setValueAtTime(90, ahora);
+    golpe.frequency.exponentialRampToValueAtTime(20, ahora + 0.25);
+    const gGolpe = ctx.createGain();
+    gGolpe.gain.setValueAtTime(0.7, ahora);
+    gGolpe.gain.exponentialRampToValueAtTime(0.001, ahora + 0.3);
+    golpe.connect(gGolpe);
+    gGolpe.connect(ganancia);
+    golpe.start(ahora);
+    golpe.stop(ahora + 0.35);
+
+    // 3) Grito descendente tipo Wilhelm — tono agudo que baja rápido
+    // Simula el susto/dolor del jugador al ser mordido
+    const grito = ctx.createOscillator();
+    grito.type = 'sawtooth';
+    grito.frequency.setValueAtTime(900, ahora + 0.05);
+    grito.frequency.exponentialRampToValueAtTime(300, ahora + 0.35);
+    const filtroGrito = ctx.createBiquadFilter();
+    filtroGrito.type = 'bandpass';
+    filtroGrito.frequency.setValueAtTime(600, ahora);
+    filtroGrito.Q.setValueAtTime(3, ahora);
+    const gGrito = ctx.createGain();
+    gGrito.gain.setValueAtTime(0.001, ahora);
+    gGrito.gain.linearRampToValueAtTime(0.25, ahora + 0.08);
+    gGrito.gain.exponentialRampToValueAtTime(0.001, ahora + 0.4);
+    grito.connect(filtroGrito);
+    filtroGrito.connect(gGrito);
+    gGrito.connect(ganancia);
+    grito.start(ahora + 0.05);
+    grito.stop(ahora + 0.45);
+
+    // 4) Gruñido de cocodrilo — muy grave, gutural
+    const grunido = ctx.createOscillator();
+    grunido.type = 'sawtooth';
+    grunido.frequency.setValueAtTime(60, ahora + 0.1);
+    grunido.frequency.exponentialRampToValueAtTime(35, ahora + 0.5);
+    const filtroGrunido = ctx.createBiquadFilter();
+    filtroGrunido.type = 'lowpass';
+    filtroGrunido.frequency.setValueAtTime(150, ahora);
+    const gGrunido = ctx.createGain();
+    gGrunido.gain.setValueAtTime(0.001, ahora);
+    gGrunido.gain.linearRampToValueAtTime(0.3, ahora + 0.15);
+    gGrunido.gain.exponentialRampToValueAtTime(0.001, ahora + 0.5);
+    grunido.connect(filtroGrunido);
+    filtroGrunido.connect(gGrunido);
+    gGrunido.connect(ganancia);
+    grunido.start(ahora + 0.1);
+    grunido.stop(ahora + 0.55);
+  }
+
   trueno() {
     if (!this._asegurarContexto()) return;
     const ctx = this.contexto;

@@ -259,7 +259,7 @@ export class LagoEnriquillo {
           this._sacudida = 0.5;
           // Death roll del cocodrilo (gira sobre sí mismo)
           croc._rolando = 0.8;
-          this.sfx.mordidaTiburon();
+          this.sfx.mordidaCocodrilo();
           if (this.juego?.mostrarToast) {
             const eq = this._obtenerTextos()?.dialogos?.enriquillo;
             this.juego.mostrarToast('🐊 ' + (eq?.mordidaCocodrilo || '¡Mordida de cocodrilo!'), 2);
