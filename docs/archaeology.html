@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Arqueología de la Hispaniola</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="../resources/favicon.ico">
+</head>
+<body>
+  <div id="doc-nav"></div>
+  <main>
+
+    <!-- ============================================================
+         INTRODUCCIÓN
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">🏛️</span> Arqueología de la Hispaniola</h2>
+      <p class="intro">La arqueología no es solo el estudio de objetos antiguos — es la forma en que reconstruimos quiénes somos. Cada petroglifo taíno, cada cerámica colonial y cada naufragio submarino nos cuenta una historia sobre las personas que vivieron antes que nosotros en esta isla.</p>
+      <p>La Hispaniola (hoy República Dominicana y Haití) fue el centro del encuentro entre tres mundos: el taíno, el europeo y el africano. Comprender cómo convivieron, lucharon y se mezclaron estas culturas es esencial para entender nuestra identidad caribeña.</p>
+      <p>ArcLycée presenta <strong>más de 70 sitios arqueológicos reales</strong> distribuidos en un <strong>Mapa Real interactivo</strong> (tecla R) con capas toggleables. Cada sitio tiene coordenadas GPS reales, descripción educativa y contexto histórico.</p>
+    </section>
+
+    <!-- ============================================================
+         CAPAS DEL MAPA REAL
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">🗺️</span> Capas del Mapa Real</h2>
+      <p class="intro">El Mapa Real (LeafletJS) organiza los sitios arqueológicos en capas que se pueden activar y desactivar independientemente.</p>
+
+      <h3>Capas temáticas</h3>
+      <div class="grid-2">
+        <div class="item-card" style="border-left: 3px solid #8B4513;"><h5>🗿 Sitios Taínos (16)</h5><p>Cuevas con petroglifos, bateyes ceremoniales, plazas y asentamientos del pueblo taíno. Desde las Cuevas del Pomier (6,000+ pinturas rupestres) hasta el batey de Chacuey con sus caminos de piedra.</p></div>
+        <div class="item-card" style="border-left: 3px solid #DAA520;"><h5>🏰 Sitios Coloniales (8)</h5><p>Ruinas y edificios del período colonial español (1492-1800). La Isabela, la Zona Colonial de Santo Domingo (UNESCO), fortalezas y catedrales.</p></div>
+        <div class="item-card" style="border-left: 3px solid #4488CC;"><h5>⚓ Naufragios (12)</h5><p>Restos de navíos hundidos en las costas de la Hispaniola. Desde la Santa María de Colón (1492) hasta galeones del siglo XVIII.</p></div>
+        <div class="item-card" style="border-left: 3px solid #888888;"><h5>🏛 Museos (30)</h5><p>Museos arqueológicos y de historia en República Dominicana y Haití. Incluyendo el Museo del Hombre Dominicano, el Museo de las Atarazanas Reales y el Museo de la Catedral.</p></div>
+      </div>
+
+      <h3>Capas de exploración</h3>
+      <div class="grid-2">
+        <div class="item-card" style="border-left: 3px solid #44AA44;"><h5>🔍 Sitios Inexplorados (8)</h5><p>Sitios descubiertos por el robot submarino programado en el LFSD. Solo visibles tras completar la misión "Full Metal Archeologist".</p></div>
+        <div class="item-card" style="border-left: 3px solid #9B59B6;"><h5>🔬 Potencial Arqueológico (15)</h5><p>Sitios reales identificados por investigación académica como áreas con alto potencial para descubrimientos arqueológicos futuros. Siempre visible.</p></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SITIOS EXPLORADOS — TAÍNOS
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">🗿</span> Sitios Taínos Explorados</h2>
+      <p class="intro">Los taínos habitaron la Hispaniola durante más de 5,000 años antes de la llegada de los europeos. Sus petroglifos, cerámica y estructuras ceremoniales son testimonio de una civilización sofisticada.</p>
+
+      <h3>Cuevas y Arte Rupestre</h3>
+      <ul>
+        <li><strong>Cuevas del Pomier</strong> (San Cristóbal) — El mayor sistema de arte rupestre del Caribe: 55 cuevas con 6,000+ pinturas y 500 grabados. Pictografías de cemíes, animales y escenas ceremoniales.</li>
+        <li><strong>Cueva de las Maravillas</strong> (San Pedro de Macorís) — Más de 500 pictografías taínas con sistema de iluminación para visitantes.</li>
+        <li><strong>Cueva del Puente</strong> (Samaná) — Petroglifos en roca caliza con representaciones de rostros y figuras geométricas.</li>
+        <li><strong>Cueva de Berna</strong> (San Rafael del Yuma) — Arte rupestre con representaciones de aves, murciélagos y figuras humanas.</li>
+        <li><strong>Las Caritas</strong> (Lago Enriquillo) — Petroglifos tallados en el acantilado norte del lago. Rostros con expresiones variadas (500-1,000 años).</li>
+      </ul>
+
+      <h3>Asentamientos y Plazas Ceremoniales</h3>
+      <ul>
+        <li><strong>La Aleta / Manantial de la Aleta</strong> (Parque Nacional del Este) — Cenote sagrado de 73m con ofrendas de madera taína sumergidas.</li>
+        <li><strong>Chacuey</strong> (Dajabón) — Cientos de petroglifos y plazas de piedra con caminos sofisticados.</li>
+        <li><strong>Parque Nacional Los Haitises</strong> — Cuevas con pictografías y petroglifos en un paisaje kárstico de mogotes.</li>
+        <li><strong>El Cabo</strong> (Higüey) — Aldea taína excavada por la Universidad de Leiden (ocupación 600-1504 d.C.).</li>
+      </ul>
+
+      <h3>En el juego</h3>
+      <p>Los asentamientos taínos se representan en dos niveles: <strong>Yucayeque de Marién</strong> (cacicazgo de Guacanagaríx) y <strong>Yucayeque de Maguá</strong> (cacicazgo de Guarionex). El jugador aprende sobre bohíos, conucos, ceremonias de areíto, el juego de batú, medicina del behique y la artesanía de cerámica.</p>
+    </section>
+
+    <!-- ============================================================
+         SITIOS EXPLORADOS — COLONIALES
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">🏰</span> Sitios Coloniales Explorados</h2>
+      <p class="intro">La Hispaniola fue el centro de la colonización española en las Américas. Los primeros asentamientos, catedrales, fortalezas y ciudades europeas del Nuevo Mundo se fundaron aquí.</p>
+
+      <ul>
+        <li><strong>La Isabela</strong> (Puerto Plata) — Segundo asentamiento europeo en las Américas, fundado por Colón en 1494. Ruinas excavadas del hospital, la iglesia y el almacén.</li>
+        <li><strong>Zona Colonial de Santo Domingo</strong> (UNESCO) — Primera ciudad europea permanente en las Américas (1498). Catedral Primada, Alcázar de Colón, Panteón Nacional, Calle de las Damas, Reloj de Sol.</li>
+        <li><strong>Museo de la Catedral</strong> — 15 salas en la restaurada Real Cárcel con tesoros del siglo XVI al XX. Dirigido por Fabiola Herrera.</li>
+        <li><strong>La Vega Vieja</strong> (Concepción de la Vega) — Fundada en 1495, primer sitio donde se procesó oro en las Américas.</li>
+        <li><strong>Fortaleza San Felipe</strong> (Puerto Plata) — Fortaleza militar del siglo XVI.</li>
+      </ul>
+
+      <h3>En el juego</h3>
+      <p>El jugador explora <strong>La Isabela</strong> (combate con el soldado español Diego) y la <strong>Zona Colonial</strong> (combate con el Constructor Méndez, visita al Museo de la Catedral con Fabiola Herrera, cambio de guardia en el Panteón, Roberto Cassá como mentor).</p>
+    </section>
+
+    <!-- ============================================================
+         SITIOS EXPLORADOS — NAUFRAGIOS
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">⚓</span> Naufragios Explorados</h2>
+      <p class="intro">Las costas de la Hispaniola albergan cientos de naufragios, desde la nave capitana de Colón hasta galeones cargados de tesoros coloniales.</p>
+
+      <ul>
+        <li><strong>Santa María</strong> (Cap-Haïtien, Haití) — Nave capitana de Cristóbal Colón, encallada la Nochebuena de 1492. El naufragio más histórico de las Américas.</li>
+        <li><strong>Guadalupe y Tolosa</strong> (Bahía de Samaná) — Dos galeones españoles hundidos por un huracán en 1724. Descubiertos en los años 1970.</li>
+        <li><strong>Quedagh Merchant</strong> (Isla Catalina) — Barco del Capitán Kidd, descubierto en 2007 a solo 3 metros de profundidad.</li>
+        <li><strong>Monte Cristi Pipe Wreck</strong> — Barco mercante del siglo XVII con cargamento de pipas de arcilla.</li>
+        <li><strong>Naufragios del Mundo Acuático</strong> — En el juego, el jugador explora los restos de la Santa María con tortugas marinas, corales, medusas y el pez león invasor.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         SITIOS EXPLORADOS — MUSEOS
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">🏛</span> Museos</h2>
+      <p class="intro">30 museos de República Dominicana y Haití están marcados en el Mapa Real, incluyendo:</p>
+      <ul>
+        <li><strong>Museo del Hombre Dominicano</strong> (Santo Domingo) — La colección más importante de artefactos taínos del Caribe.</li>
+        <li><strong>Museo de las Atarazanas Reales</strong> (Santo Domingo) — En el juego, el Dr. Morbán dirige este museo donde se autentican artefactos por C-14.</li>
+        <li><strong>Museo de la Catedral</strong> (Santo Domingo) — 15 salas con tesoros religiosos del siglo XVI al XX.</li>
+        <li><strong>Memorial de la Resistencia</strong> (Santo Domingo) — Historia de la lucha por la democracia.</li>
+        <li><strong>Musée du Panthéon National Haïtien</strong> (Puerto Príncipe) — Historia de Haití desde la independencia.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         SITIOS INEXPLORADOS (descubiertos por el robot)
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">🔍</span> Sitios Inexplorados</h2>
+      <p class="intro">8 sitios descubiertos por el robot submarino programado en el LFSD. Solo aparecen en el mapa después de completar la misión "Full Metal Archeologist".</p>
+      <p>Estos sitios representan el potencial de la tecnología robótica para descubrir nuevos yacimientos arqueológicos submarinos — el objetivo del proyecto de robótica de les fous du robot.</p>
+    </section>
+
+    <!-- ============================================================
+         POTENCIAL ARQUEOLÓGICO
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">🔬</span> Potencial Arqueológico</h2>
+      <p class="intro">15 sitios reales identificados por investigación académica como áreas con alto potencial para descubrimientos futuros. Basados en fuentes de la Universidad de Leiden, el Florida Museum, UNESCO, y publicaciones académicas.</p>
+
+      <h3>Asentamientos Taínos No Excavados</h3>
+      <ul>
+        <li><strong>El Cabo y alrededores</strong> (Higüey) — La aldea principal fue excavada por Leiden (600-1504 d.C.) pero los alrededores apenas se han explorado.</li>
+        <li><strong>Manantial de la Aleta</strong> — Cenote sagrado de 73m. Solo "la punta del iceberg" ha sido investigada.</li>
+        <li><strong>Boca de Nigua</strong> (San Cristóbal) — Restos taínos sin excavar + sitio de la revuelta de esclavizados de 1796.</li>
+      </ul>
+
+      <h3>Zonas Subacuáticas</h3>
+      <ul>
+        <li><strong>Plataforma costera de Montecristi</strong> — 400+ naufragios coloniales reportados, menos de 50 localizados. Zona prioritaria UNESCO.</li>
+        <li><strong>Bahía de Samaná</strong> — Naufragios no descubiertos + sitio arcaico El Pozito (hallazgo de Sapienza).</li>
+        <li><strong>Isla Catalina</strong> — El Quedagh Merchant fue hallado aquí en 2007. Los arrecifes probablemente contienen más naufragios.</li>
+      </ul>
+
+      <h3>Sistemas de Cuevas</h3>
+      <ul>
+        <li><strong>Cuevas del Pomier (secciones inexploradas)</strong> — ~50 de 55 cuevas contienen arte no documentado.</li>
+        <li><strong>Parque Nacional Jaragua</strong> — Cacicazgo de Jaragua. Pictogramas datados hasta 2590 a.C. en un interior kárstico de 1,374 km² sin prospectar.</li>
+        <li><strong>Grotte Marie-Jeanne</strong> (Haití) — Potencialmente el sistema de cuevas más grande del Caribe. Cerámica y arte rupestre ritual.</li>
+      </ul>
+
+      <h3>Asentamientos Cimarrones</h3>
+      <ul>
+        <li><strong>Maniel de Ocoa</strong> — Primer asentamiento cimarrón documentado de la Hispaniola (siglo XVI). Nunca excavado.</li>
+        <li><strong>Sierra de Bahoruco</strong> — 85+ años de ocupación cimarrona. También refugio de Enriquillo (1519-1533). Sin prospección sistemática.</li>
+      </ul>
+
+      <h3>Valles y Costa</h3>
+      <ul>
+        <li><strong>Valle del río Chacuey</strong> — Petroglifos y plazas conocidas, pero el patrón de asentamientos agrícolas no se ha excavado.</li>
+        <li><strong>Interior del Valle del Cibao</strong> — ~300 sitios indígenas registrados pero poco estudiados comparado con la costa.</li>
+        <li><strong>Costa suroeste de Haití</strong> (Les Cayes-Jérémie) — Cacicazgo de Jaragua. Sin prospección costera sistemática.</li>
+        <li><strong>Fort-Liberté y En Bas Saline</strong> (Haití) — ~300 sitios en riesgo de saqueo. Candidato más probable para La Navidad (fuerte de Colón, 1492).</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         IMPORTANCIA
+         ============================================================ -->
+    <section>
+      <h2><span class="icono">💡</span> ¿Por Qué Importa la Arqueología?</h2>
+      <ul>
+        <li><strong>Identidad</strong> — Saber de dónde venimos nos ayuda a entender quiénes somos. Los taínos, los africanos y los europeos forjaron juntos la cultura dominicana.</li>
+        <li><strong>Protección</strong> — Muchos sitios están amenazados por el desarrollo urbano, el saqueo y el cambio climático. Conocerlos es el primer paso para protegerlos.</li>
+        <li><strong>Educación</strong> — Cada artefacto cuenta una historia. Un cemí no es solo una estatua — es la expresión espiritual de un pueblo entero.</li>
+        <li><strong>Justicia</strong> — El tráfico ilegal de artefactos destruye el contexto arqueológico. La Ley 318 de la RD protege el patrimonio, pero necesita ciudadanos informados.</li>
+        <li><strong>Futuro</strong> — La tecnología (robots submarinos, magnetómetros, análisis por C-14) abre nuevas posibilidades para descubrir y preservar nuestro pasado.</li>
+      </ul>
+    </section>
+
+  </main>
+  <footer>
+    <p>ArcLycée v0.18.1 — Aventura Arqueológica Dominicana</p>
+  </footer>
+  <script src="navigation.js"></script>
+</body>
+</html>

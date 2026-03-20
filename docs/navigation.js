@@ -41,6 +41,11 @@
       label: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
       archivos: { es: 'characters.html', en: 'characters-en.html', fr: 'characters-fr.html' }
     },
+    archaeology: {
+      icono: '🏛️',
+      label: { es: 'Arqueología', en: 'Archaeology', fr: 'Archéologie' },
+      archivos: { es: 'archaeology.html', en: 'archaeology-en.html', fr: 'archaeology-fr.html' }
+    },
     nature: {
       icono: '🌿',
       label: { es: 'Naturaleza', en: 'Nature', fr: 'Nature' },
