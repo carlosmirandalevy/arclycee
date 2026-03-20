@@ -57,6 +57,7 @@ export class LagoEnriquillo {
     this.juego = juego;
     this.bloqueoEntrada = true;
     this.tiempoTotal = 0;
+    this._anguloNado = 0; // Rotación del avatar al nadar
 
     if (juego.jugador) {
       juego.jugador.modoJuego = 'topdown';
@@ -195,6 +196,36 @@ export class LagoEnriquillo {
 
     if (jugador.esAnimando) {
       jugador.cuadroAnimacion = (jugador.cuadroAnimacion || 0) + dt * 8;
+    }
+
+    // --- Ángulo de nado (solo en agua, no en la isla) ---
+    const enAgua = !this._estaEnIsla(jugador);
+    if (enAgua) {
+      const moviIzq = entrada.estaPresionada('izquierda');
+      const moviDer = entrada.estaPresionada('derecha');
+      const moviAbajo = entrada.estaPresionada('abajo');
+      const moviArriba = entrada.estaPresionada('arriba');
+      let anguloObjetivo = 0;
+      if (moviAbajo && moviIzq) {
+        anguloObjetivo = -(Math.PI - Math.PI * 0.25); // -135°
+      } else if (moviAbajo && moviDer) {
+        anguloObjetivo = Math.PI - Math.PI * 0.25; // 135°
+      } else if (moviArriba && moviIzq) {
+        anguloObjetivo = -Math.PI * 0.25; // -45°
+      } else if (moviArriba && moviDer) {
+        anguloObjetivo = Math.PI * 0.25; // 45°
+      } else if (moviIzq || moviDer) {
+        anguloObjetivo = moviIzq ? -Math.PI * 0.42 : Math.PI * 0.42;
+      } else if (moviAbajo) {
+        anguloObjetivo = Math.PI; // 180°
+      }
+      let diff = anguloObjetivo - this._anguloNado;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      this._anguloNado += diff * Math.min(1, 8 * dt);
+    } else {
+      // En la isla: volver a 0 gradualmente
+      this._anguloNado += (0 - this._anguloNado) * Math.min(1, 8 * dt);
     }
 
     // Limitar al nivel
@@ -1031,20 +1062,39 @@ export class LagoEnriquillo {
       jugador._sacudida -= 1 / 60;
       if (jugador._sacudida < 0) jugador._sacudida = 0;
     }
-    // En el agua: inclinación lateral + ondulación vertical (simula nado)
     const enAgua = !this._estaEnIsla(jugador);
+    // Ondulación vertical en el agua
     if (enAgua) {
       py += Math.sin(this.tiempoTotal * 3) * 2;
     }
+
     const genero = jugador.genero || 'pepito';
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-    ctx.beginPath();
-    ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
-    ctx.fill();
+    const centroX = px + jugador.ancho / 2;
+    const centroY = py + jugador.alto / 2;
+
+    // Aplicar rotación de nado (como en los mundos acuáticos)
+    if (enAgua && Math.abs(this._anguloNado) > 0.01) {
+      ctx.save();
+      ctx.translate(centroX, centroY);
+      ctx.rotate(this._anguloNado);
+      ctx.translate(-centroX, -centroY);
+    }
+
+    // Sombra (solo en tierra)
+    if (!enAgua) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+      ctx.beginPath();
+      ctx.ellipse(px + jugador.ancho / 2, py + jugador.alto + 2, 12, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Cuerpo
     ctx.fillStyle = genero === 'pepito' ? '#4488ff' : '#aa44ff';
     ctx.fillRect(px + 4, py + 10, 20, 16);
+    // Cabeza
     ctx.fillStyle = '#D2956A';
     ctx.fillRect(px + 6, py, 16, 14);
+    // Pelo
     ctx.fillStyle = genero === 'pepito' ? '#2a1a0a' : '#1a0a00';
     if (genero === 'pepito') {
       ctx.fillRect(px + 5, py - 2, 18, 6);
@@ -1053,6 +1103,7 @@ export class LagoEnriquillo {
       ctx.fillRect(px + 3, py + 2, 4, 10);
       ctx.fillRect(px + 21, py + 2, 4, 10);
     }
+    // Ojos
     ctx.fillStyle = '#FFFFFF';
     let ojoDx = 0, ojoDy = 0;
     if (jugador.direccion === 'izquierda') ojoDx = -1;
@@ -1064,7 +1115,8 @@ export class LagoEnriquillo {
     ctx.fillStyle = '#000000';
     ctx.fillRect(px + 10 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
     ctx.fillRect(px + 17 + ojoDx, py + 5 + ojoDy, 1.5, 1.5);
-    // Piernas y zapatos (ocultos en el agua — el jugador nada)
+
+    // Piernas: normales en tierra, pateo de nado en agua
     if (!enAgua) {
       ctx.fillStyle = '#2a5599';
       const pasoAnim = jugador.esAnimando ? Math.sin(jugador.cuadroAnimacion * 5) * 3 : 0;
@@ -1074,13 +1126,23 @@ export class LagoEnriquillo {
       ctx.fillRect(px + 5, py + 32 + pasoAnim, 8, 3);
       ctx.fillRect(px + 15, py + 32 - pasoAnim, 8, 3);
     } else {
-      // Ondas de agua alrededor del jugador (simula nado)
-      ctx.strokeStyle = 'rgba(100, 180, 200, 0.5)';
+      // Piernas de nado (patada alternada, más separadas y con movimiento de aleta)
+      ctx.fillStyle = '#2a5599';
+      const kick = Math.sin(this.tiempoTotal * 6) * 5;
+      ctx.fillRect(px + 6, py + 26 + kick, 7, 8);
+      ctx.fillRect(px + 15, py + 26 - kick, 7, 8);
+      // Ondas de agua
+      ctx.strokeStyle = 'rgba(100, 180, 200, 0.4)';
       ctx.lineWidth = 1;
       const ondaW = 10 + Math.sin(this.tiempoTotal * 4) * 3;
       ctx.beginPath();
-      ctx.ellipse(px + 14, py + 28, ondaW, 4, 0, 0, Math.PI * 2);
+      ctx.ellipse(px + 14, py + 36, ondaW, 3, 0, 0, Math.PI * 2);
       ctx.stroke();
+    }
+
+    // Restaurar rotación
+    if (enAgua && Math.abs(this._anguloNado) > 0.01) {
+      ctx.restore();
     }
   }
 
