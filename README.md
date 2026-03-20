@@ -37,7 +37,9 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas, efectos en jugador y sonido ambiental (lluvia continua, truenos)
 - **Álbum de fotos**: toma fotos y selfies de NPCs, tortugas, corales, petroglifos y objetos — cada tipo tiene renderizado dedicado (tortugas por especie, corales por tipo: cerebro, cuerno, abanico, mesa). Selfies muestran entidad + jugador lado a lado. Sin capturas de pantalla
 - **Sistema de oxígeno**: en el Santuario del Manatí el jugador nada a pulmón con snorkel — barra de O₂ que se agota en ~60s y se recarga en la superficie (zona de lanchas rápidas)
-- **Misiones secundarias**: 5 sidequests: batú (pelota taína), rescate del manatí, y 3 del LFSD (calibración de señal, programación de robot, conexión de cables) con mini-juegos únicos
+- **Misiones secundarias**: 7 sidequests: batú, rescate del manatí, 3 del LFSD, Museo de la Catedral, Ídolo de Enriquillo
+- **Boss fight secreto**: bullet hell estilo Bloody Hell contra el Espíritu del Cemí en Isla Cabritos — 4 patrones de proyectiles, 5 corazones, 3 ciclos, Espada de Enriquillo, Bendición Divina
+- **Mapa Real con 6 capas**: Sitios Taínos (16), Coloniales (8), Naufragios (12), Museos (30), Inexplorados (8), Potencial Arqueológico (15)
 - **Registro de juego**: Game Log con tecla L, pestañas de misiones principales y secundarias
 - **Sistema de reputación**: puntuación 0-100 que afecta combates y diálogos
 - **Desktop y móvil** con controles táctiles virtuales (joystick analógico o cruceta, configurable desde Opciones), touch/pinch zoom en mapa

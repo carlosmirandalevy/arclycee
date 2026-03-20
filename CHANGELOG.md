@@ -1,5 +1,31 @@
 # Changelog
 
+## v0.19.0 — Boss fight, Archaeological Potential map, Santuario node, docs (2026-03-20)
+
+### Agregado
+- **Boss fight: Espíritu del Cemí** (`js/mecanicas/boss-cemi.js`): bullet hell secreto estilo Bloody Hell/Silksong en Isla Cabritos. 4 patrones de proyectiles (espiral, anillo, onda, dirigido), 5 corazones, 3 ciclos de dificultad creciente (1.0×→1.3×→1.6×, doble patrón en ciclo 3). Espada de Enriquillo como arma. Victoria: Bendición Divina (+30 vida, +5 fuerza, +20% velocidad). Derrota: despertar como de un sueño
+- **Capa de Potencial Arqueológico** en el Mapa Real: 15 sitios investigados (12 RD + 3 Haití) con coordenadas GPS, basados en fuentes de Leiden, Florida Museum, UNESCO
+- **Santuario del Manatí como nodo independiente** (nodo 11): Santuario de Mamíferos Marinos de Estero Hondo, al oeste de La Isabela
+- **Documentación de Arqueología** (`docs/archaeology*.html`): nueva página con sitios explorados, inexplorados y potenciales, capas del mapa, importancia de la arqueología
+- **Tierra desértica alrededor de los lagos**: tiles ARENA en un anillo de 2 tiles alrededor de Lago Enriquillo y Étang Saumâtre
+- **Lagos más altos**: ambos lagos ahora 2 tiles de alto (ry: 1→2)
+- **Música de combate** durante el boss fight
+
+### Mejorado
+- **Isla Cabritos más grande y alta**: polígono irregular más alto (~230px, era ~170px), NPCs separados (Enriquillo centro, Mencía este, Tamayo oeste)
+- **Espiral del boss más cerrada**: ángulo 0.18 rad (era 0.3), intervalo 0.06s (era 0.08s)
+- **Iconos de nodos en el mapa**: ⛰ montaña, 🐊 lago, 🤖 escuela
+- **Cuchara Legendaria alcanzable**: suelo inferior continuo (x:400-1100) + 3 plataformas escalonadas
+
+### Corregido
+- **inventario.quitar → inventario.remover**: crash al entregar ídolo a Enriquillo y artefacto a Fabiola
+- **Boss crash al morir en ciclo 3**: early return al cambiar a fase derrota durante colisión
+- **Cara del boss desaparecía**: _bossFlash no se reseteaba entre ciclos + ctx.save/restore
+- **Jugador nadaba en tierra**: _estaEnTierraJugador() verifica isla + orillas
+- **Nieve en montañas**: removida del mapa de tiles y de Palenque de Lemba (Caribe)
+
+---
+
 ## v0.18.0 — Mountain World, Lago Enriquillo, Cuchara Legendaria, Diana removal (2026-03-19)
 
 ### Agregado
