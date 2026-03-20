@@ -100,9 +100,10 @@ export class Juego {
       if (volSonidos !== null) this.sfx.volumen = parseFloat(volSonidos);
     } catch (_e) { /* localStorage no disponible */ }
 
-    // Flags para detectar transiciones de combate/batú → override de música
+    // Flags para detectar transiciones de combate/batú/boss → override de música
     this._musicaCombateActiva = false;
     this._musicaBatuActiva = false;
+    this._musicaBossActiva = false;
 
     // Flag para evitar múltiples triggers de muerte simultáneos
     this._muerteEnCurso = false;
@@ -603,6 +604,14 @@ export class Juego {
     if (!this.batu.enJuego && this._musicaBatuActiva) {
       this.musica.restaurar();
       this._musicaBatuActiva = false;
+    }
+    if (this.bossCemi.enJuego && !this._musicaBossActiva) {
+      this.musica.override('combate');
+      this._musicaBossActiva = true;
+    }
+    if (!this.bossCemi.enJuego && this._musicaBossActiva) {
+      this.musica.restaurar();
+      this._musicaBossActiva = false;
     }
 
     // --- Combate: si hay un combate activo, consume toda la entrada ---
