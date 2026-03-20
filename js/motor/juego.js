@@ -850,7 +850,8 @@ export class Juego {
     // En el Santuario del Manatí la barra de reputación se reemplaza por la de O₂
     if (this.jugador && !this.inventario.abierto && !this.registro.visible
         && this.nombreEscenaActual !== 'mapaPrincipal'
-        && this.nombreEscenaActual !== 'santuarioManati') {
+        && this.nombreEscenaActual !== 'santuarioManati'
+        && !this.bossCemi.enJuego) {
       this.reputacion.dibujarMedidor(this.ctx, 140, 10, 100, textos);
     }
 
@@ -877,8 +878,10 @@ export class Juego {
     }
 
     // --- Mensajes flotantes (toasts) encima de la UI ---
-    // Se dibujan sobre todo excepto el selector secreto
-    this._dibujarToasts(this.ctx, ANCHO_JUEGO);
+    // No se dibujan durante el boss fight (overlay cubre toda la pantalla)
+    if (!this.bossCemi.enJuego) {
+      this._dibujarToasts(this.ctx, ANCHO_JUEGO);
+    }
 
     // --- Selector de niveles secreto (se dibuja sobre ABSOLUTAMENTE todo) ---
     if (this._selectorNiveles) {
