@@ -132,18 +132,30 @@ export class LagoEnriquillo {
       { x: 1300, y: 600, ancho: 60, alto: 25, fase: 0.5, velocidad: 0.38, centroX: 1300, centroY: 600, radioX: 140, radioY: 70 }
     ];
 
-    // --- Iguanas rinoceronte (Cyclura cornuta) ---
-    // Endémicas de la Isla Cabritos, una de las poblaciones más grandes del mundo.
-    // Se mueven lentamente por la isla y las orillas del lago.
+    // --- Iguanas del Lago Enriquillo (2 especies endémicas) ---
+    // Iguana rinoceronte (Cyclura cornuta): cuernos en el hocico, ojos amarillos
+    // Iguana de Ricord (Cyclura ricordii): sin cuernos, ojos rojos (más rara)
     this.iguanas = [
-      // En la isla
-      { x: 850, y: 460, fase: 0, velocidad: 0.2, centroX: 850, centroY: 460, radioX: 40, radioY: 20, mirandoDerecha: true },
-      { x: 1000, y: 520, fase: Math.PI, velocidad: 0.15, centroX: 1000, centroY: 520, radioX: 30, radioY: 15, mirandoDerecha: false },
-      { x: 950, y: 400, fase: Math.PI / 2, velocidad: 0.18, centroX: 950, centroY: 400, radioX: 35, radioY: 18, mirandoDerecha: true },
-      // En las orillas
-      { x: 300, y: 1080, fase: 1, velocidad: 0.12, centroX: 300, centroY: 1080, radioX: 50, radioY: 10, mirandoDerecha: true },
-      { x: 1400, y: 80, fase: 2, velocidad: 0.14, centroX: 1400, centroY: 80, radioX: 40, radioY: 12, mirandoDerecha: false },
-      { x: 100, y: 200, fase: 3, velocidad: 0.16, centroX: 100, centroY: 200, radioX: 30, radioY: 15, mirandoDerecha: true }
+      // Rinocerontes en la isla (más comunes)
+      { x: 850, y: 460, fase: 0, velocidad: 0.2, centroX: 850, centroY: 460, radioX: 40, radioY: 20, mirandoDerecha: true, tipo: 'rinoceronte' },
+      { x: 1000, y: 520, fase: Math.PI, velocidad: 0.15, centroX: 1000, centroY: 520, radioX: 30, radioY: 15, mirandoDerecha: false, tipo: 'rinoceronte' },
+      { x: 950, y: 400, fase: Math.PI / 2, velocidad: 0.18, centroX: 950, centroY: 400, radioX: 35, radioY: 18, mirandoDerecha: true, tipo: 'rinoceronte' },
+      // Ricord en la isla (más rara — ojos rojos)
+      { x: 900, y: 480, fase: 1.5, velocidad: 0.13, centroX: 900, centroY: 480, radioX: 25, radioY: 15, mirandoDerecha: false, tipo: 'ricord' },
+      // Rinocerontes en las orillas
+      { x: 300, y: 1080, fase: 1, velocidad: 0.12, centroX: 300, centroY: 1080, radioX: 50, radioY: 10, mirandoDerecha: true, tipo: 'rinoceronte' },
+      { x: 1400, y: 80, fase: 2, velocidad: 0.14, centroX: 1400, centroY: 80, radioX: 40, radioY: 12, mirandoDerecha: false, tipo: 'rinoceronte' },
+      // Ricord en la orilla (rara)
+      { x: 100, y: 200, fase: 3, velocidad: 0.16, centroX: 100, centroY: 200, radioX: 30, radioY: 15, mirandoDerecha: true, tipo: 'ricord' }
+    ];
+
+    // --- Cucú / Burrowing Owl (Athene cunicularia) ---
+    // Búho pequeño que anida en madrigueras en el suelo de Isla Cabritos.
+    // Activo de día, a diferencia de otros búhos.
+    this.cucus = [
+      { x: 870, y: 430, fase: 0 },
+      { x: 1020, y: 490, fase: 1.5 },
+      { x: 940, y: 550, fase: 3 }
     ];
 
     // --- Flamencos rosados (Phoenicopterus ruber) ---
@@ -505,6 +517,11 @@ export class LagoEnriquillo {
       this._dibujarIguana(ctx, ig, offsetX, offsetY);
     }
 
+    // --- Cucú (burrowing owl) ---
+    for (const cu of this.cucus) {
+      this._dibujarCucu(ctx, cu, offsetX, offsetY);
+    }
+
     // --- Flamencos rosados ---
     for (const fl of this.flamencos) {
       this._dibujarFlamenco(ctx, fl, offsetX, offsetY);
@@ -748,8 +765,13 @@ export class LagoEnriquillo {
     ctx.ellipse(ix + 10, iy + 12, 14, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
+    // Color base: rinoceronte es verde-gris, Ricord es más gris-azulada
+    const colorCuerpo = ig.tipo === 'ricord' ? '#5a6a6a' : '#6a7a5a';
+    const colorOscuro = ig.tipo === 'ricord' ? '#4a5a5a' : '#5a6a4a';
+    const colorClaro = ig.tipo === 'ricord' ? '#7a8a8a' : '#8a9a7a';
+
     // Cola larga y curvada
-    ctx.strokeStyle = '#5a6a4a';
+    ctx.strokeStyle = colorOscuro;
     ctx.lineWidth = 3;
     ctx.lineCap = 'round';
     const tailBaseX = ix + (dir > 0 ? 0 : 20);
@@ -766,20 +788,20 @@ export class LagoEnriquillo {
     ctx.lineTo(tailBaseX - dir * 24, iy + 6);
     ctx.stroke();
 
-    // Cuerpo (elipse verde-gris)
-    ctx.fillStyle = '#6a7a5a';
+    // Cuerpo (elipse)
+    ctx.fillStyle = colorCuerpo;
     ctx.beginPath();
     ctx.ellipse(ix + 10, iy + 6, 12, 7, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Vientre más claro
-    ctx.fillStyle = '#8a9a7a';
+    ctx.fillStyle = colorClaro;
     ctx.beginPath();
     ctx.ellipse(ix + 10, iy + 8, 8, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Cresta dorsal (pequeños triángulos a lo largo del lomo)
-    ctx.fillStyle = '#5a6a4a';
+    ctx.fillStyle = colorOscuro;
     for (let c = 0; c < 4; c++) {
       const sx = ix + 4 + c * 5;
       ctx.beginPath();
@@ -792,32 +814,42 @@ export class LagoEnriquillo {
 
     // Cabeza (más ancha y robusta que el cuerpo)
     const headX = ix + (dir > 0 ? 20 : 0);
-    ctx.fillStyle = '#6a7a5a';
+    ctx.fillStyle = colorCuerpo;
     ctx.beginPath();
     ctx.ellipse(headX, iy + 5, 7, 6, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cuernos del rinoceronte (2-3 protuberancias en el hocico)
-    ctx.fillStyle = '#5a5a4a';
-    ctx.beginPath();
-    ctx.arc(headX + dir * 5, iy + 1, 2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(headX + dir * 3, iy - 1, 1.5, 0, Math.PI * 2);
-    ctx.fill();
+    // Cuernos (solo iguana rinoceronte — Cyclura cornuta)
+    if (ig.tipo === 'rinoceronte') {
+      ctx.fillStyle = '#5a5a4a';
+      // Cuerno principal
+      ctx.beginPath();
+      ctx.arc(headX + dir * 5, iy + 1, 2, 0, Math.PI * 2);
+      ctx.fill();
+      // Cuerno secundario
+      ctx.beginPath();
+      ctx.arc(headX + dir * 3, iy - 1, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      // Tercer cuerno pequeño
+      ctx.beginPath();
+      ctx.arc(headX + dir * 6, iy + 3, 1, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
-    // Ojo (pequeño, amarillo con pupila negra)
-    ctx.fillStyle = '#CCAA44';
+    // Ojo — amarillo para rinoceronte, rojo para Ricord
+    const colorOjo = ig.tipo === 'ricord' ? '#CC2222' : '#CCAA44';
+    ctx.fillStyle = colorOjo;
     ctx.beginPath();
     ctx.arc(headX + dir * 2, iy + 3, 2, 0, Math.PI * 2);
     ctx.fill();
+    // Pupila negra
     ctx.fillStyle = '#111111';
     ctx.beginPath();
     ctx.arc(headX + dir * 2, iy + 3, 0.8, 0, Math.PI * 2);
     ctx.fill();
 
     // Patas (4, con movimiento alternado realista)
-    ctx.fillStyle = '#5a6a4a';
+    ctx.fillStyle = colorOscuro;
     // Delantera izquierda
     ctx.save();
     ctx.translate(ix + 15, iy + 11);
@@ -855,6 +887,84 @@ export class LagoEnriquillo {
     ctx.fillRect(0, 5, 2, 2);
     ctx.fillRect(2, 4, 2, 2);
     ctx.restore();
+  }
+
+  // --- Cucú / Burrowing Owl (Athene cunicularia) ---
+  // Búho pequeño marrón que anida en el suelo. Gira la cabeza periódicamente.
+  _dibujarCucu(ctx, cu, offsetX, offsetY) {
+    const cx = cu.x + offsetX;
+    const cy = cu.y + offsetY;
+
+    // Madriguera (agujero en el suelo)
+    ctx.fillStyle = '#6a5a3a';
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + 8, 8, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#4a3a2a';
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + 8, 5, 2.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cuerpo (pequeño, marrón moteado)
+    ctx.fillStyle = '#8a7a5a';
+    ctx.beginPath();
+    ctx.ellipse(cx, cy + 2, 5, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Motas blancas en el cuerpo
+    ctx.fillStyle = '#CCBB99';
+    ctx.fillRect(cx - 3, cy, 1.5, 1.5);
+    ctx.fillRect(cx + 1, cy + 2, 1.5, 1.5);
+    ctx.fillRect(cx - 1, cy + 4, 1.5, 1.5);
+
+    // Cabeza (gira periódicamente — búho que mira alrededor)
+    const giro = Math.sin(this.tiempoTotal * 0.8 + cu.fase) * 3;
+    ctx.fillStyle = '#8a7a5a';
+    ctx.beginPath();
+    ctx.arc(cx + giro * 0.5, cy - 5, 4.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Disco facial (marca blanca alrededor de los ojos — típico del cucú)
+    ctx.fillStyle = '#DDCCAA';
+    ctx.beginPath();
+    ctx.arc(cx + giro * 0.5, cy - 5, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Ojos grandes y amarillos (característicos del cucú)
+    ctx.fillStyle = '#DDAA22';
+    ctx.beginPath();
+    ctx.arc(cx - 1.5 + giro * 0.5, cy - 6, 1.8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx + 1.5 + giro * 0.5, cy - 6, 1.8, 0, Math.PI * 2);
+    ctx.fill();
+    // Pupilas negras
+    ctx.fillStyle = '#111111';
+    ctx.beginPath();
+    ctx.arc(cx - 1.5 + giro * 0.8, cy - 6, 0.8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx + 1.5 + giro * 0.8, cy - 6, 0.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Pico pequeño (amarillo)
+    ctx.fillStyle = '#CCAA44';
+    ctx.beginPath();
+    ctx.moveTo(cx + giro * 0.5, cy - 4.5);
+    ctx.lineTo(cx + giro * 0.5 + 1.5, cy - 3);
+    ctx.lineTo(cx + giro * 0.5 - 1.5, cy - 3);
+    ctx.closePath();
+    ctx.fill();
+
+    // Patas cortas (en el suelo)
+    ctx.strokeStyle = '#8a7a5a';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx - 2, cy + 7);
+    ctx.lineTo(cx - 2, cy + 9);
+    ctx.moveTo(cx + 2, cy + 7);
+    ctx.lineTo(cx + 2, cy + 9);
+    ctx.stroke();
   }
 
   // --- Flamenco rosado parado en una pata ---
