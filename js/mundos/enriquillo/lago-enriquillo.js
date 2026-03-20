@@ -1,9 +1,10 @@
 // ============================================================
-// LAGO-ENRIQUILLO.JS - Lago Enriquillo e Isla Cabritos
+// LAGO-ENRIQUILLO.JS - Lago Enriquillo e Isla Cabritos (Guarizacca)
 // ============================================================
 // El Lago Enriquillo es el lago más grande del Caribe y el punto
 // más bajo de las Antillas (44m bajo el nivel del mar). En su
-// centro está la Isla Cabritos, hogar de cocodrilos americanos,
+// centro está la Isla Cabritos (nombre taíno: Guarizacca),
+// hogar de cocodrilos americanos,
 // iguanas rinoceronte y flamencos.
 //
 // Históricamente, el cacique Enriquillo (Guarocuya) se refugió
@@ -216,6 +217,15 @@ export class LagoEnriquillo {
     // Velocidad reducida en el agua (fuera de la isla)
     const enIsla = this._estaEnIsla(jugador);
     const velMult = enIsla ? 1.0 : 0.6;
+
+    // Toast al pisar la isla por primera vez
+    if (enIsla && !this._islaVisitada) {
+      this._islaVisitada = true;
+      const eq = this._obtenerTextos()?.dialogos?.enriquillo;
+      if (this.juego?.mostrarToast) {
+        this.juego.mostrarToast('🏝️ ' + (eq?.guarizacca || 'Isla Cabritos — Guarizacca en lengua taína'), 4);
+      }
+    }
 
     if (entrada.estaPresionada('izquierda')) { jugador.velocidadX = -VELOCIDAD_JUGADOR * velMult; jugador.esAnimando = true; }
     if (entrada.estaPresionada('derecha'))   { jugador.velocidadX = VELOCIDAD_JUGADOR * velMult; jugador.esAnimando = true; }
@@ -481,8 +491,9 @@ export class LagoEnriquillo {
       }
     }
 
-    // --- Isla Cabritos (centro del lago) ---
+    // --- Isla Cabritos / Guarizacca (centro del lago) ---
     // La isla es ovalada, árida, con cactus y rocas
+    // Nombre taíno: Guarizacca
     const islaX = 750 + offsetX;
     const islaY = 350 + offsetY;
     const islaW = 400;
@@ -500,6 +511,13 @@ export class LagoEnriquillo {
     ctx.beginPath();
     ctx.ellipse(islaX + islaW / 2, islaY + islaH / 2, islaW / 2, islaH / 2, 0, 0, Math.PI * 2);
     ctx.stroke();
+
+    // Nombre de la isla (Taíno + español)
+    ctx.font = '10px monospace';
+    ctx.fillStyle = '#7a6a4a';
+    ctx.textAlign = 'center';
+    ctx.fillText('Isla Cabritos — Guarizacca', islaX + islaW / 2, islaY + islaH + 15);
+    ctx.textAlign = 'left';
 
     // Cactus en la isla
     const cactusPos = [[800, 400], [1050, 450], [850, 580], [1100, 380], [950, 350]];
