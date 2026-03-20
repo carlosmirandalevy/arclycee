@@ -491,7 +491,16 @@ export class LagoEnriquillo {
         }
       }
     }
-    if (!entrada.estaPresionada('accion')) this.bloqueoEntrada = false;
+    if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('mapa')) {
+      this.bloqueoEntrada = false;
+    }
+
+    // --- Volver al mapa con M ---
+    if (entrada.estaPresionada('mapa') && !this.bloqueoEntrada) {
+      if (this.juego?.cambiarEscena) this.juego.cambiarEscena('mapaPrincipal');
+      this.bloqueoEntrada = true;
+      return;
+    }
 
     // --- Actualizar fotografiables con posiciones actuales de la fauna ---
     this.fotografiables = [];
@@ -529,8 +538,8 @@ export class LagoEnriquillo {
       });
     }
 
-    // Salir por borde inferior
-    if (jugador.y >= this.altoNivel - 10 && this.juego) {
+    // Salir por borde inferior (jugador.y está clampeado a altoNivel - alto)
+    if (jugador.y >= this.altoNivel - jugador.alto - 5 && this.juego) {
       this.juego.cambiarEscena('mapaPrincipal');
     }
   }
