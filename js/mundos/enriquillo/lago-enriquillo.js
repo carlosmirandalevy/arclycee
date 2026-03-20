@@ -414,12 +414,13 @@ export class LagoEnriquillo {
           fl.y = fl.origenY;
         }
       } else {
-        // Movimiento lento periódico (camina unos pasos cada tanto)
-        fl.x += Math.sin(this.tiempoTotal * 0.3 + fl.origenX * 0.01) * 0.15;
-        // Espantar si el jugador se acerca a menos de 60px
+        // Movimiento lento periódico (pasos cortos)
+        fl.x += Math.sin(this.tiempoTotal * 0.5 + fl.origenX * 0.02) * 0.4;
+        fl.y += Math.cos(this.tiempoTotal * 0.3 + fl.origenY * 0.01) * 0.15;
+        // Espantar si el jugador se acerca a menos de 80px
         const dfx = (jugador.x + jugador.ancho / 2) - fl.x;
         const dfy = (jugador.y + jugador.alto / 2) - fl.y;
-        if (Math.sqrt(dfx * dfx + dfy * dfy) < 60) {
+        if (Math.sqrt(dfx * dfx + dfy * dfy) < 80) {
           fl.volando = true;
           fl.vuelo = 0;
           fl.dir = dfx < 0 ? 1 : -1; // Vuela en dirección opuesta al jugador
@@ -644,10 +645,25 @@ export class LagoEnriquillo {
     ctx.fillText('Isla Cabritos — Guarizacca', islaX + islaW / 2, islaY + islaH + 15);
     ctx.textAlign = 'left';
 
-    // Cactus en la isla
-    const cactusPos = [[800, 400], [1050, 450], [850, 580], [1100, 380], [950, 350]];
-    for (const [cx, cy] of cactusPos) {
-      this._dibujarCactus(ctx, cx + offsetX, cy + offsetY);
+    // --- Vegetación xerofítica de Isla Cabritos ---
+    // Bosque seco espinoso subtropical con cactus, guayacán, bayahonda, guasábara
+    // En la isla
+    const vegIsla = [
+      [800, 380, 'cactus'], [1050, 430, 'cactus'], [850, 570, 'cactus'],
+      [1100, 360, 'pitahaya'], [950, 340, 'cactus'], [760, 450, 'pitahaya'],
+      [900, 600, 'guayacan'], [1080, 500, 'guayacan'], [820, 500, 'bayahonda'],
+      [1000, 380, 'bayahonda'], [950, 550, 'guasabara'], [1150, 450, 'guasabara'],
+      [700, 520, 'alpargata'], [1050, 580, 'alpargata']
+    ];
+    // En las orillas
+    const vegOrilla = [
+      [200, 1060, 'cactus'], [600, 1070, 'bayahonda'], [1000, 1065, 'guayacan'],
+      [400, 80, 'cactus'], [800, 75, 'guasabara'], [1200, 85, 'pitahaya'],
+      [80, 300, 'bayahonda'], [120, 800, 'guayacan'],
+      [1680, 300, 'cactus'], [1700, 700, 'guasabara']
+    ];
+    for (const [vx, vy, tipo] of vegIsla.concat(vegOrilla)) {
+      this._dibujarVegetacion(ctx, vx + offsetX, vy + offsetY, tipo);
     }
 
     // --- Cocodrilos ---
@@ -743,16 +759,100 @@ export class LagoEnriquillo {
   // DIBUJO DE ELEMENTOS
   // ============================================================
 
-  _dibujarCactus(ctx, x, y) {
-    // Tronco principal
-    ctx.fillStyle = '#3a7a3a';
-    ctx.fillRect(x - 3, y - 20, 6, 25);
-    // Brazo izquierdo
-    ctx.fillRect(x - 12, y - 15, 10, 5);
-    ctx.fillRect(x - 12, y - 22, 5, 12);
-    // Brazo derecho
-    ctx.fillRect(x + 3, y - 10, 10, 5);
-    ctx.fillRect(x + 8, y - 18, 5, 13);
+  // --- Vegetación xerofítica de Isla Cabritos y orillas ---
+  _dibujarVegetacion(ctx, x, y, tipo) {
+    if (tipo === 'cactus') {
+      // Pilosocereus polygonus — cactus columnar alto
+      ctx.fillStyle = '#3a7a3a';
+      ctx.fillRect(x - 3, y - 20, 6, 25);
+      ctx.fillRect(x - 12, y - 15, 10, 5);
+      ctx.fillRect(x - 12, y - 22, 5, 12);
+      ctx.fillRect(x + 3, y - 10, 10, 5);
+      ctx.fillRect(x + 8, y - 18, 5, 13);
+    } else if (tipo === 'pitahaya') {
+      // Harrisia nashii — cactus pitahaya (más delgado, fruto rojo)
+      ctx.fillStyle = '#4a8a4a';
+      ctx.fillRect(x - 2, y - 18, 4, 22);
+      // Espinas (pequeñas líneas)
+      ctx.strokeStyle = '#6aaa6a';
+      ctx.lineWidth = 0.5;
+      for (let s = 0; s < 5; s++) {
+        ctx.beginPath();
+        ctx.moveTo(x - 2, y - 15 + s * 4);
+        ctx.lineTo(x - 6, y - 16 + s * 4);
+        ctx.moveTo(x + 2, y - 15 + s * 4);
+        ctx.lineTo(x + 6, y - 16 + s * 4);
+        ctx.stroke();
+      }
+      // Fruto rojo en la punta
+      ctx.fillStyle = '#CC3344';
+      ctx.beginPath();
+      ctx.arc(x, y - 19, 3, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (tipo === 'guayacan') {
+      // Guaiacum officinale — árbol bajo y leñoso con flores azules
+      ctx.fillStyle = '#5a3a1a';
+      ctx.fillRect(x - 2, y - 8, 4, 12);
+      // Copa densa y redondeada (verde oscuro)
+      ctx.fillStyle = '#2a5a2a';
+      ctx.beginPath();
+      ctx.arc(x, y - 12, 10, 0, Math.PI * 2);
+      ctx.fill();
+      // Flores azules (pequeños puntos)
+      ctx.fillStyle = '#5588CC';
+      ctx.fillRect(x - 5, y - 16, 2, 2);
+      ctx.fillRect(x + 3, y - 14, 2, 2);
+      ctx.fillRect(x - 2, y - 18, 2, 2);
+    } else if (tipo === 'bayahonda') {
+      // Prosopis juliflora — árbol espinoso bajo con copa aplanada
+      ctx.fillStyle = '#6a4a2a';
+      ctx.fillRect(x - 2, y - 6, 4, 10);
+      // Copa aplanada (típica de bayahonda)
+      ctx.fillStyle = '#3a6a2a';
+      ctx.beginPath();
+      ctx.ellipse(x, y - 10, 12, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Espinas (líneas finas)
+      ctx.strokeStyle = '#8a6a3a';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(x - 8, y - 8); ctx.lineTo(x - 12, y - 6);
+      ctx.moveTo(x + 8, y - 8); ctx.lineTo(x + 12, y - 6);
+      ctx.stroke();
+    } else if (tipo === 'guasabara') {
+      // Cylindropuntia caribaea — cactus con segmentos cilíndricos
+      ctx.fillStyle = '#4a7a3a';
+      // Segmentos cilíndricos ramificados
+      ctx.fillRect(x - 2, y - 12, 4, 16);
+      ctx.fillRect(x - 8, y - 10, 4, 10);
+      ctx.fillRect(x + 4, y - 8, 4, 10);
+      // Espinas blancas
+      ctx.fillStyle = '#DDDDAA';
+      for (let s = 0; s < 3; s++) {
+        ctx.fillRect(x - 4, y - 10 + s * 4, 1, 1);
+        ctx.fillRect(x + 2, y - 8 + s * 4, 1, 1);
+      }
+    } else if (tipo === 'alpargata') {
+      // Consolea moniliformis — cactus de pad plano (nopal)
+      ctx.fillStyle = '#3a7a3a';
+      // Tallo
+      ctx.fillRect(x - 2, y - 4, 4, 8);
+      // Pads ovalados (3 segmentos)
+      ctx.beginPath();
+      ctx.ellipse(x, y - 8, 5, 7, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(x - 6, y - 14, 4, 6, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(x + 5, y - 12, 4, 5, 0.3, 0, Math.PI * 2);
+      ctx.fill();
+      // Espinas (puntos claros)
+      ctx.fillStyle = '#CCCC88';
+      ctx.fillRect(x - 1, y - 12, 1, 1);
+      ctx.fillRect(x + 2, y - 10, 1, 1);
+      ctx.fillRect(x - 7, y - 16, 1, 1);
+    }
   }
 
   _dibujarCocodrilo(ctx, croc, offsetX, offsetY) {
@@ -907,10 +1007,10 @@ export class LagoEnriquillo {
     const dir = ig.mirandoDerecha ? 1 : -1;
     const legSwing = Math.sin(this.tiempoTotal * 3 + ig.fase) * 2;
 
-    // Sombra
+    // Sombra (más larga, más delgada)
     ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
     ctx.beginPath();
-    ctx.ellipse(ix + 10, iy + 12, 14, 4, 0, 0, Math.PI * 2);
+    ctx.ellipse(ix + 12, iy + 10, 18, 3, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Color base: rinoceronte es verde-gris, Ricord es más gris-azulada
@@ -918,11 +1018,11 @@ export class LagoEnriquillo {
     const colorOscuro = ig.tipo === 'ricord' ? '#4a5a5a' : '#5a6a4a';
     const colorClaro = ig.tipo === 'ricord' ? '#7a8a8a' : '#8a9a7a';
 
-    // Cola larga y curvada
+    // Cola larga y curvada (más larga para cuerpo más esbelto)
     ctx.strokeStyle = colorOscuro;
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
-    const tailBaseX = ix + (dir > 0 ? 0 : 20);
+    const tailBaseX = ix + (dir > 0 ? -2 : 26);
     ctx.beginPath();
     ctx.moveTo(tailBaseX, iy + 6);
     ctx.quadraticCurveTo(
@@ -936,16 +1036,16 @@ export class LagoEnriquillo {
     ctx.lineTo(tailBaseX - dir * 24, iy + 6);
     ctx.stroke();
 
-    // Cuerpo (elipse)
+    // Cuerpo (elipse más larga y delgada)
     ctx.fillStyle = colorCuerpo;
     ctx.beginPath();
-    ctx.ellipse(ix + 10, iy + 6, 12, 7, 0, 0, Math.PI * 2);
+    ctx.ellipse(ix + 12, iy + 5, 15, 5, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Vientre más claro
     ctx.fillStyle = colorClaro;
     ctx.beginPath();
-    ctx.ellipse(ix + 10, iy + 8, 8, 4, 0, 0, Math.PI * 2);
+    ctx.ellipse(ix + 12, iy + 7, 10, 3, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Cresta dorsal (pequeños triángulos a lo largo del lomo)
@@ -960,11 +1060,11 @@ export class LagoEnriquillo {
       ctx.fill();
     }
 
-    // Cabeza (más ancha y robusta que el cuerpo)
-    const headX = ix + (dir > 0 ? 20 : 0);
+    // Cabeza (posicionada al frente del cuerpo más largo)
+    const headX = ix + (dir > 0 ? 25 : -1);
     ctx.fillStyle = colorCuerpo;
     ctx.beginPath();
-    ctx.ellipse(headX, iy + 5, 7, 6, 0, 0, Math.PI * 2);
+    ctx.ellipse(headX, iy + 4, 6, 5, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Cuernos (solo iguana rinoceronte — Cyclura cornuta)
@@ -1052,11 +1152,11 @@ export class LagoEnriquillo {
 
     // Cuerpo sinuoso (segmentos curvados que ondean)
     ctx.strokeStyle = '#6a5a2a';
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.beginPath();
-    const tailX = sx - dir * 25;
+    const tailX = sx - dir * 30;
     ctx.moveTo(tailX, sy + Math.sin(this.tiempoTotal * 4 + cul.fase) * 3);
     for (let s = 0; s < 4; s++) {
       const segX = tailX + dir * (s + 1) * 12;
@@ -1065,8 +1165,8 @@ export class LagoEnriquillo {
     }
     ctx.stroke();
 
-    // Centro más grueso
-    ctx.lineWidth = 5;
+    // Centro un poco más grueso
+    ctx.lineWidth = 3.5;
     ctx.strokeStyle = '#7a6a3a';
     ctx.beginPath();
     ctx.moveTo(sx - dir * 5, sy + Math.sin(this.tiempoTotal * 4 + cul.fase + 2) * 3);
