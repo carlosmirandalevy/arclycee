@@ -414,9 +414,9 @@ export class LagoEnriquillo {
           fl.y = fl.origenY;
         }
       } else {
-        // Movimiento lento periódico (pasos cortos)
-        fl.x += Math.sin(this.tiempoTotal * 0.5 + fl.origenX * 0.02) * 0.4;
-        fl.y += Math.cos(this.tiempoTotal * 0.3 + fl.origenY * 0.01) * 0.15;
+        // Movimiento muy sutil (apenas se nota, como un flamenco real)
+        fl.x += Math.sin(this.tiempoTotal * 0.15 + fl.origenX * 0.02) * 0.08;
+        fl.y += Math.cos(this.tiempoTotal * 0.1 + fl.origenY * 0.01) * 0.04;
         // Espantar si el jugador se acerca a menos de 80px
         const dfx = (jugador.x + jugador.ancho / 2) - fl.x;
         const dfy = (jugador.y + jugador.alto / 2) - fl.y;
