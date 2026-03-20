@@ -291,7 +291,7 @@ export class LagoEnriquillo {
           this._cocodriloAvistado = true;
           const eq = this._obtenerTextos()?.dialogos?.enriquillo;
           if (this.juego?.mostrarToast) {
-            this.juego.mostrarToast('🐊 ' + (eq?.cocodriloInfo || 'Crocodylus acutus — la mayor población del Caribe vive en este lago'), 4);
+            this.juego.mostrarToast('🐊 ' + (eq?.cocodriloInfo || 'Cocodrilo Americano (Crocodylus acutus) — la mayor población del Caribe vive en este lago'), 4);
           }
           break;
         }
