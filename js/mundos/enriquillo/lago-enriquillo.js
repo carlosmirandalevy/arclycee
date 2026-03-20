@@ -196,6 +196,11 @@ export class LagoEnriquillo {
       { x: 170, y: 700, dir: -1, origenX: 170, origenY: 700, volando: false, vuelo: 0 }
     ];
 
+    // --- Elementos fotografiables (fauna del lago) ---
+    // Se actualizan dinámicamente cada frame con las posiciones reales
+    this.fotografiables = [];
+    this._especiesInfo = {}; // Rastrea qué info de especie ya se mostró
+
     // Misión
     const tieneIdolo = juego.jugador?.inventario?.some(i => i.nombre === 'idoloCemi');
     if (this._idoloEntregado) {
@@ -345,7 +350,7 @@ export class LagoEnriquillo {
     // --- Sacudida lateral (decae con dt, como en Santuario del Manatí) ---
     if (this._sacudida > 0) this._sacudida = Math.max(0, this._sacudida - dt);
 
-    // --- Iguanas: movimiento lento + toasts educativos por especie ---
+    // --- Iguanas: movimiento lento (solo en tierra) ---
     for (const ig of this.iguanas) {
       // Toast al acercarse por primera vez a cada especie
       if (!ig._avistada) {
@@ -371,15 +376,27 @@ export class LagoEnriquillo {
       ig.fase += ig.velocidad * dt;
       ig.x = ig.centroX + Math.sin(ig.fase) * ig.radioX;
       ig.y = ig.centroY + Math.cos(ig.fase * 0.5) * ig.radioY;
+      // Iguanas no entran al agua — revertir si salen de tierra
+      if (!this._estaEnTierra(ig)) {
+        ig.x = prevX;
+        ig.y = ig.centroY;
+        ig.fase -= ig.velocidad * dt;
+      }
       ig.mirandoDerecha = ig.x > prevX;
     }
 
-    // --- Culebras corredoras: movimiento rápido por las orillas ---
+    // --- Culebras corredoras: movimiento por las orillas (no entran al agua) ---
     for (const cul of this.culebras) {
       const prevX = cul.x;
       cul.fase += cul.velocidad * dt;
       cul.x = cul.centroX + Math.sin(cul.fase) * cul.radioX;
       cul.y = cul.centroY + Math.sin(cul.fase * 1.3) * cul.radioY;
+      // Culebras no entran al agua
+      if (!this._estaEnTierra(cul)) {
+        cul.x = prevX;
+        cul.y = cul.centroY;
+        cul.fase -= cul.velocidad * dt;
+      }
       cul.mirandoDerecha = cul.x > prevX;
     }
 
@@ -475,6 +492,42 @@ export class LagoEnriquillo {
       }
     }
     if (!entrada.estaPresionada('accion')) this.bloqueoEntrada = false;
+
+    // --- Actualizar fotografiables con posiciones actuales de la fauna ---
+    this.fotografiables = [];
+    for (const ig of this.iguanas) {
+      this.fotografiables.push({
+        x: ig.x - 5, y: ig.y - 5, ancho: 30, alto: 15,
+        nombre: ig.tipo === 'ricord' ? 'Iguana de Ricord' : 'Iguana Rinoceronte',
+        tipoEntidad: 'objeto'
+      });
+    }
+    for (const fl of this.flamencos) {
+      if (!fl.volando) {
+        this.fotografiables.push({
+          x: fl.x - 8, y: fl.y - 25, ancho: 16, alto: 30,
+          nombre: 'Flamenco Rosado', tipoEntidad: 'objeto'
+        });
+      }
+    }
+    for (const cu of this.cucus) {
+      this.fotografiables.push({
+        x: cu.x - 5, y: cu.y - 8, ancho: 12, alto: 16,
+        nombre: 'Cucú', tipoEntidad: 'objeto'
+      });
+    }
+    for (const cul of this.culebras) {
+      this.fotografiables.push({
+        x: cul.x - 10, y: cul.y - 5, ancho: 40, alto: 10,
+        nombre: 'Culebra Corredora', tipoEntidad: 'objeto'
+      });
+    }
+    for (const croc of this.cocodrilos) {
+      this.fotografiables.push({
+        x: croc.x, y: croc.y, ancho: croc.ancho, alto: croc.alto,
+        nombre: 'Cocodrilo Americano', tipoEntidad: 'objeto'
+      });
+    }
 
     // Salir por borde inferior
     if (jugador.y >= this.altoNivel - 10 && this.juego) {
@@ -620,10 +673,10 @@ export class LagoEnriquillo {
     // --- Isla Cabritos / Guarizacca (centro del lago) ---
     // La isla es ovalada, árida, con cactus y rocas
     // Nombre taíno: Guarizacca
-    const islaX = 650 + offsetX;
-    const islaY = 300 + offsetY;
-    const islaW = 550;
-    const islaH = 400;
+    const islaX = 550 + offsetX;
+    const islaY = 280 + offsetY;
+    const islaW = 700;
+    const islaH = 440;
 
     // Arena de la isla
     ctx.fillStyle = '#b8a882';
@@ -1750,9 +1803,29 @@ export class LagoEnriquillo {
     ctx.restore(); // Restaurar sacudida + rotación
   }
 
+  // Verifica si un punto está en tierra (isla o cualquier orilla)
+  _estaEnTierra(obj) {
+    const ox = obj.x || 0;
+    const oy = obj.y || 0;
+    // En la isla
+    if (this._estaEnIslaXY(ox, oy)) return true;
+    // En las orillas (franjas de terreno)
+    if (oy > 1050 || oy < 100 || ox < 150 || ox > 1650) return true;
+    return false;
+  }
+
+  // Verifica si un punto X,Y está dentro de la elipse de la isla
+  _estaEnIslaXY(x, y) {
+    const cx = 900, cy = 500;
+    const rx = 350, ry = 220;
+    const dx = (x - cx) / rx;
+    const dy = (y - cy) / ry;
+    return (dx * dx + dy * dy) < 1;
+  }
+
   _estaEnIsla(jugador) {
-    const cx = 925, cy = 500;
-    const rx = 275, ry = 200;
+    const cx = 900, cy = 500;
+    const rx = 350, ry = 220;
     const dx = (jugador.x + jugador.ancho / 2 - cx) / rx;
     const dy = (jugador.y + jugador.alto / 2 - cy) / ry;
     return (dx * dx + dy * dy) < 1;
