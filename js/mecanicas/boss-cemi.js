@@ -146,8 +146,9 @@ export class SistemaBossCemi {
     // Generar patrones de proyectiles
     this._actualizarPatrones(dt);
 
-    // Actualizar proyectiles
+    // Actualizar proyectiles (puede cambiar fase a 'derrota')
     this._actualizarProyectiles(dt);
+    if (this.fase !== 'combate') return; // Murió durante colisión
 
     // Invulnerabilidad
     if (this._invulnerable) {
@@ -382,6 +383,8 @@ export class SistemaBossCemi {
         if (Math.sqrt(dx * dx + dy * dy) < p.radio + this._jugadorRadio) {
           this._recibirGolpe();
           this._proyectiles.splice(i, 1);
+          // Si murió, dejar de procesar proyectiles
+          if (this.fase === 'derrota') return;
         }
       }
     }
