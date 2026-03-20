@@ -671,51 +671,89 @@ export class LagoEnriquillo {
     }
 
     // --- Isla Cabritos / Guarizacca (centro del lago) ---
-    // La isla es ovalada, árida, con cactus y rocas
+    // Dimensiones reales: 12km × 2.5km (relación ~5:1, mucho más ancha que alta)
+    // Forma irregular con costa dentada, no una elipse perfecta
     // Nombre taíno: Guarizacca
-    const islaX = 550 + offsetX;
-    const islaY = 280 + offsetY;
-    const islaW = 700;
-    const islaH = 440;
+    const islaCX = 900 + offsetX; // Centro X de la isla
+    const islaCY = 500 + offsetY; // Centro Y de la isla
 
-    // Arena de la isla
+    // Polígono irregular de la isla (puntos en sentido horario)
+    // Costa norte más recta, costa sur con bahías y protuberancias
+    const islaForma = [
+      [310, 445], [380, 430], [450, 438], [520, 425], [600, 420],
+      [680, 430], [750, 418], [830, 422], [900, 415], [970, 420],
+      [1050, 425], [1120, 418], [1200, 428], [1280, 435], [1350, 445],
+      [1400, 455], [1430, 470], [1450, 490], [1440, 510], [1420, 530],
+      [1380, 545], [1320, 555], [1250, 565], [1180, 570], [1100, 575],
+      [1020, 580], [950, 585], [880, 580], [800, 575], [720, 570],
+      [650, 565], [580, 558], [510, 550], [450, 540], [400, 525],
+      [360, 508], [340, 490], [320, 470]
+    ];
+
+    // Arena de la isla (relleno)
     ctx.fillStyle = '#b8a882';
     ctx.beginPath();
-    ctx.ellipse(islaX + islaW / 2, islaY + islaH / 2, islaW / 2, islaH / 2, 0, 0, Math.PI * 2);
+    ctx.moveTo(islaForma[0][0] + offsetX, islaForma[0][1] + offsetY);
+    for (let i = 1; i < islaForma.length; i++) {
+      ctx.lineTo(islaForma[i][0] + offsetX, islaForma[i][1] + offsetY);
+    }
+    ctx.closePath();
     ctx.fill();
 
-    // Borde de la isla (arena más oscura)
+    // Borde irregular de la costa (arena más oscura)
     ctx.strokeStyle = '#9a8a6a';
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.ellipse(islaX + islaW / 2, islaY + islaH / 2, islaW / 2, islaH / 2, 0, 0, Math.PI * 2);
+    ctx.moveTo(islaForma[0][0] + offsetX, islaForma[0][1] + offsetY);
+    for (let i = 1; i < islaForma.length; i++) {
+      ctx.lineTo(islaForma[i][0] + offsetX, islaForma[i][1] + offsetY);
+    }
+    ctx.closePath();
     ctx.stroke();
+
+    // Textura arenosa interior (manchas más claras)
+    ctx.fillStyle = '#c8b892';
+    for (let t = 0; t < 8; t++) {
+      const tx = 500 + t * 120 + offsetX;
+      const ty = 460 + Math.sin(t * 1.7) * 30 + offsetY;
+      ctx.beginPath();
+      ctx.ellipse(tx, ty, 25 + t * 3, 10, t * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
     // Nombre de la isla (Taíno + español)
     ctx.font = '10px monospace';
     ctx.fillStyle = '#7a6a4a';
     ctx.textAlign = 'center';
-    ctx.fillText('Isla Cabritos — Guarizacca', islaX + islaW / 2, islaY + islaH + 15);
+    ctx.fillText('Isla Cabritos — Guarizacca', islaCX, islaCY + 100);
     ctx.textAlign = 'left';
 
     // --- Vegetación xerofítica de Isla Cabritos ---
     // Bosque seco espinoso subtropical con cactus, guayacán, bayahonda, guasábara
     // En la isla
     const vegIsla = [
-      [800, 380, 'cactus'], [1050, 430, 'cactus'], [850, 570, 'cactus'],
-      [1100, 360, 'pitahaya'], [950, 340, 'cactus'], [760, 450, 'pitahaya'],
-      [900, 600, 'guayacan'], [1080, 500, 'guayacan'], [820, 500, 'bayahonda'],
-      [1000, 380, 'bayahonda'], [950, 550, 'guasabara'], [1150, 450, 'guasabara'],
-      [700, 520, 'alpargata'], [1050, 580, 'alpargata']
+      // Interior de la isla (meseta caliza)
+      [600, 450, 'cactus'], [750, 460, 'cactus'], [900, 440, 'cactus'],
+      [1100, 450, 'cactus'], [1250, 460, 'cactus'], [1350, 470, 'pitahaya'],
+      [500, 470, 'pitahaya'], [800, 500, 'guayacan'], [1050, 490, 'guayacan'],
+      [680, 480, 'bayahonda'], [950, 520, 'bayahonda'], [1200, 510, 'bayahonda'],
+      [850, 440, 'guasabara'], [1150, 530, 'guasabara'], [550, 500, 'alpargata'],
+      [1300, 490, 'alpargata'], [700, 540, 'cactus'], [1000, 560, 'pitahaya']
     ];
-    // En las orillas
+    // En las orillas del lago
     const vegOrilla = [
       [200, 1060, 'cactus'], [600, 1070, 'bayahonda'], [1000, 1065, 'guayacan'],
       [400, 80, 'cactus'], [800, 75, 'guasabara'], [1200, 85, 'pitahaya'],
       [80, 300, 'bayahonda'], [120, 800, 'guayacan'],
       [1680, 300, 'cactus'], [1700, 700, 'guasabara']
     ];
-    for (const [vx, vy, tipo] of vegIsla.concat(vegOrilla)) {
+    // Vegetación en aguas poco profundas cerca de la costa de la isla
+    // (arbustos espinosos y mangle que crecen parcialmente sumergidos)
+    const vegAgua = [
+      [350, 460, 'guasabara'], [420, 540, 'bayahonda'], [1400, 480, 'guasabara'],
+      [1380, 540, 'bayahonda'], [480, 420, 'cactus'], [1300, 560, 'alpargata']
+    ];
+    for (const [vx, vy, tipo] of vegIsla.concat(vegOrilla).concat(vegAgua)) {
       this._dibujarVegetacion(ctx, vx + offsetX, vy + offsetY, tipo);
     }
 
@@ -1814,21 +1852,43 @@ export class LagoEnriquillo {
     return false;
   }
 
-  // Verifica si un punto X,Y está dentro de la elipse de la isla
+  // Forma de la isla (mismos puntos que el dibujo)
+  _getIslaForma() {
+    return [
+      [310, 445], [380, 430], [450, 438], [520, 425], [600, 420],
+      [680, 430], [750, 418], [830, 422], [900, 415], [970, 420],
+      [1050, 425], [1120, 418], [1200, 428], [1280, 435], [1350, 445],
+      [1400, 455], [1430, 470], [1450, 490], [1440, 510], [1420, 530],
+      [1380, 545], [1320, 555], [1250, 565], [1180, 570], [1100, 575],
+      [1020, 580], [950, 585], [880, 580], [800, 575], [720, 570],
+      [650, 565], [580, 558], [510, 550], [450, 540], [400, 525],
+      [360, 508], [340, 490], [320, 470]
+    ];
+  }
+
+  // Point-in-polygon (ray casting)
+  _puntoEnPoligono(px, py, poligono) {
+    let dentro = false;
+    for (let i = 0, j = poligono.length - 1; i < poligono.length; j = i++) {
+      const xi = poligono[i][0], yi = poligono[i][1];
+      const xj = poligono[j][0], yj = poligono[j][1];
+      if (((yi > py) !== (yj > py)) && (px < (xj - xi) * (py - yi) / (yj - yi) + xi)) {
+        dentro = !dentro;
+      }
+    }
+    return dentro;
+  }
+
   _estaEnIslaXY(x, y) {
-    const cx = 900, cy = 500;
-    const rx = 350, ry = 220;
-    const dx = (x - cx) / rx;
-    const dy = (y - cy) / ry;
-    return (dx * dx + dy * dy) < 1;
+    return this._puntoEnPoligono(x, y, this._getIslaForma());
   }
 
   _estaEnIsla(jugador) {
-    const cx = 900, cy = 500;
-    const rx = 350, ry = 220;
-    const dx = (jugador.x + jugador.ancho / 2 - cx) / rx;
-    const dy = (jugador.y + jugador.alto / 2 - cy) / ry;
-    return (dx * dx + dy * dy) < 1;
+    return this._puntoEnPoligono(
+      jugador.x + jugador.ancho / 2,
+      jugador.y + jugador.alto / 2,
+      this._getIslaForma()
+    );
   }
 
   _estaCerca(jugador, obj, rango) {
