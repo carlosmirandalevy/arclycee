@@ -1784,7 +1784,7 @@ export class LagoEnriquillo {
           const idx = this.juego.jugador.inventario.findIndex(i => i.nombre === 'idoloCemi');
           if (idx >= 0) this.juego.jugador.inventario.splice(idx, 1);
         }
-        if (this.juego.inventario) this.juego.inventario.quitar('idoloCemi');
+        if (this.juego.inventario) this.juego.inventario.remover('idoloCemi');
 
         // Completar sidequest
         if (this.juego.misiones) {

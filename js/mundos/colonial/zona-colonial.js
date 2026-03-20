@@ -1819,7 +1819,7 @@ export class ZonaColonial {
             const idx = this.juego.jugador.inventario.findIndex(i => i.nombre === 'artefactoCatedral');
             if (idx >= 0) this.juego.jugador.inventario.splice(idx, 1);
           }
-          if (this.juego.inventario) this.juego.inventario.quitar('artefactoCatedral');
+          if (this.juego.inventario) this.juego.inventario.remover('artefactoCatedral');
 
           // Reputación +15
           if (this.juego.reputacion) {
