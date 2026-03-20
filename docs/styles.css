@@ -610,6 +610,54 @@ footer .equipo {
   border-color: var(--dorado);
 }
 
+/* Dropdown menus in navigation */
+.doc-nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.doc-nav-dropdown-toggle {
+  cursor: pointer;
+  user-select: none;
+}
+.doc-nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  background: var(--fondo-tarjeta, #1a1a2e);
+  border: 1px solid var(--borde, #333);
+  border-radius: 8px;
+  padding: 4px;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.doc-nav-dropdown:hover .doc-nav-dropdown-menu,
+.doc-nav-dropdown.active .doc-nav-dropdown-menu:hover {
+  display: flex;
+  flex-direction: column;
+}
+.doc-nav-dropdown:hover .doc-nav-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+}
+.doc-nav-dropdown-item {
+  padding: 6px 12px;
+  color: var(--texto, #ccc);
+  text-decoration: none;
+  font-size: 0.82rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.doc-nav-dropdown-item:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--dorado-claro);
+}
+.doc-nav-dropdown-item.active {
+  color: var(--dorado-claro);
+  background: rgba(255,215,0,0.1);
+}
+
 .doc-nav-controls {
   display: flex;
   align-items: center;

@@ -21,25 +21,35 @@
       label: { es: 'Inicio', en: 'Home', fr: 'Accueil' },
       archivos: { es: 'index.html', en: 'en.html', fr: 'fr.html' }
     },
+    // --- La Historia (grupo con subitems) ---
+    historia: {
+      icono: '📜',
+      label: { es: 'La Historia', en: 'The Story', fr: 'L\'Histoire' },
+      grupo: true,
+      children: ['worlds', 'characters', 'dialogues']
+    },
     worlds: {
       icono: '🌍',
       label: { es: 'Mundos', en: 'Worlds', fr: 'Mondes' },
-      archivos: { es: 'worlds.html', en: 'worlds-en.html', fr: 'worlds-fr.html' }
+      archivos: { es: 'worlds.html', en: 'worlds-en.html', fr: 'worlds-fr.html' },
+      parent: 'historia'
+    },
+    characters: {
+      icono: '👥',
+      label: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
+      archivos: { es: 'characters.html', en: 'characters-en.html', fr: 'characters-fr.html' },
+      parent: 'historia'
     },
     dialogues: {
       icono: '💬',
       label: { es: 'Diálogos', en: 'Dialogues', fr: 'Dialogues' },
-      archivos: { es: 'dialogues.html', en: 'dialogues-en.html', fr: 'dialogues-fr.html' }
+      archivos: { es: 'dialogues.html', en: 'dialogues-en.html', fr: 'dialogues-fr.html' },
+      parent: 'historia'
     },
     mechanics: {
       icono: '⚙️',
       label: { es: 'Mecánicas', en: 'Mechanics', fr: 'Mécaniques' },
       archivos: { es: 'mechanics.html', en: 'mechanics-en.html', fr: 'mechanics-fr.html' }
-    },
-    characters: {
-      icono: '👥',
-      label: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
-      archivos: { es: 'characters.html', en: 'characters-en.html', fr: 'characters-fr.html' }
     },
     archaeology: {
       icono: '🏛️',
@@ -53,7 +63,7 @@
     },
     technical: {
       icono: '💻',
-      label: { es: 'Técnico', en: 'Technical', fr: 'Technique' },
+      label: { es: 'Programación', en: 'Programming', fr: 'Programmation' },
       archivos: { es: 'technical.html', en: 'technical-en.html', fr: 'technical-fr.html' }
     }
   };
@@ -165,15 +175,37 @@
           + '<img src="../resources/arclycee-logo.png" alt="ArcLycée" height="28">'
           + '</a>';
 
-    // Pills de secciones — cada una enlaza a la versión del idioma actual
+    // Pills de secciones — con soporte para grupos/dropdowns
     html += '<div class="doc-nav-pills">';
     for (var id in PAGINAS) {
       var config = PAGINAS[id];
-      var esActiva = id === paginaActual;
-      var href = config.archivos[idiomaActual];
-      var label = config.label[idiomaActual];
-      html += '<a href="' + href + '" class="doc-nav-pill' + (esActiva ? ' active' : '') + '">'
-            + '<span>' + config.icono + '</span> ' + label + '</a>';
+      // Saltar items que son hijos de un grupo (se renderizan dentro del grupo)
+      if (config.parent) continue;
+
+      if (config.grupo && config.children) {
+        // Grupo con dropdown
+        var grupoActivo = config.children.indexOf(paginaActual) >= 0;
+        html += '<div class="doc-nav-dropdown' + (grupoActivo ? ' active' : '') + '">';
+        html += '<span class="doc-nav-pill doc-nav-dropdown-toggle' + (grupoActivo ? ' active' : '') + '">'
+              + '<span>' + config.icono + '</span> ' + config.label[idiomaActual] + ' ▾</span>';
+        html += '<div class="doc-nav-dropdown-menu">';
+        for (var c = 0; c < config.children.length; c++) {
+          var childId = config.children[c];
+          var child = PAGINAS[childId];
+          if (!child) continue;
+          var childActivo = childId === paginaActual;
+          html += '<a href="' + child.archivos[idiomaActual] + '" class="doc-nav-dropdown-item' + (childActivo ? ' active' : '') + '">'
+                + '<span>' + child.icono + '</span> ' + child.label[idiomaActual] + '</a>';
+        }
+        html += '</div></div>';
+      } else {
+        // Item normal
+        var esActiva = id === paginaActual;
+        var href = config.archivos[idiomaActual];
+        var label = config.label[idiomaActual];
+        html += '<a href="' + href + '" class="doc-nav-pill' + (esActiva ? ' active' : '') + '">'
+              + '<span>' + config.icono + '</span> ' + label + '</a>';
+      }
     }
     html += '</div>';
 
