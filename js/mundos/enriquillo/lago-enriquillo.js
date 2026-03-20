@@ -108,21 +108,21 @@ export class LagoEnriquillo {
     this.npcs = [
       // Enriquillo — cacique rebelde, en el centro de la Isla Cabritos
       {
-        id: 'enriquillo', x: 900, y: 500, ancho: 28, alto: 36,
+        id: 'enriquillo', x: 900, y: 480, ancho: 28, alto: 36,
         nombre: eq?.enriquilloNombre || 'Cacique Enriquillo',
         color: '#DAA520',
         dialogoHecho: false, esMentor: false
       },
       // Mencía — esposa de Enriquillo
       {
-        id: 'mencia', x: 960, y: 520, ancho: 28, alto: 36,
+        id: 'mencia', x: 1100, y: 520, ancho: 28, alto: 36,
         nombre: eq?.menciaNombre || 'Mencía',
         color: '#CD853F',
         dialogoHecho: false, esMentor: false
       },
       // Tamayo — guerrero aliado
       {
-        id: 'tamayo', x: 840, y: 530, ancho: 28, alto: 36,
+        id: 'tamayo', x: 700, y: 550, ancho: 28, alto: 36,
         nombre: eq?.tamayoNombre || 'Tamayo',
         color: '#8B6914',
         dialogoHecho: false, esMentor: false
@@ -201,9 +201,9 @@ export class LagoEnriquillo {
     this._pedestalVisible = !!juego.progreso?.idoloCemiEntregado;
     this._espadaRecogida = !!juego.progreso?.espadaEnriquillo;
     // Pedestal detrás de un arbusto en la isla (x:1100, y:450)
-    this._pedestal = { x: 1100, y: 450 };
+    this._pedestal = { x: 1200, y: 480 };
     // Espada en el suelo cerca del pedestal
-    this._espada = { x: 1060, y: 480, recogida: this._espadaRecogida };
+    this._espada = { x: 1160, y: 510, recogida: this._espadaRecogida };
 
     // --- Elementos fotografiables (fauna del lago) ---
     // Se actualizan dinámicamente cada frame con las posiciones reales
@@ -763,14 +763,14 @@ export class LagoEnriquillo {
     // Polígono irregular de la isla (puntos en sentido horario)
     // Costa norte más recta, costa sur con bahías y protuberancias
     const islaForma = [
-      [310, 445], [380, 430], [450, 438], [520, 425], [600, 420],
-      [680, 430], [750, 418], [830, 422], [900, 415], [970, 420],
-      [1050, 425], [1120, 418], [1200, 428], [1280, 435], [1350, 445],
-      [1400, 455], [1430, 470], [1450, 490], [1440, 510], [1420, 530],
-      [1380, 545], [1320, 555], [1250, 565], [1180, 570], [1100, 575],
-      [1020, 580], [950, 585], [880, 580], [800, 575], [720, 570],
-      [650, 565], [580, 558], [510, 550], [450, 540], [400, 525],
-      [360, 508], [340, 490], [320, 470]
+      [310, 430], [380, 410], [450, 418], [520, 400], [600, 392],
+      [680, 400], [750, 388], [830, 392], [900, 385], [970, 390],
+      [1050, 395], [1120, 388], [1200, 398], [1280, 410], [1350, 420],
+      [1400, 435], [1430, 455], [1450, 480], [1440, 510], [1420, 540],
+      [1380, 565], [1320, 580], [1250, 595], [1180, 600], [1100, 608],
+      [1020, 612], [950, 615], [880, 610], [800, 605], [720, 598],
+      [650, 590], [580, 580], [510, 568], [450, 555], [400, 535],
+      [360, 510], [340, 480], [320, 455]
     ];
 
     // Arena de la isla (relleno)
@@ -2009,14 +2009,14 @@ export class LagoEnriquillo {
   // Forma de la isla (mismos puntos que el dibujo)
   _getIslaForma() {
     return [
-      [310, 445], [380, 430], [450, 438], [520, 425], [600, 420],
-      [680, 430], [750, 418], [830, 422], [900, 415], [970, 420],
-      [1050, 425], [1120, 418], [1200, 428], [1280, 435], [1350, 445],
-      [1400, 455], [1430, 470], [1450, 490], [1440, 510], [1420, 530],
-      [1380, 545], [1320, 555], [1250, 565], [1180, 570], [1100, 575],
-      [1020, 580], [950, 585], [880, 580], [800, 575], [720, 570],
-      [650, 565], [580, 558], [510, 550], [450, 540], [400, 525],
-      [360, 508], [340, 490], [320, 470]
+      [310, 430], [380, 410], [450, 418], [520, 400], [600, 392],
+      [680, 400], [750, 388], [830, 392], [900, 385], [970, 390],
+      [1050, 395], [1120, 388], [1200, 398], [1280, 410], [1350, 420],
+      [1400, 435], [1430, 455], [1450, 480], [1440, 510], [1420, 540],
+      [1380, 565], [1320, 580], [1250, 595], [1180, 600], [1100, 608],
+      [1020, 612], [950, 615], [880, 610], [800, 605], [720, 598],
+      [650, 590], [580, 580], [510, 568], [450, 555], [400, 535],
+      [360, 510], [340, 480], [320, 455]
     ];
   }
 
