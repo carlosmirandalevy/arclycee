@@ -41,6 +41,11 @@
       label: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
       archivos: { es: 'characters.html', en: 'characters-en.html', fr: 'characters-fr.html' }
     },
+    nature: {
+      icono: '🌿',
+      label: { es: 'Naturaleza', en: 'Nature', fr: 'Nature' },
+      archivos: { es: 'nature.html', en: 'nature-en.html', fr: 'nature-fr.html' }
+    },
     technical: {
       icono: '💻',
       label: { es: 'Técnico', en: 'Technical', fr: 'Technique' },

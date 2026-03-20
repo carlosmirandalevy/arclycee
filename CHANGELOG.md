@@ -19,9 +19,18 @@
 - **Música dedicada**: Palenque de Lemba (2 pistas) y Lago Enriquillo (2 pistas) — 14 grupos musicales, 28 MP3s totales
 - **Cuchara Legendaria**: plataformas escalonadas añadidas para hacerla alcanzable
 
+- **Ecosistema Lago Enriquillo**: Cocodrilo Americano (Crocodylus acutus) con death roll + sonido dedicado, Iguana Rinoceronte (Cyclura cornuta, cuernos), Iguana de Ricord (Cyclura ricordii, ojos rojos), Flamencos rosados (9, una pata), Cucú/Burrowing Owl (Athene cunicularia, madrigueras), Culebra Corredora (Haitiophis anomalus, 2m, lengua bífida). Toast educativo al avistar cada especie
+- **Guarizacca**: nombre taíno de Isla Cabritos mostrado en etiqueta y toast al pisar la isla
+- **Datos geográficos**: 40m bajo el nivel del mar, aguas hipersalinas 3× más saladas que el mar
+- **Natación en Lago Enriquillo**: rotación diagonal del avatar (±135°), pateo de piernas, shortest-path lerp, ondas de agua
+- **Mordida de cocodrilo**: sonido procedural con mandíbulas, grito descendente tipo Wilhelm, gruñido gutural + sacudida lateral + death roll del cocodrilo
+- **Documentación de naturaleza** (`docs/nature*.html`): nueva sección de ciencias naturales con ecosistemas, especies, conservación
+- **Combate**: tiempo de espera de mensajes reducido a 2.0s
+
 ### Corregido
-- **Freeze en Lemba y Enriquillo**: `jugador.dibujar(ctx)` reemplazado por `_dibujarJugador()` local — la clase Jugador solo acepta `dibujar(renderizador)`
-- **`sfx.curar()`**: método inexistente reemplazado por `sfx.recoger()` en curandera de Montana
+- **Freeze en Lemba y Enriquillo**: `jugador.dibujar(ctx)` reemplazado por `_dibujarJugador()` local
+- **`sfx.curar()`**: método inexistente reemplazado por `sfx.recoger()`
+- **Natación diagonal**: ángulos corregidos (down+left = -135°, down+right = +135°) con shortest-path lerp
 
 ---
 
