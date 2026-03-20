@@ -129,8 +129,9 @@ export class LagoEnriquillo {
       }
     ];
 
-    // --- Cocodrilos patrullando el lago ---
-    // El jugador debe esquivarlos para llegar a la isla
+    // --- Cocodrilos americanos (Crocodylus acutus) ---
+    // Lago Enriquillo alberga la mayor población de cocodrilos
+    // americanos del Caribe. El jugador debe esquivarlos.
     this.cocodrilos = [
       { x: 400, y: 800, ancho: 60, alto: 25, fase: 0, velocidad: 0.4, centroX: 400, centroY: 800, radioX: 150, radioY: 60 },
       { x: 700, y: 650, ancho: 60, alto: 25, fase: Math.PI, velocidad: 0.35, centroX: 700, centroY: 650, radioX: 120, radioY: 80 },
@@ -280,7 +281,22 @@ export class LagoEnriquillo {
     jugador.x = Math.max(0, Math.min(this.anchoNivel - jugador.ancho, jugador.x));
     jugador.y = Math.max(0, Math.min(this.altoNivel - jugador.alto, jugador.y));
 
-    // --- Cocodrilos: movimiento + daño por contacto ---
+    // --- Cocodrilos americanos (Crocodylus acutus): movimiento + daño ---
+    // Toast educativo al ver el primer cocodrilo de cerca
+    if (!this._cocodriloAvistado) {
+      for (const croc of this.cocodrilos) {
+        const dcx = (jugador.x + jugador.ancho / 2) - (croc.x + croc.ancho / 2);
+        const dcy = (jugador.y + jugador.alto / 2) - (croc.y + croc.alto / 2);
+        if (Math.sqrt(dcx * dcx + dcy * dcy) < 120) {
+          this._cocodriloAvistado = true;
+          const eq = this._obtenerTextos()?.dialogos?.enriquillo;
+          if (this.juego?.mostrarToast) {
+            this.juego.mostrarToast('🐊 ' + (eq?.cocodriloInfo || 'Crocodylus acutus — la mayor población del Caribe vive en este lago'), 4);
+          }
+          break;
+        }
+      }
+    }
     for (const croc of this.cocodrilos) {
       const prevX = croc.x;
       croc.fase += croc.velocidad * dt;
