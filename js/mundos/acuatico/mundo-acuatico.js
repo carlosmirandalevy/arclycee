@@ -425,9 +425,9 @@ export class MundoAcuatico {
     const moviArriba = entrada.estaPresionada('arriba');
     let anguloObjetivo = 0;
     if (moviAbajo && moviIzq) {
-      anguloObjetivo = Math.PI - Math.PI * 0.25; // 135° — espejo de arriba-izquierda
+      anguloObjetivo = -(Math.PI - Math.PI * 0.25); // -135° — abajo-izquierda
     } else if (moviAbajo && moviDer) {
-      anguloObjetivo = -(Math.PI - Math.PI * 0.25); // -135° — espejo de arriba-derecha
+      anguloObjetivo = Math.PI - Math.PI * 0.25; // 135° — abajo-derecha
     } else if (moviArriba && moviIzq) {
       anguloObjetivo = -Math.PI * 0.25; // -45° — diagonal arriba-izquierda
     } else if (moviArriba && moviDer) {
