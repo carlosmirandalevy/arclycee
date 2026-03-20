@@ -238,7 +238,7 @@ export class LagoEnriquillo {
     jugador.esAnimando = false;
 
     // Velocidad reducida en el agua (fuera de la isla)
-    const enIsla = this._estaEnIsla(jugador);
+    const enIsla = this._estaEnTierraJugador(jugador);
     const velMult = enIsla ? 1.0 : 0.6;
 
     // Toast al pisar la isla por primera vez
@@ -264,7 +264,7 @@ export class LagoEnriquillo {
     }
 
     // --- Ángulo de nado (solo en agua, no en la isla) ---
-    const enAgua = !this._estaEnIsla(jugador);
+    const enAgua = !this._estaEnTierraJugador(jugador);
     if (enAgua) {
       const moviIzq = entrada.estaPresionada('izquierda');
       const moviDer = entrada.estaPresionada('derecha');
@@ -1763,7 +1763,7 @@ export class LagoEnriquillo {
   _dibujarJugador(ctx, jugador, offsetX, offsetY) {
     let px = jugador.x + offsetX;
     let py = jugador.y + offsetY;
-    const enAgua = !this._estaEnIsla(jugador);
+    const enAgua = !this._estaEnTierraJugador(jugador);
     // Ondulación vertical en el agua
     if (enAgua) {
       py += Math.sin(this.tiempoTotal * 3) * 2;
@@ -1892,12 +1892,22 @@ export class LagoEnriquillo {
     return this._puntoEnPoligono(x, y, this._getIslaForma());
   }
 
+  // Verifica si el jugador está en la isla (polygon)
   _estaEnIsla(jugador) {
     return this._puntoEnPoligono(
       jugador.x + jugador.ancho / 2,
       jugador.y + jugador.alto / 2,
       this._getIslaForma()
     );
+  }
+
+  // Verifica si el jugador está en cualquier tierra (isla + orillas)
+  _estaEnTierraJugador(jugador) {
+    const px = jugador.x + jugador.ancho / 2;
+    const py = jugador.y + jugador.alto / 2;
+    if (this._puntoEnPoligono(px, py, this._getIslaForma())) return true;
+    if (py > 1050 || py < 100 || px < 150 || px > 1650) return true;
+    return false;
   }
 
   _estaCerca(jugador, obj, rango) {
