@@ -364,7 +364,7 @@ export function obtenerNodosIsla() {
       // donde el jugador aprende sobre la vida cotidiana taína.
       id: 1,
       tileX: 82, tileY: 40,
-      nombre: 'Asentamiento Taino I',
+      nombre: 'Yucayeque de Marién',
       tipo: 'aldea',
       escena: 'asentamientoTaino1',
       conectadoA: [9]
@@ -386,7 +386,7 @@ export function obtenerNodosIsla() {
       // centros ceremoniales taínos (bateyes, plazas).
       id: 2,
       tileX: 78, tileY: 26,
-      nombre: 'Asentamiento Taino II',
+      nombre: 'Yucayeque de Maguá',
       tipo: 'aldea',
       escena: 'asentamientoTaino2',
       conectadoA: [3]
