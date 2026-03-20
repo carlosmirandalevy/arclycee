@@ -2,7 +2,8 @@
 // LAGO-ENRIQUILLO.JS - Lago Enriquillo e Isla Cabritos (Guarizacca)
 // ============================================================
 // El Lago Enriquillo es el lago más grande del Caribe y el punto
-// más bajo de las Antillas (44m bajo el nivel del mar). En su
+// más bajo de la Hispaniola (40m bajo el nivel del mar). Sus aguas
+// son hipersalinas — hasta 3 veces más saladas que el mar. En su
 // centro está la Isla Cabritos (nombre taíno: Guarizacca),
 // hogar de cocodrilos americanos,
 // iguanas rinoceronte y flamencos.
@@ -72,7 +73,12 @@ export class LagoEnriquillo {
 
     const textos = this._obtenerTextos();
     if (juego.mostrarToast) {
-      juego.mostrarToast('🐊 ' + (textos?.dialogos?.enriquillo?.nombreLugar || 'Lago Enriquillo — El lago más grande del Caribe'), 4);
+      const eq = textos?.dialogos?.enriquillo;
+      juego.mostrarToast('🐊 ' + (eq?.nombreLugar || 'Lago Enriquillo — El lago más grande del Caribe'), 4);
+      // Dato geográfico tras unos segundos
+      setTimeout(() => {
+        juego.mostrarToast('📍 ' + (eq?.datoGeografico || '40m bajo el nivel del mar — aguas hipersalinas, 3× más saladas que el mar'), 5);
+      }, 4500);
     }
 
     // Restaurar estado

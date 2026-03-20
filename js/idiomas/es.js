@@ -239,6 +239,7 @@ const es = {
       caritas4: 'Cada rostro tiene una expresión diferente: sonrisas, sorpresa, seriedad. ¿Qué querrían comunicar?',
       caritasRepite: 'Los rostros tallados en la roca te observan con expresiones milenarias. Cada uno es único.',
       // Misión
+      datoGeografico: '40m bajo el nivel del mar — aguas hipersalinas, 3× más saladas que el mar',
       guarizacca: 'Isla Cabritos — Guarizacca en lengua taína',
       misionEntregar: 'Lleva el cemí a Enriquillo en la Isla Cabritos',
       misionExplorar: 'Explora el Lago Enriquillo',
