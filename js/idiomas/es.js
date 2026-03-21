@@ -310,6 +310,13 @@ const es = {
     isabela: {
       soldado1: '¡Alto! ¡Esta zona está prohibida por orden del Virrey!',
       soldado2: '¡Nadie puede entrar a las ruinas sin permiso de la Corona!',
+      opAtacar: '⚔️ Atacar',
+      opHablar: '💬 Hablar',
+      opNegociar: '🤝 Negociar',
+      opHuir: '🏃 Huir',
+      soldadoHuida: '¡Corre! Pero no vuelvas por aquí...',
+      soldadoDerrota: '¡Agh! Me rindo... explora las ruinas si quieres.',
+      soldadoVence: '¡Ja! Vuelve cuando estés listo para un verdadero duelo.',
       soldadoPaz1: 'Tienes razón... estas ruinas deben ser protegidas, no prohibidas.',
       soldadoPaz2: 'La Isabela fue fundada en 1494. Es la primera ciudad europea en América.',
 
@@ -779,6 +786,33 @@ const es = {
     bendicionDetalle: '+30 vida máxima | +5 fuerza | +20% velocidad',
     derrota: 'La visión se desvanece... despiertas frente al pedestal.',
     controles: 'WASD/Flechas: esquivar | E: atacar (cuando aturdido)',
+  },
+
+  // Duelo de espadas contra Soldado Diego
+  duelo: {
+    titulo: '⚔️ Duelo de Espadas',
+    ctrl1: '← → : Moverse',
+    ctrl2: 'E : Atacar con espada',
+    ctrl3: 'Q : Bloquear (mantener) / Parry (justo a tiempo)',
+    ctrl4: '↓ : Agacharse (esquivar ataques altos)',
+    modoPaz: '🕊️ Modo Pacifista — Defiéndete mientras dialogas',
+    modoAtaque: '⚔️ Modo Agresivo — Derrota al soldado',
+    comenzar: '[E] Comenzar',
+    tuVida: 'HP',
+    conviccion: 'Convicción',
+    controles: '← → Moverse | E Atacar | Q Bloquear | ↓ Agacharse',
+    victoriaPaz: '🕊️ Diego se rinde — ¡Victoria Pacifista!',
+    victoriaFuerza: '⚔️ ¡Victoria por la fuerza!',
+    derrota: '💀 Has sido derrotado...',
+    continuar: '[E] Continuar',
+    paz1: '¡Espera! Solo quiero hablar de historia.',
+    paz2: 'Estas ruinas cuentan la historia de tu pueblo.',
+    paz3: 'La Isabela fue la primera ciudad europea en América. ¡Merece protección!',
+    paz4: 'No soy tu enemigo. Soy un arqueólogo accidental.',
+    paz5: 'El patrimonio es de todos. Luchemos juntos por protegerlo.',
+    paz6: 'Tu deber es proteger estas ruinas, no prohibirlas.',
+    paz7: 'Los taínos y los españoles comparten esta historia.',
+    paz8: '¡Piensa en lo que diría Fray Ramón Pané!',
   },
 
   batu: {

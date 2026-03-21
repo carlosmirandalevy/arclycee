@@ -212,44 +212,9 @@ export class LaIsabela {
 
     this.tiempoTotal += dt;
 
-    // --- Si hay combate activo, lo maneja juego.js ---
-    if (this.juego && this.juego.combate.enCombate) {
+    // --- Si hay duelo de espadas activo, lo maneja juego.js ---
+    if (this.juego && this.juego.dueloEspada && this.juego.dueloEspada.enJuego) {
       return;
-    }
-
-    // --- Verificar si el combate TERMINÓ (resultado disponible) ---
-    // Esto va FUERA del bloque enCombate porque cuando el combate
-    // termina, enCombate ya es false pero el resultado está guardado
-    if (this.combateIniciado && !this.combateTerminado && this.juego.combate.resultado) {
-      this.combateTerminado = true;
-      const soldado = this.npcs.find(n => n.id === 'soldado');
-      if (soldado) {
-        soldado.esCombate = false;
-        soldado.dialogoHecho = true;
-      }
-
-      // --- Rastrear resultado para el sistema de finales ---
-      if (this.juego.combate.resultado === 'pacificado') {
-        this.juego.progreso.combatesPacificados++;
-        if (this.juego.reputacion) this.juego.reputacion.modificar(15, 'Victoria pacífica');
-      } else if (this.juego.combate.resultado === 'victoria') {
-        this.juego.progreso.combatesViolentos++;
-        if (this.juego.reputacion) this.juego.reputacion.modificar(5, 'Victoria en combate');
-      }
-
-      // Mostrar un diálogo de resolución según el resultado
-      const textos = this._obtenerTextos();
-      const isabela = textos?.dialogos?.isabela;
-      if (this.juego.combate.resultado === 'pacificado') {
-        this.dialogos.iniciarDialogo([
-          { personaje: '⚔️ Soldado Diego', texto: isabela?.soldadoPaz1 || 'Tienes razón... estas ruinas deben ser protegidas.' },
-          { personaje: '⚔️ Soldado Diego', texto: isabela?.soldadoPaz2 || 'La Isabela fue fundada en 1494. Es la primera ciudad europea en América.' }
-        ]);
-      } else if (this.juego.combate.resultado === 'victoria') {
-        this.dialogos.iniciarDialogo([
-          { personaje: '⚔️ Soldado Diego', texto: '¡Agh! Me rindo... explora las ruinas si quieres.' }
-        ]);
-      }
     }
 
     // --- Diálogo activo ---
@@ -975,6 +940,42 @@ export class LaIsabela {
     }
   }
 
+  // --- Procesar resultado del duelo de espadas ---
+  _procesarResultadoDuelo(resultado) {
+    this.combateTerminado = true;
+    const soldado = this.npcs.find(n => n.id === 'soldado');
+    if (soldado) {
+      soldado.esCombate = false;
+      soldado.dialogoHecho = true;
+    }
+
+    const textos = this._obtenerTextos();
+    const isabela = textos?.dialogos?.isabela;
+
+    if (resultado === 'pacificado') {
+      this.juego.progreso.combatesPacificados++;
+      if (this.juego.reputacion) this.juego.reputacion.modificar(15, isabela?.victoriaPacifica || 'Victoria pacífica');
+      this.dialogos.iniciarDialogo([
+        { personaje: '⚔️ Soldado Diego', texto: isabela?.soldadoPaz1 || 'Tienes razón... estas ruinas deben ser protegidas, no prohibidas.' },
+        { personaje: '⚔️ Soldado Diego', texto: isabela?.soldadoPaz2 || 'La Isabela fue fundada en 1494. Es la primera ciudad europea en América.' }
+      ]);
+    } else if (resultado === 'victoria') {
+      this.juego.progreso.combatesViolentos++;
+      if (this.juego.reputacion) this.juego.reputacion.modificar(5, isabela?.victoriaFuerza || 'Victoria en combate');
+      this.dialogos.iniciarDialogo([
+        { personaje: '⚔️ Soldado Diego', texto: isabela?.soldadoDerrota || '¡Agh! Me rindo... explora las ruinas si quieres.' }
+      ]);
+    } else if (resultado === 'derrota') {
+      // Derrota — el jugador puede reintentar hablando con Diego de nuevo
+      this.combateTerminado = false;
+      this.combateIniciado = false;
+      if (soldado) { soldado.esCombate = true; soldado.dialogoHecho = false; }
+      this.dialogos.iniciarDialogo([
+        { personaje: '⚔️ Soldado Diego', texto: isabela?.soldadoVence || '¡Ja! Vuelve cuando estés listo para un verdadero duelo.' }
+      ]);
+    }
+  }
+
   // --- Hablar con NPC ---
   _hablarConNPC(npc, jugador) {
     const textos = this._obtenerTextos();
@@ -982,22 +983,41 @@ export class LaIsabela {
 
     if (npc.id === 'soldado') {
       if (npc.esCombate && !this.combateTerminado) {
-        // El soldado inicia un combate — primero un diálogo de advertencia
+        // El soldado da un diálogo de advertencia, luego muestra opciones
         this.dialogos.iniciarDialogo([
           { personaje: '⚔️ Soldado Diego', texto: isabela?.soldado1 || '¡Alto! ¡Esta zona está prohibida por orden del Virrey!' },
-          { personaje: '⚔️ Soldado Diego', texto: isabela?.soldado2 || '¡Nadie puede entrar a las ruinas sin permiso de la Corona!' }
-        ], () => {
-          // Después del diálogo, iniciar combate
+          { personaje: '⚔️ Soldado Diego', texto: isabela?.soldado2 || '¡Nadie puede entrar a las ruinas sin permiso de la Corona!',
+            opciones: [
+              { texto: isabela?.opAtacar || '⚔️ Atacar', valor: 'atacar' },
+              { texto: isabela?.opHablar || '💬 Hablar', valor: 'hablar' },
+              { texto: isabela?.opNegociar || '🤝 Negociar', valor: 'negociar' },
+              { texto: isabela?.opHuir || '🏃 Huir', valor: 'huir' }
+            ]
+          }
+        ], (opcion) => {
           this.combateIniciado = true;
-          if (this.juego && this.juego.combate) {
-            this.juego.combate.iniciar({
-              nombre: 'Soldado Diego',
-              vida: 40,
-              vidaMaxima: 40,
-              fuerza: 2,
-              velocidad: 2,
-              hostilidad: 60  // No es tan hostil, se puede convencer
-            }, this.juego);
+          if (opcion === 'huir') {
+            // Huir cuenta como pacifista — no hay pelea
+            this.combateTerminado = true;
+            this.juego.progreso.combatesPacificados++;
+            if (this.juego.reputacion) this.juego.reputacion.modificar(5, isabela?.huidaExitosa || 'Huida exitosa');
+            const soldado = this.npcs.find(n => n.id === 'soldado');
+            if (soldado) { soldado.esCombate = false; soldado.dialogoHecho = true; }
+            this.dialogos.iniciarDialogo([
+              { personaje: '⚔️ Soldado Diego', texto: isabela?.soldadoHuida || '¡Corre! Pero no vuelvas por aquí...' }
+            ]);
+          } else {
+            // Iniciar duelo de espadas
+            const modo = (opcion === 'atacar') ? 'agresivo' : 'pacifista';
+            if (this.juego && this.juego.dueloEspada) {
+              this.juego.dueloEspada.iniciar({
+                modo: modo,
+                juego: this.juego,
+                alTerminar: (resultado) => {
+                  this._procesarResultadoDuelo(resultado);
+                }
+              });
+            }
           }
         });
       } else {

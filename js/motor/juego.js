@@ -66,6 +66,7 @@ import { AsentamientoTaino2 } from '../mundos/taino/asentamiento-taino-2.js';
 import { MundoMontana } from '../mundos/montana/mundo-montana.js';
 import { LagoEnriquillo } from '../mundos/enriquillo/lago-enriquillo.js';
 import { SistemaBossCemi } from '../mecanicas/boss-cemi.js';
+import { DueloEspada } from '../mecanicas/duelo-espada.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
@@ -93,6 +94,7 @@ export class Juego {
     this.sfx = new SonidoProcedural();
     this.musica = new SistemaMusica();
     this.bossCemi = new SistemaBossCemi();
+    this.dueloEspada = new DueloEspada();
 
     // Restaurar volumen de sonidos desde localStorage
     try {
@@ -104,6 +106,7 @@ export class Juego {
     this._musicaCombateActiva = false;
     this._musicaBatuActiva = false;
     this._musicaBossActiva = false;
+    this._musicaDueloActiva = false;
 
     // Flag para evitar múltiples triggers de muerte simultáneos
     this._muerteEnCurso = false;
@@ -613,6 +616,14 @@ export class Juego {
       this.musica.restaurar();
       this._musicaBossActiva = false;
     }
+    if (this.dueloEspada.enJuego && !this._musicaDueloActiva) {
+      this.musica.override('combate');
+      this._musicaDueloActiva = true;
+    }
+    if (!this.dueloEspada.enJuego && this._musicaDueloActiva) {
+      this.musica.restaurar();
+      this._musicaDueloActiva = false;
+    }
 
     // --- Combate: si hay un combate activo, consume toda la entrada ---
     if (this.combate.enCombate) {
@@ -629,6 +640,12 @@ export class Juego {
     // --- Boss Cemí: bullet hell overlay ---
     if (this.bossCemi.enJuego) {
       this.bossCemi.actualizar(dt, this.entrada);
+      return;
+    }
+
+    // --- Duelo de espadas (Soldado Diego) ---
+    if (this.dueloEspada.enJuego) {
+      this.dueloEspada.actualizar(dt, this.entrada);
       return;
     }
 
@@ -825,6 +842,11 @@ export class Juego {
     // --- Boss Cemí (bullet hell overlay) ---
     if (this.bossCemi.enJuego) {
       this.bossCemi.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.bossCemi);
+    }
+
+    // --- Duelo de espadas (Soldado Diego) ---
+    if (this.dueloEspada.enJuego) {
+      this.dueloEspada.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.duelo);
     }
 
     // --- Mini-juegos LFSD se dibujan como overlays ---

@@ -300,6 +300,13 @@ const en = {
     isabela: {
       soldado1: 'Halt! This area is forbidden by order of the Viceroy!',
       soldado2: 'No one may enter the ruins without permission from the Crown!',
+      opAtacar: '⚔️ Attack',
+      opHablar: '💬 Talk',
+      opNegociar: '🤝 Negotiate',
+      opHuir: '🏃 Flee',
+      soldadoHuida: 'Run! But don\'t come back here...',
+      soldadoDerrota: 'Argh! I surrender... explore the ruins if you wish.',
+      soldadoVence: 'Ha! Come back when you\'re ready for a real duel.',
       soldadoPaz1: 'You\'re right... these ruins should be protected, not forbidden.',
       soldadoPaz2: 'La Isabela was founded in 1494. It\'s the first European city in the Americas.',
 
@@ -735,6 +742,33 @@ const en = {
     bendicionDetalle: '+30 max health | +5 strength | +20% speed',
     derrota: 'The vision fades... you wake up before the pedestal.',
     controles: 'WASD/Arrows: dodge | E: attack (when stunned)',
+  },
+
+  // Sword duel against Soldado Diego
+  duelo: {
+    titulo: '⚔️ Sword Duel',
+    ctrl1: '← → : Move',
+    ctrl2: 'E : Attack with sword',
+    ctrl3: 'Q : Block (hold) / Parry (just in time)',
+    ctrl4: '↓ : Duck (dodge high attacks)',
+    modoPaz: '🕊️ Pacifist Mode — Defend yourself while talking',
+    modoAtaque: '⚔️ Aggressive Mode — Defeat the soldier',
+    comenzar: '[E] Start',
+    tuVida: 'HP',
+    conviccion: 'Conviction',
+    controles: '← → Move | E Attack | Q Block | ↓ Duck',
+    victoriaPaz: '🕊️ Diego yields — Pacifist Victory!',
+    victoriaFuerza: '⚔️ Victory by force!',
+    derrota: '💀 You have been defeated...',
+    continuar: '[E] Continue',
+    paz1: 'Wait! I just want to talk about history.',
+    paz2: 'These ruins tell the story of your people.',
+    paz3: 'La Isabela was the first European city in the Americas. It deserves protection!',
+    paz4: 'I\'m not your enemy. I\'m an accidental archaeologist.',
+    paz5: 'Heritage belongs to everyone. Let\'s fight together to protect it.',
+    paz6: 'Your duty is to protect these ruins, not forbid them.',
+    paz7: 'The Taínos and the Spaniards share this history.',
+    paz8: 'Think about what Fray Ramón Pané would say!',
   },
 
   // Batú — Taíno ball game (mini-game)

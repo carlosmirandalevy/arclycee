@@ -300,6 +300,13 @@ const fr = {
     isabela: {
       soldado1: 'Halte ! Cette zone est interdite par ordre du Vice-roi !',
       soldado2: 'Personne ne peut entrer dans les ruines sans la permission de la Couronne !',
+      opAtacar: '⚔️ Attaquer',
+      opHablar: '💬 Parler',
+      opNegociar: '🤝 Négocier',
+      opHuir: '🏃 Fuir',
+      soldadoHuida: 'Cours ! Mais ne reviens pas par ici...',
+      soldadoDerrota: 'Argh ! Je me rends... explore les ruines si tu veux.',
+      soldadoVence: 'Ha ! Reviens quand tu seras prêt pour un vrai duel.',
       soldadoPaz1: 'Tu as raison... ces ruines doivent être protégées, pas interdites.',
       soldadoPaz2: 'La Isabela a été fondée en 1494. C\'est la première ville européenne en Amérique.',
 
@@ -735,6 +742,33 @@ const fr = {
     bendicionDetalle: '+30 vie max | +5 force | +20% vitesse',
     derrota: 'La vision s\'estompe... tu te réveilles devant le piédestal.',
     controles: 'WASD/Flèches : esquiver | E : attaquer (quand étourdi)',
+  },
+
+  // Duel d'épées contre Soldado Diego
+  duelo: {
+    titulo: '⚔️ Duel d\'Épées',
+    ctrl1: '← → : Se déplacer',
+    ctrl2: 'E : Attaquer à l\'épée',
+    ctrl3: 'Q : Bloquer (maintenir) / Parade (juste à temps)',
+    ctrl4: '↓ : S\'accroupir (esquiver les attaques hautes)',
+    modoPaz: '🕊️ Mode Pacifiste — Défends-toi en dialoguant',
+    modoAtaque: '⚔️ Mode Agressif — Vaincs le soldat',
+    comenzar: '[E] Commencer',
+    tuVida: 'PV',
+    conviccion: 'Conviction',
+    controles: '← → Bouger | E Attaquer | Q Bloquer | ↓ S\'accroupir',
+    victoriaPaz: '🕊️ Diego se rend — Victoire Pacifiste !',
+    victoriaFuerza: '⚔️ Victoire par la force !',
+    derrota: '💀 Tu as été vaincu...',
+    continuar: '[E] Continuer',
+    paz1: 'Attends ! Je veux juste parler d\'histoire.',
+    paz2: 'Ces ruines racontent l\'histoire de ton peuple.',
+    paz3: 'La Isabela fut la première ville européenne d\'Amérique. Elle mérite protection !',
+    paz4: 'Je ne suis pas ton ennemi. Je suis un archéologue accidentel.',
+    paz5: 'Le patrimoine appartient à tous. Battons-nous ensemble pour le protéger.',
+    paz6: 'Ton devoir est de protéger ces ruines, pas de les interdire.',
+    paz7: 'Les Taïnos et les Espagnols partagent cette histoire.',
+    paz8: 'Pense à ce que dirait Fray Ramón Pané !',
   },
 
   // Batú — jeu de balle taïno (mini-jeu)
