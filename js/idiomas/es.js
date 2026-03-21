@@ -595,8 +595,8 @@ const es = {
       agenteRepite: 'El registro aduanal está cerca de la máquina de rayos X. Recógelo como evidencia.',
       agentePostCombate: 'Este caso sentará un precedente. La Ley 318 se aplica con todo su peso.',
 
-      // Inspector Ramírez — cooperación internacional
-      inspector1: 'Inspector Ramírez, INTERPOL. Estamos rastreando una red de tráfico de antigüedades.',
+      // Miguel Sánchez — cooperación internacional (persona real que ayudó al equipo)
+      inspector1: 'Miguel Sánchez, INTERPOL. Estamos rastreando una red de tráfico de antigüedades.',
       inspector2: 'INTERPOL tiene una base de datos de obras de arte robadas con más de 52,000 registros.',
       inspector3: 'La cooperación entre países es clave. Un artefacto robado en RD puede aparecer en una subasta en Europa.',
       inspector4: 'Con tu evidencia y la Ley 318, podemos activar una alerta internacional contra Torres.',

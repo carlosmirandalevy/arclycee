@@ -71,7 +71,7 @@ export class MundoJuridico {
     this._carmenConversacion = 0;
 
     // --- Arresto cinematográfico post-combate ---
-    // Inspector Ramírez y Agente Montero caminan hacia Torres
+    // Miguel Sánchez y Agente Montero caminan hacia Torres
     this._arrestoEnCurso = false;
     this._arrestoFase = 'esperando'; // 'esperando' → 'caminando' → 'dialogo' → 'completado'
     this._arrestoTiempo = 0;
@@ -173,7 +173,7 @@ export class MundoJuridico {
         id: 'inspector',
         x: 1540, y: 830,
         ancho: 28, alto: 32,
-        nombre: 'Inspector Ramírez',
+        nombre: 'Miguel Sánchez',
         color: '#3a3a5a',
         dialogoHecho: false,
         esCombate: false
@@ -317,10 +317,10 @@ export class MundoJuridico {
           const textos = this._obtenerTextos();
           const jur = textos?.dialogos?.juridico;
           this.dialogos.iniciarDialogo([
-            { personaje: '🔵 Inspector Ramírez', texto: jur?.arrestoInspector1 || 'Rodrigo Torres, queda usted detenido por tráfico ilícito de bienes culturales.' },
+            { personaje: '🔵 Miguel Sánchez', texto: jur?.arrestoInspector1 || 'Rodrigo Torres, queda usted detenido por tráfico ilícito de bienes culturales.' },
             { personaje: '🛃 Agente Montero', texto: jur?.arrestoAgente1 || 'Tiene derecho a un abogado. Todo lo que diga será usado en su contra.' },
             { personaje: '💼 Rodrigo Torres', texto: jur?.arrestoTorres1 || '¡No pueden hacerme esto! ¡Tengo contactos!' },
-            { personaje: '🔵 Inspector Ramírez', texto: jur?.arrestoInspector2 || 'Sus contactos no le servirán. INTERPOL ya notificó a todas las aduanas del Caribe.' },
+            { personaje: '🔵 Miguel Sánchez', texto: jur?.arrestoInspector2 || 'Sus contactos no le servirán. INTERPOL ya notificó a todas las aduanas del Caribe.' },
             { personaje: '🛃 Agente Montero', texto: jur?.arrestoAgente2 || 'Llévenselo. Los artefactos quedan confiscados como evidencia.' }
           ], () => {
             // Torres es escoltado fuera — los 3 caminan hacia la salida
@@ -919,7 +919,7 @@ export class MundoJuridico {
       ctx.fillRect(nx + 3, ny + 5, 6, 6);
 
     } else if (npc.id === 'inspector') {
-      // Inspector Ramírez — traje oscuro de INTERPOL
+      // Miguel Sánchez — traje oscuro de INTERPOL
       ctx.fillStyle = '#2a2a3a';
       ctx.fillRect(nx, ny, npc.ancho, npc.alto);
       // Cabeza
@@ -1145,27 +1145,27 @@ export class MundoJuridico {
       }
 
     } else if (npc.id === 'inspector') {
-      // Inspector Ramírez — enseña sobre cooperación internacional
+      // Miguel Sánchez — enseña sobre cooperación internacional
       if (npc.dialogoHecho) {
         if (this._torresSacado) {
           this.dialogos.iniciarDialogo([
-            { personaje: '🔵 Inspector Ramírez', texto: jur?.inspectorPostArresto || 'Torres está bajo custodia. INTERPOL investigará toda su red de contactos.' }
+            { personaje: '🔵 Miguel Sánchez', texto: jur?.inspectorPostArresto || 'Torres está bajo custodia. INTERPOL investigará toda su red de contactos.' }
           ]);
         } else if (this.combateTerminado) {
           this.dialogos.iniciarDialogo([
-            { personaje: '🔵 Inspector Ramírez', texto: jur?.inspectorPostCombate || 'INTERPOL ya emitió la alerta. Este traficante no escapará de la justicia internacional.' }
+            { personaje: '🔵 Miguel Sánchez', texto: jur?.inspectorPostCombate || 'INTERPOL ya emitió la alerta. Este traficante no escapará de la justicia internacional.' }
           ]);
         } else {
           this.dialogos.iniciarDialogo([
-            { personaje: '🔵 Inspector Ramírez', texto: jur?.inspectorRepite || 'Reúne toda la evidencia posible antes de confrontar al sospechoso.' }
+            { personaje: '🔵 Miguel Sánchez', texto: jur?.inspectorRepite || 'Reúne toda la evidencia posible antes de confrontar al sospechoso.' }
           ]);
         }
       } else {
         this.dialogos.iniciarDialogo([
-          { personaje: '🔵 Inspector Ramírez', texto: jur?.inspector1 || 'Inspector Ramírez, INTERPOL. Estamos rastreando una red de tráfico de antigüedades.' },
-          { personaje: '🔵 Inspector Ramírez', texto: jur?.inspector2 || 'INTERPOL tiene una base de datos de obras de arte robadas con más de 52,000 registros.' },
-          { personaje: '🔵 Inspector Ramírez', texto: jur?.inspector3 || 'La cooperación entre países es clave. Un artefacto robado en RD puede aparecer en una subasta en Europa.' },
-          { personaje: '🔵 Inspector Ramírez', texto: jur?.inspector4 || 'Con tu evidencia y la Ley 318, podemos activar una alerta internacional contra Torres.' }
+          { personaje: '🔵 Miguel Sánchez', texto: jur?.inspector1 || 'Miguel Sánchez, INTERPOL. Estamos rastreando una red de tráfico de antigüedades.' },
+          { personaje: '🔵 Miguel Sánchez', texto: jur?.inspector2 || 'INTERPOL tiene una base de datos de obras de arte robadas con más de 52,000 registros.' },
+          { personaje: '🔵 Miguel Sánchez', texto: jur?.inspector3 || 'La cooperación entre países es clave. Un artefacto robado en RD puede aparecer en una subasta en Europa.' },
+          { personaje: '🔵 Miguel Sánchez', texto: jur?.inspector4 || 'Con tu evidencia y la Ley 318, podemos activar una alerta internacional contra Torres.' }
         ], () => { npc.dialogoHecho = true; });
       }
 

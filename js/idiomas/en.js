@@ -558,7 +558,8 @@ const en = {
       agenteRepite: 'The customs registry is near the X-ray machine. Pick it up as evidence.',
       agentePostCombate: 'This case will set a precedent. Law 318 is being applied with full force.',
 
-      inspector1: 'Inspector Ramírez, INTERPOL. We\'re tracking an antiquities trafficking network.',
+      // Miguel Sánchez — real person who helped the team with research and regulations
+      inspector1: 'Miguel Sánchez, INTERPOL. We\'re tracking an antiquities trafficking network.',
       inspector2: 'INTERPOL has a database of stolen artworks with over 52,000 records.',
       inspector3: 'International cooperation is key. An artifact stolen in DR can appear at a European auction.',
       inspector4: 'With your evidence and Law 318, we can issue an international alert against Torres.',

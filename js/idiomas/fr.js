@@ -558,7 +558,8 @@ const fr = {
       agenteRepite: 'Le registre douanier est près de la machine à rayons X. Récupère-le comme preuve.',
       agentePostCombate: 'Cette affaire fera jurisprudence. La Loi 318 s\'applique dans toute sa rigueur.',
 
-      inspector1: 'Inspecteur Ramírez, INTERPOL. Nous traquons un réseau de trafic d\'antiquités.',
+      // Miguel Sánchez — personne réelle qui a aidé l'équipe avec la recherche et les réglementations
+      inspector1: 'Miguel Sánchez, INTERPOL. Nous traquons un réseau de trafic d\'antiquités.',
       inspector2: 'INTERPOL possède une base de données d\'œuvres d\'art volées avec plus de 52 000 entrées.',
       inspector3: 'La coopération internationale est essentielle. Un artefact volé en RD peut apparaître aux enchères en Europe.',
       inspector4: 'Avec tes preuves et la Loi 318, nous pouvons lancer une alerte internationale contre Torres.',
