@@ -180,6 +180,13 @@ export class MundoLFSD {
         nombre: lfsd?.est8Nombre || 'Tom',
         color: '#AABB88',
         dialogoHecho: false, esMentor: false, esQuestGiver: false
+      },
+      // Eduardo — investigó sobre arqueólogos y el rol del Estado para proteger el patrimonio
+      {
+        id: 'estudiante9', x: 900, y: 780, ancho: 28, alto: 36,
+        nombre: lfsd?.est9Nombre || 'Eduardo',
+        color: '#88AACC',
+        dialogoHecho: false, esMentor: false, esQuestGiver: false
       }
     ];
   }
@@ -1309,6 +1316,17 @@ export class MundoLFSD {
         lfsd?.tom6 || 'Juego handball en el LFSD. Calcular ángulos, como programar.',
         lfsd?.tom7 || '*mira a Tea* Acabo de cambiarle el fondo de pantalla. No le digas.',
         lfsd?.tom8 || 'Algún día la IA analizará artefactos arqueológicos automáticamente.'
+      ],
+      // Eduardo — Arqueólogos y el rol del Estado para proteger el patrimonio
+      estudiante9: [
+        lfsd?.eduardo1 || '¿Sabías que solo hay 4 arqueólogos supervisando construcciones en todo el país?',
+        lfsd?.eduardo2 || 'Investigué las leyes dominicanas sobre patrimonio. La Ley 318 es clave.',
+        lfsd?.eduardo3 || 'El Estado tiene la responsabilidad de proteger los sitios arqueológicos.',
+        lfsd?.eduardo4 || 'En Francia, antes de construir, un equipo arqueológico revisa el terreno. ¡Aquí deberíamos hacer lo mismo!',
+        lfsd?.eduardo5 || 'Un mapa de riesgo arqueológico ayudaría a prevenir la destrucción de sitios.',
+        lfsd?.eduardo6 || 'Hablamos con el arqueólogo Wilton Khoury. ¡Nos contó cosas increíbles!',
+        lfsd?.eduardo7 || 'El aeropuerto de Pedernales se construyó sobre posibles restos taínos. Nadie los revisó.',
+        lfsd?.eduardo8 || 'Proteger el patrimonio no es solo cuestión de leyes, es cuestión de conciencia.'
       ]
     };
 

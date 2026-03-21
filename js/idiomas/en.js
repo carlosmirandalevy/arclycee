@@ -1033,6 +1033,16 @@ const en = {
     tom7: '*looks at Tea* Hehe... I just changed her desktop wallpaper. Don\'t tell her.',
     tom8: 'Someday AI will analyze archaeological artifacts automatically. And we\'ll be the first to use it!',
 
+    // Eduardo — archaeologists and the state's role in heritage protection
+    eduardo1: 'Did you know there are only 4 archaeologists supervising construction across the whole country?',
+    eduardo2: 'I researched Dominican heritage laws. Law 318 is key.',
+    eduardo3: 'The State has the responsibility to protect archaeological sites.',
+    eduardo4: 'In France, before building, an archaeological team inspects the terrain. We should do the same here!',
+    eduardo5: 'An archaeological risk map would help prevent the destruction of sites.',
+    eduardo6: 'We talked with archaeologist Wilton Khoury. He told us incredible things!',
+    eduardo7: 'The Pedernales airport was built over possible Taíno remains. Nobody checked.',
+    eduardo8: 'Protecting heritage isn\'t just about laws, it\'s about awareness.',
+
     // Prof. Nicolas Droulers — robotics teacher and project leader
     profesorNombre: 'Prof. Nicolas Droulers',
     profesor1: 'Welcome to the Lycée Français robotics class. I\'m Nicolas Droulers, the teacher of this group.',

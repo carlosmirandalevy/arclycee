@@ -1033,6 +1033,16 @@ const fr = {
     tom7: '*regarde Tea* Hé hé... Je viens de changer son fond d\'écran. Ne lui dis pas.',
     tom8: 'Un jour l\'IA pourra analyser les artefacts archéologiques automatiquement. Et on sera les premiers à l\'utiliser !',
 
+    // Eduardo — archéologues et rôle de l\'État pour protéger le patrimoine
+    eduardo1: 'Tu savais qu\'il n\'y a que 4 archéologues qui supervisent les constructions dans tout le pays ?',
+    eduardo2: 'J\'ai étudié les lois dominicaines sur le patrimoine. La Loi 318 est essentielle.',
+    eduardo3: 'L\'État a la responsabilité de protéger les sites archéologiques.',
+    eduardo4: 'En France, avant de construire, une équipe archéologique inspecte le terrain. On devrait faire pareil ici !',
+    eduardo5: 'Une carte de risque archéologique aiderait à prévenir la destruction des sites.',
+    eduardo6: 'On a parlé avec l\'archéologue Wilton Khoury. Il nous a raconté des choses incroyables !',
+    eduardo7: 'L\'aéroport de Pedernales a été construit sur de possibles vestiges taïnos. Personne n\'a vérifié.',
+    eduardo8: 'Protéger le patrimoine, ce n\'est pas seulement une question de lois, c\'est une question de conscience.',
+
     // Prof. Nicolas Droulers — professeur de robotique et leader du projet
     profesorNombre: 'Prof. Nicolas Droulers',
     profesor1: 'Bienvenue dans la classe de robotique du Lycée Français. Je suis Nicolas Droulers, le professeur de ce groupe.',
