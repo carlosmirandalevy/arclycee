@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.20.0 — Sword Duel, Eduardo, Miguel Sánchez, docs parity (2026-03-22)
+
+### Agregado
+- **Duelo de espadas** (`js/mecanicas/duelo-espada.js`): mini-juego de esgrima lateral contra Soldado Diego en La Isabela. Posturas realistas de esgrima (en garde, estocada/lunge, bloqueo, esquive arqueando espalda). Dos modos: agresivo (derrotar bajando HP) y pacifista (diálogos amistosos suben convicción). Parry con timing preciso (0.2s) aturde a Diego. Toast "¡En garde!" al inicio
+- **Opciones de diálogo horizontal**: Atacar/Hablar/Negociar/Huir con navegación ←→ antes del duelo. Hablar/Negociar = modo pacifista. Huir = victoria pacífica sin pelea
+- **Eduardo**: nuevo miembro del equipo (9 total). Investigó sobre arqueólogos y el rol del Estado para proteger el patrimonio. Easter egg: Escudo del Patrimonio. 8 líneas de diálogo en LFSD (ES/EN/FR)
+- **Inspector Ramírez → Miguel Sánchez**: renombrado en honor a la persona real que ayudó al equipo con investigación y asesoría sobre regulaciones y la Ley
+- **Música: Blades of La Isabela** — grupo musical 'duelo' (2 MP3s) con override durante el duelo de espadas. 15 grupos musicales totales (30 MP3s)
+- **Historia (docs)**: nueva página `historia.html` / `historia-en.html` / `historia-fr.html` con Historia + Flujo del Juego + Misiones Secundarias (movido desde las páginas principales)
+- **Navegación docs con dropdowns**: grupo "La Historia" (Historia, Mundos, Personajes, Diálogos) y grupo "Técnico" (Mecánicas, Programación)
+- **Boss Cemí y Duelo en docs**: secciones de mecánicas y mundos (ES/EN/FR) documentando el bullet hell y el duelo de espadas
+- **Metadatos MP3**: todos los 30 MP3s con título "ArcLycée - [nombre]", artista "Les Fous du Robot - LFSD", álbum "ArcLycée", año 2026
+
+### Mejorado
+- **Compañeros en docs**: characters-en.html y characters-fr.html con daño de combate (+3/+2/+4), tabla de poderes del Cemí y sub-menú de selección
+- **Diálogos de opciones**: layout horizontal en dialogos.js (←→ en vez de ↑↓) para evitar solapamiento con el texto de la pregunta
+
+### Corregido
+- **Freeze en opciones de diálogo**: la-isabela.js no manejaba ↑↓/←→ para navegar opciones ni `confirmarOpcion()`. Opción elegida se procesa vía `_opcionDiegoElegida` flag en el update loop
+- **Historia/Compañeros duplicados**: removidos de index.html, en.html, fr.html (movidos a páginas dedicadas)
+
+---
+
 ## v0.19.0 — Boss fight, Archaeological Potential map, Santuario node, docs (2026-03-20)
 
 ### Agregado

@@ -20,7 +20,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer
 - **Créditos cinematográficos**: créditos estilo película tras el final con logo, "les fous du robot", nombres del equipo y el Liceo Francés, scroll manual con flechas
 - **Sistema de compañeros**: Magnoboot (robot excavador +3 daño, detección de metal vía tecla F), Viralata (perro rastreador +2 daño) y Cemí Murciélago (espíritu de cueva +4 daño) — seleccionables en combate antes de atacar
-- **Música de fondo**: 12 temas musicales (24 pistas MP3) con crossfade suave entre 2 variantes por escenario, override temporal para combate/batú, volumen ajustable desde el menú de opciones
+- **Música de fondo**: 15 temas musicales (30 pistas MP3) con crossfade suave entre 2 variantes por escenario, override temporal para combate/batú/duelo, volumen ajustable desde el menú de opciones
 - **Sonidos procedurales**: 60+ efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
 - **NPCs mentores recurrentes**: Roberto Cassá (7 conversaciones de historia) y Lcda. Carmen Vidal (5 temas legales)
@@ -30,6 +30,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Guardado automático**: el progreso se guarda al volver al mapa del mundo (localStorage)
 - **Sprites de enemigos**: cada enemigo tiene su sprite único en combate (soldado, constructor, pez león, traficante)
 - **Mini-juego de batú**: juego de pelota taíno con física 2D, golpes por cadera/hombro/cabeza/rodilla, IA vencible (72% velocidad, 15% errores), primero en 5 puntos, datos educativos entre puntos
+- **Duelo de espadas**: esgrima lateral contra Soldado Diego en La Isabela. Posturas realistas (en garde, estocada/lunge, bloqueo, esquive arqueando espalda). Modo agresivo (derrotar a Diego) o pacifista (dialogar durante la pelea). Controles: ← → E Q ↓. Parry con timing preciso. Música propia: *Blades of La Isabela*
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
 - **Previews de mundos**: cada mundo en la documentación tiene un render Canvas 2D animado con los colores y elementos reales del juego
@@ -51,7 +52,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Taíno | Cuevas del Pomier (cartel anti-grafiti, Cuchara Legendaria oculta), Asentamiento I (aldea con bohíos, vasija curativa de Anacaona, sidequest ídolo para Enriquillo), Asentamiento II (agricultura, areíto, mini-juego de batú, curación del Behique, guanábana de Guarionex) |
 | Montaña | Palenque de Lemba — comunidad cimarrona (~1540s), primera rebelión de esclavizados en las Américas. 5 NPCs (Sebastián Lemba mentor, Kofi herrero, Amara tamborera, Yemayá curandera, Marcos vigía), combate vs Cazador de Cimarrones, artefactos africanos (+2 daño por artefacto) |
 | Lago Enriquillo | El lago más grande del Caribe (40m bajo el nivel del mar, hipersalino 3×). Isla Cabritos (Guarizacca). Ecosistema: Cocodrilo Americano (Crocodylus acutus, death roll), Iguana Rinoceronte (Cyclura cornuta), Iguana de Ricord (Cyclura ricordii, ojos rojos), Flamencos rosados, Cucú (Athene cunicularia), Culebra Corredora (Haitiophis anomalus, 2m). Cacique Enriquillo (rebelión 1519-1533, amor con Mencía), Las Caritas (petroglifos). Sidequest: ídolo cemí de Anacaona |
-| Colonial | La Isabela (primer asentamiento europeo), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
+| Colonial | La Isabela (primer asentamiento europeo, duelo de espadas con Soldado Diego, Miguel Sánchez de INTERPOL), Zona Colonial de Santo Domingo (Patrimonio UNESCO, Museo de la Catedral, combate con Constructor Méndez, Panteón Nacional con cambio de guardia, Reloj de Sol, Roberto Cassá como mentor) |
 | Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), 4 especies de tortugas marinas (carey, tinglar, caguama, verde) con aletas animadas, ballenas jorobadas con canto, medusas con sacudida, pez león patrullero, combate ecológico, corales fotografiables (cerebro, cuerno, abanico, mesa). Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones con mordida y sacudida, lanchas rápidas con impacto + grito, sistema de oxígeno por apnea) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
@@ -68,7 +69,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 ## Equipo
 
-Elian · Theo Jules · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Tea
+Elian · Theo Jules · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Tea · Eduardo
 
 ## Documentación
 
