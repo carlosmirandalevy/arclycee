@@ -221,12 +221,12 @@ export class LaIsabela {
     if (this.dialogos.estaActivo()) {
       this.dialogos.actualizar(dt);
 
-      // Navegar opciones con ↑↓ (para diálogos con elección)
-      if (entrada.estaPresionada('arriba') && !this.bloqueoEntrada) {
+      // Navegar opciones con ←→ (para diálogos con elección horizontal)
+      if (entrada.estaPresionada('izquierda') && !this.bloqueoEntrada) {
         this.dialogos.seleccionarOpcion(-1);
         this.bloqueoEntrada = true;
       }
-      if (entrada.estaPresionada('abajo') && !this.bloqueoEntrada) {
+      if (entrada.estaPresionada('derecha') && !this.bloqueoEntrada) {
         this.dialogos.seleccionarOpcion(1);
         this.bloqueoEntrada = true;
       }
@@ -246,7 +246,7 @@ export class LaIsabela {
         this.sfx.dialogo();
         this.bloqueoEntrada = true;
       }
-      if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('arriba') && !entrada.estaPresionada('abajo')) {
+      if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('izquierda') && !entrada.estaPresionada('derecha')) {
         this.bloqueoEntrada = false;
       }
       return;

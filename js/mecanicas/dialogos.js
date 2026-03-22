@@ -159,19 +159,27 @@ class SistemaDialogos {
     // Divide el texto en líneas que quepan en la caja
     this._dibujarTextoMultilinea(renderizador, this.textoMostrado, xCaja + 16, yTexto, anchoMaxTexto, 22);
 
-    // Opciones de diálogo — se muestran solo cuando el texto terminó de escribirse
+    // Opciones de diálogo — se muestran horizontalmente cuando el texto terminó
     if (this._textoCompleto && lineaObj.opciones && lineaObj.opciones.length > 0) {
-      const yOpciones = yCaja + altoCaja - 12 - (lineaObj.opciones.length * 24);
+      const yOpciones = yCaja + altoCaja - 28;
+      const numOpciones = lineaObj.opciones.length;
+      const anchoOpcion = (anchoCaja - 32) / numOpciones;
 
       lineaObj.opciones.forEach((opcion, indice) => {
         const esSeleccionada = indice === this.opcionSeleccionada;
+        const xOp = xCaja + 16 + indice * anchoOpcion + anchoOpcion / 2;
 
-        // La opción seleccionada se resalta con color y flecha indicadora
+        // Fondo de la opción seleccionada
+        if (esSeleccionada) {
+          renderizador.fillStyle = 'rgba(255, 215, 0, 0.15)';
+          renderizador.fillRect(xCaja + 16 + indice * anchoOpcion, yOpciones - 16, anchoOpcion, 24);
+        }
+
         renderizador.fillStyle = esSeleccionada ? '#FFD700' : '#AAAAAA';
-        renderizador.font = esSeleccionada ? 'bold 15px monospace' : '15px monospace';
-
-        const prefijo = esSeleccionada ? '▸ ' : '  ';
-        renderizador.fillText(prefijo + opcion.texto, xCaja + 30, yOpciones + indice * 24);
+        renderizador.font = esSeleccionada ? 'bold 14px monospace' : '14px monospace';
+        renderizador.textAlign = 'center';
+        renderizador.fillText(opcion.texto, xOp, yOpciones);
+        renderizador.textAlign = 'left';
       });
     }
 
