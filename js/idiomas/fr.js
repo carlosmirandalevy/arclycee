@@ -769,6 +769,8 @@ const fr = {
     paz6: 'Ton devoir est de protéger ces ruines, pas de les interdire.',
     paz7: 'Les Taïnos et les Espagnols partagent cette histoire.',
     paz8: 'Pense à ce que dirait Fray Ramón Pané !',
+    enGarde: '⚔️ En garde !',
+    parry: '✨ Parade !',
   },
 
   // Batú — jeu de balle taïno (mini-jeu)

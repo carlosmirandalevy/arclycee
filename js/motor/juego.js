@@ -873,7 +873,8 @@ export class Juego {
     if (this.jugador && !this.inventario.abierto && !this.registro.visible
         && this.nombreEscenaActual !== 'mapaPrincipal'
         && this.nombreEscenaActual !== 'santuarioManati'
-        && !this.bossCemi.enJuego) {
+        && !this.bossCemi.enJuego
+        && !this.dueloEspada.enJuego) {
       this.reputacion.dibujarMedidor(this.ctx, 140, 10, 100, textos);
     }
 

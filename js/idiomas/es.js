@@ -813,6 +813,8 @@ const es = {
     paz6: 'Tu deber es proteger estas ruinas, no prohibirlas.',
     paz7: 'Los taínos y los españoles comparten esta historia.',
     paz8: '¡Piensa en lo que diría Fray Ramón Pané!',
+    enGarde: '⚔️ ¡En garde!',
+    parry: '✨ ¡Parry!',
   },
 
   batu: {

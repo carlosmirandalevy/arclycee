@@ -769,6 +769,8 @@ const en = {
     paz6: 'Your duty is to protect these ruins, not forbid them.',
     paz7: 'The Taínos and the Spaniards share this history.',
     paz8: 'Think about what Fray Ramón Pané would say!',
+    enGarde: '⚔️ En garde!',
+    parry: '✨ Parry!',
   },
 
   // Batú — Taíno ball game (mini-game)
