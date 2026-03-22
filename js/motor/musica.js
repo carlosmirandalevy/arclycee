@@ -49,7 +49,8 @@ const PISTAS_POR_GRUPO = {
   batu:       ['resources/music/Batu_Theme_1.mp3',               'resources/music/Batu_Theme_2.mp3'],
   lemba:      ['resources/music/Palenque_de_Lemba-01.mp3',       'resources/music/Palenque_de_Lemba-02.mp3'],
   enriquillo: ['resources/music/Lago_Enriquillo-01.mp3',        'resources/music/Lago_Enriquillo-02.mp3'],
-  creditos:   ['resources/music/End_credits_Theme_1.mp3',        'resources/music/End_credits_Theme_2.mp3']
+  creditos:   ['resources/music/End_credits_Theme_1.mp3',        'resources/music/End_credits_Theme_2.mp3'],
+  duelo:      ['resources/music/Blades_of_La_Isabela-Duelo_de_Espadas-Soldado_Diego-Theme-01.mp3', 'resources/music/Blades_of_La_Isabela-Duelo_de_Espadas-Soldado_Diego-Theme-02.mp3']
 };
 
 // Duración del crossfade en milisegundos

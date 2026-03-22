@@ -617,7 +617,7 @@ export class Juego {
       this._musicaBossActiva = false;
     }
     if (this.dueloEspada.enJuego && !this._musicaDueloActiva) {
-      this.musica.override('combate');
+      this.musica.override('duelo');
       this._musicaDueloActiva = true;
     }
     if (!this.dueloEspada.enJuego && this._musicaDueloActiva) {
