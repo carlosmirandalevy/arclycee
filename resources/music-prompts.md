@@ -166,6 +166,16 @@ El estilo general: indie game OST, evocador, memorable, minimalista pero emotivo
 
 ---
 
+## 17. Duelo de Espadas (Soldado Diego) — `sword-duel.mp3`
+
+**Prompt:**
+> Epic orchestral sword fight music. Intense staccato strings and brass fanfares over driving percussion with snare rolls and timpani hits. Spanish guitar arpeggios weave through the arrangement, evoking 15th-century colonial Caribbean. A heroic French horn melody rises above clashing cymbal accents. Harpsichord adds period authenticity. Build tension with ascending string runs, then release into powerful brass unison passages. Energetic but not dark — adventurous and youthful, like a teenager dueling a stubborn soldier among ancient ruins at twilight. Loopable. 45 seconds. No vocals.
+
+**Mood:** Heroic confrontation, Age of Exploration adventure, youthful determination
+**Reference feel:** Pirates of the Caribbean action meets Undertale battle determination, Age of Empires Spanish flair
+
+---
+
 ## Tips para Suno
 
 - **Duración**: Pedir "30 seconds" o "60 seconds" según el track
