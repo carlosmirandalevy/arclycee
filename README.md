@@ -56,7 +56,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Acuático | Naufragio de la Santa María (la nave capitana de Colón, encallada cerca de Cap-Haïtien en Nochebuena de 1492), 4 especies de tortugas marinas (carey, tinglar, caguama, verde) con aletas animadas, ballenas jorobadas con canto, medusas con sacudida, pez león patrullero, combate ecológico, corales fotografiables (cerebro, cuerno, abanico, mesa). Santuario del Manatí (liberar manatí, limpiar arrecife, tiburones con mordida y sacudida, lanchas rápidas con impacto + grito, sistema de oxígeno por apnea) |
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
-| LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers (pelo y barba blanca) y 9 NPCs estudiantes (cada uno con avatar personalizado), estaciones con pantallas Scratch, mesa FIRST LEGO League con robot animado que recorre caminos negros con zumbido de motor, impresora 3D, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
+| LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers (pelo y barba blanca) y 10 NPCs estudiantes (cada uno con avatar personalizado), estaciones con pantallas Scratch, mesa FIRST LEGO League con robot animado que recorre caminos negros con zumbido de motor, impresora 3D, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
 
 ## Tecnologías
 
@@ -69,7 +69,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 
 ## Equipo
 
-Elian · Theo Jules · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Tea · Eduardo
+Elian · Theo Jules · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Tea · Eduardo · Leonardo
 
 ## Documentación
 
