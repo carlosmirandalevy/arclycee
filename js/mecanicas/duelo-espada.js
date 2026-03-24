@@ -282,21 +282,31 @@ export class DueloEspada {
       const apuntaADiego = (j.miraDerecha && d.x > j.x) || (!j.miraDerecha && d.x < j.x);
       if (dist < 50 && apuntaADiego && d.estado !== 'aturdido' && !d._golpeado) {
         d._golpeado = true;
-        if (this._modo === 'agresivo') {
-          const dmg = 8 + Math.floor(Math.random() * 5);
-          d.vida = Math.max(0, d.vida - dmg);
+
+        if (d.estado === 'bloqueando') {
+          // Diego bloquea — chispas pero sin daño, contraataque vendrá del AI
           this._crearChispas((j.x + d.x) / 2, 240);
           this._juego?.sfx?.combateContraataque?.();
-          this._sacudida = 0.15;
+        } else if (d.estado === 'esquivando') {
+          // Diego esquiva — ataque falla por completo
         } else {
-          d.conviccion = Math.min(100, d.conviccion + 3);
-          this._crearChispas((j.x + d.x) / 2, 240);
+          // Golpe conecta
+          if (this._modo === 'agresivo') {
+            const dmg = 8 + Math.floor(Math.random() * 5);
+            d.vida = Math.max(0, d.vida - dmg);
+            this._crearChispas((j.x + d.x) / 2, 240);
+            this._juego?.sfx?.combateContraataque?.();
+            this._sacudida = 0.15;
+          } else {
+            d.conviccion = Math.min(100, d.conviccion + 3);
+            this._crearChispas((j.x + d.x) / 2, 240);
+          }
+          // Empujar a Diego lejos del jugador
+          const empuje = j.miraDerecha ? 18 : -18;
+          d.x = Math.max(50, Math.min(750, d.x + empuje));
+          d.estado = 'retrocediendo';
+          d.tiempoEstado = 0;
         }
-        // Empujar a Diego lejos del jugador
-        const empuje = j.miraDerecha ? 18 : -18;
-        d.x = Math.max(50, Math.min(750, d.x + empuje));
-        d.estado = 'retrocediendo';
-        d.tiempoEstado = 0;
       }
     }
     // Resetear flag al terminar ataque
@@ -416,6 +426,20 @@ export class DueloEspada {
       d.lungeOffset *= 0.85;
     }
 
+    // --- Reacción defensiva: Diego bloquea o esquiva ataques del jugador ---
+    if (j.estado === 'atacando' && j.tiempoEstado < 0.08 &&
+        d.estado === 'esperando' && distancia < 80) {
+      // 40% bloquear, 20% esquivar, 40% no reacciona (deja que el golpe conecte)
+      const reaccion = Math.random();
+      if (reaccion < 0.4) {
+        d.estado = 'bloqueando';
+        d.tiempoEstado = 0;
+      } else if (reaccion < 0.6) {
+        d.estado = 'esquivando';
+        d.tiempoEstado = 0;
+      }
+    }
+
     switch (d.estado) {
       case 'esperando':
         // Pausa corta entre ataques — Diego es agresivo
@@ -423,7 +447,6 @@ export class DueloEspada {
           if (distancia > 65) {
             d.estado = 'acercando';
           } else {
-            // Combo: 30% chance de doble ataque rápido si acaba de retroceder
             d.estado = Math.random() < 0.6 ? 'atacandoAlto' : 'atacandoBajo';
           }
           d.tiempoEstado = 0;
@@ -431,7 +454,7 @@ export class DueloEspada {
         break;
 
       case 'acercando':
-        // Se acerca rápido al jugador — velocidad agresiva
+        // Se acerca rápido al jugador
         if (j.x < d.x) {
           d.x -= 3.5 * vel * dt * 60;
         } else {
@@ -447,11 +470,36 @@ export class DueloEspada {
       case 'atacandoAlto':
       case 'atacandoBajo':
         if (d.tiempoEstado > 0.45) {
-          // 35% chance de atacar de nuevo inmediatamente (combo)
+          // 35% combo attack (alternate high/low)
           if (distancia < 70 && Math.random() < 0.35) {
             d.estado = d.estado === 'atacandoAlto' ? 'atacandoBajo' : 'atacandoAlto';
           } else {
             d.estado = 'retrocediendo';
+          }
+          d.tiempoEstado = 0;
+        }
+        break;
+
+      case 'bloqueando':
+        // Diego mantiene guardia brevemente, luego contraataca
+        if (d.tiempoEstado > 0.4) {
+          // Contraataque inmediato tras bloquear (soldado entrenado)
+          if (distancia < 75) {
+            d.estado = Math.random() < 0.5 ? 'atacandoAlto' : 'atacandoBajo';
+          } else {
+            d.estado = 'esperando';
+          }
+          d.tiempoEstado = 0;
+        }
+        break;
+
+      case 'esquivando':
+        // Diego se agacha para esquivar, luego contraataca bajo
+        if (d.tiempoEstado > 0.35) {
+          if (distancia < 75) {
+            d.estado = 'atacandoBajo'; // contraataque bajo desde esquive
+          } else {
+            d.estado = 'esperando';
           }
           d.tiempoEstado = 0;
         }
@@ -689,7 +737,25 @@ export class DueloEspada {
   }
 
   // ============================================================
-  // SPRITE DEL JUGADOR — posturas de esgrima realistas
+  // HELPER: dibujar un segmento de extremidad (línea gruesa)
+  // ============================================================
+  _dibujarLimbo(ctx, x1, y1, x2, y2, grosor, color) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = grosor;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  // Helper: interpolar entre dos valores
+  _lerp(a, b, t) {
+    return a + (b - a) * Math.min(1, Math.max(0, t));
+  }
+
+  // ============================================================
+  // SPRITE DEL JUGADOR — animación articulada estilo Prince of Persia
   // ============================================================
   _dibujarJugador(ctx, j, sueloY) {
     const dir = j.miraDerecha ? 1 : -1;
@@ -705,158 +771,192 @@ export class DueloEspada {
       ctx.globalAlpha = 0.4;
     }
 
-    // Escala del personaje — espejado si mira a la izquierda
-    const escala = 1.8;
+    // Escala y espejado
+    const S = 2.0;
     ctx.translate(baseX, sueloY);
-    ctx.scale(escala * dir, escala);
+    ctx.scale(S * dir, S);
 
-    // --- POSTURA DE ESQUIVE (arquear espalda hacia atrás) ---
+    // --- Colores ---
+    const piel = '#DEB887';
+    const pelo = '#4a3020';
+    const tunica = '#2266AA';
+    const pantalon = '#885522';
+    const bota = '#5a3a1a';
+    const espada = '#C0C0C0';
+    const guardia = '#AA8833';
+    const grosorBrazo = 3;
+    const grosorPierna = 3.5;
+
+    // --- Respiración sutil en idle ---
+    const respiro = (j.estado === 'idle') ? Math.sin(this._tiempoTotal * 2.5) * 0.5 : 0;
+
+    // --- Paso de caminata (ciclo suave) ---
+    const t = this._tiempoTotal;
+    const ciclo = caminando ? Math.sin(t * 9) : 0;
+
+    // --- CADERA (punto de anclaje) ---
+    const caderaX = 0;
+    const caderaY = -8;
+
+    // === PIERNAS (muslo + pantorrilla + pie) ===
+    let piernaDelMusloAng, piernaDelPantoAng, pieDelX, pieDelY;
+    let pieTraMusloAng, pieTraPantoAng, pieTraX, pieTraY;
+
     if (agachado) {
-      // Piernas flexionadas hacia adelante, torso arqueado hacia atrás
-      // Pierna delantera
-      ctx.fillStyle = '#885522';
-      ctx.fillRect(-3, -8, 5, 8);
-      // Pierna trasera (flexionada atrás)
-      ctx.save();
-      ctx.translate(-8, -6);
-      ctx.rotate(-0.3);
-      ctx.fillRect(0, 0, 5, 8);
-      ctx.restore();
-
-      // Torso arqueado hacia atrás (inclinado ~45°)
-      ctx.save();
-      ctx.translate(-2, -10);
-      ctx.rotate(-0.7); // inclinar atrás
-      // Cuerpo
-      ctx.fillStyle = '#2266AA';
-      ctx.fillRect(-5, -16, 10, 16);
-      // Cabeza (echada atrás)
-      ctx.fillStyle = '#DEB887';
-      ctx.fillRect(-4, -24, 8, 8);
-      ctx.fillStyle = '#4a3020';
-      ctx.fillRect(-4, -25, 8, 3);
-      // Brazo con espada (cae hacia atrás)
-      ctx.fillStyle = '#DEB887';
-      ctx.fillRect(4, -12, 3, 8);
-      ctx.fillStyle = '#C0C0C0';
-      ctx.fillRect(5, -18, 2, 10);
-      ctx.restore();
-
-      ctx.restore();
-      return;
+      // Piernas muy flexionadas, peso bajo
+      piernaDelMusloAng = 0.6;  piernaDelPantoAng = -1.0;
+      pieTraMusloAng = -0.4;    pieTraPantoAng = -0.6;
+    } else if (atacando) {
+      // Pierna delantera extendida (lunge), trasera empuja
+      const p = Math.min(1, j.tiempoEstado / 0.2);
+      piernaDelMusloAng = this._lerp(0.3, 0.8, p);
+      piernaDelPantoAng = this._lerp(-0.4, -0.3, p);
+      pieTraMusloAng = this._lerp(-0.3, -0.7, p);
+      pieTraPantoAng = this._lerp(-0.5, -0.2, p);
+    } else if (bloqueando) {
+      piernaDelMusloAng = 0.2;  piernaDelPantoAng = -0.5;
+      pieTraMusloAng = -0.4;    pieTraPantoAng = -0.4;
+    } else {
+      // En garde: pierna delantera flexionada, trasera recta
+      piernaDelMusloAng = 0.35 + ciclo * 0.25;
+      piernaDelPantoAng = -0.5 - ciclo * 0.1;
+      pieTraMusloAng = -0.3 - ciclo * 0.25;
+      pieTraPantoAng = -0.4 + ciclo * 0.1;
     }
 
-    // --- POSTURA EN GARDE (idle / base) ---
-    // Piernas: postura de esgrima — pie adelantado, rodilla flexionada
-    ctx.fillStyle = '#885522';
-    const pasoAnim = caminando ? Math.sin(this._tiempoTotal * 8) * 3 : 0;
+    const musloLen = 10;
+    const pantoLen = 10;
 
-    // Pierna delantera (derecha, flexionada adelante)
-    ctx.fillRect(2 + pasoAnim, -10, 5, 10);
-    // Pierna trasera (izquierda, extendida atrás)
-    ctx.fillRect(-8 - pasoAnim, -10, 5, 10);
+    // Pierna delantera
+    const musloDelFx = caderaX + Math.sin(piernaDelMusloAng) * musloLen;
+    const musloDelFy = caderaY + Math.cos(piernaDelMusloAng) * musloLen;
+    const pantoDelFx = musloDelFx + Math.sin(piernaDelMusloAng + piernaDelPantoAng) * pantoLen;
+    const pantoDelFy = musloDelFy + Math.cos(piernaDelMusloAng + piernaDelPantoAng) * pantoLen;
+    this._dibujarLimbo(ctx, caderaX, caderaY, musloDelFx, musloDelFy, grosorPierna, pantalon);
+    this._dibujarLimbo(ctx, musloDelFx, musloDelFy, pantoDelFx, pantoDelFy, grosorPierna, pantalon);
+    // Pie
+    ctx.fillStyle = bota;
+    ctx.fillRect(pantoDelFx - 1, pantoDelFy - 1, 5, 2);
 
-    // Torso — ligeramente inclinado hacia adelante en en garde
-    const inclinacion = atacando ? 0.15 : bloqueando ? -0.1 : 0.05;
-    ctx.save();
-    ctx.translate(0, -10);
-    ctx.rotate(inclinacion);
+    // Pierna trasera
+    const musloTraFx = caderaX + Math.sin(pieTraMusloAng) * musloLen;
+    const musloTraFy = caderaY + Math.cos(pieTraMusloAng) * musloLen;
+    const pantoTraFx = musloTraFx + Math.sin(pieTraMusloAng + pieTraPantoAng) * pantoLen;
+    const pantoTraFy = musloTraFy + Math.cos(pieTraMusloAng + pieTraPantoAng) * pantoLen;
+    this._dibujarLimbo(ctx, caderaX, caderaY, musloTraFx, musloTraFy, grosorPierna - 0.5, pantalon);
+    this._dibujarLimbo(ctx, musloTraFx, musloTraFy, pantoTraFx, pantoTraFy, grosorPierna - 0.5, pantalon);
+    ctx.fillStyle = bota;
+    ctx.fillRect(pantoTraFx - 1, pantoTraFy - 1, 5, 2);
 
-    // Cuerpo (túnica azul)
-    ctx.fillStyle = '#2266AA';
-    ctx.fillRect(-6, -18, 12, 18);
+    // === TORSO ===
+    let torsoAng;
+    if (agachado) {
+      torsoAng = -1.1; // arqueado hacia atrás (matrix dodge)
+    } else if (atacando) {
+      torsoAng = this._lerp(0.05, 0.35, Math.min(1, j.tiempoEstado / 0.15));
+    } else if (bloqueando) {
+      torsoAng = -0.15;
+    } else if (herido) {
+      torsoAng = -0.3;
+    } else {
+      torsoAng = 0.08 + respiro * 0.02;
+    }
 
+    const torsoLen = 16;
+    const hombroX = caderaX + Math.sin(torsoAng) * torsoLen;
+    const hombroY = caderaY - Math.cos(torsoAng) * torsoLen;
+
+    // Dibujar torso (línea gruesa)
+    this._dibujarLimbo(ctx, caderaX, caderaY, hombroX, hombroY, 6, tunica);
     // Cinturón
     ctx.fillStyle = '#664411';
-    ctx.fillRect(-6, -4, 12, 2);
+    ctx.fillRect(caderaX - 3, caderaY - 1, 6, 2);
 
-    // --- BRAZO ESPADA Y ESPADA ---
-    if (atacando) {
-      // ESTOCADA: brazo completamente extendido hacia adelante
-      const prog = j.tiempoEstado / 0.4;
-      const ext = Math.min(1, prog * 3); // extensión rápida
-      // Brazo extendido
-      ctx.fillStyle = '#DEB887';
-      ctx.fillRect(5, -14, 3 + ext * 12, 3);
-      // Espada en línea recta hacia adelante (thrust)
-      ctx.fillStyle = '#C0C0C0';
-      ctx.fillRect(5 + ext * 12, -14, 22, 2);
-      // Punta de espada
-      ctx.fillRect(5 + ext * 12 + 22, -15, 4, 4);
-      // Empuñadura / cazoleta
-      ctx.fillStyle = '#8B4513';
-      ctx.fillRect(3 + ext * 10, -16, 5, 6);
-      ctx.fillStyle = '#AA8833';
-      ctx.beginPath();
-      ctx.arc(5 + ext * 11, -13, 4, 0, Math.PI * 2);
-      ctx.fill();
-    } else if (bloqueando) {
-      // BLOQUEO: espada vertical frente al cuerpo
-      // Brazo levantado
-      ctx.fillStyle = '#DEB887';
-      ctx.fillRect(5, -16, 8, 3);
-      // Espada vertical
-      ctx.fillStyle = '#C0C0C0';
-      ctx.fillRect(12, -28, 2, 24);
-      // Cazoleta
-      ctx.fillStyle = '#AA8833';
-      ctx.beginPath();
-      ctx.arc(13, -13, 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#8B4513';
-      ctx.fillRect(11, -15, 4, 5);
-    } else {
-      // EN GARDE: espada extendida al frente en diagonal, brazo relajado
-      ctx.fillStyle = '#DEB887';
-      ctx.fillRect(5, -13, 8, 3); // brazo
-      // Espada en diagonal hacia adelante y ligeramente arriba
-      ctx.save();
-      ctx.translate(12, -13);
-      ctx.rotate(-0.2);
-      ctx.fillStyle = '#C0C0C0';
-      ctx.fillRect(0, -1, 22, 2);
-      // Cazoleta
-      ctx.fillStyle = '#AA8833';
-      ctx.beginPath();
-      ctx.arc(0, 0, 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#8B4513';
-      ctx.fillRect(-2, -2, 4, 4);
-      ctx.restore();
-    }
-
-    // --- BRAZO TRASERO (mano libre arriba, estilo esgrima clásica) ---
-    ctx.fillStyle = '#DEB887';
-    if (atacando) {
-      // Brazo trasero baja durante lunge
-      ctx.fillRect(-8, -16, 3, 6);
-    } else {
-      // Brazo trasero arriba y curvado (postura clásica)
-      ctx.save();
-      ctx.translate(-6, -18);
-      ctx.rotate(-0.4);
-      ctx.fillRect(0, 0, 3, 7);
-      // Mano curvada
-      ctx.fillRect(-2, -2, 3, 3);
-      ctx.restore();
-    }
-
-    // Cabeza
-    ctx.fillStyle = '#DEB887';
-    ctx.fillRect(-4, -28, 8, 8);
+    // === CABEZA ===
+    const cabezaX = hombroX + Math.sin(torsoAng) * 5;
+    const cabezaY = hombroY - 5 + respiro;
+    ctx.fillStyle = piel;
+    ctx.beginPath();
+    ctx.arc(cabezaX, cabezaY, 4, 0, Math.PI * 2);
+    ctx.fill();
     // Pelo
-    ctx.fillStyle = '#4a3020';
-    ctx.fillRect(-4, -29, 8, 3);
+    ctx.fillStyle = pelo;
+    ctx.beginPath();
+    ctx.arc(cabezaX, cabezaY - 1.5, 4, Math.PI, Math.PI * 2);
+    ctx.fill();
     // Ojo
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(2, -25, 2, 2);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(cabezaX + 1.5, cabezaY - 1, 1.5, 1.5);
 
-    ctx.restore(); // torso rotation
+    // === BRAZO ESPADA (delantero) ===
+    let brazoAng, antebrazoAng, espadaAng;
+    if (atacando) {
+      const p = Math.min(1, j.tiempoEstado / 0.15);
+      brazoAng = this._lerp(0.3, 1.4, p);    // extiende hacia adelante
+      antebrazoAng = this._lerp(-0.5, 0.1, p);
+      espadaAng = this._lerp(-0.2, 0.0, p);   // espada recta
+    } else if (bloqueando) {
+      brazoAng = 0.3;
+      antebrazoAng = -1.2; // codo doblado, espada arriba
+      espadaAng = -1.5;    // vertical
+    } else if (agachado) {
+      brazoAng = -0.5;
+      antebrazoAng = -0.3;
+      espadaAng = -0.8;
+    } else {
+      // En garde: brazo extendido con espada apuntando al frente
+      brazoAng = 0.6 + Math.sin(t * 2) * 0.03;
+      antebrazoAng = -0.3;
+      espadaAng = -0.15;
+    }
+
+    const brazoLen = 8;
+    const antebrazoLen = 7;
+    const espadaLen = 18;
+
+    const codoX = hombroX + Math.sin(torsoAng + brazoAng) * brazoLen;
+    const codoY = hombroY + Math.cos(torsoAng + brazoAng) * brazoLen;
+    const manoX = codoX + Math.sin(torsoAng + brazoAng + antebrazoAng) * antebrazoLen;
+    const manoY = codoY + Math.cos(torsoAng + brazoAng + antebrazoAng) * antebrazoLen;
+    const puntaX = manoX + Math.sin(torsoAng + brazoAng + antebrazoAng + espadaAng) * espadaLen;
+    const puntaY = manoY + Math.cos(torsoAng + brazoAng + antebrazoAng + espadaAng) * espadaLen;
+
+    this._dibujarLimbo(ctx, hombroX, hombroY, codoX, codoY, grosorBrazo, piel);
+    this._dibujarLimbo(ctx, codoX, codoY, manoX, manoY, grosorBrazo, piel);
+    // Guardia (cazoleta)
+    ctx.fillStyle = guardia;
+    ctx.beginPath();
+    ctx.arc(manoX, manoY, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+    // Espada
+    this._dibujarLimbo(ctx, manoX, manoY, puntaX, puntaY, 1.5, espada);
+    // Punta
+    ctx.fillStyle = '#E0E0E0';
+    ctx.fillRect(puntaX - 0.5, puntaY - 0.5, 2, 2);
+
+    // === BRAZO TRASERO (mano libre, postura clásica) ===
+    let backBrazoAng, backAnteAng;
+    if (atacando) {
+      backBrazoAng = -0.8; backAnteAng = -0.6;
+    } else if (agachado) {
+      backBrazoAng = -0.3; backAnteAng = -0.8;
+    } else {
+      // Mano arriba y curvada (esgrima clásica)
+      backBrazoAng = -0.5; backAnteAng = -1.2;
+    }
+    const backCodoX = hombroX + Math.sin(torsoAng + backBrazoAng) * brazoLen;
+    const backCodoY = hombroY + Math.cos(torsoAng + backBrazoAng) * brazoLen;
+    const backManoX = backCodoX + Math.sin(torsoAng + backBrazoAng + backAnteAng) * (antebrazoLen - 1);
+    const backManoY = backCodoY + Math.cos(torsoAng + backBrazoAng + backAnteAng) * (antebrazoLen - 1);
+
+    this._dibujarLimbo(ctx, hombroX, hombroY, backCodoX, backCodoY, grosorBrazo - 0.5, piel);
+    this._dibujarLimbo(ctx, backCodoX, backCodoY, backManoX, backManoY, grosorBrazo - 0.5, piel);
+
     ctx.restore(); // main save
   }
 
   // ============================================================
-  // SPRITE DEL SOLDADO DIEGO — posturas de esgrima con armadura
+  // SPRITE DEL SOLDADO DIEGO — articulado con armadura
   // ============================================================
   _dibujarDiego(ctx, d, sueloY) {
     const dir = d.miraDerecha ? 1 : -1;
@@ -866,147 +966,205 @@ export class DueloEspada {
     const atacandoAlto = d.estado === 'atacandoAlto';
     const atacandoBajo = d.estado === 'atacandoBajo';
     const acercando = d.estado === 'acercando';
+    const bloqueando = d.estado === 'bloqueando';
+    const esquivando = d.estado === 'esquivando';
 
     ctx.save();
     if (aturdido && Math.floor(this._tiempoTotal * 15) % 2 === 0) {
       ctx.globalAlpha = 0.5;
     }
 
-    const escala = 1.9; // Diego es ligeramente más grande
+    const S = 2.1; // Diego ligeramente más grande
     ctx.translate(baseX, sueloY);
-    ctx.scale(escala * dir, escala); // espejado dinámico según dirección
+    ctx.scale(S * dir, S);
 
-    // --- Piernas ---
-    ctx.fillStyle = rendido ? '#555555' : '#6A6A6A';
-    const pasoAnim = acercando ? Math.sin(this._tiempoTotal * 8) * 3 : 0;
-    ctx.fillRect(2 + pasoAnim, -10, 5, 10);
-    ctx.fillRect(-8 - pasoAnim, -10, 5, 10);
-    // Botas
-    ctx.fillStyle = '#4a3a2a';
-    ctx.fillRect(1 + pasoAnim, -2, 7, 2);
-    ctx.fillRect(-9 - pasoAnim, -2, 7, 2);
+    // --- Colores de armadura ---
+    const armadura = rendido ? '#555555' : '#8A8A90';
+    const armOscuro = rendido ? '#444444' : '#6A6A70';
+    const piel = '#D4A76A';
+    const capa = rendido ? '#662222' : '#AA2222';
+    const espada = '#D0D0D0';
+    const guardia = '#AA8833';
+    const bota = '#3a2a1a';
+    const grosorBrazo = 3.5;
+    const grosorPierna = 4;
 
-    // Torso inclinado
-    const inclinacion = (atacandoAlto || atacandoBajo) ? 0.15 : rendido ? -0.3 : 0.05;
-    ctx.save();
-    ctx.translate(0, -10);
-    ctx.rotate(inclinacion);
+    const t = this._tiempoTotal;
+    const ciclo = acercando ? Math.sin(t * 9) : 0;
 
-    // Armadura (peto)
-    ctx.fillStyle = rendido ? '#555555' : '#8A8A90';
-    ctx.fillRect(-7, -20, 14, 20);
-    // Detalle de armadura (líneas)
-    ctx.strokeStyle = '#6A6A70';
-    ctx.lineWidth = 0.5;
-    ctx.strokeRect(-7, -20, 14, 20);
-    ctx.beginPath();
-    ctx.moveTo(-7, -10);
-    ctx.lineTo(7, -10);
-    ctx.stroke();
+    // --- CADERA ---
+    const caderaX = 0;
+    const caderaY = -9;
 
-    // Capa roja (atrás)
-    ctx.fillStyle = rendido ? '#662222' : '#AA2222';
-    ctx.fillRect(-9, -18, 4, 16);
+    // === PIERNAS ===
+    let pDelMusloAng, pDelPantoAng, pTraMusloAng, pTraPantoAng;
+    const musloLen = 11;
+    const pantoLen = 11;
 
-    // --- ESPADA DE DIEGO ---
     if (rendido) {
-      // Espada caída (no se dibuja, está en el suelo)
-    } else if (atacandoAlto) {
-      // Estocada alta — espada baja desde arriba en arco
-      const prog = d.tiempoEstado / 0.55;
-      const angulo = -Math.PI * 0.6 + prog * Math.PI * 0.8;
-      ctx.save();
-      ctx.translate(6, -14);
-      ctx.rotate(angulo);
-      ctx.fillStyle = '#D0D0D0';
-      ctx.fillRect(0, -2, 26, 3);
-      ctx.fillStyle = '#AA8833';
-      ctx.beginPath();
-      ctx.arc(0, 0, 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    } else if (atacandoBajo) {
-      // Barrida baja
-      const prog = d.tiempoEstado / 0.55;
-      ctx.save();
-      ctx.translate(6, -4);
-      ctx.rotate(0.3 - prog * 0.6);
-      ctx.fillStyle = '#D0D0D0';
-      ctx.fillRect(0, -2, 26, 3);
-      ctx.fillStyle = '#AA8833';
-      ctx.beginPath();
-      ctx.arc(0, 0, 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+      pDelMusloAng = 0.1; pDelPantoAng = -0.2;
+      pTraMusloAng = -0.1; pTraPantoAng = -0.2;
+    } else if (esquivando) {
+      pDelMusloAng = 0.6; pDelPantoAng = -1.0;
+      pTraMusloAng = -0.4; pTraPantoAng = -0.6;
+    } else if (atacandoAlto || atacandoBajo) {
+      const p = Math.min(1, d.tiempoEstado / 0.2);
+      pDelMusloAng = this._lerp(0.3, 0.8, p);
+      pDelPantoAng = this._lerp(-0.4, -0.3, p);
+      pTraMusloAng = this._lerp(-0.3, -0.7, p);
+      pTraPantoAng = this._lerp(-0.5, -0.2, p);
+    } else if (bloqueando) {
+      pDelMusloAng = 0.2; pDelPantoAng = -0.5;
+      pTraMusloAng = -0.4; pTraPantoAng = -0.4;
     } else {
-      // En garde — espada extendida
-      ctx.fillStyle = '#DEB887';
-      ctx.fillRect(6, -14, 8, 3);
-      ctx.save();
-      ctx.translate(13, -14);
-      ctx.rotate(-0.15);
-      ctx.fillStyle = '#D0D0D0';
-      ctx.fillRect(0, -1, 24, 3);
-      ctx.fillStyle = '#AA8833';
-      ctx.beginPath();
-      ctx.arc(0, 0, 4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+      pDelMusloAng = 0.35 + ciclo * 0.25;
+      pDelPantoAng = -0.5 - ciclo * 0.1;
+      pTraMusloAng = -0.3 - ciclo * 0.25;
+      pTraPantoAng = -0.4 + ciclo * 0.1;
     }
 
-    // Brazo trasero
-    ctx.fillStyle = '#8A8A90';
+    // Pierna delantera
+    const mDF = { x: caderaX + Math.sin(pDelMusloAng) * musloLen, y: caderaY + Math.cos(pDelMusloAng) * musloLen };
+    const pDF = { x: mDF.x + Math.sin(pDelMusloAng + pDelPantoAng) * pantoLen, y: mDF.y + Math.cos(pDelMusloAng + pDelPantoAng) * pantoLen };
+    this._dibujarLimbo(ctx, caderaX, caderaY, mDF.x, mDF.y, grosorPierna, armOscuro);
+    this._dibujarLimbo(ctx, mDF.x, mDF.y, pDF.x, pDF.y, grosorPierna, armOscuro);
+    ctx.fillStyle = bota; ctx.fillRect(pDF.x - 1, pDF.y - 1, 6, 2);
+
+    // Pierna trasera
+    const mTF = { x: caderaX + Math.sin(pTraMusloAng) * musloLen, y: caderaY + Math.cos(pTraMusloAng) * musloLen };
+    const pTF = { x: mTF.x + Math.sin(pTraMusloAng + pTraPantoAng) * pantoLen, y: mTF.y + Math.cos(pTraMusloAng + pTraPantoAng) * pantoLen };
+    this._dibujarLimbo(ctx, caderaX, caderaY, mTF.x, mTF.y, grosorPierna - 0.5, armOscuro);
+    this._dibujarLimbo(ctx, mTF.x, mTF.y, pTF.x, pTF.y, grosorPierna - 0.5, armOscuro);
+    ctx.fillStyle = bota; ctx.fillRect(pTF.x - 1, pTF.y - 1, 6, 2);
+
+    // === TORSO ===
+    let torsoAng;
+    if (rendido) { torsoAng = -0.4; }
+    else if (esquivando) { torsoAng = -1.0; }
+    else if (atacandoAlto) { torsoAng = this._lerp(0.05, 0.3, Math.min(1, d.tiempoEstado / 0.15)); }
+    else if (atacandoBajo) { torsoAng = this._lerp(0.05, 0.45, Math.min(1, d.tiempoEstado / 0.15)); }
+    else if (bloqueando) { torsoAng = -0.15; }
+    else if (aturdido) { torsoAng = -0.2; }
+    else { torsoAng = 0.08; }
+
+    const torsoLen = 17;
+    const hombroX = caderaX + Math.sin(torsoAng) * torsoLen;
+    const hombroY = caderaY - Math.cos(torsoAng) * torsoLen;
+
+    // Capa roja (detrás del torso)
     if (!rendido) {
       ctx.save();
-      ctx.translate(-6, -18);
-      ctx.rotate(-0.4);
-      ctx.fillRect(0, 0, 3, 7);
+      ctx.translate(caderaX, caderaY);
+      ctx.rotate(torsoAng - 0.2);
+      ctx.fillStyle = capa;
+      ctx.beginPath();
+      ctx.moveTo(-4, 0);
+      ctx.lineTo(-6, -torsoLen + 2);
+      ctx.lineTo(-2, -torsoLen + 2);
+      ctx.lineTo(0, 0);
+      ctx.fill();
       ctx.restore();
     }
 
-    // --- Casco morión con pluma ---
-    ctx.fillStyle = rendido ? '#555555' : '#7A7A80';
-    // Casco
-    ctx.fillRect(-5, -30, 10, 10);
-    // Cresta del morión
-    ctx.fillRect(-6, -32, 12, 3);
-    // Ala del casco
-    ctx.fillRect(-7, -22, 14, 2);
-    // Pluma roja
-    ctx.fillStyle = rendido ? '#662222' : '#CC2222';
-    ctx.fillRect(0, -38, 2, 8);
-    ctx.fillRect(-1, -40, 4, 3);
-    // Visor
-    ctx.fillStyle = '#222222';
-    ctx.fillRect(-3, -26, 6, 2);
+    // Torso (armadura — más grueso que jugador)
+    this._dibujarLimbo(ctx, caderaX, caderaY, hombroX, hombroY, 7, armadura);
+    // Detalle de peto
+    this._dibujarLimbo(ctx, caderaX, caderaY, hombroX, hombroY, 3, armOscuro);
 
-    ctx.restore(); // torso rotation
+    // === CABEZA — casco morión ===
+    const cabezaX = hombroX + Math.sin(torsoAng) * 5;
+    const cabezaY = hombroY - 5;
+
+    ctx.fillStyle = armadura;
+    // Casco
+    ctx.beginPath();
+    ctx.arc(cabezaX, cabezaY, 5, 0, Math.PI * 2);
+    ctx.fill();
+    // Cresta del morión
+    ctx.fillRect(cabezaX - 5, cabezaY - 6, 10, 2);
+    // Ala inferior
+    ctx.fillRect(cabezaX - 6, cabezaY + 1, 12, 1.5);
+    // Pluma roja
+    ctx.fillStyle = capa;
+    ctx.fillRect(cabezaX + 1, cabezaY - 12, 2, 8);
+    // Visor
+    ctx.fillStyle = '#222';
+    ctx.fillRect(cabezaX + 1, cabezaY - 2, 4, 2);
+
+    // === BRAZO ESPADA ===
+    let brazoAng, antebrazoAng, espadaAng;
+    const brazoLen = 9;
+    const antebrazoLen = 8;
+    const espadaLen = 20;
+
+    if (rendido) {
+      brazoAng = 0.8; antebrazoAng = 0.5; espadaAng = 1.0;
+    } else if (esquivando) {
+      brazoAng = -0.5; antebrazoAng = -0.3; espadaAng = -0.8;
+    } else if (atacandoAlto) {
+      const p = Math.min(1, d.tiempoEstado / 0.15);
+      brazoAng = this._lerp(-0.8, 1.4, p);
+      antebrazoAng = this._lerp(-0.5, 0.1, p);
+      espadaAng = this._lerp(-0.5, 0.0, p);
+    } else if (atacandoBajo) {
+      const p = Math.min(1, d.tiempoEstado / 0.15);
+      brazoAng = this._lerp(0.3, 1.2, p);
+      antebrazoAng = this._lerp(-0.3, 0.6, p);
+      espadaAng = this._lerp(-0.15, 0.5, p);
+    } else if (bloqueando) {
+      brazoAng = 0.3; antebrazoAng = -1.2; espadaAng = -1.5;
+    } else {
+      brazoAng = 0.6 + Math.sin(t * 2) * 0.03;
+      antebrazoAng = -0.3;
+      espadaAng = -0.15;
+    }
+
+    const codoX = hombroX + Math.sin(torsoAng + brazoAng) * brazoLen;
+    const codoY = hombroY + Math.cos(torsoAng + brazoAng) * brazoLen;
+    const manoX = codoX + Math.sin(torsoAng + brazoAng + antebrazoAng) * antebrazoLen;
+    const manoY = codoY + Math.cos(torsoAng + brazoAng + antebrazoAng) * antebrazoLen;
+    const puntaX = manoX + Math.sin(torsoAng + brazoAng + antebrazoAng + espadaAng) * espadaLen;
+    const puntaY = manoY + Math.cos(torsoAng + brazoAng + antebrazoAng + espadaAng) * espadaLen;
+
+    this._dibujarLimbo(ctx, hombroX, hombroY, codoX, codoY, grosorBrazo, armadura);
+    this._dibujarLimbo(ctx, codoX, codoY, manoX, manoY, grosorBrazo, piel);
+    if (!rendido) {
+      ctx.fillStyle = guardia;
+      ctx.beginPath();
+      ctx.arc(manoX, manoY, 3, 0, Math.PI * 2);
+      ctx.fill();
+      this._dibujarLimbo(ctx, manoX, manoY, puntaX, puntaY, 2, espada);
+    }
+
+    // === BRAZO TRASERO ===
+    let bBAng = rendido ? 0.2 : -0.5;
+    let bAAng = rendido ? 0.1 : -1.0;
+    const bCodoX = hombroX + Math.sin(torsoAng + bBAng) * brazoLen;
+    const bCodoY = hombroY + Math.cos(torsoAng + bBAng) * brazoLen;
+    const bManoX = bCodoX + Math.sin(torsoAng + bBAng + bAAng) * (antebrazoLen - 1);
+    const bManoY = bCodoY + Math.cos(torsoAng + bBAng + bAAng) * (antebrazoLen - 1);
+    this._dibujarLimbo(ctx, hombroX, hombroY, bCodoX, bCodoY, grosorBrazo - 0.5, armadura);
+    this._dibujarLimbo(ctx, bCodoX, bCodoY, bManoX, bManoY, grosorBrazo - 0.5, piel);
 
     // Estrellas de aturdimiento
     if (aturdido) {
-      ctx.save();
-      ctx.scale(-1/escala, 1/escala); // des-espejar para texto
       ctx.fillStyle = '#FFD700';
-      ctx.font = '10px monospace';
+      ctx.font = '7px monospace';
       for (let i = 0; i < 3; i++) {
-        const sx = -15 + i * 10;
-        const sy = -55 + Math.sin(this._tiempoTotal * 5 + i * 2) * 4;
+        const sx = cabezaX - 8 + i * 8;
+        const sy = cabezaY - 12 + Math.sin(t * 5 + i * 2) * 3;
         ctx.fillText('★', sx, sy);
       }
-      ctx.restore();
     }
 
-    // Rendido: espada en el suelo
+    // Rendido: espada en el suelo (fuera del escalado)
     if (rendido) {
-      ctx.fillStyle = '#D0D0D0';
-      ctx.save();
-      ctx.scale(-1, 1); // des-espejar
-      ctx.fillRect(-20, -2, 25, 2);
-      ctx.fillStyle = '#AA8833';
+      ctx.fillStyle = espada;
+      ctx.fillRect(5, -1, 18, 1.5);
+      ctx.fillStyle = guardia;
       ctx.beginPath();
-      ctx.arc(-20, -1, 3, 0, Math.PI * 2);
+      ctx.arc(5, 0, 2, 0, Math.PI * 2);
       ctx.fill();
-      ctx.restore();
     }
 
     ctx.restore(); // main save
