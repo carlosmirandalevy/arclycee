@@ -66,7 +66,8 @@ export class DueloEspada {
       vidaMax: 60,
       conviccion: 0, // solo en modo pacifista
       velocidadAtaque: 1.0, // se reduce en pacifista conforme sube convicción
-      lungeOffset: 0
+      lungeOffset: 0,
+      miraDerecha: false // Diego empieza mirando a la izquierda (hacia el jugador)
     };
 
     // --- Diálogo pacifista ---
@@ -268,23 +269,32 @@ export class DueloEspada {
     // Limitar posición del jugador
     j.x = Math.max(50, Math.min(j.x, 700));
 
+    // --- Ambos personajes siempre se miran entre sí ---
+    j.miraDerecha = j.x < d.x;
+    d.miraDerecha = d.x < j.x;
+
     // --- Verificar golpe del jugador a Diego ---
     if (j.estado === 'atacando' && j.tiempoEstado > 0.1 && j.tiempoEstado < 0.28) {
-      const alcance = j.x + j.lungeOffset;
-      const distancia = d.x - alcance;
-      if (distancia > -10 && distancia < 50 && d.estado !== 'aturdido' && !d._golpeado) {
-        d._golpeado = true; // evitar golpes múltiples por ataque
+      const jDir = j.miraDerecha ? 1 : -1;
+      const alcance = j.x + j.lungeOffset * jDir;
+      const dist = Math.abs(d.x - alcance);
+      // El jugador debe estar mirando hacia Diego para golpearlo
+      const apuntaADiego = (j.miraDerecha && d.x > j.x) || (!j.miraDerecha && d.x < j.x);
+      if (dist < 50 && apuntaADiego && d.estado !== 'aturdido' && !d._golpeado) {
+        d._golpeado = true;
         if (this._modo === 'agresivo') {
           const dmg = 8 + Math.floor(Math.random() * 5);
           d.vida = Math.max(0, d.vida - dmg);
-          this._crearChispas(d.x - 15, 240);
+          this._crearChispas((j.x + d.x) / 2, 240);
           this._juego?.sfx?.combateContraataque?.();
           this._sacudida = 0.15;
         } else {
           d.conviccion = Math.min(100, d.conviccion + 3);
-          this._crearChispas(d.x - 15, 240);
+          this._crearChispas((j.x + d.x) / 2, 240);
         }
-        d.x = Math.min(750, d.x + 18);
+        // Empujar a Diego lejos del jugador
+        const empuje = j.miraDerecha ? 18 : -18;
+        d.x = Math.max(50, Math.min(750, d.x + empuje));
         d.estado = 'retrocediendo';
         d.tiempoEstado = 0;
       }
@@ -298,9 +308,11 @@ export class DueloEspada {
     // --- Verificar golpe de Diego al jugador ---
     if ((d.estado === 'atacandoAlto' || d.estado === 'atacandoBajo') &&
         d.tiempoEstado > 0.18 && d.tiempoEstado < 0.38 && !j._golpeadoPorDiego) {
-      const alcanceDiego = d.x - d.lungeOffset;
-      const distancia = alcanceDiego - j.x;
-      if (distancia > -10 && distancia < 55 && j.estado !== 'herido') {
+      const dDir = d.miraDerecha ? 1 : -1;
+      const alcanceDiego = d.x + d.lungeOffset * dDir;
+      const dist = Math.abs(alcanceDiego - j.x);
+      const apuntaAJugador = (d.miraDerecha && j.x > d.x) || (!d.miraDerecha && j.x < d.x);
+      if (dist < 55 && apuntaAJugador && j.estado !== 'herido') {
         // ¿El jugador se defiende?
         if (d.estado === 'atacandoAlto' && j.estado === 'agachado') {
           // Esquivó arqueando la espalda — ataque alto falla
@@ -337,7 +349,8 @@ export class DueloEspada {
           j.tiempoEstado = 0;
           j.lungeOffset = 0;
           this._sacudida = 0.3;
-          j.x -= 20;
+          // Empujar al jugador lejos de Diego
+          j.x += d.miraDerecha ? 20 : -20;
         }
       }
     }
@@ -416,8 +429,13 @@ export class DueloEspada {
         break;
 
       case 'acercando':
-        d.x -= 2.5 * vel * dt * 60;
-        d.x = Math.max(100, d.x);
+        // Moverse hacia el jugador sin importar la dirección
+        if (j.x < d.x) {
+          d.x -= 2.5 * vel * dt * 60;
+        } else {
+          d.x += 2.5 * vel * dt * 60;
+        }
+        d.x = Math.max(50, Math.min(750, d.x));
         if (distancia < 70 || d.tiempoEstado > 2) {
           d.estado = Math.random() < 0.6 ? 'atacandoAlto' : 'atacandoBajo';
           d.tiempoEstado = 0;
@@ -433,8 +451,13 @@ export class DueloEspada {
         break;
 
       case 'retrocediendo':
-        d.x += 1.5 * dt * 60;
-        d.x = Math.min(750, d.x);
+        // Retroceder lejos del jugador
+        if (j.x < d.x) {
+          d.x += 1.5 * dt * 60;
+        } else {
+          d.x -= 1.5 * dt * 60;
+        }
+        d.x = Math.max(50, Math.min(750, d.x));
         if (d.tiempoEstado > 0.6) {
           d.estado = 'esperando';
           d.tiempoEstado = 0;
@@ -624,12 +647,14 @@ export class DueloEspada {
     const sueloY = alto * 0.55;
 
     // --- Sombras en el suelo ---
+    const jDir = j.miraDerecha ? 1 : -1;
+    const dDir = d.miraDerecha ? 1 : -1;
     ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.beginPath();
-    ctx.ellipse(j.x + j.lungeOffset * 0.5, sueloY + 2, 18, 5, 0, 0, Math.PI * 2);
+    ctx.ellipse(j.x + j.lungeOffset * 0.5 * jDir, sueloY + 2, 18, 5, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.ellipse(d.x - d.lungeOffset * 0.5, sueloY + 2, 20, 5, 0, 0, Math.PI * 2);
+    ctx.ellipse(d.x + d.lungeOffset * 0.5 * dDir, sueloY + 2, 20, 5, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // --- Dibujar jugador ---
@@ -660,7 +685,8 @@ export class DueloEspada {
   // SPRITE DEL JUGADOR — posturas de esgrima realistas
   // ============================================================
   _dibujarJugador(ctx, j, sueloY) {
-    const baseX = j.x + j.lungeOffset;
+    const dir = j.miraDerecha ? 1 : -1;
+    const baseX = j.x + j.lungeOffset * dir;
     const herido = j.estado === 'herido';
     const agachado = j.estado === 'agachado';
     const atacando = j.estado === 'atacando';
@@ -672,10 +698,10 @@ export class DueloEspada {
       ctx.globalAlpha = 0.4;
     }
 
-    // Escala del personaje
+    // Escala del personaje — espejado si mira a la izquierda
     const escala = 1.8;
     ctx.translate(baseX, sueloY);
-    ctx.scale(escala, escala);
+    ctx.scale(escala * dir, escala);
 
     // --- POSTURA DE ESQUIVE (arquear espalda hacia atrás) ---
     if (agachado) {
@@ -826,7 +852,8 @@ export class DueloEspada {
   // SPRITE DEL SOLDADO DIEGO — posturas de esgrima con armadura
   // ============================================================
   _dibujarDiego(ctx, d, sueloY) {
-    const baseX = d.x - d.lungeOffset;
+    const dir = d.miraDerecha ? 1 : -1;
+    const baseX = d.x + d.lungeOffset * dir;
     const rendido = d.estado === 'rendido';
     const aturdido = d.estado === 'aturdido';
     const atacandoAlto = d.estado === 'atacandoAlto';
@@ -840,7 +867,7 @@ export class DueloEspada {
 
     const escala = 1.9; // Diego es ligeramente más grande
     ctx.translate(baseX, sueloY);
-    ctx.scale(-escala, escala); // espejado (mira a la izquierda)
+    ctx.scale(escala * dir, escala); // espejado dinámico según dirección
 
     // --- Piernas ---
     ctx.fillStyle = rendido ? '#555555' : '#6A6A6A';
