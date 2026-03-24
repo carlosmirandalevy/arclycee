@@ -418,10 +418,12 @@ export class DueloEspada {
 
     switch (d.estado) {
       case 'esperando':
-        if (d.tiempoEstado > (1.2 / vel + Math.random() * 0.8)) {
-          if (distancia > 75) {
+        // Pausa corta entre ataques — Diego es agresivo
+        if (d.tiempoEstado > (0.5 / vel + Math.random() * 0.4)) {
+          if (distancia > 65) {
             d.estado = 'acercando';
           } else {
+            // Combo: 30% chance de doble ataque rápido si acaba de retroceder
             d.estado = Math.random() < 0.6 ? 'atacandoAlto' : 'atacandoBajo';
           }
           d.tiempoEstado = 0;
@@ -429,14 +431,14 @@ export class DueloEspada {
         break;
 
       case 'acercando':
-        // Moverse hacia el jugador sin importar la dirección
+        // Se acerca rápido al jugador — velocidad agresiva
         if (j.x < d.x) {
-          d.x -= 2.5 * vel * dt * 60;
+          d.x -= 3.5 * vel * dt * 60;
         } else {
-          d.x += 2.5 * vel * dt * 60;
+          d.x += 3.5 * vel * dt * 60;
         }
         d.x = Math.max(50, Math.min(750, d.x));
-        if (distancia < 70 || d.tiempoEstado > 2) {
+        if (distancia < 65 || d.tiempoEstado > 1.2) {
           d.estado = Math.random() < 0.6 ? 'atacandoAlto' : 'atacandoBajo';
           d.tiempoEstado = 0;
         }
@@ -444,28 +446,33 @@ export class DueloEspada {
 
       case 'atacandoAlto':
       case 'atacandoBajo':
-        if (d.tiempoEstado > 0.55) {
-          d.estado = 'retrocediendo';
+        if (d.tiempoEstado > 0.45) {
+          // 35% chance de atacar de nuevo inmediatamente (combo)
+          if (distancia < 70 && Math.random() < 0.35) {
+            d.estado = d.estado === 'atacandoAlto' ? 'atacandoBajo' : 'atacandoAlto';
+          } else {
+            d.estado = 'retrocediendo';
+          }
           d.tiempoEstado = 0;
         }
         break;
 
       case 'retrocediendo':
-        // Retroceder lejos del jugador
+        // Retrocede poco — quiere mantenerse cerca
         if (j.x < d.x) {
-          d.x += 1.5 * dt * 60;
+          d.x += 1.0 * dt * 60;
         } else {
-          d.x -= 1.5 * dt * 60;
+          d.x -= 1.0 * dt * 60;
         }
         d.x = Math.max(50, Math.min(750, d.x));
-        if (d.tiempoEstado > 0.6) {
+        if (d.tiempoEstado > 0.35) {
           d.estado = 'esperando';
           d.tiempoEstado = 0;
         }
         break;
 
       case 'aturdido':
-        if (d.tiempoEstado > 1.0) {
+        if (d.tiempoEstado > 0.8) {
           d.estado = 'retrocediendo';
           d.tiempoEstado = 0;
         }
