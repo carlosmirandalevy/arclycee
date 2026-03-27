@@ -30,6 +30,10 @@ const MUSICA_POR_ESCENA = {
   mundoJuridico: 'aeropuerto',
   mundoLaboratorio: 'museo',
   mundoLFSD: 'lfsd',
+  manantialAleta: 'cuevas',
+  cuevaOscura: 'cuevas',
+  cenoteBuceo: 'acuatico',
+  museoHombre: 'museo',
   mapaPrincipal: 'mapa',
   finalCinematica: 'creditos'
 };

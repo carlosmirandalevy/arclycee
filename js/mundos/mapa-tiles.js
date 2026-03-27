@@ -498,6 +498,30 @@ export function obtenerNodosIsla() {
       tipo: 'lago',
       escena: 'lagoEnriquillo',
       conectadoA: []
+    },
+    {
+      // Manantial de la Aleta — cenote sagrado taíno de ~40m de
+      // profundidad en el Parque Nacional Cotubanamá, cerca de
+      // Bayahíbe. Sitio de arqueología subacuática más importante
+      // del Caribe. Ofrendas de madera preservadas 500+ años.
+      // Se desbloquea al obtener el equipo de buceo de Dra. Sofía.
+      id: 12,
+      tileX: 112, tileY: 41,
+      nombre: 'Manantial de la Aleta',
+      tipo: 'cueva',
+      escena: 'manantialAleta',
+      conectadoA: [13]
+    },
+    {
+      // Museo del Hombre Dominicano — principal museo antropológico
+      // del Caribe, en Santo Domingo. Colección de 5000+ piezas taínas.
+      // Aquí se entregan los artefactos del cenote.
+      id: 13,
+      tileX: 88, tileY: 43,
+      nombre: 'Museo del Hombre Dominicano',
+      tipo: 'museo',
+      escena: 'museoHombre',
+      conectadoA: []
     }
   ];
 }

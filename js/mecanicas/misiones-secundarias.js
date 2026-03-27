@@ -26,7 +26,8 @@ export class MisionesSecundarias {
       metalCompleto: { estado: 'no_descubierta', datos: {} },
       cienciaLoca: { estado: 'no_descubierta', datos: {} },
       museoCatedral: { estado: 'no_descubierta', datos: {} },
-      idoloEnriquillo: { estado: 'no_descubierta', datos: {} }
+      idoloEnriquillo: { estado: 'no_descubierta', datos: {} },
+      ofrendasAleta: { estado: 'no_descubierta', datos: {} }
     };
   }
 

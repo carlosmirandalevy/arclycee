@@ -68,6 +68,11 @@ import { LagoEnriquillo } from '../mundos/enriquillo/lago-enriquillo.js';
 import { SistemaBossCemi } from '../mecanicas/boss-cemi.js';
 import { DueloEspada } from '../mecanicas/duelo-espada.js';
 import { JuegoAreito } from '../mecanicas/areito.js';
+import { JuegoRappel } from '../mecanicas/rappel.js';
+import { ManantialAleta } from '../mundos/aleta/manantial-aleta.js';
+import { CuevaOscura } from '../mundos/aleta/cueva-oscura.js';
+import { CenoteBuceo } from '../mundos/aleta/cenote-buceo.js';
+import { MuseoHombre } from '../mundos/museo/museo-hombre.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
@@ -97,6 +102,7 @@ export class Juego {
     this.bossCemi = new SistemaBossCemi();
     this.dueloEspada = new DueloEspada();
     this.areito = new JuegoAreito();
+    this.rappel = new JuegoRappel();
 
     // Restaurar volumen de sonidos desde localStorage
     try {
@@ -141,7 +147,7 @@ export class Juego {
       'mapaPrincipal', 'cuevasPomier', 'asentamientoTaino1', 'mundoMontana',
       'asentamientoTaino2', 'lagoEnriquillo', 'mundoColonial', 'zonaColonial',
       'mundoAcuatico', 'santuarioManati', 'mundoJuridico', 'mundoLaboratorio',
-      'mundoLFSD'
+      'mundoLFSD', 'manantialAleta', 'cuevaOscura', 'cenoteBuceo', 'museoHombre'
     ];
 
     // --- Estado del juego ---
@@ -430,6 +436,14 @@ export class Juego {
     const mundoLFSD = new MundoLFSD();
     this.registrarEscena('mundoLFSD', mundoLFSD);
 
+    // Manantial de la Aleta — cenote sagrado taíno (rapel + cueva + buceo)
+    this.registrarEscena('manantialAleta', new ManantialAleta());
+    this.registrarEscena('cuevaOscura', new CuevaOscura());
+    this.registrarEscena('cenoteBuceo', new CenoteBuceo());
+
+    // Museo del Hombre Dominicano — entregar artefactos del cenote
+    this.registrarEscena('museoHombre', new MuseoHombre());
+
     // Cinemática final — secuencia de créditos con final múltiple
     const finalCinematica = new FinalCinematica();
     this.registrarEscena('finalCinematica', finalCinematica);
@@ -657,6 +671,12 @@ export class Juego {
       return;
     }
 
+    // --- Rapel: descenso al cenote ---
+    if (this.rappel.enJuego) {
+      this.rappel.actualizar(dt, this.entrada);
+      return;
+    }
+
     // --- Mini-juegos LFSD: si alguno está activo, consume toda la entrada ---
     if (this.calibracion.enJuego) {
       this.calibracion.actualizar(dt, this.entrada);
@@ -860,6 +880,11 @@ export class Juego {
     // --- Areíto (DDR taíno) ---
     if (this.areito.enJuego) {
       this.areito.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.areito);
+    }
+
+    // --- Rapel (descenso al cenote) ---
+    if (this.rappel.enJuego) {
+      this.rappel.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.rappel);
     }
 
     // --- Mini-juegos LFSD se dibujan como overlays ---
