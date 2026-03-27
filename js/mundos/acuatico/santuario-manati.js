@@ -2714,9 +2714,10 @@ export class SantuarioManati {
       const yaEntregoRobot = this.juego?.progreso?.naufragiosRobotDescubiertos === true;
 
       if (yaEntregoRobot) {
-        // Ya entregó el robot — diálogo post-entrega
+        // Ya entregó el robot — diálogo post-entrega con mención del equipo de buceo
         this.dialogos.iniciarDialogo([
-          { personaje: '🧪 Dra. Sofía', texto: san?.biologaPostRobot || 'El robot sigue escaneando el fondo marino. Cada día encuentra algo nuevo. ¡Gracias por traerlo!' }
+          { personaje: '🧪 Dra. Sofía', texto: san?.biologaPostRobot || 'El robot sigue escaneando el fondo marino. Cada día encuentra algo nuevo.' },
+          { personaje: '🧪 Dra. Sofía', texto: san?.biologaPostBuceo || '¿Ya exploraste el Manantial de la Aleta con el equipo de buceo? ¡Dicen que hay ofrendas taínas de madera preservadas por más de 500 años!' }
         ]);
         npc.dialogoHecho = true;
 
@@ -2755,6 +2756,36 @@ export class SantuarioManati {
             const _t = this._obtenerTextos();
             this.juego.mostrarToast(_t?.ui?.robotEntregado || '🤖 Robot entregado — ¡4 nuevos naufragios descubiertos!');
           }
+
+          // --- Dar equipo de buceo como recompensa ---
+          // Después de una breve pausa, Dra. Sofía ofrece el equipo
+          const _sanRecomp = this._obtenerTextos()?.dialogos?.santuario;
+          this.dialogos.iniciarDialogo([
+            { personaje: '🧪 Dra. Sofía', texto: _sanRecomp?.biologaBuceo1 || 'Espera... tengo algo para ti.' },
+            { personaje: '🧪 Dra. Sofía', texto: _sanRecomp?.biologaBuceo2 || 'Este equipo de buceo profesional te permitirá explorar cenotes y cuevas submarinas.' },
+            { personaje: '🧪 Dra. Sofía', texto: _sanRecomp?.biologaBuceo3 || 'He oído que el Manantial de la Aleta, en el Parque Nacional Cotubanamá, tiene un cenote sagrado taíno con ofrendas sumergidas.' },
+            { personaje: '🧪 Dra. Sofía', texto: _sanRecomp?.biologaBuceo4 || '¡Con este equipo podrás bajar y explorar lo que hay en las profundidades!' }
+          ], () => {
+            // Añadir equipo de buceo al inventario
+            const _tObj = this._obtenerTextos()?.ui;
+            if (this.juego.inventario) {
+              this.juego.inventario.agregarObjeto({
+                id: 'equipoBuceo',
+                nombre: _tObj?.equipoBuceo || 'Equipo de Buceo',
+                descripcion: _tObj?.descEquipoBuceo || 'Equipo profesional de buceo. Permite explorar cenotes y cuevas submarinas.',
+                tipo: 'equipo',
+                esUsable: false
+              });
+            }
+            if (_jugador) {
+              _jugador.agregarAlInventario({ nombre: 'equipoBuceo' });
+            }
+            // Marcar en progreso para que el jugador sepa que tiene la herramienta
+            if (this.juego.progreso) {
+              this.juego.progreso.equipoBuceoObtenido = true;
+            }
+            this.juego?.mostrarToast(_tObj?.equipoBuceoToast || '🤿 ¡Recibiste Equipo de Buceo profesional!', 4);
+          });
         });
 
       } else {

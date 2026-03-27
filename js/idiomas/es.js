@@ -575,7 +575,12 @@ const es = {
       biologaRobot2: 'Con esto podré explorar las zonas más profundas del santuario y los arrecifes cercanos.',
       biologaRobot3: '¡Mira! El robot ya detectó señales de 4 naufragios que no teníamos registrados.',
       biologaRobot4: 'He añadido los descubrimientos a tu mapa de naufragios. ¡La tecnología y la biología marina hacen un gran equipo!',
-      biologaPostRobot: 'El robot sigue escaneando el fondo marino. Cada día encuentra algo nuevo. ¡Gracias por traerlo!',
+      biologaPostRobot: 'El robot sigue escaneando el fondo marino. Cada día encuentra algo nuevo.',
+      biologaPostBuceo: '¿Ya exploraste el Manantial de la Aleta con el equipo de buceo? ¡Dicen que hay ofrendas taínas de madera preservadas por más de 500 años!',
+      biologaBuceo1: 'Espera... tengo algo para ti.',
+      biologaBuceo2: 'Este equipo de buceo profesional te permitirá explorar cenotes y cuevas submarinas.',
+      biologaBuceo3: 'He oído que el Manantial de la Aleta, en el Parque Nacional Cotubanamá, tiene un cenote sagrado taíno con ofrendas sumergidas.',
+      biologaBuceo4: '¡Con este equipo podrás bajar y explorar lo que hay en las profundidades!',
 
       // Transición de vuelta al naufragio
       transicionNaufragio1: '🫧 Recogemos los tanques de oxígeno y el equipo de buceo.',
@@ -1463,6 +1468,9 @@ const es = {
 
     // --- Toasts de santuario del manatí ---
     robotEntregado: '🤖 Robot entregado — ¡4 nuevos naufragios descubiertos!',
+    equipoBuceo: 'Equipo de Buceo',
+    descEquipoBuceo: 'Equipo profesional de buceo de la Dra. Sofía. Permite explorar cenotes y cuevas submarinas.',
+    equipoBuceoToast: '🤿 ¡Recibiste Equipo de Buceo profesional!',
 
     // --- Etiquetas de ubicación ---
     salida: 'SALIDA',

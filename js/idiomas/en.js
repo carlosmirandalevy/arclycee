@@ -542,7 +542,12 @@ const en = {
       biologaRobot2: 'With this I can explore the deepest areas of the sanctuary and nearby reefs.',
       biologaRobot3: 'Look! The robot already detected signals from 4 shipwrecks we didn\'t have on record.',
       biologaRobot4: 'I\'ve added the discoveries to your shipwreck map. Technology and marine biology make a great team!',
-      biologaPostRobot: 'The robot keeps scanning the ocean floor. Every day it finds something new. Thanks for bringing it!',
+      biologaPostRobot: 'The robot keeps scanning the ocean floor. Every day it finds something new.',
+      biologaPostBuceo: 'Have you explored the Manantial de la Aleta with the diving gear yet? They say there are Taíno wooden offerings preserved for over 500 years!',
+      biologaBuceo1: 'Wait... I have something for you.',
+      biologaBuceo2: 'This professional diving gear will let you explore cenotes and underwater caves.',
+      biologaBuceo3: 'I\'ve heard that the Manantial de la Aleta, in Cotubanamá National Park, has a sacred Taíno cenote with submerged offerings.',
+      biologaBuceo4: 'With this gear you\'ll be able to dive down and explore what lies in the depths!',
 
       // Transition back to shipwreck
       transicionNaufragio1: '🫧 We pick up our oxygen tanks and diving gear.',
@@ -1402,6 +1407,9 @@ const en = {
 
     // --- Manatee sanctuary toasts ---
     robotEntregado: '🤖 Robot delivered — 4 new wrecks discovered!',
+    equipoBuceo: 'Diving Gear',
+    descEquipoBuceo: 'Professional diving gear from Dra. Sofía. Allows exploring cenotes and underwater caves.',
+    equipoBuceoToast: '🤿 Received professional Diving Gear!',
 
     // --- Location labels ---
     salida: 'EXIT',

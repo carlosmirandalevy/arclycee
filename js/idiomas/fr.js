@@ -542,9 +542,14 @@ const fr = {
       biologaRobot2: 'Avec ça je pourrai explorer les zones les plus profondes du sanctuaire et les récifs alentour.',
       biologaRobot3: 'Regarde ! Le robot a déjà détecté des signaux de 4 épaves qu\'on n\'avait pas recensées.',
       biologaRobot4: 'J\'ai ajouté les découvertes à ta carte des épaves. La technologie et la biologie marine font une super équipe !',
-      biologaPostRobot: 'Le robot continue de scanner les fonds marins. Chaque jour il trouve quelque chose de nouveau. Merci de l\'avoir apporté !',
+      biologaPostRobot: 'Le robot continue de scanner les fonds marins. Chaque jour il trouve quelque chose de nouveau.',
+      biologaPostBuceo: 'Tu as déjà exploré le Manantial de la Aleta avec l\'équipement de plongée ? On dit qu\'il y a des offrandes taïnos en bois conservées depuis plus de 500 ans !',
+      biologaBuceo1: 'Attends... j\'ai quelque chose pour toi.',
+      biologaBuceo2: 'Cet équipement de plongée professionnel te permettra d\'explorer des cénotes et des grottes sous-marines.',
+      biologaBuceo3: 'J\'ai entendu dire que le Manantial de la Aleta, dans le Parc National de Cotubanamá, possède un cénote sacré taïno avec des offrandes submergées.',
+      biologaBuceo4: 'Avec cet équipement tu pourras descendre et explorer ce qui se cache dans les profondeurs !',
 
-      // Transition retour vers l'épave
+      // Transition retour vers l\'épave
       transicionNaufragio1: '🫧 Nous récupérons les bouteilles d\'oxygène et l\'équipement de plongée.',
       transicionNaufragio2: '🤿 Nous plongeons dans les eaux profondes à la recherche des vestiges de l\'épave...'
     },
@@ -1402,6 +1407,9 @@ const fr = {
 
     // --- Toasts sanctuaire du lamantin ---
     robotEntregado: '🤖 Robot livré — 4 nouvelles épaves découvertes !',
+    equipoBuceo: 'Équipement de Plongée',
+    descEquipoBuceo: 'Équipement de plongée professionnel de la Dre Sofía. Permet d\'explorer des cénotes et des grottes sous-marines.',
+    equipoBuceoToast: '🤿 Équipement de plongée professionnel reçu !',
 
     // --- Étiquettes de lieu ---
     salida: 'SORTIE',
