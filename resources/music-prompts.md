@@ -190,6 +190,30 @@ El estilo general: indie game OST, evocador, memorable, minimalista pero emotivo
 
 ---
 
+## 19. Manantial de la Aleta — Rapel / Cueva Oscura — `cenote-cave.mp3`
+
+**Prompt:**
+> Dark atmospheric underground cave ambient with tension. Deep reverberant drone echoing in vast empty spaces. Distant dripping water with long delay. Occasional low rumble like shifting rock. Sparse plucked kalimba notes barely audible, creating unease. A slow heartbeat-like bass pulse builds subtly. Feeling of descending into ancient sacred darkness — the earth swallowing you. Hints of indigenous flute, ghostly and distant, like spirits whispering through stone. Beautiful but unsettling, mysterious and sacred. Loopable. 50 seconds. No vocals.
+
+**Mood:** Sacred descent, ancient darkness, underground mystery, Taíno spiritual underworld (Coaybay)
+**Reference feel:** Hollow Knight — Deepnest atmosphere meets Tomb Raider underground tension. Abzu — contemplation but darker.
+**Style:** Dark ambient, cave exploration, archaeological tension
+**Tempo:** 60-70 BPM, slow and brooding
+
+---
+
+## 20. Museo del Hombre Dominicano — `museo-hombre.mp3`
+
+**Prompt:**
+> Elegant museum ambient theme. Soft solo piano playing a contemplative melody in D major. Gentle string quartet joins after 10 seconds with warm sustain. Light glass chime accents like display cases reflecting light. Very clean, spacious mix with natural reverb — the sound of a quiet marble hall. Feeling of walking past ancient artifacts under soft spotlights, each piece telling a story from 500 years ago. Intellectual wonder mixed with cultural pride. Academic but moving, respectful of the heritage on display. Loopable. 50 seconds. No vocals.
+
+**Mood:** Cultural pride, academic wonder, archaeological reverence, Dominican heritage preservation
+**Reference feel:** Night at the Museum contemplation meets Undertale — Waterfall calm curiosity. Civilized and warm.
+**Style:** Classical ambient, museum soundtrack, contemplative piano
+**Tempo:** 80 BPM, gentle and flowing
+
+---
+
 ## Tips para Suno
 
 - **Duración**: Pedir "30 seconds" o "60 seconds" según el track
