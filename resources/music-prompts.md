@@ -178,6 +178,18 @@ El estilo general: indie game OST, evocador, memorable, minimalista pero emotivo
 
 ---
 
+## 18. Areíto — Danza Ceremonial Taína — `areito-theme.mp3`
+
+**Prompt:**
+> Energetic ancestral rhythm game music. Fast-paced Taíno ceremonial dance song blending indigenous Caribbean instruments with modern pop energy. Driving hand drums (wooden slit drums, maracas, güiro) creating an addictive 4/4 beat at 130 BPM. Pentatonic wooden flute melody — catchy and singable, almost pop-like but rooted in pre-Columbian sound. Call-and-response vocal chants (wordless, ritualistic). Start slow and hypnotic for 20 seconds, then accelerate with layered percussion building to an intense climax. Think Dance Dance Revolution meets ancient tribal ceremony. The rhythm must be FUN and make you want to move. 60 seconds. Loopable. No lyrics, only chants.
+
+**Mood:** Sacred celebration meets arcade energy, ancestral joy, competitive dance, tribal pop
+**Reference feel:** DDR song energy + Taíno ceremonial drums. Civilization VI Aztec theme meets J-pop rhythm game. Friday Night Funkin funkiness with indigenous percussion.
+**Style:** Tribal pop, Caribbean indigenous fusion, rhythm game soundtrack
+**Tempo:** 130 BPM accelerating to 150 BPM in phase 3
+
+---
+
 ## Tips para Suno
 
 - **Duración**: Pedir "30 seconds" o "60 seconds" según el track
