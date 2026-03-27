@@ -4,7 +4,7 @@ Un videojuego RPG 2D educativo para explorar el patrimonio arqueológico de la R
 
 ## El Juego
 
-Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 12 mundos interconectados: Taíno (3 niveles), Montaña (Palenque de Lemba), Colonial (2), Acuático (2), Jurídico, Laboratorio, LFSD y Lago Enriquillo.
+Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 15 mundos interconectados: Taíno (3 niveles), Montaña (Palenque de Lemba), Colonial (2), Acuático (2), Jurídico, Laboratorio, LFSD, Lago Enriquillo, Manantial de la Aleta (cenote sagrado) y Museo del Hombre Dominicano.
 
 ### Características
 
@@ -20,7 +20,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer
 - **Créditos cinematográficos**: créditos estilo película tras el final con logo, "les fous du robot", nombres del equipo y el Liceo Francés, scroll manual con flechas
 - **Sistema de compañeros**: Magnoboot (robot excavador +3 daño, detección de metal vía tecla F), Viralata (perro rastreador +2 daño) y Cemí Murciélago (espíritu de cueva +4 daño) — seleccionables en combate antes de atacar
-- **Música de fondo**: 15 temas musicales (30 pistas MP3) con crossfade suave entre 2 variantes por escenario, override temporal para combate/batú/duelo, volumen ajustable desde el menú de opciones
+- **Música de fondo**: 16 temas musicales (32 pistas MP3) con crossfade suave entre 2 variantes por escenario, override temporal para combate/batú/duelo, volumen ajustable desde el menú de opciones
 - **Sonidos procedurales**: 60+ efectos generados por código con Web Audio API (sin archivos de audio)
 - **Diálogos narrativos**: sistema de diálogos con efecto máquina de escribir, opciones y traducción
 - **NPCs mentores recurrentes**: Roberto Cassá (7 conversaciones de historia) y Lcda. Carmen Vidal (5 temas legales)
@@ -31,6 +31,10 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Sprites de enemigos**: cada enemigo tiene su sprite único en combate (soldado, constructor, pez león, traficante)
 - **Mini-juego de batú**: juego de pelota taíno con física 2D, golpes por cadera/hombro/cabeza/rodilla, IA vencible (72% velocidad, 15% errores), primero en 5 puntos, datos educativos entre puntos
 - **Duelo de espadas**: esgrima lateral contra Soldado Diego en La Isabela. Posturas realistas (en garde, estocada/lunge, bloqueo, esquive arqueando espalda). Modo agresivo (derrotar a Diego) o pacifista (dialogar durante la pelea). Controles: ← → E Q ↓. Parry con timing preciso. Música propia: *Blades of La Isabela*
+- **Areíto DDR**: danza ceremonial taína estilo Dance Dance Revolution. 4 carriles de flechas (← ↓ ↑ →), 3 fases de dificultad creciente (60s), combos, ranking S/A/B/C/D. Batey nocturno con antorchas y danzarines
+- **Rapel**: mini-juego de descenso coordinado por el pozo del cenote. Flechas de ritmo en zona de acierto, medidor de agarre, dificultad progresiva
+- **Cenote de la Aleta**: buceo en cenote sagrado taíno con sistema de O₂ (120s), corrientes, 3 artefactos sumergidos (duho, cemí de madera, vasija), bolsas de aire. Prerequisito: equipo de buceo de Dra. Sofía
+- **Corona del Cacique**: accesorio permanente otorgado por Guacanagaríx al vencerlo en batú
 - **Easter eggs** personalizados para cada miembro del equipo
 - **Notificaciones toast**: mensajes flotantes no intrusivos al recoger objetos
 - **Previews de mundos**: cada mundo en la documentación tiene un render Canvas 2D animado con los colores y elementos reales del juego
@@ -38,7 +42,7 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Sistema de clima**: sol, nubes, lluvia, tormenta, huracán y terremoto con partículas, efectos en jugador y sonido ambiental (lluvia continua, truenos)
 - **Álbum de fotos**: toma fotos y selfies de NPCs, tortugas, corales, petroglifos y objetos — cada tipo tiene renderizado dedicado (tortugas por especie, corales por tipo: cerebro, cuerno, abanico, mesa). Selfies muestran entidad + jugador lado a lado. Sin capturas de pantalla
 - **Sistema de oxígeno**: en el Santuario del Manatí el jugador nada a pulmón con snorkel — barra de O₂ que se agota en ~60s y se recarga en la superficie (zona de lanchas rápidas)
-- **Misiones secundarias**: 7 sidequests: batú, rescate del manatí, 3 del LFSD, Museo de la Catedral, Ídolo de Enriquillo
+- **Misiones secundarias**: 8 sidequests: batú, rescate del manatí, 3 del LFSD, Museo de la Catedral, Ídolo de Enriquillo, Ofrendas del Cenote
 - **Boss fight secreto**: bullet hell estilo Bloody Hell contra el Espíritu del Cemí en Isla Cabritos — 4 patrones de proyectiles, 5 corazones, 3 ciclos, Espada de Enriquillo, Bendición Divina
 - **Mapa Real con 6 capas**: Sitios Taínos (16), Coloniales (8), Naufragios (12), Museos (30), Inexplorados (8), Potencial Arqueológico (15)
 - **Registro de juego**: Game Log con tecla L, pestañas de misiones principales y secundarias
@@ -57,6 +61,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 | Jurídico | Aeropuerto Internacional de Punta Cana (interior), red de tráfico de artefactos, combate legal contra traficante (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), mentora Lcda. Carmen Vidal con 5 temas legales rotativos |
 | Laboratorio | Museo de las Atarazanas Reales (autenticación por C-14, restauración reversible, museología), Dr. Morbán, Dra. López, Restauradora Ana, Roberto Cassá mentor, Visitante Sospechoso con falsificaciones |
 | LFSD | Liceo Francés de Santo Domingo — aula de robótica con Prof. Nicolas Droulers (pelo y barba blanca) y 10 NPCs estudiantes (cada uno con avatar personalizado), estaciones con pantallas Scratch, mesa FIRST LEGO League con robot animado que recorre caminos negros con zumbido de motor, impresora 3D, 3 misiones secundarias con mini-juegos (calibración, programación de robot, conexión de cables) |
+| Manantial de la Aleta | Cenote sagrado taíno en el Parque Nacional Cotubanamá (~40m de profundidad). 3 fases: rapel por el pozo, caminata en cueva oscura con linterna, buceo en cenote con O₂ limitado. 3 artefactos sumergidos (duho, cemí de madera, vasija). Prerequisito: equipo de buceo de Dra. Sofía |
+| Museo del Hombre | Museo del Hombre Dominicano en Santo Domingo — principal museo antropológico del Caribe. Entregar los 3 artefactos del cenote al curador Dr. Veloz. Dra. Conrad de Indiana University explica el contexto científico. +20 reputación |
 
 ## Tecnologías
 

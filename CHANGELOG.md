@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.21.0 — Manantial de la Aleta, Areíto DDR, Batú crown (2026-03-26)
+
+### Agregado
+- **Manantial de la Aleta** (4 escenas): cenote sagrado taíno en Parque Nacional Cotubanamá. Hub con 3 fases: rapel por pozo vertical, cueva oscura con linterna (máscara radial), buceo en cenote con O₂ (120s, bolsas de aire, corrientes). 3 artefactos sumergidos (duho ceremonial, cemí de madera, vasija taína)
+- **Museo del Hombre Dominicano**: entrega de artefactos al Dr. Veloz (curador, +20 rep). Dra. Conrad (Indiana University) y 2 visitantes educativos. Nodo 13
+- **Areíto DDR** (`js/mecanicas/areito.js`): danza ceremonial taína estilo DDR/FNF. 4 carriles, 3 fases de dificultad (60s), combos, ranking S-D. Batey nocturno con antorchas y danzarines silueta. Higüemota en Yucayeque de Maguá
+- **Rapel** (`js/mecanicas/rappel.js`): mini-juego de descenso coordinado. Flechas en zona dulce, medidor de agarre, dificultad progresiva
+- **Corona del Cacique**: al vencer a Guacanagaríx en batú, entrega su corona como accesorio permanente (+10 rep). 4 líneas de diálogo de rendición
+- **Equipo de buceo**: Dra. Sofía recompensa al jugador con equipo profesional tras entregar el robot submarino. Prerequisito para Manantial de la Aleta
+- **Sidequest ofrendasAleta**: recoger 3 artefactos → llevarlos al Museo del Hombre Dominicano. 8 sidequests totales
+- **Nodos 12-13** en el mapa: Manantial de la Aleta (costa este, Bayahíbe) y Museo del Hombre Dominicano (Santo Domingo)
+
+### Mejorado
+- **Batú movido** de Higüemota (Yucayeque de Maguá) a Cacique Guacanagaríx (Yucayeque de Marién). El cacique desafía al jugador y reconoce la derrota con dignidad
+- **Higüemota** ahora ofrece el areíto en vez del batú
+- **Dra. Sofía**: diálogo expandido con 4 líneas sobre el equipo de buceo y el Manantial de la Aleta tras entregar el robot
+
+---
+
 ## v0.20.0 — Sword Duel, Eduardo, Miguel Sánchez, docs parity (2026-03-22)
 
 ### Agregado
