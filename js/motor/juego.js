@@ -270,6 +270,10 @@ export class Juego {
       { nombre: 'Aeropuerto Punta Cana (Jurídico)', escena: 'mundoJuridico' },
       { nombre: 'Museo Atarazanas Reales (Laboratorio)', escena: 'mundoLaboratorio' },
       { nombre: 'LFSD (Robótica)', escena: 'mundoLFSD' },
+      { nombre: 'Manantial de la Aleta', escena: 'manantialAleta' },
+      { nombre: 'Cueva Oscura (Aleta)', escena: 'cuevaOscura' },
+      { nombre: 'Cenote (Buceo)', escena: 'cenoteBuceo' },
+      { nombre: 'Museo del Hombre Dominicano', escena: 'museoHombre' },
       { nombre: 'Final Cinemática', escena: 'finalCinematica' }
     ];
   }
