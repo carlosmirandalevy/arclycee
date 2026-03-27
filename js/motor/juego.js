@@ -67,6 +67,7 @@ import { MundoMontana } from '../mundos/montana/mundo-montana.js';
 import { LagoEnriquillo } from '../mundos/enriquillo/lago-enriquillo.js';
 import { SistemaBossCemi } from '../mecanicas/boss-cemi.js';
 import { DueloEspada } from '../mecanicas/duelo-espada.js';
+import { JuegoAreito } from '../mecanicas/areito.js';
 import { LaIsabela } from '../mundos/colonial/la-isabela.js';
 import { ZonaColonial } from '../mundos/colonial/zona-colonial.js';
 import { MundoAcuatico } from '../mundos/acuatico/mundo-acuatico.js';
@@ -95,6 +96,7 @@ export class Juego {
     this.musica = new SistemaMusica();
     this.bossCemi = new SistemaBossCemi();
     this.dueloEspada = new DueloEspada();
+    this.areito = new JuegoAreito();
 
     // Restaurar volumen de sonidos desde localStorage
     try {
@@ -649,6 +651,12 @@ export class Juego {
       return;
     }
 
+    // --- Areíto: danza ceremonial taína (DDR) ---
+    if (this.areito.enJuego) {
+      this.areito.actualizar(dt, this.entrada);
+      return;
+    }
+
     // --- Mini-juegos LFSD: si alguno está activo, consume toda la entrada ---
     if (this.calibracion.enJuego) {
       this.calibracion.actualizar(dt, this.entrada);
@@ -847,6 +855,11 @@ export class Juego {
     // --- Duelo de espadas (Soldado Diego) ---
     if (this.dueloEspada.enJuego) {
       this.dueloEspada.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.duelo);
+    }
+
+    // --- Areíto (DDR taíno) ---
+    if (this.areito.enJuego) {
+      this.areito.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos?.areito);
     }
 
     // --- Mini-juegos LFSD se dibujan como overlays ---

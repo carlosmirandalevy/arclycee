@@ -71,6 +71,9 @@ export class AsentamientoTaino1 {
   iniciar(juego) {
     this.juego = juego;
 
+    // Estado de la corona del cacique
+    this._coronaEntregada = juego.progreso?.coronaCacique || false;
+
     // Poner al jugador en modo top-down (vista de arriba)
     if (juego.jugador) {
       juego.jugador.modoJuego = 'topdown';
@@ -171,12 +174,34 @@ export class AsentamientoTaino1 {
     // --- Si hay diálogo activo, solo actualizar diálogo ---
     if (this.dialogos.estaActivo()) {
       this.dialogos.actualizar(dt);
+
+      // Navegar opciones con ↑↓ (para diálogos con elección de batú)
+      if (entrada.estaPresionada('arriba') && !this.bloqueoEntrada) {
+        this.dialogos.seleccionarOpcion(-1);
+        this.bloqueoEntrada = true;
+      }
+      if (entrada.estaPresionada('abajo') && !this.bloqueoEntrada) {
+        this.dialogos.seleccionarOpcion(1);
+        this.bloqueoEntrada = true;
+      }
+
       if (entrada.estaPresionada('accion') && !this.bloqueoEntrada) {
-        this.dialogos.avanzar();
+        // Si la línea actual tiene opciones, confirmar la selección
+        const lineaActual = this.dialogos.lineas[this.dialogos.lineaActual];
+        if (lineaActual && lineaActual.opciones && lineaActual.opciones.length > 0 && this.dialogos._textoCompleto) {
+          const opcion = this.dialogos.confirmarOpcion();
+          if (opcion && opcion.valor === 'aceptar_batu') {
+            this._aceptarBatu();
+          } else if (opcion && opcion.valor === 'rechazar_batu') {
+            this._rechazarBatu();
+          }
+        } else {
+          this.dialogos.avanzar();
+        }
         this.sfx.dialogo();
         this.bloqueoEntrada = true;
       }
-      if (!entrada.estaPresionada('accion')) {
+      if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('arriba') && !entrada.estaPresionada('abajo')) {
         this.bloqueoEntrada = false;
       }
       return;
@@ -902,12 +927,65 @@ export class AsentamientoTaino1 {
     const aldea = textos?.dialogos?.aldea;
 
     if (npc.id === 'cacique') {
-      this.dialogos.iniciarDialogo([
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique1 || '¡Bienvenido a nuestra aldea!' },
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique2 || 'Soy el cacique de este yucayeque.' },
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique3 || 'Nuestro pueblo vive en armonía con la tierra.' },
-        { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
-      ], () => { npc.dialogoHecho = true; });
+      const misiones = this.juego?.misiones;
+      const batuDescubierto = misiones && misiones.estaDescubierta('batu');
+      const batuCompletado = misiones && misiones.estaCompletada('batu');
+
+      if (batuCompletado && !this._coronaEntregada) {
+        // Ya ganó el batú — diálogo de entrega de corona
+        this.dialogos.iniciarDialogo([
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueCrown1 || '¡Increíble! Me has derrotado en el batú...' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueCrown2 || 'Nadie había logrado vencerme. Tienes el espíritu de un verdadero taíno.' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueCrown3 || 'Mereces esto... *se quita la corona de guanín*' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueCrown4 || 'Lleva esta corona con honor. Ahora eres parte de nuestro pueblo.' }
+        ], () => {
+          this._coronaEntregada = true;
+          // Dar corona al jugador como accesorio permanente
+          if (this.juego?.progreso) {
+            this.juego.progreso.coronaCacique = true;
+          }
+          this.juego?.mostrarToast(aldea?.coronaToast || '👑 ¡Recibiste la Corona del Cacique!', 4);
+          if (this.juego?.reputacion) {
+            this.juego.reputacion.modificar(10, aldea?.coronaReputacion || 'Corona del Cacique');
+          }
+        });
+      } else if (batuCompletado) {
+        // Ya tiene la corona — diálogo de respeto
+        this.dialogos.iniciarDialogo([
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueDespues || 'Llevas la corona con dignidad. Eres bienvenido siempre en nuestro yucayeque.' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
+        ]);
+      } else if (!npc.dialogoHecho) {
+        // Primera conversación: presentación + oferta de batú
+        this.dialogos.iniciarDialogo([
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique1 || '¡Bienvenido a nuestra aldea!' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique2 || 'Soy el cacique de este yucayeque.' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique3 || 'Nuestro pueblo vive en armonía con la tierra.' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueBatu1 || '¿Ves ese batey? Es donde jugamos batú — nuestro juego de pelota sagrado.' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueBatu2 || '¿Te atreves a desafiar al cacique? ¡Nadie me ha vencido todavía!',
+            opciones: [
+              { texto: aldea?.batuAceptar || '¡Acepto el desafío!', valor: 'aceptar_batu' },
+              { texto: aldea?.batuRechazar || 'Quizás después, cacique.', valor: 'rechazar_batu' }
+            ]
+          }
+        ], () => { npc.dialogoHecho = true; });
+      } else if (batuDescubierto && !batuCompletado) {
+        // Ya conoce el reto pero no lo ha completado
+        this.dialogos.iniciarDialogo([
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueBatuRepite || '¿Listo para el batú? ¡El cacique no espera eternamente!',
+            opciones: [
+              { texto: aldea?.batuAceptar || '¡Acepto el desafío!', valor: 'aceptar_batu' },
+              { texto: aldea?.batuRechazar || 'Quizás después, cacique.', valor: 'rechazar_batu' }
+            ]
+          }
+        ]);
+      } else {
+        // No ha descubierto batú aún — diálogo genérico
+        this.dialogos.iniciarDialogo([
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique1 || '¡Bienvenido a nuestra aldea!' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
+        ]);
+      }
     } else if (npc.id === 'alfarera') {
       // Anacaona da vasija curativa al jugador (usable desde inventario)
       const yaTieneVasija = this.juego?.inventario?.tieneObjeto('vasijaCurativa');
@@ -1025,6 +1103,73 @@ export class AsentamientoTaino1 {
     const dx = (a.x + (a.ancho || 0) / 2) - (b.x + (b.ancho || 0) / 2);
     const dy = (a.y + (a.alto || 0) / 2) - (b.y + (b.alto || 0) / 2);
     return Math.sqrt(dx * dx + dy * dy) < distancia;
+  }
+
+  // --- Aceptar el desafío de batú del cacique ---
+  _aceptarBatu() {
+    const textos = this._obtenerTextos();
+    const aldea = textos?.dialogos?.aldea;
+    const mis = textos?.misiones || {};
+
+    // Registrar como misión secundaria
+    if (this.juego && this.juego.misiones) {
+      if (!this.juego.misiones.estaDescubierta('batu')) {
+        this.juego.misiones.descubrir('batu');
+        if (this.juego.registro) {
+          const titulo = mis.batuTitulo || 'Batú';
+          this.juego.registro.agregarEntrada('secundaria', titulo,
+            mis.batuDesc || 'Vencer al Cacique Guacanagaríx en un partido de batú.');
+        }
+      }
+      this.juego.misiones.iniciar('batu');
+    }
+
+    // Iniciar el juego de batú
+    if (this.juego && this.juego.batu) {
+      this.juego.batu.iniciar({
+        historia: 'disputa',
+        alTerminar: (gano) => {
+          if (gano && this.juego.misiones) {
+            this.juego.misiones.completar('batu');
+            if (this.juego.registro) {
+              const titulo = mis.batuTitulo || 'Batú';
+              this.juego.registro.marcarCompletada(titulo);
+            }
+          }
+          if (this.juego.reputacion) {
+            this.juego.reputacion.modificar(10, aldea?.batuReputacion || 'Batú completado');
+          }
+          const msg = gano
+            ? (aldea?.batuVictoriaCacique || '¡Guacanagaríx: ¡Imposible! ¡Me has vencido!')
+            : (aldea?.batuDerrotaCacique || '¡Guacanagaríx: ¡Ja! El cacique sigue invicto.');
+          if (this.juego.mostrarToast) {
+            this.juego.mostrarToast(msg, 4);
+          }
+        }
+      });
+    }
+  }
+
+  // --- Rechazar el desafío de batú ---
+  _rechazarBatu() {
+    const textos = this._obtenerTextos();
+    const mis = textos?.misiones || {};
+
+    if (this.juego && this.juego.misiones) {
+      if (!this.juego.misiones.estaDescubierta('batu')) {
+        this.juego.misiones.descubrir('batu');
+        if (this.juego.registro) {
+          const titulo = mis.batuTitulo || 'Batú';
+          this.juego.registro.agregarEntrada('secundaria', titulo,
+            mis.batuDesc || 'Vencer al Cacique Guacanagaríx en un partido de batú.');
+        }
+      }
+    }
+
+    const aldea = textos?.dialogos?.aldea;
+    if (this.juego && this.juego.mostrarToast) {
+      this.juego.mostrarToast(aldea?.batuPendienteCacique || '🏐 Desafío pendiente: Batú vs Cacique', 3);
+    }
   }
 
   _obtenerTextos() {

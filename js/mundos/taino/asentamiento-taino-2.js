@@ -195,6 +195,10 @@ export class AsentamientoTaino2 {
             this._aceptarBatu();
           } else if (opcion && opcion.valor === 'rechazar_batu') {
             this._rechazarBatu();
+          } else if (opcion && opcion.valor === 'aceptar_areito') {
+            this._aceptarAreito();
+          } else if (opcion && opcion.valor === 'rechazar_areito') {
+            // Simplemente cierra el diálogo
           }
         } else {
           this.dialogos.avanzar();
@@ -1078,47 +1082,28 @@ export class AsentamientoTaino2 {
         }
       });
     } else if (npc.id === 'musico') {
-      // Higüemota: areíto + misión secundaria de batú
-      // Primera vez: diálogo sobre el areíto, luego ofrece batú con opción sí/no
-      // Si rechazó: queda como misión pendiente, puede aceptar al volver a hablar
-      // Si aceptó: juega batú inmediatamente
-      // Si completó: diálogo de cierre
-      const misionBatu = this.juego?.misiones?.misiones?.batu;
-      const batuCompletado = misionBatu?.estado === 'completada';
-      const batuDescubierto = misionBatu && misionBatu.estado !== 'no_descubierta';
-
+      // Higüemota: areíto — danza ceremonial taína (DDR)
       if (!npc.dialogoHecho) {
-        // Primera conversación: areíto + oferta de batú
+        // Primera conversación: sobre el areíto + oferta de danza
         this.dialogos.iniciarDialogo([
           { personaje: '🎵 Higüemota', texto: aldea2?.musico1 || '¡Bienvenido al batey!' },
           { personaje: '🎵 Higüemota', texto: aldea2?.musico2 || 'Aquí celebramos el areíto — nuestra ceremonia de música y danza.' },
           { personaje: '🎵 Higüemota', texto: aldea2?.musico3 || 'Usamos maracas, güiros y tambores hechos de troncos.' },
           { personaje: '🎵 Higüemota', texto: aldea2?.musico4 || 'En el areíto contamos la historia de nuestro pueblo cantando.' },
-          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta1 || '¿Quieres jugar batú? Es nuestro juego de pelota sagrado.' },
-          { personaje: '🎵 Higüemota', texto: aldea2?.batuOferta2 || 'Se golpea con la cadera, los hombros y la cabeza. ¡Nunca con las manos!',
+          { personaje: '🎵 Higüemota', texto: aldea2?.areitoOferta || '¿Quieres unirte al areíto? ¡Sigue el ritmo de los tambores!',
             opciones: [
-              { texto: aldea2?.batuAceptar || '¡Sí, vamos a jugar!', valor: 'aceptar_batu' },
-              { texto: aldea2?.batuRechazar || 'Ahora no, quizás después.', valor: 'rechazar_batu' }
+              { texto: aldea2?.areitoAceptar || '¡Sí, quiero bailar!', valor: 'aceptar_areito' },
+              { texto: aldea2?.areitoRechazar || 'Quizás después.', valor: 'rechazar_areito' }
             ]
           }
         ], () => { npc.dialogoHecho = true; });
-      } else if (batuDescubierto && !batuCompletado) {
-        // Ya conoce la misión pero no la ha completado — ofrecer de nuevo
+      } else {
+        // Re-visita: ofrecer areíto de nuevo
         this.dialogos.iniciarDialogo([
-          { personaje: '🎵 Higüemota', texto: aldea2?.batuOfertaRepite || '¿Listo para el batú? ¡El batey te espera!',
+          { personaje: '🎵 Higüemota', texto: aldea2?.areitoRepite || '¡Los tambores te esperan! ¿Listo para bailar?',
             opciones: [
-              { texto: aldea2?.batuAceptar || '¡Sí, vamos a jugar!', valor: 'aceptar_batu' },
-              { texto: aldea2?.batuRechazar || 'Ahora no, quizás después.', valor: 'rechazar_batu' }
-            ]
-          }
-        ]);
-      } else if (batuCompletado) {
-        // Ya completó el batú — ofrecer revancha
-        this.dialogos.iniciarDialogo([
-          { personaje: '🎵 Higüemota', texto: aldea2?.batuRevancha || '¡Fue un gran partido! ¿Quieres jugar otra vez?',
-            opciones: [
-              { texto: aldea2?.batuAceptar || '¡Sí, vamos a jugar!', valor: 'aceptar_batu' },
-              { texto: aldea2?.batuRechazar || 'Ahora no, quizás después.', valor: 'rechazar_batu' }
+              { texto: aldea2?.areitoAceptar || '¡Sí, quiero bailar!', valor: 'aceptar_areito' },
+              { texto: aldea2?.areitoRechazar || 'Quizás después.', valor: 'rechazar_areito' }
             ]
           }
         ]);
@@ -1199,6 +1184,27 @@ export class AsentamientoTaino2 {
     if (this.juego && this.juego.mostrarToast) {
       const aldea2 = textos?.dialogos?.aldea2;
       this.juego.mostrarToast(aldea2?.batuPendiente || '🏐 Misión pendiente: Batú', 3);
+    }
+  }
+
+  // --- Aceptar el areíto e iniciar la danza ---
+  _aceptarAreito() {
+    if (this.juego && this.juego.areito) {
+      this.juego.areito.iniciar({
+        alTerminar: (gano) => {
+          const textos = this._obtenerTextos();
+          const aldea2 = textos?.dialogos?.aldea2;
+          if (gano) {
+            if (this.juego.reputacion) {
+              this.juego.reputacion.modificar(10, aldea2?.areitoReputacion || 'Areíto completado');
+            }
+            this.juego?.mostrarToast(aldea2?.areitoVictoria || '🎵 ¡Higüemota: ¡Bailas como un taíno de verdad!', 4);
+          } else {
+            this.juego?.mostrarToast(aldea2?.areitoDerrota || '🎵 Higüemota: El ritmo se aprende con práctica. ¡Vuelve a intentarlo!', 4);
+          }
+        },
+        juego: this.juego
+      });
     }
   }
 
