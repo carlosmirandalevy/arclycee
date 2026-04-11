@@ -136,6 +136,7 @@ const en = {
       alfarera4: 'Casabe is made from grated and pressed yuca. It\'s the bread of our people!',
       alfarerVasija: 'Take this vessel with higüero pulp, maguey sap, and prickly pear. It\'s our natural medicine!',
       alfareraSaludo: 'Keep creating art with the clay of our land!',
+      anacaonaPista: '🏺 Anacaona has more to tell you… come back to speak with her to unlock a secret quest and place.',
 
       pescador1: 'Good morning! The fishing has been good in the river today.',
       pescador2: 'The Taínos fished with cotton nets, wicker traps, and bone hooks.',
@@ -245,6 +246,8 @@ const en = {
       misionEntregar: 'Bring the cemí to Enriquillo on Isla Cabritos',
       misionExplorar: 'Explore Lago Enriquillo',
       misionCompleta: 'Idol delivered! Talk to Enriquillo to learn more.',
+      pistaTormenta1: '⛈️ A storm lashed the lake… something ancient has surfaced from the mud.',
+      pistaTormenta2: '⚔️ They say Enriquillo\'s lost Sword awaits whoever returns to the lake.',
     },
 
     // Anacaona — Enriquillo idol sidequest (in aldea1)

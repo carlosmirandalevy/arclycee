@@ -1084,6 +1084,21 @@ export class AsentamientoTaino1 {
             this.juego.mostrarToast(`✦ ${t.vasijaCurativa || 'Vasija Curativa'} — ${textos?.ui?.itemAnadidoBrief || 'ítem añadido'}`);
           }
         }
+        // Pista: hablar con Anacaona otra vez desbloquea una misión y lugar secretos
+        const misiones = this.juego?.misiones;
+        const faltaQuest = misiones && !misiones.estaDescubierta('idoloEnriquillo')
+          && !this.juego?.progreso?.idoloCemiEntregado;
+        if (faltaQuest && this.juego?.mostrarToast) {
+          setTimeout(() => {
+            if (this.juego?.mostrarToast) {
+              this.juego.mostrarToast(
+                aldea?.anacaonaPista
+                || '🏺 Anacaona tiene algo más que contarte… vuelve a hablar con ella para descubrir una misión y un lugar secretos.',
+                6
+              );
+            }
+          }, 1800);
+        }
       });
     } else if (npc.id === 'pescador') {
       this.dialogos.iniciarDialogo([

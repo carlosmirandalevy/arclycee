@@ -136,6 +136,7 @@ const fr = {
       alfarera4: 'Le casabe est fait de yuca râpée et pressée. C\'est le pain de notre peuple !',
       alfarerVasija: 'Prends ce vase avec de la pulpe de calebasse, de la sève de maguey et du figuier de barbarie. C\'est notre médecine naturelle !',
       alfareraSaludo: 'Continue à créer de l\'art avec l\'argile de notre terre !',
+      anacaonaPista: '🏺 Anacaona a encore quelque chose à te dire… reviens lui parler pour débloquer une quête et un lieu secrets.',
 
       pescador1: 'Bonjour ! La pêche a été bonne dans la rivière aujourd\'hui.',
       pescador2: 'Les Taïnos pêchaient avec des filets de coton, des nasses en osier et des hameçons en os.',
@@ -245,6 +246,8 @@ const fr = {
       misionEntregar: 'Apporte le cemí à Enriquillo sur l\'Isla Cabritos',
       misionExplorar: 'Explore le Lago Enriquillo',
       misionCompleta: 'Idole remise ! Parle avec Enriquillo pour en apprendre plus.',
+      pistaTormenta1: '⛈️ Une tempête a frappé le lac… quelque chose d\'ancien a émergé de la vase.',
+      pistaTormenta2: '⚔️ On raconte que l\'Épée perdue d\'Enriquillo attend celui qui revient au lac.',
     },
 
     // Anacaona — quête secondaire de l'idole d'Enriquillo (dans aldea1)

@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.21.1 — Discoverability polish: hints & HUD counters (2026-04-11)
+
+### Agregado
+- **HUD de progreso en Lago Enriquillo**: contadores `👥 NPCs 0/3` (Enriquillo, Mencía, Tamayo) y `🗿 Caritas 0/1` (sitio arqueológico). Se vuelven verdes al completarse, consistente con Palenque de Lemba y Cuevas de Pomier
+- **Pista de la Espada de Enriquillo**: al salir del Lago Enriquillo por primera vez, dos toasts secuenciales sugieren que una tormenta ha desenterrado algo antiguo y que la Espada perdida de Enriquillo espera a quien regrese. Gated por `progreso.enriquilloVisitado` y `progreso.espadaEnriquillo` — no se repite ni aparece si el secreto ya fue descubierto
+- **Pista de la sidequest de Anacaona**: tras la primera conversación con Anacaona en el Yucayeque de Marién, un toast retardado (~1.8s) sugiere volver a hablar con ella para desbloquear una misión y un lugar secretos. Solo aparece si `idoloEnriquillo` aún no está descubierta
+
+### Internas
+- Nuevo helper `_salirAlMapa()` en `lago-enriquillo.js` unifica las dos rutas de salida (tecla M y borde inferior) para disparar la pista una sola vez
+- Nuevo flag `progreso.enriquilloVisitado` para marcar la primera visita al lago
+- 9 nuevas claves i18n (3 por idioma): `enriquillo.pistaTormenta1/2`, `aldea.anacaonaPista` en `es.js`, `en.js`, `fr.js`
+
+---
+
 ## v0.21.0 — Manantial de la Aleta, Areíto DDR, Batú crown (2026-03-26)
 
 ### Agregado

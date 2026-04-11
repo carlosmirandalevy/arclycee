@@ -138,6 +138,7 @@ const es = {
       alfarera4: 'El casabe se hace con yuca rallada y prensada. ¡Es el pan de nuestro pueblo!',
       alfarerVasija: 'Toma esta vasija con pulpa de higüero, savia de maguey y tuna. ¡Es nuestra medicina natural!',
       alfareraSaludo: '¡Sigue creando arte con la arcilla de nuestra tierra!',
+      anacaonaPista: '🏺 Anacaona tiene algo más que contarte… vuelve a hablar con ella para descubrir una misión y un lugar secretos.',
 
       pescador1: '¡Buenos días! Hoy la pesca ha sido buena en el río.',
       pescador2: 'Los taínos pescábamos con redes de algodón, nasas de mimbre y anzuelos de hueso.',
@@ -255,6 +256,8 @@ const es = {
       misionEntregar: 'Lleva el cemí a Enriquillo en la Isla Cabritos',
       misionExplorar: 'Explora el Lago Enriquillo',
       misionCompleta: '¡Ídolo entregado! Habla con Enriquillo para aprender más.',
+      pistaTormenta1: '⛈️ Una tormenta azotó el lago… algo antiguo ha emergido del fango.',
+      pistaTormenta2: '⚔️ Dicen que la Espada perdida de Enriquillo espera a quien regrese al lago.',
     },
 
     // Anacaona — sidequest del ídolo de Enriquillo (en aldea1)

@@ -574,7 +574,7 @@ export class LagoEnriquillo {
 
     // --- Volver al mapa con M ---
     if (entrada.estaPresionada('mapa') && !this.bloqueoEntrada) {
-      if (this.juego?.cambiarEscena) this.juego.cambiarEscena('mapaPrincipal');
+      this._salirAlMapa();
       this.bloqueoEntrada = true;
       return;
     }
@@ -617,8 +617,34 @@ export class LagoEnriquillo {
 
     // Salir por borde inferior (jugador.y está clampeado a altoNivel - alto)
     if (jugador.y >= this.altoNivel - jugador.alto - 5 && this.juego) {
-      this.juego.cambiarEscena('mapaPrincipal');
+      this._salirAlMapa();
     }
+  }
+
+  // Al salir del lago, si es la primera vez, soltamos una pista
+  // sobre la Espada de Enriquillo desenterrada por una tormenta.
+  // Solo si el jugador aún no ha encontrado el pedestal/espada.
+  _salirAlMapa() {
+    if (!this.juego) return;
+    const progreso = this.juego.progreso || {};
+    const yaVisitado = !!progreso.enriquilloVisitado;
+    const yaTieneEspada = !!progreso.espadaEnriquillo;
+
+    if (!yaVisitado && !yaTieneEspada && this.juego.mostrarToast) {
+      const textos = this._obtenerTextos();
+      const eq = textos?.dialogos?.enriquillo;
+      const pista1 = eq?.pistaTormenta1
+        || '⛈️ Una tormenta azotó el lago… algo antiguo ha emergido del fango.';
+      const pista2 = eq?.pistaTormenta2
+        || '⚔️ Dicen que la Espada perdida de Enriquillo espera a quien regrese al lago.';
+      this.juego.mostrarToast(pista1, 5);
+      setTimeout(() => {
+        if (this.juego?.mostrarToast) this.juego.mostrarToast(pista2, 6);
+      }, 5200);
+    }
+
+    if (this.juego.progreso) this.juego.progreso.enriquilloVisitado = true;
+    this.juego.cambiarEscena('mapaPrincipal');
   }
 
   // ============================================================
@@ -987,6 +1013,17 @@ export class LagoEnriquillo {
     ctx.font = '12px monospace';
     ctx.fillStyle = '#FFD700';
     ctx.fillText(`📋 ${this.misionActual}`, 15, 42);
+
+    // NPCs hablados (Enriquillo, Mencía, Tamayo)
+    const npcsHablados = this.npcs.filter(n => n.dialogoHecho && !n.esMentor).length;
+    const totalNPCs = this.npcs.filter(n => !n.esMentor).length;
+    ctx.fillStyle = npcsHablados >= totalNPCs ? '#44CC44' : '#FFD700';
+    ctx.fillText(`👥 ${npcsHablados}/${totalNPCs}`, 15, 58);
+
+    // Las Caritas (sitio arqueológico examinado)
+    const caritasVistas = this._caritasExaminadas ? 1 : 0;
+    ctx.fillStyle = caritasVistas >= 1 ? '#44CC44' : '#FFD700';
+    ctx.fillText(`🗿 ${caritasVistas}/1`, 15, 74);
 
     // Nombre del lugar
     ctx.font = '11px monospace';
