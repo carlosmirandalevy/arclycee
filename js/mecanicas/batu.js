@@ -162,6 +162,20 @@ export class JuegoBatu {
     this._tiempoTotal += dt;
     this._tiempoFase += dt;
 
+    // --- Abandonar el partido con Esc/Q (cancelar) ---
+    // El jugador puede salir del batú en cualquier fase y volver al
+    // yucayeque. No cuenta como derrota ni como victoria — se pasa
+    // una segunda bandera `abandonado=true` para que la escena sepa
+    // que debe omitir la toast de cacique invicto y el bono de rep.
+    if (entrada.estaPresionada('cancelar') && !this._bloqueoEntrada) {
+      this._bloqueoEntrada = true;
+      this.enJuego = false;
+      const cb = this._alTerminar;
+      this._alTerminar = null;
+      if (cb) cb(false, true);
+      return;
+    }
+
     // --- Desbloquear entrada cuando se sueltan las teclas ---
     if (this._bloqueoEntrada) {
       // En fin de juego, solo necesita soltar E para desbloquear

@@ -292,6 +292,7 @@ const fr = {
       batuReputacion: 'Batú terminé',
       batuVictoria: 'Impressionnant ! Tu joues comme un vrai Taïno.',
       batuDerrota: 'Bon essai ! Le batú demande beaucoup de pratique.',
+      batuAbandonado: '🏐 Tu as abandonné le match. Tu peux réessayer en parlant au Cacique.',
       batuRepite: 'C\'était un super match ! Le batú unit les villages et résout les conflits sans violence.',
       batuRevancha: 'C\'était un super match ! Tu veux rejouer ?',
 

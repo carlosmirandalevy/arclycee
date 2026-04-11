@@ -302,6 +302,7 @@ const es = {
       batuReputacion: 'Batú completado',
       batuVictoria: '¡Impresionante! Juegas como un verdadero taíno.',
       batuDerrota: '¡Buen intento! El batú requiere mucha práctica.',
+      batuAbandonado: '🏐 Has abandonado el partido. Puedes reintentar hablando con el Cacique.',
       batuRepite: '¡Fue un gran partido! El batú une a las aldeas y resuelve conflictos sin violencia.',
       batuRevancha: '¡Fue un gran partido! ¿Quieres jugar otra vez?',
 

@@ -1148,7 +1148,17 @@ export class AsentamientoTaino1 {
     if (this.juego && this.juego.batu) {
       this.juego.batu.iniciar({
         historia: 'disputa',
-        alTerminar: (gano) => {
+        alTerminar: (gano, abandonado) => {
+          // Abandonó el partido con Esc: volver sin penalización ni recompensa
+          if (abandonado) {
+            if (this.juego.mostrarToast) {
+              this.juego.mostrarToast(
+                aldea?.batuAbandonado || '🏐 Has abandonado el partido. Puedes reintentar hablando con el Cacique.',
+                4
+              );
+            }
+            return;
+          }
           if (gano && this.juego.misiones) {
             this.juego.misiones.completar('batu');
             if (this.juego.registro) {
