@@ -156,6 +156,19 @@ export class JuegoAreito {
       if (this._flashCarril[i] > 0) this._flashCarril[i] -= dt;
     }
 
+    // --- Abandonar el areíto con Esc/Q (cancelar) ---
+    // El jugador puede salir de la danza en cualquier fase y volver al
+    // yucayeque. No cuenta como derrota ni victoria — segundo parámetro
+    // `abandonado=true` para que la escena omita toast y rep.
+    if (entrada.estaPresionada('cancelar') && !this._bloqueoEntrada) {
+      this._bloqueoEntrada = true;
+      this.enJuego = false;
+      const cb = this._alTerminar;
+      this._alTerminar = null;
+      if (cb) cb(false, true);
+      return;
+    }
+
     if (this._fase === 'intro') {
       this._actualizarIntro(dt, entrada);
     } else if (this._fase === 'bailando') {

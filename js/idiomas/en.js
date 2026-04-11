@@ -279,6 +279,14 @@ const en = {
       musico2: 'Here we celebrate the areíto — our great ceremony of music, dance, and memory.',
       musico3: 'We play maracas made from higüero, güiros from gourds, and drums carved from ceiba trunks.',
       musico4: 'In the areíto we sing the history of our people — so the young never forget where they come from.',
+      areitoOferta: 'Want to join the areíto? Follow the rhythm of the drums!',
+      areitoAceptar: 'Yes, I want to dance!',
+      areitoRechazar: 'Maybe later.',
+      areitoRepite: 'The drums await you! Ready to dance?',
+      areitoVictoria: '🎵 Higüemota: You dance like a true Taíno!',
+      areitoDerrota: '🎵 Higüemota: Rhythm takes practice. Come back and try again!',
+      areitoAbandonado: '🎵 You abandoned the areíto. You can try again by speaking with Higüemota.',
+      areitoReputacion: 'Areíto completed',
 
       behiqueCemi: 'The Cemí Bat spirit has chosen you! It will guide you in the caves with its echo-location.',
 

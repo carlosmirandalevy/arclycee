@@ -289,6 +289,14 @@ const es = {
       musico2: 'Aquí celebramos el areíto — nuestra gran ceremonia de música, danza y memoria.',
       musico3: 'Tocamos maracas de higüero, güiros de calabaza y tambores tallados en troncos de ceiba.',
       musico4: 'En el areíto cantamos la historia de nuestro pueblo — así los jóvenes nunca olvidan de dónde vienen.',
+      areitoOferta: '¿Quieres unirte al areíto? ¡Sigue el ritmo de los tambores!',
+      areitoAceptar: '¡Sí, quiero bailar!',
+      areitoRechazar: 'Quizás después.',
+      areitoRepite: '¡Los tambores te esperan! ¿Listo para bailar?',
+      areitoVictoria: '🎵 ¡Higüemota: ¡Bailas como un taíno de verdad!',
+      areitoDerrota: '🎵 Higüemota: El ritmo se aprende con práctica. ¡Vuelve a intentarlo!',
+      areitoAbandonado: '🎵 Has abandonado el areíto. Puedes reintentar hablando con Higüemota.',
+      areitoReputacion: 'Areíto completado',
 
       behiqueCemi: '¡El espíritu del Cemí Murciélago te ha elegido! Él te guiará en las cuevas con su eco-localización.',
 

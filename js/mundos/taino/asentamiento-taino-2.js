@@ -176,12 +176,13 @@ export class AsentamientoTaino2 {
     if (this.dialogos.estaActivo()) {
       this.dialogos.actualizar(dt);
 
-      // Navegar opciones con arriba/abajo (para diálogos con elección)
-      if (entrada.estaPresionada('arriba') && !this.bloqueoEntrada) {
+      // Navegar opciones: las opciones se dibujan en horizontal (←→),
+      // pero aceptamos ↑↓ también para usuarios que esperen el layout vertical
+      if ((entrada.estaPresionada('izquierda') || entrada.estaPresionada('arriba')) && !this.bloqueoEntrada) {
         this.dialogos.seleccionarOpcion(-1);
         this.bloqueoEntrada = true;
       }
-      if (entrada.estaPresionada('abajo') && !this.bloqueoEntrada) {
+      if ((entrada.estaPresionada('derecha') || entrada.estaPresionada('abajo')) && !this.bloqueoEntrada) {
         this.dialogos.seleccionarOpcion(1);
         this.bloqueoEntrada = true;
       }
@@ -207,9 +208,11 @@ export class AsentamientoTaino2 {
         this.bloqueoEntrada = true;
       }
 
-      if (!entrada.estaPresionada('accion') &&
-          !entrada.estaPresionada('arriba') &&
-          !entrada.estaPresionada('abajo')) {
+      if (!entrada.estaPresionada('accion')
+          && !entrada.estaPresionada('arriba')
+          && !entrada.estaPresionada('abajo')
+          && !entrada.estaPresionada('izquierda')
+          && !entrada.estaPresionada('derecha')) {
         this.bloqueoEntrada = false;
       }
       return;
@@ -1191,9 +1194,17 @@ export class AsentamientoTaino2 {
   _aceptarAreito() {
     if (this.juego && this.juego.areito) {
       this.juego.areito.iniciar({
-        alTerminar: (gano) => {
+        alTerminar: (gano, abandonado) => {
           const textos = this._obtenerTextos();
           const aldea2 = textos?.dialogos?.aldea2;
+          // Abandonó el areíto con Esc: volver sin penalización ni recompensa
+          if (abandonado) {
+            this.juego?.mostrarToast(
+              aldea2?.areitoAbandonado || '🎵 Has abandonado el areíto. Puedes reintentar hablando con Higüemota.',
+              4
+            );
+            return;
+          }
           if (gano) {
             if (this.juego.reputacion) {
               this.juego.reputacion.modificar(10, aldea2?.areitoReputacion || 'Areíto completado');
