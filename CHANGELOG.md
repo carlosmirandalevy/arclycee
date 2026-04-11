@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.21.2 — Mini-game escape keys, counter & input fixes (2026-04-11)
+
+### Agregado
+- **Esc sale del boss fight Espíritu del Cemí**: durante las fases `intro`/`combate`/`aturdido`/`golpe`/`transicion`, Esc (o Q) termina el combate y vuelve a Lago Enriquillo sin penalización. El pedestal y la espada siguen disponibles para reintentar. Toast "💨 Has huido del combate con el Espíritu del Cemí"
+- **Esc sale del Juego del Batú**: Esc/Q abandona el partido en cualquier fase y vuelve al Yucayeque de Marién. **No cuenta como derrota** — no se aplica la reputación de participación ni la toast de "cacique invicto". Nueva clave i18n `batuAbandonado` (ES/EN/FR)
+- **Contador de artefacto secreto en Lago Enriquillo**: nueva línea HUD `⚔️ 0/1` en y=90 para la Espada de Enriquillo. Solo se muestra tras entregar el ídolo (cuando el pedestal se vuelve visible) para no spoilear el secreto
+
+### Corregido
+- **Contador de NPCs de Lago Enriquillo**: `_hablarEnriquillo()` ahora marca `npc.dialogoHecho = true` en ambas rutas de diálogo (entrega del ídolo y diálogo rotativo), así hablar con Enriquillo avanza el contador `👥` hacia 3/3
+- **Navegación horizontal en el diálogo del batú**: al ofrecer el desafío, el Cacique Guacanagaríx ahora acepta ←/→ (A/D) además de ↑/↓ (W/S) para elegir entre Aceptar/Rechazar. El layout de botones es horizontal, así que A/D eran los más intuitivos y no respondían. `bloqueoEntrada` también se libera con las cuatro direcciones
+
+### Interno
+- Segundo parámetro `abandonado` en el callback `alTerminar` de `batu.js` para que la escena distinga una salida voluntaria de una derrota real
+- Callback del boss fight recibe `'huida'` como `resultado` en vez de `'victoria'`/`'derrota'`. La escena de Lago ignora naturalmente este valor (solo reacciona a `'victoria'`)
+
+---
+
 ## v0.21.1 — Discoverability polish: hints & HUD counters (2026-04-11)
 
 ### Agregado
