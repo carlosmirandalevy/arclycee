@@ -102,7 +102,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Ítems curativos**: objetos con `{tipo: 'curacion', esUsable: true, valor: N}` se usan con E en inventario. Guanábana (+30), vasija curativa (+35)
 - **NPC curandero**: flag `esCurandero: true` en NPC — siempre muestra `[E]`, no muestra checkmark, permite re-interacción. Behique Yuisa cura a 100 HP, Anacaona y Guarionex dan ítems curativos (re-obtibles si se usan)
 - **HUD layout**: Vida bar `(10, 10, 120, 14)` + Reputación bar `(140, 10, 100, 14)` en la misma fila. En Santuario del Manatí: Vida bar + O₂ bar `(140, 10, 100, 14)` (azul, parpadea rojo al <25%). Los mundos dibujan sus indicadores (NPCs, objetos, habilidades) a partir de y=42. No agregar más barras encima de y=42
-- Física: `factorTiempo = dt * 60` para movimiento independiente de framerate
+- Física: `factorTiempo = dt * 60` para movimiento independiente de framerate. **Cualquier aceleración por frame** (ej: `GRAVEDAD` en Cuevas del Pomier) debe multiplicarse también por `factorTiempo`; si no, el salto/caída se rompe en monitores de 120/144/165 Hz aunque el desplazamiento siga escalado
 - Progreso: `juego.progreso.nodosCompletados` y `nodosDesbloqueados`
 - **Diálogo rotativo**: contador `_cassaConversacion` que incrementa tras cada diálogo, `indice = contador % array.length` para ciclar
 - **NPC mentor**: `esMentor: true` excluye del conteo de misión, siempre muestra [E] Hablar, nunca muestra checkmark

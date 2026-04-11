@@ -2,6 +2,9 @@
 
 ## v0.21.2 — Mini-game escape keys, counter & input fixes (2026-04-11)
 
+### Corregido (bug crítico de física)
+- **Salto en Cuevas del Pomier independiente del framerate**: la gravedad se aplicaba como delta fijo por frame (`velocidadY += 0.6`) mientras el movimiento se escalaba por `factorTiempo = dt*60`. A 60 Hz se compensaban, pero en monitores de 120/144/165 Hz el salto se reducía a ~40-60% de su altura, dando la sensación de "golpearse contra un techo invisible" incluso en cielo abierto. Ahora gravedad también se escala por `factorTiempo`, manteniendo la aceleración constante en 36 px/s² en cualquier framerate
+
 ### Agregado
 - **Esc sale del boss fight Espíritu del Cemí**: durante las fases `intro`/`combate`/`aturdido`/`golpe`/`transicion`, Esc (o Q) termina el combate y vuelve a Lago Enriquillo sin penalización. El pedestal y la espada siguen disponibles para reintentar. Toast "💨 Has huido del combate con el Espíritu del Cemí"
 - **Esc sale del Juego del Batú**: Esc/Q abandona el partido en cualquier fase y vuelve al Yucayeque de Marién. **No cuenta como derrota** — no se aplica la reputación de participación ni la toast de "cacique invicto". Nueva clave i18n `batuAbandonado` (ES/EN/FR)
