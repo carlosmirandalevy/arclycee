@@ -343,11 +343,12 @@ export class CuevasPomier {
       this.escalaJugadorY = 0.7;
     }
 
-    // Gravedad (sin multiplicar por dt — física de frame fijo)
-    jugador.velocidadY += GRAVEDAD;
-
-    // Aplicar movimiento escalado por dt
+    // Aplicar movimiento escalado por dt para que sea independiente
+    // del framerate (60/120/144 Hz). Gravedad también escalada:
+    // si no lo hacemos, a 144 Hz el salto sale a ~40% de su altura
+    // porque vY crece por frame pero el movimiento se escala menos.
     const factorTiempo = dt * 60;
+    jugador.velocidadY += GRAVEDAD * factorTiempo;
     jugador.x += jugador.velocidadX * factorTiempo;
     jugador.y += jugador.velocidadY * factorTiempo;
 
