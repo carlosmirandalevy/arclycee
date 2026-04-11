@@ -175,12 +175,13 @@ export class AsentamientoTaino1 {
     if (this.dialogos.estaActivo()) {
       this.dialogos.actualizar(dt);
 
-      // Navegar opciones con ↑↓ (para diálogos con elección de batú)
-      if (entrada.estaPresionada('arriba') && !this.bloqueoEntrada) {
+      // Navegar opciones: las opciones se dibujan en horizontal (←→),
+      // pero aceptamos ↑↓ también para usuarios que esperen el layout vertical
+      if ((entrada.estaPresionada('izquierda') || entrada.estaPresionada('arriba')) && !this.bloqueoEntrada) {
         this.dialogos.seleccionarOpcion(-1);
         this.bloqueoEntrada = true;
       }
-      if (entrada.estaPresionada('abajo') && !this.bloqueoEntrada) {
+      if ((entrada.estaPresionada('derecha') || entrada.estaPresionada('abajo')) && !this.bloqueoEntrada) {
         this.dialogos.seleccionarOpcion(1);
         this.bloqueoEntrada = true;
       }
@@ -201,7 +202,11 @@ export class AsentamientoTaino1 {
         this.sfx.dialogo();
         this.bloqueoEntrada = true;
       }
-      if (!entrada.estaPresionada('accion') && !entrada.estaPresionada('arriba') && !entrada.estaPresionada('abajo')) {
+      if (!entrada.estaPresionada('accion')
+          && !entrada.estaPresionada('arriba')
+          && !entrada.estaPresionada('abajo')
+          && !entrada.estaPresionada('izquierda')
+          && !entrada.estaPresionada('derecha')) {
         this.bloqueoEntrada = false;
       }
       return;

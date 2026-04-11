@@ -1025,6 +1025,13 @@ export class LagoEnriquillo {
     ctx.fillStyle = caritasVistas >= 1 ? '#44CC44' : '#FFD700';
     ctx.fillText(`🗿 ${caritasVistas}/1`, 15, 74);
 
+    // Espada de Enriquillo (artefacto secreto, solo visible tras entregar el ídolo)
+    if (this._pedestalVisible) {
+      const espadaRecogida = this._espada.recogida ? 1 : 0;
+      ctx.fillStyle = espadaRecogida >= 1 ? '#44CC44' : '#FFD700';
+      ctx.fillText(`⚔️ ${espadaRecogida}/1`, 15, 90);
+    }
+
     // Nombre del lugar
     ctx.font = '11px monospace';
     ctx.fillStyle = '#AAAAAA';
@@ -1816,6 +1823,7 @@ export class LagoEnriquillo {
         { personaje: nombre, texto: eq?.enriquilloRecibe2 || 'Los cemíes nos conectan con nuestros ancestros y los espíritus de la tierra.' },
         { personaje: nombre, texto: eq?.enriquilloRecibe3 || 'Con este poder espiritual, nuestra lucha se fortalece. Gracias, joven guerrero.' }
       ], () => {
+        npc.dialogoHecho = true;
         this._idoloEntregado = true;
         if (this.juego?.progreso) this.juego.progreso.idoloCemiEntregado = true;
 
@@ -1884,6 +1892,7 @@ export class LagoEnriquillo {
 
     const indice = this._enriquilloConversacion % conversaciones.length;
     this.dialogos.iniciarDialogo(conversaciones[indice], () => {
+      npc.dialogoHecho = true;
       this._enriquilloConversacion++;
     });
   }

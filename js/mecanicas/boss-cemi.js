@@ -105,6 +105,24 @@ export class SistemaBossCemi {
     this._tiempoTotal += dt;
     this._tiempoFase += dt;
 
+    // --- Huir del combate con Esc/Q (cancelar) ---
+    // Permitido durante las fases activas del boss fight. No cuenta como
+    // derrota: simplemente sale y vuelve a Lago Enriquillo sin penalización
+    // ni recompensa (el pedestal y la espada siguen disponibles al volver).
+    const fasesHuibles = this.fase === 'intro' || this.fase === 'combate'
+      || this.fase === 'aturdido' || this.fase === 'golpe' || this.fase === 'transicion';
+    if (fasesHuibles && entrada.estaPresionada('cancelar') && !this._bloqueoEntrada) {
+      this._bloqueoEntrada = true;
+      this.enJuego = false;
+      if (this._juego?.mostrarToast) {
+        this._juego.mostrarToast('💨 Has huido del combate con el Espíritu del Cemí', 3);
+      }
+      const cb = this._alTerminar;
+      this._alTerminar = null;
+      if (cb) cb('huida');
+      return;
+    }
+
     // --- Foto/Selfie durante el boss fight (captura la pantalla del boss) ---
     if (this._juego?.album && (this.fase === 'combate' || this.fase === 'aturdido' || this.fase === 'victoria')) {
       if (entrada.estaPresionada('foto') && !this._bloqueoFoto) {
