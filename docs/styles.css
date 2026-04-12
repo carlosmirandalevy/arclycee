@@ -1,9 +1,10 @@
 /* ============================================================
-   ESTILOS COMPARTIDOS DE LA DOCUMENTACIÓN DE ARCLYCÉE
-   Diseño oscuro con acentos dorados inspirado en la estética
-   del juego. Extraído del monolito original para compartir
-   entre todas las páginas de documentación.
+   ESTILOS DE LA DOCUMENTACIÓN DE ARCLYCÉE
+   Tema arqueológico: tonos tierra, texturas de piedra, acentos
+   de guanín taíno y diseño educativo moderno.
    ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --fondo: #0e0e1a;
@@ -21,14 +22,20 @@
   --borde: #2a2a4a;
   --acento-taino: #8B6914;
   --acento-colonial: #6B4423;
+  --acento-tierra: #A0845C;
+  --acento-piedra: #7B6F5D;
+  --sombra: rgba(0, 0, 0, 0.3);
+  --radio: 12px;
+  --fuente-titulo: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --fuente-cuerpo: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 /* --- Tema claro --- */
 [data-theme="light"] {
-  --fondo: #f4f3ee;
-  --fondo-seccion: #eae8e0;
+  --fondo: #f5f0e8;
+  --fondo-seccion: #ece7dd;
   --fondo-tarjeta: #ffffff;
-  --fondo-codigo: #e8e6de;
+  --fondo-codigo: #e8e3d8;
   --texto: #2a2a3a;
   --texto-tenue: #5a5a7a;
   --dorado: #9a7810;
@@ -37,34 +44,57 @@
   --rojo: #aa2222;
   --azul: #226699;
   --morado: #6622aa;
-  --borde: #c8c6be;
-  --acento-taino: #8B6914;
-  --acento-colonial: #6B4423;
+  --borde: #c8c2b4;
+  --acento-tierra: #8B7355;
+  --acento-piedra: #6B6050;
+  --sombra: rgba(0, 0, 0, 0.08);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: var(--fuente-cuerpo);
   background: var(--fondo);
   color: var(--texto);
   line-height: 1.7;
 }
 
-/* --- Hero / Portada --- */
+/* Sutil textura de piedra en el fondo */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================================
+   HERO / PORTADA
+   ============================================================ */
 .hero {
   text-align: center;
-  padding: 0 0 40px;
-  background: linear-gradient(180deg, #1a1a2e 0%, var(--fondo) 100%);
+  padding: 48px 24px 56px;
+  background: linear-gradient(175deg, #1a1510 0%, #0e0e1a 50%, var(--fondo) 100%);
+  position: relative;
+  overflow: hidden;
 }
 [data-theme="light"] .hero {
-  background: linear-gradient(180deg, #e8e6de 0%, var(--fondo) 100%);
+  background: linear-gradient(175deg, #e8dcc8 0%, #f0ebe0 50%, var(--fondo) 100%);
+}
+/* Patrón decorativo taíno sutil en el hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='12' fill='none' stroke='%23DAA520' stroke-width='0.5' opacity='0.06'/%3E%3Ccircle cx='40' cy='40' r='24' fill='none' stroke='%23DAA520' stroke-width='0.3' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
 }
 .hero img.hero-banner {
   width: 100%;
   max-width: 900px;
   height: auto;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 var(--radio) var(--radio);
   border: none;
   border-bottom: 3px solid var(--dorado);
   margin-bottom: 24px;
@@ -77,10 +107,12 @@ body {
   margin-bottom: 24px;
 }
 .hero h1 {
-  font-size: 3rem;
+  font-family: var(--fuente-titulo);
+  font-size: 3.2rem;
   color: var(--dorado-claro);
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 12px rgba(218, 165, 32, 0.2);
 }
 .hero .subtitulo {
   font-size: 1.25rem;
@@ -92,6 +124,7 @@ body {
   margin: 24px auto 0;
   font-size: 1.05rem;
   color: var(--texto);
+  line-height: 1.8;
 }
 .hero .badges {
   margin-top: 24px;
@@ -108,64 +141,164 @@ body {
   font-weight: 600;
   border: 1px solid var(--borde);
   background: var(--fondo-tarjeta);
+  transition: transform 0.2s;
 }
+.badge:hover { transform: translateY(-1px); }
 .badge.tech { color: var(--azul); border-color: var(--azul); }
 .badge.edu { color: var(--verde); border-color: var(--verde); }
 .badge.lang { color: var(--morado); border-color: var(--morado); }
 
-/* --- Contenedor --- */
+/* ============================================================
+   CONTENEDOR Y SECCIONES
+   ============================================================ */
 .contenedor {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* --- Secciones --- */
 section {
-  padding: 60px 0;
+  padding: 56px 0;
   border-bottom: 1px solid var(--borde);
+  position: relative;
 }
 section:last-child { border-bottom: none; }
 
+/* Borde decorativo taíno entre secciones */
+section + section::before {
+  content: '◆ ◇ ◆';
+  display: block;
+  text-align: center;
+  color: var(--acento-tierra);
+  font-size: 0.7rem;
+  letter-spacing: 8px;
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--fondo);
+  padding: 0 20px;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   TIPOGRAFÍA
+   ============================================================ */
 h2 {
+  font-family: var(--fuente-titulo);
   font-size: 2rem;
   color: var(--dorado);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 12px;
+  position: relative;
 }
 h2 .icono { font-size: 1.5rem; }
+/* Línea decorativa bajo los h2 */
+h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--dorado) 0%, transparent 100%);
+  opacity: 0.3;
+}
 
 h3 {
+  font-family: var(--fuente-titulo);
   font-size: 1.4rem;
-  color: #e0d0a0;
-  margin: 32px 0 12px;
+  color: var(--acento-tierra);
+  margin: 36px 0 12px;
+  padding-left: 16px;
+  border-left: 3px solid var(--dorado);
 }
-[data-theme="light"] h3 { color: #6a5a20; }
+[data-theme="light"] h3 { color: #6a5a30; }
 
 h4 {
   font-size: 1.1rem;
   color: var(--dorado);
-  margin: 20px 0 8px;
+  margin: 24px 0 8px;
+  font-weight: 600;
 }
 
 p { margin-bottom: 12px; }
 p.intro {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   color: var(--texto-tenue);
   margin-bottom: 24px;
+  font-style: italic;
+  border-left: 3px solid var(--acento-tierra);
+  padding-left: 16px;
 }
 
-/* --- Tarjetas de mundo --- */
+a {
+  color: var(--dorado);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+a:hover {
+  border-bottom-color: var(--dorado);
+}
+
+ul, ol {
+  margin: 12px 0 12px 24px;
+}
+li {
+  margin-bottom: 6px;
+}
+
+strong {
+  color: var(--dorado-claro);
+  font-weight: 600;
+}
+[data-theme="light"] strong { color: #5a4800; }
+
+em {
+  color: var(--texto);
+  font-style: italic;
+}
+
+code {
+  background: var(--fondo-codigo);
+  border: 1px solid var(--borde);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.88rem;
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  color: var(--dorado-claro);
+}
+[data-theme="light"] code { color: #6a5200; }
+
+kbd {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--fondo-codigo);
+  border: 1px solid var(--borde);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--dorado-claro);
+}
+
+/* ============================================================
+   TARJETAS DE MUNDO
+   ============================================================ */
 .mundo-card {
   background: var(--fondo-tarjeta);
   border: 1px solid var(--borde);
-  border-radius: 12px;
+  border-radius: var(--radio);
   padding: 28px;
   margin-bottom: 28px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 16px var(--sombra);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.mundo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--sombra);
 }
 .mundo-card::before {
   content: '';
@@ -173,8 +306,8 @@ p.intro {
   top: 0; left: 0; right: 0;
   height: 3px;
 }
-.mundo-card.taino::before { background: var(--acento-taino); }
-.mundo-card.colonial::before { background: var(--acento-colonial); }
+.mundo-card.taino::before { background: linear-gradient(90deg, var(--acento-taino), transparent); }
+.mundo-card.colonial::before { background: linear-gradient(90deg, var(--acento-colonial), transparent); }
 
 .mundo-header {
   display: flex;
@@ -185,6 +318,7 @@ p.intro {
   margin-bottom: 16px;
 }
 .mundo-titulo {
+  font-family: var(--fuente-titulo);
   font-size: 1.5rem;
   color: #fff;
 }
@@ -215,7 +349,9 @@ p.intro {
   margin-bottom: 16px;
 }
 
-/* --- Canvas de previsualización --- */
+/* ============================================================
+   CANVAS DE PREVISUALIZACIÓN
+   ============================================================ */
 .preview-container {
   margin: 20px 0;
   border-radius: 8px;
@@ -237,20 +373,22 @@ p.intro {
   font-family: monospace;
 }
 
-/* --- SVG de ilustraciones --- */
 .world-illustration {
   margin: 20px 0;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid var(--borde);
 }
-.world-illustration svg {
+.world-illustration svg,
+.world-illustration canvas {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* --- Listas de contenido --- */
+/* ============================================================
+   GRIDS Y TARJETAS DE CONTENIDO
+   ============================================================ */
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -264,10 +402,16 @@ p.intro {
 .item-card {
   background: var(--fondo-seccion);
   border: 1px solid var(--borde);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: var(--radio);
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.item-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--sombra);
 }
 .item-card h5 {
+  font-family: var(--fuente-titulo);
   color: #fff;
   font-size: 1rem;
   margin-bottom: 6px;
@@ -287,28 +431,35 @@ p.intro {
   vertical-align: middle;
 }
 
-/* --- NPC cards --- */
+/* ============================================================
+   NPC CARDS
+   ============================================================ */
 .npc-card {
   display: flex;
   gap: 16px;
   align-items: flex-start;
   background: var(--fondo-seccion);
   border: 1px solid var(--borde);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: var(--radio);
+  padding: 20px;
   margin-bottom: 12px;
+  transition: transform 0.2s;
 }
+.npc-card:hover { transform: translateX(4px); }
 .npc-avatar {
   width: 48px;
   height: 48px;
-  border-radius: 8px;
+  border-radius: 50%;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
+  background: var(--fondo-tarjeta);
+  border: 2px solid var(--borde);
 }
 .npc-info h5 {
+  font-family: var(--fuente-titulo);
   color: #fff;
   font-size: 1rem;
   margin-bottom: 2px;
@@ -326,15 +477,19 @@ p.intro {
   margin: 0;
 }
 
-/* --- Tabla de mecanicas --- */
+/* ============================================================
+   TABLAS
+   ============================================================ */
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 16px 0;
+  border-radius: var(--radio);
+  overflow: hidden;
 }
 th, td {
   text-align: left;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--borde);
   font-size: 0.92rem;
 }
@@ -342,35 +497,46 @@ th {
   color: var(--dorado);
   font-weight: 600;
   background: var(--fondo-codigo);
+  font-family: var(--fuente-titulo);
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 td { color: var(--texto); }
-tr:hover td { background: rgba(218, 165, 32, 0.05); }
+tr:hover td { background: rgba(218, 165, 32, 0.04); }
 
-/* --- Companeros --- */
+/* ============================================================
+   COMPAÑEROS
+   ============================================================ */
 .companero-card {
   background: var(--fondo-tarjeta);
   border: 1px solid var(--borde);
-  border-radius: 12px;
+  border-radius: var(--radio);
   padding: 24px;
   margin-bottom: 16px;
   display: flex;
   gap: 20px;
   align-items: flex-start;
+  box-shadow: 0 2px 8px var(--sombra);
 }
 .companero-visual {
   width: 80px;
   height: 80px;
-  border-radius: 12px;
+  border-radius: var(--radio);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--fondo-seccion);
+  border: 2px solid var(--borde);
 }
 .companero-visual canvas {
   image-rendering: pixelated;
 }
 
-/* --- Diagrama de flujo --- */
+/* ============================================================
+   DIAGRAMA DE FLUJO DEL JUEGO
+   ============================================================ */
 .flujo {
   display: flex;
   flex-direction: column;
@@ -383,8 +549,8 @@ tr:hover td { background: rgba(218, 165, 32, 0.05); }
   gap: 16px;
 }
 .flujo-icono {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -393,31 +559,42 @@ tr:hover td { background: rgba(218, 165, 32, 0.05); }
   flex-shrink: 0;
   border: 2px solid var(--borde);
   background: var(--fondo-tarjeta);
+  box-shadow: 0 2px 8px var(--sombra);
+  transition: transform 0.2s;
 }
+.flujo-nodo:hover .flujo-icono { transform: scale(1.1); }
 .flujo-icono.taino { border-color: var(--acento-taino); }
 .flujo-icono.colonial { border-color: var(--acento-colonial); }
 .flujo-texto {
   flex: 1;
   padding: 12px 0;
 }
-.flujo-texto strong { color: #fff; }
+.flujo-texto strong {
+  font-family: var(--fuente-titulo);
+  color: #fff;
+  font-size: 1.05rem;
+}
 [data-theme="light"] .flujo-texto strong { color: #1a1a2e; }
 .flujo-texto span { color: var(--texto-tenue); font-size: 0.9rem; }
 .flujo-flecha {
-  width: 48px;
+  width: 52px;
   display: flex;
   justify-content: center;
-  color: var(--texto-tenue);
+  color: var(--acento-tierra);
   font-size: 1.2rem;
   padding: 4px 0;
+  opacity: 0.5;
 }
 
-/* --- Controles --- */
+/* ============================================================
+   CONTROLES (TECLAS)
+   ============================================================ */
 .tecla {
   display: inline-block;
   padding: 3px 10px;
   background: var(--fondo-codigo);
   border: 1px solid var(--borde);
+  border-bottom-width: 2px;
   border-radius: 4px;
   font-family: monospace;
   font-size: 0.85rem;
@@ -425,13 +602,32 @@ tr:hover td { background: rgba(218, 165, 32, 0.05); }
 }
 [data-theme="light"] .tecla { color: #1a1a2e; }
 
-/* --- Footer --- */
+/* ============================================================
+   FOOTER
+   ============================================================ */
 footer {
   text-align: center;
-  padding: 40px 20px;
+  padding: 48px 20px;
   color: var(--texto-tenue);
   font-size: 0.9rem;
   border-top: 1px solid var(--borde);
+  position: relative;
+}
+/* Patrón decorativo en el footer */
+footer::before {
+  content: '◆ ◇ ◆ ◇ ◆';
+  display: block;
+  text-align: center;
+  color: var(--acento-tierra);
+  font-size: 0.6rem;
+  letter-spacing: 8px;
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--fondo);
+  padding: 0 20px;
+  opacity: 0.4;
 }
 footer a {
   color: var(--dorado);
@@ -452,7 +648,9 @@ footer .equipo {
   opacity: 0.85;
 }
 
-/* --- Combat diagram --- */
+/* ============================================================
+   COMBAT FLOW DIAGRAM
+   ============================================================ */
 .combat-flow {
   display: flex;
   gap: 12px;
@@ -462,13 +660,16 @@ footer .equipo {
 .combat-option {
   background: var(--fondo-codigo);
   border: 1px solid var(--borde);
-  border-radius: 8px;
-  padding: 12px 16px;
+  border-radius: var(--radio);
+  padding: 16px;
   flex: 1;
   min-width: 200px;
+  transition: transform 0.2s;
 }
+.combat-option:hover { transform: translateY(-2px); }
 .combat-option h5 {
   color: var(--dorado);
+  font-family: var(--fuente-titulo);
   margin-bottom: 4px;
 }
 .combat-option p {
@@ -487,13 +688,15 @@ footer .equipo {
   color: var(--rojo);
 }
 
-/* --- Dialogos --- */
+/* ============================================================
+   DIÁLOGOS
+   ============================================================ */
 .dialogo-linea {
-  padding: 6px 12px;
+  padding: 8px 16px;
   margin: 4px 0;
   background: var(--fondo-codigo);
   border-left: 3px solid var(--dorado);
-  border-radius: 0 6px 6px 0;
+  border-radius: 0 var(--radio) var(--radio) 0;
   font-size: 0.92rem;
   line-height: 1.5;
 }
@@ -509,20 +712,14 @@ footer .equipo {
   margin-bottom: 12px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--borde);
+  border-left: none;
+  padding-left: 0;
 }
-.dialogo-mision {
-  border-left-color: var(--verde);
-}
-.dialogo-combate {
-  border-left-color: var(--rojo);
-}
-.dialogo-sistema {
-  border-left-color: var(--azul);
-}
+.dialogo-mision { border-left-color: var(--verde); }
+.dialogo-combate { border-left-color: var(--rojo); }
+.dialogo-sistema { border-left-color: var(--azul); }
 
-.info-card {
-  margin-bottom: 16px;
-}
+.info-card { margin-bottom: 16px; }
 
 .objetos-tabla {
   width: 100%;
@@ -541,18 +738,20 @@ footer .equipo {
   width: 200px;
 }
 
-/* --- Navegacion con pills (generada por navigation.js) --- */
+/* ============================================================
+   NAVEGACIÓN (generada por navigation.js)
+   ============================================================ */
 .doc-nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(14, 14, 26, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(14, 14, 26, 0.92);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--borde);
   padding: 10px 20px;
 }
 [data-theme="light"] .doc-nav {
-  background: rgba(244, 243, 238, 0.95);
+  background: rgba(245, 240, 232, 0.92);
 }
 
 .doc-nav-inner {
@@ -577,6 +776,7 @@ footer .equipo {
   border: none;
   border-radius: 0;
 }
+
 .doc-nav-pills {
   display: flex;
   gap: 4px;
@@ -602,6 +802,7 @@ footer .equipo {
 .doc-nav-pill:hover {
   color: var(--dorado);
   background: var(--fondo-tarjeta);
+  border-bottom-color: transparent;
 }
 .doc-nav-pill.active {
   color: var(--dorado-claro);
@@ -609,7 +810,7 @@ footer .equipo {
   border-color: var(--dorado);
 }
 
-/* Dropdown menus in navigation */
+/* Dropdown menus */
 .doc-nav-dropdown {
   position: relative;
   display: inline-block;
@@ -624,12 +825,12 @@ footer .equipo {
   top: 100%;
   left: 0;
   z-index: 100;
-  background: var(--fondo-tarjeta, #1a1a2e);
-  border: 1px solid var(--borde, #333);
-  border-radius: 8px;
-  padding: 4px;
-  min-width: 160px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  background: var(--fondo-tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 6px;
+  min-width: 180px;
+  box-shadow: 0 8px 24px var(--sombra);
 }
 .doc-nav-dropdown:hover .doc-nav-dropdown-menu,
 .doc-nav-dropdown.active .doc-nav-dropdown-menu:hover {
@@ -641,20 +842,22 @@ footer .equipo {
   flex-direction: column;
 }
 .doc-nav-dropdown-item {
-  padding: 6px 12px;
-  color: var(--texto, #ccc);
+  padding: 8px 14px;
+  color: var(--texto);
   text-decoration: none;
-  font-size: 0.82rem;
-  border-radius: 6px;
+  font-size: 0.85rem;
+  border-radius: 8px;
   white-space: nowrap;
+  transition: all 0.15s;
 }
 .doc-nav-dropdown-item:hover {
-  background: rgba(255,255,255,0.08);
+  background: rgba(218, 165, 32, 0.08);
   color: var(--dorado-claro);
+  border-bottom-color: transparent;
 }
 .doc-nav-dropdown-item.active {
   color: var(--dorado-claro);
-  background: rgba(255,215,0,0.1);
+  background: rgba(218, 165, 32, 0.12);
 }
 
 .doc-nav-controls {
@@ -676,6 +879,7 @@ footer .equipo {
   color: var(--texto-tenue);
   text-decoration: none;
   transition: all 0.2s;
+  border-bottom: none;
 }
 .doc-nav-lang a:hover {
   color: var(--dorado);
@@ -707,46 +911,33 @@ footer .equipo {
   border-color: var(--dorado);
 }
 
-/* --- Mapa SVG del juego --- */
+/* ============================================================
+   MAPA SVG DEL JUEGO
+   ============================================================ */
 .game-map-container {
   margin: 24px 0;
-  border-radius: 12px;
+  border-radius: var(--radio);
   overflow: hidden;
-  border: 1px solid var(--borde);
-  background: var(--fondo-tarjeta);
-}
-.game-map-container svg,
-.game-map-container canvas {
-  display: block;
-  width: 100%;
-  height: auto;
+  border: 2px solid var(--borde);
+  box-shadow: 0 4px 16px var(--sombra);
 }
 
-/* --- Nota del profesor --- */
-.nota-profesor {
-  background: var(--fondo-tarjeta);
-  border-left: 4px solid var(--dorado);
-  border-radius: 8px;
-  padding: 1.5rem 2rem;
-  margin-top: 1.5rem;
-  line-height: 1.7;
+/* ============================================================
+   SOURCE VIEWER (visor de código)
+   ============================================================ */
+.source-link {
+  cursor: pointer;
+  color: var(--dorado-claro);
+  border-bottom: 1px dashed var(--dorado);
+  transition: color 0.2s;
 }
-.nota-profesor h3 {
-  color: var(--dorado);
-  margin: 0 0 1rem 0;
-  font-size: 1.2rem;
-}
-.nota-profesor p { margin: 0.8rem 0; }
-.nota-profesor ol { padding-left: 1.2rem; margin: 0.8rem 0; }
-.nota-profesor ol li { margin: 0.6rem 0; }
-.nota-profesor .firma {
-  margin-top: 1.5rem;
-  text-align: right;
-  font-style: italic;
+.source-link:hover {
   color: var(--dorado-claro);
 }
 
-/* --- Hamburguesa: oculta en desktop, visible en móvil --- */
+/* ============================================================
+   HAMBURGUESA PARA MÓVIL
+   ============================================================ */
 .doc-nav-hamburger {
   display: none;
   background: none;
@@ -762,11 +953,10 @@ footer .equipo {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--texto-tenue, #aaa);
+  background: var(--texto-tenue);
   border-radius: 2px;
   transition: transform 0.3s, opacity 0.3s;
 }
-/* Animación X cuando está abierto */
 .doc-nav-hamburger.open span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -777,7 +967,9 @@ footer .equipo {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* --- Menú móvil (< 768px) --- */
+/* ============================================================
+   RESPONSIVE — MÓVIL (≤ 768px)
+   ============================================================ */
 @media (max-width: 768px) {
   .doc-nav-hamburger {
     display: flex;
@@ -785,16 +977,15 @@ footer .equipo {
   .doc-nav-inner {
     flex-wrap: nowrap;
   }
-  /* Ocultar pills por defecto en móvil */
   .doc-nav-pills {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--fondo-tarjeta, #1a1a2e);
-    border-top: 1px solid var(--borde, #333);
-    border-bottom: 1px solid var(--borde, #333);
+    background: var(--fondo-tarjeta);
+    border-top: 1px solid var(--borde);
+    border-bottom: 1px solid var(--borde);
     padding: 12px 16px;
     flex-direction: column;
     gap: 4px;
@@ -804,21 +995,18 @@ footer .equipo {
     z-index: 105;
   }
   [data-theme="light"] .doc-nav-pills {
-    background: rgba(244, 243, 238, 0.98);
+    background: rgba(245, 240, 232, 0.98);
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
-  /* Mostrar cuando está abierto */
   .doc-nav-pills.mobile-open {
     display: flex;
   }
-  /* Los pills se muestran a ancho completo en móvil */
   .doc-nav-pill {
     width: 100%;
     padding: 10px 14px;
     font-size: 0.9rem;
     border-radius: 8px;
   }
-  /* Dropdowns en móvil se comportan como acordeones */
   .doc-nav-dropdown {
     width: 100%;
   }
@@ -834,11 +1022,9 @@ footer .equipo {
     padding: 0 0 0 16px;
     background: transparent;
   }
-  /* Anular el hover que muestra el menú en desktop */
   .doc-nav-dropdown:hover .doc-nav-dropdown-menu {
     display: none;
   }
-  /* En móvil, se abre con tap vía JS */
   .doc-nav-dropdown.mobile-dropdown-open .doc-nav-dropdown-menu {
     display: flex;
     flex-direction: column;
@@ -847,7 +1033,6 @@ footer .equipo {
     padding: 8px 12px;
     font-size: 0.88rem;
   }
-  /* Mover controles (idioma + tema) al lado del hamburger */
   .doc-nav-controls {
     margin-left: 0;
   }
@@ -857,4 +1042,8 @@ footer .equipo {
   .doc-nav { padding: 6px 8px; }
   .hero h1 { font-size: 2rem; }
   .hero .subtitulo { font-size: 1rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.2rem; }
+  .contenedor { padding: 0 16px; }
+  section { padding: 36px 0; }
 }
