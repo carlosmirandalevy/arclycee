@@ -113,7 +113,9 @@ export class JuegoRappel {
   _actualizarDescenso(dt, entrada) {
     // --- Generar nuevos prompts ---
     this._proximoPrompt -= dt;
-    if (this._proximoPrompt <= 0 && this._promptsCompletados + this._prompts.length < this._totalPrompts) {
+    // Contar solo prompts activos (no resueltos) para decidir si generar más
+    const promptsActivos = this._prompts.filter(p => p.activo && !p.resuelto).length;
+    if (this._proximoPrompt <= 0 && this._promptsCompletados + promptsActivos < this._totalPrompts) {
       const dirs = ['arriba', 'abajo', 'izquierda', 'derecha'];
       this._prompts.push({
         dir: dirs[Math.floor(Math.random() * 4)],
