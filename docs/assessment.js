@@ -47,12 +47,19 @@
         cultural: 'Identidad triétnica, diversidad y patrimonio',
         stem: 'Robótica, datación C-14, programación y diseño'
       },
-      encouragements: [
+      encourageGood: [
         '¡Vas volando! Sigue así, crack.',
-        '¡Eso es! Ni Luffy se rinde tan fácil.',
         'A este ritmo vas a sacar un S-Rank como en el areíto.',
         '¡Tremendo! Enriquillo estaría orgulloso.',
-        '¡Dale que va! Ya casi llegas al final.'
+        '¡Imparable! Como Luffy después de un banquete.',
+        '¡Dale que va! Dominas esto.'
+      ],
+      encourageStruggle: [
+        '¡Tranqui! Hasta los héroes fallan antes de subir de nivel.',
+        'Cada error es XP para la próxima ronda. ¡Tú puedes!',
+        'Ni Luffy ganó su primera pelea. ¡Sigue intentando!',
+        'Lo importante es seguir adelante. ¡Ánimo, crack!',
+        'Los errores son power-ups disfrazados. ¡No pares!'
       ],
       finalFeedback: function(score, total) {
         var pct = score / total;
@@ -94,12 +101,19 @@
         cultural: 'Tri-ethnic identity, diversity and heritage',
         stem: 'Robotics, C-14 dating, programming and design'
       },
-      encouragements: [
+      encourageGood: [
         'You\'re on fire! Keep going, champ.',
-        'That\'s it! Even Luffy wouldn\'t give up this easy.',
         'At this rate you\'ll get an S-Rank like in the areíto.',
         'Awesome! Enriquillo would be proud.',
-        'Almost there! You\'ve got this.'
+        'Unstoppable! Like Luffy after a feast.',
+        'You\'re crushing it! Keep that streak going.'
+      ],
+      encourageStruggle: [
+        'No worries! Even heroes fail before they level up.',
+        'Every mistake is XP for the next round. You got this!',
+        'Luffy didn\'t win his first fight either. Keep going!',
+        'What matters is pushing forward. Hang in there, champ!',
+        'Mistakes are power-ups in disguise. Don\'t stop!'
       ],
       finalFeedback: function(score, total) {
         var pct = score / total;
@@ -141,12 +155,19 @@
         cultural: 'Identité tri-ethnique, diversité et patrimoine',
         stem: 'Robotique, datation C-14, programmation et conception'
       },
-      encouragements: [
+      encourageGood: [
         'Tu gères ! Continue comme ça, champion.',
-        'C\'est ça ! Même Luffy n\'abandonnerait pas aussi facilement.',
         'À ce rythme tu vas avoir un S-Rank comme dans l\'areíto.',
         'Incroyable ! Enriquillo serait fier.',
-        'Presque fini ! Tu y es presque.'
+        'Inarrêtable ! Comme Luffy après un festin.',
+        'Tu assures ! Continue sur cette lancée.'
+      ],
+      encourageStruggle: [
+        'T\'inquiète ! Même les héros échouent avant de monter de niveau.',
+        'Chaque erreur c\'est de l\'XP pour le prochain tour. Tu peux le faire !',
+        'Luffy n\'a pas gagné son premier combat non plus. Continue !',
+        'L\'important c\'est d\'avancer. Courage, champion !',
+        'Les erreurs sont des power-ups déguisés. N\'arrête pas !'
       ],
       finalFeedback: function(score, total) {
         var pct = score / total;
@@ -168,6 +189,7 @@
   var currentIndex = 0;
   var score = 0;
   var answered = false;
+  var scoreAtLastEncourage = 0;
 
   // --- Utilidades ---
   function shuffle(arr) {
@@ -220,6 +242,7 @@
     questions = shuffle(bank).slice(0, QUESTIONS_PER_QUIZ);
     currentIndex = 0;
     score = 0;
+    scoreAtLastEncourage = 0;
     el('quiz-cards-section').style.display = 'none';
     el('quiz-play-section').style.display = 'block';
     renderQuestion();
@@ -356,13 +379,10 @@
       rights[j].addEventListener('click', function () {
         if (answered || matchSelLeft === null) return;
         var rightIdx = this.getAttribute('data-idx');
-        // Si este lado derecho ya estaba emparejado con otro izquierdo, deshacer esa pareja
-        for (var key in matchPairs) {
-          if (matchPairs[key] === rightIdx) {
-            unmatchPair(key);
-            break;
-          }
-        }
+        // Si este lado derecho ya está emparejado con OTRO izquierdo, ignorar el clic.
+        // El usuario debe deshacer esa otra pareja primero (clic en el izquierdo).
+        // Esto evita romper parejas silenciosamente y confundir al usuario.
+        if (this.classList.contains('matched')) return;
         var pairColor = colors[Object.keys(matchPairs).length % colors.length];
         matchPairs[matchSelLeft] = rightIdx;
         // Visual feedback
@@ -449,10 +469,14 @@
     var text = isCorrect ? ui.correct : ui.incorrect;
     fb.innerHTML = '<strong>' + text + '</strong> ' + (explanation || '');
 
-    // Mostrar ánimo cada 4 preguntas
+    // Mostrar ánimo cada 4 preguntas, adaptado al rendimiento reciente.
+    // Si acertó 3+ de las últimas 4 → felicitar. Si no → animar sin elogiar.
     var num = currentIndex + 1;
     if (num % ENCOURAGE_EVERY === 0 && num < questions.length) {
-      var enc = ui.encouragements[Math.floor(Math.random() * ui.encouragements.length)];
+      var recentCorrect = score - (scoreAtLastEncourage || 0);
+      scoreAtLastEncourage = score;
+      var pool = recentCorrect >= 3 ? ui.encourageGood : ui.encourageStruggle;
+      var enc = pool[Math.floor(Math.random() * pool.length)];
       fb.innerHTML += '<div class="quiz-encourage">' + enc + '</div>';
     }
 
