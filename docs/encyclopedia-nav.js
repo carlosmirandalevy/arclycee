@@ -138,12 +138,20 @@
   }
 
   // --- Inicializar ---
-  document.addEventListener('DOMContentLoaded', function () {
+  // El script se carga al final del body, así que el DOM ya está listo.
+  // Usamos un check para soportar ambos casos (carga temprana o tardía).
+  function init() {
     var contenedor = document.querySelector('.contenedor');
     if (!contenedor) return;
 
     var nav = createNavCards();
     contenedor.insertBefore(nav, contenedor.firstChild);
     setupSearch();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
