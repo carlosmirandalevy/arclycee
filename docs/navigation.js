@@ -24,7 +24,7 @@
     // --- La Historia (grupo con subitems) ---
     historiaGrupo: {
       icono: '📜',
-      label: { es: 'La Historia', en: 'The Story', fr: 'L\'Histoire' },
+      label: { es: 'El Juego', en: 'Game Concept', fr: 'Le Jeu' },
       grupo: true,
       children: ['historia', 'worlds', 'characters', 'dialogues', 'archaeology', 'nature']
     },
