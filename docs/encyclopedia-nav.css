@@ -1,0 +1,103 @@
+/* ============================================================
+   ENCYCLOPEDIA-NAV.CSS — Tarjetas de navegación + búsqueda
+   ============================================================ */
+
+.ency-nav {
+  margin-bottom: 32px;
+}
+
+/* --- Barra de búsqueda --- */
+.ency-search {
+  position: relative;
+  margin-bottom: 20px;
+}
+.ency-search input {
+  width: 100%;
+  padding: 14px 20px 14px 44px;
+  border: 2px solid var(--borde, #333);
+  border-radius: 12px;
+  background: var(--fondo-tarjeta, #1a1a2e);
+  color: var(--texto, #eee);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.ency-search input:focus {
+  border-color: var(--dorado, #DAA520);
+}
+.ency-search input::placeholder {
+  color: var(--texto-tenue, #888);
+}
+.ency-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+/* --- Grid de tarjetas --- */
+.ency-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+
+.ency-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 12px;
+  background: var(--fondo-tarjeta, #1a1a2e);
+  border: 1px solid var(--borde, #333);
+  text-decoration: none;
+  color: var(--texto, #eee);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.ency-card:hover {
+  border-color: var(--dorado, #DAA520);
+  background: rgba(218, 165, 32, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.ency-card-icon {
+  font-size: 1.8rem;
+}
+.ency-card-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--texto-tenue, #aaa);
+}
+.ency-card:hover .ency-card-label {
+  color: var(--dorado-claro, #ffdd66);
+}
+
+/* --- No results --- */
+.ency-no-results {
+  text-align: center;
+  color: var(--texto-tenue, #888);
+  font-style: italic;
+  padding: 20px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .ency-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .ency-card {
+    padding: 10px 6px;
+  }
+  .ency-card-icon {
+    font-size: 1.5rem;
+  }
+  .ency-card-label {
+    font-size: 0.72rem;
+  }
+}
