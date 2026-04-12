@@ -302,6 +302,39 @@ export class MuseoHombre {
       }
     }
 
+    // --- HUD ---
+    // Vida
+    ctx.fillStyle = '#333333';
+    ctx.fillRect(10, 10, 120, 14);
+    ctx.fillStyle = '#44cc44';
+    ctx.fillRect(10, 10, 120 * ((jugador?.vida || 100) / (jugador?.vidaMaxima || 100)), 14);
+    ctx.strokeStyle = '#555555';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(10, 10, 120, 14);
+    ctx.font = '10px monospace';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'left';
+    ctx.fillText(`❤ ${Math.floor(jugador?.vida || 0)}/${jugador?.vidaMaxima || 100}`, 15, 22);
+
+    // Misión
+    ctx.font = '12px monospace';
+    ctx.fillStyle = '#FFD700';
+    const mision = this._artefactosEntregados
+      ? (textos?.dialogos?.museoHombre?.misionCompleta || '¡Artefactos entregados! Vuelve al mapa (M)')
+      : (textos?.dialogos?.museoHombre?.misionExplorar || 'Habla con el curador y entrega los artefactos');
+    ctx.fillText(`📋 ${mision}`, 15, 42);
+
+    // NPCs hablados
+    const npcsHablados = this.npcs.filter(n => n.dialogoHecho).length;
+    const totalNPCs = this.npcs.length;
+    ctx.fillStyle = npcsHablados >= totalNPCs ? '#44CC44' : '#FFD700';
+    ctx.fillText(`👥 ${npcsHablados}/${totalNPCs}`, 15, 58);
+
+    // Artefactos entregados
+    const entregados = this._artefactosEntregados ? 3 : 0;
+    ctx.fillStyle = entregados >= 3 ? '#44CC44' : '#FFD700';
+    ctx.fillText(`🏺 ${entregados}/3`, 15, 74);
+
     // Nombre del lugar y controles
     ctx.font = '11px monospace';
     ctx.fillStyle = '#AAAAAA';
