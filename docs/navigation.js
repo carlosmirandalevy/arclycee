@@ -96,6 +96,11 @@
       archivos: { es: 'assessment.html', en: 'assessment-en.html', fr: 'assessment-fr.html' },
       parent: 'pedagogiaGrupo'
     },
+    encyclopedia: {
+      icono: '📖',
+      label: { es: 'Arquepedia', en: 'Archpedia', fr: 'Archepédie' },
+      archivos: { es: 'encyclopedia.html', en: 'encyclopedia-en.html', fr: 'encyclopedia-fr.html' }
+    },
     archaeology: {
       icono: '🏛️',
       label: { es: 'Arqueología', en: 'Archaeology', fr: 'Archéologie' },
