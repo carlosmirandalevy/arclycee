@@ -56,11 +56,14 @@
     var container = document.createElement('div');
     container.className = 'ency-nav';
 
-    // Search bar
+    // Search bar with navigation arrows and counter
     var searchBar = document.createElement('div');
     searchBar.className = 'ency-search';
-    searchBar.innerHTML = '<input type="text" id="ency-search-input" placeholder="' + ui.search + '" autocomplete="off">'
-      + '<span class="ency-search-icon">🔍</span>';
+    searchBar.innerHTML = '<span class="ency-search-icon">🔍</span>'
+      + '<input type="text" id="ency-search-input" placeholder="' + ui.search + '" autocomplete="off">'
+      + '<span class="ency-search-counter" id="ency-search-counter"></span>'
+      + '<button class="ency-search-nav" id="ency-search-prev" title="' + (lang === 'fr' ? 'Précédent' : lang === 'en' ? 'Previous' : 'Anterior') + '" disabled>▲</button>'
+      + '<button class="ency-search-nav" id="ency-search-next" title="' + (lang === 'fr' ? 'Suivant' : lang === 'en' ? 'Next' : 'Siguiente') + '" disabled>▼</button>';
     container.appendChild(searchBar);
 
     // Cards grid
@@ -175,8 +178,41 @@
       }
     }
 
+    var currentMatch = -1;
+    var counter = document.getElementById('ency-search-counter');
+    var prevBtn = document.getElementById('ency-search-prev');
+    var nextBtn = document.getElementById('ency-search-next');
+
+    function updateCounter() {
+      var marks = document.querySelectorAll('.contenedor mark.ency-highlight');
+      var total = marks.length;
+      if (total === 0) {
+        counter.textContent = '';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+      counter.textContent = (currentMatch + 1) + ' / ' + total;
+      prevBtn.disabled = total <= 1;
+      nextBtn.disabled = total <= 1;
+    }
+
+    function scrollToMatch(index) {
+      var marks = document.querySelectorAll('.contenedor mark.ency-highlight');
+      if (marks.length === 0) return;
+      // Quitar resaltado activo del anterior
+      var active = document.querySelector('mark.ency-highlight-active');
+      if (active) active.classList.remove('ency-highlight-active');
+      // Aplicar al nuevo
+      currentMatch = ((index % marks.length) + marks.length) % marks.length;
+      marks[currentMatch].classList.add('ency-highlight-active');
+      marks[currentMatch].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      updateCounter();
+    }
+
     input.addEventListener('input', function () {
       clearHighlights();
+      currentMatch = -1;
 
       var allSections = document.querySelectorAll('.contenedor section[id]');
       var query = normalize(this.value.trim());
@@ -184,6 +220,7 @@
       if (!query) {
         for (var i = 0; i < allSections.length; i++) allSections[i].style.display = '';
         if (noResults) noResults.style.display = 'none';
+        updateCounter();
         return;
       }
 
@@ -200,7 +237,30 @@
         }
       }
       if (noResults) noResults.style.display = found === 0 ? '' : 'none';
+
+      // Auto-navegar al primer resultado
+      var marks = document.querySelectorAll('.contenedor mark.ency-highlight');
+      if (marks.length > 0) {
+        scrollToMatch(0);
+      } else {
+        updateCounter();
+      }
     });
+
+    // Enter en el input = siguiente resultado
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (e.shiftKey) {
+          scrollToMatch(currentMatch - 1);
+        } else {
+          scrollToMatch(currentMatch + 1);
+        }
+      }
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { scrollToMatch(currentMatch - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { scrollToMatch(currentMatch + 1); });
   }
 
   // --- Inicializar ---
