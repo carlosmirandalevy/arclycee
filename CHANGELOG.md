@@ -1,6 +1,12 @@
 # Changelog
 
-## v0.21.2 — Mini-game escape keys, counter & input fixes (2026-04-11)
+## v0.21.2 — Mini-game escape keys, counter & input fixes (2026-04-11/12)
+
+### Documentación
+- **Conteo de mundos unificado a 13**: README y 16 archivos de docs decían 11, 12 o 15 mundos según la página. Ahora todo dice 13: Cuevas del Pomier, Yucayeque de Marién, Palenque de Lemba, Yucayeque de Maguá, La Isabela, Zona Colonial, Naufragio de la Santa María, Aeropuerto de Punta Cana, Museo de las Atarazanas Reales, LFSD, Lago Enriquillo, Manantial de la Aleta, Museo del Hombre Dominicano
+- **Historia pages restructured**: split "Misiones Secundarias" into 3 secciones (Misiones Secundarias, Mini Juegos, Combates/Debates). Batú es mini-juego, no sidequest. Good Vibrations/Full Metal/Weird Science aparecen en ambas. Agregados Manantial de la Aleta y Museo del Hombre al flujo del juego
+- **Renombrado "Combate Especial" → "Combate Ciudadano"** en mechanics (ES/EN/FR) — refleja mejor el tema de activismo ciudadano
+- **Esc-to-exit para Areíto DDR**: documentado en mechanics (ES/EN/FR)
 
 ### Corregido (bug crítico de física)
 - **Salto en Cuevas del Pomier independiente del framerate**: la gravedad se aplicaba como delta fijo por frame (`velocidadY += 0.6`) mientras el movimiento se escalaba por `factorTiempo = dt*60`. A 60 Hz se compensaban, pero en monitores de 120/144/165 Hz el salto se reducía a ~40-60% de su altura, dando la sensación de "golpearse contra un techo invisible" incluso en cielo abierto. Ahora gravedad también se escala por `factorTiempo`, manteniendo la aceleración constante en 36 px/s² en cualquier framerate
@@ -8,6 +14,8 @@
 ### Agregado
 - **Esc sale del boss fight Espíritu del Cemí**: durante las fases `intro`/`combate`/`aturdido`/`golpe`/`transicion`, Esc (o Q) termina el combate y vuelve a Lago Enriquillo sin penalización. El pedestal y la espada siguen disponibles para reintentar. Toast "💨 Has huido del combate con el Espíritu del Cemí"
 - **Esc sale del Juego del Batú**: Esc/Q abandona el partido en cualquier fase y vuelve al Yucayeque de Marién. **No cuenta como derrota** — no se aplica la reputación de participación ni la toast de "cacique invicto". Nueva clave i18n `batuAbandonado` (ES/EN/FR)
+- **Esc sale del Areíto DDR**: Esc/Q abandona la danza en cualquier fase (`intro`/`bailando`/`resultado`) y vuelve al Yucayeque de Maguá sin penalización. Callback `alTerminar(gano, abandonado)` con misma firma que batú. Claves i18n completas para el areíto (ES/EN/FR)
+- **Navegación horizontal en el diálogo del areíto**: Higüemota acepta ←/→ además de ↑/↓ para elegir Aceptar/Rechazar la danza
 - **Contador de artefacto secreto en Lago Enriquillo**: nueva línea HUD `⚔️ 0/1` en y=90 para la Espada de Enriquillo. Solo se muestra tras entregar el ídolo (cuando el pedestal se vuelve visible) para no spoilear el secreto
 
 ### Corregido
