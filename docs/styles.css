@@ -747,9 +747,115 @@ footer .equipo {
   color: var(--dorado-claro);
 }
 
+/* --- Hamburguesa: oculta en desktop, visible en móvil --- */
+.doc-nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  margin-left: auto;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 110;
+}
+.doc-nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--texto-tenue, #aaa);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+/* Animación X cuando está abierto */
+.doc-nav-hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.doc-nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.doc-nav-hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- Menú móvil (< 768px) --- */
+@media (max-width: 768px) {
+  .doc-nav-hamburger {
+    display: flex;
+  }
+  .doc-nav-inner {
+    flex-wrap: nowrap;
+  }
+  /* Ocultar pills por defecto en móvil */
+  .doc-nav-pills {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--fondo-tarjeta, #1a1a2e);
+    border-top: 1px solid var(--borde, #333);
+    border-bottom: 1px solid var(--borde, #333);
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    max-height: 70vh;
+    overflow-y: auto;
+    z-index: 105;
+  }
+  [data-theme="light"] .doc-nav-pills {
+    background: rgba(244, 243, 238, 0.98);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+  /* Mostrar cuando está abierto */
+  .doc-nav-pills.mobile-open {
+    display: flex;
+  }
+  /* Los pills se muestran a ancho completo en móvil */
+  .doc-nav-pill {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+  /* Dropdowns en móvil se comportan como acordeones */
+  .doc-nav-dropdown {
+    width: 100%;
+  }
+  .doc-nav-dropdown-toggle {
+    width: 100%;
+    display: block;
+  }
+  .doc-nav-dropdown-menu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    border: none;
+    padding: 0 0 0 16px;
+    background: transparent;
+  }
+  /* Anular el hover que muestra el menú en desktop */
+  .doc-nav-dropdown:hover .doc-nav-dropdown-menu {
+    display: none;
+  }
+  /* En móvil, se abre con tap vía JS */
+  .doc-nav-dropdown.mobile-dropdown-open .doc-nav-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+  }
+  .doc-nav-dropdown-item {
+    padding: 8px 12px;
+    font-size: 0.88rem;
+  }
+  /* Mover controles (idioma + tema) al lado del hamburger */
+  .doc-nav-controls {
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 600px) {
   .doc-nav { padding: 6px 8px; }
-  .doc-nav-pill { padding: 5px 10px; font-size: 0.78rem; }
   .hero h1 { font-size: 2rem; }
   .hero .subtitulo { font-size: 1rem; }
 }

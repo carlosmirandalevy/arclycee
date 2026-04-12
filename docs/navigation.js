@@ -209,8 +209,12 @@
           + '<img src="../resources/arclycee-logo.png" alt="ArcLycée" height="28">'
           + '</a>';
 
+    // Botón hamburguesa para móvil — 3 barras que se convierten en X al abrir
+    html += '<button class="doc-nav-hamburger" id="doc-hamburger" aria-label="Menu" aria-expanded="false">'
+          + '<span></span><span></span><span></span></button>';
+
     // Pills de secciones — con soporte para grupos/dropdowns
-    html += '<div class="doc-nav-pills">';
+    html += '<div class="doc-nav-pills" id="doc-nav-pills">';
     for (var id in PAGINAS) {
       var config = PAGINAS[id];
       // Saltar items que son hijos de un grupo (se renderizan dentro del grupo)
@@ -284,6 +288,41 @@
       var nuevoTema = obtenerTema() === 'dark' ? 'light' : 'dark';
       aplicarTema(nuevoTema);
     });
+
+    // Hamburguesa para móvil — abre/cierra el menú de pills
+    var hamburger = document.getElementById('doc-hamburger');
+    var pills = document.getElementById('doc-nav-pills');
+    if (hamburger && pills) {
+      hamburger.addEventListener('click', function () {
+        var abierto = pills.classList.toggle('mobile-open');
+        hamburger.classList.toggle('open', abierto);
+        hamburger.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+      });
+      // Cerrar menú al hacer clic en un enlace (navegación inmediata)
+      pills.addEventListener('click', function (e) {
+        if (e.target.closest('a')) {
+          pills.classList.remove('mobile-open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+      // En móvil, los dropdowns se abren con tap (no hover)
+      var dropdowns = pills.querySelectorAll('.doc-nav-dropdown-toggle');
+      for (var d = 0; d < dropdowns.length; d++) {
+        dropdowns[d].addEventListener('click', function (e) {
+          // Solo en móvil (cuando la hamburguesa es visible)
+          if (window.innerWidth > 768) return;
+          e.stopPropagation();
+          var parent = this.parentElement;
+          // Cerrar otros dropdowns abiertos
+          var todos = pills.querySelectorAll('.doc-nav-dropdown.mobile-dropdown-open');
+          for (var t = 0; t < todos.length; t++) {
+            if (todos[t] !== parent) todos[t].classList.remove('mobile-dropdown-open');
+          }
+          parent.classList.toggle('mobile-dropdown-open');
+        });
+      }
+    }
 
     // Insertar logo centrado en el footer
     var footer = document.querySelector('footer');
