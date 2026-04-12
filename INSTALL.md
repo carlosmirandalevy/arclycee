@@ -75,15 +75,16 @@ firebase deploy
 arclycee/
 ├── index.html              ← Punto de entrada del juego
 ├── docs/
-│   ├── index.html          ← Documentación completa (ES)
-│   ├── en.html             ← Documentación completa (EN)
-│   ├── fr.html             ← Documentación completa (FR)
-│   ├── characters.html     ← Personajes: NPCs y equipo (ES/EN/FR)
+│   ├── index.html          ← Documentación principal (ES/EN/FR)
+│   ├── encyclopedia.html   ← Arquepedia: enciclopedia del juego (ES/EN/FR)
+│   ├── assessment.html     ← Evaluación: 600 preguntas trilingües (ES/EN/FR)
+│   ├── learning-guide.html ← Guía de aprendizaje para educadores (ES/EN/FR)
+│   ├── pedagogy.html       ← Aspectos educativos (ES/EN/FR)
+│   ├── pedagogy-ai.html    ← Uso responsable de IA (ES/EN/FR)
+│   ├── quiz/               ← 6 bancos de preguntas (100 × 3 idiomas cada uno)
 │   ├── technical.html      ← Referencia técnica con visor de código (ES/EN/FR)
-│   ├── source-viewer.js    ← Visor de código fuente con syntax highlighting
-│   ├── tech-diagrams.js    ← 10 diagramas SVG técnicos con i18n (ES/EN/FR)
-│   ├── world-previews.js   ← Renders Canvas 2D animados de los 9 mundos
-│   └── ...                 ← Mundos, mecánicas, diálogos (ES/EN/FR)
+│   ├── navigation.js       ← Navegación con hamburguesa móvil + tema claro/oscuro
+│   └── ...                 ← Mundos, mecánicas, personajes, diálogos (ES/EN/FR)
 ├── estilos/
 │   └── principal.css       ← Estilos del juego
 ├── js/

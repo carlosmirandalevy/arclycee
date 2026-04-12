@@ -73,6 +73,17 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **LeafletJS** — mapas interactivos con sitios arqueológicos reales
 - **CSS3** — estilos responsivos para desktop y móvil
 
+## Documentación y Pedagogía
+
+El sitio `/docs` incluye documentación trilingüe (ES/EN/FR) con:
+
+- **Arquepedia** — Enciclopedia completa del juego con búsqueda, resaltado y navegación por resultados
+- **Evaluación** — 600 preguntas trilingües en 6 quizzes (Historia, Geografía, Ciencias, Civismo, Cultura, STEM) con feedback inmediato
+- **Guía de Aprendizaje** — 40+ actividades para educadores y padres organizadas por área curricular
+- **Aspectos Educativos** — Historia, Geografía, Ciencias Naturales, Civismo, STEM, Conciencia Cultural, Idiomas
+- **Uso Responsable de IA** — Transparencia, supervisión docente, principios éticos
+- Mecánicas, Programación, Mundos, Personajes, Diálogos, Arqueología, Naturaleza
+
 ## Equipo
 
 Elian · Theo Jules · Carlos Guillermo · Jules · Alberto · Rafael · Tom · Tea · Eduardo · Leonardo

@@ -1,5 +1,37 @@
 # Changelog
 
+## v0.22.0 — Pedagogy suite, Archpedia, Assessment quizzes, Learning Guide (2026-04-12)
+
+### Documentación mayor
+- **Arquepedia / Archpedia / Archepédie**: enciclopedia completa del juego con 9 secciones (Personajes Históricos, Sitios Arqueológicos, Marco Legal, Fauna y Ecosistemas, Cultura Taína, Herencia Africana, Geografía, Museos, Métodos Científicos). Tarjetas de navegación rápida, búsqueda con resaltado amarillo y navegación por resultados (▲▼, Enter/Shift+Enter), barra sticky al scrollear. ES 1355 líneas, EN 1045 líneas, FR 1527 líneas
+- **Assessment / Evaluación**: sistema de quizzes con 600 preguntas trilingües (100 por tema × 6 temas). 4 tipos de pregunta (V/F, opción múltiple, completar, emparejar). 20 preguntas aleatorias por sesión. Feedback inmediato con explicación. Ánimo contextual cada 4 preguntas (felicitación si va bien, apoyo si va mal, "casi terminas" después de la pregunta 12). Puntuación final con estrellas y mensaje motivacional. Referencias a cultura pop (Marvel, Harry Potter, One Piece, Gravity Falls, etc.)
+- **Guía de Aprendizaje / Learning Guide / Guide d'Apprentissage**: guía práctica para educadores y padres con 10 secciones (introducción, guía general, Historia, Geografía, Ciencias Naturales, Civismo, STEM, Conciencia Cultural, Idiomas, recursos). 40+ actividades específicas con objetivos, pasos y resultados esperados
+- **Pedagogía: Aspectos Educativos**: nuevas secciones de Geografía (mapa NASA, coordenadas GPS, ecosistemas regionales) y Ciencias Naturales (9 especies con nombres científicos, 5 ecosistemas, cultivos taínos)
+- **Pedagogía: Uso de IA**: página completa sobre el uso responsable de IA con tabla de roles humano/IA, principios éticos, competencias desarrolladas. Enlace al documento de diseño original (bit.ly/arclycee)
+- **Menú hamburguesa**: navegación responsive para móvil en todas las páginas de docs (≤768px)
+- **Renombrado "Combate Especial" → "Combate Ciudadano"** en mecánicas (ES/EN/FR)
+- **Conteo de mundos unificado a 13** en README y 16 archivos de docs
+- **Historia pages restructuradas**: Misiones Secundarias / Mini Juegos / Combates-Debates como secciones separadas
+- **Menú de docs reorganizado**: "El Juego" (ex "La Historia") agrupa Historia, Mundos, Personajes, Diálogos, Arqueología y Naturaleza. "Pedagogía" agrupa Educación, Uso de IA, Guía de Aprendizaje y Evaluación
+
+### Agregado (juego)
+- **Nitaínos y naborías en el juego**: Guacanagaríx explica la estructura social taína (caciques, nitaínos, naborías, behiques) en nuevo diálogo cacique4/cacique5 (ES/EN/FR)
+- **Esc sale del Areíto DDR**: misma mecánica que batú/boss, callback `alTerminar(gano, abandonado)`
+- **Navegación horizontal en diálogos de Higüemota**: ←/→ para opciones del areíto
+- **Claves i18n completas para areíto**: 8 claves nuevas en ES/EN/FR (oferta, aceptar, rechazar, repetir, victoria, derrota, abandonado, reputación)
+- **Pista de la Espada de Enriquillo**: toast al salir del lago por primera vez
+- **Pista de Anacaona**: toast tras primera conversación sugiriendo misión secreta
+- **HUD de Lago Enriquillo**: contadores NPCs 0/3, Caritas 0/1, Espada ⚔️ 0/1
+
+### Corregido
+- **Salto en Cuevas del Pomier independiente del framerate**: gravedad escalada por factorTiempo
+- **Match scoring por texto**: compara texto de parejas, no índices (maneja duplicados)
+- **Sinónimos en fill-in-the-blank**: 150 preguntas ahora aceptan respuestas alternativas válidas
+- **Acentos corregidos**: history.js y social.js reescritos con acentos correctos ES/FR
+- **Docs link en menú del juego**: `docs/` en vez de `docs/index.html` para localhost
+
+---
+
 ## v0.21.2 — Mini-game escape keys, counter & input fixes (2026-04-11/12)
 
 ### Documentación

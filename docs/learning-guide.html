@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Guía de Aprendizaje</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="../resources/favicon.ico">
+</head>
+<body>
+  <div id="doc-nav"></div>
+  <div class="contenedor">
+
+    <!-- ============================================================
+         SECCIÓN 1: INTRODUCCIÓN
+         ============================================================ -->
+    <section id="introduccion">
+      <h2><span class="icono">🧭</span> Introducción</h2>
+      <p class="intro">Esta guía es un recurso práctico para educadores y padres que deseen utilizar ArcLycée, su sitio de documentación (<a href="index.html">/docs</a>) y la <a href="encyclopedia.html">Arquepedia</a> como herramientas de aprendizaje en el aula, en casa o en cualquier entorno educativo.</p>
+
+      <h3>¿Qué es ArcLycée?</h3>
+      <p>ArcLycée es un RPG 2D educativo sobre el patrimonio arqueológico, histórico y natural de la República Dominicana. Fue creado por <em>les fous du robot</em> — estudiantes de aproximadamente 13 años del Liceo Francés de Santo Domingo — usando HTML5 Canvas y JavaScript puro. El juego combina exploración, diálogos con personajes históricos reales, combate estilo <em>Undertale</em> con opción pacifista, mini-juegos y una enciclopedia integrada con fuentes verificadas.</p>
+
+      <h3>¿A quién va dirigido?</h3>
+      <p>El juego está diseñado para estudiantes de <strong>10 a 16 años</strong>, pero su contenido es lo suficientemente profundo como para interesar a adultos. Las actividades de esta guía están pensadas para ser adaptadas por el docente según el nivel de su grupo.</p>
+
+      <h3>Sin instalación, sin barreras</h3>
+      <ul>
+        <li><strong>Funciona en cualquier navegador</strong> — Chrome, Firefox, Safari, Edge. No requiere instalación, plugins ni cuenta de usuario.</li>
+        <li><strong>Trilingüe</strong> — El idioma (español, inglés, francés) se puede cambiar en cualquier momento desde el menú principal.</li>
+        <li><strong>Guardado automático</strong> — El progreso se guarda en el navegador al volver al mapa del mundo.</li>
+        <li><strong>Código abierto</strong> — Todo el código fuente está disponible en GitHub, comentado en español para que los propios estudiantes puedan leerlo.</li>
+      </ul>
+
+      <h3>Recursos disponibles</h3>
+      <p>ArcLycée cuenta con un ecosistema completo de recursos pedagógicos:</p>
+      <ul>
+        <li><strong><a href="../index.html">El juego</a></strong> — La experiencia interactiva principal.</li>
+        <li><strong><a href="encyclopedia.html">La Arquepedia</a></strong> — Enciclopedia con artículos detallados, fuentes académicas y referencias para cada tema del juego.</li>
+        <li><strong><a href="assessment.html">Evaluaciones</a></strong> — Cuestionarios de 20 preguntas aleatorias por tema (Historia, Ciencias, Geografía, Civismo, Código), con retroalimentación inmediata.</li>
+        <li><strong><a href="index.html">Documentación del proyecto</a></strong> — Historia, mundos, personajes, mecánicas, programación y pedagogía.</li>
+        <li><strong><a href="https://bit.ly/arclycee" target="_blank">Documento de diseño</a></strong> — El GDD (Game Design Document) original del proyecto.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 2: GUÍA GENERAL
+         ============================================================ -->
+    <section id="guia-general">
+      <h2><span class="icono">📋</span> Guía General</h2>
+      <p class="intro">Recomendaciones prácticas para aprovechar al máximo ArcLycée en el aula o en casa, organizadas en tres momentos: antes, durante y después del juego.</p>
+
+      <h3>Antes de jugar</h3>
+      <ol>
+        <li><strong>Explore el sitio de documentación</strong> — Visite <a href="index.html">/docs</a> y familiarícese con los mundos, personajes y mecánicas. Esto le permitirá guiar a los estudiantes con confianza.</li>
+        <li><strong>Lea la Arquepedia</strong> — La <a href="encyclopedia.html">Arquepedia</a> contiene todos los datos históricos, científicos y geográficos del juego con sus fuentes. Es su referencia principal para evaluar lo que los estudiantes aprenden.</li>
+        <li><strong>Identifique áreas curriculares</strong> — Decida qué temas desea reforzar (Historia Dominicana, Ciencias Naturales, Geografía, Civismo, Idiomas, STEM). Cada sección de esta guía ofrece actividades específicas por disciplina.</li>
+        <li><strong>Prepare preguntas de discusión</strong> — Formule 3-5 preguntas abiertas para la reflexión posterior. Ejemplos: <em>¿Por qué el juego ofrece una ruta pacifista?</em>, <em>¿Qué aprendiste sobre los taínos que no sabías?</em>, <em>¿Qué harías tú para proteger un sitio arqueológico?</em></li>
+        <li><strong>Defina la duración de la sesión</strong> — Una sesión completa del juego toma entre 3 y 5 horas. Para el aula, considere sesiones de 30-45 minutos enfocadas en 1-2 mundos específicos.</li>
+      </ol>
+
+      <h3>Durante el juego</h3>
+      <ol>
+        <li><strong>Permita la exploración libre</strong> — El aprendizaje por descubrimiento es más efectivo que la instrucción directa. Deje que los estudiantes exploren a su ritmo antes de guiarlos hacia objetivos específicos.</li>
+        <li><strong>Fomente la ruta pacifista</strong> — Cada combate puede resolverse sin violencia. Pregunte a los estudiantes <em>por qué</em> el juego ofrece esta opción y qué les parece más difícil: pelear o convencer.</li>
+        <li><strong>Anime a tomar notas</strong> — Los NPCs (personajes no jugables) comparten datos históricos, científicos y culturales reales. Pida a los estudiantes que anoten al menos 5 datos nuevos que aprendan durante la sesión.</li>
+        <li><strong>Use el Álbum de Fotos (tecla P)</strong> — Los estudiantes pueden fotografiar especies, corales, petroglifos y NPCs con las teclas T (foto) y G (selfie). El álbum sirve como un cuaderno de campo visual.</li>
+        <li><strong>Consulte el Registro de Juego (tecla L)</strong> — Muestra el progreso en la historia principal y las misiones secundarias. Útil para verificar qué ha completado cada estudiante.</li>
+        <li><strong>Abra el Mapa de Referencia (tecla R)</strong> — El mapa Leaflet muestra las ubicaciones reales de los 13 mundos del juego sobre cartografía real, con 6 capas de datos arqueológicos, coloniales, de naufragios y museos.</li>
+      </ol>
+
+      <h3>Después de jugar</h3>
+      <ol>
+        <li><strong>Discusión grupal</strong> — Reúna a los estudiantes y haga una ronda de lo más sorprendente, lo más difícil y lo que más les gustó. Compare las respuestas entre quienes eligieron la ruta pacifista y quienes no.</li>
+        <li><strong>Verificación con fuentes reales</strong> — Pida a los estudiantes que verifiquen 3 datos del juego usando la Arquepedia, Wikipedia u otras fuentes. ¿El juego era preciso? ¿Faltó algo?</li>
+        <li><strong>Evaluaciones formales</strong> — Las <a href="assessment.html">evaluaciones</a> ofrecen 20 preguntas aleatorias por tema con retroalimentación inmediata. Pueden usarse como quiz, tarea o autoevaluación.</li>
+        <li><strong>Asignaciones creativas</strong> — Opciones para diferentes estilos de aprendizaje:
+          <ul>
+            <li><em>Escritura</em>: Escribir una entrada de diario como Pepito/Pepita después de un mundo específico.</li>
+            <li><em>Arte</em>: Dibujar una escena del juego o diseñar un nuevo personaje con fundamentación histórica.</li>
+            <li><em>Oralidad</em>: Presentar un mundo del juego como si fueran guías turísticos del sitio real.</li>
+            <li><em>Investigación</em>: Profundizar en un tema del juego usando fuentes primarias.</li>
+          </ul>
+        </li>
+        <li><strong>Conexión con la actualidad</strong> — ¿Qué temas del juego son relevantes hoy? (Conservación marina, tráfico de artefactos, patrimonio UNESCO, identidad cultural.)</li>
+      </ol>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 3: HISTORIA
+         ============================================================ -->
+    <section id="historia">
+      <h2><span class="icono">📜</span> Historia</h2>
+      <p class="intro">ArcLycée cubre más de 5,000 años de historia de La Hispaniola — desde los primeros asentamientos taínos hasta los desafíos contemporáneos de protección del patrimonio. Estas actividades convierten el juego en una máquina del tiempo interactiva.</p>
+
+      <h3>Actividad 1: La herencia taína viva</h3>
+      <p><strong>Objetivo:</strong> Reconocer la influencia taína en la vida cotidiana actual.</p>
+      <p><strong>Instrucciones:</strong> Juegue los dos Asentamientos Taínos (mundos 1 y 2). Hable con todos los NPCs y explore los bohíos, conucos y el batey. Después, haga una lista de al menos 5 cosas que los taínos nos legaron y que todavía usamos hoy.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes identificarán palabras y objetos como <em>hamaca</em>, <em>canoa</em>, <em>casabe</em>, <em>barbacoa</em>, <em>tabaco</em>, <em>maíz</em>, <em>huracán</em>, <em>batata</em> y <em>ají</em>. Discutan: ¿sabían que estas palabras son de origen taíno? ¿Qué dice esto sobre la influencia de una cultura que muchos consideran «desaparecida»?</p>
+
+      <h3>Actividad 2: La rebelión de Enriquillo</h3>
+      <p><strong>Objetivo:</strong> Comprender la resistencia indígena y sus motivaciones.</p>
+      <p><strong>Instrucciones:</strong> Visite el Lago Enriquillo en el juego. Hable con Enriquillo (tiene 6 diálogos rotativos sobre su rebelión de 1519-1533) y con Mencía. Después, escriba la historia de Enriquillo con sus propias palabras en un máximo de 300 palabras.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes narrarán la rebelión de Enriquillo, incluyendo: sus motivos (maltrato colonial, muerte de Mencía/violencia contra los suyos), la duración del conflicto (14 años), la estrategia guerrillera en el Bahoruco y la negociación de paz. <strong>Extensión:</strong> Compare esta rebelión con otros movimientos de resistencia en las Américas (los cimarrones de Lemba, Tupac Amaru II, Hatuey en Cuba).</p>
+
+      <h3>Actividad 3: Zona Colonial — patrimonio UNESCO</h3>
+      <p><strong>Objetivo:</strong> Conectar los sitios del juego con lugares reales visitables.</p>
+      <p><strong>Instrucciones:</strong> Explore la Zona Colonial en el juego y tome nota de todos los edificios y personajes históricos mencionados. Luego, abra el Mapa de Referencia (tecla R) y active la capa «Coloniales». Ubique cada sitio en Google Maps.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes crearán un mapa anotado con la Catedral Primada de América, el Alcázar de Colón, las Ruinas de San Francisco, la Fortaleza Ozama y otros sitios. Para cada uno, escribirán una ficha con: nombre, fecha de construcción, función original y estado actual. <strong>Extensión:</strong> Consulte las entradas correspondientes en la <a href="encyclopedia.html">Arquepedia</a> para datos adicionales.</p>
+
+      <h3>Actividad 4: El combate legal — proteger el patrimonio</h3>
+      <p><strong>Objetivo:</strong> Entender por qué existen leyes de protección del patrimonio cultural.</p>
+      <p><strong>Instrucciones:</strong> Juegue el Mundo Jurídico (Aeropuerto de Punta Cana). Preste atención a las 4 opciones de combate contra el traficante Torres: Ley 318, evidencia forense, INTERPOL y Convención UNESCO 1970. Discuta en grupo: ¿por qué estas herramientas legales son necesarias?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes podrán explicar: qué prohíbe la Ley 318 (exportación ilegal de bienes culturales dominicanos), cómo la evidencia forense (como el carbono-14) verifica la autenticidad de artefactos, cuál es el rol de INTERPOL en el rastreo de arte robado, y qué establece la Convención UNESCO de 1970. <strong>Debate:</strong> ¿Es justo que un museo europeo tenga artefactos taínos? ¿Deberían devolverlos?</p>
+
+      <h3>Actividad 5: Línea del tiempo</h3>
+      <p><strong>Objetivo:</strong> Situar los eventos del juego en su contexto cronológico.</p>
+      <p><strong>Instrucciones:</strong> Usando la información del juego, la <a href="encyclopedia.html">Arquepedia</a> y la página de <a href="historia.html">Historia</a>, organice los mundos del juego en orden cronológico. Cree una línea del tiempo visual con fechas, imágenes y breves descripciones.</p>
+      <p><strong>Resultado esperado:</strong> La línea del tiempo incluirá:</p>
+      <ul>
+        <li><strong>~3000 a.C. – 1492</strong> — Era Taína: asentamientos, petroglifos en Cuevas del Pomier, desarrollo de la agricultura (yuca, maíz).</li>
+        <li><strong>1492</strong> — Llegada de Colón. Fundación de La Isabela (primera ciudad europea en el Nuevo Mundo).</li>
+        <li><strong>~1500-1540</strong> — Zona Colonial de Santo Domingo. Palenque de Lemba (resistencia cimarrona).</li>
+        <li><strong>1519-1533</strong> — Rebelión de Enriquillo en el Bahoruco / Lago Enriquillo.</li>
+        <li><strong>Época moderna</strong> — Mundo Acuático (conservación marina), Laboratorio y Museo (arqueología científica), Aeropuerto (protección legal del patrimonio).</li>
+      </ul>
+      <p><strong>Extensión:</strong> Agregue 5 eventos históricos que no están en el juego pero que ocurrieron entre los períodos representados.</p>
+
+      <h3>Ideas adicionales</h3>
+      <ul>
+        <li><strong>Investigación</strong>: Elija un personaje histórico del juego (Anacaona, Guarionex, Fray Ramón Pané, Bartolomé de las Casas, Roberto Cassá) e investigue su vida real más allá de lo que dice el juego.</li>
+        <li><strong>Presentación oral</strong>: Prepare una exposición de 5 minutos sobre un mundo del juego como si fuera una conferencia histórica.</li>
+        <li><strong>Ensayo comparativo</strong>: Compare la conquista de La Hispaniola con la de otro territorio americano. ¿Qué similitudes y diferencias encuentra?</li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 4: GEOGRAFÍA
+         ============================================================ -->
+    <section id="geografia">
+      <h2><span class="icono">🗺️</span> Geografía</h2>
+      <p class="intro">El mapa del juego fue trazado pixel a pixel a partir de imágenes topográficas de la NASA. Cada río, cordillera y lago refleja la geografía real de La Hispaniola. Estas actividades transforman el juego en un atlas interactivo.</p>
+
+      <h3>Actividad 1: Del juego al mapa real</h3>
+      <p><strong>Objetivo:</strong> Localizar los sitios del juego en la geografía real de la República Dominicana.</p>
+      <p><strong>Instrucciones:</strong> Abra el Mapa de Referencia del juego (tecla R) y active todas las capas. Compare las ubicaciones con Google Maps o Google Earth. Identifique los 13 mundos del juego en un mapa físico impreso o digital.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes ubicarán: Cuevas del Pomier (San Cristóbal), La Isabela (Puerto Plata), Zona Colonial (Santo Domingo), Palenque de Lemba (Bahoruco), Lago Enriquillo (frontera sur), Manantial de la Aleta (Parque Nacional Cotubanamá, Bayahíbe), Mundo Acuático (costa norte), LFSD (Santo Domingo), Museo del Hombre Dominicano (Santo Domingo) y Aeropuerto de Punta Cana. Para cada uno, anotarán: provincia, coordenadas aproximadas y distancia desde Santo Domingo.</p>
+
+      <h3>Actividad 2: Lago Enriquillo — un ecosistema extremo</h3>
+      <p><strong>Objetivo:</strong> Comprender las características geográficas únicas del Lago Enriquillo.</p>
+      <p><strong>Instrucciones:</strong> Después de jugar el mundo del Lago Enriquillo, investigue: ¿Por qué el lago está a 40 metros bajo el nivel del mar? ¿Por qué es hipersalino (3 veces más salado que el mar)? ¿Qué hace única a la Isla Cabritos (Guarizacca)?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes explicarán la formación geológica del Lago Enriquillo como un antiguo canal marino que quedó aislado por actividad tectónica, la evaporación como causa de su hipersalinidad, y la Isla Cabritos como refugio de especies endémicas (iguanas rinoceronte, iguanas de Ricord, cocodrilos americanos). <strong>Extensión:</strong> Compare con otros lagos bajo el nivel del mar (Mar Muerto, Mar Caspio, Valle de la Muerte).</p>
+
+      <h3>Actividad 3: Crear tu propio mapa</h3>
+      <p><strong>Objetivo:</strong> Aplicar técnicas cartográficas básicas.</p>
+      <p><strong>Instrucciones:</strong> El mapa del juego usa un bitmap de 128×68 tiles donde cada «1» es tierra y cada «0» es agua. Las cordilleras, ríos y lagos se superponen con algoritmos. Usando papel cuadriculado (o una hoja de cálculo), cree un mapa de su barrio, ciudad o una isla ficticia usando una técnica similar: defina primero el contorno (tierra/agua), luego agregue relieve, ríos y puntos de interés.</p>
+      <p><strong>Resultado esperado:</strong> Cada estudiante producirá un mapa basado en tiles con leyenda, escala aproximada y al menos 5 puntos de interés etiquetados. Discuta: ¿qué información se pierde al simplificar un territorio en una cuadrícula? ¿Qué decisiones debieron tomar los creadores del juego al trazar La Hispaniola?</p>
+
+      <h3>Actividad 4: Clima y ecosistemas — la diversidad de una isla</h3>
+      <p><strong>Objetivo:</strong> Entender cómo la geografía determina los ecosistemas.</p>
+      <p><strong>Instrucciones:</strong> Compare dos mundos opuestos del juego: el Lago Enriquillo (bosque xerofítico seco, cactus, iguanas) y el Mundo Acuático (arrecifes de coral, tortugas marinas, ballenas). Investigue: ¿por qué ecosistemas tan diferentes coexisten en la misma isla? ¿Qué factores geográficos explican esta diversidad?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes identificarán factores como: altitud (la Cordillera Central supera los 3,000m), efecto de sombra orográfica (lluvias en la vertiente norte, sequía en el sur), corrientes marinas cálidas que nutren los arrecifes, y el aislamiento geográfico que favorece el endemismo. Creen un diagrama o infografía mostrando al menos 4 ecosistemas de la isla y sus causas geográficas.</p>
+
+      <h3>Actividad 5: Los ríos de La Hispaniola</h3>
+      <p><strong>Objetivo:</strong> Conocer los principales sistemas fluviales de la isla.</p>
+      <p><strong>Instrucciones:</strong> El mapa del juego incluye 5 ríos trazados con el algoritmo de Bresenham. Identifíquelos en el juego y luego trace sus recorridos completos en un mapa real: Yaque del Norte, Yaque del Sur, Ozama, Artibonito y Yuna. Para cada río, investigue: ¿dónde nace? ¿Dónde desemboca? ¿Qué ciudades atraviesa? ¿Cuál es su importancia económica?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán un mapa hidrográfico de La Hispaniola con los 5 ríos principales trazados, incluyendo: nacimiento (generalmente en la Cordillera Central), recorrido, desembocadura y ciudades ribereñas. <strong>Discusión:</strong> ¿Por qué el Artibonito es importante para Haití? ¿Cómo afecta la deforestación a las cuencas fluviales?</p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 5: CIENCIAS NATURALES
+         ============================================================ -->
+    <section id="ciencias">
+      <h2><span class="icono">🔬</span> Ciencias Naturales</h2>
+      <p class="intro">Todas las especies, ecosistemas y comportamientos animales del juego son científicamente precisos. El Mundo Acuático, el Lago Enriquillo y el Santuario del Manatí funcionan como laboratorios virtuales de biología marina y ecología.</p>
+
+      <h3>Actividad 1: Reto de identificación de especies</h3>
+      <p><strong>Objetivo:</strong> Aprender a identificar y clasificar especies marinas usando nomenclatura científica.</p>
+      <p><strong>Instrucciones:</strong> Juegue el Mundo Acuático y fotografíe (tecla T) cada especie que encuentre: 4 especies de tortugas marinas (carey, tinglar, caguama, verde), ballenas jorobadas, pez león, manatí, medusas y corales. Luego, use la <a href="encyclopedia.html">Arquepedia</a> para encontrar el nombre científico de cada una.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes crearán fichas de especies con: nombre común, nombre científico (en cursiva), clasificación taxonómica (clase, orden, familia), hábitat, dieta, estado de conservación (UICN) y un dato curioso. Ejemplo: <em>Tortuga Carey — Eretmochelys imbricata — En peligro crítico — Su caparazón era usado para fabricar peines y joyería</em>.</p>
+
+      <h3>Actividad 2: Especies invasoras — el caso del pez león</h3>
+      <p><strong>Objetivo:</strong> Comprender el impacto ecológico de las especies invasoras y los métodos de control.</p>
+      <p><strong>Instrucciones:</strong> Después del combate contra el pez león en el Mundo Acuático (que ofrece 4 opciones ecológicas: atrapar, pescar con arpón, proteger coral, alertar buzos), investigue: ¿De dónde proviene el pez león (<em>Pterois volitans</em>)? ¿Cómo llegó al Caribe? ¿Por qué es tan destructivo? ¿Cuáles son los métodos reales de control?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes escribirán un informe de una página que incluya: origen (Indo-Pacífico), causa de la invasión (liberación de acuarios en Florida, ~1985), impacto (devora hasta 30 especies nativas de peces y crustáceos, sin depredadores naturales en el Caribe), y métodos de control reales (pesca con arpón, trampas, torneos de captura, promoción gastronómica). <strong>Debate:</strong> ¿Es ético matar una especie para salvar otras?</p>
+
+      <h3>Actividad 3: Ecosistema del Lago Enriquillo</h3>
+      <p><strong>Objetivo:</strong> Construir una red trófica a partir de las especies del juego.</p>
+      <p><strong>Instrucciones:</strong> En el mundo del Lago Enriquillo, identifique todas las especies: cocodrilos americanos (<em>Crocodylus acutus</em>), iguanas rinoceronte (<em>Cyclura cornuta</em>), iguanas de Ricord (<em>Cyclura ricordii</em>), flamencos rosados (<em>Phoenicopterus ruber</em>), cucús (<em>Athene cunicularia</em>), culebras corredoras (<em>Haitiophis anomalus</em>). Construya un diagrama de red trófica.</p>
+      <p><strong>Resultado esperado:</strong> El diagrama mostrará: productores (algas, vegetación xerofítica, plancton), consumidores primarios (iguanas herbívoras, flamencos que filtran crustáceos), consumidores secundarios (culebras, cucús que comen insectos y lagartijas) y depredadores tope (cocodrilos). Incluya flechas que muestren el flujo de energía. <strong>Pregunta de análisis:</strong> ¿Qué pasaría si los cocodrilos desaparecieran? ¿Y si las iguanas se extinguieran?</p>
+
+      <h3>Actividad 4: Proyecto de conservación marina</h3>
+      <p><strong>Objetivo:</strong> Diseñar un plan de conservación basado en problemas reales.</p>
+      <p><strong>Instrucciones:</strong> Después de completar el Santuario del Manatí (donde se liberan manatíes atrapados y se limpian arrecifes dañados), investigue los esfuerzos reales de conservación del manatí antillano (<em>Trichechus manatus</em>) en la República Dominicana. Diseñe un póster o infografía de conservación.</p>
+      <p><strong>Resultado esperado:</strong> El póster incluirá: estado actual de la especie (vulnerable, población estimada), amenazas principales (colisiones con embarcaciones, pérdida de hábitat, contaminación), áreas protegidas existentes, acciones que los ciudadanos pueden tomar, y un eslogan original. <strong>Extensión:</strong> Investigue el Programa de Conservación de Mamíferos Marinos del Ministerio de Medio Ambiente de la RD.</p>
+
+      <h3>Actividad 5: Laboratorio de corales</h3>
+      <p><strong>Objetivo:</strong> Conocer la biología de los corales y su importancia ecológica.</p>
+      <p><strong>Instrucciones:</strong> El juego incluye 4 tipos de coral fotografiables: coral cerebro, coral cuerno de alce, coral abanico (gorgonia) y coral de mesa. Investigue la biología real de cada uno: ¿son animales o plantas? ¿Cómo se alimentan? ¿Por qué son esenciales para el ecosistema marino?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán fichas científicas para cada tipo de coral que incluyan: clasificación (cnidarios, no plantas), relación simbiótica con zooxantelas, método de alimentación (fotosíntesis de las zooxantelas + captura de plancton), función ecológica (hábitat para el 25% de las especies marinas), y amenazas actuales (blanqueamiento por calentamiento, acidificación oceánica). <strong>Actividad práctica:</strong> Si es posible, construir modelos 3D de cada tipo de coral con materiales reciclados.</p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 6: CIVISMO Y RESPONSABILIDAD SOCIAL
+         ============================================================ -->
+    <section id="civismo">
+      <h2><span class="icono">🤝</span> Civismo, Habilidades Sociales y Responsabilidad Social</h2>
+      <p class="intro">El sistema de combate de ArcLycée, inspirado en Undertale, permite resolver todos los conflictos sin violencia. Las decisiones del jugador tienen consecuencias que se reflejan en 5 finales diferentes. Esto convierte cada partida en un laboratorio de ética y ciudadanía.</p>
+
+      <h3>Actividad 1: Pacifismo vs. agresión — consecuencias de nuestras decisiones</h3>
+      <p><strong>Objetivo:</strong> Reflexionar sobre las consecuencias de la violencia y la no-violencia.</p>
+      <p><strong>Instrucciones:</strong> Juegue un mismo combate de dos maneras: primero usando solo la opción de ataque, y luego usando solo las opciones de diálogo y convencimiento. Compare los resultados: ¿cuánta reputación ganó en cada caso? ¿Cómo reaccionó el enemigo? ¿Qué final del juego se acerca más con cada estrategia?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes descubrirán que la victoria pacífica otorga +15 de reputación (vs. +5 por fuerza), que los enemigos tienen respuestas específicas a cada argumento, y que el juego rastrea <em>combatesPacificados</em> vs. <em>combatesViolentos</em> para determinar el final. <strong>Discusión:</strong> ¿Es siempre posible resolver conflictos sin violencia en la vida real? ¿Cuándo sí y cuándo no? ¿Por qué el juego recompensa más la paz?</p>
+
+      <h3>Actividad 2: Activismo ciudadano — defender el patrimonio</h3>
+      <p><strong>Objetivo:</strong> Experimentar formas legítimas de activismo ciudadano.</p>
+      <p><strong>Instrucciones:</strong> En la Zona Colonial, el combate contra el constructor Méndez incluye opciones como organizar protestas, contactar a la prensa y formar cadenas humanas. Después de jugarlo, organice una simulación en clase: elija un tema patrimonial local (un edificio histórico amenazado, un espacio verde en peligro, un sitio cultural abandonado) y haga que los estudiantes creen materiales de activismo.</p>
+      <p><strong>Resultado esperado:</strong> Los equipos producirán: un comunicado de prensa de 200 palabras, 2-3 carteles de protesta con consignas, una carta dirigida a las autoridades competentes y un plan de acción de 5 pasos. Presenten sus campañas al resto de la clase y voten por la más efectiva. <strong>Extensión:</strong> Envíe realmente la carta a la autoridad local correspondiente.</p>
+
+      <h3>Actividad 3: Juicio simulado — el caso Torres</h3>
+      <p><strong>Objetivo:</strong> Comprender el funcionamiento del sistema legal en la protección del patrimonio.</p>
+      <p><strong>Instrucciones:</strong> Después de jugar el Mundo Jurídico (Aeropuerto), organice un juicio simulado. Asigne roles: fiscal (usando la Ley 318 y la Convención UNESCO 1970), defensor del acusado Torres, juez, jurado de 5-7 estudiantes, testigos expertos (arqueólogo, agente de aduanas, representante del Museo del Hombre Dominicano).</p>
+      <p><strong>Resultado esperado:</strong> El juicio durará 30-45 minutos. El fiscal presentará evidencia basada en las 4 opciones del combate legal del juego. La defensa intentará justificar las acciones de Torres. El jurado deliberará y emitirá un veredicto razonado. <strong>Reflexión final:</strong> ¿El veredicto fue justo? ¿Qué derechos tiene el acusado? ¿Cómo equilibramos la justicia con la protección del patrimonio?</p>
+
+      <h3>Actividad 4: Plan de acción ecológica</h3>
+      <p><strong>Objetivo:</strong> Convertir la conciencia ambiental del juego en acción real.</p>
+      <p><strong>Instrucciones:</strong> Después de completar el Santuario del Manatí (2 acciones ecológicas: liberar manatí + limpiar arrecife) y el combate ecológico contra el pez león, cree un plan de acción para un problema ambiental local. Puede ser: limpieza de playa, reciclaje en la escuela, reducción de plástico, jardín escolar, o campaña de sensibilización.</p>
+      <p><strong>Resultado esperado:</strong> Cada equipo presentará un plan con: diagnóstico del problema (datos reales), objetivo medible (ej: «recoger 50 kg de plástico en la playa X»), cronograma de 4 semanas, recursos necesarios, responsables y métrica de éxito. <strong>Reto:</strong> Ejecute realmente el plan y documente los resultados con fotos y datos.</p>
+
+      <h3>Actividad 5: Árbol de consecuencias</h3>
+      <p><strong>Objetivo:</strong> Visualizar cómo las decisiones individuales generan cadenas de consecuencias.</p>
+      <p><strong>Instrucciones:</strong> ArcLycée tiene 5 finales que dependen de las decisiones del jugador a lo largo de toda la partida: completo, pacifista, museo, ecológico y oscuro. Trace un árbol de decisiones que muestre cómo las elecciones del jugador (pacificar vs. pelear, completar misiones secundarias, realizar acciones ecológicas) conducen a cada final.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán un diagrama tipo árbol o mapa mental con al menos 10 puntos de decisión y las 5 ramas finales. Etiquetarán cada nodo con la decisión y su consecuencia. <strong>Discusión:</strong> ¿Nuestras decisiones reales también tienen consecuencias ramificadas? Dé un ejemplo de su propia vida donde una decisión tuvo efectos inesperados.</p>
+
+      <h3>Actividad 6: Patrimonio UNESCO — ¿qué merece ser protegido?</h3>
+      <p><strong>Objetivo:</strong> Comprender los criterios de protección del patrimonio mundial.</p>
+      <p><strong>Instrucciones:</strong> La Zona Colonial de Santo Domingo es Patrimonio de la Humanidad UNESCO desde 1990. Investigue: ¿qué criterios usó UNESCO para declararla? ¿Cuántos sitios UNESCO tiene la República Dominicana? Luego, proponga un lugar de su ciudad o país que merezca protección UNESCO. Escriba una nominación formal de 500 palabras.</p>
+      <p><strong>Resultado esperado:</strong> La nominación incluirá: descripción del sitio, valor histórico/cultural/natural, criterios UNESCO que cumple (de los 10 criterios existentes), amenazas actuales y plan de protección propuesto. Presenten las nominaciones ante la clase, que actuará como Comité UNESCO votante.</p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 7: STEM Y PENSAMIENTO COMPUTACIONAL
+         ============================================================ -->
+    <section id="stem">
+      <h2><span class="icono">🔧</span> STEM, Pensamiento Computacional y Código</h2>
+      <p class="intro">ArcLycée fue programado por estudiantes de 13 años. Todo el código fuente está comentado en español, diseñado para ser leído por jóvenes. Estas actividades conectan el juego con matemáticas, ciencia, tecnología e ingeniería.</p>
+
+      <h3>Actividad 1: Laboratorio de carbono-14</h3>
+      <p><strong>Objetivo:</strong> Aplicar la fórmula de datación radiométrica a problemas reales.</p>
+      <p><strong>Instrucciones:</strong> En el Mundo Laboratorio, los NPCs explican cómo el carbono-14 se usa para datar artefactos arqueológicos. Usando la fórmula de descomposición radiactiva N(t) = N₀ × (1/2)<sup>t/5730</sup>, calcule la edad de artefactos con diferentes porcentajes de C-14 restante.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes resolverán problemas como: «Un artefacto taíno tiene el 85% de su C-14 original. ¿Cuántos años tiene?» (Respuesta: ~1,340 años.) «Un hueso encontrado en La Isabela tiene el 94% de su C-14. ¿Es consistente con 1492?» (Respuesta: 94% ≈ 510 años, sí es consistente.) <strong>Extensión:</strong> ¿Por qué el C-14 no sirve para objetos de más de 50,000 años? ¿Qué métodos se usan en esos casos?</p>
+
+      <h3>Actividad 2: Leer código como los creadores</h3>
+      <p><strong>Objetivo:</strong> Desarrollar la capacidad de leer y comprender código fuente real.</p>
+      <p><strong>Instrucciones:</strong> Visite la <a href="technical.html">documentación técnica</a> y use el visor de código fuente integrado para explorar un archivo del juego. Sugerencias para principiantes: <code>js/mecanicas/batu.js</code> (el mini-juego de pelota taína) o <code>js/motor/entrada.js</code> (el sistema de input). Lea los comentarios en español y explique con sus propias palabras qué hace el archivo.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán un resumen de una página que incluya: propósito del archivo, principales funciones y qué hacen, variables importantes, y un diagrama de flujo simplificado. No necesitan entender cada línea — el objetivo es comprender la estructura general y la lógica del programa.</p>
+
+      <h3>Actividad 3: Robótica y arqueología — el mundo LFSD</h3>
+      <p><strong>Objetivo:</strong> Conectar la robótica educativa con aplicaciones arqueológicas reales.</p>
+      <p><strong>Instrucciones:</strong> Visite el mundo LFSD en el juego. Observe las mesas de Scratch (programación visual), la mesa de FIRST LEGO League (robot autónomo que recorre misiones) y la impresora 3D. Discuta: ¿cómo se usan estas tecnologías en la arqueología real?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes investigarán y presentarán al menos 3 aplicaciones reales de la tecnología en arqueología: drones para fotogrametría aérea, robots submarinos para exploración de naufragios (como el que Pepito/Pepita obtiene de la Dra. Sofía en el juego), impresión 3D para replicar artefactos frágiles, LIDAR para descubrir estructuras ocultas bajo la vegetación, y bases de datos digitales para catalogar hallazgos. <strong>Actividad práctica:</strong> Si la escuela tiene un kit de robótica, programe un robot para «explorar» un área del aula como si fuera un sitio arqueológico.</p>
+
+      <h3>Actividad 4: Diseñar un nuevo mundo</h3>
+      <p><strong>Objetivo:</strong> Aplicar el pensamiento de diseño (design thinking) a la creación de contenido educativo.</p>
+      <p><strong>Instrucciones:</strong> Diseñe en papel un nuevo mundo para ArcLycée. Debe incluir: un período histórico o tema científico real de la República Dominicana, al menos 3 NPCs con diálogos educativos, una mecánica de juego (combate, mini-juego, exploración), y al menos 5 datos verificables que el jugador aprenderá.</p>
+      <p><strong>Resultado esperado:</strong> Cada equipo presentará un documento de diseño de 2-3 páginas con: nombre del mundo, ubicación geográfica, época histórica, mapa esquemático, fichas de NPCs (nombre, rol, diálogos), mecánica principal, datos educativos con fuentes, y un boceto visual. <strong>Criterios de evaluación:</strong> precisión histórica/científica, creatividad, jugabilidad y potencial educativo.</p>
+
+      <h3>Actividad 5: Contribuir al proyecto — desarrollo de software real</h3>
+      <p><strong>Objetivo:</strong> Experimentar el flujo de trabajo real del desarrollo de software colaborativo.</p>
+      <p><strong>Instrucciones:</strong> Haga un <em>fork</em> del repositorio de ArcLycée en GitHub. Elija una modificación sencilla: cambiar una línea de diálogo, corregir un error tipográfico, agregar un NPC con un dato educativo nuevo, o traducir un texto. Haga la modificación, haga <em>commit</em> y envíe un <em>pull request</em>.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes aprenderán: qué es un repositorio, cómo funciona Git (clone, branch, commit, push), qué es un pull request y cómo se revisa código en equipo. El pull request debe incluir una descripción clara de qué se cambió y por qué. <strong>Nota para el docente:</strong> Esta actividad requiere una cuenta de GitHub (gratuita) y conocimientos básicos de Git. Considere hacer una demostración guiada primero.</p>
+
+      <h3>Actividad 6: Cartografía con tiles</h3>
+      <p><strong>Objetivo:</strong> Entender la representación digital del espacio geográfico.</p>
+      <p><strong>Instrucciones:</strong> El mapa de ArcLycée usa una cuadrícula de 128×68 tiles. Cada tile es «1» (tierra) o «0» (agua), con capas adicionales para cordilleras, ríos y bosques. Usando papel cuadriculado (o una hoja de cálculo con celdas coloreadas), cree su propio mapa de una isla ficticia con al menos: contorno costero, una cordillera, 2 ríos, 1 lago y 5 ciudades.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán un mapa de al menos 30×20 tiles con leyenda de colores, escala y puntos de interés. Discuta: ¿cuántos tiles serían necesarios para representar fielmente su país entero? ¿Qué resolución necesitaría? ¿Cómo decidir qué simplificar y qué mantener? Esto conecta con conceptos de resolución, escala y abstracción en informática.</p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 8: CONCIENCIA CULTURAL
+         ============================================================ -->
+    <section id="cultura">
+      <h2><span class="icono">🎭</span> Conciencia Cultural</h2>
+      <p class="intro">El protagonista de ArcLycée tiene ascendencia taína, española y africana — un reflejo de la identidad triétnica de la República Dominicana. El juego explora tres culturas fundacionales sin estereotipos ni simplificaciones, invitando a la reflexión sobre la diversidad y la herencia cultural.</p>
+
+      <h3>Actividad 1: Identidad triétnica — ¿de dónde vengo?</h3>
+      <p><strong>Objetivo:</strong> Explorar la propia herencia cultural y entender la diversidad como riqueza.</p>
+      <p><strong>Instrucciones:</strong> El protagonista del juego representa las tres raíces de la identidad dominicana: taína, española y africana. Después de jugar, investigue su propia herencia cultural familiar. Cree un «mapa de identidad cultural» visual que incluya: orígenes familiares, tradiciones, comidas, música, palabras y costumbres que provienen de diferentes culturas.</p>
+      <p><strong>Resultado esperado:</strong> Cada estudiante presentará su mapa de identidad (póster, collage o presentación digital) explicando al menos 5 elementos culturales que practica en su vida diaria y su origen. <strong>Reflexión grupal:</strong> ¿Cuántas culturas están representadas en el aula? ¿Qué tradiciones compartimos? ¿Qué podemos aprender de las diferencias?</p>
+
+      <h3>Actividad 2: Palabras taínas en tu vocabulario</h3>
+      <p><strong>Objetivo:</strong> Reconocer la presencia viva de la lengua taína en el español cotidiano.</p>
+      <p><strong>Instrucciones:</strong> Busque en el juego y en la <a href="encyclopedia.html">Arquepedia</a> todas las palabras de origen taíno que pueda encontrar. Luego, amplíe la lista investigando en otras fuentes. Cree tarjetas didácticas (flashcards) con cada palabra.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes encontrarán al menos 10 palabras taínas de uso cotidiano: <em>hamaca</em>, <em>canoa</em>, <em>huracán</em>, <em>tabaco</em>, <em>maíz</em>, <em>batata</em>, <em>barbacoa</em>, <em>sabana</em>, <em>iguana</em>, <em>guayaba</em>, <em>papaya</em>, <em>ají</em>, <em>cacique</em>, <em>bohío</em>, <em>cemí</em>. Cada tarjeta incluirá: la palabra en taíno, su significado original, su uso actual y una ilustración. <strong>Reto:</strong> ¿Cuántas de estas palabras existen también en inglés y francés?</p>
+
+      <h3>Actividad 3: Herencia africana — los cimarrones de América</h3>
+      <p><strong>Objetivo:</strong> Conocer la resistencia cimarrona y el legado africano en las Américas.</p>
+      <p><strong>Instrucciones:</strong> Después de jugar el Palenque de Lemba, investigue: ¿Quién fue Sebastián Lemba? ¿Qué eran los palenques? ¿Dónde existieron otras comunidades cimarronas en las Américas? Compare la historia de Lemba con al menos 2 comunidades cimarronas de otros países.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán un ensayo comparativo o presentación que incluya: la historia de Lemba (~1540s, primera comunidad afrodescendiente libre en las Américas), los palenques de San Basilio en Colombia, los quilombos de Palmares en Brasil (Zumbi), las comunidades maroons de Jamaica (Nanny of the Maroons). Para cada uno: ubicación, líder, duración, legado actual. <strong>Reflexión:</strong> ¿Por qué estas historias son menos conocidas que la de los colonizadores?</p>
+
+      <h3>Actividad 4: Patrimonio cultural — ¿preservar o construir?</h3>
+      <p><strong>Objetivo:</strong> Analizar el dilema entre desarrollo urbano y preservación cultural.</p>
+      <p><strong>Instrucciones:</strong> En la Zona Colonial del juego, el constructor Méndez quiere demoler un sitio histórico para construir un hotel. ¿Tiene razón? Organice un debate formal con dos equipos: uno a favor del desarrollo (empleos, turismo, modernización) y otro a favor de la preservación (historia, identidad, patrimonio UNESCO).</p>
+      <p><strong>Resultado esperado:</strong> Cada equipo preparará argumentos sólidos con datos reales (estadísticas de empleo turístico, valor económico del patrimonio cultural, ejemplos de ciudades que destruyeron su historia vs. ciudades que la aprovecharon). El debate durará 20-30 minutos con réplicas y contra-réplicas. <strong>Cierre:</strong> ¿Es posible encontrar un equilibrio? ¿Cómo lo han hecho otras ciudades patrimonio?</p>
+
+      <h3>Actividad 5: Cocina ancestral — del conuco a la mesa</h3>
+      <p><strong>Objetivo:</strong> Conectar la cultura taína con prácticas alimentarias actuales.</p>
+      <p><strong>Instrucciones:</strong> En los Asentamientos Taínos del juego, los conucos muestran los cultivos originales: yuca, maíz, batata, ají, tabaco y algodón. Investigue el proceso de elaboración del casabe (pan de yuca): ¿cómo se extrae el veneno de la yuca amarga? ¿Qué herramientas usaban los taínos? ¿Todavía se hace casabe hoy?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes documentarán el proceso completo: cultivo de yuca → rallado → exprimido con cibucán (bolsa tejida para extraer el ácido cianhídrico) → secado → horneado en burén (plancha de barro). Incluirán fotos o dibujos de cada paso. <strong>Actividad práctica:</strong> Si es posible, prepare casabe en clase o visite una fábrica artesanal. Si no, prepare otro plato de origen taíno/dominicano y documente la experiencia.</p>
+
+      <h3>Actividad 6: Música y ceremonia — del areíto al merengue</h3>
+      <p><strong>Objetivo:</strong> Trazar la evolución musical desde las ceremonias taínas hasta la música dominicana actual.</p>
+      <p><strong>Instrucciones:</strong> Después de jugar el mini-juego Areíto (danza ceremonial taína estilo DDR), investigue: ¿qué instrumentos usaban los taínos (maracas, güiros, mayohuacán)? ¿Qué aportaron los africanos (tambores, ritmos polirrítmicos)? ¿Cómo se fusionaron con la guitarra española para crear el merengue y la bachata?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes crearán una línea del tiempo musical ilustrada que conecte: instrumentos taínos (maracas hechas de higüera, güiros de calabaza) → tambores africanos (atabales, palos) → guitarra y acordeón europeos → merengue (Ñico Lora, ~1850s) → bachata (José Manuel Calderón, ~1960s). Incluyan muestras de audio si es posible. <strong>Actividad práctica:</strong> Fabricar una maraca con materiales reciclados (botella con semillas, calabaza seca) como las que usaban los taínos.</p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 9: IDIOMAS
+         ============================================================ -->
+    <section id="idiomas">
+      <h2><span class="icono">🌍</span> Idiomas</h2>
+      <p class="intro">ArcLycée es completamente trilingüe: español, inglés y francés. Todos los diálogos, menús, documentación y evaluaciones están disponibles en los tres idiomas. Esto lo convierte en una herramienta natural para el aprendizaje y la práctica de lenguas extranjeras.</p>
+
+      <h3>Actividad 1: Jugar en tres idiomas</h3>
+      <p><strong>Objetivo:</strong> Desarrollar la conciencia metalingüística comparando cómo se expresa la misma información en diferentes idiomas.</p>
+      <p><strong>Instrucciones:</strong> Juegue el mismo mundo tres veces, cada vez en un idioma diferente (cambie desde el menú principal). Tome nota de al menos 10 diferencias interesantes en cómo se expresan los diálogos, nombres de lugares o instrucciones.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes identificarán diferencias como: expresiones idiomáticas que no se traducen literalmente, palabras que existen en un idioma pero no en otro, diferencias en la longitud de las frases, y cómo el tono puede cambiar según el idioma. Ejemplo: ¿cómo se traduce «hamaca» al francés y al inglés? (<em>hamac</em>, <em>hammock</em> — ambas del taíno.) <strong>Reflexión:</strong> ¿Qué idioma les pareció más natural para este juego? ¿Por qué?</p>
+
+      <h3>Actividad 2: Reto de traducción</h3>
+      <p><strong>Objetivo:</strong> Practicar la traducción como ejercicio lingüístico y cultural.</p>
+      <p><strong>Instrucciones:</strong> Elija 10 diálogos de NPCs en español. Tradúzcalos usted mismo al inglés o al francés (sin mirar la traducción del juego). Después, compare su versión con la del juego. ¿Qué diferencias hay? ¿Cuál es mejor?</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán una tabla comparativa con 3 columnas: su traducción, la traducción del juego y notas sobre las diferencias. Descubrirán que traducir no es solo cambiar palabras — es adaptar significados culturales. <strong>Extensión:</strong> ¿Hay frases del juego que usted traduciría diferente? Proponga mejoras y justifíquelas.</p>
+
+      <h3>Actividad 3: Glosario arqueológico trilingüe</h3>
+      <p><strong>Objetivo:</strong> Construir vocabulario especializado en tres idiomas.</p>
+      <p><strong>Instrucciones:</strong> Usando la <a href="encyclopedia.html">Arquepedia</a> (disponible en 3 idiomas), cree un glosario de 20 términos arqueológicos, históricos y científicos con su traducción en los tres idiomas y su definición.</p>
+      <p><strong>Resultado esperado:</strong> El glosario incluirá términos como: <em>yacimiento / site / gisement</em>, <em>petroglifo / petroglyph / pétroglyphe</em>, <em>cerámica / pottery / céramique</em>, <em>datación / dating / datation</em>, <em>arrecife / reef / récif</em>, <em>especie invasora / invasive species / espèce invasive</em>, etc. Cada entrada tendrá: término en los 3 idiomas, definición en el idioma de estudio y un ejemplo de uso en contexto (extraído del juego).</p>
+
+      <h3>Actividad 4: Reseña del juego en segunda lengua</h3>
+      <p><strong>Objetivo:</strong> Practicar la redacción argumentativa en un idioma extranjero.</p>
+      <p><strong>Instrucciones:</strong> Escriba una reseña de ArcLycée de 300-400 palabras en su segundo idioma (si su lengua materna es español, escriba en inglés o francés). La reseña debe incluir: descripción del juego, 3 cosas que aprendió, 2 cosas que cambiaría, y una puntuación con justificación.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes producirán textos argumentativos estructurados con introducción, desarrollo y conclusión. El docente evaluará: corrección gramatical, riqueza de vocabulario, coherencia argumentativa y uso de conectores. <strong>Publicación:</strong> Las mejores reseñas pueden publicarse en el blog de la escuela o leerse en voz alta para practicar la pronunciación.</p>
+
+      <h3>Actividad 5: Presentación multilingüe</h3>
+      <p><strong>Objetivo:</strong> Desarrollar la competencia oral en un idioma extranjero usando contenido familiar.</p>
+      <p><strong>Instrucciones:</strong> Elija un mundo del juego y prepare una presentación oral de 5 minutos en un idioma que no sea su lengua materna. Use la documentación de <a href="index.html">/docs</a> (disponible en los 3 idiomas) como material de referencia. Incluya: ubicación geográfica, contexto histórico, personajes, lo que se aprende y su opinión personal.</p>
+      <p><strong>Resultado esperado:</strong> Los estudiantes harán presentaciones orales con apoyo visual (diapositivas, capturas del juego, mapas). El público evaluará: claridad, pronunciación, contenido informativo y capacidad de responder preguntas en el idioma de la presentación. <strong>Variante:</strong> Haga presentaciones en parejas donde cada estudiante presenta en un idioma diferente.</p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 10: RECURSOS Y ENLACES
+         ============================================================ -->
+    <section id="recursos">
+      <h2><span class="icono">📎</span> Recursos y Enlaces</h2>
+      <p class="intro">Una recopilación de todos los recursos disponibles dentro y fuera de ArcLycée para enriquecer la experiencia educativa.</p>
+
+      <h3>Recursos del proyecto ArcLycée</h3>
+      <ul>
+        <li><strong><a href="../index.html">El juego</a></strong> — Juega directamente en el navegador.</li>
+        <li><strong><a href="index.html">Documentación</a></strong> — Historia, mundos, personajes, mecánicas, programación y pedagogía.</li>
+        <li><strong><a href="encyclopedia.html">Arquepedia</a></strong> — Enciclopedia con artículos detallados, fuentes y referencias por cada tema del juego.</li>
+        <li><strong><a href="assessment.html">Evaluaciones</a></strong> — Cuestionarios de 20 preguntas aleatorias por tema (Historia, Ciencias, Geografía, Civismo, Código).</li>
+        <li><strong><a href="https://bit.ly/arclycee" target="_blank">Documento de diseño (GDD)</a></strong> — El documento original de diseño del juego.</li>
+        <li><strong><a href="https://github.com/cmirandal/arclycee" target="_blank">Repositorio GitHub</a></strong> — Todo el código fuente, comentado en español.</li>
+      </ul>
+
+      <h3>Sitios reales para visitar</h3>
+      <p>Si tiene la oportunidad de organizar excursiones escolares, estos son los sitios del juego que se pueden visitar en la República Dominicana:</p>
+      <ul>
+        <li><strong>Cuevas del Pomier</strong> (San Cristóbal) — Reserva antropológica con la mayor concentración de arte rupestre del Caribe. Más de 6,000 petroglifos y pictografías en 55 cuevas.</li>
+        <li><strong>Zona Colonial</strong> (Santo Domingo) — Patrimonio de la Humanidad UNESCO. Catedral Primada de América, Alcázar de Colón, Fortaleza Ozama, Panteón Nacional.</li>
+        <li><strong>Museo del Hombre Dominicano</strong> (Santo Domingo) — La colección más completa de artefactos taínos del Caribe: cemíes, duhos, hachas ceremoniales, cerámica.</li>
+        <li><strong>La Isabela</strong> (Puerto Plata) — Ruinas de la primera ciudad europea en el Nuevo Mundo, fundada por Colón en 1493. Parque Nacional Histórico.</li>
+        <li><strong>Lago Enriquillo</strong> (Independencia/Bahoruco) — Lago hipersalino con Isla Cabritos, cocodrilos americanos, iguanas rinoceronte y flamencos rosados.</li>
+        <li><strong>Parque Nacional Cotubanamá</strong> (Bayahíbe) — Manantial de la Aleta, cenote sagrado taíno con ofrendas sumergidas.</li>
+        <li><strong>Samaná</strong> — Observación de ballenas jorobadas (enero-marzo). Santuario de Mamíferos Marinos.</li>
+      </ul>
+
+      <h3>Lecturas recomendadas</h3>
+      <ul>
+        <li><strong>Roberto Cassá</strong> — <em>Los Taínos de La Española</em>. La obra de referencia sobre la cultura taína, escrita por el historiador dominicano que aparece como personaje en el juego.</li>
+        <li><strong>Bartolomé de las Casas</strong> — <em>Brevísima relación de la destrucción de las Indias</em> (1552). Testimonio de primera mano sobre la conquista, disponible gratuitamente en línea.</li>
+        <li><strong>Fray Ramón Pané</strong> — <em>Relación acerca de las antigüedades de los indios</em> (~1498). El primer documento etnográfico de las Américas, escrito por el fraile que aparece en el juego.</li>
+        <li><strong>Marcio Veloz Maggiolo</strong> — Obras sobre arqueología dominicana. El Dr. Veloz aparece como curador del museo en el juego.</li>
+        <li><strong>Lynne Guitar</strong> — Investigaciones sobre la cultura taína y su legado contemporáneo.</li>
+      </ul>
+
+      <h3>Recursos en línea</h3>
+      <ul>
+        <li><strong><a href="https://whc.unesco.org/es/list/526" target="_blank">UNESCO — Zona Colonial de Santo Domingo</a></strong> — Ficha oficial del sitio Patrimonio de la Humanidad.</li>
+        <li><strong><a href="https://www.interpol.int/es/Delitos/Delitos-contra-el-patrimonio-cultural" target="_blank">INTERPOL — Delitos contra el patrimonio cultural</a></strong> — Base de datos de obras de arte robadas y tráfico de antigüedades.</li>
+        <li><strong><a href="https://www.floridamuseum.ufl.edu/" target="_blank">Florida Museum of Natural History</a></strong> — Investigaciones sobre fauna del Caribe, especies invasoras y ecosistemas marinos.</li>
+        <li><strong><a href="https://www.iucnredlist.org/" target="_blank">Lista Roja de la UICN</a></strong> — Estado de conservación de todas las especies mencionadas en el juego.</li>
+        <li><strong><a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a></strong> — Cartografía abierta para comparar con el mapa del juego.</li>
+        <li><strong><a href="https://earthobservatory.nasa.gov/" target="_blank">NASA Earth Observatory</a></strong> — Imágenes satelitales de La Hispaniola (la fuente original del mapa del juego).</li>
+      </ul>
+
+      <h3>Para el docente: planificación sugerida</h3>
+      <p>Una posible secuencia didáctica de 6 sesiones de 45 minutos:</p>
+      <ol>
+        <li><strong>Sesión 1 — Descubrimiento:</strong> Los estudiantes juegan libremente durante 30 minutos. Últimos 15 minutos: compartir impresiones y preguntas.</li>
+        <li><strong>Sesión 2 — Historia:</strong> Actividades 1-2 de la sección Historia (Taínos y Enriquillo). Tarea: línea del tiempo.</li>
+        <li><strong>Sesión 3 — Ciencias:</strong> Actividades 1-2 de la sección Ciencias Naturales (especies marinas y pez león). Tarea: fichas de especies.</li>
+        <li><strong>Sesión 4 — Civismo:</strong> Actividades 1 y 3 de la sección Civismo (pacifismo y juicio simulado).</li>
+        <li><strong>Sesión 5 — STEM:</strong> Actividades 1-2 de la sección STEM (carbono-14 y lectura de código).</li>
+        <li><strong>Sesión 6 — Evaluación y cierre:</strong> <a href="assessment.html">Cuestionarios de evaluación</a>, presentaciones de trabajos, discusión final.</li>
+      </ol>
+      <p><strong>Adaptación:</strong> Esta secuencia es flexible. Puede dedicar más sesiones a las áreas que más se alineen con su currículo, o combinar actividades de diferentes secciones según las necesidades de su grupo.</p>
+    </section>
+
+  </div>
+  <footer><p>ArcLycée v0.21.2 — Aventura Arqueológica Dominicana</p></footer>
+  <script src="navigation.js"></script>
+</body>
+</html>

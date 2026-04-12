@@ -76,7 +76,7 @@
       icono: '🎓',
       label: { es: 'Pedagogía', en: 'Pedagogy', fr: 'Pédagogie' },
       grupo: true,
-      children: ['pedagogia', 'pedagogiaAI', 'assessment']
+      children: ['pedagogia', 'pedagogiaAI', 'learningGuide', 'assessment']
     },
     pedagogia: {
       icono: '📚',
@@ -88,6 +88,12 @@
       icono: '🤖',
       label: { es: 'Uso de IA', en: 'AI Usage', fr: 'Usage de l\'IA' },
       archivos: { es: 'pedagogy-ai.html', en: 'pedagogy-ai-en.html', fr: 'pedagogy-ai-fr.html' },
+      parent: 'pedagogiaGrupo'
+    },
+    learningGuide: {
+      icono: '🧭',
+      label: { es: 'Guía de Aprendizaje', en: 'Learning Guide', fr: 'Guide d\'Apprentissage' },
+      archivos: { es: 'learning-guide.html', en: 'learning-guide-en.html', fr: 'learning-guide-fr.html' },
       parent: 'pedagogiaGrupo'
     },
     assessment: {
