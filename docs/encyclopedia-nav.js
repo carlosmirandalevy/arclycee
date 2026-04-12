@@ -99,17 +99,24 @@
   }
 
   // --- Búsqueda: muestra/oculta secciones según texto ---
+  // Busca en todas las secciones de contenido (no la nav).
+  // Normaliza acentos para que "taino" encuentre "taíno".
   function setupSearch() {
     var input = document.getElementById('ency-search-input');
     if (!input) return;
 
-    var allSections = document.querySelectorAll('.contenedor > section');
     var noResults = document.getElementById('ency-no-results');
 
+    function normalize(str) {
+      return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
     input.addEventListener('input', function () {
-      var query = this.value.trim().toLowerCase();
+      // Consultar secciones en cada búsqueda (no cachear, por si el DOM cambió)
+      var allSections = document.querySelectorAll('.contenedor section[id]');
+      var query = normalize(this.value.trim());
+
       if (!query) {
-        // Show all
         for (var i = 0; i < allSections.length; i++) allSections[i].style.display = '';
         if (noResults) noResults.style.display = 'none';
         return;
@@ -118,7 +125,7 @@
       var found = 0;
       for (var i = 0; i < allSections.length; i++) {
         var sec = allSections[i];
-        var text = sec.textContent.toLowerCase();
+        var text = normalize(sec.textContent);
         if (text.indexOf(query) !== -1) {
           sec.style.display = '';
           found++;
