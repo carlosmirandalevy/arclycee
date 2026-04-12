@@ -56,9 +56,16 @@
     var container = document.createElement('div');
     container.className = 'ency-nav';
 
+    // Placeholder para mantener el espacio cuando la barra se vuelve sticky
+    var placeholder = document.createElement('div');
+    placeholder.className = 'ency-search-placeholder';
+    placeholder.id = 'ency-search-placeholder';
+    container.appendChild(placeholder);
+
     // Search bar with navigation arrows and counter
     var searchBar = document.createElement('div');
     searchBar.className = 'ency-search';
+    searchBar.id = 'ency-search-bar';
     searchBar.innerHTML = '<span class="ency-search-icon">🔍</span>'
       + '<input type="text" id="ency-search-input" placeholder="' + ui.search + '" autocomplete="off">'
       + '<span class="ency-search-counter" id="ency-search-counter"></span>'
@@ -261,6 +268,38 @@
 
     if (prevBtn) prevBtn.addEventListener('click', function () { scrollToMatch(currentMatch - 1); });
     if (nextBtn) nextBtn.addEventListener('click', function () { scrollToMatch(currentMatch + 1); });
+
+    // --- Sticky: fijar la barra arriba cuando hay búsqueda activa y se hace scroll ---
+    var searchBarEl = document.getElementById('ency-search-bar');
+    var placeholderEl = document.getElementById('ency-search-placeholder');
+    if (searchBarEl && placeholderEl) {
+      function updateSticky() {
+        var hasQuery = input.value.trim().length > 0;
+        if (!hasQuery) {
+          searchBarEl.classList.remove('sticky');
+          placeholderEl.classList.remove('visible');
+          placeholderEl.style.height = '';
+          return;
+        }
+        var rect = placeholderEl.getBoundingClientRect();
+        if (rect.top < 0) {
+          if (!searchBarEl.classList.contains('sticky')) {
+            placeholderEl.style.height = searchBarEl.offsetHeight + 'px';
+            placeholderEl.classList.add('visible');
+            searchBarEl.classList.add('sticky');
+          }
+        } else {
+          searchBarEl.classList.remove('sticky');
+          placeholderEl.classList.remove('visible');
+          placeholderEl.style.height = '';
+        }
+      }
+      window.addEventListener('scroll', updateSticky, { passive: true });
+      input.addEventListener('input', function () {
+        // Actualizar sticky tras cambio de query (con un frame de retraso para que el DOM se actualice)
+        requestAnimationFrame(updateSticky);
+      });
+    }
   }
 
   // --- Inicializar ---

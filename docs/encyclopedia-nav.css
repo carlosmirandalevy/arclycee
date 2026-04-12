@@ -5,6 +5,31 @@
 .ency-nav {
   margin-bottom: 32px;
 }
+/* Cuando hay búsqueda activa, la barra se fija al tope */
+.ency-search.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  background: var(--fondo-tarjeta, #1a1a2e);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+[data-theme="light"] .ency-search.sticky {
+  background: rgba(244, 243, 238, 0.98);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+/* Placeholder para evitar el salto de layout cuando se hace sticky */
+.ency-search-placeholder {
+  display: none;
+}
+.ency-search-placeholder.visible {
+  display: block;
+}
 
 /* --- Barra de búsqueda --- */
 .ency-search {
