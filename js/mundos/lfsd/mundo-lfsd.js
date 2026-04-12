@@ -886,30 +886,54 @@ export class MundoLFSD {
 
   _dibujarHUD(ctx, ancho, alto, textos, jugador) {
     const lfsd = textos?.lfsd;
+    const _uiTex = this._obtenerTextos()?.ui;
 
     // Barra de vida
     if (jugador) {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-      ctx.fillRect(10, 10, 104, 16);
-      ctx.fillStyle = '#44AA44';
-      const anchoVida = Math.max(0, (jugador.vida / 100) * 100);
-      ctx.fillRect(12, 12, anchoVida, 12);
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = '#333333';
+      ctx.fillRect(10, 10, 120, 14);
+      ctx.fillStyle = '#44cc44';
+      ctx.fillRect(10, 10, 120 * ((jugador.vida || 100) / (jugador.vidaMaxima || 100)), 14);
+      ctx.strokeStyle = '#555555';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(10, 10, 120, 14);
       ctx.font = '10px monospace';
-      ctx.fillText(`${textos?.interfaz?.vida || 'Vida'}: ${jugador.vida}`, 15, 22);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'left';
+      ctx.fillText(`❤ ${Math.floor(jugador.vida || 0)}/${jugador.vidaMaxima || 100}`, 15, 22);
     }
 
-    // Nombre del lugar
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    ctx.fillRect(ancho / 2 - 150, alto - 55, 300, 20);
+    // Misión
+    ctx.font = '12px monospace';
     ctx.fillStyle = '#FFD700';
+    ctx.textAlign = 'left';
+    const misiones = this.juego?.misiones;
+    const questsCompletadas = (misiones?.estaCompletada('buenasVibraciones') ? 1 : 0)
+      + (misiones?.estaCompletada('metalCompleto') ? 1 : 0)
+      + (misiones?.estaCompletada('cienciaLoca') ? 1 : 0);
+    const misionTexto = questsCompletadas >= 3
+      ? (lfsd?.misionCompleta || '¡Misiones completadas! Vuelve al mapa (M)')
+      : (lfsd?.misionExplorar || 'Habla con los estudiantes y completa las misiones');
+    ctx.fillText(`📋 ${misionTexto}`, 15, 42);
+
+    // NPCs hablados (excluye mentor — rotativo, no cuenta)
+    const npcsHablados = this.npcs.filter(n => n.dialogoHecho && !n.esMentor).length;
+    const totalNPCs = this.npcs.filter(n => !n.esMentor).length;
+    ctx.fillStyle = npcsHablados >= totalNPCs ? '#44CC44' : '#FFD700';
+    ctx.fillText(`👥 ${npcsHablados}/${totalNPCs}`, 15, 58);
+
+    // Quests completadas (3 mini-juegos STEM)
+    ctx.fillStyle = questsCompletadas >= 3 ? '#44CC44' : '#FFD700';
+    ctx.fillText(`🔬 ${questsCompletadas}/3`, 15, 74);
+
+    // Nombre del lugar
     ctx.font = '11px monospace';
+    ctx.fillStyle = '#AAAAAA';
     ctx.textAlign = 'center';
-    const _uiTex = this._obtenerTextos()?.ui;
-    ctx.fillText(lfsd?.nombreLugar || _uiTex?.lfsdTitulo || 'LFSD - Classe de Robotique', ancho / 2, alto - 40);
+    ctx.fillText(lfsd?.nombreLugar || _uiTex?.lfsdTitulo || 'LFSD — Clase de Robótica', ancho / 2, alto - 40);
 
     // Controles
-    ctx.fillStyle = '#AAAAAA';
+    ctx.fillStyle = '#888888';
     ctx.fillText(_uiTex?.controlesLFSD || 'WASD: mover | E: hablar | M: mapa | I: inventario | P: fotos | L: misiones', ancho / 2, alto - 15);
     ctx.textAlign = 'left';
 
