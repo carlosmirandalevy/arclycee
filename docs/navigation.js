@@ -71,6 +71,25 @@
       archivos: { es: 'technical.html', en: 'technical-en.html', fr: 'technical-fr.html' },
       parent: 'tecnicoGrupo'
     },
+    // --- Pedagogía (grupo con subitems) ---
+    pedagogiaGrupo: {
+      icono: '🎓',
+      label: { es: 'Pedagogía', en: 'Pedagogy', fr: 'Pédagogie' },
+      grupo: true,
+      children: ['pedagogia', 'pedagogiaAI']
+    },
+    pedagogia: {
+      icono: '📚',
+      label: { es: 'Educación', en: 'Education', fr: 'Éducation' },
+      archivos: { es: 'pedagogy.html', en: 'pedagogy-en.html', fr: 'pedagogy-fr.html' },
+      parent: 'pedagogiaGrupo'
+    },
+    pedagogiaAI: {
+      icono: '🤖',
+      label: { es: 'Uso de IA', en: 'AI Usage', fr: 'Usage de l\'IA' },
+      archivos: { es: 'pedagogy-ai.html', en: 'pedagogy-ai-en.html', fr: 'pedagogy-ai-fr.html' },
+      parent: 'pedagogiaGrupo'
+    },
     archaeology: {
       icono: '🏛️',
       label: { es: 'Arqueología', en: 'Archaeology', fr: 'Archéologie' },

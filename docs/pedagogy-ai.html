@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Pedagogía: Uso Adecuado de IA</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="../resources/favicon.ico">
+</head>
+<body>
+  <div id="doc-nav"></div>
+  <div class="contenedor">
+
+    <section id="uso-ia">
+      <h2><span class="icono">🤖</span> Uso Adecuado de Inteligencia Artificial</h2>
+      <p class="intro">ArcLycée demuestra cómo la IA puede usarse como herramienta pedagógica bajo la supervisión constante de educadores y con los estudiantes siempre en control de las decisiones.</p>
+
+      <h3>Diseño Colaborativo Humano</h3>
+      <p>El juego fue diseñado íntegramente por los estudiantes de <em>les fous du robot</em> (~13 años) del Liceo Francés de Santo Domingo, bajo la supervisión de su profesor de robótica, asistentes y asesores externos. El proceso incluyó:</p>
+      <ul>
+        <li><strong>Sesiones de discusión grupal</strong> — Los estudiantes exploraron, debatieron y decidieron sobre todos los aspectos del juego: mundos, personajes, mecánicas, narrativa y tono.</li>
+        <li><strong>Asignaciones de investigación</strong> — Cada estudiante investigó un tema específico (arqueología, fauna, leyes, personajes históricos) y presentó sus hallazgos al grupo.</li>
+        <li><strong>Visitas reales y entrevistas</strong> — Se realizaron visitas a sitios patrimoniales y entrevistas con expertos como parte de la preparación.</li>
+        <li><strong>Documento de diseño</strong> — Un documento exhaustivo fue editado y revisado <strong>10 veces</strong> entre el 10 de febrero y el 13 de marzo de 2026, antes de iniciar el desarrollo. <a href="https://bit.ly/arclycee" target="_blank" rel="noopener">Ver documento original</a>.</li>
+      </ul>
+
+      <h3>Los Estudiantes en el Juego</h3>
+      <p>El juego incluye a todos los miembros del equipo como presencia tangible:</p>
+      <ul>
+        <li><strong>NPCs interactivos</strong> — Los 10 estudiantes aparecen como personajes en el mundo LFSD (la réplica de su clase de robótica), con diálogos que reflejan sus personalidades e intereses reales.</li>
+        <li><strong>Su profesor</strong> — Prof. Nicolas Droulers está presente como mentor con diálogo rotativo sobre robótica y patrimonio.</li>
+        <li><strong>Personalidades reflejadas</strong> — Las preferencias de juego, habilidades y personalidades de cada estudiante se manifiestan en sus diálogos, los mini-juegos que proponen y los easter eggs que esconden.</li>
+        <li><strong>El laboratorio real</strong> — El mundo LFSD replica fielmente la clase de robótica: mesas con Scratch, tapete FIRST LEGO League con robot animado, impresora 3D.</li>
+      </ul>
+
+      <h3>IA como Herramienta de Desarrollo</h3>
+      <p>Una vez completado el documento de diseño, la IA (Claude de Anthropic) fue utilizada como herramienta para:</p>
+      <ul>
+        <li><strong>Implementar código documentado</strong> — Código JavaScript vanilla con comentarios extensos en español, legible por estudiantes de 13 años.</li>
+        <li><strong>Generar arte procedural</strong> — Sprites y escenarios generados programáticamente (sin dependencias de artistas externos).</li>
+        <li><strong>Crear música original</strong> — Prompts musicales diseñados por los estudiantes, generados por IA (Suno) con metadatos que acreditan al equipo.</li>
+        <li><strong>Desarrollar documentación</strong> — Sitio web informativo trilingüe con documentación técnica, pedagógica y de contenido.</li>
+        <li><strong>Organizar y rastrear cambios</strong> — Git como sistema de control de versiones, CHANGELOG detallado, CI/CD básico.</li>
+      </ul>
+
+      <h3>Supervisión y Control Humano</h3>
+      <p>En todo momento, el uso de IA fue supervisado y controlado por humanos:</p>
+      <table>
+        <tr><th>Aspecto</th><th>Rol Humano</th><th>Rol de la IA</th></tr>
+        <tr><td>Narrativa y contenido</td><td>Estudiantes deciden temas, personajes, tono</td><td>Implementa las decisiones en código y texto</td></tr>
+        <tr><td>Mecánicas de juego</td><td>Estudiantes proponen y prueban</td><td>Programa la lógica según especificaciones</td></tr>
+        <tr><td>Precisión histórica</td><td>Estudiantes investigan, asesores verifican</td><td>Integra datos verificados en el juego</td></tr>
+        <tr><td>Balance y diversión</td><td>Estudiantes testean y ajustan</td><td>Implementa los ajustes solicitados</td></tr>
+        <tr><td>Calidad del código</td><td>Profesor revisa arquitectura y patrones</td><td>Escribe código legible con comentarios</td></tr>
+        <tr><td>Publicación</td><td>Profesor y estudiantes aprueban cada release</td><td>Genera changelogs y actualiza documentación</td></tr>
+      </table>
+
+      <h3>Ciclo de Testeo y Mejora</h3>
+      <p>Una vez disponible el primer prototipo jugable:</p>
+      <ol>
+        <li><strong>Testeo interno</strong> — Los estudiantes jugaron el juego exhaustivamente, reportando bugs y sugiriendo mejoras.</li>
+        <li><strong>Testeo externo</strong> — Compartido con amigos, familiares y otros estudiantes del Liceo para obtener perspectivas frescas.</li>
+        <li><strong>Discusión grupal</strong> — Las sugerencias se discutieron en equipo, priorizando las que mejoraban la experiencia educativa y lúdica.</li>
+        <li><strong>Implementación iterativa</strong> — Cada mejora aprobada fue implementada, probada y desplegada, con los estudiantes verificando el resultado.</li>
+        <li><strong>Mejora continua</strong> — El ciclo se repite: nuevas ideas surgen del testeo, se discuten, se implementan y se verifican.</li>
+      </ol>
+
+      <h3>Principios Éticos del Uso de IA</h3>
+      <p>El proyecto establece y demuestra estos principios:</p>
+      <ul>
+        <li><strong>Transparencia</strong> — El uso de IA está documentado públicamente. Cada commit indica "Co-Authored-By: Claude". No hay intento de ocultar la herramienta.</li>
+        <li><strong>Agencia humana</strong> — Los estudiantes toman todas las decisiones creativas y de contenido. La IA ejecuta, no decide.</li>
+        <li><strong>Supervisión docente</strong> — El profesor y asesores revisan el uso de IA, aseguran que el contenido sea apropiado y que los estudiantes comprendan lo generado.</li>
+        <li><strong>Comprensión sobre delegación</strong> — Los estudiantes pueden explicar cómo funciona cada parte del juego. No es una caja negra.</li>
+        <li><strong>Atribución</strong> — El equipo de estudiantes es acreditado como creadores. La IA es acreditada como herramienta, al igual que se acreditaría un compilador o un IDE.</li>
+      </ul>
+
+      <h3>Competencias Desarrolladas</h3>
+      <p>Usar IA como herramienta (no como reemplazo) ha permitido a los estudiantes desarrollar:</p>
+      <ul>
+        <li><strong>Pensamiento crítico</strong> — Evaluar y verificar las salidas de la IA, rechazar lo incorrecto, solicitar ajustes.</li>
+        <li><strong>Comunicación precisa</strong> — Aprender a formular instrucciones claras y específicas (prompting como habilidad comunicativa).</li>
+        <li><strong>Gestión de proyectos</strong> — Coordinar un proyecto complejo con múltiples fases, entregas y stakeholders.</li>
+        <li><strong>Alfabetización digital</strong> — Comprender qué puede y qué no puede hacer la IA, sus limitaciones y sesgos.</li>
+        <li><strong>Ética tecnológica</strong> — Reflexionar sobre el uso responsable de herramientas de IA en contextos creativos y educativos.</li>
+      </ul>
+
+      <h3>Resumen</h3>
+      <p>ArcLycée es un ejemplo de <strong>uso responsable y pedagógico de IA</strong>: los estudiantes lideran, deciden, prueban y aprueban. La IA acelera la implementación de sus ideas sin reemplazar su creatividad, juicio ni aprendizaje. El resultado es un juego que es genuinamente suyo — en contenido, en visión y en espíritu — potenciado por herramientas modernas que ellos aprendieron a utilizar con criterio y bajo supervisión adecuada.</p>
+    </section>
+
+  </div>
+  <footer>
+    <p>ArcLycée v0.21.2 — Aventura Arqueológica Dominicana</p>
+  </footer>
+  <script src="navigation.js"></script>
+</body>
+</html>
