@@ -1142,17 +1142,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'El medidor de _______ debe llegar a 100% para ganar un combate sin violencia.',
-        answer: 'convicción',
+        answer: ['convicción', 'convencimiento', 'persuasión'],
         explanation: 'La convicción mide cuánto has persuadido al oponente. 100% = victoria pacífica total.'
       },
       en: {
         q: 'The _______ meter must reach 100% to win a combat without violence.',
-        answer: 'conviction',
+        answer: ['conviction', 'persuasion'],
         explanation: 'Conviction measures how much you have persuaded the opponent. 100% = total peaceful victory.'
       },
       fr: {
         q: 'Le compteur de _______ doit atteindre 100% pour gagner un combat sans violence.',
-        answer: 'conviction',
+        answer: ['conviction', 'persuasion'],
         explanation: 'La conviction mesure combien tu as persuadé l\'adversaire. 100% = victoire pacifique totale.'
       }
     }
@@ -1163,17 +1163,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Las victorias pacíficas dan +_______ de reputación, tres veces más que las violentas.',
-        answer: '15',
+        answer: ['15', 'quince'],
         explanation: 'Pacífica = +15, violenta = +5. El juego recompensa claramente la diplomacia sobre la fuerza.'
       },
       en: {
         q: 'Peaceful victories give +_______ reputation, three times more than violent ones.',
-        answer: '15',
+        answer: ['15', 'fifteen'],
         explanation: 'Peaceful = +15, violent = +5. The game clearly rewards diplomacy over force.'
       },
       fr: {
         q: 'Les victoires pacifiques donnent +_______ de réputation, trois fois plus que les violentes.',
-        answer: '15',
+        answer: ['15', 'quinze'],
         explanation: 'Pacifique = +15, violente = +5. Le jeu récompense clairement la diplomatie plutôt que la force.'
       }
     }
@@ -1184,17 +1184,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'La Ley _______-68 de la República Dominicana protege el patrimonio cultural.',
-        answer: '318',
+        answer: ['318'],
         explanation: 'La Ley 318-68 es la principal herramienta legal dominicana para proteger bienes culturales.'
       },
       en: {
         q: 'Law _______-68 of the Dominican Republic protects cultural heritage.',
-        answer: '318',
+        answer: ['318'],
         explanation: 'Law 318-68 is the main Dominican legal tool to protect cultural property.'
       },
       fr: {
         q: 'La Loi _______-68 de la République dominicaine protège le patrimoine culturel.',
-        answer: '318',
+        answer: ['318'],
         explanation: 'La Loi 318-68 est le principal outil juridique dominicain pour protéger les biens culturels.'
       }
     }
@@ -1205,17 +1205,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'La Convención UNESCO de _______ combate el tráfico ilícito de bienes culturales.',
-        answer: '1970',
+        answer: ['1970'],
         explanation: 'La Convención de 1970 es un hito internacional en la protección del patrimonio de la humanidad.'
       },
       en: {
         q: 'The UNESCO Convention of _______ combats the illicit trafficking of cultural property.',
-        answer: '1970',
+        answer: ['1970'],
         explanation: 'The 1970 Convention is an international milestone in protecting humanity\'s heritage.'
       },
       fr: {
         q: 'La Convention UNESCO de _______ combat le trafic illicite de biens culturels.',
-        answer: '1970',
+        answer: ['1970'],
         explanation: 'La Convention de 1970 est un jalon international dans la protection du patrimoine de l\'humanité.'
       }
     }
@@ -1226,17 +1226,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'ArcLycée tiene _______ finales diferentes según las decisiones del jugador.',
-        answer: '5',
+        answer: ['5', 'cinco'],
         explanation: 'Los 5 finales son: completo, pacifista, museo, ecológico y oscuro. Tus elecciones moldean la historia.'
       },
       en: {
         q: 'ArcLycée has _______ different endings depending on the player\'s decisions.',
-        answer: '5',
+        answer: ['5', 'five'],
         explanation: 'The 5 endings are: complete, pacifist, museum, ecological, and dark. Your choices shape the story.'
       },
       fr: {
         q: 'ArcLycée a _______ fins différentes selon les décisions du joueur.',
-        answer: '5',
+        answer: ['5', 'cinq'],
         explanation: 'Les 5 fins sont : complète, pacifiste, musée, écologique et sombre. Tes choix façonnent l\'histoire.'
       }
     }
@@ -1247,17 +1247,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Contra el Constructor Méndez, puedes formar una cadena _______ para proteger el patrimonio.',
-        answer: 'humana',
+        answer: ['humana'],
         explanation: 'La cadena humana es una forma clásica de protesta no violenta. Cuerpos unidos como escudo pacífico.'
       },
       en: {
         q: 'Against Builder Mendez, you can form a human _______ to protect heritage.',
-        answer: 'chain',
+        answer: ['chain'],
         explanation: 'The human chain is a classic form of nonviolent protest. Bodies united as a peaceful shield.'
       },
       fr: {
         q: 'Contre le Constructeur Mendez, on peut former une chaîne _______ pour protéger le patrimoine.',
-        answer: 'humaine',
+        answer: ['humaine'],
         explanation: 'La chaîne humaine est une forme classique de protestation non violente. Des corps unis comme bouclier pacifique.'
       }
     }
@@ -1268,17 +1268,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'En el combate contra el pez león, el medidor se llama "_______:" en vez de "Convencido:".',
-        answer: 'Controlado',
+        answer: ['Controlado'],
         explanation: 'No convences a un pez, lo controlas ecológicamente. El nombre del medidor refleja la realidad de la situación.'
       },
       en: {
         q: 'In the lionfish combat, the meter is called "_______:" instead of "Convinced:".',
-        answer: 'Controlled',
+        answer: ['Controlled'],
         explanation: 'You do not convince a fish, you ecologically control it. The meter name reflects the reality of the situation.'
       },
       fr: {
         q: 'Dans le combat du poisson-lion, le compteur s\'appelle "_______ :" au lieu de "Convaincu :".',
-        answer: 'Contrôlé',
+        answer: ['Contrôlé'],
         explanation: 'On ne convainc pas un poisson, on le contrôle écologiquement. Le nom du compteur reflète la réalité de la situation.'
       }
     }
@@ -1289,17 +1289,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'La organización internacional _______ ayuda a perseguir traficantes de artefactos culturales entre países.',
-        answer: 'INTERPOL',
+        answer: ['INTERPOL'],
         explanation: 'INTERPOL coordina policías de 195 países. Su unidad de obras de arte combate el tráfico cultural globalmente.'
       },
       en: {
         q: 'The international organization _______ helps pursue cultural artifact traffickers across countries.',
-        answer: 'INTERPOL',
+        answer: ['INTERPOL'],
         explanation: 'INTERPOL coordinates police from 195 countries. Its works of art unit combats cultural trafficking globally.'
       },
       fr: {
         q: 'L\'organisation internationale _______ aide à poursuivre les trafiquants d\'artefacts culturels entre pays.',
-        answer: 'INTERPOL',
+        answer: ['INTERPOL'],
         explanation: 'INTERPOL coordonne les polices de 195 pays. Son unité d\'œuvres d\'art combat le trafic culturel mondialement.'
       }
     }
@@ -1310,17 +1310,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'En ArcLycée, liberar al _______ y limpiar el arrecife completan la misión ecológica del Santuario.',
-        answer: 'manatí',
+        answer: ['manatí', 'vaca marina'],
         explanation: 'El manatí (Trichechus manatus) es una especie en peligro del Caribe. Rescatarlo es acción ecológica directa.'
       },
       en: {
         q: 'In ArcLycée, freeing the _______ and cleaning the reef complete the Sanctuary\'s ecological mission.',
-        answer: 'manatee',
+        answer: ['manatee', 'sea cow'],
         explanation: 'The manatee (Trichechus manatus) is an endangered Caribbean species. Rescuing it is direct ecological action.'
       },
       fr: {
         q: 'Dans ArcLycée, libérer le _______ et nettoyer le récif complètent la mission écologique du Sanctuaire.',
-        answer: 'lamantin',
+        answer: ['lamantin', 'vache marine'],
         explanation: 'Le lamantin (Trichechus manatus) est une espèce en danger des Caraïbes. Le sauver est une action écologique directe.'
       }
     }
@@ -1331,17 +1331,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Las victorias violentas solo dan +_______ de reputación, comparado con +15 de las pacíficas.',
-        answer: '5',
+        answer: ['5', 'cinco'],
         explanation: 'La diferencia de 10 puntos es el precio de la violencia. El juego penaliza sutilmente las soluciones agresivas.'
       },
       en: {
         q: 'Violent victories only give +_______ reputation, compared to +15 for peaceful ones.',
-        answer: '5',
+        answer: ['5', 'five'],
         explanation: 'The 10-point difference is the price of violence. The game subtly penalizes aggressive solutions.'
       },
       fr: {
         q: 'Les victoires violentes ne donnent que +_______ de réputation, contre +15 pour les pacifiques.',
-        answer: '5',
+        answer: ['5', 'cinq'],
         explanation: 'La différence de 10 points est le prix de la violence. Le jeu pénalise subtilement les solutions agressives.'
       }
     }
@@ -1352,17 +1352,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'En el duelo contra el Soldado Diego, la opción de _______ cuenta como victoria pacifista sin pelear.',
-        answer: 'huir',
+        answer: ['huir', 'escapar', 'fuga'],
         explanation: 'A veces la verdadera valentía es evitar el conflicto. Como dijo Sun Tzu: la batalla suprema es la que no se libra.'
       },
       en: {
         q: 'In the duel against Soldier Diego, the option to _______ counts as a pacifist victory without fighting.',
-        answer: 'flee',
+        answer: ['flee', 'run', 'escape', 'run away'],
         explanation: 'Sometimes true bravery is avoiding conflict. As Sun Tzu said: the supreme battle is the one not fought.'
       },
       fr: {
         q: 'Dans le duel contre le Soldat Diego, l\'option de _______ compte comme victoire pacifiste sans combattre.',
-        answer: 'fuir',
+        answer: ['fuir', 's\'enfuir', 's\'échapper'],
         explanation: 'Parfois le vrai courage est d\'éviter le conflit. Comme disait Sun Tzu : la bataille suprême est celle qu\'on ne livre pas.'
       }
     }
@@ -1373,17 +1373,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Contra el traficante Torres, el medidor se llama "_______:" porque es un caso jurídico.',
-        answer: 'Evidencia',
+        answer: ['Evidencia', 'Prueba'],
         explanation: 'No convences a Torres con palabras bonitas, sino con pruebas legales irrefutables. La justicia requiere hechos.'
       },
       en: {
         q: 'Against trafficker Torres, the meter is called "_______:" because it is a legal case.',
-        answer: 'Evidence',
+        answer: ['Evidence', 'Proof'],
         explanation: 'You do not convince Torres with nice words, but with irrefutable legal proof. Justice requires facts.'
       },
       fr: {
         q: 'Contre le trafiquant Torres, le compteur s\'appelle "_______ :" car c\'est un cas juridique.',
-        answer: 'Preuve',
+        answer: ['Preuve'],
         explanation: 'On ne convainc pas Torres avec de belles paroles, mais avec des preuves légales irréfutables. La justice exige des faits.'
       }
     }
@@ -1394,17 +1394,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'El pez _______ es una especie invasora del Caribe que el juego te enseña a controlar ecológicamente.',
-        answer: 'león',
+        answer: ['león'],
         explanation: 'El pez león (Pterois) invadió el Caribe desde el Pacífico. Controlarlo es vital para los arrecifes locales.'
       },
       en: {
         q: 'The _______ fish is an invasive Caribbean species that the game teaches you to control ecologically.',
-        answer: 'lion',
+        answer: ['lion'],
         explanation: 'The lionfish (Pterois) invaded the Caribbean from the Pacific. Controlling it is vital for local reefs.'
       },
       fr: {
         q: 'Le poisson-_______ est une espèce invasive des Caraïbes que le jeu t\'apprend à contrôler écologiquement.',
-        answer: 'lion',
+        answer: ['lion'],
         explanation: 'Le poisson-lion (Pterois) a envahi les Caraïbes depuis le Pacifique. Le contrôler est vital pour les récifs locaux.'
       }
     }
@@ -1415,17 +1415,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'El final _______ se obtiene cuando el jugador tiene 8+ nodos, 5 sidequests y todos los combates pacificados.',
-        answer: 'completo',
+        answer: ['completo'],
         explanation: 'El final completo es el logro máximo: exploraste todo, ayudaste a todos y nunca usaste violencia innecesaria.'
       },
       en: {
         q: 'The _______ ending is obtained when the player has 8+ nodes, 5 side quests, and all combats pacified.',
-        answer: 'complete',
+        answer: ['complete', 'full'],
         explanation: 'The complete ending is the ultimate achievement: you explored everything, helped everyone, and never used unnecessary violence.'
       },
       fr: {
         q: 'La fin _______ s\'obtient quand le joueur a 8+ nœuds, 5 quêtes secondaires et tous les combats pacifiés.',
-        answer: 'complète',
+        answer: ['complète'],
         explanation: 'La fin complète est l\'accomplissement ultime : tu as tout exploré, aidé tout le monde et jamais utilisé de violence inutile.'
       }
     }
@@ -1436,17 +1436,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Llamar a la _______ es una de las opciones cívicas contra el Constructor Méndez para exponer la destrucción.',
-        answer: 'prensa',
+        answer: ['prensa', 'media', 'medios'],
         explanation: 'La prensa libre es un pilar de la democracia. Exponer injusticias públicamente genera presión social para el cambio.'
       },
       en: {
         q: 'Calling the _______ is one of the civic options against Builder Mendez to expose the destruction.',
-        answer: 'press',
+        answer: ['press', 'media'],
         explanation: 'A free press is a pillar of democracy. Publicly exposing injustice generates social pressure for change.'
       },
       fr: {
         q: 'Appeler la _______ est l\'une des options civiques contre le Constructeur Mendez pour exposer la destruction.',
-        answer: 'presse',
+        answer: ['presse', 'média', 'médias'],
         explanation: 'La presse libre est un pilier de la démocratie. Exposer publiquement les injustices génère une pression sociale pour le changement.'
       }
     }
@@ -1457,17 +1457,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Cuando la _______ del enemigo sube, el combate se vuelve más peligroso. Es mejor mantenerla baja.',
-        answer: 'hostilidad',
+        answer: ['hostilidad', 'agresividad'],
         explanation: 'La hostilidad es lo opuesto a la convicción. Sube con violencia y hace al enemigo más agresivo. Evítala.'
       },
       en: {
         q: 'When the enemy\'s _______ rises, combat becomes more dangerous. It is better to keep it low.',
-        answer: 'hostility',
+        answer: ['hostility', 'aggression', 'aggressiveness'],
         explanation: 'Hostility is the opposite of conviction. It rises with violence and makes the enemy more aggressive. Avoid it.'
       },
       fr: {
         q: 'Quand l\'_______ de l\'ennemi monte, le combat devient plus dangereux. Mieux vaut la garder basse.',
-        answer: 'hostilité',
+        answer: ['hostilité', 'agressivité'],
         explanation: 'L\'hostilité est l\'opposé de la conviction. Elle monte avec la violence et rend l\'ennemi plus agressif. Évite-la.'
       }
     }
@@ -1478,17 +1478,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'El arresto de Torres es _______, con agentes caminando hacia él y escoltándolo fuera.',
-        answer: 'cinematográfico',
+        answer: ['cinematográfico'],
         explanation: 'La escena del arresto es una recompensa narrativa: ves la justicia en acción, paso a paso, como en una película.'
       },
       en: {
         q: 'Torres\'s arrest is _______, with agents walking toward him and escorting him out.',
-        answer: 'cinematic',
+        answer: ['cinematic', 'cinematographic'],
         explanation: 'The arrest scene is a narrative reward: you see justice in action, step by step, like in a movie.'
       },
       fr: {
         q: 'L\'arrestation de Torres est _______, avec des agents marchant vers lui et l\'escortant dehors.',
-        answer: 'cinématographique',
+        answer: ['cinématographique', 'cinématique'],
         explanation: 'La scène d\'arrestation est une récompense narrative : on voit la justice en action, pas à pas, comme dans un film.'
       }
     }
@@ -1499,17 +1499,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Las acciones _______ (como rescatar manatíes) cuentan para determinar tu final en el juego.',
-        answer: 'ecológicas',
+        answer: ['ecológicas', 'ambientales'],
         explanation: 'El juego rastrea tus acciones ecológicas. Suficientes de ellas pueden llevarte al final ecológico.'
       },
       en: {
         q: '_______ actions (like rescuing manatees) count toward determining your ending in the game.',
-        answer: 'Ecological',
+        answer: ['Ecological', 'Environmental'],
         explanation: 'The game tracks your ecological actions. Enough of them can lead you to the ecological ending.'
       },
       fr: {
         q: 'Les actions _______ (comme sauver des lamantins) comptent pour déterminer ta fin dans le jeu.',
-        answer: 'écologiques',
+        answer: ['écologiques', 'environnementales'],
         explanation: 'Le jeu suit tes actions écologiques. Assez d\'entre elles peuvent mener à la fin écologique.'
       }
     }
@@ -1520,17 +1520,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'En el combate ciudadano, los carteles de _______ son una herramienta de activismo pacífico.',
-        answer: 'protesta',
+        answer: ['protesta', 'manifestación'],
         explanation: 'Los carteles de protesta son libertad de expresión en acción. Una forma legal y efectiva de defender tus derechos.'
       },
       en: {
         q: 'In citizen combat, _______ signs are a tool for peaceful activism.',
-        answer: 'protest',
+        answer: ['protest', 'demonstration'],
         explanation: 'Protest signs are freedom of expression in action. A legal and effective way to defend your rights.'
       },
       fr: {
         q: 'Dans le combat citoyen, les pancartes de _______ sont un outil d\'activisme pacifique.',
-        answer: 'protestation',
+        answer: ['protestation', 'manifestation'],
         explanation: 'Les pancartes de protestation sont la liberté d\'expression en action. Un moyen légal et efficace de défendre tes droits.'
       }
     }
@@ -1541,17 +1541,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'La _______ forense es una de las 4 armas legales contra el traficante Torres.',
-        answer: 'evidencia',
+        answer: ['evidencia', 'prueba'],
         explanation: 'La evidencia forense (análisis científico de artefactos) prueba el origen y la autenticidad. Ciencia al servicio de la justicia.'
       },
       en: {
         q: 'Forensic _______ is one of the 4 legal weapons against trafficker Torres.',
-        answer: 'evidence',
+        answer: ['evidence', 'proof'],
         explanation: 'Forensic evidence (scientific analysis of artifacts) proves origin and authenticity. Science serving justice.'
       },
       fr: {
         q: 'La _______ médico-légale est l\'une des 4 armes légales contre le trafiquant Torres.',
-        answer: 'preuve',
+        answer: ['preuve'],
         explanation: 'La preuve médico-légale (analyse scientifique des artefacts) prouve l\'origine et l\'authenticité. La science au service de la justice.'
       }
     }
@@ -1562,17 +1562,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'El juego rastrea combates _______ versus combates violentos para calcular tu final.',
-        answer: 'pacificados',
+        answer: ['pacificados', 'pacíficos'],
         explanation: 'Cada combate se clasifica como pacificado o violento. Tu historial completo determina qué final obtienes.'
       },
       en: {
         q: 'The game tracks _______ combats versus violent combats to calculate your ending.',
-        answer: 'pacified',
+        answer: ['pacified', 'peaceful'],
         explanation: 'Each combat is classified as pacified or violent. Your complete record determines which ending you get.'
       },
       fr: {
         q: 'Le jeu suit les combats _______ versus les combats violents pour calculer ta fin.',
-        answer: 'pacifiés',
+        answer: ['pacifiés', 'pacifiques'],
         explanation: 'Chaque combat est classé comme pacifié ou violent. Ton historique complet détermine quelle fin tu obtiens.'
       }
     }
@@ -1583,17 +1583,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Alertar a los _______ sobre el pez león es la opción ecológica con mayor impacto a largo plazo.',
-        answer: 'buzos',
+        answer: ['buzos', 'buceadores'],
         explanation: 'Informar a buzos crea una red de vigilancia. Un solo pez controlado ayuda; una comunidad informada transforma.'
       },
       en: {
         q: 'Alerting _______ about the lionfish is the ecological option with the greatest long-term impact.',
-        answer: 'divers',
+        answer: ['divers', 'scuba divers'],
         explanation: 'Informing divers creates a monitoring network. One controlled fish helps; an informed community transforms.'
       },
       fr: {
         q: 'Alerter les _______ sur le poisson-lion est l\'option écologique avec le plus grand impact à long terme.',
-        answer: 'plongeurs',
+        answer: ['plongeurs'],
         explanation: 'Informer les plongeurs crée un réseau de surveillance. Un poisson contrôlé aide ; une communauté informée transforme.'
       }
     }
@@ -1604,17 +1604,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'Contra el Soldado Diego, hablar sube la _______ hasta 100%, lo que equivale a una victoria sin espadas.',
-        answer: 'convicción',
+        answer: ['convicción', 'convencimiento', 'persuasión'],
         explanation: 'Las palabras pueden ser tan afiladas como una espada, pero no hieren. La convicción es tu arma pacífica.'
       },
       en: {
         q: 'Against Soldier Diego, talking raises _______ to 100%, which equals a victory without swords.',
-        answer: 'conviction',
+        answer: ['conviction', 'persuasion'],
         explanation: 'Words can be as sharp as a sword, but they do not wound. Conviction is your peaceful weapon.'
       },
       fr: {
         q: 'Contre le Soldat Diego, parler monte la _______ à 100%, ce qui équivaut à une victoire sans épées.',
-        answer: 'conviction',
+        answer: ['conviction', 'persuasion'],
         explanation: 'Les mots peuvent être aussi tranchants qu\'une épée, mais ils ne blessent pas. La conviction est ton arme pacifique.'
       }
     }
@@ -1625,17 +1625,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'La acción _______ contra Méndez consiste en iniciar un proceso judicial para detener la construcción.',
-        answer: 'legal',
+        answer: ['legal', 'judicial', 'jurídica'],
         explanation: 'La acción legal usa el sistema de justicia para proteger el patrimonio. Las leyes existen para ser aplicadas.'
       },
       en: {
         q: '_______ action against Mendez involves starting a judicial process to stop the construction.',
-        answer: 'Legal',
+        answer: ['Legal', 'Judicial'],
         explanation: 'Legal action uses the justice system to protect heritage. Laws exist to be enforced.'
       },
       fr: {
         q: 'L\'action _______ contre Mendez consiste à entamer un processus judiciaire pour arrêter la construction.',
-        answer: 'légale',
+        answer: ['légale', 'judiciaire', 'juridique'],
         explanation: 'L\'action légale utilise le système de justice pour protéger le patrimoine. Les lois existent pour être appliquées.'
       }
     }
@@ -1646,17 +1646,17 @@ window.ARC_QUESTIONS.social = [
     lang: {
       es: {
         q: 'El sistema de _______ del juego mide cómo te perciben los personajes según tus decisiones.',
-        answer: 'reputación',
+        answer: ['reputación'],
         explanation: 'Tu reputación refleja tus acciones acumuladas. Como en la vida real, se construye con cada decisión.'
       },
       en: {
         q: 'The game\'s _______ system measures how characters perceive you based on your decisions.',
-        answer: 'reputation',
+        answer: ['reputation'],
         explanation: 'Your reputation reflects your accumulated actions. Like in real life, it is built with every decision.'
       },
       fr: {
         q: 'Le système de _______ du jeu mesure comment les personnages te perçoivent selon tes décisions.',
-        answer: 'réputation',
+        answer: ['réputation'],
         explanation: 'Ta réputation reflète tes actions accumulées. Comme dans la vie réelle, elle se construit à chaque décision.'
       }
     }

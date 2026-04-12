@@ -416,89 +416,89 @@ window.ARC_QUESTIONS.geography = [
   {
     id: 'geo-051', type: 'fill',
     lang: {
-      es: { q: 'El Lago Enriquillo está a _____ metros bajo el nivel del mar.', answer: ['40', 'cuarenta'], explanation: '40 metros bajo el nivel del mar. Es la depresión más profunda del Caribe insular.' },
-      en: { q: 'Lake Enriquillo is _____ meters below sea level.', answer: ['40', 'forty'], explanation: '40 meters below sea level. It\'s the deepest depression in the insular Caribbean.' },
-      fr: { q: 'Le lac Enriquillo se trouve à _____ mètres sous le niveau de la mer.', answer: ['40', 'quarante'], explanation: "40 mètres sous le niveau de la mer. C'est la dépression la plus profonde des Caraïbes insulaires." }
+      es: { q: 'El Lago Enriquillo está a _____ metros bajo el nivel del mar.', answer: ['40', 'cuarenta', 'forty', 'quarante'], explanation: '40 metros bajo el nivel del mar. Es la depresión más profunda del Caribe insular.' },
+      en: { q: 'Lake Enriquillo is _____ meters below sea level.', answer: ['40', 'forty', 'cuarenta', 'quarante'], explanation: '40 meters below sea level. It\'s the deepest depression in the insular Caribbean.' },
+      fr: { q: 'Le lac Enriquillo se trouve à _____ mètres sous le niveau de la mer.', answer: ['40', 'quarante', 'forty', 'cuarenta'], explanation: "40 mètres sous le niveau de la mer. C'est la dépression la plus profonde des Caraïbes insulaires." }
     }
   },
   {
     id: 'geo-052', type: 'fill',
     lang: {
-      es: { q: 'La isla de La Española es compartida por República Dominicana y _______.', answer: ['Haití', 'Haiti'], explanation: 'Haití ocupa el tercio occidental de La Española.' },
-      en: { q: 'The island of Hispaniola is shared by the Dominican Republic and _______.', answer: ['Haiti', 'Haití'], explanation: 'Haiti occupies the western third of Hispaniola.' },
-      fr: { q: "L'île d'Hispaniola est partagée par la République dominicaine et _______.", answer: ['Haïti', 'Haiti'], explanation: "Haïti occupe le tiers occidental d'Hispaniola." }
+      es: { q: 'La isla de La Española es compartida por República Dominicana y _______.', answer: ['Haití'], explanation: 'Haití ocupa el tercio occidental de La Española.' },
+      en: { q: 'The island of Hispaniola is shared by the Dominican Republic and _______.', answer: ['Haiti'], explanation: 'Haiti occupies the western third of Hispaniola.' },
+      fr: { q: "L'île d'Hispaniola est partagée par la République dominicaine et _______.", answer: ['Haïti'], explanation: "Haïti occupe le tiers occidental d'Hispaniola." }
     }
   },
   {
     id: 'geo-053', type: 'fill',
     lang: {
-      es: { q: 'El _______ es el pico más alto del Caribe, ubicado en la Cordillera Central.', answer: ['Pico Duarte', 'pico duarte', 'Duarte'], explanation: 'Pico Duarte, a 3,098 metros de altitud. Lleva el nombre de Juan Pablo Duarte, padre fundador de la República Dominicana.' },
-      en: { q: 'The _______ is the highest peak in the Caribbean, located in the Cordillera Central.', answer: ['Pico Duarte', 'pico duarte', 'Duarte'], explanation: 'Pico Duarte, at 3,098 meters elevation. Named after Juan Pablo Duarte, founding father of the Dominican Republic.' },
-      fr: { q: 'Le _______ est le plus haut sommet des Caraïbes, situé dans la Cordillera Central.', answer: ['Pico Duarte', 'pico duarte', 'Duarte'], explanation: 'Le Pico Duarte, à 3 098 mètres. Nommé en hommage à Juan Pablo Duarte, père fondateur de la République dominicaine.' }
+      es: { q: 'El _______ es el pico más alto del Caribe, ubicado en la Cordillera Central.', answer: ['Pico Duarte', 'Duarte'], explanation: 'Pico Duarte, a 3,098 metros de altitud. Lleva el nombre de Juan Pablo Duarte, padre fundador de la República Dominicana.' },
+      en: { q: 'The _______ is the highest peak in the Caribbean, located in the Cordillera Central.', answer: ['Pico Duarte', 'Duarte'], explanation: 'Pico Duarte, at 3,098 meters elevation. Named after Juan Pablo Duarte, founding father of the Dominican Republic.' },
+      fr: { q: 'Le _______ est le plus haut sommet des Caraïbes, situé dans la Cordillera Central.', answer: ['Pico Duarte', 'Duarte'], explanation: 'Le Pico Duarte, à 3 098 mètres. Nommé en hommage à Juan Pablo Duarte, père fondateur de la République dominicaine.' }
     }
   },
   {
     id: 'geo-054', type: 'fill',
     lang: {
-      es: { q: 'La Zona Colonial está en la ciudad de _______, la primera ciudad europea de las Américas.', answer: ['Santo Domingo', 'santo domingo'], explanation: 'Santo Domingo, fundada en 1498 en la desembocadura del río Ozama.' },
-      en: { q: 'The Zona Colonial is in the city of _______, the first European city in the Americas.', answer: ['Santo Domingo', 'santo domingo'], explanation: 'Santo Domingo, founded in 1498 at the mouth of the Ozama River.' },
-      fr: { q: 'La Zona Colonial se trouve dans la ville de _______, la première ville européenne des Amériques.', answer: ['Saint-Domingue', 'Santo Domingo', 'saint-domingue', 'santo domingo'], explanation: "Saint-Domingue, fondée en 1498 à l'embouchure du fleuve Ozama." }
+      es: { q: 'La Zona Colonial está en la ciudad de _______, la primera ciudad europea de las Américas.', answer: ['Santo Domingo'], explanation: 'Santo Domingo, fundada en 1498 en la desembocadura del río Ozama.' },
+      en: { q: 'The Zona Colonial is in the city of _______, the first European city in the Americas.', answer: ['Santo Domingo'], explanation: 'Santo Domingo, founded in 1498 at the mouth of the Ozama River.' },
+      fr: { q: 'La Zona Colonial se trouve dans la ville de _______, la première ville européenne des Amériques.', answer: ['Saint-Domingue', 'Santo Domingo'], explanation: "Saint-Domingue, fondée en 1498 à l'embouchure du fleuve Ozama." }
     }
   },
   {
     id: 'geo-055', type: 'fill',
     lang: {
-      es: { q: 'El Manantial de la Aleta está en el Parque Nacional _______, cerca de Bayahíbe.', answer: ['Cotubanamá', 'Cotubamana', 'cotubanamá', 'cotubamana', 'Del Este'], explanation: 'Parque Nacional Cotubanamá (antes llamado Parque Nacional del Este), en la costa sureste.' },
-      en: { q: 'Manantial de la Aleta is in _______ National Park, near Bayahíbe.', answer: ['Cotubanamá', 'Cotubamana', 'cotubanamá', 'cotubamana', 'Del Este'], explanation: 'Cotubanamá National Park (formerly called Del Este National Park), on the southeastern coast.' },
-      fr: { q: 'Le Manantial de la Aleta se trouve dans le Parc National de _______, près de Bayahíbe.', answer: ['Cotubanamá', 'Cotubamana', 'cotubanamá', 'cotubamana', 'Del Este'], explanation: "Parc National de Cotubanamá (anciennement appelé Parc National de l'Est), sur la côte sud-est." }
+      es: { q: 'El Manantial de la Aleta está en el Parque Nacional _______, cerca de Bayahíbe.', answer: ['Cotubanamá', 'Del Este'], explanation: 'Parque Nacional Cotubanamá (antes llamado Parque Nacional del Este), en la costa sureste.' },
+      en: { q: 'Manantial de la Aleta is in _______ National Park, near Bayahíbe.', answer: ['Cotubanamá', 'Cotubamana', 'Del Este'], explanation: 'Cotubanamá National Park (formerly called Del Este National Park), on the southeastern coast.' },
+      fr: { q: 'Le Manantial de la Aleta se trouve dans le Parc National de _______, près de Bayahíbe.', answer: ['Cotubanamá', 'Cotubamana', 'Del Este', 'l\'Est'], explanation: "Parc National de Cotubanamá (anciennement appelé Parc National de l'Est), sur la côte sud-est." }
     }
   },
   {
     id: 'geo-056', type: 'fill',
     lang: {
-      es: { q: 'La Isabela fue fundada en lo que hoy es la provincia de _______, en la costa norte.', answer: ['Puerto Plata', 'puerto plata'], explanation: 'Puerto Plata, en la costa norte atlántica de la República Dominicana.' },
-      en: { q: 'La Isabela was founded in what is now _______ province, on the northern coast.', answer: ['Puerto Plata', 'puerto plata'], explanation: 'Puerto Plata, on the northern Atlantic coast of the Dominican Republic.' },
-      fr: { q: 'La Isabela a été fondée dans ce qui est aujourd\'hui la province de _______, sur la côte nord.', answer: ['Puerto Plata', 'puerto plata'], explanation: 'Puerto Plata, sur la côte atlantique nord de la République dominicaine.' }
+      es: { q: 'La Isabela fue fundada en lo que hoy es la provincia de _______, en la costa norte.', answer: ['Puerto Plata'], explanation: 'Puerto Plata, en la costa norte atlántica de la República Dominicana.' },
+      en: { q: 'La Isabela was founded in what is now _______ province, on the northern coast.', answer: ['Puerto Plata'], explanation: 'Puerto Plata, on the northern Atlantic coast of the Dominican Republic.' },
+      fr: { q: 'La Isabela a été fondée dans ce qui est aujourd\'hui la province de _______, sur la côte nord.', answer: ['Puerto Plata'], explanation: 'Puerto Plata, sur la côte atlantique nord de la République dominicaine.' }
     }
   },
   {
     id: 'geo-057', type: 'fill',
     lang: {
-      es: { q: 'El lago hipersalino en el lado haitiano, cerca del Enriquillo, se llama Étang _______.', answer: ['Saumâtre', 'Saumatre', 'saumâtre', 'saumatre'], explanation: 'Étang Saumâtre (que significa "lago salobre" en francés). Es el segundo lago más grande de La Española.' },
-      en: { q: 'The hypersaline lake on the Haitian side, near Enriquillo, is called Étang _______.', answer: ['Saumâtre', 'Saumatre', 'saumâtre', 'saumatre'], explanation: 'Étang Saumâtre (meaning "brackish lake" in French). It\'s the second largest lake in Hispaniola.' },
-      fr: { q: "Le lac hypersalin du côté haïtien, près d'Enriquillo, s'appelle Étang _______.", answer: ['Saumâtre', 'Saumatre', 'saumâtre', 'saumatre'], explanation: "L'Étang Saumâtre (qui signifie « lac saumâtre »). C'est le deuxième plus grand lac d'Hispaniola." }
+      es: { q: 'El lago hipersalino en el lado haitiano, cerca del Enriquillo, se llama Étang _______.', answer: ['Saumâtre', 'Saumatre'], explanation: 'Étang Saumâtre (que significa "lago salobre" en francés). Es el segundo lago más grande de La Española.' },
+      en: { q: 'The hypersaline lake on the Haitian side, near Enriquillo, is called Étang _______.', answer: ['Saumâtre', 'Saumatre'], explanation: 'Étang Saumâtre (meaning "brackish lake" in French). It\'s the second largest lake in Hispaniola.' },
+      fr: { q: "Le lac hypersalin du côté haïtien, près d'Enriquillo, s'appelle Étang _______.", answer: ['Saumâtre', 'Saumatre'], explanation: "L'Étang Saumâtre (qui signifie « lac saumâtre »). C'est le deuxième plus grand lac d'Hispaniola." }
     }
   },
   {
     id: 'geo-058', type: 'fill',
     lang: {
-      es: { q: 'El río que atraviesa Santo Domingo se llama Río _______.', answer: ['Ozama', 'ozama'], explanation: 'El Río Ozama divide Santo Domingo y desemboca en el Mar Caribe. Es como el río que separa dos distritos en Los Juegos del Hambre.' },
-      en: { q: 'The river that flows through Santo Domingo is called the _______ River.', answer: ['Ozama', 'ozama'], explanation: 'The Ozama River divides Santo Domingo and empties into the Caribbean Sea. Like the river separating two districts in The Hunger Games.' },
-      fr: { q: 'Le fleuve qui traverse Saint-Domingue s\'appelle le fleuve _______.', answer: ['Ozama', 'ozama'], explanation: "Le fleuve Ozama divise Saint-Domingue et se jette dans la mer des Caraïbes. Comme le fleuve séparant deux districts dans Hunger Games." }
+      es: { q: 'El río que atraviesa Santo Domingo se llama Río _______.', answer: ['Ozama'], explanation: 'El Río Ozama divide Santo Domingo y desemboca en el Mar Caribe. Es como el río que separa dos distritos en Los Juegos del Hambre.' },
+      en: { q: 'The river that flows through Santo Domingo is called the _______ River.', answer: ['Ozama'], explanation: 'The Ozama River divides Santo Domingo and empties into the Caribbean Sea. Like the river separating two districts in The Hunger Games.' },
+      fr: { q: 'Le fleuve qui traverse Saint-Domingue s\'appelle le fleuve _______.', answer: ['Ozama'], explanation: "Le fleuve Ozama divise Saint-Domingue et se jette dans la mer des Caraïbes. Comme le fleuve séparant deux districts dans Hunger Games." }
     }
   },
   {
     id: 'geo-059', type: 'fill',
     lang: {
-      es: { q: 'Las Cuevas del Pomier están en la provincia de San _______.', answer: ['Cristóbal', 'Cristobal', 'cristóbal', 'cristobal'], explanation: 'San Cristóbal, a unos 40 km de Santo Domingo. Las cuevas tienen más de 6,000 pictografías y petroglifos.' },
-      en: { q: 'The Cuevas del Pomier are in the province of San _______.', answer: ['Cristóbal', 'Cristobal', 'cristóbal', 'cristobal'], explanation: 'San Cristóbal, about 40 km from Santo Domingo. The caves have over 6,000 pictographs and petroglyphs.' },
-      fr: { q: 'Les Cuevas del Pomier se trouvent dans la province de San _______.', answer: ['Cristóbal', 'Cristobal', 'cristóbal', 'cristobal'], explanation: 'San Cristóbal, à environ 40 km de Saint-Domingue. Les grottes contiennent plus de 6 000 pictographies et pétroglyphes.' }
+      es: { q: 'Las Cuevas del Pomier están en la provincia de San _______.', answer: ['Cristóbal'], explanation: 'San Cristóbal, a unos 40 km de Santo Domingo. Las cuevas tienen más de 6,000 pictografías y petroglifos.' },
+      en: { q: 'The Cuevas del Pomier are in the province of San _______.', answer: ['Cristóbal', 'Cristobal'], explanation: 'San Cristóbal, about 40 km from Santo Domingo. The caves have over 6,000 pictographs and petroglyphs.' },
+      fr: { q: 'Les Cuevas del Pomier se trouvent dans la province de San _______.', answer: ['Cristóbal', 'Cristobal'], explanation: 'San Cristóbal, à environ 40 km de Saint-Domingue. Les grottes contiennent plus de 6 000 pictographies et pétroglyphes.' }
     }
   },
   {
     id: 'geo-060', type: 'fill',
     lang: {
-      es: { q: '_______ Cana está en la punta oriental de la República Dominicana, donde se ubica el aeropuerto del nivel Mundo Jurídico.', answer: ['Punta', 'punta'], explanation: 'Punta Cana, en el extremo este. En el juego, ahí es donde ocurre el combate contra el traficante en el aeropuerto.' },
-      en: { q: '_______ Cana is on the eastern tip of the Dominican Republic, where the Juridical World airport level is located.', answer: ['Punta', 'punta'], explanation: 'Punta Cana, on the eastern tip. In the game, that\'s where the fight against the trafficker takes place at the airport.' },
-      fr: { q: '_______ Cana est à la pointe orientale de la République dominicaine, où se trouve le niveau Monde Juridique de l\'aéroport.', answer: ['Punta', 'punta'], explanation: "Punta Cana, à la pointe est. Dans le jeu, c'est là que se déroule le combat contre le trafiquant à l'aéroport." }
+      es: { q: '_______ Cana está en la punta oriental de la República Dominicana, donde se ubica el aeropuerto del nivel Mundo Jurídico.', answer: ['Punta'], explanation: 'Punta Cana, en el extremo este. En el juego, ahí es donde ocurre el combate contra el traficante en el aeropuerto.' },
+      en: { q: '_______ Cana is on the eastern tip of the Dominican Republic, where the Juridical World airport level is located.', answer: ['Punta'], explanation: 'Punta Cana, on the eastern tip. In the game, that\'s where the fight against the trafficker takes place at the airport.' },
+      fr: { q: '_______ Cana est à la pointe orientale de la République dominicaine, où se trouve le niveau Monde Juridique de l\'aéroport.', answer: ['Punta'], explanation: "Punta Cana, à la pointe est. Dans le jeu, c'est là que se déroule le combat contre le trafiquant à l'aéroport." }
     }
   },
   {
     id: 'geo-061', type: 'fill',
     lang: {
-      es: { q: 'La cadena montañosa principal de la isla donde está el Pico Duarte se llama Cordillera _______.', answer: ['Central', 'central'], explanation: 'La Cordillera Central es la espina dorsal de La Española. Atraviesa el centro de la isla de noroeste a sureste.' },
-      en: { q: 'The main mountain range of the island where Pico Duarte is located is called the Cordillera _______.', answer: ['Central', 'central'], explanation: 'The Cordillera Central is the backbone of Hispaniola. It crosses the center of the island from northwest to southeast.' },
-      fr: { q: 'La chaîne de montagnes principale de l\'île où se trouve le Pico Duarte s\'appelle la Cordillera _______.', answer: ['Central', 'central', 'Centrale', 'centrale'], explanation: "La Cordillera Central est la colonne vertébrale d'Hispaniola. Elle traverse le centre de l'île du nord-ouest au sud-est." }
+      es: { q: 'La cadena montañosa principal de la isla donde está el Pico Duarte se llama Cordillera _______.', answer: ['Central'], explanation: 'La Cordillera Central es la espina dorsal de La Española. Atraviesa el centro de la isla de noroeste a sureste.' },
+      en: { q: 'The main mountain range of the island where Pico Duarte is located is called the Cordillera _______.', answer: ['Central'], explanation: 'The Cordillera Central is the backbone of Hispaniola. It crosses the center of the island from northwest to southeast.' },
+      fr: { q: 'La chaîne de montagnes principale de l\'île où se trouve le Pico Duarte s\'appelle la Cordillera _______.', answer: ['Central', 'Centrale'], explanation: "La Cordillera Central est la colonne vertébrale d'Hispaniola. Elle traverse le centre de l'île du nord-ouest au sud-est." }
     }
   },
   {
@@ -512,65 +512,65 @@ window.ARC_QUESTIONS.geography = [
   {
     id: 'geo-063', type: 'fill',
     lang: {
-      es: { q: 'En el mapa del juego, "1" en el bitmap ISLA_BITMAP significa _______ y "0" significa agua.', answer: ['tierra', 'Tierra', 'land'], explanation: 'El bitmap usa 1=tierra y 0=agua. Simple como el código binario: 1 y 0, como Matrix pero para islas.' },
-      en: { q: 'In the game map, "1" in the ISLA_BITMAP bitmap means _______ and "0" means water.', answer: ['land', 'Land', 'tierra'], explanation: 'The bitmap uses 1=land and 0=water. Simple as binary code: 1 and 0, like the Matrix but for islands.' },
-      fr: { q: 'Dans la carte du jeu, "1" dans le bitmap ISLA_BITMAP signifie _______ et "0" signifie eau.', answer: ['terre', 'Terre', 'land'], explanation: 'Le bitmap utilise 1=terre et 0=eau. Simple comme le code binaire : 1 et 0, comme Matrix mais pour les îles.' }
+      es: { q: 'En el mapa del juego, "1" en el bitmap ISLA_BITMAP significa _______ y "0" significa agua.', answer: ['tierra', 'land', 'terre'], explanation: 'El bitmap usa 1=tierra y 0=agua. Simple como el código binario: 1 y 0, como Matrix pero para islas.' },
+      en: { q: 'In the game map, "1" in the ISLA_BITMAP bitmap means _______ and "0" means water.', answer: ['land', 'tierra', 'terre'], explanation: 'The bitmap uses 1=land and 0=water. Simple as binary code: 1 and 0, like the Matrix but for islands.' },
+      fr: { q: 'Dans la carte du jeu, "1" dans le bitmap ISLA_BITMAP signifie _______ et "0" signifie eau.', answer: ['terre', 'land', 'tierra'], explanation: 'Le bitmap utilise 1=terre et 0=eau. Simple comme le code binaire : 1 et 0, comme Matrix mais pour les îles.' }
     }
   },
   {
     id: 'geo-064', type: 'fill',
     lang: {
-      es: { q: 'La Sierra de _______ es una cadena montañosa en el suroeste de la República Dominicana, cerca del Lago Enriquillo.', answer: ['Bahoruco', 'bahoruco', 'Baoruco', 'baoruco'], explanation: 'La Sierra de Bahoruco bordea el lado sur del Lago Enriquillo. Es una de las sierras con mayor biodiversidad del Caribe.' },
-      en: { q: 'The Sierra de _______ is a mountain range in the southwest of the Dominican Republic, near Lake Enriquillo.', answer: ['Bahoruco', 'bahoruco', 'Baoruco', 'baoruco'], explanation: 'The Sierra de Bahoruco borders the southern side of Lake Enriquillo. It\'s one of the most biodiverse ranges in the Caribbean.' },
-      fr: { q: 'La Sierra de _______ est une chaîne de montagnes au sud-ouest de la République dominicaine, près du lac Enriquillo.', answer: ['Bahoruco', 'bahoruco', 'Baoruco', 'baoruco'], explanation: "La Sierra de Bahoruco borde le côté sud du lac Enriquillo. C'est l'une des sierras les plus riches en biodiversité des Caraïbes." }
+      es: { q: 'La Sierra de _______ es una cadena montañosa en el suroeste de la República Dominicana, cerca del Lago Enriquillo.', answer: ['Bahoruco', 'Baoruco'], explanation: 'La Sierra de Bahoruco bordea el lado sur del Lago Enriquillo. Es una de las sierras con mayor biodiversidad del Caribe.' },
+      en: { q: 'The Sierra de _______ is a mountain range in the southwest of the Dominican Republic, near Lake Enriquillo.', answer: ['Bahoruco', 'Baoruco'], explanation: 'The Sierra de Bahoruco borders the southern side of Lake Enriquillo. It\'s one of the most biodiverse ranges in the Caribbean.' },
+      fr: { q: 'La Sierra de _______ est une chaîne de montagnes au sud-ouest de la République dominicaine, près du lac Enriquillo.', answer: ['Bahoruco', 'Baoruco'], explanation: "La Sierra de Bahoruco borde le côté sud du lac Enriquillo. C'est l'une des sierras les plus riches en biodiversité des Caraïbes." }
     }
   },
   {
     id: 'geo-065', type: 'fill',
     lang: {
-      es: { q: 'El nombre de la isla compartida por RD y Haití es La _______.', answer: ['Española', 'española', 'Hispaniola', 'hispaniola'], explanation: 'La Española (Hispaniola en otros idiomas). Es la segunda isla más grande del Caribe después de Cuba.' },
-      en: { q: 'The name of the island shared by DR and Haiti is _______.', answer: ['Hispaniola', 'hispaniola', 'La Española', 'Española'], explanation: 'Hispaniola (La Española in Spanish). It\'s the second largest Caribbean island after Cuba.' },
-      fr: { q: "Le nom de l'île partagée par la RD et Haïti est _______.", answer: ['Hispaniola', 'hispaniola', 'La Española', 'Española'], explanation: "Hispaniola (La Española en espagnol). C'est la deuxième plus grande île des Caraïbes après Cuba." }
+      es: { q: 'El nombre de la isla compartida por RD y Haití es La _______.', answer: ['Española', 'Hispaniola'], explanation: 'La Española (Hispaniola en otros idiomas). Es la segunda isla más grande del Caribe después de Cuba.' },
+      en: { q: 'The name of the island shared by DR and Haiti is _______.', answer: ['Hispaniola', 'La Española', 'Española'], explanation: 'Hispaniola (La Española in Spanish). It\'s the second largest Caribbean island after Cuba.' },
+      fr: { q: "Le nom de l'île partagée par la RD et Haïti est _______.", answer: ['Hispaniola', 'La Española', 'Española'], explanation: "Hispaniola (La Española en espagnol). C'est la deuxième plus grande île des Caraïbes après Cuba." }
     }
   },
   {
     id: 'geo-066', type: 'fill',
     lang: {
-      es: { q: 'El río más largo de la República Dominicana es el Yaque del _______.', answer: ['Norte', 'norte'], explanation: 'El Yaque del Norte (296 km) es el río más largo del país. Nace en la Cordillera Central y desemboca en la bahía de Monte Cristi, al noroeste.' },
-      en: { q: 'The longest river in the Dominican Republic is the Yaque del _______.', answer: ['Norte', 'norte', 'North', 'north'], explanation: 'The Yaque del Norte (296 km) is the country\'s longest river. It originates in the Cordillera Central and empties into Monte Cristi Bay, to the northwest.' },
-      fr: { q: 'Le plus long fleuve de la République dominicaine est le Yaque del _______.', answer: ['Norte', 'norte', 'Nord', 'nord'], explanation: 'Le Yaque del Norte (296 km) est le plus long fleuve du pays. Il prend sa source dans la Cordillera Central et se jette dans la baie de Monte Cristi, au nord-ouest.' }
+      es: { q: 'El río más largo de la República Dominicana es el Yaque del _______.', answer: ['Norte'], explanation: 'El Yaque del Norte (296 km) es el río más largo del país. Nace en la Cordillera Central y desemboca en la bahía de Monte Cristi, al noroeste.' },
+      en: { q: 'The longest river in the Dominican Republic is the Yaque del _______.', answer: ['Norte', 'North'], explanation: 'The Yaque del Norte (296 km) is the country\'s longest river. It originates in the Cordillera Central and empties into Monte Cristi Bay, to the northwest.' },
+      fr: { q: 'Le plus long fleuve de la République dominicaine est le Yaque del _______.', answer: ['Norte', 'Nord'], explanation: 'Le Yaque del Norte (296 km) est le plus long fleuve du pays. Il prend sa source dans la Cordillera Central et se jette dans la baie de Monte Cristi, au nord-ouest.' }
     }
   },
   {
     id: 'geo-067', type: 'fill',
     lang: {
-      es: { q: 'La isla dentro del Lago Enriquillo se llama Isla _______.', answer: ['Cabritos', 'cabritos'], explanation: 'Isla Cabritos. Hogar de cocodrilos americanos e iguanas endémicas. También conocida como Guarizacca en taíno.' },
-      en: { q: 'The island inside Lake Enriquillo is called Isla _______.', answer: ['Cabritos', 'cabritos'], explanation: 'Isla Cabritos. Home to American crocodiles and endemic iguanas. Also known as Guarizacca in Taíno.' },
-      fr: { q: "L'île dans le lac Enriquillo s'appelle Isla _______.", answer: ['Cabritos', 'cabritos'], explanation: "Isla Cabritos. Foyer de crocodiles américains et d'iguanes endémiques. Aussi connue sous le nom de Guarizacca en taïno." }
+      es: { q: 'La isla dentro del Lago Enriquillo se llama Isla _______.', answer: ['Cabritos', 'Guarizacca'], explanation: 'Isla Cabritos. Hogar de cocodrilos americanos e iguanas endémicas. También conocida como Guarizacca en taíno.' },
+      en: { q: 'The island inside Lake Enriquillo is called Isla _______.', answer: ['Cabritos', 'Guarizacca'], explanation: 'Isla Cabritos. Home to American crocodiles and endemic iguanas. Also known as Guarizacca in Taíno.' },
+      fr: { q: "L'île dans le lac Enriquillo s'appelle Isla _______.", answer: ['Cabritos', 'Guarizacca'], explanation: "Isla Cabritos. Foyer de crocodiles américains et d'iguanes endémiques. Aussi connue sous le nom de Guarizacca en taïno." }
     }
   },
   {
     id: 'geo-068', type: 'fill',
     lang: {
-      es: { q: 'El juego tiene _____ mundos posicionados en ubicaciones geográficas reales del mapa.', answer: ['13', 'trece'], explanation: '13 mundos distribuidos geográficamente. Desde La Isabela al norte hasta el Lago Enriquillo al suroeste y Punta Cana al este.' },
-      en: { q: 'The game has _____ worlds positioned at real geographic locations on the map.', answer: ['13', 'thirteen'], explanation: '13 worlds distributed geographically. From La Isabela in the north to Lake Enriquillo in the southwest and Punta Cana in the east.' },
-      fr: { q: 'Le jeu a _____ mondes positionnés à des emplacements géographiques réels sur la carte.', answer: ['13', 'treize'], explanation: "13 mondes distribués géographiquement. De La Isabela au nord jusqu'au lac Enriquillo au sud-ouest et Punta Cana à l'est." }
+      es: { q: 'El juego tiene _____ mundos posicionados en ubicaciones geográficas reales del mapa.', answer: ['13', 'trece', 'thirteen', 'treize'], explanation: '13 mundos distribuidos geográficamente. Desde La Isabela al norte hasta el Lago Enriquillo al suroeste y Punta Cana al este.' },
+      en: { q: 'The game has _____ worlds positioned at real geographic locations on the map.', answer: ['13', 'thirteen', 'trece', 'treize'], explanation: '13 worlds distributed geographically. From La Isabela in the north to Lake Enriquillo in the southwest and Punta Cana in the east.' },
+      fr: { q: 'Le jeu a _____ mondes positionnés à des emplacements géographiques réels sur la carte.', answer: ['13', 'treize', 'trece', 'thirteen'], explanation: "13 mondes distribués géographiquement. De La Isabela au nord jusqu'au lac Enriquillo au sud-ouest et Punta Cana à l'est." }
     }
   },
   {
     id: 'geo-069', type: 'fill',
     lang: {
-      es: { q: 'El océano _______ está al norte de la República Dominicana.', answer: ['Atlántico', 'Atlantico', 'atlantico', 'atlántico', 'Atlantic'], explanation: 'El Océano Atlántico baña toda la costa norte de la isla. Colón lo cruzó para llegar aquí.' },
-      en: { q: 'The _______ Ocean is to the north of the Dominican Republic.', answer: ['Atlantic', 'atlantic', 'Atlántico'], explanation: 'The Atlantic Ocean borders the entire northern coast. Columbus crossed it to get here.' },
-      fr: { q: "L'océan _______ se trouve au nord de la République dominicaine.", answer: ['Atlantique', 'atlantique', 'Atlantic'], explanation: "L'océan Atlantique borde toute la côte nord de l'île. Colomb l'a traversé pour arriver ici." }
+      es: { q: 'El océano _______ está al norte de la República Dominicana.', answer: ['Atlántico', 'Atlantic', 'Atlantique'], explanation: 'El Océano Atlántico baña toda la costa norte de la isla. Colón lo cruzó para llegar aquí.' },
+      en: { q: 'The _______ Ocean is to the north of the Dominican Republic.', answer: ['Atlantic', 'Atlántico', 'Atlantique'], explanation: 'The Atlantic Ocean borders the entire northern coast. Columbus crossed it to get here.' },
+      fr: { q: "L'océan _______ se trouve au nord de la République dominicaine.", answer: ['Atlantique', 'Atlantic', 'Atlántico'], explanation: "L'océan Atlantique borde toute la côte nord de l'île. Colomb l'a traversé pour arriver ici." }
     }
   },
   {
     id: 'geo-070', type: 'fill',
     lang: {
-      es: { q: 'El mar _______ baña la costa sur de la República Dominicana.', answer: ['Caribe', 'caribe', 'Caribbean', 'des Caraïbes'], explanation: 'El Mar Caribe, también llamado Mar de las Antillas. Es donde ocurren las aventuras acuáticas del juego.' },
-      en: { q: 'The _______ Sea borders the southern coast of the Dominican Republic.', answer: ['Caribbean', 'caribbean', 'Caribe'], explanation: 'The Caribbean Sea, also called the Sea of the Antilles. It\'s where the game\'s aquatic adventures take place.' },
-      fr: { q: 'La mer des _______ borde la côte sud de la République dominicaine.', answer: ['Caraïbes', 'caraïbes', 'Caraibes', 'caraibes'], explanation: "La mer des Caraïbes, aussi appelée mer des Antilles. C'est là que se déroulent les aventures aquatiques du jeu." }
+      es: { q: 'El mar _______ baña la costa sur de la República Dominicana.', answer: ['Caribe', 'Caribbean', 'de las Antillas'], explanation: 'El Mar Caribe, también llamado Mar de las Antillas. Es donde ocurren las aventuras acuáticas del juego.' },
+      en: { q: 'The _______ Sea borders the southern coast of the Dominican Republic.', answer: ['Caribbean', 'Caribe'], explanation: 'The Caribbean Sea, also called the Sea of the Antilles. It\'s where the game\'s aquatic adventures take place.' },
+      fr: { q: 'La mer des _______ borde la côte sud de la République dominicaine.', answer: ['Caraïbes', 'Antilles'], explanation: "La mer des Caraïbes, aussi appelée mer des Antilles. C'est là que se déroulent les aventures aquatiques du jeu." }
     }
   },
   {
@@ -584,33 +584,33 @@ window.ARC_QUESTIONS.geography = [
   {
     id: 'geo-072', type: 'fill',
     lang: {
-      es: { q: 'En el código del juego, los ríos se generan con el algoritmo de _______, el mismo que se usaba para dibujar líneas en las primeras pantallas de computadora.', answer: ['Bresenham', 'bresenham'], explanation: 'El algoritmo de Bresenham (1962) calcula qué píxeles encender para formar una línea recta. En el juego, traza los ríos tile por tile.' },
-      en: { q: 'In the game code, rivers are generated using _______\'s algorithm, the same one used to draw lines on early computer screens.', answer: ['Bresenham', 'bresenham'], explanation: 'Bresenham\'s algorithm (1962) calculates which pixels to light up to form a straight line. In the game, it traces rivers tile by tile.' },
-      fr: { q: 'Dans le code du jeu, les rivières sont générées avec l\'algorithme de _______, le même utilisé pour tracer des lignes sur les premiers écrans d\'ordinateur.', answer: ['Bresenham', 'bresenham'], explanation: "L'algorithme de Bresenham (1962) calcule quels pixels allumer pour former une ligne droite. Dans le jeu, il trace les rivières tuile par tuile." }
+      es: { q: 'En el código del juego, los ríos se generan con el algoritmo de _______, el mismo que se usaba para dibujar líneas en las primeras pantallas de computadora.', answer: ['Bresenham'], explanation: 'El algoritmo de Bresenham (1962) calcula qué píxeles encender para formar una línea recta. En el juego, traza los ríos tile por tile.' },
+      en: { q: 'In the game code, rivers are generated using _______\'s algorithm, the same one used to draw lines on early computer screens.', answer: ['Bresenham'], explanation: 'Bresenham\'s algorithm (1962) calculates which pixels to light up to form a straight line. In the game, it traces rivers tile by tile.' },
+      fr: { q: 'Dans le code du jeu, les rivières sont générées avec l\'algorithme de _______, le même utilisé pour tracer des lignes sur les premiers écrans d\'ordinateur.', answer: ['Bresenham'], explanation: "L'algorithme de Bresenham (1962) calcule quels pixels allumer pour former une ligne droite. Dans le jeu, il trace les rivières tuile par tuile." }
     }
   },
   {
     id: 'geo-073', type: 'fill',
     lang: {
-      es: { q: 'El Manantial de la Aleta es un tipo de formación geológica llamada _______, similar a los de la Península de Yucatán.', answer: ['cenote', 'Cenote', 'cénote'], explanation: 'Un cenote: depresión natural con agua subterránea, formada por colapso de roca caliza. Los mayas y los taínos los consideraban sagrados.' },
-      en: { q: 'Manantial de la Aleta is a type of geological formation called a _______, similar to those in the Yucatán Peninsula.', answer: ['cenote', 'Cenote'], explanation: 'A cenote: a natural depression with groundwater, formed by limestone collapse. Both the Maya and the Taíno considered them sacred.' },
-      fr: { q: 'Le Manantial de la Aleta est un type de formation géologique appelée _______, similaire à ceux de la péninsule du Yucatán.', answer: ['cénote', 'cenote', 'Cénote', 'Cenote'], explanation: "Un cénote : une dépression naturelle avec de l'eau souterraine, formée par l'effondrement du calcaire. Les Mayas et les Taïnos les considéraient comme sacrés." }
+      es: { q: 'El Manantial de la Aleta es un tipo de formación geológica llamada _______, similar a los de la Península de Yucatán.', answer: ['cenote', 'sinkhole'], explanation: 'Un cenote: depresión natural con agua subterránea, formada por colapso de roca caliza. Los mayas y los taínos los consideraban sagrados.' },
+      en: { q: 'Manantial de la Aleta is a type of geological formation called a _______, similar to those in the Yucatán Peninsula.', answer: ['cenote', 'sinkhole'], explanation: 'A cenote: a natural depression with groundwater, formed by limestone collapse. Both the Maya and the Taíno considered them sacred.' },
+      fr: { q: 'Le Manantial de la Aleta est un type de formation géologique appelée _______, similaire à ceux de la péninsule du Yucatán.', answer: ['cénote', 'cenote'], explanation: "Un cénote : une dépression naturelle avec de l'eau souterraine, formée par l'effondrement du calcaire. Les Mayas et les Taïnos les considéraient comme sacrés." }
     }
   },
   {
     id: 'geo-074', type: 'fill',
     lang: {
-      es: { q: 'República Dominicana ocupa los dos tercios _______ (este/oeste) de la isla de La Española.', answer: ['orientales', 'este', 'orientals', 'eastern', 'east'], explanation: 'Los dos tercios orientales (este). Haití tiene el tercio occidental (oeste).' },
-      en: { q: 'The Dominican Republic occupies the _______ (eastern/western) two-thirds of the island of Hispaniola.', answer: ['eastern', 'Eastern', 'east', 'East'], explanation: 'The eastern two-thirds. Haiti has the western third.' },
-      fr: { q: "La République dominicaine occupe les deux tiers _______ (est/ouest) de l'île d'Hispaniola.", answer: ['orientaux', 'est', 'Eastern', 'eastern'], explanation: "Les deux tiers orientaux (est). Haïti a le tiers occidental (ouest)." }
+      es: { q: 'República Dominicana ocupa los dos tercios _______ (este/oeste) de la isla de La Española.', answer: ['orientales', 'este', 'eastern'], explanation: 'Los dos tercios orientales (este). Haití tiene el tercio occidental (oeste).' },
+      en: { q: 'The Dominican Republic occupies the _______ (eastern/western) two-thirds of the island of Hispaniola.', answer: ['eastern', 'east'], explanation: 'The eastern two-thirds. Haiti has the western third.' },
+      fr: { q: "La République dominicaine occupe les deux tiers _______ (est/ouest) de l'île d'Hispaniola.", answer: ['orientaux', 'est', 'eastern'], explanation: "Les deux tiers orientaux (est). Haïti a le tiers occidental (ouest)." }
     }
   },
   {
     id: 'geo-075', type: 'fill',
     lang: {
-      es: { q: 'El juego ArcLycée tiene un mapa Leaflet con _____ capas de datos toggleables (sitios taínos, coloniales, naufragios, museos, etc.).', answer: ['6', 'seis'], explanation: '6 capas: Taínos, Coloniales, Naufragios, Museos, Inexplorados y Potencial Arqueológico.' },
-      en: { q: 'The ArcLycée game has a Leaflet map with _____ toggleable data layers (Taíno sites, colonial, shipwrecks, museums, etc.).', answer: ['6', 'six'], explanation: '6 layers: Taíno, Colonial, Shipwrecks, Museums, Unexplored, and Archaeological Potential.' },
-      fr: { q: 'Le jeu ArcLycée a une carte Leaflet avec _____ couches de données commutables (sites taïnos, coloniaux, naufrages, musées, etc.).', answer: ['6', 'six'], explanation: '6 couches : Taïnos, Coloniaux, Naufrages, Musées, Inexplorés et Potentiel Archéologique.' }
+      es: { q: 'El juego ArcLycée tiene un mapa Leaflet con _____ capas de datos toggleables (sitios taínos, coloniales, naufragios, museos, etc.).', answer: ['6', 'seis', 'six'], explanation: '6 capas: Taínos, Coloniales, Naufragios, Museos, Inexplorados y Potencial Arqueológico.' },
+      en: { q: 'The ArcLycée game has a Leaflet map with _____ toggleable data layers (Taíno sites, colonial, shipwrecks, museums, etc.).', answer: ['6', 'six', 'seis'], explanation: '6 layers: Taíno, Colonial, Shipwrecks, Museums, Unexplored, and Archaeological Potential.' },
+      fr: { q: 'Le jeu ArcLycée a une carte Leaflet avec _____ couches de données commutables (sites taïnos, coloniaux, naufrages, musées, etc.).', answer: ['6', 'six', 'seis'], explanation: '6 couches : Taïnos, Coloniaux, Naufrages, Musées, Inexplorés et Potentiel Archéologique.' }
     }
   },
 

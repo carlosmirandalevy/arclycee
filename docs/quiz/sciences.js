@@ -1535,17 +1535,17 @@ window.ARC_QUESTIONS.sciences = [
     lang: {
       es: {
         q: 'Un _______ es una dolina de agua dulce formada por el colapso de roca caliza.',
-        answer: ['cenote'],
+        answer: ['cenote', 'dzonot'],
         explanation: 'La palabra "cenote" viene del maya "dzonot". Son formaciones geológicas donde la roca caliza colapsa y expone el agua subterránea. El Manantial de la Aleta es uno real en RD.'
       },
       en: {
         q: 'A _______ is a freshwater sinkhole formed by the collapse of limestone.',
-        answer: ['cenote'],
+        answer: ['cenote', 'dzonot'],
         explanation: 'The word "cenote" comes from the Mayan "dzonot." They are geological formations where limestone collapses and exposes groundwater. Manantial de la Aleta is a real one in DR.'
       },
       fr: {
         q: 'Un _______ est une doline d\'eau douce formée par l\'effondrement du calcaire.',
-        answer: ['cénote', 'cenote'],
+        answer: ['cénote', 'cenote', 'dzonot'],
         explanation: 'Le mot « cénote » vient du maya « dzonot ». Ce sont des formations géologiques où le calcaire s\'effondre et expose les eaux souterraines. Le Manantial de la Aleta en est un réel en RD.'
       }
     }
@@ -1786,7 +1786,7 @@ window.ARC_QUESTIONS.sciences = [
     id: 'sci-070', type: 'fill',
     lang: {
       es: {
-        q: 'La _______ es la planta que los taínos usaban en ceremonias rituales fumándola con los behiques.',
+        q: 'El _______ es la planta que los taínos usaban en ceremonias rituales fumándola con los behiques.',
         answer: ['tabaco', 'tobacco'],
         explanation: 'El tabaco (Nicotiana tabacum) era sagrado para los taínos. La palabra "tabaco" es de origen taíno y se ha adoptado en muchos idiomas del mundo.'
       },
@@ -2213,34 +2213,34 @@ window.ARC_QUESTIONS.sciences = [
     id: 'sci-084', type: 'match',
     lang: {
       es: {
-        q: 'Conecta cada peligro del Santuario del Manatí con su efecto en el jugador.',
+        q: 'Conecta cada peligro del Santuario del Manatí con su tipo de ataque — como un bestiario de RPG:',
         pairs: [
-          ['Tiburón (mordida)', 'Daño + sacudida 0.5s'],
-          ['Medusa (contacto)', 'Daño + lentitud + sacudida 0.4s'],
-          ['Lancha rápida', 'Daño (-8 vida) + sacudida 0.6s'],
-          ['Asfixia (sin O₂)', 'Daño (-3 vida) cada 1.5s']
+          ['Tiburón', 'Mordida'],
+          ['Medusa', 'Picadura'],
+          ['Lancha rápida', 'Choque'],
+          ['Falta de O₂', 'Asfixia']
         ],
-        explanation: 'Cada peligro del santuario simula amenazas reales para la vida marina y los buzos: depredadores, contacto con medusas, tráfico de embarcaciones y falta de oxígeno.'
+        explanation: 'Cada peligro del santuario simula amenazas reales para los buzos: depredadores que muerden, medusas que pican, lanchas que golpean y la falta de oxígeno que asfixia.'
       },
       en: {
-        q: 'Match each Manatee Sanctuary danger with its effect on the player.',
+        q: 'Match each Manatee Sanctuary danger with its type of attack — like an RPG bestiary:',
         pairs: [
-          ['Shark (bite)', 'Damage + 0.5s shake'],
-          ['Jellyfish (contact)', 'Damage + slowness + 0.4s shake'],
-          ['Speedboat', 'Damage (-8 HP) + 0.6s shake'],
-          ['Suffocation (no O₂)', 'Damage (-3 HP) every 1.5s']
+          ['Shark', 'Bite'],
+          ['Jellyfish', 'Sting'],
+          ['Speedboat', 'Crash'],
+          ['Lack of O₂', 'Suffocation']
         ],
-        explanation: 'Each sanctuary danger simulates real threats to marine life and divers: predators, jellyfish stings, boat traffic, and lack of oxygen.'
+        explanation: 'Each sanctuary danger simulates real threats to divers: predators that bite, jellyfish that sting, boats that crash into you, and lack of oxygen that suffocates.'
       },
       fr: {
-        q: 'Associe chaque danger du Sanctuaire du Lamantin à son effet sur le joueur.',
+        q: 'Associe chaque danger du Sanctuaire du Lamantin à son type d\'attaque — comme un bestiaire de RPG :',
         pairs: [
-          ['Requin (morsure)', 'Dégâts + secousse 0,5s'],
-          ['Méduse (contact)', 'Dégâts + lenteur + secousse 0,4s'],
-          ['Bateau rapide', 'Dégâts (-8 PV) + secousse 0,6s'],
-          ['Asphyxie (sans O₂)', 'Dégâts (-3 PV) chaque 1,5s']
+          ['Requin', 'Morsure'],
+          ['Méduse', 'Piqûre'],
+          ['Bateau rapide', 'Collision'],
+          ['Manque d\'O₂', 'Asphyxie']
         ],
-        explanation: 'Chaque danger du sanctuaire simule des menaces réelles pour la vie marine et les plongeurs : prédateurs, piqûres de méduses, trafic maritime et manque d\'oxygène.'
+        explanation: 'Chaque danger du sanctuaire simule des menaces réelles pour les plongeurs : prédateurs qui mordent, méduses qui piquent, bateaux qui percutent et manque d\'oxygène qui asphyxie.'
       }
     }
   },

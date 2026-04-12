@@ -34,9 +34,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-003', type: 'fill',
     lang: {
-      es: { q: 'Los taínos hacían pan sin trigo, nivel de creatividad Percy Jackson. ¿Cómo se llama ese pan hecho de yuca?', answer: ['casabe', 'cazabe', 'Casabe', 'Cazabe'], explanation: 'El casabe es un pan plano hecho de harina de yuca (mandioca), alimento básico taíno que aún se come en RD.' },
-      en: { q: 'The Tainos made bread without wheat, Percy Jackson-level creativity. What is that yuca bread called?', answer: ['casabe', 'cazabe', 'cassava bread', 'Casabe'], explanation: 'Casabe is a flatbread made from yuca (cassava) flour, a Taino staple food still eaten in the DR today.' },
-      fr: { q: 'Les Taïnos faisaient du pain sans blé, créativité niveau Percy Jackson. Comment s\'appelle ce pain de manioc ?', answer: ['casabe', 'cazabe', 'cassave', 'Casabe'], explanation: 'Le casabe est un pain plat fait de farine de manioc, aliment de base taïno encore consommé en RD.' }
+      es: { q: 'Los taínos hacían pan sin trigo, nivel de creatividad Percy Jackson. ¿Cómo se llama ese pan hecho de yuca?', answer: ['casabe', 'cazabe'], explanation: 'El casabe es un pan plano hecho de harina de yuca (mandioca), alimento básico taíno que aún se come en RD.' },
+      en: { q: 'The Tainos made bread without wheat, Percy Jackson-level creativity. What is that yuca bread called?', answer: ['casabe', 'cazabe', 'cassava bread'], explanation: 'Casabe is a flatbread made from yuca (cassava) flour, a Taino staple food still eaten in the DR today.' },
+      fr: { q: 'Les Taïnos faisaient du pain sans blé, créativité niveau Percy Jackson. Comment s\'appelle ce pain de manioc ?', answer: ['casabe', 'cazabe', 'cassave'], explanation: 'Le casabe est un pain plat fait de farine de manioc, aliment de base taïno encore consommé en RD.' }
     }
   },
 
@@ -88,9 +88,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-009', type: 'fill',
     lang: {
-      es: { q: 'Como Finn y Jake tienen su casa del árbol, los taínos tenían la casa del cacique, más grande que un bohío. ¿Cómo se llamaba?', answer: ['caney', 'Caney', 'el caney'], explanation: 'El caney era la vivienda del cacique, más grande y rectangular, a diferencia de los bohíos circulares del resto de la comunidad.' },
-      en: { q: 'Like Finn and Jake have their treehouse, the Taino chief had a bigger house than a bohio. What was it called?', answer: ['caney', 'Caney', 'the caney'], explanation: 'The caney was the chief\'s dwelling, larger and rectangular, unlike the circular bohios of the rest of the community.' },
-      fr: { q: 'Comme Finn et Jake ont leur cabane dans l\'arbre, le chef taïno avait une maison plus grande qu\'un bohío. Comment s\'appelait-elle ?', answer: ['caney', 'Caney', 'le caney'], explanation: 'Le caney était l\'habitation du cacique, plus grande et rectangulaire, contrairement aux bohíos circulaires du reste de la communauté.' }
+      es: { q: 'Como Finn y Jake tienen su casa del árbol, los taínos tenían la casa del cacique, más grande que un bohío. ¿Cómo se llamaba?', answer: ['caney', 'el caney'], explanation: 'El caney era la vivienda del cacique, más grande y rectangular, a diferencia de los bohíos circulares del resto de la comunidad.' },
+      en: { q: 'Like Finn and Jake have their treehouse, the Taino chief had a bigger house than a bohio. What was it called?', answer: ['caney', 'the caney'], explanation: 'The caney was the chief\'s dwelling, larger and rectangular, unlike the circular bohios of the rest of the community.' },
+      fr: { q: 'Comme Finn et Jake ont leur cabane dans l\'arbre, le chef taïno avait une maison plus grande qu\'un bohío. Comment s\'appelait-elle ?', answer: ['caney', 'le caney'], explanation: 'Le caney était l\'habitation du cacique, plus grande et rectangulaire, contrairement aux bohíos circulaires du reste de la communauté.' }
     }
   },
 
@@ -144,9 +144,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-015', type: 'fill',
     lang: {
-      es: { q: 'Colón llamó a la isla donde están RD y Haití "La ________". Suena a nombre de telenovela, pero es real.', answer: ['Hispaniola', 'Española', 'hispaniola', 'española'], explanation: 'Colón bautizó la isla como "La Española" (Hispaniola en latín), que hoy comparten República Dominicana y Haití.' },
-      en: { q: 'Columbus named the island where DR and Haiti are "La ________". Sounds like a soap opera, but it\'s real.', answer: ['Hispaniola', 'Espanola', 'hispaniola', 'espanola'], explanation: 'Columbus named the island "La Espanola" (Hispaniola in Latin), today shared by the Dominican Republic and Haiti.' },
-      fr: { q: 'Colomb a nommé l\'île où se trouvent la RD et Haïti "La ________". On dirait un titre de telenovela, mais c\'est réel.', answer: ['Hispaniola', 'Española', 'hispaniola', 'española'], explanation: 'Colomb a baptisé l\'île "La Española" (Hispaniola en latin), aujourd\'hui partagée entre la République dominicaine et Haïti.' }
+      es: { q: 'Colón llamó a la isla donde están RD y Haití "La ________". Suena a nombre de telenovela, pero es real.', answer: ['Hispaniola', 'Española'], explanation: 'Colón bautizó la isla como "La Española" (Hispaniola en latín), que hoy comparten República Dominicana y Haití.' },
+      en: { q: 'Columbus named the island where DR and Haiti are "La ________". Sounds like a soap opera, but it\'s real.', answer: ['Hispaniola', 'Espanola', 'Española'], explanation: 'Columbus named the island "La Espanola" (Hispaniola in Latin), today shared by the Dominican Republic and Haiti.' },
+      fr: { q: 'Colomb a nommé l\'île où se trouvent la RD et Haïti "La ________". On dirait un titre de telenovela, mais c\'est réel.', answer: ['Hispaniola', 'Española'], explanation: 'Colomb a baptisé l\'île "La Española" (Hispaniola en latin), aujourd\'hui partagée entre la République dominicaine et Haïti.' }
     }
   },
 
@@ -218,9 +218,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-023', type: 'fill',
     lang: {
-      es: { q: 'Enriquillo se refugió en las montañas de ________, como Batman en su cueva, pero en el suroeste de La Hispaniola.', answer: ['Bahoruco', 'bahoruco', 'Sierra de Bahoruco', 'sierra de Bahoruco'], explanation: 'La Sierra de Bahoruco fue el refugio natural de Enriquillo, desde donde resistió 14 años contra los españoles.' },
-      en: { q: 'Enriquillo took refuge in the ________ mountains, like Batman in his cave, but in southwestern Hispaniola.', answer: ['Bahoruco', 'bahoruco', 'Sierra de Bahoruco'], explanation: 'The Sierra de Bahoruco was Enriquillo\'s natural refuge, from where he resisted 14 years against the Spanish.' },
-      fr: { q: 'Enriquillo s\'est réfugié dans les montagnes de ________, comme Batman dans sa grotte, mais au sud-ouest d\'Hispaniola.', answer: ['Bahoruco', 'bahoruco', 'Sierra de Bahoruco'], explanation: 'La Sierra de Bahoruco fut le refuge naturel d\'Enriquillo, d\'où il a résisté 14 ans contre les Espagnols.' }
+      es: { q: 'Enriquillo se refugió en las montañas de ________, como Batman en su cueva, pero en el suroeste de La Hispaniola.', answer: ['Bahoruco', 'Sierra de Bahoruco', 'Baoruco'], explanation: 'La Sierra de Bahoruco fue el refugio natural de Enriquillo, desde donde resistió 14 años contra los españoles.' },
+      en: { q: 'Enriquillo took refuge in the ________ mountains, like Batman in his cave, but in southwestern Hispaniola.', answer: ['Bahoruco', 'Sierra de Bahoruco', 'Baoruco'], explanation: 'The Sierra de Bahoruco was Enriquillo\'s natural refuge, from where he resisted 14 years against the Spanish.' },
+      fr: { q: 'Enriquillo s\'est réfugié dans les montagnes de ________, comme Batman dans sa grotte, mais au sud-ouest d\'Hispaniola.', answer: ['Bahoruco', 'Sierra de Bahoruco', 'Baoruco'], explanation: 'La Sierra de Bahoruco fut le refuge naturel d\'Enriquillo, d\'où il a résisté 14 ans contre les Espagnols.' }
     }
   },
 
@@ -254,9 +254,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-027', type: 'fill',
     lang: {
-      es: { q: 'La isla en medio del Lago Enriquillo donde Enriquillo tenía su base se llama Isla ________. Los taínos la llamaban Guarizacca.', answer: ['Cabritos', 'cabritos', 'de los Cabritos'], explanation: 'La Isla Cabritos (Guarizacca en taíno) está en el centro del Lago Enriquillo y es hoy un parque nacional con fauna endémica.' },
-      en: { q: 'The island in the middle of Lake Enriquillo where Enriquillo had his base is called ________ Island. The Tainos called it Guarizacca.', answer: ['Cabritos', 'cabritos'], explanation: 'Cabritos Island (Guarizacca in Taino) is in the center of Lake Enriquillo and is now a national park with endemic wildlife.' },
-      fr: { q: 'L\'île au milieu du Lac Enriquillo où Enriquillo avait sa base s\'appelle Isla ________. Les Taïnos l\'appelaient Guarizacca.', answer: ['Cabritos', 'cabritos', 'de los Cabritos'], explanation: 'L\'Isla Cabritos (Guarizacca en taïno) se trouve au centre du Lac Enriquillo et est aujourd\'hui un parc national avec une faune endémique.' }
+      es: { q: 'La isla en medio del Lago Enriquillo donde Enriquillo tenía su base se llama Isla ________. Los taínos la llamaban Guarizacca.', answer: ['Cabritos', 'Guarizacca'], explanation: 'La Isla Cabritos (Guarizacca en taíno) está en el centro del Lago Enriquillo y es hoy un parque nacional con fauna endémica.' },
+      en: { q: 'The island in the middle of Lake Enriquillo where Enriquillo had his base is called ________ Island. The Tainos called it Guarizacca.', answer: ['Cabritos', 'Guarizacca'], explanation: 'Cabritos Island (Guarizacca in Taino) is in the center of Lake Enriquillo and is now a national park with endemic wildlife.' },
+      fr: { q: 'L\'île au milieu du Lac Enriquillo où Enriquillo avait sa base s\'appelle Isla ________. Les Taïnos l\'appelaient Guarizacca.', answer: ['Cabritos', 'Guarizacca'], explanation: 'L\'Isla Cabritos (Guarizacca en taïno) se trouve au centre du Lac Enriquillo et est aujourd\'hui un parc national avec une faune endémique.' }
     }
   },
 
@@ -310,9 +310,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-033', type: 'fill',
     lang: {
-      es: { q: 'Las comunidades cimarronas se llamaban "________". Eran como bases secretas en las montañas. ¡Nivel Fortress of Solitude!', answer: ['palenques', 'Palenques', 'palenque', 'Palenque'], explanation: 'Los palenques eran asentamientos fortificados donde los cimarrones vivían en libertad, ocultos en las montañas.' },
-      en: { q: 'Maroon communities were called "________". They were like secret mountain bases. Fortress of Solitude level!', answer: ['palenques', 'Palenques', 'palenque', 'Palenque'], explanation: 'Palenques were fortified settlements where maroons lived in freedom, hidden in the mountains.' },
-      fr: { q: 'Les communautés marronnes s\'appelaient "________". C\'étaient comme des bases secrètes en montagne. Niveau Forteresse de Solitude !', answer: ['palenques', 'Palenques', 'palenque', 'Palenque'], explanation: 'Les palenques étaient des établissements fortifiés où les marrons vivaient en liberté, cachés dans les montagnes.' }
+      es: { q: 'Las comunidades cimarronas se llamaban "________". Eran como bases secretas en las montañas. ¡Nivel Fortress of Solitude!', answer: ['palenques', 'palenque', 'manieles', 'maniel'], explanation: 'Los palenques eran asentamientos fortificados donde los cimarrones vivían en libertad, ocultos en las montañas.' },
+      en: { q: 'Maroon communities were called "________". They were like secret mountain bases. Fortress of Solitude level!', answer: ['palenques', 'palenque', 'manieles', 'maniel'], explanation: 'Palenques were fortified settlements where maroons lived in freedom, hidden in the mountains.' },
+      fr: { q: 'Les communautés marronnes s\'appelaient "________". C\'étaient comme des bases secrètes en montagne. Niveau Forteresse de Solitude !', answer: ['palenques', 'palenque', 'manieles', 'maniel'], explanation: 'Les palenques étaient des établissements fortifiés où les marrons vivaient en liberté, cachés dans les montagnes.' }
     }
   },
 
@@ -364,9 +364,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-039', type: 'fill',
     lang: {
-      es: { q: 'Sebastián ________ fue el líder cimarrón más famoso de La Hispaniola. Su apellido suena a león, y luchaba como uno.', answer: ['Lemba', 'lemba'], explanation: 'Sebastián Lemba es considerado un héroe de la resistencia afrodescendiente en la República Dominicana.' },
-      en: { q: 'Sebastian ________ was the most famous maroon leader of Hispaniola. His last name sounds like it could be a lion\'s, and he fought like one.', answer: ['Lemba', 'lemba'], explanation: 'Sebastian Lemba is considered a hero of Afro-descendant resistance in the Dominican Republic.' },
-      fr: { q: 'Sebastián ________ fut le chef marron le plus célèbre d\'Hispaniola. Son nom de famille ressemble à celui d\'un lion, et il se battait comme tel.', answer: ['Lemba', 'lemba'], explanation: 'Sebastián Lemba est considéré comme un héros de la résistance afro-descendante en République dominicaine.' }
+      es: { q: 'Sebastián ________ fue el líder cimarrón más famoso de La Hispaniola. Su apellido suena a león, y luchaba como uno.', answer: ['Lemba'], explanation: 'Sebastián Lemba es considerado un héroe de la resistencia afrodescendiente en la República Dominicana.' },
+      en: { q: 'Sebastian ________ was the most famous maroon leader of Hispaniola. His last name sounds like it could be a lion\'s, and he fought like one.', answer: ['Lemba'], explanation: 'Sebastian Lemba is considered a hero of Afro-descendant resistance in the Dominican Republic.' },
+      fr: { q: 'Sebastián ________ fut le chef marron le plus célèbre d\'Hispaniola. Son nom de famille ressemble à celui d\'un lion, et il se battait comme tel.', answer: ['Lemba'], explanation: 'Sebastián Lemba est considéré comme un héros de la résistance afro-descendante en République dominicaine.' }
     }
   },
 
@@ -402,9 +402,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-043', type: 'fill',
     lang: {
-      es: { q: 'El cacique que recibió a Colón en su primer viaje y le dio refugio fue Cacique ________. Nivel hospitalidad: over 9000.', answer: ['Guacanagarix', 'guacanagarix', 'Guacanagaríx'], explanation: 'Guacanagaríx fue el cacique de Marién que recibió amablemente a Colón en 1492 y lo ayudó cuando el Santa María naufragó.' },
-      en: { q: 'The cacique who welcomed Columbus on his first voyage and sheltered him was Cacique ________. Hospitality level: over 9000.', answer: ['Guacanagarix', 'guacanagarix', 'Guacanagaríx'], explanation: 'Guacanagarix was the cacique of Marien who kindly welcomed Columbus in 1492 and helped him when the Santa Maria shipwrecked.' },
-      fr: { q: 'Le cacique qui accueillit Colomb lors de son premier voyage et lui donna refuge était le Cacique ________. Niveau hospitalité : plus de 9000.', answer: ['Guacanagarix', 'guacanagarix', 'Guacanagaríx'], explanation: 'Guacanagaríx fut le cacique de Marién qui accueillit aimablement Colomb en 1492 et l\'aida lorsque le Santa María fit naufrage.' }
+      es: { q: 'El cacique que recibió a Colón en su primer viaje y le dio refugio fue Cacique ________. Nivel hospitalidad: over 9000.', answer: ['Guacanagaríx', 'Guacanagarix'], explanation: 'Guacanagaríx fue el cacique de Marién que recibió amablemente a Colón en 1492 y lo ayudó cuando el Santa María naufragó.' },
+      en: { q: 'The cacique who welcomed Columbus on his first voyage and sheltered him was Cacique ________. Hospitality level: over 9000.', answer: ['Guacanagarix', 'Guacanagaríx'], explanation: 'Guacanagarix was the cacique of Marien who kindly welcomed Columbus in 1492 and helped him when the Santa Maria shipwrecked.' },
+      fr: { q: 'Le cacique qui accueillit Colomb lors de son premier voyage et lui donna refuge était le Cacique ________. Niveau hospitalité : plus de 9000.', answer: ['Guacanagaríx', 'Guacanagarix'], explanation: 'Guacanagaríx fut le cacique de Marién qui accueillit aimablement Colomb en 1492 et l\'aida lorsque le Santa María fit naufrage.' }
     }
   },
 
@@ -447,9 +447,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-048', type: 'fill',
     lang: {
-      es: { q: 'Los taínos cultivaban en parcelas llamadas ________. Era como un jardín pero más pro: yuca, batata, maíz, ají...', answer: ['conucos', 'Conucos', 'conuco', 'Conuco'], explanation: 'Los conucos eran el sistema agrícola taíno: montículos de tierra donde cultivaban varios alimentos a la vez (policultivo).' },
-      en: { q: 'The Tainos farmed in plots called ________. Like a garden but more pro: yuca, sweet potato, corn, chili...', answer: ['conucos', 'Conucos', 'conuco', 'Conuco'], explanation: 'Conucos were the Taino farming system: mounds of earth where they grew several crops at once (polyculture).' },
-      fr: { q: 'Les Taïnos cultivaient dans des parcelles appelées ________. Comme un jardin mais plus pro : manioc, patate douce, maïs, piment...', answer: ['conucos', 'Conucos', 'conuco', 'Conuco'], explanation: 'Les conucos étaient le système agricole taïno : des monticules de terre où ils cultivaient plusieurs aliments à la fois (polyculture).' }
+      es: { q: 'Los taínos cultivaban en parcelas llamadas ________. Era como un jardín pero más pro: yuca, batata, maíz, ají...', answer: ['conucos', 'conuco'], explanation: 'Los conucos eran el sistema agrícola taíno: montículos de tierra donde cultivaban varios alimentos a la vez (policultivo).' },
+      en: { q: 'The Tainos farmed in plots called ________. Like a garden but more pro: yuca, sweet potato, corn, chili...', answer: ['conucos', 'conuco'], explanation: 'Conucos were the Taino farming system: mounds of earth where they grew several crops at once (polyculture).' },
+      fr: { q: 'Les Taïnos cultivaient dans des parcelles appelées ________. Comme un jardin mais plus pro : manioc, patate douce, maïs, piment...', answer: ['conucos', 'conuco'], explanation: 'Les conucos étaient le système agricole taïno : des monticules de terre où ils cultivaient plusieurs aliments à la fois (polyculture).' }
     }
   },
 
@@ -485,9 +485,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-052', type: 'fill',
     lang: {
-      es: { q: 'Las ________ es un famoso sitio de petroglifos en el Lago Enriquillo. Su nombre describe lo que parecen: rostros tallados en la roca.', answer: ['Caritas', 'Las Caritas', 'las caritas', 'caritas'], explanation: 'Las Caritas son petroglifos tallados en la roca a orillas del Lago Enriquillo. Representan rostros (caritas) y son un importante sitio arqueológico.' },
-      en: { q: '________ is a famous petroglyph site at Lake Enriquillo. Its name describes what they look like: little faces carved in rock.', answer: ['Las Caritas', 'Caritas', 'las caritas', 'caritas'], explanation: 'Las Caritas are petroglyphs carved in rock on the shores of Lake Enriquillo. They represent faces (caritas) and are an important archaeological site.' },
-      fr: { q: '________ est un célèbre site de pétroglyphes au Lac Enriquillo. Son nom décrit ce qu\'ils semblent être : de petits visages gravés dans la roche.', answer: ['Las Caritas', 'Caritas', 'las caritas', 'caritas'], explanation: 'Las Caritas sont des pétroglyphes gravés dans la roche au bord du Lac Enriquillo. Ils représentent des visages (caritas) et constituent un important site archéologique.' }
+      es: { q: 'Las ________ es un famoso sitio de petroglifos en el Lago Enriquillo. Su nombre describe lo que parecen: rostros tallados en la roca.', answer: ['Caritas', 'Las Caritas'], explanation: 'Las Caritas son petroglifos tallados en la roca a orillas del Lago Enriquillo. Representan rostros (caritas) y son un importante sitio arqueológico.' },
+      en: { q: '________ is a famous petroglyph site at Lake Enriquillo. Its name describes what they look like: little faces carved in rock.', answer: ['Las Caritas', 'Caritas', 'The Little Faces'], explanation: 'Las Caritas are petroglyphs carved in rock on the shores of Lake Enriquillo. They represent faces (caritas) and are an important archaeological site.' },
+      fr: { q: '________ est un célèbre site de pétroglyphes au Lac Enriquillo. Son nom décrit ce qu\'ils semblent être : de petits visages gravés dans la roche.', answer: ['Las Caritas', 'Caritas'], explanation: 'Las Caritas sont des pétroglyphes gravés dans la roche au bord du Lac Enriquillo. Ils représentent des visages (caritas) et constituent un important site archéologique.' }
     }
   },
 
@@ -557,9 +557,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-060', type: 'fill',
     lang: {
-      es: { q: 'Roberto ________ es un historiador dominicano real que ha dedicado su vida a estudiar la historia de RD. Aparece en ArcLycée como NPC.', answer: ['Cassá', 'Cassa', 'cassá', 'cassa'], explanation: 'Roberto Cassá es uno de los historiadores más importantes de la República Dominicana y aparece como personaje en ArcLycée.' },
-      en: { q: 'Roberto ________ is a real Dominican historian who has dedicated his life to studying DR history. He appears in ArcLycee as an NPC.', answer: ['Cassa', 'Cassá', 'cassa', 'cassá'], explanation: 'Roberto Cassa is one of the most important historians of the Dominican Republic and appears as a character in ArcLycee.' },
-      fr: { q: 'Roberto ________ est un véritable historien dominicain qui a consacré sa vie à étudier l\'histoire de la RD. Il apparaît dans ArcLycée comme PNJ.', answer: ['Cassá', 'Cassa', 'cassá', 'cassa'], explanation: 'Roberto Cassá est l\'un des historiens les plus importants de la République dominicaine et apparaît comme personnage dans ArcLycée.' }
+      es: { q: 'Roberto ________ es un historiador dominicano real que ha dedicado su vida a estudiar la historia de RD. Aparece en ArcLycée como NPC.', answer: ['Cassá', 'Cassa'], explanation: 'Roberto Cassá es uno de los historiadores más importantes de la República Dominicana y aparece como personaje en ArcLycée.' },
+      en: { q: 'Roberto ________ is a real Dominican historian who has dedicated his life to studying DR history. He appears in ArcLycee as an NPC.', answer: ['Cassá', 'Cassa'], explanation: 'Roberto Cassa is one of the most important historians of the Dominican Republic and appears as a character in ArcLycee.' },
+      fr: { q: 'Roberto ________ est un véritable historien dominicain qui a consacré sa vie à étudier l\'histoire de la RD. Il apparaît dans ArcLycée comme PNJ.', answer: ['Cassá', 'Cassa'], explanation: 'Roberto Cassá est l\'un des historiens les plus importants de la République dominicaine et apparaît comme personnage dans ArcLycée.' }
     }
   },
 
@@ -595,9 +595,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-064', type: 'fill',
     lang: {
-      es: { q: 'La organización internacional que protege el patrimonio cultural mundial se llama ________. Tiene su sede en París.', answer: ['UNESCO', 'Unesco', 'unesco'], explanation: 'La UNESCO (Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura) protege el patrimonio cultural y natural mundial.' },
-      en: { q: 'The international organization that protects world cultural heritage is called ________. It\'s based in Paris.', answer: ['UNESCO', 'Unesco', 'unesco'], explanation: 'UNESCO (United Nations Educational, Scientific and Cultural Organization) protects world cultural and natural heritage.' },
-      fr: { q: 'L\'organisation internationale qui protège le patrimoine culturel mondial s\'appelle ________. Elle a son siège à Paris.', answer: ['UNESCO', 'Unesco', 'unesco', 'l\'UNESCO'], explanation: 'L\'UNESCO (Organisation des Nations Unies pour l\'Éducation, la Science et la Culture) protège le patrimoine culturel et naturel mondial.' }
+      es: { q: 'La organización internacional que protege el patrimonio cultural mundial se llama ________. Tiene su sede en París.', answer: ['UNESCO'], explanation: 'La UNESCO (Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura) protege el patrimonio cultural y natural mundial.' },
+      en: { q: 'The international organization that protects world cultural heritage is called ________. It\'s based in Paris.', answer: ['UNESCO'], explanation: 'UNESCO (United Nations Educational, Scientific and Cultural Organization) protects world cultural and natural heritage.' },
+      fr: { q: 'L\'organisation internationale qui protège le patrimoine culturel mondial s\'appelle ________. Elle a son siège à Paris.', answer: ['UNESCO', 'l\'UNESCO'], explanation: 'L\'UNESCO (Organisation des Nations Unies pour l\'Éducation, la Science et la Culture) protège le patrimoine culturel et naturel mondial.' }
     }
   },
 
@@ -687,9 +687,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-074', type: 'fill',
     lang: {
-      es: { q: 'La identidad dominicana es ________: una mezcla de tres raíces culturales (taína, africana y española).', answer: ['triétnica', 'trietnica', 'tri-étnica', 'tri-etnica', 'Triétnica'], explanation: 'La cultura dominicana es producto de la mezcla de tres herencias: taína (indígena), africana (cimarrones y esclavos) y española (colonizadores).' },
-      en: { q: 'Dominican identity is ________: a blend of three cultural roots (Taino, African, and Spanish).', answer: ['tri-ethnic', 'triethnic', 'tri ethnic', 'Tri-ethnic'], explanation: 'Dominican culture is the product of three heritages: Taino (indigenous), African (maroons and enslaved), and Spanish (colonizers).' },
-      fr: { q: 'L\'identité dominicaine est ________ : un mélange de trois racines culturelles (taïno, africaine et espagnole).', answer: ['triéthnique', 'tri-ethnique', 'Triéthnique'], explanation: 'La culture dominicaine est le produit de trois héritages : taïno (autochtone), africain (marrons et esclaves) et espagnol (colonisateurs).' }
+      es: { q: 'La identidad dominicana es ________: una mezcla de tres raíces culturales (taína, africana y española).', answer: ['triétnica', 'tri-étnica', 'mestiza'], explanation: 'La cultura dominicana es producto de la mezcla de tres herencias: taína (indígena), africana (cimarrones y esclavos) y española (colonizadores).' },
+      en: { q: 'Dominican identity is ________: a blend of three cultural roots (Taino, African, and Spanish).', answer: ['tri-ethnic', 'triethnic', 'tri ethnic'], explanation: 'Dominican culture is the product of three heritages: Taino (indigenous), African (maroons and enslaved), and Spanish (colonizers).' },
+      fr: { q: 'L\'identité dominicaine est ________ : un mélange de trois racines culturelles (taïno, africaine et espagnole).', answer: ['triéthnique', 'tri-ethnique'], explanation: 'La culture dominicaine est le produit de trois héritages : taïno (autochtone), africain (marrons et esclaves) et espagnol (colonisateurs).' }
     }
   },
 
@@ -761,9 +761,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-082', type: 'fill',
     lang: {
-      es: { q: 'El líder espiritual taíno se llamaba ________. Era como el Dumbledore de la aldea: sabio, curandero y sacerdote.', answer: ['behique', 'Behique', 'behíque', 'buhiti', 'Buhiti'], explanation: 'El behique (o buhiti) era el chamán taíno: médico, sacerdote y sabio que realizaba rituales de cohoba y curaba enfermedades.' },
-      en: { q: 'The Taino spiritual leader was called ________. Like the village\'s Dumbledore: wise, healer, and priest.', answer: ['behique', 'Behique', 'buhiti', 'Buhiti'], explanation: 'The behique (or buhiti) was the Taino shaman: doctor, priest, and wise person who performed cohoba rituals and healed illnesses.' },
-      fr: { q: 'Le chef spirituel taïno s\'appelait ________. Comme le Dumbledore du village : sage, guérisseur et prêtre.', answer: ['behique', 'Behique', 'buhiti', 'Buhiti'], explanation: 'Le behique (ou buhiti) était le chamane taïno : médecin, prêtre et sage qui pratiquait les rituels de cohoba et guérissait les maladies.' }
+      es: { q: 'El líder espiritual taíno se llamaba ________. Era como el Dumbledore de la aldea: sabio, curandero y sacerdote.', answer: ['behique', 'buhiti', 'chamán'], explanation: 'El behique (o buhiti) era el chamán taíno: médico, sacerdote y sabio que realizaba rituales de cohoba y curaba enfermedades.' },
+      en: { q: 'The Taino spiritual leader was called ________. Like the village\'s Dumbledore: wise, healer, and priest.', answer: ['behique', 'buhiti', 'shaman'], explanation: 'The behique (or buhiti) was the Taino shaman: doctor, priest, and wise person who performed cohoba rituals and healed illnesses.' },
+      fr: { q: 'Le chef spirituel taïno s\'appelait ________. Comme le Dumbledore du village : sage, guérisseur et prêtre.', answer: ['behique', 'buhiti', 'chamane'], explanation: 'Le behique (ou buhiti) était le chamane taïno : médecin, prêtre et sage qui pratiquait les rituels de cohoba et guérissait les maladies.' }
     }
   },
 
@@ -815,9 +815,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-088', type: 'fill',
     lang: {
-      es: { q: 'Los taínos llamaban a la isla donde están RD y Haití "________". Antes de que Colón le cambiara el nombre.', answer: ['Quisqueya', 'quisqueya', 'Haiti', 'Ayiti', 'Bohio', 'Haití'], explanation: 'Los taínos llamaban a la isla Quisqueya ("madre de todas las tierras"), Haití ("tierra montañosa") o Bohío ("hogar"), según la región.' },
-      en: { q: 'The Tainos called the island where DR and Haiti are "________". Before Columbus renamed it.', answer: ['Quisqueya', 'quisqueya', 'Haiti', 'Ayiti', 'Bohio', 'Haití'], explanation: 'The Tainos called the island Quisqueya ("mother of all lands"), Haiti ("mountainous land"), or Bohio ("home"), depending on the region.' },
-      fr: { q: 'Les Taïnos appelaient l\'île où se trouvent la RD et Haïti "________". Avant que Colomb ne la rebaptise.', answer: ['Quisqueya', 'quisqueya', 'Haiti', 'Ayiti', 'Bohio', 'Haití'], explanation: 'Les Taïnos appelaient l\'île Quisqueya ("mère de toutes les terres"), Haïti ("terre montagneuse") ou Bohío ("maison"), selon la région.' }
+      es: { q: 'Los taínos llamaban a la isla donde están RD y Haití "________". Antes de que Colón le cambiara el nombre.', answer: ['Quisqueya', 'Haití', 'Ayiti', 'Bohío'], explanation: 'Los taínos llamaban a la isla Quisqueya ("madre de todas las tierras"), Haití ("tierra montañosa") o Bohío ("hogar"), según la región.' },
+      en: { q: 'The Tainos called the island where DR and Haiti are "________". Before Columbus renamed it.', answer: ['Quisqueya', 'Haiti', 'Ayiti', 'Bohio'], explanation: 'The Tainos called the island Quisqueya ("mother of all lands"), Haiti ("mountainous land"), or Bohio ("home"), depending on the region.' },
+      fr: { q: 'Les Taïnos appelaient l\'île où se trouvent la RD et Haïti "________". Avant que Colomb ne la rebaptise.', answer: ['Quisqueya', 'Haïti', 'Ayiti', 'Bohío'], explanation: 'Les Taïnos appelaient l\'île Quisqueya ("mère de toutes les terres"), Haïti ("terre montagneuse") ou Bohío ("maison"), selon la région.' }
     }
   },
 
@@ -871,9 +871,9 @@ window.ARC_QUESTIONS.history = [
   {
     id: 'hist-094', type: 'fill',
     lang: {
-      es: { q: 'El cacique ________ gobernaba Xaragua junto con su hermano Bohechío. Era poetisa y fue ejecutada en 1503.', answer: ['Anacaona', 'anacaona'], explanation: 'Anacaona ("Flor de Oro") fue la cacica de Xaragua tras la muerte de su hermano Bohechío. Fue ejecutada por Ovando en 1503.' },
-      en: { q: 'The cacique ________ ruled Xaragua along with her brother Bohechio. She was a poet and was executed in 1503.', answer: ['Anacaona', 'anacaona'], explanation: 'Anacaona ("Golden Flower") was the cacica of Xaragua after her brother Bohechio\'s death. She was executed by Ovando in 1503.' },
-      fr: { q: 'La cacique ________ gouvernait Xaragua avec son frère Bohechío. C\'était une poétesse et elle fut exécutée en 1503.', answer: ['Anacaona', 'anacaona'], explanation: 'Anacaona ("Fleur d\'Or") fut la cacique de Xaragua après la mort de son frère Bohechío. Elle fut exécutée par Ovando en 1503.' }
+      es: { q: 'El cacique ________ gobernaba Xaragua junto con su hermano Bohechío. Era poetisa y fue ejecutada en 1503.', answer: ['Anacaona', 'Flor de Oro'], explanation: 'Anacaona ("Flor de Oro") fue la cacica de Xaragua tras la muerte de su hermano Bohechío. Fue ejecutada por Ovando en 1503.' },
+      en: { q: 'The cacique ________ ruled Xaragua along with her brother Bohechio. She was a poet and was executed in 1503.', answer: ['Anacaona', 'Golden Flower'], explanation: 'Anacaona ("Golden Flower") was the cacica of Xaragua after her brother Bohechio\'s death. She was executed by Ovando in 1503.' },
+      fr: { q: 'La cacique ________ gouvernait Xaragua avec son frère Bohechío. C\'était une poétesse et elle fut exécutée en 1503.', answer: ['Anacaona', 'Fleur d\'Or'], explanation: 'Anacaona ("Fleur d\'Or") fut la cacique de Xaragua après la mort de son frère Bohechío. Elle fut exécutée par Ovando en 1503.' }
     }
   },
 

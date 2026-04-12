@@ -801,201 +801,201 @@ window.ARC_QUESTIONS.cultural = [
   {
     id: 'cul-051', type: 'fill',
     lang: {
-      es: { q: 'Las casas circulares de los taínos con techo de palma se llamaban _____.', answer: 'bohíos', explanation: 'Los bohíos eran viviendas circulares hechas de madera y palma — resistentes a huracanes y frescas en el trópico. Arquitectura inteligente sin necesidad de aire acondicionado.' },
-      en: { q: 'The circular Taíno houses with palm roofs were called _____.', answer: 'bohíos', explanation: 'Bohíos were circular dwellings made of wood and palm — hurricane-resistant and cool in the tropics. Smart architecture without needing air conditioning.' },
-      fr: { q: 'Les maisons circulaires taïno avec des toits en palme s\'appelaient des _____.', answer: 'bohíos', explanation: 'Les bohíos étaient des habitations circulaires en bois et palme — résistantes aux ouragans et fraîches sous les tropiques. Architecture intelligente sans besoin de climatisation.' }
+      es: { q: 'Las casas circulares de los taínos con techo de palma se llamaban _____.', answer: ['bohíos', 'bohío', 'chozas'], explanation: 'Los bohíos eran viviendas circulares hechas de madera y palma — resistentes a huracanes y frescas en el trópico. Arquitectura inteligente sin necesidad de aire acondicionado.' },
+      en: { q: 'The circular Taíno houses with palm roofs were called _____.', answer: ['bohíos', 'bohío'], explanation: 'Bohíos were circular dwellings made of wood and palm — hurricane-resistant and cool in the tropics. Smart architecture without needing air conditioning.' },
+      fr: { q: 'Les maisons circulaires taïno avec des toits en palme s\'appelaient des _____.', answer: ['bohíos', 'bohío'], explanation: 'Les bohíos étaient des habitations circulaires en bois et palme — résistantes aux ouragans et fraîches sous les tropiques. Architecture intelligente sans besoin de climatisation.' }
     }
   },
   {
     id: 'cul-052', type: 'fill',
     lang: {
-      es: { q: 'El sistema agrícola taíno basado en montículos para cultivar yuca y otros alimentos se llamaba _____.', answer: 'conuco', explanation: 'El conuco era el sistema agrícola de los taínos. Los montículos mejoraban el drenaje y la fertilidad del suelo. Todavía se usa la palabra "conuco" en RD para referirse a una pequeña finca.' },
-      en: { q: 'The Taíno farming system based on mounds for growing yuca and other foods was called _____.', answer: 'conuco', explanation: 'The conuco was the Taíno farming system. The mounds improved soil drainage and fertility. The word "conuco" is still used in DR to refer to a small farm.' },
-      fr: { q: 'Le système agricole taïno basé sur des buttes pour cultiver le yuca et d\'autres aliments s\'appelait _____.', answer: 'conuco', explanation: 'Le conuco était le système agricole des Taïnos. Les buttes amélioraient le drainage et la fertilité du sol. Le mot "conuco" est encore utilisé en RD pour désigner une petite ferme.' }
+      es: { q: 'El sistema agrícola taíno basado en montículos para cultivar yuca y otros alimentos se llamaba _____.', answer: ['conuco', 'montículo'], explanation: 'El conuco era el sistema agrícola de los taínos. Los montículos mejoraban el drenaje y la fertilidad del suelo. Todavía se usa la palabra "conuco" en RD para referirse a una pequeña finca.' },
+      en: { q: 'The Taíno farming system based on mounds for growing yuca and other foods was called _____.', answer: ['conuco', 'mound farming'], explanation: 'The conuco was the Taíno farming system. The mounds improved soil drainage and fertility. The word "conuco" is still used in DR to refer to a small farm.' },
+      fr: { q: 'Le système agricole taïno basé sur des buttes pour cultiver le yuca et d\'autres aliments s\'appelait _____.', answer: ['conuco'], explanation: 'Le conuco était le système agricole des Taïnos. Les buttes amélioraient le drainage et la fertilité du sol. Le mot "conuco" est encore utilisé en RD pour désigner une petite ferme.' }
     }
   },
   {
     id: 'cul-053', type: 'fill',
     lang: {
-      es: { q: 'Las figuras sagradas taínas que representaban espíritus y ancestros se llamaban _____.', answer: 'cemíes', explanation: 'Los cemíes eran objetos sagrados, no simples esculturas. Representaban la conexión entre el mundo humano y el espiritual. Algunos tenían detalles de guanín (aleación de oro, plata y cobre).' },
-      en: { q: 'The sacred Taíno figures that represented spirits and ancestors were called _____.', answer: 'cemíes', explanation: 'Cemíes were sacred objects, not mere sculptures. They represented the connection between the human and spiritual worlds. Some had guanín details (an alloy of gold, silver, and copper).' },
-      fr: { q: 'Les figures sacrées taïno qui représentaient des esprits et des ancêtres s\'appelaient des _____.', answer: 'cemíes', explanation: "Les cemíes étaient des objets sacrés, pas de simples sculptures. Ils représentaient la connexion entre le monde humain et le monde spirituel. Certains avaient des détails en guanín (alliage d'or, d'argent et de cuivre)." }
+      es: { q: 'Las figuras sagradas taínas que representaban espíritus y ancestros se llamaban _____.', answer: ['cemíes', 'cemí', 'ídolos'], explanation: 'Los cemíes eran objetos sagrados, no simples esculturas. Representaban la conexión entre el mundo humano y el espiritual. Algunos tenían detalles de guanín (aleación de oro, plata y cobre).' },
+      en: { q: 'The sacred Taíno figures that represented spirits and ancestors were called _____.', answer: ['cemíes', 'cemí', 'cemis'], explanation: 'Cemíes were sacred objects, not mere sculptures. They represented the connection between the human and spiritual worlds. Some had guanín details (an alloy of gold, silver, and copper).' },
+      fr: { q: 'Les figures sacrées taïno qui représentaient des esprits et des ancêtres s\'appelaient des _____.', answer: ['cemíes', 'cemí'], explanation: "Les cemíes étaient des objets sacrés, pas de simples sculptures. Ils représentaient la connexion entre le monde humain et le monde spirituel. Certains avaient des détails en guanín (alliage d'or, d'argent et de cuivre)." }
     }
   },
   {
     id: 'cul-054', type: 'fill',
     lang: {
-      es: { q: 'El líder político de una aldea taína (yucayeque) recibía el título de _____.', answer: 'cacique', explanation: 'El cacique era el jefe del yucayeque. La palabra "cacique" sobrevive hoy en español — todavía se usa para referirse a un líder local poderoso. ¡Herencia taína en el vocabulario cotidiano!' },
-      en: { q: 'The political leader of a Taíno village (yucayeque) held the title of _____.', answer: 'cacique', explanation: 'The cacique was the chief of the yucayeque. The word "cacique" survives in Spanish today — it\'s still used to refer to a powerful local leader. Taíno heritage in everyday vocabulary!' },
-      fr: { q: 'Le leader politique d\'un village taïno (yucayeque) portait le titre de _____.', answer: 'cacique', explanation: "Le cacique était le chef du yucayeque. Le mot \"cacique\" survit aujourd'hui en espagnol — il est encore utilisé pour désigner un leader local puissant. Héritage taïno dans le vocabulaire quotidien !" }
+      es: { q: 'El líder político de una aldea taína (yucayeque) recibía el título de _____.', answer: ['cacique', 'jefe'], explanation: 'El cacique era el jefe del yucayeque. La palabra "cacique" sobrevive hoy en español — todavía se usa para referirse a un líder local poderoso. ¡Herencia taína en el vocabulario cotidiano!' },
+      en: { q: 'The political leader of a Taíno village (yucayeque) held the title of _____.', answer: ['cacique', 'chief'], explanation: 'The cacique was the chief of the yucayeque. The word "cacique" survives in Spanish today — it\'s still used to refer to a powerful local leader. Taíno heritage in everyday vocabulary!' },
+      fr: { q: 'Le leader politique d\'un village taïno (yucayeque) portait le titre de _____.', answer: ['cacique', 'chef'], explanation: "Le cacique était le chef du yucayeque. Le mot \"cacique\" survit aujourd'hui en espagnol — il est encore utilisé pour désigner un leader local puissant. Héritage taïno dans le vocabulaire quotidien !" }
     }
   },
   {
     id: 'cul-055', type: 'fill',
     lang: {
-      es: { q: 'La ceremonia taína que combinaba danza, canto y narrativa histórica se llamaba _____.', answer: 'areíto', explanation: 'El areíto era el método taíno de preservar y transmitir su historia — sin escritura, solo con música, danza y poesía. Era como un podcast en vivo, pero hace 500 años.' },
-      en: { q: 'The Taíno ceremony that combined dance, song, and historical narrative was called _____.', answer: 'areíto', explanation: 'The areíto was the Taíno method of preserving and transmitting their history — without writing, only with music, dance, and poetry. It was like a live podcast, but 500 years ago.' },
-      fr: { q: 'La cérémonie taïno qui combinait danse, chant et récit historique s\'appelait _____.', answer: 'areíto', explanation: "L'areíto était la méthode taïno de préserver et transmettre leur histoire — sans écriture, seulement avec musique, danse et poésie. C'était comme un podcast en direct, mais il y a 500 ans." }
+      es: { q: 'La ceremonia taína que combinaba danza, canto y narrativa histórica se llamaba _____.', answer: ['areíto', 'ceremonia', 'danza ceremonial'], explanation: 'El areíto era el método taíno de preservar y transmitir su historia — sin escritura, solo con música, danza y poesía. Era como un podcast en vivo, pero hace 500 años.' },
+      en: { q: 'The Taíno ceremony that combined dance, song, and historical narrative was called _____.', answer: ['areíto', 'ceremonial dance'], explanation: 'The areíto was the Taíno method of preserving and transmitting their history — without writing, only with music, dance, and poetry. It was like a live podcast, but 500 years ago.' },
+      fr: { q: 'La cérémonie taïno qui combinait danse, chant et récit historique s\'appelait _____.', answer: ['areíto', 'danse cérémonielle'], explanation: "L'areíto était la méthode taïno de préserver et transmettre leur histoire — sans écriture, seulement avec musique, danse et poésie. C'était comme un podcast en direct, mais il y a 500 ans." }
     }
   },
   {
     id: 'cul-056', type: 'fill',
     lang: {
-      es: { q: 'El juego de pelota taíno que se jugaba en un batey usando caderas y rodillas se llamaba _____.', answer: 'batú', explanation: 'El batú era el deporte más popular de los taínos. Se jugaba con una pelota de goma (caucho) y no se podían usar las manos — como un ancestro del fútbol, pero más extremo.' },
-      en: { q: 'The Taíno ball game played on a batey using hips and knees was called _____.', answer: 'batú', explanation: 'Batú was the most popular Taíno sport. It was played with a rubber ball and hands couldn\'t be used — like an ancestor of soccer, but more extreme.' },
-      fr: { q: 'Le jeu de balle taïno qui se jouait sur un batey en utilisant les hanches et les genoux s\'appelait _____.', answer: 'batú', explanation: "Le batú était le sport le plus populaire des Taïnos. On jouait avec une balle en caoutchouc et on ne pouvait pas utiliser les mains — comme un ancêtre du football, mais plus extrême." }
+      es: { q: 'El juego de pelota taíno que se jugaba en un batey usando caderas y rodillas se llamaba _____.', answer: ['batú', 'juego de pelota'], explanation: 'El batú era el deporte más popular de los taínos. Se jugaba con una pelota de goma (caucho) y no se podían usar las manos — como un ancestro del fútbol, pero más extremo.' },
+      en: { q: 'The Taíno ball game played on a batey using hips and knees was called _____.', answer: ['batú', 'ball game'], explanation: 'Batú was the most popular Taíno sport. It was played with a rubber ball and hands couldn\'t be used — like an ancestor of soccer, but more extreme.' },
+      fr: { q: 'Le jeu de balle taïno qui se jouait sur un batey en utilisant les hanches et les genoux s\'appelait _____.', answer: ['batú', 'jeu de balle'], explanation: "Le batú était le sport le plus populaire des Taïnos. On jouait avec une balle en caoutchouc et on ne pouvait pas utiliser les mains — comme un ancêtre du football, mais plus extrême." }
     }
   },
   {
     id: 'cul-057', type: 'fill',
     lang: {
-      es: { q: 'La cacica, poeta y líder del cacicazgo de Xaragua que fue ejecutada por Ovando en 1503 se llamaba _____.', answer: 'Anacaona', explanation: 'Anacaona fue una de las mujeres más poderosas de la historia del Caribe. Su nombre significa "Flor de Oro" en taíno. Poeta, líder, artista — un ícono que fue silenciado injustamente.' },
-      en: { q: 'The cacica, poet, and leader of the Xaragua chiefdom who was executed by Ovando in 1503 was named _____.', answer: 'Anacaona', explanation: 'Anacaona was one of the most powerful women in Caribbean history. Her name means "Golden Flower" in Taíno. Poet, leader, artist — an icon who was unjustly silenced.' },
-      fr: { q: 'La cacica, poétesse et dirigeante du caciquat de Xaragua qui a été exécutée par Ovando en 1503 s\'appelait _____.', answer: 'Anacaona', explanation: "Anacaona fut l'une des femmes les plus puissantes de l'histoire des Caraïbes. Son nom signifie \"Fleur d'Or\" en taïno. Poétesse, leader, artiste — une icône injustement réduite au silence." }
+      es: { q: 'La cacica, poeta y líder del cacicazgo de Xaragua que fue ejecutada por Ovando en 1503 se llamaba _____.', answer: ['Anacaona', 'Flor de Oro'], explanation: 'Anacaona fue una de las mujeres más poderosas de la historia del Caribe. Su nombre significa "Flor de Oro" en taíno. Poeta, líder, artista — un ícono que fue silenciado injustamente.' },
+      en: { q: 'The cacica, poet, and leader of the Xaragua chiefdom who was executed by Ovando in 1503 was named _____.', answer: ['Anacaona', 'Golden Flower'], explanation: 'Anacaona was one of the most powerful women in Caribbean history. Her name means "Golden Flower" in Taíno. Poet, leader, artist — an icon who was unjustly silenced.' },
+      fr: { q: 'La cacica, poétesse et dirigeante du caciquat de Xaragua qui a été exécutée par Ovando en 1503 s\'appelait _____.', answer: ['Anacaona', 'Fleur d\'Or'], explanation: "Anacaona fut l'une des femmes les plus puissantes de l'histoire des Caraïbes. Son nom signifie \"Fleur d'Or\" en taïno. Poétesse, leader, artiste — une icône injustement réduite au silence." }
     }
   },
   {
     id: 'cul-058', type: 'fill',
     lang: {
-      es: { q: 'El líder taíno bicultural que usó la ley española para negociar un tratado de paz se llamaba _____.', answer: 'Enriquillo', explanation: 'Enriquillo (nombre taíno: Guarocuya) fue educado por frailes pero nunca olvidó sus raíces. Usó ambas culturas como herramientas de resistencia. El OG del code-switching cultural.' },
-      en: { q: 'The bicultural Taíno leader who used Spanish law to negotiate a peace treaty was named _____.', answer: 'Enriquillo', explanation: 'Enriquillo (Taíno name: Guarocuya) was educated by friars but never forgot his roots. He used both cultures as resistance tools. The OG of cultural code-switching.' },
-      fr: { q: 'Le leader taïno biculturel qui a utilisé le droit espagnol pour négocier un traité de paix s\'appelait _____.', answer: 'Enriquillo', explanation: "Enriquillo (nom taïno : Guarocuya) a été éduqué par des frères mais n'a jamais oublié ses racines. Il a utilisé les deux cultures comme outils de résistance. L'OG du code-switching culturel." }
+      es: { q: 'El líder taíno bicultural que usó la ley española para negociar un tratado de paz se llamaba _____.', answer: ['Enriquillo', 'Guarocuya'], explanation: 'Enriquillo (nombre taíno: Guarocuya) fue educado por frailes pero nunca olvidó sus raíces. Usó ambas culturas como herramientas de resistencia. El OG del code-switching cultural.' },
+      en: { q: 'The bicultural Taíno leader who used Spanish law to negotiate a peace treaty was named _____.', answer: ['Enriquillo', 'Guarocuya'], explanation: 'Enriquillo (Taíno name: Guarocuya) was educated by friars but never forgot his roots. He used both cultures as resistance tools. The OG of cultural code-switching.' },
+      fr: { q: 'Le leader taïno biculturel qui a utilisé le droit espagnol pour négocier un traité de paix s\'appelait _____.', answer: ['Enriquillo', 'Guarocuya'], explanation: "Enriquillo (nom taïno : Guarocuya) a été éduqué par des frères mais n'a jamais oublié ses racines. Il a utilisé les deux cultures comme outils de résistance. L'OG du code-switching culturel." }
     }
   },
   {
     id: 'cul-059', type: 'fill',
     lang: {
-      es: { q: 'El líder cimarrón africano que estableció un palenque en las montañas de Hispaniola alrededor de 1540 fue _____.', answer: 'Sebastián Lemba', explanation: 'Sebastián Lemba fue un héroe de la resistencia africana en el Caribe. Su palenque era un refugio de libertad en las montañas. Fue líder, estratega y símbolo de esperanza.' },
-      en: { q: 'The African maroon leader who established a palenque in Hispaniola\'s mountains around 1540 was _____.', answer: 'Sebastián Lemba', explanation: 'Sebastián Lemba was a hero of African resistance in the Caribbean. His palenque was a refuge of freedom in the mountains. He was a leader, strategist, and symbol of hope.' },
-      fr: { q: 'Le chef marron africain qui a établi un palenque dans les montagnes d\'Hispaniola vers 1540 était _____.', answer: 'Sebastián Lemba', explanation: "Sebastián Lemba fut un héros de la résistance africaine dans les Caraïbes. Son palenque était un refuge de liberté dans les montagnes. Il était leader, stratège et symbole d'espoir." }
+      es: { q: 'El líder cimarrón africano que estableció un palenque en las montañas de Hispaniola alrededor de 1540 fue _____.', answer: ['Sebastián Lemba', 'Lemba'], explanation: 'Sebastián Lemba fue un héroe de la resistencia africana en el Caribe. Su palenque era un refugio de libertad en las montañas. Fue líder, estratega y símbolo de esperanza.' },
+      en: { q: 'The African maroon leader who established a palenque in Hispaniola\'s mountains around 1540 was _____.', answer: ['Sebastián Lemba', 'Lemba'], explanation: 'Sebastián Lemba was a hero of African resistance in the Caribbean. His palenque was a refuge of freedom in the mountains. He was a leader, strategist, and symbol of hope.' },
+      fr: { q: 'Le chef marron africain qui a établi un palenque dans les montagnes d\'Hispaniola vers 1540 était _____.', answer: ['Sebastián Lemba', 'Lemba'], explanation: "Sebastián Lemba fut un héros de la résistance africaine dans les Caraïbes. Son palenque était un refuge de liberté dans les montagnes. Il était leader, stratège et symbole d'espoir." }
     }
   },
   {
     id: 'cul-060', type: 'fill',
     lang: {
-      es: { q: 'Las comunidades de personas esclavizadas que escaparon y vivían libres en las montañas se llamaban _____.', answer: 'palenques', explanation: 'Los palenques eran mucho más que escondites — eran comunidades organizadas con su propia cultura, agricultura y sistema de defensa. Eran islas de libertad en un mundo de esclavitud.' },
-      en: { q: 'The communities of enslaved people who escaped and lived freely in the mountains were called _____.', answer: 'palenques', explanation: 'Palenques were much more than hiding places — they were organized communities with their own culture, farming, and defense systems. They were islands of freedom in a world of slavery.' },
-      fr: { q: 'Les communautés de personnes asservies qui s\'échappaient et vivaient librement dans les montagnes s\'appelaient des _____.', answer: 'palenques', explanation: "Les palenques étaient bien plus que des cachettes — c'étaient des communautés organisées avec leur propre culture, agriculture et système de défense. Des îles de liberté dans un monde d'esclavage." }
+      es: { q: 'Las comunidades de personas esclavizadas que escaparon y vivían libres en las montañas se llamaban _____.', answer: ['palenques', 'quilombos', 'comunidades cimarronas'], explanation: 'Los palenques eran mucho más que escondites — eran comunidades organizadas con su propia cultura, agricultura y sistema de defensa. Eran islas de libertad en un mundo de esclavitud.' },
+      en: { q: 'The communities of enslaved people who escaped and lived freely in the mountains were called _____.', answer: ['palenques', 'maroon communities'], explanation: 'Palenques were much more than hiding places — they were organized communities with their own culture, farming, and defense systems. They were islands of freedom in a world of slavery.' },
+      fr: { q: 'Les communautés de personnes asservies qui s\'échappaient et vivaient librement dans les montagnes s\'appelaient des _____.', answer: ['palenques', 'communautés marronnes'], explanation: "Les palenques étaient bien plus que des cachettes — c'étaient des communautés organisées avec leur propre culture, agriculture et système de défense. Des îles de liberté dans un monde d'esclavage." }
     }
   },
   {
     id: 'cul-061', type: 'fill',
     lang: {
-      es: { q: 'La aldea taína organizada alrededor de un batey central con bohíos se llamaba _____.', answer: 'yucayeque', explanation: 'El yucayeque era la unidad básica de la sociedad taína — una comunidad completa con hogares, espacio recreativo y liderazgo. Como una mini-ciudad bien planificada.' },
-      en: { q: 'The Taíno village organized around a central batey with bohíos was called a _____.', answer: 'yucayeque', explanation: 'The yucayeque was the basic unit of Taíno society — a complete community with homes, recreational space, and leadership. Like a well-planned mini-city.' },
-      fr: { q: 'Le village taïno organisé autour d\'un batey central avec des bohíos s\'appelait un _____.', answer: 'yucayeque', explanation: "Le yucayeque était l'unité de base de la société taïno — une communauté complète avec des foyers, un espace récréatif et un leadership. Comme une mini-ville bien planifiée." }
+      es: { q: 'La aldea taína organizada alrededor de un batey central con bohíos se llamaba _____.', answer: ['yucayeque', 'aldea'], explanation: 'El yucayeque era la unidad básica de la sociedad taína — una comunidad completa con hogares, espacio recreativo y liderazgo. Como una mini-ciudad bien planificada.' },
+      en: { q: 'The Taíno village organized around a central batey with bohíos was called a _____.', answer: ['yucayeque', 'village'], explanation: 'The yucayeque was the basic unit of Taíno society — a complete community with homes, recreational space, and leadership. Like a well-planned mini-city.' },
+      fr: { q: 'Le village taïno organisé autour d\'un batey central avec des bohíos s\'appelait un _____.', answer: ['yucayeque', 'village'], explanation: "Le yucayeque était l'unité de base de la société taïno — une communauté complète avec des foyers, un espace récréatif et un leadership. Comme une mini-ville bien planifiée." }
     }
   },
   {
     id: 'cul-062', type: 'fill',
     lang: {
-      es: { q: 'Los nobles taínos que servían al cacique y ayudaban a gobernar se llamaban _____.', answer: 'nitaínos', explanation: 'Los nitaínos eran la élite del yucayeque — consejeros y administradores del cacique. Como el "gabinete" de un presidente, pero en versión taína. Tenían privilegios y responsabilidades.' },
-      en: { q: 'The Taíno nobles who served the cacique and helped govern were called _____.', answer: 'nitaínos', explanation: 'The nitaínos were the yucayeque elite — advisors and administrators to the cacique. Like a president\'s "cabinet," but in Taíno version. They had privileges and responsibilities.' },
-      fr: { q: 'Les nobles taïno qui servaient le cacique et aidaient à gouverner s\'appelaient des _____.', answer: 'nitaínos', explanation: "Les nitaínos étaient l'élite du yucayeque — conseillers et administrateurs du cacique. Comme le \"cabinet\" d'un président, mais en version taïno. Ils avaient des privilèges et des responsabilités." }
+      es: { q: 'Los nobles taínos que servían al cacique y ayudaban a gobernar se llamaban _____.', answer: ['nitaínos', 'nobles'], explanation: 'Los nitaínos eran la élite del yucayeque — consejeros y administradores del cacique. Como el "gabinete" de un presidente, pero en versión taína. Tenían privilegios y responsabilidades.' },
+      en: { q: 'The Taíno nobles who served the cacique and helped govern were called _____.', answer: ['nitaínos', 'nobles'], explanation: 'The nitaínos were the yucayeque elite — advisors and administrators to the cacique. Like a president\'s "cabinet," but in Taíno version. They had privileges and responsibilities.' },
+      fr: { q: 'Les nobles taïno qui servaient le cacique et aidaient à gouverner s\'appelaient des _____.', answer: ['nitaínos', 'nobles'], explanation: "Les nitaínos étaient l'élite du yucayeque — conseillers et administrateurs du cacique. Comme le \"cabinet\" d'un président, mais en version taïno. Ils avaient des privilèges et des responsabilités." }
     }
   },
   {
     id: 'cul-063', type: 'fill',
     lang: {
-      es: { q: 'La palabra taína para la tormenta destructiva que hoy conocemos como "huracán" era _____.', answer: 'Juracán', explanation: 'Juracán era el dios taíno de las tormentas. Cuando los españoles experimentaron esos fenómenos, adoptaron la palabra. Hoy, prácticamente todos los idiomas del mundo usan una variante de "huracán".' },
-      en: { q: 'The Taíno word for the destructive storm that we now know as "hurricane" was _____.', answer: 'Juracán', explanation: 'Juracán was the Taíno god of storms. When the Spanish experienced these phenomena, they adopted the word. Today, practically every language in the world uses a variant of "hurricane."' },
-      fr: { q: 'Le mot taïno pour la tempête destructrice que nous connaissons aujourd\'hui comme "ouragan" était _____.', answer: 'Juracán', explanation: "Juracán était le dieu taïno des tempêtes. Quand les Espagnols ont vécu ces phénomènes, ils ont adopté le mot. Aujourd'hui, pratiquement toutes les langues du monde utilisent une variante d'\"ouragan\"." }
+      es: { q: 'La palabra taína para la tormenta destructiva que hoy conocemos como "huracán" era _____.', answer: ['Juracán', 'huracán'], explanation: 'Juracán era el dios taíno de las tormentas. Cuando los españoles experimentaron esos fenómenos, adoptaron la palabra. Hoy, prácticamente todos los idiomas del mundo usan una variante de "huracán".' },
+      en: { q: 'The Taíno word for the destructive storm that we now know as "hurricane" was _____.', answer: ['Juracán', 'hurricane'], explanation: 'Juracán was the Taíno god of storms. When the Spanish experienced these phenomena, they adopted the word. Today, practically every language in the world uses a variant of "hurricane."' },
+      fr: { q: 'Le mot taïno pour la tempête destructrice que nous connaissons aujourd\'hui comme "ouragan" était _____.', answer: ['Juracán', 'ouragan'], explanation: "Juracán était le dieu taïno des tempêtes. Quand les Espagnols ont vécu ces phénomènes, ils ont adopté le mot. Aujourd'hui, pratiquement toutes les langues du monde utilisent une variante d'\"ouragan\"." }
     }
   },
   {
     id: 'cul-064', type: 'fill',
     lang: {
-      es: { q: 'El pan de yuca preparado por los taínos que sigue siendo popular en República Dominicana se llama _____.', answer: 'casabe', explanation: 'El casabe es el alimento más antiguo que se sigue consumiendo en RD — un link directo a la cultura taína en cada bocado. Es como comer un pedazo de historia viva.' },
-      en: { q: 'The yuca bread prepared by the Taínos that remains popular in the Dominican Republic is called _____.', answer: 'casabe', explanation: 'Casabe is the oldest food still consumed in DR — a direct link to Taíno culture in every bite. It\'s like eating a piece of living history.' },
-      fr: { q: 'Le pain de yuca préparé par les Taïnos qui reste populaire en République dominicaine s\'appelle _____.', answer: 'casabe', explanation: "Le casabe est l'aliment le plus ancien encore consommé en RD — un lien direct avec la culture taïno dans chaque bouchée. C'est comme manger un morceau d'histoire vivante." }
+      es: { q: 'El pan de yuca preparado por los taínos que sigue siendo popular en República Dominicana se llama _____.', answer: ['casabe', 'cazabe', 'pan de casabe'], explanation: 'El casabe es el alimento más antiguo que se sigue consumiendo en RD — un link directo a la cultura taína en cada bocado. Es como comer un pedazo de historia viva.' },
+      en: { q: 'The yuca bread prepared by the Taínos that remains popular in the Dominican Republic is called _____.', answer: ['casabe', 'cazabe', 'cassava bread'], explanation: 'Casabe is the oldest food still consumed in DR — a direct link to Taíno culture in every bite. It\'s like eating a piece of living history.' },
+      fr: { q: 'Le pain de yuca préparé par les Taïnos qui reste populaire en République dominicaine s\'appelle _____.', answer: ['casabe', 'cazabe', 'pain de manioc'], explanation: "Le casabe est l'aliment le plus ancien encore consommé en RD — un lien direct avec la culture taïno dans chaque bouchée. C'est comme manger un morceau d'histoire vivante." }
     }
   },
   {
     id: 'cul-065', type: 'fill',
     lang: {
-      es: { q: 'La mujer educada junto a Enriquillo que fue co-líder de la resistencia se llamaba _____.', answer: 'Mencía', explanation: 'Mencía fue educada en un monasterio junto con Enriquillo. Fue estratega y co-líder de la resistencia. Su historia demuestra que las mujeres siempre fueron agentes de cambio, no solo espectadoras.' },
-      en: { q: 'The woman educated alongside Enriquillo who was co-leader of the resistance was named _____.', answer: 'Mencía', explanation: 'Mencía was educated in a monastery along with Enriquillo. She was a strategist and co-leader of the resistance. Her story proves women were always agents of change, not just spectators.' },
-      fr: { q: 'La femme éduquée aux côtés d\'Enriquillo qui était co-leader de la résistance s\'appelait _____.', answer: 'Mencía', explanation: "Mencía a été éduquée dans un monastère avec Enriquillo. Elle était stratège et co-leader de la résistance. Son histoire prouve que les femmes étaient toujours des agents de changement, pas de simples spectatrices." }
+      es: { q: 'La mujer educada junto a Enriquillo que fue co-líder de la resistencia se llamaba _____.', answer: ['Mencía', 'Doña Mencía'], explanation: 'Mencía fue educada en un monasterio junto con Enriquillo. Fue estratega y co-líder de la resistencia. Su historia demuestra que las mujeres siempre fueron agentes de cambio, no solo espectadoras.' },
+      en: { q: 'The woman educated alongside Enriquillo who was co-leader of the resistance was named _____.', answer: ['Mencía', 'Doña Mencía'], explanation: 'Mencía was educated in a monastery along with Enriquillo. She was a strategist and co-leader of the resistance. Her story proves women were always agents of change, not just spectators.' },
+      fr: { q: 'La femme éduquée aux côtés d\'Enriquillo qui était co-leader de la résistance s\'appelait _____.', answer: ['Mencía', 'Doña Mencía'], explanation: "Mencía a été éduquée dans un monastère avec Enriquillo. Elle était stratège et co-leader de la résistance. Son histoire prouve que les femmes étaient toujours des agents de changement, pas de simples spectatrices." }
     }
   },
   {
     id: 'cul-066', type: 'fill',
     lang: {
-      es: { q: 'La identidad dominicana es una mezcla de tres herencias: taína, española y _____.', answer: 'africana', explanation: 'La herencia africana es un pilar fundamental de la identidad dominicana. Desde la música hasta la resistencia cimarrona, África está presente en cada aspecto de la cultura dominicana.' },
-      en: { q: 'Dominican identity is a blend of three heritages: Taíno, Spanish, and _____.', answer: 'African', explanation: 'African heritage is a fundamental pillar of Dominican identity. From music to maroon resistance, Africa is present in every aspect of Dominican culture.' },
-      fr: { q: 'L\'identité dominicaine est un mélange de trois héritages : taïno, espagnol et _____.', answer: 'africain', explanation: "L'héritage africain est un pilier fondamental de l'identité dominicaine. De la musique à la résistance des marrons, l'Afrique est présente dans chaque aspect de la culture dominicaine." }
+      es: { q: 'La identidad dominicana es una mezcla de tres herencias: taína, española y _____.', answer: ['africana', 'África'], explanation: 'La herencia africana es un pilar fundamental de la identidad dominicana. Desde la música hasta la resistencia cimarrona, África está presente en cada aspecto de la cultura dominicana.' },
+      en: { q: 'Dominican identity is a blend of three heritages: Taíno, Spanish, and _____.', answer: ['African', 'Africa'], explanation: 'African heritage is a fundamental pillar of Dominican identity. From music to maroon resistance, Africa is present in every aspect of Dominican culture.' },
+      fr: { q: 'L\'identité dominicaine est un mélange de trois héritages : taïno, espagnol et _____.', answer: ['africain', 'Afrique', 'africaine'], explanation: "L'héritage africain est un pilier fondamental de l'identité dominicaine. De la musique à la résistance des marrons, l'Afrique est présente dans chaque aspect de la culture dominicaine." }
     }
   },
   {
     id: 'cul-067', type: 'fill',
     lang: {
-      es: { q: 'La aleación de oro, plata y cobre que los taínos valoraban más que el oro puro se llamaba _____.', answer: 'guanín', explanation: 'El guanín demuestra que cada cultura define su propio "valor". Los españoles buscaban oro puro, pero los taínos apreciaban más esta aleación por su significado espiritual y estético.' },
-      en: { q: 'The alloy of gold, silver, and copper that the Taínos valued more than pure gold was called _____.', answer: 'guanín', explanation: 'Guanín shows that each culture defines its own "value." The Spanish sought pure gold, but the Taínos appreciated this alloy more for its spiritual and aesthetic meaning.' },
-      fr: { q: "L'alliage d'or, d'argent et de cuivre que les Taïnos valorisaient plus que l'or pur s'appelait _____.", answer: 'guanín', explanation: "Le guanín démontre que chaque culture définit sa propre \"valeur\". Les Espagnols cherchaient l'or pur, mais les Taïnos appréciaient davantage cet alliage pour sa signification spirituelle et esthétique." }
+      es: { q: 'La aleación de oro, plata y cobre que los taínos valoraban más que el oro puro se llamaba _____.', answer: ['guanín'], explanation: 'El guanín demuestra que cada cultura define su propio "valor". Los españoles buscaban oro puro, pero los taínos apreciaban más esta aleación por su significado espiritual y estético.' },
+      en: { q: 'The alloy of gold, silver, and copper that the Taínos valued more than pure gold was called _____.', answer: ['guanín'], explanation: 'Guanín shows that each culture defines its own "value." The Spanish sought pure gold, but the Taínos appreciated this alloy more for its spiritual and aesthetic meaning.' },
+      fr: { q: "L'alliage d'or, d'argent et de cuivre que les Taïnos valorisaient plus que l'or pur s'appelait _____.", answer: ['guanín'], explanation: "Le guanín démontre que chaque culture définit sa propre \"valeur\". Les Espagnols cherchaient l'or pur, mais les Taïnos appréciaient davantage cet alliage pour sa signification spirituelle et esthétique." }
     }
   },
   {
     id: 'cul-068', type: 'fill',
     lang: {
-      es: { q: 'El instrumento de percusión taíno hecho de una calabaza con semillas que todavía se usa en música dominicana es la _____.', answer: 'maraca', explanation: 'La maraca es uno de los legados musicales más directos de los taínos. Desde las ceremonias areíto hasta el merengue de hoy, esa vibración ha sonado por más de 500 años.' },
-      en: { q: 'The Taíno percussion instrument made from a gourd with seeds that is still used in Dominican music is the _____.', answer: 'maraca', explanation: 'The maraca is one of the most direct musical legacies of the Taínos. From areíto ceremonies to today\'s merengue, that vibration has been sounding for over 500 years.' },
-      fr: { q: 'L\'instrument de percussion taïno fait d\'une calebasse avec des graines qui est encore utilisé dans la musique dominicaine est le _____.', answer: 'maraca', explanation: "Le maraca est l'un des héritages musicaux les plus directs des Taïnos. Des cérémonies areíto au merengue d'aujourd'hui, cette vibration résonne depuis plus de 500 ans." }
+      es: { q: 'El instrumento de percusión taíno hecho de una calabaza con semillas que todavía se usa en música dominicana es la _____.', answer: ['maraca', 'maracas'], explanation: 'La maraca es uno de los legados musicales más directos de los taínos. Desde las ceremonias areíto hasta el merengue de hoy, esa vibración ha sonado por más de 500 años.' },
+      en: { q: 'The Taíno percussion instrument made from a gourd with seeds that is still used in Dominican music is the _____.', answer: ['maraca', 'maracas'], explanation: 'The maraca is one of the most direct musical legacies of the Taínos. From areíto ceremonies to today\'s merengue, that vibration has been sounding for over 500 years.' },
+      fr: { q: 'L\'instrument de percussion taïno fait d\'une calebasse avec des graines qui est encore utilisé dans la musique dominicaine est le _____.', answer: ['maraca', 'maracas'], explanation: "Le maraca est l'un des héritages musicaux les plus directs des Taïnos. Des cérémonies areíto au merengue d'aujourd'hui, cette vibration résonne depuis plus de 500 ans." }
     }
   },
   {
     id: 'cul-069', type: 'fill',
     lang: {
-      es: { q: 'El proceso de mezcla de culturas (taína, española y africana) que creó la identidad dominicana se llama _____.', answer: 'mestizaje', explanation: 'El mestizaje no fue solo mezcla racial — fue una fusión de lenguas, comidas, música, creencias y tradiciones. Es lo que hace a la cultura dominicana tan rica y única.' },
-      en: { q: 'The process of cultural mixing (Taíno, Spanish, and African) that created Dominican identity is called _____.', answer: 'mestizaje', explanation: 'Mestizaje wasn\'t just racial mixing — it was a fusion of languages, foods, music, beliefs, and traditions. It\'s what makes Dominican culture so rich and unique.' },
-      fr: { q: "Le processus de mélange culturel (taïno, espagnol et africain) qui a créé l'identité dominicaine s'appelle le _____.", answer: 'métissage', explanation: "Le métissage n'était pas qu'un mélange racial — c'était une fusion de langues, nourritures, musiques, croyances et traditions. C'est ce qui rend la culture dominicaine si riche et unique." }
+      es: { q: 'El proceso de mezcla de culturas (taína, española y africana) que creó la identidad dominicana se llama _____.', answer: ['mestizaje', 'sincretismo', 'mezcla cultural'], explanation: 'El mestizaje no fue solo mezcla racial — fue una fusión de lenguas, comidas, música, creencias y tradiciones. Es lo que hace a la cultura dominicana tan rica y única.' },
+      en: { q: 'The process of cultural mixing (Taíno, Spanish, and African) that created Dominican identity is called _____.', answer: ['mestizaje', 'cultural mixing', 'syncretism'], explanation: 'Mestizaje wasn\'t just racial mixing — it was a fusion of languages, foods, music, beliefs, and traditions. It\'s what makes Dominican culture so rich and unique.' },
+      fr: { q: "Le processus de mélange culturel (taïno, espagnol et africain) qui a créé l'identité dominicaine s'appelle le _____.", answer: ['métissage', 'syncrétisme', 'mélange culturel'], explanation: "Le métissage n'était pas qu'un mélange racial — c'était une fusion de langues, nourritures, musiques, croyances et traditions. C'est ce qui rend la culture dominicaine si riche et unique." }
     }
   },
   {
     id: 'cul-070', type: 'fill',
     lang: {
-      es: { q: 'El instrumento taíno de raspado hecho de calabaza que se usa en la música dominicana es el _____.', answer: 'güiro', explanation: 'El güiro es esencial en el merengue y la bachata — ese sonido raspado que te hace mover los pies. Cada vez que lo escuchas, un taíno ancestral sonríe.' },
-      en: { q: 'The Taíno scraping instrument made from a gourd that is used in Dominican music is the _____.', answer: 'güiro', explanation: 'The güiro is essential in merengue and bachata — that scraping sound that makes your feet move. Every time you hear it, an ancestral Taíno smiles.' },
-      fr: { q: 'L\'instrument taïno de grattage fait d\'une calebasse qui est utilisé dans la musique dominicaine est le _____.', answer: 'güiro', explanation: "Le güiro est essentiel dans le merengue et la bachata — ce son de grattage qui fait bouger les pieds. Chaque fois que tu l'entends, un Taïno ancestral sourit." }
+      es: { q: 'El instrumento taíno de raspado hecho de calabaza que se usa en la música dominicana es el _____.', answer: ['güiro', 'güira'], explanation: 'El güiro es esencial en el merengue y la bachata — ese sonido raspado que te hace mover los pies. Cada vez que lo escuchas, un taíno ancestral sonríe.' },
+      en: { q: 'The Taíno scraping instrument made from a gourd that is used in Dominican music is the _____.', answer: ['güiro', 'güira'], explanation: 'The güiro is essential in merengue and bachata — that scraping sound that makes your feet move. Every time you hear it, an ancestral Taíno smiles.' },
+      fr: { q: 'L\'instrument taïno de grattage fait d\'une calebasse qui est utilisé dans la musique dominicaine est le _____.', answer: ['güiro', 'güira'], explanation: "Le güiro est essentiel dans le merengue et la bachata — ce son de grattage qui fait bouger les pieds. Chaque fois que tu l'entends, un Taïno ancestral sourit." }
     }
   },
   {
     id: 'cul-071', type: 'fill',
     lang: {
-      es: { q: 'La primera ciudad europea permanente en América, hoy Patrimonio de la Humanidad, es la _____ de Santo Domingo.', answer: 'Zona Colonial', explanation: 'La Zona Colonial es el kilómetro cero de la historia colonial americana. Primera catedral, primera calle, primera universidad del "Nuevo Mundo". Un museo a cielo abierto.' },
-      en: { q: 'The first permanent European city in the Americas, now a World Heritage Site, is the _____ of Santo Domingo.', answer: 'Zona Colonial', explanation: 'The Zona Colonial is ground zero of American colonial history. First cathedral, first street, first university of the "New World." An open-air museum.' },
-      fr: { q: 'La première ville européenne permanente dans les Amériques, aujourd\'hui site du patrimoine mondial, est la _____ de Saint-Domingue.', answer: 'Zona Colonial', explanation: "La Zona Colonial est le kilomètre zéro de l'histoire coloniale américaine. Première cathédrale, première rue, première université du \"Nouveau Monde\". Un musée à ciel ouvert." }
+      es: { q: 'La primera ciudad europea permanente en América, hoy Patrimonio de la Humanidad, es la _____ de Santo Domingo.', answer: ['Zona Colonial', 'Ciudad Colonial'], explanation: 'La Zona Colonial es el kilómetro cero de la historia colonial americana. Primera catedral, primera calle, primera universidad del "Nuevo Mundo". Un museo a cielo abierto.' },
+      en: { q: 'The first permanent European city in the Americas, now a World Heritage Site, is the _____ of Santo Domingo.', answer: ['Zona Colonial', 'Colonial Zone', 'Ciudad Colonial'], explanation: 'The Zona Colonial is ground zero of American colonial history. First cathedral, first street, first university of the "New World." An open-air museum.' },
+      fr: { q: 'La première ville européenne permanente dans les Amériques, aujourd\'hui site du patrimoine mondial, est la _____ de Saint-Domingue.', answer: ['Zona Colonial', 'Zone Coloniale', 'Ciudad Colonial'], explanation: "La Zona Colonial est le kilomètre zéro de l'histoire coloniale américaine. Première cathédrale, première rue, première université du \"Nouveau Monde\". Un musée à ciel ouvert." }
     }
   },
   {
     id: 'cul-072', type: 'fill',
     lang: {
-      es: { q: 'Los sacerdotes y curanderos de la sociedad taína que usaban plantas medicinales se llamaban _____.', answer: 'behiques', explanation: 'Los behiques eran los médicos, psicólogos y sacerdotes de los taínos, todo en uno. Conocían las propiedades de cientos de plantas. Sabiduría ancestral que la ciencia moderna está redescubriendo.' },
-      en: { q: 'The priests and healers of Taíno society who used medicinal plants were called _____.', answer: 'behiques', explanation: 'Behiques were the doctors, psychologists, and priests of the Taínos, all in one. They knew the properties of hundreds of plants. Ancestral wisdom that modern science is rediscovering.' },
-      fr: { q: 'Les prêtres et guérisseurs de la société taïno qui utilisaient des plantes médicinales s\'appelaient des _____.', answer: 'behiques', explanation: "Les behiques étaient les médecins, psychologues et prêtres des Taïnos, tout en un. Ils connaissaient les propriétés de centaines de plantes. Sagesse ancestrale que la science moderne redécouvre." }
+      es: { q: 'Los sacerdotes y curanderos de la sociedad taína que usaban plantas medicinales se llamaban _____.', answer: ['behiques', 'chamanes', 'curanderos'], explanation: 'Los behiques eran los médicos, psicólogos y sacerdotes de los taínos, todo en uno. Conocían las propiedades de cientos de plantas. Sabiduría ancestral que la ciencia moderna está redescubriendo.' },
+      en: { q: 'The priests and healers of Taíno society who used medicinal plants were called _____.', answer: ['behiques', 'shamans', 'healers'], explanation: 'Behiques were the doctors, psychologists, and priests of the Taínos, all in one. They knew the properties of hundreds of plants. Ancestral wisdom that modern science is rediscovering.' },
+      fr: { q: 'Les prêtres et guérisseurs de la société taïno qui utilisaient des plantes médicinales s\'appelaient des _____.', answer: ['behiques', 'chamans', 'guérisseurs'], explanation: "Les behiques étaient les médecins, psychologues et prêtres des Taïnos, tout en un. Ils connaissaient les propriétés de centaines de plantes. Sagesse ancestrale que la science moderne redécouvre." }
     }
   },
   {
     id: 'cul-073', type: 'fill',
     lang: {
-      es: { q: 'La gente común de la sociedad taína, que incluía trabajadores y artesanos, se llamaba _____.', answer: 'naborías', explanation: 'Los naborías eran el corazón del yucayeque — agricultores, artesanos, pescadores. Sin ellos, la sociedad no funcionaba. Como en todas las civilizaciones, la gente trabajadora es la base de todo.' },
-      en: { q: 'The common people of Taíno society, which included workers and artisans, were called _____.', answer: 'naborías', explanation: 'The naborías were the heart of the yucayeque — farmers, artisans, fishers. Without them, society wouldn\'t function. Like in all civilizations, working people are the foundation of everything.' },
-      fr: { q: 'Les gens du commun de la société taïno, qui comprenaient les travailleurs et artisans, s\'appelaient des _____.', answer: 'naborías', explanation: "Les naborías étaient le cœur du yucayeque — agriculteurs, artisans, pêcheurs. Sans eux, la société ne fonctionnerait pas. Comme dans toutes les civilisations, les travailleurs sont la base de tout." }
+      es: { q: 'La gente común de la sociedad taína, que incluía trabajadores y artesanos, se llamaba _____.', answer: ['naborías', 'plebeyos'], explanation: 'Los naborías eran el corazón del yucayeque — agricultores, artesanos, pescadores. Sin ellos, la sociedad no funcionaba. Como en todas las civilizaciones, la gente trabajadora es la base de todo.' },
+      en: { q: 'The common people of Taíno society, which included workers and artisans, were called _____.', answer: ['naborías', 'commoners'], explanation: 'The naborías were the heart of the yucayeque — farmers, artisans, fishers. Without them, society wouldn\'t function. Like in all civilizations, working people are the foundation of everything.' },
+      fr: { q: 'Les gens du commun de la société taïno, qui comprenaient les travailleurs et artisans, s\'appelaient des _____.', answer: ['naborías', 'roturiers'], explanation: "Les naborías étaient le cœur du yucayeque — agriculteurs, artisans, pêcheurs. Sans eux, la société ne fonctionnerait pas. Comme dans toutes les civilisations, les travailleurs sont la base de tout." }
     }
   },
   {
     id: 'cul-074', type: 'fill',
     lang: {
-      es: { q: 'ArcLycée está disponible en tres idiomas: español, inglés y _____.', answer: 'francés', explanation: 'El francés refleja que ArcLycée fue creado por estudiantes del Liceo Francés de Santo Domingo. La diversidad lingüística del juego refleja la diversidad cultural de sus creadores.' },
-      en: { q: 'ArcLycée is available in three languages: Spanish, English, and _____.', answer: 'French', explanation: 'French reflects that ArcLycée was created by students at the Lycée Français in Santo Domingo. The game\'s linguistic diversity reflects the cultural diversity of its creators.' },
-      fr: { q: 'ArcLycée est disponible en trois langues : espagnol, anglais et _____.', answer: 'français', explanation: "Le français reflète qu'ArcLycée a été créé par des élèves du Lycée Français de Saint-Domingue. La diversité linguistique du jeu reflète la diversité culturelle de ses créateurs." }
+      es: { q: 'ArcLycée está disponible en tres idiomas: español, inglés y _____.', answer: ['francés'], explanation: 'El francés refleja que ArcLycée fue creado por estudiantes del Liceo Francés de Santo Domingo. La diversidad lingüística del juego refleja la diversidad cultural de sus creadores.' },
+      en: { q: 'ArcLycée is available in three languages: Spanish, English, and _____.', answer: ['French', 'français'], explanation: 'French reflects that ArcLycée was created by students at the Lycée Français in Santo Domingo. The game\'s linguistic diversity reflects the cultural diversity of its creators.' },
+      fr: { q: 'ArcLycée est disponible en trois langues : espagnol, anglais et _____.', answer: ['français'], explanation: "Le français reflète qu'ArcLycée a été créé par des élèves du Lycée Français de Saint-Domingue. La diversité linguistique du jeu reflète la diversité culturelle de ses créateurs." }
     }
   },
   {
     id: 'cul-075', type: 'fill',
     lang: {
-      es: { q: 'El campo central de una aldea taína donde se jugaba batú y se celebraban areítos se llamaba _____.', answer: 'batey', explanation: 'El batey era el corazón social del yucayeque — como la plaza de un pueblo. Ahí se jugaba batú, se celebraban areítos y se tomaban decisiones comunitarias. La vida social taína sucedía en el batey.' },
-      en: { q: 'The central field of a Taíno village where batú was played and areítos were celebrated was called a _____.', answer: 'batey', explanation: 'The batey was the social heart of the yucayeque — like a town square. Batú was played there, areítos were celebrated, and community decisions were made. Taíno social life happened in the batey.' },
-      fr: { q: 'Le terrain central d\'un village taïno où l\'on jouait au batú et célébrait les areítos s\'appelait un _____.', answer: 'batey', explanation: "Le batey était le cœur social du yucayeque — comme la place d'un village. On y jouait au batú, on y célébrait les areítos et on y prenait les décisions communautaires. La vie sociale taïno se passait au batey." }
+      es: { q: 'El campo central de una aldea taína donde se jugaba batú y se celebraban areítos se llamaba _____.', answer: ['batey', 'plaza'], explanation: 'El batey era el corazón social del yucayeque — como la plaza de un pueblo. Ahí se jugaba batú, se celebraban areítos y se tomaban decisiones comunitarias. La vida social taína sucedía en el batey.' },
+      en: { q: 'The central field of a Taíno village where batú was played and areítos were celebrated was called a _____.', answer: ['batey', 'plaza', 'court'], explanation: 'The batey was the social heart of the yucayeque — like a town square. Batú was played there, areítos were celebrated, and community decisions were made. Taíno social life happened in the batey.' },
+      fr: { q: 'Le terrain central d\'un village taïno où l\'on jouait au batú et célébrait les areítos s\'appelait un _____.', answer: ['batey', 'place', 'terrain'], explanation: "Le batey était le cœur social du yucayeque — comme la place d'un village. On y jouait au batú, on y célébrait les areítos et on y prenait les décisions communautaires. La vie sociale taïno se passait au batey." }
     }
   },
 

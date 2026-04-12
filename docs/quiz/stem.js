@@ -1148,17 +1148,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'La vida media del Carbono-14 es de _____ años.',
-        answer: '5730',
+        answer: ['5730', '5,730', '5.730'],
         explanation: '5730 años: después de ese tiempo, la mitad de los átomos de C-14 se han desintegrado en Nitrógeno-14.'
       },
       en: {
         q: 'The half-life of Carbon-14 is _____ years.',
-        answer: '5730',
+        answer: ['5730', '5,730'],
         explanation: '5,730 years: after that time, half of the C-14 atoms have decayed into Nitrogen-14.'
       },
       fr: {
         q: 'La demi-vie du Carbone-14 est de _____ ans.',
-        answer: '5730',
+        answer: ['5730', '5 730', '5.730'],
         explanation: '5 730 ans : après cette période, la moitié des atomes de C-14 se sont désintégrés en Azote-14.'
       }
     }
@@ -1169,17 +1169,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'El game loop estándar corre a _____ frames por segundo.',
-        answer: '60',
+        answer: ['60', '60fps'],
         explanation: '60 fps es el estándar, sincronizado con la mayoría de monitores. requestAnimationFrame se encarga de mantener este ritmo.'
       },
       en: {
         q: 'A standard game loop runs at _____ frames per second.',
-        answer: '60',
+        answer: ['60', '60fps'],
         explanation: '60 fps is the standard, synced with most monitors. requestAnimationFrame handles keeping this pace.'
       },
       fr: {
         q: 'La boucle de jeu standard tourne à _____ images par seconde.',
-        answer: '60',
+        answer: ['60', '60fps'],
         explanation: '60 fps est le standard, synchronisé avec la plupart des moniteurs. requestAnimationFrame se charge de maintenir ce rythme.'
       }
     }
@@ -1190,17 +1190,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En ArcLycée, la fórmula para movimiento independiente del framerate es: factorTiempo = _____ * 60',
-        answer: 'dt',
+        answer: ['dt', 'delta time', 'deltaTime'],
         explanation: 'dt (delta time) es el tiempo entre frames. Multiplicarlo por 60 normaliza el movimiento para que sea consistente a cualquier framerate.'
       },
       en: {
         q: 'In ArcLycée, the formula for frame-rate independent movement is: factorTiempo = _____ * 60',
-        answer: 'dt',
+        answer: ['dt', 'delta time', 'deltaTime'],
         explanation: 'dt (delta time) is the time between frames. Multiplying it by 60 normalizes movement to be consistent at any framerate.'
       },
       fr: {
         q: 'Dans ArcLycée, la formule pour un mouvement indépendant du framerate est : factorTiempo = _____ * 60',
-        answer: 'dt',
+        answer: ['dt', 'delta time', 'deltaTime'],
         explanation: 'dt (delta time) est le temps entre les images. Le multiplier par 60 normalise le mouvement pour qu\'il soit constant à tout framerate.'
       }
     }
@@ -1211,17 +1211,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'ROV significa Remotely _____ Vehicle, un robot submarino controlado desde la superficie.',
-        answer: 'Operated',
+        answer: ['Operated', 'operado'],
         explanation: 'Remotely Operated Vehicle = Vehículo Operado Remotamente. Se controla a distancia por cable, a diferencia de un AUV que es autónomo.'
       },
       en: {
         q: 'ROV stands for Remotely _____ Vehicle, a submarine robot controlled from the surface.',
-        answer: 'Operated',
+        answer: ['Operated'],
         explanation: 'Remotely Operated Vehicle. Controlled remotely via cable, unlike an AUV which is autonomous.'
       },
       fr: {
         q: 'ROV signifie Remotely _____ Vehicle, un robot sous-marin contrôlé depuis la surface.',
-        answer: 'Operated',
+        answer: ['Operated'],
         explanation: 'Remotely Operated Vehicle = Véhicule télécommandé. Contrôlé à distance par câble, contrairement à un AUV qui est autonome.'
       }
     }
@@ -1232,17 +1232,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'AABB significa Axis-Aligned _____ Box, un método de detección de colisiones en juegos.',
-        answer: 'Bounding',
+        answer: ['Bounding'],
         explanation: 'Axis-Aligned Bounding Box: una caja rectangular que envuelve un objeto y está alineada con los ejes X e Y. Simple y rápida.'
       },
       en: {
         q: 'AABB stands for Axis-Aligned _____ Box, a collision detection method in games.',
-        answer: 'Bounding',
+        answer: ['Bounding'],
         explanation: 'Axis-Aligned Bounding Box: a rectangular box that wraps an object and is aligned with the X and Y axes. Simple and fast.'
       },
       fr: {
         q: 'AABB signifie Axis-Aligned _____ Box, une méthode de détection de collisions dans les jeux.',
-        answer: 'Bounding',
+        answer: ['Bounding'],
         explanation: 'Axis-Aligned Bounding Box : une boîte rectangulaire qui enveloppe un objet et est alignée avec les axes X et Y. Simple et rapide.'
       }
     }
@@ -1253,17 +1253,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En JavaScript, para importar una función de otro archivo se usa: import { funcion } from \'./_____.js\'',
-        answer: 'archivo',
+        answer: ['archivo', 'modulo', 'módulo'],
         explanation: 'ES Modules usan import/export para compartir código entre archivos. Se pone la ruta relativa al archivo que contiene lo que necesitas.'
       },
       en: {
         q: 'In JavaScript, to import a function from another file you use: import { func } from \'./_____.js\'',
-        answer: 'file',
+        answer: ['file', 'module'],
         explanation: 'ES Modules use import/export to share code between files. You provide the relative path to the file containing what you need.'
       },
       fr: {
         q: 'En JavaScript, pour importer une fonction d\'un autre fichier, on utilise : import { fonction } from \'./_____.js\'',
-        answer: 'fichier',
+        answer: ['fichier', 'module'],
         explanation: 'Les modules ES utilisent import/export pour partager du code entre fichiers. On indique le chemin relatif vers le fichier qui contient ce dont on a besoin.'
       }
     }
@@ -1274,17 +1274,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'ArcLycée genera sus _____ efectos de sonido con Web Audio API, sin archivos de audio.',
-        answer: '57',
+        answer: ['57'],
         explanation: '57 efectos de sonido procedurales, desde pisadas hasta truenos, todos creados con osciladores y filtros de la Web Audio API.'
       },
       en: {
         q: 'ArcLycée generates its _____ sound effects with the Web Audio API, without audio files.',
-        answer: '57',
+        answer: ['57'],
         explanation: '57 procedural sound effects, from footsteps to thunder, all created with Web Audio API oscillators and filters.'
       },
       fr: {
         q: 'ArcLycée génère ses _____ effets sonores avec la Web Audio API, sans fichiers audio.',
-        answer: '57',
+        answer: ['57'],
         explanation: '57 effets sonores procéduraux, des pas aux tonnerres, tous créés avec des oscillateurs et filtres de la Web Audio API.'
       }
     }
@@ -1295,17 +1295,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'Scratch es un lenguaje de programación basado en _____ que se arrastran y conectan.',
-        answer: 'bloques',
+        answer: ['bloques', 'blocks'],
         explanation: 'Los bloques de Scratch son piezas visuales que encajan como un rompecabezas. Es programación sin escribir texto, ideal para principiantes.'
       },
       en: {
         q: 'Scratch is a programming language based on _____ that you drag and connect.',
-        answer: 'blocks',
+        answer: ['blocks'],
         explanation: 'Scratch blocks are visual pieces that snap together like a puzzle. It\'s programming without typing text, ideal for beginners.'
       },
       fr: {
         q: 'Scratch est un langage de programmation basé sur des _____ qu\'on glisse et connecte.',
-        answer: 'blocs',
+        answer: ['blocs', 'blocks'],
         explanation: 'Les blocs Scratch sont des pièces visuelles qui s\'emboîtent comme un puzzle. C\'est de la programmation sans écrire de texte, idéal pour les débutants.'
       }
     }
@@ -1316,17 +1316,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'La función request_____Frame() sincroniza el game loop con la tasa de refresco del monitor.',
-        answer: 'Animation',
+        answer: ['Animation'],
         explanation: 'requestAnimationFrame() le dice al navegador que quieres dibujar un nuevo frame. El navegador lo llama cuando está listo, generalmente a 60fps.'
       },
       en: {
         q: 'The request_____Frame() function syncs the game loop with the monitor\'s refresh rate.',
-        answer: 'Animation',
+        answer: ['Animation'],
         explanation: 'requestAnimationFrame() tells the browser you want to draw a new frame. The browser calls it when ready, usually at 60fps.'
       },
       fr: {
         q: 'La fonction request_____Frame() synchronise la boucle de jeu avec le taux de rafraîchissement du moniteur.',
-        answer: 'Animation',
+        answer: ['Animation'],
         explanation: 'requestAnimationFrame() dit au navigateur que vous voulez dessiner une nouvelle image. Le navigateur l\'appelle quand il est prêt, généralement à 60fps.'
       }
     }
@@ -1337,17 +1337,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En Canvas 2D, el método fill_____() dibuja un rectángulo sólido relleno del color actual.',
-        answer: 'Rect',
+        answer: ['Rect'],
         explanation: 'fillRect(x, y, ancho, alto) es el método fundamental para dibujar rectángulos sólidos. ArcLycée lo usa para construir cada píxel de sus sprites.'
       },
       en: {
         q: 'In Canvas 2D, the fill_____() method draws a solid rectangle filled with the current color.',
-        answer: 'Rect',
+        answer: ['Rect'],
         explanation: 'fillRect(x, y, width, height) is the fundamental method for drawing solid rectangles. ArcLycée uses it to build every pixel of its sprites.'
       },
       fr: {
         q: 'En Canvas 2D, la méthode fill_____() dessine un rectangle plein rempli de la couleur courante.',
-        answer: 'Rect',
+        answer: ['Rect'],
         explanation: 'fillRect(x, y, largeur, hauteur) est la méthode fondamentale pour dessiner des rectangles pleins. ArcLycée l\'utilise pour construire chaque pixel de ses sprites.'
       }
     }
@@ -1358,17 +1358,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'Un magnetómetro mide campos _____ para detectar artefactos metálicos enterrados.',
-        answer: 'magnéticos',
+        answer: ['magnéticos'],
         explanation: 'Los campos magnéticos de la Tierra se distorsionan cuando hay metal cerca. El magnetómetro detecta estas anomalías sin necesidad de cavar.'
       },
       en: {
         q: 'A magnetometer measures _____ fields to detect buried metal artifacts.',
-        answer: 'magnetic',
+        answer: ['magnetic'],
         explanation: 'Earth\'s magnetic fields get distorted when metal is nearby. The magnetometer detects these anomalies without needing to dig.'
       },
       fr: {
         q: 'Un magnétomètre mesure les champs _____ pour détecter des artefacts métalliques enterrés.',
-        answer: 'magnétiques',
+        answer: ['magnétiques'],
         explanation: 'Les champs magnétiques de la Terre se déforment quand du métal est proche. Le magnétomètre détecte ces anomalies sans avoir besoin de creuser.'
       }
     }
@@ -1379,17 +1379,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'La impresión 3D es un tipo de fabricación _____ porque construye capa por capa.',
-        answer: 'aditiva',
+        answer: ['aditiva', 'additive'],
         explanation: 'Aditiva = agregar material. Lo opuesto es sustractiva (quitar material, como tallar madera). La impresión 3D agrega plástico capa a capa.'
       },
       en: {
         q: '3D printing is a type of _____ manufacturing because it builds layer by layer.',
-        answer: 'additive',
+        answer: ['additive'],
         explanation: 'Additive = adding material. The opposite is subtractive (removing material, like carving wood). 3D printing adds plastic layer by layer.'
       },
       fr: {
         q: 'L\'impression 3D est un type de fabrication _____ car elle construit couche par couche.',
-        answer: 'additive',
+        answer: ['additive'],
         explanation: 'Additive = ajouter du matériau. L\'opposé est soustractive (enlever du matériau, comme sculpter du bois). L\'impression 3D ajoute du plastique couche par couche.'
       }
     }
@@ -1400,17 +1400,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En Git, un _____ es una versión paralela del código donde puedes experimentar sin afectar la versión principal.',
-        answer: 'branch',
+        answer: ['branch', 'rama'],
         explanation: 'Un branch (rama) te permite trabajar en una copia independiente del código. Cuando terminas, haces merge para unir los cambios.'
       },
       en: {
         q: 'In Git, a _____ is a parallel version of the code where you can experiment without affecting the main version.',
-        answer: 'branch',
+        answer: ['branch'],
         explanation: 'A branch lets you work on an independent copy of the code. When done, you merge to combine the changes.'
       },
       fr: {
         q: 'En Git, une _____ est une version parallèle du code où on peut expérimenter sans affecter la version principale.',
-        answer: 'branche',
+        answer: ['branche', 'branch'],
         explanation: 'Une branche permet de travailler sur une copie indépendante du code. Quand c\'est fini, on fait un merge pour combiner les changements.'
       }
     }
@@ -1421,17 +1421,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'Las coordenadas GPS usan _____ (norte/sur) y longitud (este/oeste) para ubicar un punto en la Tierra.',
-        answer: 'latitud',
+        answer: ['latitud', 'latitude'],
         explanation: 'Latitud va de -90° (polo sur) a +90° (polo norte). Longitud va de -180° a +180°. Juntas forman la dirección exacta de cualquier lugar.'
       },
       en: {
         q: 'GPS coordinates use _____ (north/south) and longitude (east/west) to locate a point on Earth.',
-        answer: 'latitude',
+        answer: ['latitude', 'lat'],
         explanation: 'Latitude goes from -90° (south pole) to +90° (north pole). Longitude goes from -180° to +180°. Together they form the exact address of any place.'
       },
       fr: {
         q: 'Les coordonnées GPS utilisent la _____ (nord/sud) et la longitude (est/ouest) pour localiser un point sur Terre.',
-        answer: 'latitude',
+        answer: ['latitude'],
         explanation: 'La latitude va de -90° (pôle sud) à +90° (pôle nord). La longitude va de -180° à +180°. Ensemble, elles forment l\'adresse exacte de n\'importe quel lieu.'
       }
     }
@@ -1442,17 +1442,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En la Web Audio API, un _____ genera ondas de sonido de diferentes formas (sine, square, sawtooth).',
-        answer: 'oscilador',
+        answer: ['oscilador', 'oscillator', 'OscillatorNode'],
         explanation: 'El OscillatorNode produce ondas periódicas. Cada forma (sine, square, sawtooth, triangle) tiene un timbre diferente que se puede combinar y filtrar.'
       },
       en: {
         q: 'In the Web Audio API, an _____ generates sound waves of different shapes (sine, square, sawtooth).',
-        answer: 'oscillator',
+        answer: ['oscillator', 'OscillatorNode'],
         explanation: 'The OscillatorNode produces periodic waves. Each shape (sine, square, sawtooth, triangle) has a different timbre that can be combined and filtered.'
       },
       fr: {
         q: 'Dans la Web Audio API, un _____ génère des ondes sonores de différentes formes (sine, square, sawtooth).',
-        answer: 'oscillateur',
+        answer: ['oscillateur', 'oscillator', 'OscillatorNode'],
         explanation: 'L\'OscillatorNode produit des ondes périodiques. Chaque forme (sine, square, sawtooth, triangle) a un timbre différent qu\'on peut combiner et filtrer.'
       }
     }
@@ -1463,17 +1463,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'El C-14 solo sirve para datar materiales _____ como madera, huesos y conchas.',
-        answer: 'orgánicos',
+        answer: ['orgánicos', 'biológicos'],
         explanation: 'El Carbono-14 se incorpora a los seres vivos mientras están vivos. Al morir, deja de incorporarse y empieza a desintegrarse. Por eso solo funciona con materia orgánica.'
       },
       en: {
         q: 'C-14 only works for dating _____ materials like wood, bones, and shells.',
-        answer: 'organic',
+        answer: ['organic', 'biological'],
         explanation: 'Carbon-14 is incorporated into living things while alive. When they die, it stops being incorporated and starts decaying. That\'s why it only works with organic matter.'
       },
       fr: {
         q: 'Le C-14 ne sert qu\'à dater des matériaux _____ comme le bois, les os et les coquillages.',
-        answer: 'organiques',
+        answer: ['organiques', 'biologiques'],
         explanation: 'Le Carbone-14 est incorporé dans les êtres vivants tant qu\'ils sont vivants. À la mort, il cesse d\'être incorporé et commence à se désintégrer. C\'est pourquoi il ne fonctionne qu\'avec la matière organique.'
       }
     }
@@ -1484,17 +1484,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'ArcLycée usa la librería _____.js para mostrar mapas interactivos con marcadores arqueológicos reales.',
-        answer: 'Leaflet',
+        answer: ['Leaflet'],
         explanation: 'Leaflet.js es una librería JavaScript open-source para mapas interactivos. ArcLycée la usa para su mapa de referencia con 6 capas de datos y 70+ marcadores.'
       },
       en: {
         q: 'ArcLycée uses the _____.js library to display interactive maps with real archaeological markers.',
-        answer: 'Leaflet',
+        answer: ['Leaflet'],
         explanation: 'Leaflet.js is an open-source JavaScript library for interactive maps. ArcLycée uses it for its reference map with 6 data layers and 70+ markers.'
       },
       fr: {
         q: 'ArcLycée utilise la bibliothèque _____.js pour afficher des cartes interactives avec de vrais marqueurs archéologiques.',
-        answer: 'Leaflet',
+        answer: ['Leaflet'],
         explanation: 'Leaflet.js est une bibliothèque JavaScript open-source pour les cartes interactives. ArcLycée l\'utilise pour sa carte de référence avec 6 couches de données et 70+ marqueurs.'
       }
     }
@@ -1505,17 +1505,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En diseño de juegos, una curva de _____ bien diseñada sube gradualmente para mantener al jugador en estado de "flow".',
-        answer: 'dificultad',
+        answer: ['dificultad', 'difficulty'],
         explanation: 'La curva de dificultad define cómo el reto aumenta con el tiempo. Muy fácil = aburrido. Muy difícil de golpe = frustración. El equilibrio perfecto = flow.'
       },
       en: {
         q: 'In game design, a well-designed _____ curve ramps up gradually to keep the player in a state of "flow."',
-        answer: 'difficulty',
+        answer: ['difficulty'],
         explanation: 'The difficulty curve defines how challenge increases over time. Too easy = boring. Too hard suddenly = frustration. Perfect balance = flow.'
       },
       fr: {
         q: 'En game design, une courbe de _____ bien conçue monte progressivement pour maintenir le joueur en état de "flow".',
-        answer: 'difficulté',
+        answer: ['difficulté', 'difficulty'],
         explanation: 'La courbe de difficulté définit comment le défi augmente au fil du temps. Trop facile = ennuyeux. Trop difficile d\'un coup = frustration. L\'équilibre parfait = flow.'
       }
     }
@@ -1526,17 +1526,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En un juego 2D, la gravedad se simula sumando una _____ constante a la velocidad vertical en cada frame.',
-        answer: 'aceleración',
+        answer: ['aceleración', 'gravedad'],
         explanation: 'La gravedad es una aceleración (9.8 m/s² en la vida real). En cada frame, velocidadY += gravedad * dt. ¡La misma física de Newton aplicada a píxeles!'
       },
       en: {
         q: 'In a 2D game, gravity is simulated by adding a constant _____ to the vertical velocity each frame.',
-        answer: 'acceleration',
+        answer: ['acceleration', 'gravity'],
         explanation: 'Gravity is an acceleration (9.8 m/s² in real life). Each frame, velocityY += gravity * dt. Newton\'s same physics applied to pixels!'
       },
       fr: {
         q: 'Dans un jeu 2D, la gravité est simulée en ajoutant une _____ constante à la vitesse verticale à chaque image.',
-        answer: 'accélération',
+        answer: ['accélération', 'gravité'],
         explanation: 'La gravité est une accélération (9,8 m/s² dans la vie réelle). À chaque image, vitesseY += gravite * dt. La même physique de Newton appliquée aux pixels !'
       }
     }
@@ -1547,17 +1547,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'ArcLycée usa HTML5 _____ como su tecnología de renderizado para dibujar todo el juego.',
-        answer: 'Canvas',
+        answer: ['Canvas', 'Canvas 2D'],
         explanation: 'HTML5 Canvas proporciona un lienzo de dibujo 2D donde JavaScript puede pintar píxeles directamente. Todo el renderizado de ArcLycée pasa por su API.'
       },
       en: {
         q: 'ArcLycée uses HTML5 _____ as its rendering technology to draw the entire game.',
-        answer: 'Canvas',
+        answer: ['Canvas', 'Canvas 2D'],
         explanation: 'HTML5 Canvas provides a 2D drawing surface where JavaScript can paint pixels directly. All of ArcLycée\'s rendering goes through its API.'
       },
       fr: {
         q: 'ArcLycée utilise HTML5 _____ comme technologie de rendu pour dessiner tout le jeu.',
-        answer: 'Canvas',
+        answer: ['Canvas', 'Canvas 2D'],
         explanation: 'HTML5 Canvas fournit une surface de dessin 2D où JavaScript peut peindre des pixels directement. Tout le rendu d\'ArcLycée passe par son API.'
       }
     }
@@ -1568,17 +1568,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En programación, _____ modules permiten dividir el código en archivos separados con import y export.',
-        answer: 'ES',
+        answer: ['ES', 'ECMAScript'],
         explanation: 'ES Modules (ECMAScript Modules) son el estándar moderno de JavaScript para modularizar código. ArcLycée tiene más de 60 módulos organizados así.'
       },
       en: {
         q: 'In programming, _____ modules allow splitting code into separate files with import and export.',
-        answer: 'ES',
+        answer: ['ES', 'ECMAScript'],
         explanation: 'ES Modules (ECMAScript Modules) are the modern JavaScript standard for modularizing code. ArcLycée has over 60 modules organized this way.'
       },
       fr: {
         q: 'En programmation, les modules _____ permettent de diviser le code en fichiers séparés avec import et export.',
-        answer: 'ES',
+        answer: ['ES', 'ECMAScript'],
         explanation: 'Les modules ES (ECMAScript Modules) sont le standard moderne de JavaScript pour modulariser le code. ArcLycée a plus de 60 modules organisés ainsi.'
       }
     }
@@ -1589,17 +1589,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En Git, un _____ es una instantánea del código con un mensaje que describe los cambios realizados.',
-        answer: 'commit',
+        answer: ['commit'],
         explanation: 'Cada commit guarda el estado exacto del código en ese momento, con un mensaje explicativo. Es como tomar una foto con una nota adhesiva.'
       },
       en: {
         q: 'In Git, a _____ is a snapshot of the code with a message describing the changes made.',
-        answer: 'commit',
+        answer: ['commit', 'snapshot'],
         explanation: 'Each commit saves the exact state of the code at that moment, with an explanatory message. It\'s like taking a photo with a sticky note.'
       },
       fr: {
         q: 'En Git, un _____ est un instantané du code avec un message décrivant les modifications effectuées.',
-        answer: 'commit',
+        answer: ['commit'],
         explanation: 'Chaque commit sauvegarde l\'état exact du code à ce moment-là, avec un message explicatif. C\'est comme prendre une photo avec un post-it.'
       }
     }
@@ -1610,17 +1610,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'En FLL, el robot debe ser completamente _____, sin control remoto durante la competencia.',
-        answer: 'autónomo',
+        answer: ['autónomo', 'independiente'],
         explanation: 'El programa se descarga al robot antes de la ronda. Una vez que empieza, no puedes tocarlo ni controlarlo. ¡Tiene que hacer todo solo!'
       },
       en: {
         q: 'In FLL, the robot must be completely _____, with no remote control during the competition.',
-        answer: 'autonomous',
+        answer: ['autonomous', 'independent'],
         explanation: 'The program is downloaded to the robot before the round. Once it starts, you can\'t touch or control it. It has to do everything on its own!'
       },
       fr: {
         q: 'En FLL, le robot doit être complètement _____, sans télécommande pendant la compétition.',
-        answer: 'autonome',
+        answer: ['autonome', 'indépendant'],
         explanation: 'Le programme est téléchargé dans le robot avant la manche. Une fois lancé, on ne peut ni le toucher ni le contrôler. Il doit tout faire seul !'
       }
     }
@@ -1631,17 +1631,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'El delta _____ (dt) mide los segundos transcurridos entre un frame y el siguiente del game loop.',
-        answer: 'time',
+        answer: ['time', 'tiempo'],
         explanation: 'Delta time = diferencia de tiempo entre frames. Si tu PC es lento, dt será grande. Si es rápido, dt será pequeño. Se usa para normalizar el movimiento.'
       },
       en: {
         q: 'Delta _____ (dt) measures the seconds elapsed between one game loop frame and the next.',
-        answer: 'time',
+        answer: ['time'],
         explanation: 'Delta time = time difference between frames. If your PC is slow, dt will be large. If fast, dt will be small. Used to normalize movement.'
       },
       fr: {
         q: 'Le delta _____ (dt) mesure les secondes écoulées entre une image de la boucle de jeu et la suivante.',
-        answer: 'time',
+        answer: ['time', 'temps'],
         explanation: 'Delta time = différence de temps entre les images. Si votre PC est lent, dt sera grand. S\'il est rapide, dt sera petit. Utilisé pour normaliser le mouvement.'
       }
     }
@@ -1652,17 +1652,17 @@ window.ARC_QUESTIONS.stem = [
     lang: {
       es: {
         q: 'La generación _____ de sonidos usa código (osciladores y filtros) en lugar de archivos de audio pregrabados.',
-        answer: 'procedural',
+        answer: ['procedural', 'procedimental', 'por procedimientos'],
         explanation: 'Procedural = generado por algoritmos en tiempo real. ArcLycée crea 57 efectos de sonido con código puro, sin un solo WAV ni MP3 para SFX.'
       },
       en: {
         q: '_____ sound generation uses code (oscillators and filters) instead of pre-recorded audio files.',
-        answer: 'Procedural',
+        answer: ['Procedural'],
         explanation: 'Procedural = generated by algorithms in real time. ArcLycée creates 57 sound effects with pure code, without a single WAV or MP3 for SFX.'
       },
       fr: {
         q: 'La génération _____ de sons utilise du code (oscillateurs et filtres) au lieu de fichiers audio préenregistrés.',
-        answer: 'procédurale',
+        answer: ['procédurale', 'procedural'],
         explanation: 'Procédurale = générée par des algorithmes en temps réel. ArcLycée crée 57 effets sonores avec du code pur, sans un seul WAV ni MP3 pour les SFX.'
       }
     }
