@@ -61,6 +61,11 @@
         'Lo importante es seguir adelante. ¡Ánimo, crack!',
         'Los errores son power-ups disfrazados. ¡No pares!'
       ],
+      encourageNearEnd: [
+        '¡Ya casi llegas al final! Sprint final, crack.',
+        '¡Última recta! Como el episodio final de temporada.',
+        '¡Quedan pocas! Termina fuerte como un boss fight.'
+      ],
       finalFeedback: function(score, total) {
         var pct = score / total;
         if (pct >= 0.9) return '¡LEGENDARIO! ' + score + '/' + total + ' — Eres como un behique del conocimiento. ¡Nivel S!';
@@ -115,6 +120,11 @@
         'What matters is pushing forward. Hang in there, champ!',
         'Mistakes are power-ups in disguise. Don\'t stop!'
       ],
+      encourageNearEnd: [
+        'Almost there! Final sprint, champ.',
+        'Last stretch! Like a season finale episode.',
+        'Just a few left! Finish strong like a boss fight.'
+      ],
       finalFeedback: function(score, total) {
         var pct = score / total;
         if (pct >= 0.9) return 'LEGENDARY! ' + score + '/' + total + ' — You\'re basically a behique of knowledge. S-Rank unlocked!';
@@ -168,6 +178,11 @@
         'Luffy n\'a pas gagné son premier combat non plus. Continue !',
         'L\'important c\'est d\'avancer. Courage, champion !',
         'Les erreurs sont des power-ups déguisés. N\'arrête pas !'
+      ],
+      encourageNearEnd: [
+        'Presque fini ! Sprint final, champion.',
+        'Dernière ligne droite ! Comme un épisode final de saison.',
+        'Plus que quelques-unes ! Termine en force comme un boss fight.'
       ],
       finalFeedback: function(score, total) {
         var pct = score / total;
@@ -471,11 +486,17 @@
 
     // Mostrar ánimo cada 4 preguntas, adaptado al rendimiento reciente.
     // Si acertó 3+ de las últimas 4 → felicitar. Si no → animar sin elogiar.
+    // Después de pregunta 12 se usan mensajes de "casi terminas".
     var num = currentIndex + 1;
     if (num % ENCOURAGE_EVERY === 0 && num < questions.length) {
       var recentCorrect = score - (scoreAtLastEncourage || 0);
       scoreAtLastEncourage = score;
-      var pool = recentCorrect >= 3 ? ui.encourageGood : ui.encourageStruggle;
+      var pool;
+      if (num > 12 && ui.encourageNearEnd) {
+        pool = ui.encourageNearEnd;
+      } else {
+        pool = recentCorrect >= 3 ? ui.encourageGood : ui.encourageStruggle;
+      }
       var enc = pool[Math.floor(Math.random() * pool.length)];
       fb.innerHTML += '<div class="quiz-encourage">' + enc + '</div>';
     }
