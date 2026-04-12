@@ -302,6 +302,16 @@ export class MuseoHombre {
       }
     }
 
+    // Nombre del lugar y controles
+    ctx.font = '11px monospace';
+    ctx.fillStyle = '#AAAAAA';
+    ctx.textAlign = 'center';
+    const _ui = textos?.ui;
+    ctx.fillText(_ui?.museoHombreNombre || '🏛️ Museo del Hombre Dominicano', ancho / 2, alto - 40);
+    ctx.fillStyle = '#888888';
+    ctx.fillText(_ui?.controlesMuseo || 'WASD: mover | E: hablar | M: mapa | I: inventario', ancho / 2, alto - 15);
+    ctx.textAlign = 'left';
+
     // Diálogo
     if (this.dialogos.estaActivo()) {
       this.dialogos.dibujar(ctx, ancho, alto, textos);
