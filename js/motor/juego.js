@@ -221,6 +221,10 @@ export class Juego {
     this.programacion = new ProgramacionBloques();
     this.conexion = new ConexionCables();
 
+    // Overlay de ayuda (tecla H) — muestra todos los controles del juego
+    this._ayudaVisible = false;
+    this._bloqueoAyuda = false;
+
     // Bloqueo para la tecla L (registro de misiones)
     this._bloqueoRegistro = false;
 
@@ -611,6 +615,23 @@ export class Juego {
       }
     }
 
+    // --- Ayuda: abrir/cerrar con H ---
+    if (this.jugador) {
+      if (this.entrada.estaPresionada('ayuda') && !this._bloqueoAyuda) {
+        this._ayudaVisible = !this._ayudaVisible;
+        this._bloqueoAyuda = true;
+      }
+      if (!this.entrada.estaPresionada('ayuda')) {
+        this._bloqueoAyuda = false;
+      }
+      // Cerrar con Q/Esc
+      if (this._ayudaVisible && this.entrada.estaPresionada('cancelar')) {
+        this._ayudaVisible = false;
+      }
+      // Si la ayuda está abierta, consume TODA la entrada
+      if (this._ayudaVisible) return;
+    }
+
     // --- Override de música para combate/batú ---
     if (this.combate.enCombate && !this._musicaCombateActiva) {
       this.musica.override('combate');
@@ -923,6 +944,11 @@ export class Juego {
     // --- Álbum de fotos (overlay con tecla P) ---
     if (this.album.visible) {
       this.album.dibujar(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
+    }
+
+    // --- Overlay de ayuda (tecla H) ---
+    if (this._ayudaVisible) {
+      this._dibujarAyuda(this.ctx, ANCHO_JUEGO, ALTO_JUEGO, textos);
     }
 
     // --- Pista de foto/selfie cuando hay objetivo cercano ---
@@ -1417,6 +1443,103 @@ export class Juego {
    * de salida (se desvanece al expirar). Están diseñados para no
    * tapar la acción del juego.
    */
+  // --- Overlay de ayuda: muestra todos los controles del juego ---
+  _dibujarAyuda(ctx, ancho, alto, textos) {
+    // Fondo semitransparente
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+    ctx.fillRect(0, 0, ancho, alto);
+
+    const _ui = textos?.ui;
+    const cx = ancho / 2;
+    const margen = 40;
+    const anchoPanel = Math.min(ancho - margen * 2, 700);
+    const xPanel = (ancho - anchoPanel) / 2;
+
+    // Título
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 20px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(_ui?.ayudaTitulo || '🎮 Controles del Juego', cx, 40);
+
+    // Subtítulo
+    ctx.fillStyle = '#AAAAAA';
+    ctx.font = '12px monospace';
+    ctx.fillText(_ui?.ayudaCerrar || 'Presiona H o Esc para cerrar', cx, 60);
+
+    // Controles — dos columnas
+    ctx.textAlign = 'left';
+    ctx.font = '12px monospace';
+
+    const controles = [
+      // Columna izquierda — Movimiento y exploración
+      { seccion: _ui?.ayudaMovimiento || '— Movimiento —', tecla: '', color: '#FFD700' },
+      { tecla: 'W A S D', desc: _ui?.ayudaMover || 'Mover (arriba, izquierda, abajo, derecha)' },
+      { tecla: '← ↑ ↓ →', desc: _ui?.ayudaFlechas || 'Mover (flechas)' },
+      { tecla: _ui?.ayudaEspacio || 'Espacio', desc: _ui?.ayudaSaltar || 'Saltar (en cuevas)' },
+      { seccion: _ui?.ayudaInteraccion || '— Interacción —', tecla: '', color: '#FFD700' },
+      { tecla: 'E / Enter', desc: _ui?.ayudaAccion || 'Hablar / Interactuar / Confirmar' },
+      { tecla: 'Q / Esc', desc: _ui?.ayudaCancelar || 'Cancelar / Salir de menú' },
+      { tecla: 'F', desc: _ui?.ayudaEspecial || 'Habilidad especial (compañero)' },
+      // Columna derecha — Menús y herramientas
+      { seccion: _ui?.ayudaMenus || '— Menús —', tecla: '', color: '#FFD700', col2: true },
+      { tecla: 'I', desc: _ui?.ayudaInventario || 'Inventario / Mochila', col2: true },
+      { tecla: 'M', desc: _ui?.ayudaMapa || 'Volver al mapa del mundo', col2: true },
+      { tecla: 'R', desc: _ui?.ayudaReferencia || 'Mapa de referencia (Leaflet)', col2: true },
+      { tecla: 'L', desc: _ui?.ayudaRegistro || 'Registro de misiones', col2: true },
+      { tecla: 'H', desc: _ui?.ayudaAyuda || 'Ayuda (esta pantalla)', col2: true },
+      { seccion: _ui?.ayudaFotos || '— Fotos —', tecla: '', color: '#FFD700', col2: true },
+      { tecla: 'T', desc: _ui?.ayudaFoto || 'Tomar foto', col2: true },
+      { tecla: 'G', desc: _ui?.ayudaSelfie || 'Tomar selfie', col2: true },
+      { tecla: 'P', desc: _ui?.ayudaAlbum || 'Abrir álbum de fotos', col2: true },
+    ];
+
+    const col1X = xPanel + 20;
+    const col2X = xPanel + anchoPanel / 2 + 10;
+    let y1 = 90;
+    let y2 = 90;
+
+    for (const c of controles) {
+      const isCol2 = c.col2;
+      const x = isCol2 ? col2X : col1X;
+      let y = isCol2 ? y2 : y1;
+
+      if (c.seccion) {
+        // Encabezado de sección
+        ctx.fillStyle = c.color || '#FFD700';
+        ctx.font = 'bold 12px monospace';
+        ctx.fillText(c.seccion, x, y);
+        if (isCol2) y2 = y + 20; else y1 = y + 20;
+      } else {
+        // Línea de control: tecla + descripción
+        ctx.fillStyle = '#CCAA44';
+        ctx.font = 'bold 12px monospace';
+        ctx.fillText(c.tecla, x, y);
+        ctx.fillStyle = '#CCCCCC';
+        ctx.font = '12px monospace';
+        ctx.fillText(c.desc, x + 100, y);
+        if (isCol2) y2 = y + 20; else y1 = y + 20;
+      }
+    }
+
+    // Nota extra sobre combate
+    const yExtra = Math.max(y1, y2) + 16;
+    ctx.fillStyle = '#FFD700';
+    ctx.font = 'bold 12px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(_ui?.ayudaCombate || '— En Combate —', cx, yExtra);
+    ctx.fillStyle = '#CCCCCC';
+    ctx.font = '12px monospace';
+    ctx.fillText(_ui?.ayudaCombateDesc || '← → Elegir opción | E Confirmar | H Panel de ayuda detallado', cx, yExtra + 20);
+
+    // Mini-juegos
+    ctx.fillStyle = '#FFD700';
+    ctx.fillText(_ui?.ayudaMiniJuegos || '— Mini-juegos (Batú, Areíto, Rapel, Boss) —', cx, yExtra + 50);
+    ctx.fillStyle = '#CCCCCC';
+    ctx.fillText(_ui?.ayudaMiniJuegosDesc || 'Esc / Q para salir en cualquier momento', cx, yExtra + 70);
+
+    ctx.textAlign = 'left';
+  }
+
   _dibujarToasts(ctx, anchoCanvas) {
     if (this._toasts.length === 0) return;
 
