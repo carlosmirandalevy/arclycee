@@ -28,7 +28,7 @@
     arch_title: { es: 'Arquitectura del Motor', en: 'Engine Architecture', fr: 'Architecture du Moteur' },
     arch_core: { es: 'Motor (núcleo)', en: 'Engine (core)', fr: 'Moteur (noyau)' },
     arch_mechanics: { es: 'Mecánicas', en: 'Mechanics', fr: 'Mécaniques' },
-    arch_worlds: { es: 'Mundos (12 niveles)', en: 'Worlds (12 levels)', fr: 'Mondes (12 niveaux)' },
+    arch_worlds: { es: 'Mundos (13 niveles)', en: 'Worlds (13 levels)', fr: 'Mondes (13 niveaux)' },
     arch_characters: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
     arch_support: { es: 'Soporte', en: 'Support', fr: 'Support' },
 

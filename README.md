@@ -4,7 +4,7 @@ Un videojuego RPG 2D educativo para explorar el patrimonio arqueológico de la R
 
 ## El Juego
 
-Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 15 mundos interconectados: Taíno (3 niveles), Montaña (Palenque de Lemba), Colonial (2), Acuático (2), Jurídico, Laboratorio, LFSD, Lago Enriquillo, Manantial de la Aleta (cenote sagrado) y Museo del Hombre Dominicano.
+Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, española y africana. Tras descubrir una reliquia misteriosa en una obra de construcción, caes en las Cuevas del Pomier y comienzas una aventura a través de 13 mundos interconectados: Cuevas del Pomier, Yucayeque de Marién, Palenque de Lemba, Yucayeque de Maguá, La Isabela, Zona Colonial, Naufragio de la Santa María, Aeropuerto de Punta Cana, Museo de las Atarazanas Reales, LFSD, Lago Enriquillo, Manantial de la Aleta y Museo del Hombre Dominicano.
 
 ### Características
 
