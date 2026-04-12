@@ -1038,7 +1038,7 @@ export class LagoEnriquillo {
     ctx.textAlign = 'center';
     ctx.fillText(_t?.dialogos?.enriquillo?.nombreLugar || '🐊 Lago Enriquillo', ancho / 2, alto - 40);
     ctx.fillStyle = '#888888';
-    ctx.fillText('WASD: mover | E: hablar | M: mapa', ancho / 2, alto - 15);
+    ctx.fillText(_t?.ui?.controlesLago || 'WASD: mover | E: hablar | M: mapa', ancho / 2, alto - 15);
     ctx.textAlign = 'left';
 
     // Diálogos
