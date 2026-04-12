@@ -43,8 +43,8 @@ export class CuevaOscura {
     // Notas arqueológicas coleccionables
     this._notas = [];
 
-    // Salida al cenote
-    this._salidaCenote = { x: 1300, y: 450, ancho: 60, alto: 60 };
+    // Salida al cenote — más grande que las pozas para ser distinguible
+    this._salidaCenote = { x: 1250, y: 400, ancho: 120, alto: 120 };
 
     // Estado
     this._notasRecogidas = 0;
@@ -289,17 +289,38 @@ export class CuevaOscura {
     // --- Dibujar jugador ---
     this._dibujarJugadorLocal(ctx, jugador);
 
-    // --- Salida (brillo del cenote) ---
+    // --- Salida (cenote sagrado) — visualmente distinto de las pozas ---
     const s = this._salidaCenote;
-    const gradCenote = ctx.createRadialGradient(s.x + 30, s.y + 30, 5, s.x + 30, s.y + 30, 50);
-    gradCenote.addColorStop(0, 'rgba(40, 100, 150, 0.4)');
-    gradCenote.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = gradCenote;
-    ctx.fillRect(s.x - 20, s.y - 20, s.ancho + 40, s.alto + 40);
-    ctx.fillStyle = 'rgba(40, 100, 150, 0.6)';
+    const cx = s.x + s.ancho / 2;
+    const cy = s.y + s.alto / 2;
+    const pulso = 0.7 + Math.sin(this.tiempoTotal * 1.5) * 0.15;
+    // Brillo exterior amplio (indica algo especial)
+    const gradOuter = ctx.createRadialGradient(cx, cy, 10, cx, cy, 100);
+    gradOuter.addColorStop(0, 'rgba(40, 120, 180, ' + (0.15 * pulso) + ')');
+    gradOuter.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = gradOuter;
+    ctx.fillRect(cx - 100, cy - 100, 200, 200);
+    // Borde del cenote (anillo turquesa)
+    ctx.strokeStyle = 'rgba(60, 160, 200, ' + (0.5 * pulso) + ')';
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(s.x + 30, s.y + 30, 25, 0, Math.PI * 2);
+    ctx.arc(cx, cy, 50, 0, Math.PI * 2);
+    ctx.stroke();
+    // Agua del cenote (azul profundo, más grande que las pozas)
+    const gradCenote = ctx.createRadialGradient(cx, cy, 5, cx, cy, 48);
+    gradCenote.addColorStop(0, 'rgba(30, 80, 140, 0.8)');
+    gradCenote.addColorStop(0.7, 'rgba(20, 60, 120, 0.6)');
+    gradCenote.addColorStop(1, 'rgba(10, 40, 80, 0.3)');
+    ctx.fillStyle = gradCenote;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 48, 0, Math.PI * 2);
     ctx.fill();
+    // Etiqueta del cenote
+    ctx.fillStyle = 'rgba(60, 180, 220, ' + (0.6 * pulso) + ')';
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('▼ Cenote ▼', cx, cy + 65);
+    ctx.textAlign = 'left';
 
     ctx.restore();
 
@@ -309,8 +330,46 @@ export class CuevaOscura {
     // --- HUD ---
     ctx.fillStyle = '#AAAAAA';
     ctx.font = '11px monospace';
-    const t = textos?.cuevaOscura || {};
     ctx.fillText(`📝 ${this._notasRecogidas}/3`, 15, alto - 15);
+
+    // Nombre del lugar y controles
+    ctx.fillStyle = '#999999';
+    ctx.textAlign = 'center';
+    const _t = textos?.ui;
+    ctx.fillText(_t?.cuevaOscuraNombre || '🔦 Cueva Oscura — Manantial de la Aleta', ancho / 2, alto - 40);
+    ctx.fillStyle = '#777777';
+    ctx.fillText(_t?.controlesCueva2 || 'WASD: mover | E: examinar | M: mapa → Busca el cenote al este →', ancho / 2, alto - 15);
+    ctx.textAlign = 'left';
+
+    // --- Brújula / indicador de dirección al cenote ---
+    if (jugador) {
+      const s = this._salidaCenote;
+      const dcx = (s.x + s.ancho / 2) - (jugador.x + 14);
+      const dcy = (s.y + s.alto / 2) - (jugador.y + 16);
+      const dist = Math.sqrt(dcx * dcx + dcy * dcy);
+      if (dist > 120) {
+        // Mostrar flecha indicando dirección
+        const ang = Math.atan2(dcy, dcx);
+        const indicX = ancho - 40;
+        const indicY = 40;
+        ctx.save();
+        ctx.translate(indicX, indicY);
+        ctx.rotate(ang);
+        ctx.fillStyle = 'rgba(60, 160, 200, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(12, 0);
+        ctx.lineTo(-6, -6);
+        ctx.lineTo(-6, 6);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.fillStyle = 'rgba(60, 160, 200, 0.4)';
+        ctx.font = '9px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(Math.round(dist / 10) + 'm', indicX, indicY + 18);
+        ctx.textAlign = 'left';
+      }
+    }
 
     // Dibujar diálogo
     if (this.dialogos.estaActivo()) {

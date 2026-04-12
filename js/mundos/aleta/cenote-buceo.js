@@ -370,6 +370,16 @@ export class CenoteBuceo {
     const profundidad = Math.floor((jugador.y / this.altoNivel) * 40);
     ctx.fillText(`${profundidad}m`, ancho - 40, 45);
 
+    // Nombre del lugar y controles
+    ctx.fillStyle = '#999999';
+    ctx.font = '11px monospace';
+    ctx.textAlign = 'center';
+    const _ui = textos?.ui;
+    ctx.fillText(_ui?.cenoteBuceoNombre || '🤿 Cenote Sagrado — Manantial de la Aleta', ancho / 2, alto - 40);
+    ctx.fillStyle = '#777777';
+    ctx.fillText(_ui?.controlesCenote || 'WASD: nadar | E: recoger | M: mapa | ↑ superficie = O₂', ancho / 2, alto - 15);
+    ctx.textAlign = 'left';
+
     // Diálogo
     if (this.dialogos.estaActivo()) {
       this.dialogos.dibujar(ctx, ancho, alto, textos);
