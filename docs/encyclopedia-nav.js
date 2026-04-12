@@ -101,6 +101,7 @@
   // --- Búsqueda: muestra/oculta secciones según texto ---
   // Busca en todas las secciones de contenido (no la nav).
   // Normaliza acentos para que "taino" encuentre "taíno".
+  // Resalta las coincidencias en amarillo con <mark>.
   function setupSearch() {
     var input = document.getElementById('ency-search-input');
     if (!input) return;
@@ -111,8 +112,72 @@
       return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
 
+    // Eliminar todos los <mark> de resaltado previos
+    function clearHighlights() {
+      var marks = document.querySelectorAll('.contenedor mark.ency-highlight');
+      for (var i = 0; i < marks.length; i++) {
+        var parent = marks[i].parentNode;
+        parent.replaceChild(document.createTextNode(marks[i].textContent), marks[i]);
+        parent.normalize(); // fusionar nodos de texto adyacentes
+      }
+    }
+
+    // Resaltar coincidencias dentro de nodos de texto de un elemento
+    function highlightIn(el, query) {
+      if (!query) return;
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+      var nodesToProcess = [];
+      while (walker.nextNode()) {
+        nodesToProcess.push(walker.currentNode);
+      }
+      for (var i = 0; i < nodesToProcess.length; i++) {
+        var node = nodesToProcess[i];
+        var normalizedText = normalize(node.textContent);
+        var idx = normalizedText.indexOf(query);
+        if (idx === -1) continue;
+
+        // Encontrar la posición en el texto original (puede diferir por acentos)
+        // Recorremos el texto original mapeando posiciones normalizadas
+        var original = node.textContent;
+        var origIdx = 0;
+        var normCount = 0;
+        while (normCount < idx && origIdx < original.length) {
+          var char = original[origIdx];
+          var normChar = normalize(char);
+          normCount += normChar.length;
+          origIdx++;
+        }
+        // Encontrar el fin del match en el texto original
+        var matchNormLen = query.length;
+        var origEnd = origIdx;
+        var matchNorm = 0;
+        while (matchNorm < matchNormLen && origEnd < original.length) {
+          var char = original[origEnd];
+          var normChar = normalize(char);
+          matchNorm += normChar.length;
+          origEnd++;
+        }
+
+        var before = original.substring(0, origIdx);
+        var match = original.substring(origIdx, origEnd);
+        var after = original.substring(origEnd);
+
+        var mark = document.createElement('mark');
+        mark.className = 'ency-highlight';
+        mark.textContent = match;
+
+        var parent = node.parentNode;
+        var frag = document.createDocumentFragment();
+        if (before) frag.appendChild(document.createTextNode(before));
+        frag.appendChild(mark);
+        if (after) frag.appendChild(document.createTextNode(after));
+        parent.replaceChild(frag, node);
+      }
+    }
+
     input.addEventListener('input', function () {
-      // Consultar secciones en cada búsqueda (no cachear, por si el DOM cambió)
+      clearHighlights();
+
       var allSections = document.querySelectorAll('.contenedor section[id]');
       var query = normalize(this.value.trim());
 
@@ -128,6 +193,7 @@
         var text = normalize(sec.textContent);
         if (text.indexOf(query) !== -1) {
           sec.style.display = '';
+          highlightIn(sec, query);
           found++;
         } else {
           sec.style.display = 'none';

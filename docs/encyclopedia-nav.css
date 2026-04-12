@@ -77,6 +77,17 @@
   color: var(--dorado-claro, #ffdd66);
 }
 
+/* --- Resaltado de búsqueda --- */
+mark.ency-highlight {
+  background: rgba(255, 215, 0, 0.35);
+  color: inherit;
+  padding: 1px 2px;
+  border-radius: 3px;
+}
+[data-theme="light"] mark.ency-highlight {
+  background: rgba(255, 200, 0, 0.45);
+}
+
 /* --- No results --- */
 .ency-no-results {
   text-align: center;
