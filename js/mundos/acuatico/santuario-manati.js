@@ -2769,7 +2769,7 @@ export class SantuarioManati {
             // Añadir equipo de buceo al inventario
             const _tObj = this._obtenerTextos()?.ui;
             if (this.juego.inventario) {
-              this.juego.inventario.agregarObjeto({
+              this.juego.inventario.agregar({
                 id: 'equipoBuceo',
                 nombre: _tObj?.equipoBuceo || 'Equipo de Buceo',
                 descripcion: _tObj?.descEquipoBuceo || 'Equipo profesional de buceo. Permite explorar cenotes y cuevas submarinas.',
