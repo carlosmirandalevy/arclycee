@@ -26,7 +26,7 @@
       icono: '📜',
       label: { es: 'La Historia', en: 'The Story', fr: 'L\'Histoire' },
       grupo: true,
-      children: ['historia', 'worlds', 'characters', 'dialogues']
+      children: ['historia', 'worlds', 'characters', 'dialogues', 'archaeology']
     },
     historia: {
       icono: '📖',
@@ -104,7 +104,8 @@
     archaeology: {
       icono: '🏛️',
       label: { es: 'Arqueología', en: 'Archaeology', fr: 'Archéologie' },
-      archivos: { es: 'archaeology.html', en: 'archaeology-en.html', fr: 'archaeology-fr.html' }
+      archivos: { es: 'archaeology.html', en: 'archaeology-en.html', fr: 'archaeology-fr.html' },
+      parent: 'historiaGrupo'
     },
     nature: {
       icono: '🌿',
