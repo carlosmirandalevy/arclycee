@@ -76,7 +76,7 @@
       icono: '🎓',
       label: { es: 'Pedagogía', en: 'Pedagogy', fr: 'Pédagogie' },
       grupo: true,
-      children: ['pedagogia', 'pedagogiaAI']
+      children: ['pedagogia', 'pedagogiaAI', 'assessment']
     },
     pedagogia: {
       icono: '📚',
@@ -88,6 +88,12 @@
       icono: '🤖',
       label: { es: 'Uso de IA', en: 'AI Usage', fr: 'Usage de l\'IA' },
       archivos: { es: 'pedagogy-ai.html', en: 'pedagogy-ai-en.html', fr: 'pedagogy-ai-fr.html' },
+      parent: 'pedagogiaGrupo'
+    },
+    assessment: {
+      icono: '📝',
+      label: { es: 'Evaluación', en: 'Assessment', fr: 'Évaluation' },
+      archivos: { es: 'assessment.html', en: 'assessment-en.html', fr: 'assessment-fr.html' },
       parent: 'pedagogiaGrupo'
     },
     archaeology: {

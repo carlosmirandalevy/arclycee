@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Assessment</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assessment.css">
+  <link rel="icon" type="image/x-icon" href="../resources/favicon.ico">
+</head>
+<body>
+  <div id="doc-nav"></div>
+  <div class="contenedor">
+
+    <section id="quiz-cards-section">
+      <h2><span class="icono">📝</span> Assessment</h2>
+      <p class="intro">Test what you learned in ArcLycée. Each quiz presents 20 random questions from a pool of 100.</p>
+      <div id="quiz-cards" class="quiz-cards-grid"></div>
+    </section>
+
+    <section id="quiz-play-section" style="display:none">
+      <div class="quiz-header">
+        <span id="quiz-progress"></span>
+      </div>
+      <div id="quiz-question-area"></div>
+      <div class="quiz-nav">
+        <button id="quiz-next-btn" class="quiz-next-btn" style="display:none">Next</button>
+      </div>
+    </section>
+
+  </div>
+  <footer>
+    <p>ArcLycée v0.21.2 — Dominican Archaeological Adventure</p>
+  </footer>
+  <script src="navigation.js"></script>
+  <script src="quiz/history.js"></script>
+  <script src="quiz/geography.js"></script>
+  <script src="quiz/sciences.js"></script>
+  <script src="quiz/social.js"></script>
+  <script src="quiz/cultural.js"></script>
+  <script src="quiz/stem.js"></script>
+  <script src="assessment.js"></script>
+</body>
+</html>
