@@ -56,7 +56,6 @@ body {
   text-align: center;
   padding: 0 0 40px;
   background: linear-gradient(180deg, #1a1a2e 0%, var(--fondo) 100%);
-  border-bottom: 2px solid var(--dorado);
 }
 [data-theme="light"] .hero {
   background: linear-gradient(180deg, #e8e6de 0%, var(--fondo) 100%);
