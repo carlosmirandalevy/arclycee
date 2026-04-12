@@ -26,7 +26,7 @@
       icono: '📜',
       label: { es: 'La Historia', en: 'The Story', fr: 'L\'Histoire' },
       grupo: true,
-      children: ['historia', 'worlds', 'characters', 'dialogues', 'archaeology']
+      children: ['historia', 'worlds', 'characters', 'dialogues', 'archaeology', 'nature']
     },
     historia: {
       icono: '📖',
@@ -110,7 +110,8 @@
     nature: {
       icono: '🌿',
       label: { es: 'Naturaleza', en: 'Nature', fr: 'Nature' },
-      archivos: { es: 'nature.html', en: 'nature-en.html', fr: 'nature-fr.html' }
+      archivos: { es: 'nature.html', en: 'nature-en.html', fr: 'nature-fr.html' },
+      parent: 'historiaGrupo'
     }
   };
 
