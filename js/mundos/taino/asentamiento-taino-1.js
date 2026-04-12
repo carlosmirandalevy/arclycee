@@ -958,7 +958,7 @@ export class AsentamientoTaino1 {
         // Ya tiene la corona — diálogo de respeto
         this.dialogos.iniciarDialogo([
           { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueDespues || 'Llevas la corona con dignidad. Eres bienvenido siempre en nuestro yucayeque.' },
-          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique5 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
         ]);
       } else if (!npc.dialogoHecho) {
         // Primera conversación: presentación + oferta de batú
@@ -966,6 +966,7 @@ export class AsentamientoTaino1 {
           { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique1 || '¡Bienvenido a nuestra aldea!' },
           { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique2 || 'Soy el cacique de este yucayeque.' },
           { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique3 || 'Nuestro pueblo vive en armonía con la tierra.' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Nuestra sociedad tiene caciques, nitaínos, naborías y behiques.' },
           { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueBatu1 || '¿Ves ese batey? Es donde jugamos batú — nuestro juego de pelota sagrado.' },
           { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.caciqueBatu2 || '¿Te atreves a desafiar al cacique? ¡Nadie me ha vencido todavía!',
             opciones: [
@@ -988,7 +989,8 @@ export class AsentamientoTaino1 {
         // No ha descubierto batú aún — diálogo genérico
         this.dialogos.iniciarDialogo([
           { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique1 || '¡Bienvenido a nuestra aldea!' },
-          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique4 || 'Nuestra sociedad tiene caciques, nitaínos, naborías y behiques.' },
+          { personaje: '👑 Cacique Guacanagaríx', texto: aldea?.cacique5 || 'Habla con los aldeanos para aprender sobre nuestra cultura.' }
         ]);
       }
     } else if (npc.id === 'alfarera') {

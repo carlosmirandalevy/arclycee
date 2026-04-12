@@ -1007,34 +1007,34 @@ window.ARC_QUESTIONS.cultural = [
     id: 'cul-076', type: 'match',
     lang: {
       es: {
-        q: 'Empareja cada palabra con su origen cultural:',
+        q: 'Empareja cada palabra con su origen cultural — como identificar loot en un RPG:',
         pairs: [
           ['Hamaca', 'Taíno'],
           ['Palenque', 'Africano'],
           ['Catedral', 'Español'],
-          ['Tambor', 'Africano']
+          ['Casabe', 'Taíno']
         ],
-        explanation: 'La hamaca y el tambor son herencias directas de taínos y africanos respectivamente. La catedral vino de España, y los palenques fueron creados por africanos esclavizados que escaparon.'
+        explanation: 'La hamaca y el casabe son herencias taínas (ambas palabras vienen del idioma taíno). La catedral vino de España, y los palenques fueron creados por africanos esclavizados que escaparon a las montañas.'
       },
       en: {
-        q: 'Match each word with its cultural origin:',
+        q: 'Match each word with its cultural origin — like identifying loot in an RPG:',
         pairs: [
           ['Hammock', 'Taíno'],
           ['Palenque', 'African'],
           ['Cathedral', 'Spanish'],
-          ['Drum', 'African']
+          ['Cassava bread', 'Taíno']
         ],
-        explanation: 'The hammock and drum are direct heritages from Taínos and Africans respectively. The cathedral came from Spain, and palenques were created by enslaved Africans who escaped.'
+        explanation: 'The hammock and cassava bread are Taíno heritage (both words come from the Taíno language). The cathedral came from Spain, and palenques were created by enslaved Africans who escaped to the mountains.'
       },
       fr: {
-        q: 'Associe chaque mot à son origine culturelle :',
+        q: 'Associe chaque mot à son origine culturelle — comme identifier du loot dans un RPG :',
         pairs: [
           ['Hamac', 'Taïno'],
           ['Palenque', 'Africain'],
           ['Cathédrale', 'Espagnol'],
-          ['Tambour', 'Africain']
+          ['Cassave', 'Taïno']
         ],
-        explanation: 'Le hamac et le tambour sont des héritages directs des Taïnos et des Africains respectivement. La cathédrale venait d\'Espagne, et les palenques ont été créés par des Africains asservis qui se sont échappés.'
+        explanation: 'Le hamac et la cassave sont des héritages taïnos (les deux mots viennent de la langue taïno). La cathédrale venait d\'Espagne, et les palenques ont été créés par des Africains asservis qui se sont échappés dans les montagnes.'
       }
     }
   },

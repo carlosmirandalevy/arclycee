@@ -130,7 +130,8 @@ const es = {
       cacique1: '¡Bienvenido/a a nuestro yucayeque, joven viajero/a!',
       cacique2: 'Soy Guacanagaríx, cacique de esta aldea. Mi pueblo ha vivido aquí por generaciones.',
       cacique3: 'Un yucayeque es nuestra aldea — con bohíos para las familias y el caney donde vivo yo.',
-      cacique4: 'Habla con los aldeanos. Cada uno tiene mucho que enseñarte sobre nuestra forma de vida.',
+      cacique4: 'Nuestra sociedad tiene caciques como yo, nitaínos que son los nobles guerreros, naborías que trabajan la tierra, y behiques que curan y hablan con los espíritus.',
+      cacique5: 'Habla con los aldeanos. Cada uno tiene mucho que enseñarte sobre nuestra forma de vida.',
 
       alfarera1: '¡Hola! Estoy haciendo una vasija de barro para cocinar.',
       alfarera2: 'Los taínos éramos grandes alfareros. Nuestras vasijas se decoraban con caras y figuras.',

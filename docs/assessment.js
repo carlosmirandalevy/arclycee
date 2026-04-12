@@ -424,9 +424,15 @@
   function handleMatchAnswer() {
     var q = questions[currentIndex];
     var ql = q.lang[lang] || q.lang.es;
+    // Comparar por TEXTO de la pareja, no por índice.
+    // Esto maneja correctamente parejas con valores duplicados en el
+    // lado derecho (ej: "Palenque→Africano" y "Tambor→Africano").
     var correctCount = 0;
-    for (var key in matchPairs) {
-      if (matchPairs[key] === key) correctCount++;
+    for (var leftIdx in matchPairs) {
+      var rightIdx = matchPairs[leftIdx];
+      var correctRightText = ql.pairs[parseInt(leftIdx)][1];
+      var chosenRightText = ql.pairs[parseInt(rightIdx)][1];
+      if (correctRightText === chosenRightText) correctCount++;
     }
     var allCorrect = correctCount === matchTotal;
     if (allCorrect) score++;

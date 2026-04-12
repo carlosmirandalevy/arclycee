@@ -128,7 +128,8 @@ const fr = {
       cacique1: 'Bienvenue dans notre yucayeque, jeune voyageur/euse !',
       cacique2: 'Je suis Guacanagaríx, cacique de ce village. Mon peuple vit ici depuis des générations.',
       cacique3: 'Un yucayeque est notre village — avec des bohíos pour les familles et le caney où je vis.',
-      cacique4: 'Parle aux villageois. Chacun a beaucoup à t\'apprendre sur notre mode de vie.',
+      cacique4: 'Notre société a des caciques comme moi, des nitaínos qui sont les nobles guerriers, des naborías qui travaillent la terre, et des behiques qui guérissent et parlent aux esprits.',
+      cacique5: 'Parle aux villageois. Chacun a beaucoup à t\'apprendre sur notre mode de vie.',
 
       alfarera1: 'Bonjour ! Je fabrique un pot en argile pour cuisiner.',
       alfarera2: 'Les Taïnos étaient de grands potiers. Nos vases étaient décorés de visages et de figures.',
