@@ -199,7 +199,7 @@
   // DIAGRAMA 1: ARQUITECTURA
   // ============================================================
   function diagramArchitecture() {
-    var W = 900, H = 380;
+    var W = 1020, H = 380;
     var svg = svgEl('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': t('arch_title') }, [
       svgEl('title', { textContent: t('arch_title') }),
       svgArrowDef()
@@ -209,7 +209,7 @@
     var tiers = [
       { y: 20, label: t('arch_core'), color: 'var(--dorado)', items: ['juego.js', 'entrada.js', 'renderizado.js', 'sonido-procedural.js', 'guardado.js', 'configuracion.js'] },
       { y: 105, label: t('arch_mechanics'), color: 'var(--azul)', items: ['combate.js', 'dialogo.js', 'inventario.js', 'album-fotos.js', 'batu.js', 'reputacion.js', 'misiones.js'] },
-      { y: 190, label: t('arch_worlds'), color: 'var(--verde)', items: ['cuevas', 'asentam. I', 'asentam. II', 'isabela', 'colonial', 'acuático', 'jurídico', 'laborat.', 'LFSD'] },
+      { y: 190, label: t('arch_worlds'), color: 'var(--verde)', items: ['cuevas', 'asentam. I', 'asentam. II', 'isabela', 'colonial', 'acuático', 'jurídico', 'laborat.', 'LFSD', 'lemba', 'enriquillo', 'aleta', 'museo'] },
       { y: 275, label: t('arch_characters') + ' + ' + t('arch_support'), color: 'var(--morado)', items: ['pepito.js', 'magnoboot', 'viralata', 'cemí', 'idiomas/', 'mapas/', 'clima/'] }
     ];
 
