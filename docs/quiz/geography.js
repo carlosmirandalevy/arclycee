@@ -186,9 +186,9 @@ window.ARC_QUESTIONS.geography = [
   {
     id: 'geo-023', type: 'tf',
     lang: {
-      es: { q: 'Verdadero o falso: En el juego, las montañas se generan usando la distancia a 8 cadenas montañosas definidas en el código.', answer: true, explanation: 'El código usa _distanciaACordilleras() con 8 cadenas en el array CORDILLERAS para generar montañas proceduralmente. Pura matemática.' },
-      en: { q: 'True or false: In the game, mountains are generated using distance to 8 mountain chains defined in the code.', answer: true, explanation: 'The code uses _distanciaACordilleras() with 8 chains in the CORDILLERAS array to generate mountains procedurally. Pure math.' },
-      fr: { q: 'Vrai ou faux : Dans le jeu, les montagnes sont générées en utilisant la distance à 8 chaînes de montagnes définies dans le code.', answer: true, explanation: 'Le code utilise _distanciaACordilleras() avec 8 chaînes dans le tableau CORDILLERAS pour générer les montagnes de manière procédurale. Maths pures.' }
+      es: { q: 'Verdadero o falso: La Cordillera Central de la República Dominicana contiene el Pico Duarte, el punto más alto de todo el Caribe.', answer: true, explanation: '¡Correcto! El Pico Duarte alcanza 3,098 metros y es la montaña más alta de todas las Antillas. Como el Monte Olimpo de Percy Jackson, pero en el Caribe.' },
+      en: { q: 'True or false: The Cordillera Central of the Dominican Republic contains Pico Duarte, the highest point in the entire Caribbean.', answer: true, explanation: 'Correct! Pico Duarte reaches 3,098 meters and is the tallest mountain in all the Antilles. Like Mount Olympus from Percy Jackson, but in the Caribbean.' },
+      fr: { q: 'Vrai ou faux : La Cordillera Central de la République Dominicaine contient le Pico Duarte, le point le plus élevé de toutes les Caraïbes.', answer: true, explanation: 'Correct ! Le Pico Duarte atteint 3 098 mètres et est la plus haute montagne de toutes les Antilles. Comme le Mont Olympe de Percy Jackson, mais aux Caraïbes.' }
     }
   },
   {

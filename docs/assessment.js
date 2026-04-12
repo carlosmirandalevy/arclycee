@@ -316,18 +316,53 @@
     var rights = document.querySelectorAll('.quiz-match-right');
     var colors = ['#DAA520', '#4488cc', '#cc6644', '#2E8B57', '#9944aa', '#ff6688'];
 
+    // Función auxiliar para deshacer una pareja existente
+    function unmatchPair(leftIdx) {
+      var oldRightIdx = matchPairs[leftIdx];
+      delete matchPairs[leftIdx];
+      // Limpiar estilos del lado izquierdo
+      var leftEl = document.querySelector('.quiz-match-left[data-idx="' + leftIdx + '"]');
+      if (leftEl) {
+        leftEl.classList.remove('matched');
+        leftEl.style.borderColor = '';
+        leftEl.style.background = '';
+      }
+      // Limpiar estilos del lado derecho
+      if (oldRightIdx !== undefined) {
+        var rightEl = document.querySelector('.quiz-match-right[data-idx="' + oldRightIdx + '"]');
+        if (rightEl) {
+          rightEl.classList.remove('matched');
+          rightEl.style.borderColor = '';
+          rightEl.style.background = '';
+        }
+      }
+      el('quiz-match-submit').disabled = true;
+    }
+
     for (var i = 0; i < lefts.length; i++) {
       lefts[i].addEventListener('click', function () {
-        if (answered || this.classList.contains('matched')) return;
+        if (answered) return;
+        var idx = this.getAttribute('data-idx');
+        // Si ya estaba emparejado, deshacemos la pareja para reasignar
+        if (this.classList.contains('matched')) {
+          unmatchPair(idx);
+        }
         document.querySelectorAll('.quiz-match-left').forEach(function (el) { el.classList.remove('selected'); });
         this.classList.add('selected');
-        matchSelLeft = this.getAttribute('data-idx');
+        matchSelLeft = idx;
       });
     }
     for (var j = 0; j < rights.length; j++) {
       rights[j].addEventListener('click', function () {
-        if (answered || matchSelLeft === null || this.classList.contains('matched')) return;
+        if (answered || matchSelLeft === null) return;
         var rightIdx = this.getAttribute('data-idx');
+        // Si este lado derecho ya estaba emparejado con otro izquierdo, deshacer esa pareja
+        for (var key in matchPairs) {
+          if (matchPairs[key] === rightIdx) {
+            unmatchPair(key);
+            break;
+          }
+        }
         var pairColor = colors[Object.keys(matchPairs).length % colors.length];
         matchPairs[matchSelLeft] = rightIdx;
         // Visual feedback

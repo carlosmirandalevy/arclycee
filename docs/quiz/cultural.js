@@ -1392,7 +1392,7 @@ window.ARC_QUESTIONS.cultural = [
     id: 'cul-087', type: 'match',
     lang: {
       es: {
-        q: 'Empareja cada ceremonía/actividad taína con su descripción:',
+        q: 'Empareja cada ceremonia/actividad taína con su descripción:',
         pairs: [
           ['Areíto', 'Danza ceremonial con canto e historia oral'],
           ['Batú', 'Juego de pelota con caderas y rodillas'],
