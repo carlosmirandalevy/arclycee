@@ -138,39 +138,72 @@
       + '<button class="sec-search-nav" id="sec-search-next" disabled>&#9660;</button>'
       + '</div>';
 
-    // Cards grid
-    var grid = document.createElement('div');
-    grid.className = 'sec-cards';
+    // Detect narrative pages (many chapters — use dropdown instead of cards)
+    var isNarrative = window.location.pathname.indexOf('narrativa') !== -1;
 
-    for (var i = 0; i < sections.length; i++) {
-      var sec = sections[i];
-      var h2 = sec.querySelector('h2');
-      if (!h2) continue;
+    if (isNarrative) {
+      // --- Chapter dropdown for narrative pages ---
+      var dropLabel = { es: 'Ir al capítulo...', en: 'Jump to chapter...', fr: 'Aller au chapitre...' };
+      var wrapper = document.createElement('div');
+      wrapper.className = 'sec-chapter-nav';
 
-      var text = h2.textContent.replace(/[\n\r]+/g, ' ').trim();
-      var icon = getIconForHeading(text);
-      // Clean the label (remove emoji characters)
-      var label = text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').trim();
-      // Truncate long labels
-      if (label.length > 30) label = label.substring(0, 28) + '…';
+      var select = document.createElement('select');
+      select.className = 'sec-chapter-select';
+      select.innerHTML = '<option value="">' + (dropLabel[lang] || dropLabel.es) + '</option>';
 
-      var card = document.createElement('a');
-      card.className = 'sec-card';
-      card.href = '#' + sec.id;
-      card.innerHTML = '<span class="sec-card-icon">' + icon + '</span>'
-        + '<span class="sec-card-label">' + label + '</span>';
+      for (var i = 0; i < sections.length; i++) {
+        var sec = sections[i];
+        var h2 = sec.querySelector('h2');
+        if (!h2) continue;
+        var text = h2.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').replace(/[\n\r]+/g, ' ').trim();
+        var opt = document.createElement('option');
+        opt.value = sec.id;
+        opt.textContent = text;
+        select.appendChild(opt);
+      }
 
-      card.addEventListener('click', (function(target) {
-        return function(e) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        };
-      })(sec));
+      select.addEventListener('change', function () {
+        if (!this.value) return;
+        var target = document.getElementById(this.value);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.value = '';
+      });
 
-      grid.appendChild(card);
+      wrapper.appendChild(select);
+      navEl.appendChild(wrapper);
+    } else {
+      // --- Cards grid for regular pages ---
+      var grid = document.createElement('div');
+      grid.className = 'sec-cards';
+
+      for (var i = 0; i < sections.length; i++) {
+        var sec = sections[i];
+        var h2 = sec.querySelector('h2');
+        if (!h2) continue;
+
+        var text = h2.textContent.replace(/[\n\r]+/g, ' ').trim();
+        var icon = getIconForHeading(text);
+        var label = text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').trim();
+        if (label.length > 30) label = label.substring(0, 28) + '…';
+
+        var card = document.createElement('a');
+        card.className = 'sec-card';
+        card.href = '#' + sec.id;
+        card.innerHTML = '<span class="sec-card-icon">' + icon + '</span>'
+          + '<span class="sec-card-label">' + label + '</span>';
+
+        card.addEventListener('click', (function(target) {
+          return function(e) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          };
+        })(sec));
+
+        grid.appendChild(card);
+      }
+
+      navEl.appendChild(grid);
     }
-
-    navEl.appendChild(grid);
 
     // No-results message
     var noRes = document.createElement('p');
