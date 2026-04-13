@@ -801,7 +801,10 @@ export class MundoMontana {
           vida: 45, vidaMaxima: 45,
           fuerza: 3, velocidad: 2,
           hostilidad: 75,
-          tipoSprite: 'soldado'
+          tipoSprite: 'soldado',
+          // El cazador viene acompañado de un sabueso que ataca al jugador
+          conPerro: true,
+          mensajePerro: mt?.ataquePerro || '¡El sabueso del cazador te muerde!'
         }, this.juego);
       }
     });

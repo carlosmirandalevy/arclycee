@@ -516,7 +516,7 @@ export class MenuPrincipal {
     ctx.font = '11px monospace';
     ctx.fillStyle = '#333333';
     ctx.fillText(
-      'v0.22.0 - Liceo Francés de Santo Domingo 2026',
+      'v0.23.0 - Liceo Francés de Santo Domingo 2026',
       ancho / 2,
       alto - 15
     );

@@ -1,5 +1,37 @@
 # Changelog
 
+## v0.23.0 — Cazador de Cimarrones, music integration, docs changelog & clone (2026-04-13)
+
+### Agregado (juego)
+- **Sabueso del Cazador de Cimarrones**: el cazador colonial ahora viene acompañado de un sabueso rastreador visible en el sprite de combate. 35% de probabilidad de ataque de mordida por turno (daño reducido, +3 hostilidad). i18n `montana.ataquePerro` (ES/EN/FR)
+- **Música del Areíto**: nuevo grupo musical `areito` con 2 pistas (`Areito-Danza_Ceremonial_Taina-01/02.mp3`). Override automático al iniciar la danza ceremonial, restaura música del mundo al terminar
+- **Música del Boss Cemí**: nuevo grupo `bossCemi` con pistas dedicadas (`Espiritu_del_Cemi-Secret_Boss_Fight-01/02.mp3`) reemplaza la música genérica de combate. Swap automático a `bossCemiCutscene` (`Cutscene_del_Boss_Cemi-01/02.mp3`) al entrar en fase de victoria/bendición
+- **Íconos de inventario**: Machete Cimarrón (hoja curva + mango), Tambor de Guerra (cilindro con cuerdas), Pergamino de Libertad (rollo con cadenas rotas) — reemplazan los cuadrados genéricos
+- **Indicador de bonus pasivo en inventario**: los artefactos de combate (machete, tambor) muestran "Bonus automático en combate" en dorado al seleccionarlos. i18n `inventario.pasivo` (ES/EN/FR)
+- **Inventario se cierra tras usar objeto**: al usar un ítem curativo, el inventario se cierra automáticamente (útil durante combate)
+
+### Agregado (docs)
+- **Change Log** (`docs/changelog.html`): página que carga dinámicamente `CHANGELOG.md` y lo renderiza como HTML con JavaScript. Siempre muestra la versión más reciente sin contenido hardcodeado
+- **Clone Us** (`docs/clone-us.html`, `-en.html`, `-fr.html`): página trilingüe explicando que el código está disponible en GitHub, instrucciones de clonado, estructura del proyecto, cómo ejecutar localmente
+- **Combate Colonial: Cazador de Cimarrones**: nueva sección en mechanics (ES/EN/FR) con tabla de estadísticas, descripción del sabueso, resoluciones pacífica y por fuerza
+- **Cazador en historia**: agregado a la sección Combates/Debates y al flujo de nodos del Palenque de Lemba (ES/EN/FR)
+- **Narrativa expandida**: capítulo del Palenque de Lemba reescrito con descripción del cazador, su sabueso, el diálogo de Marcos, opciones de negociación y ambas resoluciones (ES/EN/FR)
+- **Sabueso en characters/worlds**: documentado en la ficha del Cazador y en la descripción del mundo (ES/EN/FR)
+- **Narrativa en learning-guide**: enlace a las páginas de narrativa agregado en la sección de recursos (ES/EN/FR)
+- **Menú Técnico expandido**: 4 ítems (Mecánicas, Programación, Cambios, Clónanos) con íconos Lucide (clipboard, git-branch)
+
+### Mejorado
+- **Combate sin pausa obligatoria**: "[E] Continuar" aparece inmediatamente tras cada acción (sin espera de 2s). El jugador controla el ritmo del combate
+- **Sticky sec-nav dinámico**: JavaScript mide la altura real del doc-nav y ajusta el `top` del sec-nav (antes hardcodeado a 56px)
+- **18 grupos musicales** (antes 16): areíto, bossCemi y bossCemiCutscene agregados. 36 pistas MP3 totales
+- **Archivos Areíto renombrados**: `Areíto-...` → `Areito-...` (sin acento) para evitar problemas de encoding
+
+### Corregido
+- **Boss Cemí usaba música genérica de combate**: ahora reproduce su propia banda sonora dedicada con transición a cutscene en fase de victoria
+- **Areíto sin música**: el mini-juego no tenía override de música, tocaba la música del mundo de fondo
+
+---
+
 ## v0.22.0 — Pedagogy suite, Archpedia, Assessment quizzes, Learning Guide (2026-04-12)
 
 ### Documentación mayor

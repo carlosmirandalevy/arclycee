@@ -6,7 +6,7 @@
 .sec-nav {
   margin-bottom: 40px;
   position: sticky;
-  top: 0;
+  top: 56px; /* Below the doc-nav bar (~56px height) */
   z-index: 90;
   background: var(--fondo, #0E0C0A);
   padding: 16px 0 12px;

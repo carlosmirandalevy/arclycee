@@ -411,11 +411,22 @@
     }
   }
 
+  // --- Ajustar top de sec-nav según la altura real del doc-nav ---
+  function adjustStickyTop() {
+    var docNav = document.querySelector('.doc-nav');
+    var secNav = document.querySelector('.sec-nav');
+    if (docNav && secNav) {
+      secNav.style.top = docNav.offsetHeight + 'px';
+    }
+  }
+
   // --- Init ---
   function init() {
     replaceEmojis();
     buildNav();
     setupSearch();
+    adjustStickyTop();
+    window.addEventListener('resize', adjustStickyTop);
   }
 
   if (document.readyState === 'loading') {

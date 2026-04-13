@@ -20,7 +20,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - `configuracion.js` — constantes globales y mapeo de teclas (`TECLAS_POR_DEFECTO`)
 - `renderizado.js` — wrapper de Canvas 2D
 - `sonido-procedural.js` — efectos con Web Audio API
-- `musica.js` — `SistemaMusica` con 16 grupos musicales (32 MP3s, 2 por escenario), crossfade 2s, override para combate/batú/duelo, volumen en localStorage
+- `musica.js` — `SistemaMusica` con 18 grupos musicales (36 MP3s, 2 por escenario), crossfade 2s, override para combate/batú/duelo/areíto/bossCemi/bossCemiCutscene, volumen en localStorage
 - `guardado.js` — `SistemaGuardado` con `guardarLocal()`, `cargarLocal()`, `crearDatosGuardado(juego)`
 
 ### Escenas (`js/escenas/`)
@@ -62,7 +62,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Panel de ayuda (H)**: `_infoVisible` toggle, overlay con instrucciones de combate, rutas pacifista/agresiva, medidores. Tecla `ayuda` en `configuracion.js`
 - **Indicador de estado**: muestra dinámicamente quién va ganando (casi convencido, muy hostil, progresando, tenso)
 - **Barra HP enemigo oculta** para combates con `opcionesPersonalizadas` (pez león, traficante) — se ganan por convicción
-- **[E] Continuar**: ambas fases (acción jugador + contraataque enemigo) muestran mensaje 2.5s y esperan E, `_esperandoContinuar` / `_esperandoContinuarEnemigo`
+- **[E] Continuar**: ambas fases (acción jugador + contraataque enemigo) muestran mensaje y "[E] Continuar" de inmediato (sin pausa obligatoria), el jugador avanza a su ritmo. `_esperandoContinuar` / `_esperandoContinuarEnemigo`
 
 ### Guardado (`js/motor/guardado.js`, `juego.js`)
 - `juego.guardarPartida()` — guarda en localStorage, muestra toast
@@ -115,6 +115,7 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Sprites en selección de personaje**: `_dibujarPersonaje()` usa el sprite detallado del juego escalado ×2.5 (no placeholders simples)
 - **Combate pez león**: 4 opciones ecológicas (atrapar, pescar, proteger coral, alertar buzos) con contra-respuestas realistas
 - **Palenque de Lemba** (`js/mundos/montana/mundo-montana.js`): montaña interior, comunidad cimarrona de Sebastián Lemba (~1540s). 5 NPCs (Lemba mentor rotativo, Kofi herrero da Machete Cimarrón +2 daño, Amara tamborera da Tambor de Guerra +2 daño, Yemayá curandera, Marcos vigía con combate). Chozas africanas circulares, atalaya, hoguera, pinos. Nodo 9 entre Taíno I y II. `progreso.artefactosAfricanos` para bonus de ataque
+- **Combate Cazador de Cimarrones**: Marcos (vigía) detecta un cazador de esclavos colonial y dispara combate. Enemigo: 45 HP, fuerza 3, velocidad 2, hostilidad 75, `tipoSprite: 'soldado'` (uniforme rojo oscuro, casco de conquistador), `conPerro: true` (sabueso rastreador dibujado junto al sprite, 35% de ataque especial de mordida con menos daño pero sube hostilidad +3). Usa opciones de combate estándar (no personalizadas). Victoria pacífica: `vigilaPaz` + `combatesPacificados++` + 15 rep. Victoria por fuerza: `vigiaVictoria` + `combatesViolentos++` + 5 rep. i18n: `montana.enemigoCazador`, `montana.ataquePerro`
 - **Lago Enriquillo** (`js/mundos/enriquillo/lago-enriquillo.js`): lago hipersalino 40m bajo el nivel del mar con Isla Cabritos (Guarizacca). Ecosistema: 5 Cocodrilos Americanos (Crocodylus acutus, death roll + sonido), 7 iguanas (Cyclura cornuta con cuernos + Cyclura ricordii con ojos rojos), 9 flamencos rosados (una pata), 3 cucús/burrowing owls (madrigueras), 3 culebras corredoras (Haitiophis anomalus, 2m), Las Caritas (7 petroglifos). Enriquillo (6 diálogos: rebelión 1519-1533, amor con Mencía), Mencía, Tamayo. Natación con rotación diagonal. Toast educativo por especie. Nodo 10. HUD con contadores `👥 NPCs 0/3` y `🗿 Caritas 0/1`. Helper `_salirAlMapa()` unifica las dos rutas de salida (M y borde inferior) y muestra una pista one-time sobre la Espada perdida desenterrada por una tormenta, gated por `progreso.enriquilloVisitado` y `progreso.espadaEnriquillo`
 - **Anacaona (primera visita)**: tras el primer diálogo completo con Anacaona en Yucayeque de Marién, toast retardado 1.8s pista que volver a hablar con ella desbloquea una misión y un lugar secretos. Solo si `idoloEnriquillo` aún no está descubierta. Clave i18n: `aldea.anacaonaPista`
 - **Mundo Jurídico** (`js/mundos/juridico/`): Aeropuerto de Punta Cana interior, velocidad normal, combate legal con opciones de Ley 318/Evidencia/INTERPOL/UNESCO, mentora con diálogo rotativo (5 temas legales)

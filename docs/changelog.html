@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Change Log</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="section-nav.css">
+  <link rel="icon" type="image/x-icon" href="../resources/favicon.ico">
+</head>
+<body>
+  <div id="doc-nav"></div>
+  <div class="contenedor" id="changelog-container">
+    <p class="intro" id="changelog-loading">Cargando registro de cambios...</p>
+  </div>
+  <script src="navigation.js"></script>
+  <script>
+  // ============================================================
+  // CHANGELOG LOADER — lee CHANGELOG.md y lo renderiza como HTML
+  // Siempre muestra la versión más reciente del archivo.
+  // ============================================================
+  (function () {
+    'use strict';
+
+    // Detectar idioma para el texto de carga/error
+    var lang = document.documentElement.lang || 'es';
+    var UI = {
+      es: { loading: 'Cargando registro de cambios...', error: 'No se pudo cargar el registro de cambios.' },
+      en: { loading: 'Loading change log...', error: 'Could not load the change log.' },
+      fr: { loading: 'Chargement du journal des modifications...', error: 'Impossible de charger le journal des modifications.' }
+    };
+    var ui = UI[lang] || UI.es;
+
+    var container = document.getElementById('changelog-container');
+    var loadingEl = document.getElementById('changelog-loading');
+    if (loadingEl) loadingEl.textContent = ui.loading;
+
+    // --- Escapar HTML ---
+    function esc(text) {
+      return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // --- Renderizar inline markdown (bold, code, links) ---
+    function renderInline(text) {
+      var s = esc(text);
+      // **bold** → <strong>
+      s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      // `code` → <code>
+      s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+      // [text](url) → <a>
+      s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+      // _italic_ → <em>
+      s = s.replace(/(?<!\w)_([^_]+)_(?!\w)/g, '<em>$1</em>');
+      return s;
+    }
+
+    // --- Parsear Markdown del CHANGELOG ---
+    function parseChangelog(md) {
+      var html = '';
+      var lines = md.split('\n');
+      var inList = false;
+      var sectionOpen = false;
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+
+        // H1: título principal (# Changelog) — omitir
+        if (/^# /.test(line)) continue;
+
+        // H2: versión (## v0.xx.x — ...)
+        if (/^## /.test(line)) {
+          if (inList) { html += '</ul>\n'; inList = false; }
+          if (sectionOpen) { html += '</section>\n<hr>\n'; }
+          var titulo = line.replace(/^## /, '');
+          var id = titulo.replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase().substring(0, 50);
+          html += '<section id="' + id + '">\n';
+          html += '<h2><span class="icono">📋</span> ' + renderInline(titulo) + '</h2>\n';
+          sectionOpen = true;
+          continue;
+        }
+
+        // H3: subsección (### Agregado, ### Corregido, etc.)
+        if (/^### /.test(line)) {
+          if (inList) { html += '</ul>\n'; inList = false; }
+          html += '<h3>' + renderInline(line.replace(/^### /, '')) + '</h3>\n';
+          continue;
+        }
+
+        // Bullet: - texto
+        if (/^- /.test(line)) {
+          if (!inList) { html += '<ul>\n'; inList = true; }
+          html += '<li>' + renderInline(line.replace(/^- /, '')) + '</li>\n';
+          continue;
+        }
+
+        // Separador horizontal
+        if (/^---/.test(line)) {
+          if (inList) { html += '</ul>\n'; inList = false; }
+          continue;
+        }
+
+        // Línea vacía
+        if (line.trim() === '') continue;
+
+        // Texto normal (párrafo)
+        if (inList) { html += '</ul>\n'; inList = false; }
+        html += '<p>' + renderInline(line) + '</p>\n';
+      }
+
+      if (inList) html += '</ul>\n';
+      if (sectionOpen) html += '</section>\n';
+      return html;
+    }
+
+    // Cargar CHANGELOG.md y renderizar
+    fetch('../CHANGELOG.md')
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        return res.text();
+      })
+      .then(function (md) {
+        container.innerHTML = parseChangelog(md);
+      })
+      .catch(function () {
+        container.innerHTML = '<p class="intro" style="color:var(--rojo);">' + ui.error + '</p>';
+      });
+  })();
+  </script>
+  <script src="section-nav.js"></script>
+</body>
+</html>

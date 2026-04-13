@@ -191,6 +191,7 @@ const en = {
       vigilaPaz: 'The soldier understood that you cannot chain someone who was born free.',
       vigiaVictoria: 'The hunter has fled. Our mountain remains free!',
       enemigoCazador: 'Maroon Hunter',
+      ataquePerro: 'The hunter\'s hound bites you!',
       // Mission
       misionHablar: 'Explore the palenque and talk to the maroons',
       misionCompleta: 'Palenque explored! Return to map (M)',
@@ -923,7 +924,8 @@ const en = {
     lleno: 'Backpack full',
     usar: '[E/Enter] Use',
     cerrar: '[I] or [Q] Close',
-    slots: 'slots'
+    slots: 'slots',
+    pasivo: 'Automatic combat bonus'
   },
 
   // Los mundos representan capas temáticas de la historia dominicana

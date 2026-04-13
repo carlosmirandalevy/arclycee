@@ -168,6 +168,8 @@ export class Inventario {
         const obj = this.objetos[this.seleccion];
         if (obj.esUsable && jugador) {
           this.usar(obj.id, jugador);
+          // Cerrar inventario después de usar un objeto (útil en combate)
+          this.cerrar();
         }
       }
       this.bloqueoEntrada = true;
@@ -309,12 +311,18 @@ export class Inventario {
         ctx.fillText(descTexto, anchoCanvas / 2, infoY + 22);
       }
 
-      // Indicador de usable
+      // Indicador de usable o pasivo
       if (seleccionado.esUsable) {
         ctx.fillStyle = '#44CC44';
         ctx.font = '11px monospace';
         const usarTexto = textos?.inventario?.usar || '[E] Usar';
         ctx.fillText(usarTexto, anchoCanvas / 2, infoY + 52);
+      } else if (seleccionado.tipo === 'herramienta') {
+        // Artefactos pasivos de combate (machete, tambor) — bonus automático
+        ctx.fillStyle = '#C8962A';
+        ctx.font = '11px monospace';
+        const pasivoTexto = textos?.inventario?.pasivo || 'Bonus automático en combate';
+        ctx.fillText(pasivoTexto, anchoCanvas / 2, infoY + 52);
       }
     } else {
       // Slot vacío seleccionado
@@ -728,6 +736,86 @@ export class Inventario {
       ctx.lineTo(x + 15, y + 16);
       ctx.lineTo(x + 18, y + 14);
       ctx.lineTo(x + 21, y + 16);
+      ctx.stroke();
+
+    } else if (id === 'macheteCimarron') {
+      // Machete cimarrón — hoja larga curva con mango de madera
+      // Hoja del machete
+      ctx.fillStyle = '#AAAAAA';
+      ctx.beginPath();
+      ctx.moveTo(x + 6, y + 24);
+      ctx.lineTo(x + 24, y + 6);
+      ctx.lineTo(x + 27, y + 8);
+      ctx.lineTo(x + 10, y + 26);
+      ctx.closePath();
+      ctx.fill();
+      // Filo (borde brillante)
+      ctx.strokeStyle = '#DDDDDD';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + 6, y + 24);
+      ctx.lineTo(x + 24, y + 6);
+      ctx.stroke();
+      // Mango de madera
+      ctx.fillStyle = '#6B4226';
+      ctx.fillRect(x + 2, y + 22, 8, 6);
+      // Guardia (protector entre hoja y mango)
+      ctx.fillStyle = '#888888';
+      ctx.fillRect(x + 5, y + 21, 6, 2);
+
+    } else if (id === 'tamborGuerra') {
+      // Tambor de guerra africano — cilindro con cuerdas
+      // Cuerpo del tambor (madera)
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(x + 8, y + 8, 16, 18);
+      // Parche superior (cuero)
+      ctx.fillStyle = '#D2B48C';
+      ctx.fillRect(x + 6, y + 6, 20, 4);
+      // Parche inferior
+      ctx.fillRect(x + 6, y + 24, 20, 4);
+      // Cuerdas de tensión
+      ctx.strokeStyle = '#DAA520';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + 9, y + 10);
+      ctx.lineTo(x + 12, y + 24);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + 16, y + 10);
+      ctx.lineTo(x + 16, y + 24);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + 23, y + 10);
+      ctx.lineTo(x + 20, y + 24);
+      ctx.stroke();
+      // Decoración (franjas)
+      ctx.fillStyle = '#A0522D';
+      ctx.fillRect(x + 8, y + 14, 16, 2);
+      ctx.fillRect(x + 8, y + 19, 16, 2);
+
+    } else if (id === 'pergaminoLibertad') {
+      // Pergamino de libertad — rollo con texto y sello
+      ctx.fillStyle = '#F5DEB3';
+      ctx.fillRect(x + 6, y + 6, 20, 20);
+      // Bordes enrollados
+      ctx.fillStyle = '#D2B48C';
+      ctx.fillRect(x + 6, y + 6, 20, 3);
+      ctx.fillRect(x + 6, y + 23, 20, 3);
+      // Líneas de texto
+      ctx.fillStyle = '#8B4513';
+      ctx.fillRect(x + 9, y + 11, 14, 1);
+      ctx.fillRect(x + 9, y + 14, 10, 1);
+      ctx.fillRect(x + 9, y + 17, 14, 1);
+      // Cadenas rotas (símbolo de libertad)
+      ctx.strokeStyle = '#888888';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(x + 10, y + 21);
+      ctx.lineTo(x + 14, y + 21);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + 18, y + 21);
+      ctx.lineTo(x + 22, y + 21);
       ctx.stroke();
 
     } else {

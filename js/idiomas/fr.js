@@ -191,6 +191,7 @@ const fr = {
       vigilaPaz: 'Le soldat a compris qu\'on ne peut pas enchaîner quelqu\'un qui est né libre.',
       vigiaVictoria: 'Le chasseur a fui. Notre montagne reste libre !',
       enemigoCazador: 'Chasseur de Cimarrones',
+      ataquePerro: 'Le chien du chasseur te mord !',
       // Mission
       misionHablar: 'Explore le palenque et parle aux cimarrones',
       misionCompleta: 'Palenque exploré ! Retour à la carte (M)',
@@ -923,7 +924,8 @@ const fr = {
     lleno: 'Sac plein',
     usar: '[E/Entrée] Utiliser',
     cerrar: '[I] ou [Q] Fermer',
-    slots: 'slots'
+    slots: 'slots',
+    pasivo: 'Bonus automatique en combat'
   },
 
   // Les mondes représentent des couches thématiques de l'histoire dominicaine

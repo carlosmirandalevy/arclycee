@@ -78,11 +78,10 @@ export class SistemaCombate {
     this._mensaje = '';
 
     // --- Temporizador del turno del enemigo ---
-    // Muestra el mensaje 2.5s, luego espera que el jugador presione E
+    // Muestra el mensaje y "[E] Continuar" de inmediato (el jugador avanza a su ritmo)
     this._tiempoEsperaEnemigo = 0;
     this._esperandoEnemigo = false;
     this._esperandoContinuar = false;  // true cuando muestra "[E] Continuar"
-    this._pausaLectura = 2.0;
 
     // --- Opciones personalizadas por enemigo ---
     // Si el enemigo trae opcionesPersonalizadas, se usan en vez de las genéricas.
@@ -187,7 +186,7 @@ export class SistemaCombate {
       this._esperandoEnemigo = true;
       this._tiempoEsperaEnemigo = 0;
       this._esperandoContinuar = false;
-      this._pausaLectura = 2.0;
+
       this.turnoJugador = false;
     }
   }
@@ -404,6 +403,14 @@ export class SistemaCombate {
       this.paciencia = Math.min(100, this.paciencia + ganancia);
       this._mensaje = `${this.enemigo?.nombre || 'Enemigo'} duda... Convencido +${ganancia}`;
       this._sfx.combateEnemigoDuda();
+    } else if (this.enemigo?.conPerro && Math.random() < 0.35) {
+      // Ataque especial del sabueso — 35% de probabilidad
+      // Hace menos daño que un ataque normal, pero genera más hostilidad
+      const danoPerro = (this.enemigo.fuerza || 2) + Math.floor(Math.random() * 3);
+      jugador.recibirDano(danoPerro);
+      this.hostilidad = Math.min(100, this.hostilidad + 3);
+      this._mensaje = (this.enemigo.mensajePerro || '¡El sabueso ataca!') + ` -${danoPerro} HP`;
+      this._sfx.combateContraataque();
     } else {
       // El enemigo ataca (con daño reducido para ser justo)
       const danoEnemigo = (this.enemigo.fuerza || 2) * 2 + Math.floor(Math.random() * 3);
@@ -464,12 +471,12 @@ export class SistemaCombate {
     // Mientras la info está visible, no procesar otras entradas
     if (this._infoVisible) return;
 
-    // --- Turno del enemigo con pausa + botón de continuar ---
-    // Muestra el mensaje 2.5s, luego "[E] Continuar" hasta que presione E
+    // --- Turno del enemigo con botón de continuar ---
+    // Muestra el mensaje y "[E] Continuar" de inmediato (sin pausa obligatoria)
     if (this._esperandoEnemigo) {
       this._tiempoEsperaEnemigo += dt;
-      if (!this._esperandoContinuar && this._tiempoEsperaEnemigo >= this._pausaLectura) {
-        // Pasaron 2.5s — mostrar botón de continuar
+      // Mostrar botón de continuar de inmediato
+      if (!this._esperandoContinuar) {
         this._esperandoContinuar = true;
         this._bloqueoEntrada = true;
       }
@@ -487,10 +494,11 @@ export class SistemaCombate {
       return;
     }
 
-    // --- Mensaje del enemigo con pausa + botón de continuar ---
+    // --- Mensaje del enemigo con botón de continuar ---
     if (this._esperandoContinuarEnemigo) {
       this._tiempoMensajeEnemigo += dt;
-      if (!this._mostrarBotonEnemigo && this._tiempoMensajeEnemigo >= this._pausaLectura) {
+      // Mostrar botón de continuar de inmediato
+      if (!this._mostrarBotonEnemigo) {
         this._mostrarBotonEnemigo = true;
         this._bloqueoEntrada = true;
       }
@@ -530,7 +538,7 @@ export class SistemaCombate {
           this._esperandoEnemigo = true;
           this._tiempoEsperaEnemigo = 0;
           this._esperandoContinuar = false;
-          this._pausaLectura = 2.0;
+    
           this.turnoJugador = false;
         }
         this._bloqueoEntrada = true;
@@ -600,6 +608,11 @@ export class SistemaCombate {
 
     const tipoSprite = this.enemigo?.tipoSprite || 'soldado';
     this._dibujarSpriteEnemigo(ctx, enemigoX, enemigoY, enemigoAncho, enemigoAlto, tipoSprite);
+
+    // --- Sabueso del cazador (si el enemigo tiene conPerro) ---
+    if (this.enemigo?.conPerro) {
+      this._dibujarSabueso(ctx, enemigoX + enemigoAncho + 8, enemigoY + enemigoAlto - 24);
+    }
 
     // Nombre del enemigo
     ctx.fillStyle = '#ffffff';
@@ -997,6 +1010,46 @@ export class SistemaCombate {
     ctx.fillStyle = '#000000';
     ctx.fillRect(x + 15, y + 6, 2, 2);
     ctx.fillRect(x + 23, y + 6, 2, 2);
+  }
+
+  // --- Sabueso del cazador de cimarrones ---
+  // Perro rastreador que acompaña al cazador colonial
+  _dibujarSabueso(ctx, x, y) {
+    // Cuerpo del perro (marrón oscuro)
+    ctx.fillStyle = '#6B4226';
+    ctx.fillRect(x, y + 4, 22, 10);
+    // Cabeza
+    ctx.fillStyle = '#8B5A3C';
+    ctx.fillRect(x + 18, y, 10, 10);
+    // Hocico
+    ctx.fillStyle = '#A0724E';
+    ctx.fillRect(x + 26, y + 3, 5, 5);
+    // Ojo
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(x + 22, y + 2, 3, 3);
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(x + 23, y + 3, 1, 1);
+    // Orejas caídas
+    ctx.fillStyle = '#5A3420';
+    ctx.fillRect(x + 18, y - 2, 4, 4);
+    ctx.fillRect(x + 24, y - 2, 4, 4);
+    // Patas
+    ctx.fillStyle = '#6B4226';
+    ctx.fillRect(x + 2, y + 14, 3, 6);
+    ctx.fillRect(x + 8, y + 14, 3, 6);
+    ctx.fillRect(x + 14, y + 14, 3, 6);
+    ctx.fillRect(x + 19, y + 14, 3, 6);
+    // Cola levantada
+    ctx.fillStyle = '#5A3420';
+    ctx.beginPath();
+    ctx.moveTo(x, y + 4);
+    ctx.lineTo(x - 4, y);
+    ctx.lineTo(x - 2, y + 2);
+    ctx.closePath();
+    ctx.fill();
+    // Collar
+    ctx.fillStyle = '#CC3333';
+    ctx.fillRect(x + 17, y + 6, 12, 2);
   }
 
   // --- Sprite: Constructor Méndez (Zona Colonial) ---

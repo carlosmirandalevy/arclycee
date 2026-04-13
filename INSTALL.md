@@ -122,14 +122,14 @@ arclycee/
     ├── apple-touch-icon.png ← Ícono para iOS 180x180
     ├── og-share.png         ← Imagen para redes sociales 192x192
     ├── artes/               ← Hero images, logo original, favicon original
-    ├── music/               ← 32 pistas MP3 (2 por escenario, 16 grupos)
+    ├── music/               ← 36 pistas MP3 (2 por escenario, 18 grupos)
     └── music-prompts.md     ← Prompts de Suno para generar la música
 ```
 
 ## Audio
 
 ### Música de fondo
-El juego incluye 16 temas musicales (32 pistas MP3, 2 variantes por escenario) en `resources/music/`. El sistema `js/motor/musica.js` alterna las 2 pistas de cada grupo en loop con crossfade suave de 2 segundos. Combate y batú hacen override temporal de la música del mundo. El volumen se ajusta desde el menú de opciones y se guarda en localStorage.
+El juego incluye 18 grupos musicales (36 pistas MP3, 2 variantes por escenario) en `resources/music/`. El sistema `js/motor/musica.js` alterna las 2 pistas de cada grupo en loop con crossfade suave de 2 segundos. Combate, batú, duelo, areíto y boss hacen override temporal de la música del mundo. El volumen se ajusta desde el menú de opciones y se guarda en localStorage.
 
 ### Efectos de sonido
 El juego genera 60+ efectos de sonido proceduralmente usando la Web Audio API — no necesita archivos de audio. Los sonidos se crean automáticamente al saltar, aterrizar, caminar, recoger objetos y descubrir petroglifos.

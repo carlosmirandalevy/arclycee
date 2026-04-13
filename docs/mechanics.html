@@ -66,6 +66,20 @@
       </div>
       <p><strong>Resolución pacífica:</strong> Méndez rediseña el hotel para proteger las ruinas. "Será más caro, pero le dará un valor único. Y además... es lo correcto."</p>
 
+      <h3>Combate Colonial: Cazador de Cimarrones</h3>
+      <p>En el Palenque de Lemba, <strong>Marcos el vigía</strong> detecta un cazador de esclavos colonial que se acerca por el sendero y activa el combate. El cazador viene acompañado de un <strong>sabueso rastreador</strong> que aparece junto a él en la pantalla de combate. Este combate usa las <strong>opciones estándar</strong> (Atacar, Hablar, Negociar, Objeto, Huir) en lugar de opciones personalizadas.</p>
+      <table>
+        <tr><th>Estadística</th><th>Valor</th></tr>
+        <tr><td>Vida</td><td>45 HP</td></tr>
+        <tr><td>Fuerza</td><td>3</td></tr>
+        <tr><td>Velocidad</td><td>2</td></tr>
+        <tr><td>Hostilidad inicial</td><td>75</td></tr>
+        <tr><td>Sprite</td><td>Soldado colonial (uniforme rojo oscuro, casco de conquistador) + sabueso</td></tr>
+      </table>
+      <p><strong>Ataque del sabueso:</strong> 35% de probabilidad en el turno del enemigo — el sabueso muerde al jugador (daño reducido, pero sube la hostilidad +3).</p>
+      <p><strong>Resolución pacífica:</strong> "El soldado entendió que no puede encadenar a quien nació libre." (+15 reputación)</p>
+      <p><strong>Victoria por fuerza:</strong> "El cazador ha huido. ¡Nuestra montaña sigue siendo libre!" (+5 reputación)</p>
+
       <h3>Combate Ecológico: Pez León</h3>
       <p>El medidor muestra "Controlado" en vez de "Convencido". Opciones de control ecológico:</p>
       <div class="combat-flow">
@@ -168,6 +182,7 @@
       <h3>Sprites de Enemigos</h3>
       <ul>
         <li><strong>Soldado Diego</strong>: uniforme rojo oscuro con casco de conquistador (morión)</li>
+        <li><strong>Cazador de Cimarrones</strong>: mismo sprite de soldado colonial (uniforme rojo oscuro, casco de conquistador) — comparte <code>tipoSprite: 'soldado'</code> con Diego</li>
         <li><strong>Constructor Méndez</strong>: camisa amarilla con casco de construcción</li>
         <li><strong>Pez León</strong>: rayas rojas/blancas, aletas en abanico, espinas dorsales venenosas</li>
         <li><strong>Traficante Torres</strong>: traje oscuro, gafas de sol, maleta con doble fondo</li>
@@ -329,7 +344,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.22.0 — Aventura Arqueológica Dominicana</p>
+    <p>ArcLycée v0.23.0 — Aventura Arqueológica Dominicana</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Clase de Robótica 2026<br><a href="../juego.html">Jugar ArcLycée</a></p>
   </footer>
 

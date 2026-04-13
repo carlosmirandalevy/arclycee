@@ -43,6 +43,20 @@
       </div>
       <p><strong>Résolution pacifique :</strong> Méndez redessine l'hôtel pour protéger les ruines. « Ce sera plus cher, mais ça lui donnera une valeur unique. Et en plus... c'est la bonne chose à faire. »</p>
 
+      <h3>Combat Colonial : Chasseur de Cimarrones</h3>
+      <p>Au Palenque de Lemba, <strong>Marcos le guetteur</strong> repère un chasseur d'esclaves colonial qui approche par le sentier et déclenche le combat. Le chasseur est accompagné d'un <strong>chien de pistage</strong> qui apparaît à côté de lui sur l'écran de combat. Ce combat utilise les <strong>options standard</strong> (Attaquer, Parler, Négocier, Objet, Fuir) au lieu d'options personnalisées.</p>
+      <table>
+        <tr><th>Statistique</th><th>Valeur</th></tr>
+        <tr><td>Vie</td><td>45 PV</td></tr>
+        <tr><td>Force</td><td>3</td></tr>
+        <tr><td>Vitesse</td><td>2</td></tr>
+        <tr><td>Hostilité initiale</td><td>75</td></tr>
+        <tr><td>Sprite</td><td>Soldat colonial (uniforme rouge foncé, casque de conquistador) + chien</td></tr>
+      </table>
+      <p><strong>Attaque du chien :</strong> 35% de chance au tour de l'ennemi — le chien mord le joueur (dégâts réduits, mais augmente l'hostilité de +3).</p>
+      <p><strong>Résolution pacifique :</strong> « Le soldat a compris qu'on ne peut pas enchaîner quelqu'un qui est né libre. » (+15 réputation)</p>
+      <p><strong>Victoire par la force :</strong> « Le chasseur a fui. Notre montagne reste libre ! » (+5 réputation)</p>
+
       <h3>Combat Écologique : Poisson-lion</h3>
       <p>La jauge affiche « Contrôlé » au lieu de « Convaincu ». Options de contrôle écologique :</p>
       <div class="combat-flow">
@@ -145,6 +159,7 @@
       <h3>Sprites des Ennemis</h3>
       <ul>
         <li><strong>Soldat Diego</strong> : uniforme rouge foncé avec casque de conquistador (morion)</li>
+        <li><strong>Chasseur de Cimarrones</strong> : même sprite de soldat colonial (uniforme rouge foncé, casque de conquistador) — partage <code>tipoSprite: 'soldado'</code> avec Diego</li>
         <li><strong>Constructeur Méndez</strong> : chemise jaune avec casque de chantier</li>
         <li><strong>Poisson-lion</strong> : rayures rouges/blanches, nageoires en éventail, épines dorsales venimeuses</li>
         <li><strong>Trafiquant Torres</strong> : costume sombre, lunettes de soleil, mallette à double fond</li>
@@ -290,7 +305,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.22.0 — Aventure Archéologique Dominicaine</p>
+    <p>ArcLycée v0.23.0 — Aventure Archéologique Dominicaine</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Cours de Robotique 2026<br><a href="../juego.html">Jouer à ArcLycée</a></p>
   </footer>
 

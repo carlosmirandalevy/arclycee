@@ -32,6 +32,8 @@
     landmark: SVG('<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>'),
     leaf:     SVG('<path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>'),
     swords:   SVG('<polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" x2="19" y1="19" y2="13"/><line x1="16" x2="20" y1="16" y2="20"/><line x1="19" x2="21" y1="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" x2="9" y1="14" y2="18"/><line x1="7" x2="4" y1="17" y2="20"/><line x1="3" x2="5" y1="19" y2="21"/>'),
+    clip:     SVG('<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>'),
+    gitBranch:SVG('<line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>'),
   };
 
   // ============================================================
@@ -86,7 +88,7 @@
       icono: ICO.wrench,
       label: { es: 'Técnico', en: 'Technical', fr: 'Technique' },
       grupo: true,
-      children: ['mechanics', 'technical']
+      children: ['mechanics', 'technical', 'changelog', 'cloneUs']
     },
     mechanics: {
       icono: ICO.cog,
@@ -98,6 +100,18 @@
       icono: ICO.code,
       label: { es: 'Programación', en: 'Programming', fr: 'Programmation' },
       archivos: { es: 'technical.html', en: 'technical-en.html', fr: 'technical-fr.html' },
+      parent: 'tecnicoGrupo'
+    },
+    changelog: {
+      icono: ICO.clip,
+      label: { es: 'Cambios', en: 'Change Log', fr: 'Changements' },
+      archivos: { es: 'changelog.html', en: 'changelog.html', fr: 'changelog.html' },
+      parent: 'tecnicoGrupo'
+    },
+    cloneUs: {
+      icono: ICO.gitBranch,
+      label: { es: 'Clónanos', en: 'Clone Us', fr: 'Clonez-nous' },
+      archivos: { es: 'clone-us.html', en: 'clone-us-en.html', fr: 'clone-us-fr.html' },
       parent: 'tecnicoGrupo'
     },
     // --- Pedagogía (grupo con subitems) ---

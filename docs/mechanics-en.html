@@ -43,6 +43,20 @@
       </div>
       <p><strong>Peaceful resolution:</strong> Méndez redesigns the hotel to protect the ruins. "It'll cost more, but it'll give it a unique value. And besides... it's the right thing to do."</p>
 
+      <h3>Colonial Combat: Maroon Hunter</h3>
+      <p>At Lemba's Palenque, <strong>Marcos the lookout</strong> spots a colonial slave hunter approaching on the trail and triggers combat. The hunter is accompanied by a <strong>tracking hound</strong> that appears beside him on the combat screen. This combat uses <strong>standard options</strong> (Attack, Talk, Negotiate, Item, Flee) rather than custom options.</p>
+      <table>
+        <tr><th>Stat</th><th>Value</th></tr>
+        <tr><td>Health</td><td>45 HP</td></tr>
+        <tr><td>Strength</td><td>3</td></tr>
+        <tr><td>Speed</td><td>2</td></tr>
+        <tr><td>Initial Hostility</td><td>75</td></tr>
+        <tr><td>Sprite</td><td>Colonial soldier (dark red uniform, conquistador helmet) + hound</td></tr>
+      </table>
+      <p><strong>Hound attack:</strong> 35% chance on enemy turn — the hound bites the player (reduced damage, but raises hostility +3).</p>
+      <p><strong>Peaceful resolution:</strong> "The soldier understood that you cannot chain someone who was born free." (+15 reputation)</p>
+      <p><strong>Victory by force:</strong> "The hunter has fled. Our mountain remains free!" (+5 reputation)</p>
+
       <h3>Ecological Combat: Lionfish</h3>
       <p>The meter shows "Controlled" instead of "Convinced". Ecological control options:</p>
       <div class="combat-flow">
@@ -73,6 +87,7 @@
       <h3>Enemy Sprites</h3>
       <ul>
         <li><strong>Soldier Diego</strong>: dark red uniform with conquistador helmet (morion)</li>
+        <li><strong>Maroon Hunter</strong>: same colonial soldier sprite (dark red uniform, conquistador helmet) — shares <code>tipoSprite: 'soldado'</code> with Diego</li>
         <li><strong>Constructor Méndez</strong>: yellow shirt with construction helmet</li>
         <li><strong>Lionfish</strong>: red/white stripes, fan fins, venomous dorsal spines</li>
         <li><strong>Trafficker Torres</strong>: dark suit, sunglasses, double-bottom briefcase</li>
@@ -296,7 +311,7 @@
   </div>
 
   <footer>
-    <p>ArcLycée v0.22.0 — Dominican Archaeological Adventure</p>
+    <p>ArcLycée v0.23.0 — Dominican Archaeological Adventure</p>
     <p class="equipo">Liceo Francés de Santo Domingo — Robotics Class 2026<br><a href="../juego.html">Play ArcLycée</a></p>
   </footer>
 

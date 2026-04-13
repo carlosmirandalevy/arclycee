@@ -54,7 +54,10 @@ const PISTAS_POR_GRUPO = {
   lemba:      ['resources/music/Palenque_de_Lemba-01.mp3',       'resources/music/Palenque_de_Lemba-02.mp3'],
   enriquillo: ['resources/music/Lago_Enriquillo-01.mp3',        'resources/music/Lago_Enriquillo-02.mp3'],
   creditos:   ['resources/music/End_credits_Theme_1.mp3',        'resources/music/End_credits_Theme_2.mp3'],
-  duelo:      ['resources/music/Blades_of_La_Isabela-Duelo_de_Espadas-Soldado_Diego-Theme-01.mp3', 'resources/music/Blades_of_La_Isabela-Duelo_de_Espadas-Soldado_Diego-Theme-02.mp3']
+  duelo:      ['resources/music/Blades_of_La_Isabela-Duelo_de_Espadas-Soldado_Diego-Theme-01.mp3', 'resources/music/Blades_of_La_Isabela-Duelo_de_Espadas-Soldado_Diego-Theme-02.mp3'],
+  areito:     ['resources/music/Areito-Danza_Ceremonial_Taina-01.mp3', 'resources/music/Areito-Danza_Ceremonial_Taina-02.mp3'],
+  bossCemi:   ['resources/music/Espiritu_del_Cemi-Secret_Boss_Fight-01.mp3', 'resources/music/Espiritu_del_Cemi-Secret_Boss_Fight-02.mp3'],
+  bossCemiCutscene: ['resources/music/Espiritu_del_Cemi-Cutscene_del_Boss_Cemi-01.mp3', 'resources/music/Espiritu_del_Cemi-Cutscene_del_Boss_Cemi-02.mp3']
 };
 
 // Duración del crossfade en milisegundos

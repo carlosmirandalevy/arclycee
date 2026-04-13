@@ -193,6 +193,7 @@ const es = {
       vigilaPaz: 'El soldado entendió que no puede encadenar a quien nació libre.',
       vigiaVictoria: 'El cazador ha huido. ¡Nuestra montaña sigue siendo libre!',
       enemigoCazador: 'Cazador de Cimarrones',
+      ataquePerro: '¡El sabueso del cazador te muerde!',
       // Misión
       misionHablar: 'Explora el palenque y habla con los cimarrones',
       misionCompleta: '¡Palenque explorado! Vuelve al mapa (M)',
@@ -966,7 +967,8 @@ const es = {
     lleno: 'Mochila llena',
     usar: '[E/Enter] Usar',
     cerrar: '[I] o [Q] Cerrar',
-    slots: 'slots'
+    slots: 'slots',
+    pasivo: 'Bonus automático en combate'
   },
 
   // Los mundos representan capas temáticas de la historia dominicana

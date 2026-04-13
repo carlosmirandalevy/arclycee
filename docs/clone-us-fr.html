@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcLycée — Clonez-nous</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="section-nav.css">
+  <link rel="icon" type="image/x-icon" href="../resources/favicon.ico">
+</head>
+<body>
+  <div id="doc-nav"></div>
+  <div class="contenedor">
+
+    <section id="code-ouvert">
+      <h2><span class="icono">💻</span> Code Ouvert</h2>
+      <p class="intro">Tout le code d'ArcLycée est disponible publiquement sur GitHub. Vous pouvez le télécharger, l'étudier, le modifier et apprendre de celui-ci.</p>
+
+      <h3>Dépôt GitHub</h3>
+      <p>Le code source complet du jeu est hébergé sur :</p>
+      <p style="text-align:center; font-size:1.2rem; margin:24px 0;">
+        <strong><a href="https://github.com/carlosmirandalevy/arclycee" target="_blank">github.com/carlosmirandalevy/arclycee</a></strong>
+      </p>
+
+      <h3>Comment cloner le projet</h3>
+      <p>Si vous avez <a href="https://git-scm.com/" target="_blank">Git</a> installé, ouvrez un terminal et exécutez :</p>
+      <pre><code>git clone https://github.com/carlosmirandalevy/arclycee.git
+cd arclycee</code></pre>
+      <p>C'est tout ! Vous n'avez rien d'autre à installer. ArcLycée utilise HTML5 Canvas + JavaScript vanilla — pas de frameworks, pas de compilation, pas de dépendances.</p>
+
+      <h3>Comment lancer le jeu localement</h3>
+      <p>Vous avez besoin d'un serveur HTTP local car les modules ES6 ne fonctionnent pas avec <code>file://</code>. L'une de ces options suffit :</p>
+      <pre><code># Avec Python (préinstallé sur Mac/Linux)
+python3 -m http.server 8000
+
+# Avec Node.js
+npx serve .
+
+# Avec PHP
+php -S localhost:8000</code></pre>
+      <p>Ensuite ouvrez <code>http://localhost:8000/juego.html</code> dans votre navigateur.</p>
+
+      <h3>Structure du projet</h3>
+      <table>
+        <tr><th>Dossier</th><th>Contenu</th></tr>
+        <tr><td><code>js/motor/</code></td><td>Moteur du jeu : boucle de jeu, entrées, rendu, son, musique, sauvegarde</td></tr>
+        <tr><td><code>js/escenas/</code></td><td>Scènes : menu principal, sélection de personnage, cinématiques</td></tr>
+        <tr><td><code>js/mundos/</code></td><td>Les 13 mondes du jeu, chacun dans son propre dossier</td></tr>
+        <tr><td><code>js/mecanicas/</code></td><td>Combat, inventaire, dialogues, mini-jeux, album photo</td></tr>
+        <tr><td><code>js/idiomas/</code></td><td>Traductions : es.js, en.js, fr.js</td></tr>
+        <tr><td><code>js/personajes/</code></td><td>Joueur et compagnons (Magnoboot, Viralata, Cemí)</td></tr>
+        <tr><td><code>js/clima/</code></td><td>Système météo : pluie, orages, ouragans</td></tr>
+        <tr><td><code>js/mapas/</code></td><td>Carte de référence Leaflet avec 6 couches de données</td></tr>
+        <tr><td><code>docs/</code></td><td>Toute la documentation que vous lisez en ce moment</td></tr>
+        <tr><td><code>resources/</code></td><td>Images, musique, favicon</td></tr>
+      </table>
+
+      <h3>Pourquoi le code ouvert ?</h3>
+      <p>ArcLycée a été créé par des élèves de 13 ans du <strong>Lycée Français de Saint-Domingue</strong> dans le cadre du cours de Robotique. Nous croyons que :</p>
+      <ul>
+        <li><strong>Le savoir doit être libre</strong> — si un groupe d'élèves de 13 ans peut créer un RPG éducatif, nous voulons que d'autres puissent apprendre de notre code.</li>
+        <li><strong>Le code est lisible</strong> — tout est documenté en espagnol, avec des commentaires détaillés conçus pour que d'autres élèves puissent le comprendre.</li>
+        <li><strong>L'archéologie appartient à tous</strong> — le patrimoine archéologique dominicain mérite d'être diffusé par tous les moyens possibles.</li>
+      </ul>
+
+      <h3>Que pouvez-vous faire avec le code ?</h3>
+      <ul>
+        <li><strong>L'étudier</strong> — lire comment fonctionne un jeu 2D créé de zéro avec JavaScript vanilla</li>
+        <li><strong>Le modifier</strong> — changer les niveaux, ajouter des personnages, traduire dans d'autres langues</li>
+        <li><strong>Apprendre</strong> — utiliser le code comme base pour vos propres projets éducatifs</li>
+        <li><strong>Contribuer</strong> — envoyer des pull requests avec des améliorations, corrections ou nouveau contenu</li>
+      </ul>
+
+      <h3>Technologies utilisées</h3>
+      <ul>
+        <li><strong>HTML5 Canvas</strong> — tout le rendu du jeu</li>
+        <li><strong>JavaScript vanilla (modules ES)</strong> — pas de frameworks, pas de bundlers</li>
+        <li><strong>Web Audio API</strong> — 57 effets sonores procéduraux (pas de fichiers audio pour les SFX)</li>
+        <li><strong>LeafletJS</strong> — carte de référence réelle d'Hispaniola (la seule bibliothèque externe)</li>
+        <li><strong>CSS pur</strong> — toute la documentation que vous lisez</li>
+      </ul>
+
+      <h3>Contact</h3>
+      <p>Si vous avez des questions sur le projet ou si vous souhaitez en savoir plus sur les fous du robot, visitez la page <a href="about-fr.html">À propos du projet</a>.</p>
+    </section>
+
+  </div>
+  <script src="navigation.js"></script>
+  <script src="section-nav.js"></script>
+</body>
+</html>

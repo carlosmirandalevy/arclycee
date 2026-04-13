@@ -114,7 +114,9 @@ export class Juego {
     this._musicaCombateActiva = false;
     this._musicaBatuActiva = false;
     this._musicaBossActiva = false;
+    this._musicaBossCutsceneActiva = false;
     this._musicaDueloActiva = false;
+    this._musicaAreitoActiva = false;
 
     // Flag para evitar múltiples triggers de muerte simultáneos
     this._muerteEnCurso = false;
@@ -650,12 +652,22 @@ export class Juego {
       this._musicaBatuActiva = false;
     }
     if (this.bossCemi.enJuego && !this._musicaBossActiva) {
-      this.musica.override('combate');
+      this.musica.override('bossCemi');
       this._musicaBossActiva = true;
+      this._musicaBossCutsceneActiva = false;
+    }
+    // Cambiar a música de cutscene cuando el boss entra en fase victoria
+    // Swap directo sin restaurar la música del mundo (evita glitch de audio)
+    if (this.bossCemi.enJuego && this._musicaBossActiva
+        && this.bossCemi.fase === 'victoria' && !this._musicaBossCutsceneActiva) {
+      this.musica._grupoOverride = 'bossCemiCutscene';
+      this.musica._iniciarGrupo('bossCemiCutscene');
+      this._musicaBossCutsceneActiva = true;
     }
     if (!this.bossCemi.enJuego && this._musicaBossActiva) {
       this.musica.restaurar();
       this._musicaBossActiva = false;
+      this._musicaBossCutsceneActiva = false;
     }
     if (this.dueloEspada.enJuego && !this._musicaDueloActiva) {
       this.musica.override('duelo');
@@ -664,6 +676,14 @@ export class Juego {
     if (!this.dueloEspada.enJuego && this._musicaDueloActiva) {
       this.musica.restaurar();
       this._musicaDueloActiva = false;
+    }
+    if (this.areito.enJuego && !this._musicaAreitoActiva) {
+      this.musica.override('areito');
+      this._musicaAreitoActiva = true;
+    }
+    if (!this.areito.enJuego && this._musicaAreitoActiva) {
+      this.musica.restaurar();
+      this._musicaAreitoActiva = false;
     }
 
     // --- Combate: si hay un combate activo, consume toda la entrada ---
