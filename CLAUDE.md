@@ -149,6 +149,8 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - **Diagramas técnicos** (`docs/tech-diagrams.js`): 10 SVGs generados programáticamente con i18n (ES/EN/FR). Detecta idioma vía `<html lang>`. Insertados automáticamente tras headings en las secciones correspondientes de la documentación técnica
 - **Previews de mundos** (`docs/world-previews.js`): Canvas 2D renders animados de los 9 mundos del juego. IIFE con 10 funciones renderer, matching multilingüe por título de sección, IntersectionObserver para eficiencia. Se incluye en `worlds*.html`
 - **Logo y branding**: `resources/arclycee-logo.png` (fondo transparente) usado en menú principal, créditos, cinemática final, navegación docs y footer docs. `navigation.js` inyecta logo en nav bar (28px) y footer (48px) dinámicamente vía DOM
+- **Footer compartido**: `navigation.js` genera el footer dinámicamente en todas las páginas de docs. Las páginas usan `<div id="doc-footer"></div>` como placeholder (o se crea automáticamente). El footer incluye logo, versión (`VERSION`), tagline traducido, enlace al juego y enlace al formulario de feedback. Cambiar la versión solo requiere editar `VERSION` en `navigation.js`
+- **Formulario de feedback**: formulario externo en `https://arclycee-aux.web.app/form.html` (repo `arclycee-aux/`). Integrado en `juego.html` (botón flotante dorado, solo visible online) y en `docs/about*.html` (sección "Contáctanos" con modal). Pasa `?lang=` para i18n automático. Firebase Firestore backend (proyecto `cemiai`, base de datos `arclycee`)
 - **Hero banners en docs**: cada página principal (`index.html`, `en.html`, `fr.html`) muestra la hero image del idioma correspondiente con clase `.hero-banner` (full-width, border-radius inferior)
 
 ## Qué NO hacer

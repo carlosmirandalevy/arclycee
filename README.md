@@ -17,7 +17,8 @@ Juegas como Pepito o Pepita, un/a joven de 14 años con ascendencia taína, espa
 - **Mapa de isla con tiles**: bitmap de 128×68 tiles trazado desde imagen de referencia, con 8 tipos de terreno, 8 cordilleras, 5 ríos, 2 lagos, cámara libre con zoom (0.25×-3×), drag táctil/ratón y colisiones
 - **Mapa de referencia real** (tecla R): overlay LeafletJS con 7 capas de Stadia Maps y 4 capas de datos: 16 sitios taínos, 8 sitios coloniales, 12 naufragios históricos y 30 museos a lo largo de toda La Hispaniola (RD + Haití). Totalmente traducido en 3 idiomas
 - **Hero images**: pantalla de inicio con imagen hero por idioma (ES/EN/FR) con viñeta oscura en los bordes
-- **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer
+- **Logo y branding**: logo del juego (cemí + letras piedra) en menú principal, créditos, cinemática final, navegación de docs y footer compartido
+- **Formulario de feedback**: botón flotante en el juego y sección "Contáctanos" en docs para enviar sugerencias, reportar errores o saludar (formulario trilingüe externo)
 - **Créditos cinematográficos**: créditos estilo película tras el final con logo, "les fous du robot", nombres del equipo y el Liceo Francés, scroll manual con flechas
 - **Sistema de compañeros**: Magnoboot (robot excavador +3 daño, detección de metal vía tecla F), Viralata (perro rastreador +2 daño) y Cemí Murciélago (espíritu de cueva +4 daño) — seleccionables en combate antes de atacar
 - **Música de fondo**: 18 grupos musicales (36 pistas MP3) con crossfade suave entre 2 variantes por escenario, override temporal para combate/batú/duelo/areíto/boss, volumen ajustable desde el menú de opciones

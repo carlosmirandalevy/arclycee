@@ -73,5 +73,64 @@
 
     <!-- Módulo principal del juego - punto de entrada ES module -->
     <script type="module" src="js/motor/juego.js"></script>
+
+    <!-- ARC Feedback Modal (solo visible con conexión a Internet) -->
+    <style>
+      #arc-feedback-btn { bottom: 20px; }
+      @media (max-width: 768px), (pointer: coarse) {
+        #arc-feedback-btn { bottom: auto !important; top: 12px !important; }
+      }
+    </style>
+    <div id="arc-feedback-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+      <div style="width:540px; max-width:95vw; display:flex; justify-content:flex-end;">
+        <button id="arc-feedback-close" style="background:rgba(0,0,0,0.5); border:none; color:#fff; font-size:1.5rem; cursor:pointer; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;">&times;</button>
+      </div>
+      <iframe id="arc-feedback-iframe" src="" style="width:540px; max-width:95vw; height:80vh; border:none; border-radius:12px;"></iframe>
+    </div>
+    <button id="arc-feedback-btn" style="display:none; position:fixed; right:20px; z-index:9998; background:#C8962A; color:#0E0C0A; border:2px solid #E8B84A; border-radius:50%; width:48px; height:48px; cursor:pointer; box-shadow:3px 3px 0 rgba(0,0,0,0.5); padding:0; line-height:0;" title="Feedback"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></button>
+    <script type="module">
+    import idiomas from './js/idiomas/idiomas.js';
+    (function() {
+      var BASE_URL = 'https://arclycee-aux.web.app/form.html';
+      var btn = document.getElementById('arc-feedback-btn');
+      var overlay = document.getElementById('arc-feedback-overlay');
+      var iframe = document.getElementById('arc-feedback-iframe');
+
+      function checkOnline() {
+        btn.style.display = navigator.onLine ? 'block' : 'none';
+        if (!navigator.onLine) overlay.style.display = 'none';
+      }
+      checkOnline();
+      window.addEventListener('online', checkOnline);
+      window.addEventListener('offline', checkOnline);
+
+      btn.addEventListener('click', function() {
+        var lang = idiomas.idiomaActual || 'es';
+        iframe.src = BASE_URL + '?lang=' + lang;
+        overlay.style.display = 'flex';
+      });
+
+      function closeFeedback() {
+        overlay.style.display = 'none';
+        iframe.src = '';
+      }
+
+      document.getElementById('arc-feedback-close').addEventListener('click', closeFeedback);
+
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeFeedback();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.style.display === 'flex') closeFeedback();
+      });
+
+      window.addEventListener('message', function(e) {
+        if (e.data && e.data.type === 'arc-feedback-sent') {
+          setTimeout(function() { overlay.style.display = 'none'; iframe.src = ''; }, 2000);
+        }
+      });
+    })();
+    </script>
 </body>
 </html>

@@ -19,6 +19,9 @@
 - **Sabueso en characters/worlds**: documentado en la ficha del Cazador y en la descripción del mundo (ES/EN/FR)
 - **Narrativa en learning-guide**: enlace a las páginas de narrativa agregado en la sección de recursos (ES/EN/FR)
 - **Menú Técnico expandido**: 4 ítems (Mecánicas, Programación, Cambios, Clónanos) con íconos Lucide (clipboard, git-branch)
+- **Footer compartido**: generado dinámicamente por `navigation.js` en todas las páginas de docs — logo, versión, tagline, enlace al juego y al formulario de feedback. Las páginas usan `<div id="doc-footer"></div>` como placeholder. Cambiar la versión requiere editar solo una línea (`VERSION` en `navigation.js`)
+- **Formulario de feedback**: integración con formulario externo (`arclycee-aux.web.app/form.html`). Botón flotante dorado en `juego.html` (solo visible online), sección "Contáctanos" con modal en about (ES/EN/FR). Pasa `?lang=` para i18n automático
+- **Menú "Acerca de" expandido**: dropdown con 3 ítems (Nota del Profesor, El Equipo, Contáctanos) usando anchor links (`#nota-profesor`, `#equipo`, `#contacto`) dentro de la misma página about
 
 ### Mejorado
 - **Combate sin pausa obligatoria**: "[E] Continuar" aparece inmediatamente tras cada acción (sin espera de 2s). El jugador controla el ritmo del combate
