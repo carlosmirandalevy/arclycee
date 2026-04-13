@@ -544,7 +544,7 @@ const es = {
       biologa3: 'La Ley 64-00 protege la biodiversidad dominicana. Dañar a un manatí es un delito ambiental.',
       biologa4: 'Los manatíes quedan atrapados por accidente en redes de pesca abandonadas — las llamamos "redes fantasma".',
       biologa5: 'Para liberarlos sin hacerles daño, hay que cortar la red con cuidado, sin tocar al animal. Un manatí asustado puede agitarse y lastimarse más.',
-      biologa6: '¡Hay un manatí adulto atrapado ahora mismo! Ve a la red fantasma al este y usa [E] para cortarla. ¡Rápido, pero con calma!',
+      biologa6: '¡Hay un manatí adulto atrapado ahora mismo! Ve a la red fantasma al este y usa [E/Enter] para cortarla. ¡Rápido, pero con calma!',
 
       // Tortuga Verde — conciencia sobre contaminación marina
       tortugaVerde1: 'Soy una tortuga verde. A diferencia de la carey, como algas y pastos marinos.',
@@ -791,10 +791,10 @@ const es = {
     intro1: 'El cemí brilla con una luz sobrenatural...',
     intro2: 'Una presencia antigua despierta. Tu conciencia se traslada a otro plano.',
     intro3: '¡Esquiva los orbes y sobrevive hasta que el espíritu se debilite!',
-    continuar: '[E] Comenzar',
+    continuar: '[E/Enter] Comenzar',
     ciclo: 'Ciclo',
     aturdido: '¡El espíritu está aturdido!',
-    atacar: '[E] Atacar con la Espada de Enriquillo',
+    atacar: '[E/Enter] Atacar con la Espada de Enriquillo',
     victoria: 'Has dominado al espíritu del cemí.',
     victoriaDialogo1: '¡¿Cómo te ATREVES a despertarme de mi sueño eterno?!',
     victoriaDialogo2: 'Pero... debo admitir que esta gloriosa batalla ha sido lo más divertido que he tenido en siglos.',
@@ -815,14 +815,14 @@ const es = {
     ctrl4: '↓ : Agacharse (esquivar ataques altos)',
     modoPaz: '🕊️ Modo Pacifista — Defiéndete mientras dialogas',
     modoAtaque: '⚔️ Modo Agresivo — Derrota al soldado',
-    comenzar: '[E] Comenzar',
+    comenzar: '[E/Enter] Comenzar',
     tuVida: 'HP',
     conviccion: 'Convicción',
     controles: '← → Moverse | E Atacar | Q Bloquear | ↓ Agacharse',
     victoriaPaz: '🕊️ Diego se rinde — ¡Victoria Pacifista!',
     victoriaFuerza: '⚔️ ¡Victoria por la fuerza!',
     derrota: '💀 Has sido derrotado...',
-    continuar: '[E] Continuar',
+    continuar: '[E/Enter] Continuar',
     paz1: '¡Espera! Solo quiero hablar de historia.',
     paz2: 'Estas ruinas cuentan la historia de tu pueblo.',
     paz3: 'La Isabela fue la primera ciudad europea en América. ¡Merece protección!',
@@ -846,7 +846,7 @@ const es = {
     introCeremonia3: '¡Demuestra tu habilidad en el batey!',
     reglas: 'Reglas: golpea la pelota con cadera, hombros o cabeza. ¡Sin manos ni pies!',
     reglas2: 'Primero en 5 puntos gana. La pelota no puede tocar el suelo de tu lado.',
-    continuar: '[E] Continuar',
+    continuar: '[E/Enter] Continuar',
     controles: '← → mover | Golpea con el cuerpo (cadera, hombro, cabeza, rodilla)',
     saqueJugador: '¡Tu saque!',
     saqueRival: '¡Saque de Guarocuya!',
@@ -964,7 +964,7 @@ const es = {
     titulo: 'Inventario',
     vacio: 'Tu mochila está vacía',
     lleno: 'Mochila llena',
-    usar: '[E] Usar',
+    usar: '[E/Enter] Usar',
     cerrar: '[I] o [Q] Cerrar',
     slots: 'slots'
   },
@@ -1000,7 +1000,7 @@ const es = {
   tutorial: {
     bienvenida: '¡Bienvenido/a a ArcLycée!',
     movimiento: 'Usa las flechas o WASD para moverte',
-    accion: 'Presiona E para interactuar con objetos y personajes',
+    accion: 'Presiona E/Enter para interactuar con objetos y personajes',
     saltar: 'Presiona ESPACIO para saltar (en zonas de plataformas)'
   },
 
@@ -1281,26 +1281,26 @@ const es = {
   // (controles, etiquetas de acción, indicadores del HUD)
   ui: {
     // --- Indicadores de continuar ---
-    presionaE: 'Presiona E para continuar',
-    presionaESaltar: 'Presiona E para saltar',
+    presionaE: 'Presiona E/Enter para continuar',
+    presionaESaltar: 'Presiona E/Enter para saltar',
     cartelNoGrafiti: 'No escribir en las paredes',
     cartelProteger: 'Protejamos los petroglifos',
-    eContinuar: '[E] Continuar',
-    eComenzar: '[E] Comenzar',
+    eContinuar: '[E/Enter] Continuar',
+    eComenzar: '[E/Enter] Comenzar',
     comenzar: 'Comenzar',
     continuar: 'Continuar',
 
     // --- Acciones sobre NPCs y objetos ---
-    eHablar: '[E] Hablar',
-    eExaminar: '[E] Examinar',
-    eEntrar: '[E] Entrar',
-    eCurar: '[E] Curar',
-    eAdoptar: '[E] Adoptar',
-    eExcavar: '[E] Excavar',
-    eAlerta: '[E] ¡Alerta!',
-    eSospechoso: '[E] ¡Sospechoso!',
-    eLiberar: '[E] Liberar',
-    eLiberarManati: '[E] Liberar manatí',
+    eHablar: '[E/Enter] Hablar',
+    eExaminar: '[E/Enter] Examinar',
+    eEntrar: '[E/Enter] Entrar',
+    eCurar: '[E/Enter] Curar',
+    eAdoptar: '[E/Enter] Adoptar',
+    eExcavar: '[E/Enter] Excavar',
+    eAlerta: '[E/Enter] ¡Alerta!',
+    eSospechoso: '[E/Enter] ¡Sospechoso!',
+    eLiberar: '[E/Enter] Liberar',
+    eLiberarManati: '[E/Enter] Liberar manatí',
     fDetectarMetal: '[F] Detectar Metal',
 
     // --- Controles de mundos (barra inferior) ---
@@ -1352,7 +1352,7 @@ const es = {
     activada: 'Activada',
     desactivada: 'Desactivada',
     danoEnCombate: 'daño en combate',
-    eExaminar: '[E] Examinar',
+    eExaminar: '[E/Enter] Examinar',
     caritasDescubiertas: 'Las Caritas descubiertas — petroglifos taínos',
     controlespalenque: 'WASD: mover | E: hablar | I: inventario | M: mapa | P: fotos | L: misiones',
     controlesLago: 'WASD: mover | E: hablar | M: mapa',
@@ -1396,7 +1396,7 @@ const es = {
     cancelar: 'cancelar',
 
     // --- Diálogos ---
-    presionaEContinuar: 'Presiona E para continuar ▶',
+    presionaEContinuar: 'Presiona E/Enter para continuar ▶',
 
     // --- Selección de personaje ---
     descripcionPersonaje: '14 años. Ascendencia taína, española y africana.',

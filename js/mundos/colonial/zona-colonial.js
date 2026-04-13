@@ -2011,7 +2011,7 @@ export class ZonaColonial {
       ctx.font = '11px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${Math.sin(this.tiempoTotal * 4) > 0 ? 1 : 0.4})`;
       ctx.textAlign = 'center';
-      ctx.fillText('[E]', gx + 10, gy - 18);
+      ctx.fillText('[E/⏎]', gx + 10, gy - 18);
       ctx.textAlign = 'left';
     }
   }

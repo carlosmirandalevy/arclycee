@@ -900,7 +900,7 @@ export class LagoEnriquillo {
           ctx.font = 'bold 10px monospace';
           ctx.fillStyle = '#CCAAFF';
           ctx.textAlign = 'center';
-          ctx.fillText('[E]', arbX, arbY - 15);
+          ctx.fillText('[E/⏎]', arbX, arbY - 15);
           ctx.textAlign = 'left';
         }
       }
@@ -933,7 +933,7 @@ export class LagoEnriquillo {
             ctx.font = 'bold 10px monospace';
             ctx.fillStyle = '#FFD700';
             ctx.textAlign = 'center';
-            ctx.fillText('[E]', esX, esY - 18);
+            ctx.fillText('[E/⏎]', esX, esY - 18);
             ctx.textAlign = 'left';
           }
         }

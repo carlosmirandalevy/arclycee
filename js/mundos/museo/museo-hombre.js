@@ -296,7 +296,7 @@ export class MuseoHombre {
           ctx.fillStyle = '#FFD700';
           ctx.font = 'bold 12px monospace';
           ctx.textAlign = 'center';
-          ctx.fillText('[E]', npc.x + 14, npc.y - 18);
+          ctx.fillText('[E/⏎]', npc.x + 14, npc.y - 18);
           ctx.textAlign = 'left';
         }
       }

@@ -2309,7 +2309,7 @@ export class SantuarioManati {
       ctx.font = '9px monospace';
       ctx.fillStyle = `rgba(255, 215, 0, ${0.4 + Math.sin(this.tiempoTotal * 3) * 0.3})`;
       ctx.textAlign = 'center';
-      ctx.fillText('[E]', dx + 6, dy - 8 + flotacion);
+      ctx.fillText('[E/⏎]', dx + 6, dy - 8 + flotacion);
       ctx.textAlign = 'left';
     }
   }

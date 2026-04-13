@@ -543,7 +543,7 @@ export class SistemaBossCemi {
       if (this._tiempoFase > 2) {
         ctx.font = '13px monospace';
         ctx.fillStyle = '#666666';
-        ctx.fillText('[E]', ancho / 2, alto / 2 + 40);
+        ctx.fillText('[E/⏎]', ancho / 2, alto / 2 + 40);
       }
       ctx.textAlign = 'left';
       return;
@@ -656,7 +656,7 @@ export class SistemaBossCemi {
         const p = 0.5 + Math.sin(this._tiempoTotal * 4) * 0.3;
         ctx.fillStyle = `rgba(255, 215, 0, ${p})`;
         ctx.font = 'bold 13px monospace';
-        ctx.fillText('[E]', ancho / 2, ly + 65);
+        ctx.fillText('[E/⏎]', ancho / 2, ly + 65);
       }
       ctx.textAlign = 'left';
       return;
@@ -765,7 +765,7 @@ export class SistemaBossCemi {
         const p = 0.5 + Math.sin(this._tiempoTotal * 4) * 0.3;
         ctx.fillStyle = `rgba(255, 215, 0, ${p})`;
         ctx.font = '13px monospace';
-        ctx.fillText('[E]', ancho / 2, alto / 2 + 40);
+        ctx.fillText('[E/⏎]', ancho / 2, alto / 2 + 40);
       }
       ctx.textAlign = 'left';
     }
