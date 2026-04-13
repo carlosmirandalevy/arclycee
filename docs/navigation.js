@@ -12,115 +12,138 @@
   'use strict';
 
   // ============================================================
+  // LUCIDE SVG ICONS — inline, no CDN dependency
+  // ============================================================
+  var SVG = function(d) { return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>'; };
+  var ICO = {
+    home:     SVG('<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'),
+    scroll:   SVG('<path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/>'),
+    globe:    SVG('<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>'),
+    users:    SVG('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'),
+    msg:      SVG('<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/>'),
+    wrench:   SVG('<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>'),
+    cog:      SVG('<circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'),
+    code:     SVG('<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>'),
+    grad:     SVG('<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>'),
+    book:     SVG('<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>'),
+    robot:    SVG('<rect width="18" height="10" x="3" y="11" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" x2="8" y1="16" y2="16"/><line x1="16" x2="16" y1="16" y2="16"/>'),
+    compass:  SVG('<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>'),
+    pen:      SVG('<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>'),
+    landmark: SVG('<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>'),
+    leaf:     SVG('<path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>'),
+    swords:   SVG('<polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" x2="19" y1="19" y2="13"/><line x1="16" x2="20" y1="16" y2="20"/><line x1="19" x2="21" y1="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" x2="9" y1="14" y2="18"/><line x1="7" x2="4" y1="17" y2="20"/><line x1="3" x2="5" y1="19" y2="21"/>'),
+  };
+
+  // ============================================================
   // CONFIGURACIÓN DE PÁGINAS POR IDIOMA
   // Cada entrada mapea un id de sección a sus archivos en cada idioma.
   // ============================================================
   const PAGINAS = {
     overview: {
-      icono: '📖',
+      icono: ICO.home,
       label: { es: 'Inicio', en: 'Home', fr: 'Accueil' },
       archivos: { es: 'index.html', en: 'en.html', fr: 'fr.html' }
     },
     // --- La Historia (grupo con subitems) ---
     historiaGrupo: {
-      icono: '📜',
+      icono: ICO.swords,
       label: { es: 'El Juego', en: 'Game Concept', fr: 'Le Jeu' },
       grupo: true,
       children: ['historia', 'narrativa', 'worlds', 'characters', 'dialogues', 'archaeology', 'nature']
     },
     historia: {
-      icono: '📖',
+      icono: ICO.book,
       label: { es: 'Historia', en: 'Story', fr: 'Histoire' },
       archivos: { es: 'historia.html', en: 'historia-en.html', fr: 'historia-fr.html' },
       parent: 'historiaGrupo'
     },
     narrativa: {
-      icono: '📜',
+      icono: ICO.scroll,
       label: { es: 'Narrativa', en: 'Narrative', fr: 'Récit' },
       archivos: { es: 'narrativa.html', en: 'narrativa-en.html', fr: 'narrativa-fr.html' },
       parent: 'historiaGrupo'
     },
     worlds: {
-      icono: '🌍',
+      icono: ICO.globe,
       label: { es: 'Mundos', en: 'Worlds', fr: 'Mondes' },
       archivos: { es: 'worlds.html', en: 'worlds-en.html', fr: 'worlds-fr.html' },
       parent: 'historiaGrupo'
     },
     characters: {
-      icono: '👥',
+      icono: ICO.users,
       label: { es: 'Personajes', en: 'Characters', fr: 'Personnages' },
       archivos: { es: 'characters.html', en: 'characters-en.html', fr: 'characters-fr.html' },
       parent: 'historiaGrupo'
     },
     dialogues: {
-      icono: '💬',
+      icono: ICO.msg,
       label: { es: 'Diálogos', en: 'Dialogues', fr: 'Dialogues' },
       archivos: { es: 'dialogues.html', en: 'dialogues-en.html', fr: 'dialogues-fr.html' },
       parent: 'historiaGrupo'
     },
     // --- Técnico (grupo con subitems) ---
     tecnicoGrupo: {
-      icono: '🔧',
+      icono: ICO.wrench,
       label: { es: 'Técnico', en: 'Technical', fr: 'Technique' },
       grupo: true,
       children: ['mechanics', 'technical']
     },
     mechanics: {
-      icono: '⚙️',
+      icono: ICO.cog,
       label: { es: 'Mecánicas', en: 'Mechanics', fr: 'Mécaniques' },
       archivos: { es: 'mechanics.html', en: 'mechanics-en.html', fr: 'mechanics-fr.html' },
       parent: 'tecnicoGrupo'
     },
     technical: {
-      icono: '💻',
+      icono: ICO.code,
       label: { es: 'Programación', en: 'Programming', fr: 'Programmation' },
       archivos: { es: 'technical.html', en: 'technical-en.html', fr: 'technical-fr.html' },
       parent: 'tecnicoGrupo'
     },
     // --- Pedagogía (grupo con subitems) ---
     pedagogiaGrupo: {
-      icono: '🎓',
+      icono: ICO.grad,
       label: { es: 'Pedagogía', en: 'Pedagogy', fr: 'Pédagogie' },
       grupo: true,
       children: ['pedagogia', 'pedagogiaAI', 'learningGuide', 'assessment']
     },
     pedagogia: {
-      icono: '📚',
+      icono: ICO.book,
       label: { es: 'Educación', en: 'Education', fr: 'Éducation' },
       archivos: { es: 'pedagogy.html', en: 'pedagogy-en.html', fr: 'pedagogy-fr.html' },
       parent: 'pedagogiaGrupo'
     },
     pedagogiaAI: {
-      icono: '🤖',
+      icono: ICO.robot,
       label: { es: 'Uso de IA', en: 'AI Usage', fr: 'Usage de l\'IA' },
       archivos: { es: 'pedagogy-ai.html', en: 'pedagogy-ai-en.html', fr: 'pedagogy-ai-fr.html' },
       parent: 'pedagogiaGrupo'
     },
     learningGuide: {
-      icono: '🧭',
+      icono: ICO.compass,
       label: { es: 'Guía de Aprendizaje', en: 'Learning Guide', fr: 'Guide d\'Apprentissage' },
       archivos: { es: 'learning-guide.html', en: 'learning-guide-en.html', fr: 'learning-guide-fr.html' },
       parent: 'pedagogiaGrupo'
     },
     assessment: {
-      icono: '📝',
+      icono: ICO.pen,
       label: { es: 'Evaluación', en: 'Assessment', fr: 'Évaluation' },
       archivos: { es: 'assessment.html', en: 'assessment-en.html', fr: 'assessment-fr.html' },
       parent: 'pedagogiaGrupo'
     },
     encyclopedia: {
-      icono: '📖',
+      icono: ICO.book,
       label: { es: 'Arquepedia', en: 'Archpedia', fr: 'Archepédie' },
       archivos: { es: 'encyclopedia.html', en: 'encyclopedia-en.html', fr: 'encyclopedia-fr.html' }
     },
     archaeology: {
-      icono: '🏛️',
+      icono: ICO.landmark,
       label: { es: 'Arqueología', en: 'Archaeology', fr: 'Archéologie' },
       archivos: { es: 'archaeology.html', en: 'archaeology-en.html', fr: 'archaeology-fr.html' },
       parent: 'historiaGrupo'
     },
     nature: {
-      icono: '🌿',
+      icono: ICO.leaf,
       label: { es: 'Naturaleza', en: 'Nature', fr: 'Nature' },
       archivos: { es: 'nature.html', en: 'nature-en.html', fr: 'nature-fr.html' },
       parent: 'historiaGrupo'
