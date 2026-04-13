@@ -104,17 +104,37 @@ body::after {
    ============================================================ */
 .hero {
   text-align: center;
-  padding: 56px 24px 64px;
+  padding: 100px 28px 110px;
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200,150,42,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 70% at 50% 10%, rgba(200,150,42,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(184,107,74,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 20% 50%, rgba(200,150,42,0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 50%, rgba(184,107,74,0.03) 0%, transparent 40%),
     linear-gradient(180deg, #1a1510 0%, var(--fondo) 100%);
 }
 [data-theme="light"] .hero {
   background:
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200,150,42,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 70% at 50% 10%, rgba(200,150,42,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(184,107,74,0.06) 0%, transparent 40%),
     linear-gradient(180deg, #E8DCC8 0%, var(--fondo) 100%);
+}
+/* Animated gold shimmer — like torchlight on cave gold */
+@keyframes heroGlow {
+  0%, 100% { opacity: 0.15; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.25; transform: translateX(-50%) scale(1.05); }
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  width: 140%;
+  height: 70%;
+  background: radial-gradient(ellipse, rgba(232,184,74,0.08) 0%, transparent 70%);
+  animation: heroGlow 8s ease-in-out infinite;
+  pointer-events: none;
 }
 /* Taíno spiral watermark */
 .hero::before {
@@ -143,28 +163,29 @@ body::after {
 }
 .hero h1 {
   font-family: var(--fuente-titulo);
-  font-size: 3.4rem;
+  font-size: 5rem;
   color: var(--dorado-claro);
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 6px;
   text-transform: uppercase;
-  line-height: 1.2;
+  line-height: 1.1;
+  text-shadow: 0 4px 30px rgba(200,150,42,0.35), 0 0 80px rgba(200,150,42,0.12);
 }
 .hero .subtitulo {
   font-family: var(--fuente-titulo);
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--texto-tenue);
-  margin-top: 8px;
+  margin-top: 16px;
   font-style: italic;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
 }
 .hero .descripcion {
-  max-width: 680px;
-  margin: 28px auto 0;
-  font-size: 1.05rem;
+  max-width: 720px;
+  margin: 36px auto 0;
+  font-size: 1.18rem;
   color: var(--texto);
-  line-height: 1.85;
+  line-height: 1.9;
 }
 .hero .badges {
   margin-top: 28px;
@@ -175,17 +196,18 @@ body::after {
 }
 .badge {
   display: inline-block;
-  padding: 5px 14px;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   border: 1px solid var(--borde);
-  background: rgba(0,0,0,0.2);
-  transition: transform 0.2s, background 0.2s;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
 }
-.badge:hover { transform: translateY(-1px); background: rgba(0,0,0,0.3); }
+.badge:hover { transform: translateY(-2px); background: rgba(0,0,0,0.35); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
 .badge.tech { color: var(--azul); border-color: var(--azul); }
 .badge.edu { color: var(--verde); border-color: var(--verde); }
 .badge.lang { color: var(--morado); border-color: var(--morado); }
@@ -200,7 +222,7 @@ body::after {
 }
 
 section {
-  padding: 64px 0;
+  padding: 80px 0;
   border-bottom: 1px solid var(--borde);
   position: relative;
 }
@@ -237,69 +259,77 @@ section + section::after {
    ============================================================ */
 h2 {
   font-family: var(--fuente-titulo);
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-size: 3.2rem;
+  font-weight: 700;
   color: var(--dorado);
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   display: flex;
   align-items: center;
-  gap: 14px;
-  letter-spacing: 1px;
+  gap: 18px;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 20px;
 }
 h2 .icono {
-  font-size: 1.4rem;
-  width: 44px;
-  height: 44px;
+  font-size: 1.8rem;
+  width: 58px;
+  height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(200,150,42,0.08);
-  border: 1px solid var(--borde);
+  background: rgba(200,150,42,0.12);
+  border: 2px solid var(--dorado-apagado);
   flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(200,150,42,0.15);
 }
+/* Thick golden bar under heading — like a museum plaque underline */
 h2::after {
   content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--dorado-apagado) 0%, transparent 100%);
-  opacity: 0.4;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--dorado) 0%, var(--dorado-apagado) 40%, transparent 100%);
+  opacity: 0.5;
 }
 
 h3 {
   font-family: var(--fuente-titulo);
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
   color: var(--dorado-claro);
-  margin: 40px 0 14px;
-  padding-left: 18px;
-  border-left: 3px solid var(--terracota);
+  margin: 56px 0 20px;
+  padding-left: 22px;
+  border-left: 5px solid var(--terracota);
   letter-spacing: 0.5px;
 }
 [data-theme="light"] h3 { color: var(--dorado); }
 
 h4 {
   font-family: var(--fuente-titulo);
-  font-size: 1.15rem;
+  font-size: 1.45rem;
   font-weight: 600;
   color: var(--terracota);
-  margin: 28px 0 10px;
+  margin: 36px 0 14px;
   letter-spacing: 0.3px;
 }
 [data-theme="light"] h4 { color: var(--dorado); }
 
-p { margin-bottom: 14px; }
+p { margin-bottom: 16px; font-size: 1.02rem; }
 
 p.intro {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-style: italic;
   color: var(--texto-tenue);
-  margin-bottom: 28px;
-  padding: 16px 20px;
-  background: rgba(200,150,42,0.04);
-  border-left: 3px solid var(--dorado-apagado);
+  margin-bottom: 36px;
+  padding: 24px 28px;
+  background: rgba(200,150,42,0.06);
+  border-left: 4px solid var(--dorado-apagado);
   border-radius: 0 var(--radio) var(--radio) 0;
-  line-height: 1.8;
+  line-height: 1.85;
+  box-shadow: inset 0 0 30px rgba(200,150,42,0.02);
 }
 
 a {
@@ -361,22 +391,23 @@ kbd {
   background: var(--fondo-tarjeta);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
-  padding: 32px;
-  margin-bottom: 32px;
+  padding: 36px;
+  margin-bottom: 36px;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--sombra);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--sombra), inset 0 1px 0 rgba(200,150,42,0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.3s;
 }
 .mundo-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   box-shadow: var(--sombra-hover);
+  border-color: var(--dorado-apagado);
 }
 .mundo-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 3px;
+  height: 4px;
 }
 .mundo-card.taino::before { background: linear-gradient(90deg, var(--dorado-apagado), var(--terracota), transparent 80%); }
 .mundo-card.colonial::before { background: linear-gradient(90deg, var(--acento-colonial), var(--dorado-apagado), transparent 80%); }
@@ -391,8 +422,8 @@ kbd {
 }
 .mundo-titulo {
   font-family: var(--fuente-titulo);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.85rem;
+  font-weight: 700;
   color: var(--dorado-claro);
   letter-spacing: 0.5px;
 }
@@ -1045,11 +1076,14 @@ footer .equipo { margin-top: 12px; font-size: 0.84rem; }
 
 @media (max-width: 600px) {
   .doc-nav { padding: 6px 10px; }
-  .hero { padding: 36px 16px 44px; }
-  .hero h1 { font-size: 2rem; letter-spacing: 2px; }
-  .hero .subtitulo { font-size: 1rem; }
-  h2 { font-size: 1.7rem; }
-  h3 { font-size: 1.25rem; }
+  .hero { padding: 56px 16px 64px; }
+  .hero h1 { font-size: 2.6rem; letter-spacing: 3px; }
+  .hero .subtitulo { font-size: 1.1rem; }
+  h2 { font-size: 2.2rem; padding-bottom: 16px; }
+  h2 .icono { width: 46px; height: 46px; font-size: 1.4rem; }
+  h3 { font-size: 1.5rem; }
+  h4 { font-size: 1.2rem; }
+  p.intro { font-size: 1.08rem; padding: 18px 20px; }
   .contenedor { padding: 0 16px; }
-  section { padding: 40px 0; }
+  section { padding: 48px 0; }
 }
