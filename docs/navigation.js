@@ -131,6 +131,11 @@
       archivos: { es: 'assessment.html', en: 'assessment-en.html', fr: 'assessment-fr.html' },
       parent: 'pedagogiaGrupo'
     },
+    about: {
+      icono: ICO.users,
+      label: { es: 'Acerca de', en: 'About', fr: 'À propos' },
+      archivos: { es: 'about.html', en: 'about-en.html', fr: 'about-fr.html' }
+    },
     encyclopedia: {
       icono: ICO.book,
       label: { es: 'Arquepedia', en: 'Archpedia', fr: 'Archepédie' },
