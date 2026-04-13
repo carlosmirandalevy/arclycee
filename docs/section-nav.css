@@ -72,23 +72,9 @@
 }
 .sec-search-nav:disabled { opacity: 0.25; cursor: default; }
 
-/* Sticky when searching */
-.sec-search.sticky {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.3);
-}
-[data-theme="light"] .sec-search.sticky {
-  box-shadow: 0 4px 0 rgba(0,0,0,0.06);
-}
+/* Search placeholder (no longer needed — whole nav is sticky) */
 .sec-search-placeholder { display: none; }
-.sec-search-placeholder.visible { display: block; }
+.sec-search-placeholder.visible { display: none; }
 
 /* --- Cards grid --- */
 .sec-cards {
