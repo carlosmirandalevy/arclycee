@@ -88,7 +88,7 @@
       icono: ICO.wrench,
       label: { es: 'Técnico', en: 'Technical', fr: 'Technique' },
       grupo: true,
-      children: ['mechanics', 'technical', 'changelog', 'cloneUs']
+      children: ['mechanics', 'technical', 'changelog', 'cloneUs', 'contribute']
     },
     mechanics: {
       icono: ICO.cog,
@@ -114,12 +114,18 @@
       archivos: { es: 'clone-us.html', en: 'clone-us-en.html', fr: 'clone-us-fr.html' },
       parent: 'tecnicoGrupo'
     },
+    contribute: {
+      icono: ICO.users,
+      label: { es: 'Participa', en: 'Contribute', fr: 'Contribuer' },
+      archivos: { es: 'contribute.html', en: 'contribute-en.html', fr: 'contribute-fr.html' },
+      parent: 'tecnicoGrupo'
+    },
     // --- Pedagogía (grupo con subitems) ---
     pedagogiaGrupo: {
       icono: ICO.grad,
-      label: { es: 'Pedagogía', en: 'Pedagogy', fr: 'Pédagogie' },
+      label: { es: 'Aprender', en: 'Learn', fr: 'Apprendre' },
       grupo: true,
-      children: ['pedagogia', 'pedagogiaAI', 'learningGuide', 'assessment']
+      children: ['pedagogia', 'pedagogiaAI', 'learningGuide', 'encyclopedia', 'assessment']
     },
     pedagogia: {
       icono: ICO.book,
@@ -150,7 +156,14 @@
       icono: ICO.users,
       label: { es: 'Acerca de', en: 'About', fr: 'À propos' },
       grupo: true,
-      children: ['aboutNota', 'aboutEquipo', 'aboutContacto']
+      children: ['aboutIntro', 'aboutNota', 'aboutEquipo', 'aboutContacto']
+    },
+    aboutIntro: {
+      icono: ICO.book,
+      label: { es: 'Introducción', en: 'Introduction', fr: 'Introduction' },
+      archivos: { es: 'about.html', en: 'about-en.html', fr: 'about-fr.html' },
+      hash: 'introduccion',
+      parent: 'aboutGrupo'
     },
     aboutNota: {
       icono: ICO.pen,
@@ -176,7 +189,8 @@
     encyclopedia: {
       icono: ICO.book,
       label: { es: 'Arquepedia', en: 'Archpedia', fr: 'Archepédie' },
-      archivos: { es: 'encyclopedia.html', en: 'encyclopedia-en.html', fr: 'encyclopedia-fr.html' }
+      archivos: { es: 'encyclopedia.html', en: 'encyclopedia-en.html', fr: 'encyclopedia-fr.html' },
+      parent: 'pedagogiaGrupo'
     },
     archaeology: {
       icono: ICO.landmark,
@@ -458,7 +472,7 @@
     // FOOTER COMPARTIDO — generado dinámicamente para no hardcodear
     // la versión ni el contenido en cada página HTML.
     // ============================================================
-    var VERSION = 'v0.23.0';
+    var VERSION = 'v0.23.1';
     var FOOTER_TEXT = {
       es: {
         tagline: 'Aventura Arqueológica Dominicana',

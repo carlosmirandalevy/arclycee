@@ -949,15 +949,18 @@ export class Juego {
     }
 
     // --- Medidor de reputación a la derecha de la barra de vida ---
+    // Solo visible dentro de mundos jugables (no en menú, combate, mini-juegos, mapa).
     // La barra de Vida ocupa x=10..130, y=10..24.
     // Ponemos la reputación al lado (x=140) en la misma fila para no
     // solapar indicadores de los mundos (NPCs y=42, objetos y=58, etc.)
     // En el Santuario del Manatí la barra de reputación se reemplaza por la de O₂
-    if (this.jugador && !this.inventario.abierto && !this.registro.visible
-        && this.nombreEscenaActual !== 'mapaPrincipal'
-        && this.nombreEscenaActual !== 'santuarioManati'
-        && !this.bossCemi.enJuego
-        && !this.dueloEspada.enJuego) {
+    const enMundoJugable = this.escenasJugables.includes(this.nombreEscenaActual)
+        && this.nombreEscenaActual !== 'mapaPrincipal';
+    const enOverlay = this.combate.enCombate || this.batu.enJuego || this.areito.enJuego
+        || this.bossCemi.enJuego || this.dueloEspada.enJuego || this.rappel?.enJuego
+        || this.inventario.abierto || this.registro.visible;
+    if (this.jugador && enMundoJugable && !enOverlay
+        && this.nombreEscenaActual !== 'santuarioManati') {
       this.reputacion.dibujarMedidor(this.ctx, 140, 10, 100, textos);
     }
 

@@ -363,70 +363,37 @@ export class MenuPrincipal {
   dibujar(renderizador, ancho, alto, textos) {
     const ctx = renderizador.ctx;
 
-    // --- Fondo con degradado oscuro ---
-    // Un degradado de azul muy oscuro a negro da sensación de cueva/misterio
-    const gradiente = ctx.createLinearGradient(0, 0, 0, alto);
-    gradiente.addColorStop(0, '#0a0a2e');
-    gradiente.addColorStop(1, '#000000');
-    ctx.fillStyle = gradiente;
-    ctx.fillRect(0, 0, ancho, alto);
-
-    // --- Partículas ambientales ---
-    // Las dibujamos ANTES del texto para que queden "detrás"
-    for (const p of this.particulasAmbientales) {
-      ctx.fillStyle = `rgba(255, 255, 200, ${p.opacidad})`;
-      ctx.fillRect(p.x, p.y, p.tamano, p.tamano);
-    }
-
-    // --- Imagen hero según idioma ---
-    // La imagen ya contiene el logo, título y subtítulo
+    // --- Imagen hero como fondo completo ---
+    // La imagen cubre todo el canvas (cover), centrada, sin distorsión
     const codigoIdioma = this.codigosIdioma[this.idiomaIndice];
     const imgHero = this.imagenesHero[codigoIdioma];
-    let heroAlto = 0;
 
     if (this.imagenHeroCargada && imgHero && imgHero.complete) {
-      // Escalar la imagen para que ocupe el ancho del canvas
-      // manteniendo la proporción 16:9
-      const escala = ancho / imgHero.naturalWidth;
-      heroAlto = imgHero.naturalHeight * escala;
-      // Limitar la altura máxima al 45% del canvas para dejar espacio al menú
-      const maxAlto = alto * 0.45;
-      if (heroAlto > maxAlto) heroAlto = maxAlto;
-      const imgAncho = heroAlto * (imgHero.naturalWidth / imgHero.naturalHeight);
+      // Escalar tipo "cover": la imagen llena todo el canvas sin deformarse
+      const escalaX = ancho / imgHero.naturalWidth;
+      const escalaY = alto / imgHero.naturalHeight;
+      const escala = Math.max(escalaX, escalaY);
+      const imgAncho = imgHero.naturalWidth * escala;
+      const imgAlto = imgHero.naturalHeight * escala;
+      // Centrar la imagen (recorta los bordes sobrantes)
       const imgX = (ancho - imgAncho) / 2;
-      const imgY = 8;
+      const imgY = (alto - imgAlto) / 2;
+      ctx.drawImage(imgHero, imgX, imgY, imgAncho, imgAlto);
 
-      ctx.drawImage(imgHero, imgX, imgY, imgAncho, heroAlto);
-
-      // Viñeta oscura: bordes de la imagen se funden con el fondo negro
-      // Borde inferior
-      const gradBot = ctx.createLinearGradient(0, imgY + heroAlto - 40, 0, imgY + heroAlto);
-      gradBot.addColorStop(0, 'rgba(0,0,0,0)');
-      gradBot.addColorStop(1, 'rgba(0,0,0,0.95)');
-      ctx.fillStyle = gradBot;
-      ctx.fillRect(imgX, imgY + heroAlto - 40, imgAncho, 40);
-
-      // Borde superior
-      const gradTop = ctx.createLinearGradient(0, imgY, 0, imgY + 25);
-      gradTop.addColorStop(0, 'rgba(10,10,46,0.8)');
-      gradTop.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = gradTop;
-      ctx.fillRect(imgX, imgY, imgAncho, 25);
-
-      // Bordes laterales
-      const gradLeft = ctx.createLinearGradient(imgX, 0, imgX + 30, 0);
-      gradLeft.addColorStop(0, 'rgba(0,0,0,0.85)');
-      gradLeft.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = gradLeft;
-      ctx.fillRect(imgX, imgY, 30, heroAlto);
-
-      const gradRight = ctx.createLinearGradient(imgX + imgAncho - 30, 0, imgX + imgAncho, 0);
-      gradRight.addColorStop(0, 'rgba(0,0,0,0)');
-      gradRight.addColorStop(1, 'rgba(0,0,0,0.85)');
-      ctx.fillStyle = gradRight;
-      ctx.fillRect(imgX + imgAncho - 30, imgY, 30, heroAlto);
+      // Oscurecer la mitad inferior para que el menú sea legible
+      const gradOscuro = ctx.createLinearGradient(0, alto * 0.25, 0, alto * 0.55);
+      gradOscuro.addColorStop(0, 'rgba(0,0,0,0)');
+      gradOscuro.addColorStop(1, 'rgba(0,0,0,0.75)');
+      ctx.fillStyle = gradOscuro;
+      ctx.fillRect(0, alto * 0.25, ancho, alto * 0.75);
     } else {
-      // Fallback: título de texto si la imagen no cargó
+      // Fallback: degradado oscuro si la imagen no cargó
+      const gradiente = ctx.createLinearGradient(0, 0, 0, alto);
+      gradiente.addColorStop(0, '#0a0a2e');
+      gradiente.addColorStop(1, '#000000');
+      ctx.fillStyle = gradiente;
+      ctx.fillRect(0, 0, ancho, alto);
+
       ctx.save();
       ctx.font = 'bold 48px monospace';
       ctx.fillStyle = '#FFD700';
@@ -436,7 +403,12 @@ export class MenuPrincipal {
       ctx.fillStyle = '#CCCCCC';
       ctx.fillText('Aventura Arqueológica Dominicana', ancho / 2, 150 + this.animacionTitulo);
       ctx.restore();
-      heroAlto = 160;
+    }
+
+    // --- Partículas ambientales sobre la imagen ---
+    for (const p of this.particulasAmbientales) {
+      ctx.fillStyle = `rgba(255, 255, 200, ${p.opacidad})`;
+      ctx.fillRect(p.x, p.y, p.tamano, p.tamano);
     }
 
     // --- Opciones del menú ---
@@ -446,9 +418,10 @@ export class MenuPrincipal {
       return;
     }
 
-    // Posicionar opciones debajo de la imagen hero
-    const inicioY = Math.max(heroAlto + 30, 220);
+    // Centrar el menú verticalmente en la pantalla
     const espaciado = 32;
+    const menuAlto = this.opciones.length * espaciado;
+    const inicioY = (alto - menuAlto) / 2 + alto * 0.15;
 
     for (let i = 0; i < this.opciones.length; i++) {
       const opcion = this.opciones[i];
@@ -516,7 +489,7 @@ export class MenuPrincipal {
     ctx.font = '11px monospace';
     ctx.fillStyle = '#333333';
     ctx.fillText(
-      'v0.23.0 - Liceo Francés de Santo Domingo 2026',
+      'v0.23.1 - Liceo Francés de Santo Domingo 2026',
       ancho / 2,
       alto - 15
     );

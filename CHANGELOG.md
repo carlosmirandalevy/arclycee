@@ -1,6 +1,30 @@
 # Changelog
 
-## v0.23.0 — Cazador de Cimarrones, music integration, docs changelog & clone (2026-04-13)
+## v0.23.1 — UI polish, Contribute page, menu reorganization (2026-04-13)
+
+### Agregado (docs)
+- **Página Participa / Contribute / Contribuer** (`contribute.html`, `-en.html`, `-fr.html`): invita a estudiantes, profesores, arqueólogos y programadores a contribuir. Explica que el proyecto está en desarrollo continuo y nunca se detiene. Secciones por audiencia con formas concretas de ayudar
+- **Sección Introducción en about** (ES/EN/FR): explica cómo ArcLycée nació como un proyecto paralelo del curso de Robótica y se ha convertido en un RPG educativo completo en desarrollo continuo. Invita a contribuir
+- **Subtítulo "Mentor" en about**: Carlos Miranda Levy con enlace a thesocialentrepreneur.com como mentor del proyecto (ES/EN/FR)
+- **Menú Técnico expandido a 5 ítems**: Mecánicas, Programación, Cambios, Clónanos, Participa
+- **Menú "Acerca de" expandido a 4 ítems**: Introducción, Nota del Profesor, Equipo, Contáctanos (todos con anchor links a secciones dentro de la misma página)
+- **Arquepedia movida al menú Aprender**: antes era un ítem top-level, ahora está entre Guía de Aprendizaje y Evaluación
+- **Landing features clicables**: las 5 tarjetas de características en las landing pages ahora enlazan a las páginas de docs correspondientes (13 Mundos→worlds, Ruta Pacifista→mechanics, Educativo→pedagogy, Creado por Estudiantes→about#equipo, Código Abierto→clone-us)
+
+### Mejorado
+- **Menú "Pedagogía" renombrado a "Aprender"** (ES: Aprender, EN: Learn, FR: Apprendre) — más acogedor e inclusivo
+- **Hero image en menú principal del juego**: ahora es fondo completo del canvas (cover scaling, sin distorsión) con gradiente oscuro en la mitad inferior. El menú se centra verticalmente sobre la imagen
+- **Marco de hero image en landing pages**: borde 4px dorado-apagado estilo brutalist en las 3 landing pages y las 3 dashboards de docs. Click en la imagen hace scroll suave al selector de idioma
+- **Landing pages docs**: agregado selector de idioma con flags SVG coloridos (ES/EN/FR) debajo de la imagen hero
+- **Intro de landing pages reescrito**: "2D educational RPG" → "super fun, engaging adventure videogame". "Les Fous du Robot" ahora con efecto de brillo dorado (text-shadow)
+- **"Designed for the classroom" → "Designed for learning while having fun, in and out of the classroom"** (ES/EN/FR)
+- **"Pedagogical" → "Educational"** en tarjetas de landing pages
+- **Reputación solo visible en mundos jugables**: la barra de reputación ya no aparece en menú principal, combate, mini-juegos, cinemáticas ni mapa. Se muestra igual que en los mundos
+- **Click en hero image (landing pages y docs dashboards)**: scroll suave hacia el contenido debajo
+- **#nav-dashboard sin padding top** en los docs dashboards
+
+### Corregido
+- **Carlos Miranda Levy como mentor** agregado formalmente a la página About con enlace a su sitio
 
 ### Agregado (juego)
 - **Sabueso del Cazador de Cimarrones**: el cazador colonial ahora viene acompañado de un sabueso rastreador visible en el sprite de combate. 35% de probabilidad de ataque de mordida por turno (daño reducido, +3 hostilidad). i18n `montana.ataquePerro` (ES/EN/FR)

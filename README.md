@@ -83,6 +83,9 @@ El sitio `/docs` incluye documentación trilingüe (ES/EN/FR) con:
 - **Guía de Aprendizaje** — 40+ actividades para educadores y padres organizadas por área curricular
 - **Aspectos Educativos** — Historia, Geografía, Ciencias Naturales, Civismo, STEM, Conciencia Cultural, Idiomas
 - **Uso Responsable de IA** — Transparencia, supervisión docente, principios éticos
+- **Participa / Contribute** — Página que invita a estudiantes, profesores, arqueólogos y programadores a contribuir al proyecto en desarrollo continuo
+- **Registro de Cambios** — Carga dinámicamente el CHANGELOG.md y lo renderiza como HTML
+- **Clónanos / Clone Us** — Instrucciones para clonar el repositorio desde GitHub y ejecutar el juego localmente
 - Mecánicas, Programación, Mundos, Personajes, Diálogos, Arqueología, Naturaleza
 
 ## Equipo
