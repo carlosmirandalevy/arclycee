@@ -51,6 +51,7 @@ firebase deploy
 | Tomar foto | T | — |
 | Tomar selfie | G | — |
 | Álbum de fotos | P | — |
+| Ayuda (controles) | H | — |
 
 **En móvil**: el control de movimiento puede ser un **joystick analógico** (por defecto) o una **cruceta de 4 botones**. Se cambia desde Opciones en el menú principal.
 

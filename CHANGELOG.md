@@ -23,12 +23,27 @@
 - **Pista de Anacaona**: toast tras primera conversación sugiriendo misión secreta
 - **HUD de Lago Enriquillo**: contadores NPCs 0/3, Caritas 0/1, Espada ⚔️ 0/1
 
+### Agregado (juego, continuación)
+- **Tecla H — overlay de ayuda global**: muestra todos los controles del juego en dos columnas (movimiento, interacción, menús, fotos, combate, mini-juegos). Se cierra con H o Esc. Totalmente traducido (35 claves i18n × 3 idiomas)
+- **HUD en Museo del Hombre Dominicano**: barra de vida, misión, NPCs 0/4, artefactos 🏺 0/3, nombre del lugar y controles
+- **HUD en LFSD**: barra de vida, misión, NPCs 0/12 (excluye mentor), quests 🔬 0/3, nombre y controles
+- **Controles en Manantial de la Aleta**: nombre del lugar + instrucciones en cueva oscura y cenote
+- **Cenote más visible**: agrandado de 60×60 a 120×120, brillo turquesa pulsante, anillo, etiqueta "▼ Cenote ▼", brújula direccional con distancia en metros
+- **E/Enter en todos los prompts**: "Presiona E" → "Presiona E/Enter", "[E]" → "[E/⏎]" (160 strings en 8 archivos)
+- **Tema "Excavation Journal"**: Cormorant Garamond + Source Sans 3, paleta cueva-tierra, espirales taínas, textura de sedimento. Tema alternativo "Strata" en styles2.css (DM Serif Display + DM Sans, estilo museo)
+
 ### Corregido
 - **Salto en Cuevas del Pomier independiente del framerate**: gravedad escalada por factorTiempo
+- **Crash al recibir equipo de buceo**: `inventario.agregarObjeto()` → `inventario.agregar()` (método inexistente)
+- **Rapel: flechas dejaban de aparecer**: prompts resueltos inflaban el conteo, impidiendo generar nuevos
 - **Match scoring por texto**: compara texto de parejas, no índices (maneja duplicados)
+- **Match re-pairing**: items derecho ya emparejados no se "roban" silenciosamente
 - **Sinónimos en fill-in-the-blank**: 150 preguntas ahora aceptan respuestas alternativas válidas
 - **Acentos corregidos**: history.js y social.js reescritos con acentos correctos ES/FR
 - **Docs link en menú del juego**: `docs/` en vez de `docs/index.html` para localhost
+- **Lago Enriquillo controles hardcodeados**: ahora traducibles vía `ui.controlesLago`
+- **Versión actualizada**: v0.22.0 en menú principal, loading screen y todas las páginas de docs
+- **Diagrama de arquitectura**: 13 mundos en vez de 9
 
 ---
 
