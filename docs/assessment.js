@@ -32,12 +32,12 @@
       true: 'Verdadero',
       false: 'Falso',
       quizNames: {
-        history: '📜 Historia',
-        geography: '🗺️ Geografía',
-        sciences: '🔬 Ciencias Naturales',
-        social: '🤝 Habilidades Sociales',
-        cultural: '🎭 Conciencia Cultural',
-        stem: '🔧 STEM'
+        history: 'Historia',
+        geography: 'Geografía',
+        sciences: 'Ciencias Naturales',
+        social: 'Habilidades Sociales',
+        cultural: 'Conciencia Cultural',
+        stem: 'STEM'
       },
       quizDescs: {
         history: 'Taínos, cimarrones, colonia y patrimonio arqueológico',
@@ -91,12 +91,12 @@
       true: 'True',
       false: 'False',
       quizNames: {
-        history: '📜 History',
-        geography: '🗺️ Geography',
-        sciences: '🔬 Natural Sciences',
-        social: '🤝 Social Skills',
-        cultural: '🎭 Cultural Awareness',
-        stem: '🔧 STEM'
+        history: 'History',
+        geography: 'Geography',
+        sciences: 'Natural Sciences',
+        social: 'Social Skills',
+        cultural: 'Cultural Awareness',
+        stem: 'STEM'
       },
       quizDescs: {
         history: 'Taínos, maroons, colonial era and archaeological heritage',
@@ -150,12 +150,12 @@
       true: 'Vrai',
       false: 'Faux',
       quizNames: {
-        history: '📜 Histoire',
-        geography: '🗺️ Géographie',
-        sciences: '🔬 Sciences Naturelles',
-        social: '🤝 Compétences Sociales',
-        cultural: '🎭 Conscience Culturelle',
-        stem: '🔧 STEM'
+        history: 'Histoire',
+        geography: 'Géographie',
+        sciences: 'Sciences Naturelles',
+        social: 'Compétences Sociales',
+        cultural: 'Conscience Culturelle',
+        stem: 'STEM'
       },
       quizDescs: {
         history: 'Taïnos, marrons, ère coloniale et patrimoine archéologique',
