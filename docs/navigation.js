@@ -430,13 +430,52 @@
       }
     }
 
-    // Insertar logo centrado en el footer
-    var footer = document.querySelector('footer');
-    if (footer) {
-      var logoDiv = document.createElement('div');
-      logoDiv.className = 'footer-logo';
-      logoDiv.innerHTML = '<img src="../resources/arclycee-logo-rectangular.png" alt="ArcLycée" height="48">';
-      footer.insertBefore(logoDiv, footer.firstChild);
+    // ============================================================
+    // FOOTER COMPARTIDO — generado dinámicamente para no hardcodear
+    // la versión ni el contenido en cada página HTML.
+    // ============================================================
+    var VERSION = 'v0.23.0';
+    var FOOTER_TEXT = {
+      es: {
+        tagline: 'Aventura Arqueológica Dominicana',
+        school: 'Liceo Francés de Santo Domingo — Clase de Robótica 2026',
+        play: 'Jugar ArcLycée',
+        feedback: 'Contáctanos'
+      },
+      en: {
+        tagline: 'Dominican Archaeological Adventure',
+        school: 'Liceo Francés de Santo Domingo — Robotics Class 2026',
+        play: 'Play ArcLycée',
+        feedback: 'Contact Us'
+      },
+      fr: {
+        tagline: 'Aventure Archéologique Dominicaine',
+        school: 'Lycée Français de Saint-Domingue — Cours de Robotique 2026',
+        play: 'Jouer à ArcLycée',
+        feedback: 'Contactez-nous'
+      }
+    };
+    var ft = FOOTER_TEXT[idiomaActual] || FOOTER_TEXT.es;
+
+    // Buscar placeholder o footer existente
+    var footerEl = document.getElementById('doc-footer') || document.querySelector('footer');
+    if (!footerEl) {
+      footerEl = document.createElement('footer');
+      document.body.appendChild(footerEl);
     }
+    if (footerEl.tagName !== 'FOOTER') {
+      // Reemplazar <div id="doc-footer"> con <footer>
+      var realFooter = document.createElement('footer');
+      footerEl.parentNode.replaceChild(realFooter, footerEl);
+      footerEl = realFooter;
+    }
+
+    footerEl.innerHTML =
+      '<div class="footer-logo"><img src="../resources/arclycee-logo-rectangular.png" alt="ArcLycée" height="48"></div>' +
+      '<p>ArcLycée ' + VERSION + ' — ' + ft.tagline + '</p>' +
+      '<p class="equipo">' + ft.school + '<br>' +
+        '<a href="../juego.html">' + ft.play + '</a> · ' +
+        '<a href="https://arclycee-aux.web.app/form.html?lang=' + idiomaActual + '" target="_blank">' + ft.feedback + '</a>' +
+      '</p>';
   });
 })();

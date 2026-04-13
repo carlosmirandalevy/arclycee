@@ -77,8 +77,51 @@
       </div>
     </section>
 
+    <section id="contacto">
+      <h2><span class="icono">💬</span> Contáctanos</h2>
+      <p class="intro">¿Tienes una sugerencia, encontraste un error o simplemente quieres saludar? Nos encantaría saber de ti — jugadores, padres, profesores y entusiastas de los juegos por igual.</p>
+      <div style="text-align:center; margin-top:20px;">
+        <button id="contact-feedback-btn" style="background:var(--dorado); color:var(--fondo); border:3px solid var(--dorado-claro); border-radius:var(--radio); padding:14px 32px; font-family:var(--fuente-titulo); font-size:1rem; font-weight:700; cursor:pointer; box-shadow:var(--sombra-gold); text-transform:uppercase; letter-spacing:1px; transition:all 0.15s;">Envíanos un mensaje</button>
+      </div>
+    </section>
+
   </div>
-  <footer><p>ArcLycée v0.23.0 — Aventura Arqueológica Dominicana</p></footer>
+  <div id="doc-footer"></div>
+<!-- ARC Feedback Modal -->
+  <div id="arc-feedback-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+    <div style="width:540px; max-width:95vw; display:flex; justify-content:flex-end;">
+      <button id="arc-feedback-close" style="background:rgba(0,0,0,0.5); border:none; color:#fff; font-size:1.5rem; cursor:pointer; width:40px; height:40px; border-radius:50; display:flex; align-items:center; justify-content:center;">&times;</button>
+    </div>
+    <iframe id="arc-feedback-iframe" src="" style="width:540px; max-width:95vw; height:80vh; border:none; border-radius:12px;"></iframe>
+  </div>
+  <script>
+  (function() {
+    var FORM_URL = 'https://arclycee-aux.web.app/form.html?lang=es';
+    var overlay = document.getElementById('arc-feedback-overlay');
+    var iframe = document.getElementById('arc-feedback-iframe');
+
+    function openFeedback() {
+      iframe.src = FORM_URL;
+      overlay.style.display = 'flex';
+    }
+    function closeFeedback() {
+      overlay.style.display = 'none';
+      iframe.src = '';
+    }
+
+    document.getElementById('contact-feedback-btn').addEventListener('click', openFeedback);
+    document.getElementById('arc-feedback-close').addEventListener('click', closeFeedback);
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closeFeedback(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && overlay.style.display === 'flex') closeFeedback(); });
+
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'arc-feedback-sent') {
+        setTimeout(closeFeedback, 2000);
+      }
+    });
+  })();
+  </script>
+
   <script src="navigation.js"></script>
   <script src="section-nav.js"></script>
 </body>
