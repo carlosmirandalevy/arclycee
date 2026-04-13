@@ -26,12 +26,18 @@
       icono: '📜',
       label: { es: 'El Juego', en: 'Game Concept', fr: 'Le Jeu' },
       grupo: true,
-      children: ['historia', 'worlds', 'characters', 'dialogues', 'archaeology', 'nature']
+      children: ['historia', 'narrativa', 'worlds', 'characters', 'dialogues', 'archaeology', 'nature']
     },
     historia: {
       icono: '📖',
       label: { es: 'Historia', en: 'Story', fr: 'Histoire' },
       archivos: { es: 'historia.html', en: 'historia-en.html', fr: 'historia-fr.html' },
+      parent: 'historiaGrupo'
+    },
+    narrativa: {
+      icono: '📜',
+      label: { es: 'Narrativa', en: 'Narrative', fr: 'Récit' },
+      archivos: { es: 'narrativa.html', en: 'narrativa-en.html', fr: 'narrativa-fr.html' },
       parent: 'historiaGrupo'
     },
     worlds: {
