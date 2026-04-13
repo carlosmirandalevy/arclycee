@@ -145,10 +145,33 @@
       archivos: { es: 'assessment.html', en: 'assessment-en.html', fr: 'assessment-fr.html' },
       parent: 'pedagogiaGrupo'
     },
-    about: {
+    // --- Acerca de (grupo con subitems) ---
+    aboutGrupo: {
       icono: ICO.users,
       label: { es: 'Acerca de', en: 'About', fr: 'À propos' },
-      archivos: { es: 'about.html', en: 'about-en.html', fr: 'about-fr.html' }
+      grupo: true,
+      children: ['aboutNota', 'aboutEquipo', 'aboutContacto']
+    },
+    aboutNota: {
+      icono: ICO.pen,
+      label: { es: 'Nota del Profesor', en: 'Teacher\'s Note', fr: 'Note du Professeur' },
+      archivos: { es: 'about.html', en: 'about-en.html', fr: 'about-fr.html' },
+      hash: 'nota-profesor',
+      parent: 'aboutGrupo'
+    },
+    aboutEquipo: {
+      icono: ICO.users,
+      label: { es: 'El Equipo', en: 'The Team', fr: 'L\'Équipe' },
+      archivos: { es: 'about.html', en: 'about-en.html', fr: 'about-fr.html' },
+      hash: 'equipo',
+      parent: 'aboutGrupo'
+    },
+    aboutContacto: {
+      icono: ICO.msg,
+      label: { es: 'Contáctanos', en: 'Contact Us', fr: 'Contactez-nous' },
+      archivos: { es: 'about.html', en: 'about-en.html', fr: 'about-fr.html' },
+      hash: 'contacto',
+      parent: 'aboutGrupo'
     },
     encyclopedia: {
       icono: ICO.book,
@@ -315,7 +338,8 @@
           var child = PAGINAS[childId];
           if (!child) continue;
           var childActivo = childId === paginaActual;
-          html += '<a href="' + child.archivos[idiomaActual] + '" class="doc-nav-dropdown-item' + (childActivo ? ' active' : '') + '">'
+          var childHref = child.archivos[idiomaActual] + (child.hash ? '#' + child.hash : '');
+          html += '<a href="' + childHref + '" class="doc-nav-dropdown-item' + (childActivo ? ' active' : '') + '">'
                 + '<span>' + child.icono + '</span> ' + child.label[idiomaActual] + '</a>';
         }
         html += '</div></div>';
