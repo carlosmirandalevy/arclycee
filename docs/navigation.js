@@ -515,5 +515,57 @@
         '<a href="../juego.html">' + ft.play + '</a> · ' +
         '<a href="https://arclycee-aux.web.app/form.html?lang=' + idiomaActual + '" target="_blank">' + ft.feedback + '</a>' +
       '</p>';
+
+    // ============================================================
+    // BOTÓN FLOTANTE DE FEEDBACK — aparece en todas las páginas de docs
+    // Abre un modal con el formulario externo en iframe.
+    // ============================================================
+    // Evitar duplicados si la página ya tiene el botón (ej: about.html)
+    if (!document.getElementById('arc-feedback-btn')) {
+      // Estilos para el botón
+      var fbStyle = document.createElement('style');
+      fbStyle.textContent =
+        '#arc-feedback-btn { position: fixed; bottom: 20px; right: 20px; z-index: 9998; background: #C8962A; color: #0E0C0A; border: 2px solid #E8B84A; border-radius: 50%; width: 48px; height: 48px; cursor: pointer; box-shadow: 3px 3px 0 rgba(0,0,0,0.5); padding: 0; line-height: 0; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }' +
+        '#arc-feedback-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 rgba(0,0,0,0.5); }' +
+        '#arc-feedback-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }' +
+        '#arc-feedback-close { background: rgba(0,0,0,0.5); border: none; color: #fff; font-size: 1.5rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }' +
+        '#arc-feedback-iframe { width: 540px; max-width: 95vw; height: 80vh; border: none; border-radius: 12px; background: #fff; }' +
+        '@media (max-width: 768px) { #arc-feedback-btn { bottom: auto; top: 12px; right: 12px; width: 40px; height: 40px; } }';
+      document.head.appendChild(fbStyle);
+
+      // Botón flotante
+      var fbBtn = document.createElement('button');
+      fbBtn.id = 'arc-feedback-btn';
+      fbBtn.title = ft.feedback;
+      fbBtn.setAttribute('aria-label', ft.feedback);
+      fbBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
+      document.body.appendChild(fbBtn);
+
+      // Overlay con iframe
+      var fbOverlay = document.createElement('div');
+      fbOverlay.id = 'arc-feedback-overlay';
+      fbOverlay.innerHTML =
+        '<div style="width:540px; max-width:95vw; display:flex; justify-content:flex-end;">' +
+          '<button id="arc-feedback-close" aria-label="Close">&times;</button>' +
+        '</div>' +
+        '<iframe id="arc-feedback-iframe" src=""></iframe>';
+      document.body.appendChild(fbOverlay);
+
+      var fbIframe = document.getElementById('arc-feedback-iframe');
+      var FORM_URL = 'https://arclycee-aux.web.app/form.html?lang=' + idiomaActual;
+
+      function openFb() { fbIframe.src = FORM_URL; fbOverlay.style.display = 'flex'; }
+      function closeFb() { fbOverlay.style.display = 'none'; fbIframe.src = ''; }
+
+      fbBtn.addEventListener('click', openFb);
+      document.getElementById('arc-feedback-close').addEventListener('click', closeFb);
+      fbOverlay.addEventListener('click', function (e) { if (e.target === fbOverlay) closeFb(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && fbOverlay.style.display === 'flex') closeFb();
+      });
+      window.addEventListener('message', function (e) {
+        if (e.data && e.data.type === 'arc-feedback-sent') setTimeout(closeFb, 2000);
+      });
+    }
   });
 })();

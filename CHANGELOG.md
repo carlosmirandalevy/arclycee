@@ -23,6 +23,8 @@
 - **Click en hero image (landing pages y docs dashboards)**: scroll suave hacia el contenido debajo
 - **#nav-dashboard sin padding top** en los docs dashboards
 
+- **Botón flotante de feedback en todas las páginas de docs**: inyectado automáticamente por `navigation.js` (bottom-right desktop, top-right mobile). Pasa `?lang=` al formulario, evita duplicados en about.html que ya tiene el botón inline. Mismo estilo brutalist dorado del juego con hover effect
+
 ### Corregido
 - **Carlos Miranda Levy como mentor** agregado formalmente a la página About con enlace a su sitio
 
