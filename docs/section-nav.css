@@ -3,7 +3,18 @@
    Neo-brutalist style, compatible with both themes
    ============================================================ */
 
-.sec-nav { margin-bottom: 40px; }
+.sec-nav {
+  margin-bottom: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: var(--fondo, #0E0C0A);
+  padding: 16px 0 12px;
+  border-bottom: 2px solid var(--borde, #2A2420);
+}
+[data-theme="light"] .sec-nav {
+  background: var(--fondo, #F2ECE0);
+}
 
 /* --- Search bar --- */
 .sec-search {
