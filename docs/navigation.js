@@ -244,7 +244,9 @@
     var html = '<div class="doc-nav-inner">';
 
     // Logo pequeño a la izquierda
-    html += '<a href="' + PAGINAS.overview.archivos[idiomaActual] + '" class="doc-nav-logo">'
+    // Logo enlaza a la landing page del idioma actual (raíz del sitio)
+    var landingPages = { es: '../index.html', en: '../index-en.html', fr: '../index-fr.html' };
+    html += '<a href="' + (landingPages[idiomaActual] || '../index.html') + '" class="doc-nav-logo">'
           + '<img src="../resources/arclycee-logo-rectangular.png" alt="ArcLycée" height="28">'
           + '</a>';
 
