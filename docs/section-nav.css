@@ -121,11 +121,27 @@
 }
 .sec-card:hover .sec-card-label { color: var(--dorado-claro, #E8B84A); }
 
+/* --- Narrative layout: search + dropdown side by side --- */
+.sec-nav.sec-nav-narrative {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.sec-nav-narrative .sec-search {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 0;
+}
+.sec-nav-narrative .sec-chapter-nav {
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
 /* --- Chapter dropdown (narrative pages) --- */
 .sec-chapter-nav {
   display: flex;
   justify-content: center;
-  margin-bottom: 12px;
 }
 .sec-chapter-select {
   width: 100%;

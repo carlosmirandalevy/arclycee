@@ -142,7 +142,9 @@
     var isNarrative = window.location.pathname.indexOf('narrativa') !== -1;
 
     if (isNarrative) {
-      // --- Chapter dropdown for narrative pages ---
+      // --- Narrative: search (left) + chapter dropdown (right) inline ---
+      navEl.classList.add('sec-nav-narrative');
+
       var dropLabel = { es: 'Ir al capítulo...', en: 'Jump to chapter...', fr: 'Aller au chapitre...' };
       var wrapper = document.createElement('div');
       wrapper.className = 'sec-chapter-nav';
