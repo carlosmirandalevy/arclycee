@@ -213,6 +213,20 @@
   // Aplicar tema guardado al cargar
   aplicarTema(obtenerTema());
 
+  // Aplicar estilo guardado (styles.css o styles2.css)
+  (function() {
+    var estilo = localStorage.getItem('arclycee_doc_style') || '1';
+    if (estilo === '2') {
+      var links = document.querySelectorAll('link[rel="stylesheet"]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('href') === 'styles.css') {
+          links[i].setAttribute('href', 'styles2.css');
+          break;
+        }
+      }
+    }
+  })();
+
   // ============================================================
   // GENERAR HTML DE LA NAVEGACIÓN
   // ============================================================
@@ -287,6 +301,12 @@
     html += '<button id="doc-theme-toggle" class="doc-nav-theme" '
           + 'title="Toggle theme" aria-label="Toggle theme">' + temaIcono + '</button>';
 
+    // Boton de estilo (alterna entre styles.css y styles2.css)
+    var estiloActual = localStorage.getItem('arclycee_doc_style') || '1';
+    html += '<button id="doc-style-toggle" class="doc-nav-theme" '
+          + 'title="Switch design style" aria-label="Switch design style">'
+          + (estiloActual === '1' ? '◆' : '◇') + '</button>';
+
     html += '</div>'; // doc-nav-controls
     html += '</div>'; // doc-nav-inner
 
@@ -306,6 +326,23 @@
     document.getElementById('doc-theme-toggle').addEventListener('click', function () {
       var nuevoTema = obtenerTema() === 'dark' ? 'light' : 'dark';
       aplicarTema(nuevoTema);
+    });
+
+    // Evento del boton de estilo (alterna styles.css ↔ styles2.css)
+    document.getElementById('doc-style-toggle').addEventListener('click', function () {
+      var estiloActual = localStorage.getItem('arclycee_doc_style') || '1';
+      var nuevoEstilo = estiloActual === '1' ? '2' : '1';
+      localStorage.setItem('arclycee_doc_style', nuevoEstilo);
+      // Buscar el stylesheet link y cambiar el href
+      var links = document.querySelectorAll('link[rel="stylesheet"]');
+      for (var i = 0; i < links.length; i++) {
+        var href = links[i].getAttribute('href');
+        if (href === 'styles.css' || href === 'styles2.css') {
+          links[i].setAttribute('href', nuevoEstilo === '1' ? 'styles.css' : 'styles2.css');
+          break;
+        }
+      }
+      this.textContent = nuevoEstilo === '1' ? '◆' : '◇';
     });
 
     // Hamburguesa para móvil — abre/cierra el menú de pills
