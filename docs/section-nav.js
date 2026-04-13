@@ -139,7 +139,27 @@
     if (!contenedor) return;
 
     var sections = contenedor.querySelectorAll('section[id]');
-    if (sections.length < 2) return; // Don't show nav for single-section pages
+    // Collect nav targets: {id, heading, element}
+    var targets = [];
+
+    if (sections.length >= 2) {
+      // Multiple sections — use h2 headings as nav targets
+      for (var si = 0; si < sections.length; si++) {
+        var h2 = sections[si].querySelector('h2');
+        if (h2) targets.push({ id: sections[si].id, heading: h2, element: sections[si] });
+      }
+    } else {
+      // Single section — fall back to h3 subsections if there are 3+
+      var h3s = contenedor.querySelectorAll('h3');
+      if (h3s.length >= 3) {
+        for (var hi = 0; hi < h3s.length; hi++) {
+          if (!h3s[hi].id) h3s[hi].id = 'sec-h3-' + hi;
+          targets.push({ id: h3s[hi].id, heading: h3s[hi], element: h3s[hi] });
+        }
+      }
+    }
+
+    if (targets.length < 2) return;
 
     var navEl = document.createElement('div');
     navEl.className = 'sec-nav';
@@ -168,53 +188,48 @@
       select.className = 'sec-chapter-select';
       select.innerHTML = '<option value="">' + (dropLabel[lang] || dropLabel.es) + '</option>';
 
-      for (var i = 0; i < sections.length; i++) {
-        var sec = sections[i];
-        var h2 = sec.querySelector('h2');
-        if (!h2) continue;
-        var text = h2.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').replace(/[\n\r]+/g, ' ').trim();
+      for (var i = 0; i < targets.length; i++) {
+        var t = targets[i];
+        var text = t.heading.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').replace(/[\n\r]+/g, ' ').trim();
         var opt = document.createElement('option');
-        opt.value = sec.id;
+        opt.value = t.id;
         opt.textContent = text;
         select.appendChild(opt);
       }
 
       select.addEventListener('change', function () {
         if (!this.value) return;
-        var target = document.getElementById(this.value);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var el = document.getElementById(this.value);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         this.value = '';
       });
 
       wrapper.appendChild(select);
       navEl.appendChild(wrapper);
     } else {
-      // --- Cards grid for regular pages ---
+      // --- Cards for regular pages ---
       var grid = document.createElement('div');
       grid.className = 'sec-cards';
 
-      for (var i = 0; i < sections.length; i++) {
-        var sec = sections[i];
-        var h2 = sec.querySelector('h2');
-        if (!h2) continue;
-
-        var text = h2.textContent.replace(/[\n\r]+/g, ' ').trim();
+      for (var i = 0; i < targets.length; i++) {
+        var t = targets[i];
+        var text = t.heading.textContent.replace(/[\n\r]+/g, ' ').trim();
         var icon = getIconForHeading(text);
         var label = text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').trim();
         if (label.length > 30) label = label.substring(0, 28) + '…';
 
         var card = document.createElement('a');
         card.className = 'sec-card';
-        card.href = '#' + sec.id;
+        card.href = '#' + t.id;
         card.innerHTML = '<span class="sec-card-icon">' + icon + '</span>'
           + '<span class="sec-card-label">' + label + '</span>';
 
-        card.addEventListener('click', (function(target) {
+        card.addEventListener('click', (function(el) {
           return function(e) {
             e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           };
-        })(sec));
+        })(t.element));
 
         grid.appendChild(card);
       }
@@ -230,21 +245,19 @@
       mobileSelect.className = 'sec-chapter-select';
       mobileSelect.innerHTML = '<option value="">' + (mobileDropLabel[lang] || mobileDropLabel.es) + '</option>';
 
-      for (var m = 0; m < sections.length; m++) {
-        var mSec = sections[m];
-        var mH2 = mSec.querySelector('h2');
-        if (!mH2) continue;
-        var mText = mH2.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').replace(/[\n\r]+/g, ' ').trim();
+      for (var m = 0; m < targets.length; m++) {
+        var mt = targets[m];
+        var mText = mt.heading.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').replace(/[\n\r]+/g, ' ').trim();
         var mOpt = document.createElement('option');
-        mOpt.value = mSec.id;
+        mOpt.value = mt.id;
         mOpt.textContent = mText;
         mobileSelect.appendChild(mOpt);
       }
 
       mobileSelect.addEventListener('change', function () {
         if (!this.value) return;
-        var target = document.getElementById(this.value);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var el = document.getElementById(this.value);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         this.value = '';
       });
 
