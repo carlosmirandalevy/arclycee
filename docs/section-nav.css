@@ -205,6 +205,12 @@ mark.sec-hl-active {
   font-size: 0.9rem;
 }
 
+/* --- Mobile dropdown (hidden on desktop) --- */
+.sec-mobile-dropdown {
+  display: none;
+  width: 100%;
+}
+
 /* --- Responsive --- */
 @media (max-width: 768px) {
   /* Narrative: stack search + dropdown vertically on mobile */
@@ -215,10 +221,22 @@ mark.sec-hl-active {
   .sec-nav-narrative .sec-search { min-width: 0; }
   .sec-nav-narrative .sec-chapter-nav { width: 100%; }
   .sec-chapter-select { max-width: 100%; font-size: 0.85rem; padding: 12px 16px; }
+
+  /* Hide cards, show dropdown on mobile */
+  .sec-cards { display: none; }
+  .sec-mobile-dropdown {
+    display: block;
+  }
+  .sec-mobile-dropdown .sec-chapter-select {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.85rem;
+    padding: 12px 16px;
+  }
 }
 @media (max-width: 600px) {
-  .sec-cards { gap: 4px; }
-  .sec-card { padding: 6px 8px; }
-  .sec-card-icon svg { width: 14px; height: 14px; }
-  .sec-card-label { font-size: 0.56rem; }
+  .sec-mobile-dropdown .sec-chapter-select {
+    font-size: 0.8rem;
+    padding: 10px 14px;
+  }
 }

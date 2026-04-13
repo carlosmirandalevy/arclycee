@@ -220,6 +220,36 @@
       }
 
       navEl.appendChild(grid);
+
+      // --- Mobile dropdown (hidden on desktop, shown on mobile via CSS) ---
+      var mobileDropLabel = { es: 'Ir a sección...', en: 'Go to section...', fr: 'Aller à la section...' };
+      var mobileWrap = document.createElement('div');
+      mobileWrap.className = 'sec-mobile-dropdown';
+
+      var mobileSelect = document.createElement('select');
+      mobileSelect.className = 'sec-chapter-select';
+      mobileSelect.innerHTML = '<option value="">' + (mobileDropLabel[lang] || mobileDropLabel.es) + '</option>';
+
+      for (var m = 0; m < sections.length; m++) {
+        var mSec = sections[m];
+        var mH2 = mSec.querySelector('h2');
+        if (!mH2) continue;
+        var mText = mH2.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').replace(/[\n\r]+/g, ' ').trim();
+        var mOpt = document.createElement('option');
+        mOpt.value = mSec.id;
+        mOpt.textContent = mText;
+        mobileSelect.appendChild(mOpt);
+      }
+
+      mobileSelect.addEventListener('change', function () {
+        if (!this.value) return;
+        var target = document.getElementById(this.value);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.value = '';
+      });
+
+      mobileWrap.appendChild(mobileSelect);
+      navEl.appendChild(mobileWrap);
     }
 
     // No-results message
