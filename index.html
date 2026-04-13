@@ -1,77 +1,225 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <!-- Configuración de viewport para dispositivos móviles -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Desactivar el comportamiento táctil predeterminado del navegador -->
-    <meta name="touch-action" content="none">
-    <!-- Descripción del juego -->
-    <meta name="description" content="ArcLycée - Un juego RPG 2D de aventura arqueológica ambientado en la República Dominicana, creado por estudiantes del Liceo Francés de Santo Domingo.">
-    <meta name="author" content="Liceo Francés de Santo Domingo">
-    <!-- Tema de color para la barra del navegador en móviles -->
-    <meta name="theme-color" content="#1a1a2e">
-    <!-- Compatibilidad con aplicaciones web en móvil -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <title>ArcLycée - Aventura Arqueológica Dominicana</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="resources/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="resources/apple-touch-icon.png">
-
-    <!-- Open Graph / redes sociales -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="ArcLycée - Aventura Arqueológica Dominicana">
-    <meta property="og:description" content="Un juego RPG 2D de aventura arqueológica ambientado en la República Dominicana, creado por estudiantes del Liceo Francés de Santo Domingo.">
-    <meta property="og:image" content="resources/og-share.png">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ArcLycée - Aventura Arqueológica Dominicana">
-    <meta name="twitter:description" content="RPG 2D educativo sobre el patrimonio arqueológico dominicano.">
-    <meta name="twitter:image" content="resources/og-share.png">
-
-    <!-- Estilos principales -->
-    <link rel="stylesheet" href="estilos/principal.css">
-
-    <!-- LeafletJS - Biblioteca de mapas interactivos -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin="">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
-
-    <!-- Kaplay.js - Motor para tilemap e interacciones táctiles -->
-    <script src="https://unpkg.com/kaplay@3001/dist/kaplay.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ArcLycée — Un juego RPG 2D educativo sobre el patrimonio arqueológico de la República Dominicana. Creado por estudiantes del Liceo Francés de Santo Domingo.">
+  <meta name="theme-color" content="#0E0C0A">
+  <title>ArcLycée — Aventura Arqueológica Dominicana</title>
+  <link rel="icon" type="image/x-icon" href="resources/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="resources/apple-touch-icon.png">
+  <meta property="og:title" content="ArcLycée — Aventura Arqueológica Dominicana">
+  <meta property="og:description" content="RPG 2D educativo sobre el patrimonio arqueológico dominicano. 13 mundos, 3 idiomas, ruta pacifista.">
+  <meta property="og:image" content="resources/og-share.png">
+  <link rel="stylesheet" href="docs/styles.css">
+  <link rel="stylesheet" href="docs/section-nav.css">
+  <style>
+    /* Landing page specific overrides */
+    .landing-hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 32px;
+      position: relative;
+      overflow: hidden;
+      background: var(--fondo);
+      border-bottom: 4px solid var(--dorado);
+    }
+    .landing-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 100% 80% at 50% 20%, rgba(200,150,42,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 50% 90%, rgba(192,104,64,0.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .landing-logo {
+      width: 160px;
+      height: auto;
+      margin-bottom: 32px;
+      border: none;
+    }
+    .landing-title {
+      font-family: var(--fuente-titulo);
+      font-size: 5rem;
+      font-weight: 800;
+      color: var(--dorado-claro);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      margin-bottom: 16px;
+    }
+    .landing-subtitle {
+      font-family: var(--fuente-label, var(--fuente-cuerpo));
+      font-size: 0.95rem;
+      color: var(--texto-tenue);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 48px;
+    }
+    .landing-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .landing-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 36px;
+      font-family: var(--fuente-titulo);
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border: 3px solid;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .landing-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 currentColor;
+    }
+    .landing-btn-primary {
+      background: var(--dorado);
+      color: var(--fondo);
+      border-color: var(--dorado);
+    }
+    .landing-btn-secondary {
+      background: transparent;
+      color: var(--dorado-claro);
+      border-color: var(--dorado-apagado);
+    }
+    .landing-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      padding: 64px 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .landing-feature {
+      padding: 28px;
+      background: var(--fondo-tarjeta);
+      border: 2px solid var(--borde);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .landing-feature:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 rgba(200,150,42,0.15);
+    }
+    .landing-feature h3 {
+      font-family: var(--fuente-titulo);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dorado-claro);
+      text-transform: uppercase;
+      margin: 0 0 8px;
+      border: none;
+      padding: 0;
+    }
+    .landing-feature p {
+      color: var(--texto-tenue);
+      font-size: 0.92rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .landing-footer {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--texto-tenue);
+      border-top: 4px solid var(--dorado);
+      font-size: 0.86rem;
+    }
+    .landing-footer a { color: var(--dorado-claro); text-decoration: none; }
+    .landing-lang {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .landing-lang a {
+      padding: 6px 14px;
+      border: 2px solid var(--borde);
+      font-family: var(--fuente-label, monospace);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--texto-tenue);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.12s;
+    }
+    .landing-lang a:hover,
+    .landing-lang a.active {
+      color: var(--fondo);
+      background: var(--dorado);
+      border-color: var(--dorado);
+    }
+    @media (max-width: 600px) {
+      .landing-title { font-size: 2.8rem; }
+      .landing-btn { padding: 14px 24px; font-size: 0.95rem; }
+      .landing-features { padding: 32px 16px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Pantalla de carga - se muestra mientras se inicializan los recursos -->
-    <div id="pantalla-carga">
-        <div class="carga-contenido">
-            <h1 class="carga-titulo">ArcLycée</h1>
-            <p class="carga-subtitulo">Aventura Arqueológica Dominicana — v0.22.0</p>
-            <div class="carga-barra-contenedor">
-                <div class="carga-barra" id="barra-progreso"></div>
-            </div>
-            <p class="carga-texto" id="texto-carga">Cargando recursos...</p>
-        </div>
+
+  <div class="landing-hero">
+    <img src="resources/arclycee-logo.png" alt="ArcLycée" class="landing-logo">
+    <h1 class="landing-title">ArcLycée</h1>
+    <p class="landing-subtitle">Aventura Arqueológica Dominicana</p>
+
+    <div class="landing-lang">
+      <a href="index.html" class="active">ES</a>
+      <a href="docs/en.html">EN</a>
+      <a href="docs/fr.html">FR</a>
     </div>
 
-    <!-- Lienzo principal del juego -->
-    <canvas id="juego-canvas"></canvas>
+    <div class="landing-actions">
+      <a href="juego.html" class="landing-btn landing-btn-primary">Jugar</a>
+      <a href="docs/" class="landing-btn landing-btn-secondary">Documentación</a>
+      <a href="docs/encyclopedia.html" class="landing-btn landing-btn-secondary">Arquepedia</a>
+    </div>
+  </div>
 
-    <!-- Contenedor del mapa LeafletJS (oculto por defecto) -->
-    <div id="mapa-contenedor"></div>
+  <div class="landing-features">
+    <div class="landing-feature">
+      <h3>13 Mundos</h3>
+      <p>Desde las Cuevas del Pomier hasta el Museo del Hombre Dominicano. Cada mundo enseña un aspecto del patrimonio dominicano.</p>
+    </div>
+    <div class="landing-feature">
+      <h3>Ruta Pacifista</h3>
+      <p>Inspirado en Undertale: cada conflicto puede resolverse con diálogo, negociación y activismo ciudadano.</p>
+    </div>
+    <div class="landing-feature">
+      <h3>3 Idiomas</h3>
+      <p>Completamente trilingüe: español, inglés y francés. Cambia en cualquier momento desde el menú.</p>
+    </div>
+    <div class="landing-feature">
+      <h3>Pedagógico</h3>
+      <p>600 preguntas de evaluación, guía para educadores, enciclopedia completa. Diseñado para el aula.</p>
+    </div>
+    <div class="landing-feature">
+      <h3>Creado por Estudiantes</h3>
+      <p>Les fous du robot — clase de Robótica del Liceo Francés de Santo Domingo, 2026.</p>
+    </div>
+    <div class="landing-feature">
+      <h3>Código Abierto</h3>
+      <p>HTML5 Canvas + JavaScript vanilla. Código documentado en español, legible por estudiantes de 13 años.</p>
+    </div>
+  </div>
 
-    <!-- Los controles virtuales táctiles se crean dinámicamente desde
-         js/motor/entrada.js para que el sistema de entrada los gestione
-         directamente. Solo aparecen en dispositivos táctiles. -->
+  <div class="landing-footer">
+    <p>ArcLycée v0.22.0 — Liceo Francés de Santo Domingo 2026</p>
+    <p><a href="juego.html">Jugar</a> · <a href="docs/">Documentación</a> · <a href="docs/encyclopedia.html">Arquepedia</a> · <a href="docs/assessment.html">Evaluación</a> · <a href="docs/learning-guide.html">Guía de Aprendizaje</a></p>
+  </div>
 
-    <!-- Módulo principal del juego - punto de entrada ES module -->
-    <script type="module" src="js/motor/juego.js"></script>
 </body>
 </html>
