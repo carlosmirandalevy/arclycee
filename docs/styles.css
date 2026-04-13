@@ -834,13 +834,14 @@ footer .equipo { margin-top: 12px; font-size: 0.82rem; }
 .doc-nav-dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%;
   left: 0;
   z-index: 100;
   background: var(--fondo-tarjeta);
   border: 2px solid var(--borde-claro);
   border-radius: 0;
   padding: 4px;
+  padding-top: 8px;
   min-width: 200px;
   box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
 }
