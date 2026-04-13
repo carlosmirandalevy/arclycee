@@ -245,7 +245,7 @@
 
     // Logo pequeño a la izquierda
     html += '<a href="' + PAGINAS.overview.archivos[idiomaActual] + '" class="doc-nav-logo">'
-          + '<img src="../resources/arclycee-logo.png" alt="ArcLycée" height="28">'
+          + '<img src="../resources/arclycee-logo-rectangular.png" alt="ArcLycée" height="28">'
           + '</a>';
 
     // Botón hamburguesa para móvil — 3 barras que se convierten en X al abrir
@@ -391,7 +391,7 @@
     if (footer) {
       var logoDiv = document.createElement('div');
       logoDiv.className = 'footer-logo';
-      logoDiv.innerHTML = '<img src="../resources/arclycee-logo.png" alt="ArcLycée" height="48">';
+      logoDiv.innerHTML = '<img src="../resources/arclycee-logo-rectangular.png" alt="ArcLycée" height="48">';
       footer.insertBefore(logoDiv, footer.firstChild);
     }
   });
