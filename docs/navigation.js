@@ -529,7 +529,7 @@
         '#arc-feedback-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 rgba(0,0,0,0.5); }' +
         '#arc-feedback-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }' +
         '#arc-feedback-close { background: rgba(0,0,0,0.5); border: none; color: #fff; font-size: 1.5rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }' +
-        '#arc-feedback-iframe { width: 540px; max-width: 95vw; height: 80vh; border: none; border-radius: 12px; background: #fff; }' +
+        '#arc-feedback-iframe { width: 540px; max-width: 95vw; height: 80vh; border: none; border-radius: 12px; }' +
         '@media (max-width: 768px) { #arc-feedback-btn { bottom: auto; top: 12px; right: 12px; width: 40px; height: 40px; } }';
       document.head.appendChild(fbStyle);
 

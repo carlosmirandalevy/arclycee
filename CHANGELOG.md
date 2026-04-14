@@ -24,6 +24,11 @@
 - **#nav-dashboard sin padding top** en los docs dashboards
 
 - **Botón flotante de feedback en todas las páginas de docs**: inyectado automáticamente por `navigation.js` (bottom-right desktop, top-right mobile). Pasa `?lang=` al formulario, evita duplicados en about.html que ya tiene el botón inline. Mismo estilo brutalist dorado del juego con hover effect
+- **Botón flotante de feedback también en las 3 landing pages** (`index.html`, `index-en.html`, `index-fr.html`) con el mismo comportamiento que juego.html — pasa `?lang=` según el idioma de la página
+
+### Mejorado (continuación)
+- **Padding de landing-features**: reducido de 64px a 32px arriba/abajo en las 3 landing pages
+- **Iframe del feedback sin fondo blanco**: removido `background: #fff` del iframe para evitar flash blanco antes de cargar el formulario (matching exacto con juego.html)
 
 ### Corregido
 - **Carlos Miranda Levy como mentor** agregado formalmente a la página About con enlace a su sitio
