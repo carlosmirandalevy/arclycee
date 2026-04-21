@@ -206,8 +206,39 @@
 
       wrapper.appendChild(select);
       navEl.appendChild(wrapper);
+    } else if (targets.length > 6) {
+      // --- Compact dropdown for pages with many sections (>6) ---
+      // Uses the same dropdown style as narrative/mobile, saves vertical space
+      navEl.classList.add('sec-nav-narrative');
+
+      var compactLabel = { es: 'Ir a sección...', en: 'Go to section...', fr: 'Aller à la section...' };
+      var compactWrap = document.createElement('div');
+      compactWrap.className = 'sec-chapter-nav';
+
+      var compactSelect = document.createElement('select');
+      compactSelect.className = 'sec-chapter-select';
+      compactSelect.innerHTML = '<option value="">' + (compactLabel[lang] || compactLabel.es) + '</option>';
+
+      for (var ci = 0; ci < targets.length; ci++) {
+        var ct = targets[ci];
+        var ctext = ct.heading.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}]/gu, '').replace(/[\n\r]+/g, ' ').trim();
+        var copt = document.createElement('option');
+        copt.value = ct.id;
+        copt.textContent = ctext;
+        compactSelect.appendChild(copt);
+      }
+
+      compactSelect.addEventListener('change', function () {
+        if (!this.value) return;
+        var el = document.getElementById(this.value);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.value = '';
+      });
+
+      compactWrap.appendChild(compactSelect);
+      navEl.appendChild(compactWrap);
     } else {
-      // --- Cards for regular pages ---
+      // --- Cards for regular pages (6 or fewer sections) ---
       var grid = document.createElement('div');
       grid.className = 'sec-cards';
 

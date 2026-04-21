@@ -27,6 +27,7 @@
 - **Botón flotante de feedback también en las 3 landing pages** (`index.html`, `index-en.html`, `index-fr.html`) con el mismo comportamiento que juego.html — pasa `?lang=` según el idioma de la página
 
 ### Mejorado (continuación)
+- **Sec-nav compacto para páginas con muchas secciones**: cuando hay más de 6 secciones, se muestra un dropdown en vez de tarjetas de navegación (ahorra espacio vertical en pantallas pequeñas). Aplica a pedagogy (11), learning-guide (11), encyclopedia (9), changelog. Páginas con ≤6 secciones mantienen las tarjetas
 - **Padding de landing-features**: reducido de 64px a 32px arriba/abajo en las 3 landing pages
 - **Iframe del feedback sin fondo blanco**: removido `background: #fff` del iframe para evitar flash blanco antes de cargar el formulario (matching exacto con juego.html)
 
