@@ -226,17 +226,17 @@ El código debe ser legible por estudiantes de 13 años. Esto significa:
 - No usar `entrada.izquierda` — siempre `entrada.estaPresionada('izquierda')`
 - No llamar "cemí dorado" al artefacto taíno — históricamente los cemíes tenían detalles de guanín (aleación oro/plata/cobre), no eran de oro puro
 
-<!-- BEGIN cemi-contact-emails v1 (managed — source: cemi-web/authoring-rules/canonical/contact-emails.md) -->
+<!-- BEGIN cemi-contact-emails v2 (managed — source: cemi-web/authoring-rules/canonical/contact-emails.md) -->
 ## 📧 Contact emails (all CEMI repos)
 
 Valid, working contact addresses for CEMI — real and monitored. Safe to use in site copy, footers, contact forms, persona contact routing, press kits, proposals, and any outward-facing material.
 
-**Addresses (all `@cemi.ai`):** `ai-staff@` · `business@` · `contact@` (general inbox) · `info@` · `invest@` · `legal@` · `privacy@` · `security@` · `support@`
+**Addresses (all `@cemi.ai`):** `ai-staff@` · `business@` · `contact@` (general inbox) · `info@` · `invest@` · `legal@` · `partners@` · `privacy@` · `security@` · `support@`
 
 **The same set is aliased at these initiative domains:** `@ailearning.global`, `@airtistic.ai`, `@ibizai.io`, `@lawra.io`, `@skaills.ai` — so e.g. `contact@ailearning.global`, `legal@lawra.io`, `support@ibizai.io` all resolve.
 
-Default to `contact@cemi.ai`; route by purpose where a specific address fits (legal → `legal@`, security → `security@`, investment → `invest@`, partnerships/sales → `business@`, privacy/GDPR → `privacy@`). Do **not** invent addresses outside this list. Consultable at `/admin/emails`.
-<!-- END cemi-contact-emails v1 -->
+Default to `contact@cemi.ai`; route by purpose where a specific address fits (legal → `legal@`, security → `security@`, investment → `invest@`, partnerships/alliances → `partners@`, sales/commercial → `business@`, privacy/GDPR → `privacy@`). Do **not** invent addresses outside this list. Consultable at `/admin/emails`.
+<!-- END cemi-contact-emails v2 -->
 
 <!-- BEGIN cemi-html-sanitization v1 (managed — source: cemi-web/authoring-rules/canonical/html-sanitization.md) -->
 ## 🛡️ HTML sanitization — never inject untrusted HTML unsanitized (all CEMI repos)
@@ -310,11 +310,11 @@ This is about **logos** (they carry type). Inline **SVG icons** in UI are the co
 <!-- END cemi-png-logos v1 -->
 
 <!-- BEGIN CEMI AUTHORING RULES (managed by cemi-web/authoring-rules/sync.sh) -->
-<!-- version: 2026.08.30  do not edit manually; edit the canonical and re-run sync.sh -->
+<!-- version: 2026.09.02  do not edit manually; edit the canonical and re-run sync.sh -->
 
 # CEMI authoring rules for content written under a persona's voice
 
-**Version:** 2026.08.30
+**Version:** 2026.09.02
 **Source of truth:** `cemi-web/authoring-rules/canonical/persona-authoring-rules.md`
 **Synced into each consumer repo's `CLAUDE.md` as a managed block.**
 
