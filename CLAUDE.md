@@ -310,11 +310,11 @@ This is about **logos** (they carry type). Inline **SVG icons** in UI are the co
 <!-- END cemi-png-logos v1 -->
 
 <!-- BEGIN CEMI AUTHORING RULES (managed by cemi-web/authoring-rules/sync.sh) -->
-<!-- version: 2026.09.03  do not edit manually; edit the canonical and re-run sync.sh -->
+<!-- version: 2026.09.11  do not edit manually; edit the canonical and re-run sync.sh -->
 
 # CEMI authoring rules for content written under a persona's voice
 
-**Version:** 2026.09.03
+**Version:** 2026.09.11
 **Source of truth:** `cemi-web/authoring-rules/canonical/persona-authoring-rules.md`
 **Synced into each consumer repo's `CLAUDE.md` as a managed block.**
 
@@ -326,25 +326,12 @@ The runtime chat widgets get a similar rule via `SHARED_PERSONA_GUARDRAILS` in `
 
 ## Factual honesty — no fabrication of verifiable-looking claims
 
-Six categories. All hard red lines.
+The prohibited fabrications — invented statistics, fabricated or trimmed-meaning quotes, invented reports/surveys/studies/indexes, invented partnerships/deals/launches/events, unverified superlatives, and (under a persona's voice) invented anecdotes, memories and direct experience — are defined in `journalaism-system/canon/05-anti-hallucination-for-text.md` §3 and are binding here. All hard red lines; one copy, there.
 
-1. **Personal anecdotes / family stories / first-person memories.**
-   Use ONLY anecdotes documented in the persona's canon (`bioLong` in the personas SSoT, or the validated-anecdotes list when present). No invented uncles, cousins, neighbors, clients, mentors, students, or "I once knew…" stories. If no documented anecdote fits, make the rhetorical point without one. A clean argument beats a fabricated memory.
+What is persona-specific lives here:
 
-2. **Statistics, percentages, "X out of Y" claims.**
-   Never invent a number. If you don't have a real verified figure with a citable source, use directional language ("rates have compressed substantially in some segments") instead of a fake precise one ("30-60% rate compression"). If you cite a figure, you must be able to point to the source.
-
-3. **Named reports / surveys / studies / indexes / handbooks.**
-   Never invent "the AIGA Design Census says X" or "according to a 2024 McKinsey report" or "Animation Guild reports show Y". Only cite real reports the writer can actually verify exist and say what they're claiming. If a report exists but says something subtly different, characterize it honestly ("the BLS handbook documents X" — not "the BLS handbook is the first to do Y").
-
-4. **"First" / "only" / "largest" / "earliest" superlatives.**
-   Never assert these without a real verifiable source. They are almost always wrong when invented. Drop the superlative rather than guess.
-
-5. **Named partnerships, deals, product launches, M&A, industry events.**
-   Never invent. "Company X partnered with Y on Z in 2025" must reflect a real public event. Fabricated partnerships are libel-adjacent and damage credibility. Real referenced examples: 2023 WGA / SAG-AFTRA strikes; Andersen v. Stability AI; Getty v. Stability AI; Spawning / Have I Been Trained (real opt-out tool).
-
-6. **Personal relationships and direct experience.**
-   Do not claim the persona actively mentors, advises, employs, knows, or works with specific named people / groups unless the canon documents it. Speak to general audiences ("any artist navigating this shift") rather than fake-specific relationships ("young Latin American artists I work with"). The persona doesn't get to claim experiences it doesn't actually have.
+- **Where a persona's documented canon is**: `bioLong` in the personas SSoT (author at `/admin/personas`), plus the validated-anecdotes list when present. Only what is documented there may be voiced as the persona's own memory, relationship, or direct experience.
+- **When no documented anecdote fits**: make the rhetorical point without one — a clean argument beats a fabricated memory. Speak to general audiences ("any artist navigating this shift"), never fake-specific relationships ("young artists I work with").
 
 **The rule in one line:** prefer (a) verified cited fact, (b) documented canon, or (c) silence — never fabrication.
 
@@ -549,7 +536,7 @@ When auditing existing static content for these failures, look for:
 - Suspicious partnerships: `(partnership|deal|collaboration) (between|with) [A-Z]\w+ and [A-Z]\w+`, `\d{4}` near a product/launch claim.
 - First-person mentorship: `(young|emerging|the) artists I (work with|mentor|advise|teach)`, `clients I serve`.
 
-A formal audit script lives at `cemi-web/scripts/audit-opinion-content.mjs`; sister sites can run it against their own `src/content/opinion/**/*.md`.
+A formal audit script lives at `../journalaism-system/tools/audit-opinion-content.mjs`; run it from any repository against a path: `node ../journalaism-system/tools/audit-opinion-content.mjs src/content/opinion`.
 
 ---
 
@@ -566,52 +553,26 @@ Brevity and honesty beat fluency. A short paragraph of true things is worth more
 
 ---
 
-## Anti-hallucination & fact-checking (operational canon)
+## Anti-hallucination & fact-checking
 
-*Consolidated 2026-07-13 from ailearning-web practice, mediamax-system's anti-hallucination protocol, and sitecraft's authenticity rules — at Carlos's direction. This section is the ecosystem-wide SSoT; repo-local variants defer to it.*
+> Fact-checking, the tiers `[SOURCE]` / `[INFERENCE]` / `[REQUIRES VERIFICATION]`, the prohibited fabrications, the three-pass check, the authenticity test and the corrections rule are defined in `journalaism-system/canon/05-anti-hallucination-for-text.md` and are binding here. One copy, there; nothing carrying `[REQUIRES VERIFICATION]` ships.
 
-### The hierarchy (always)
-
-Prefer, in order: **(a) verified, cited fact → (b) documented canon → (c) silence.** Never fabrication. A clean argument beats a fabricated detail; a short paragraph of true things beats three paragraphs of plausible fiction.
-
-### Tiered labeling (canonical flags)
-
-Every claim in generated content carries its epistemic status until editorial review clears it:
-
-- `[SOURCE: <type> — <reference>]` — verified; the reference is real and was checked.
-- `[INFERENCE: based on <what>]` — reasoned, clearly framed as reasoning, never dressed as fact.
-- `[REQUIRES VERIFICATION: <what kind of source would settle this>]` — the canonical "flagged" marker. (Aliases `[TBD]`, `[TBD — real data required]`, `[FUENTE: verificar]` in older docs mean the same; new content uses `[REQUIRES VERIFICATION]` or the repo's established Spanish equivalent.)
-
-Nothing carrying `[REQUIRES VERIFICATION]` ships to production. Cited or it doesn't ship.
-
-### The five prohibited fabrications
-
-1. Invented statistics or round-number metrics ("87% of parents…", "10,000+ users") — use directional language or flag.
-2. Fabricated or trimmed-meaning quotes — quotes are verbatim from a checked source, or they don't exist. (Where pipelines automate this, verbatim-validation gates are mandatory — see mediamax `VC-02`.)
-3. Invented reports, surveys, studies, or named research.
-4. Invented partnerships, deals, events, or relationships (libel-adjacent).
-5. Unverified superlatives ("first", "only", "largest").
-
-If a real source exists but says something subtly different — characterize it honestly, don't round it up.
-
-### The three-pass fact-check (before anything publishes)
-
-1. **Writer self-check:** every claim labeled per the tiers above.
-2. **Independent pass:** a second set of eyes (or a dedicated verification agent) checks every `[SOURCE:]` actually says what's claimed and hunts unlabeled claims.
-3. **Source review:** quotes against tape/text; numbers against the primary document.
-
-Never publish a claim you haven't verified *as if* it's verified. Corrections, when needed, are visible — not silent edits.
-
-### The authenticity test (3 questions, from sitecraft)
-
-Before delivering any content: Is it **specific** (not generic filler)? Is it **evidence-backed** (or honestly labeled)? Is it **voice-matched**? Any "no" → rewrite.
-
-### Audit pattern
-
-Periodically grep for fabrication signatures — suspicious stat ranges (`\d{1,3}[-–]\d{1,3}%`), branded-report citation patterns, unverifiable relationship claims. Reference implementation: `cemi-web/scripts/audit-opinion-content.mjs`.
-
-### Deep references
-
-Full operational detail: `mediamax-system/knowledge/brand-brief/BB-05-anti-hallucination-protocol.md` (tier system, prohibited practices with examples, five verification questions) and `mediamax-system/knowledge/production/15b-podcast-audio-narrative.md` §6 (three-pass pipeline, uncertainty handling, corrections policy). Chatbots additionally require citation/source-linking per `sitecraft-system/protocol/chatbot-and-personas.md`.
+*(Pointer since 2026-09-11. The operational canon that lived here from 2026-07-13 to 2026-09-11 moved to journalaism-system canon 05, which is the single copy of the tiers.)*
 
 <!-- END CEMI AUTHORING RULES -->
+
+<!-- BEGIN journalaism-article-canon v1 (managed — source: journalaism-system/sync/journalaism-article-canon.md) -->
+## Article writing and research canon (all CEMI repositories that publish text)
+
+The canon for writing articles and researching topics lives in `../journalaism-system/canon/` and is binding here. One copy, there; this block points.
+
+- **Factual-article protocol** (`01`): the working shape of an article (Step 0 file, claim ledger, prompts, returns, source ledgers, Gate 2 record, bibliography), the eight steps and two human gates, the claim classes and verdicts, kill criteria.
+- **Research protocol** (`02`): how a deep-research round is written, run by the human operator in several systems, saved verbatim and verified source by source; the source ledger with its four verdicts (VERIFIED, PARTIAL, UNVERIFIED, CONTRADICTED); the fetch ladder; what counts as a source; corrections to our own documents.
+- **Bibliography and citation** (`03`): the rule of admission, the entry, ids never renumbered, two-way id reconciliation (`tools/check-ids.mjs`), a verbatim quote always carries its page.
+- **Voice, style and disclosure** (`04`): the voice brief (style and perspective, from the personAI roster or supplied in the request), what reads as generated and the fix, no exact small counts in public copy, typography per language, disclosure of method without naming tools where the reader's confidence is the point.
+- **Anti-hallucination for text** (`05`): the hierarchy (verified cited fact, documented canon, silence; never fabrication), the tiers `[SOURCE]` / `[INFERENCE]` / `[REQUIRES VERIFICATION]`, the prohibited fabrications, the three-pass check, the authenticity test, corrections published visibly. **Nothing carrying `[REQUIRES VERIFICATION]` ships.**
+- **Quality audit** (`06`): `node ../journalaism-system/tools/audit-opinion-content.mjs <path>` before every publish; category 7 (unresolved markers) is a hard gate; every match is triaged by a human.
+- **Article types and structures** (`07`): opinion, take, dialogue, factual, explainer, consultation to an authority, foundations document, gaps register, incident log, handoff; the structure catalogue and the structure register, so no two consecutive pieces share a shape.
+
+Templates: `../journalaism-system/templates/`. Worked examples: `../journalaism-system/examples/`.
+<!-- END journalaism-article-canon v1 -->
