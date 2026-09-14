@@ -1,4 +1,18 @@
-# CLAUDE.md — Guía para Claude Code en ArcLycée
+# AGENTS.md — arclycee
+
+Instructions for agents working in this repository live in CLAUDE.md; read it first. The managed blocks below are delivered by canon-sync (cemi-system/canon-sync) and are the same blocks CLAUDE.md carries; do not edit them here.
+
+<!-- BEGIN cemi-contact-emails v3 (managed — source: cemi-system/sync/contact-emails.md) -->
+## 📧 Contact emails (all CEMI repos)
+
+Valid, working contact addresses for CEMI — real and monitored. Safe to use in site copy, footers, contact forms, persona contact routing, press kits, proposals, and any outward-facing material.
+
+**Addresses (all `@cemi.ai`):** `ai-staff@` · `business@` · `contact@` (general inbox) · `info@` · `invest@` · `legal@` · `partners@` · `privacy@` · `security@` · `support@`
+
+**The same set is aliased at these initiative domains:** `@ailearning.global`, `@airtistic.ai`, `@ibizai.io`, `@lawra.io`, `@skaills.ai` — so e.g. `contact@ailearning.global`, `legal@lawra.io`, `support@ibizai.io` all resolve.
+
+Default to `contact@cemi.ai`; route by purpose where a specific address fits (legal → `legal@`, security → `security@`, investment → `invest@`, partnerships/alliances → `partners@`, sales/commercial → `business@`, privacy/GDPR → `privacy@`). Do **not** invent addresses outside this list. Consultable at `/admin/emails`.
+<!-- END cemi-contact-emails v3 -->
 
 <!-- BEGIN cemi-cost-policy v2 (managed — source: cemi-system/sync/cost-policy.md) -->
 ## ⛔ HARD RULE — never use external/paid services without asking (all CEMI repos)
@@ -11,6 +25,23 @@ NEVER invoke any paid or third-party service outside Claude's own model without 
 
 Silent use of paid external services has caused real, unwanted cost. Treat this as a hard guardrail.
 <!-- END cemi-cost-policy v2 -->
+
+<!-- BEGIN cemi-html-sanitization v2 (managed — source: sitecraft-system/sync/html-sanitization.md) -->
+## 🛡️ HTML sanitization — never inject untrusted HTML unsanitized (all CEMI repos)
+
+Any content rendered into the DOM as raw HTML — `{@html}` (Svelte), `set:html` / `<Fragment set:html>` (Astro), `dangerouslySetInnerHTML` (React), `.innerHTML`, `v-html` — **MUST be sanitized before injection UNLESS its source is fully trusted.**
+
+- **Trusted (no sanitizer required):** build-time content authored in-repo and git-reviewed — committed markdown/HTML, hardcoded icon-SVG constants, seed-script template literals. The git diff is the review gate.
+- **Untrusted (sanitize ALWAYS):** anything user-contributed, form-submitted, externally fetched, runtime-AI-generated, or otherwise not git-reviewed — community resources, comments/discussions, user notes, uploaded/imported docs, runtime-rendered markdown. These are live XSS surfaces.
+
+**How:** sanitize with a vetted library — **DOMPurify** (runtime) or **rehype-sanitize** (at markdown render). Both are MIT + local — no paid/external API (satisfies the cost-policy hard rule).
+
+**The allowlist MUST preserve the mandatory CEMI visual HTML** — inline `<svg>` diagrams, `<pre><code>` blocks, `<table>`, and `<aside class="inset inset--*">` author insets. Getting the allowlist wrong silently strips compliance-required visuals — test it against a known-good content unit before shipping. Strip `<script>`, event handlers (`on*`), `javascript:` URLs, and `<iframe>`/`<object>`/`<embed>` unless explicitly required and origin-restricted.
+
+**One sanitizer, one allowlist, reused everywhere** — a per-sink ad-hoc filter drifts; centralize it.
+
+Origin: a 2026-07-22 audit of `experience` found its content `{@html}` sinks (content bodies, program/experience overviews, user-contributed community resources) injected UNSANITIZED with no sanitizer in the repo — the live XSS gap that prompted this rule. `experience` has since **addressed it on its own** — a single centralized DOMPurify sanitizer (`src/lib/utils/sanitize-html.ts`) with a shared allowlist, applied at its content sinks — and is the **reference implementation** for this rule. This block is documentation: syncing it into a repo records the rule and does **NOT** modify that repo's existing sanitization code — never overwrite or override a repo's own working handling to match the prose here; if a repo already satisfies the rule, the block just documents it. When adopting the sitecraft §6.4 markdown pipeline, sanitize as part of the render step, not after.
+<!-- END cemi-html-sanitization v2 -->
 
 <!-- BEGIN cemi-i18n-quote-hygiene v7 (managed — source: sitecraft-system/sync/i18n-quote-hygiene.md) -->
 ## 🈂 Localized-text hygiene — quotes, multibyte, significant spaces (all CEMI repos)
@@ -77,201 +108,6 @@ done
 **Deeper protocol** (find/replace contract for subagent-produced translations, applier requirements, quality gates): see `mediamax-system/.claude/rules/translation-protocol.md`. The find/replace contract is mandatory whenever a translation agent emits structured pairs to apply against source HTML/JSON/ASS. Origin: 2026-06-17 batch where ~13% of pairs failed to match because agents retyped find strings.
 <!-- END cemi-i18n-quote-hygiene v7 -->
 
-## Sobre el proyecto
-
-ArcLycée es un RPG 2D educativo sobre el patrimonio arqueológico de la República Dominicana. Creado por les fous du robot (~13 años) del Liceo Francés de Santo Domingo. Usa HTML5 Canvas + JavaScript vanilla (ES modules, sin frameworks).
-
-## Prioridad #1: Legibilidad
-
-El código debe ser legible por estudiantes de 13 años. Esto significa:
-- **Comentarios en español** — explicativos, no obvios
-- **Variables y funciones en español** (camelCase): `velocidadJugador`, `estaPresionada`, `iniciarDialogo`
-- **Comentarios extensos** al inicio de cada archivo explicando QUÉ hace y POR QUÉ existe
-- Preferir código claro sobre código clever
-
-## Arquitectura
-
-### Motor del juego (`js/motor/`)
-- `juego.js` — game loop, manejo de escenas, inventario overlay, combate overlay, batú overlay, toasts, guardado/carga
-- `entrada.js` — input unificado (teclado + táctil) vía `estaPresionada(accion)`
-- `configuracion.js` — constantes globales y mapeo de teclas (`TECLAS_POR_DEFECTO`)
-- `renderizado.js` — wrapper de Canvas 2D
-- `sonido-procedural.js` — efectos con Web Audio API
-- `musica.js` — `SistemaMusica` con 18 grupos musicales (36 MP3s, 2 por escenario), crossfade 2s, override para combate/batú/duelo/areíto/bossCemi/bossCemiCutscene, volumen en localStorage
-- `guardado.js` — `SistemaGuardado` con `guardarLocal()`, `cargarLocal()`, `crearDatosGuardado(juego)`
-
-### Escenas (`js/escenas/`)
-- Ciclo de vida: `iniciar(juego)`, `actualizar(dt, entrada, jugador, companeros)`, `dibujar(renderizador, ancho, alto, textos, jugador, companeros)`
-- Una escena activa a la vez, se cambia con `juego.cambiarEscena('nombre')`
-
-### Mundos (`js/mundos/`)
-- Top-down (asentamientos, La Isabela, Mundo Acuático) o plataforma (cuevas)
-- Los mundos top-down setean `jugador.modoJuego = 'topdown'`
-- Salida: tecla M (mapa) o caminar al borde inferior — NO usar Q/Esc para salir de mundos
-- Mundo Acuático (`js/mundos/acuatico/`): velocidad × 0.7 para simular nado, 4 especies de tortugas (carey, tinglar, caguama, verde) con aletas animadas, pez león patrullero (figura de 8), ballenas jorobadas como path Bezier continuo (sin artefactos de doble-alfa), medusas como peligros pasivos (daño + lentitud + sacudida 0.4s), depth-sorted rendering, rotación de nado (±75° lateral, 180° al bajar), corales fotografiables (`fotografiables[]`), sacudida del avatar al recibir daño (`_sacudida` con decaimiento)
-- Santuario del Manatí (`js/mundos/acuatico/santuario-manati.js`): sub-nivel accesible desde borde derecho del Mundo Acuático, 1800×1200px, 2 acciones ecológicas (liberar manatí + limpiar arrecife), 3 tiburones patrulleros (mordida con `sfx.mordidaTiburon()` + sacudida 0.5s), zona de hélices con lanchas rápidas (speedboats cada 8-15s, -8 vida, `sfx.lanchaImpacto()` + sacudida 0.6s, toast una vez por entrada a la zona via `_heliceToastMostrado`), sistema de oxígeno (barra O₂ se agota en ~60s, recarga en superficie, -3 vida/1.5s por asfixia), 6 corales fotografiables con descripciones científicas, flags `progreso.manatiLiberado` / `progreso.arrecifeLimpiado` para evitar doble conteo, completar ambas dispara `misiones.completar('rescateManati')`. Mensajes de transición al cruzar entre Naufragio ↔ Santuario (2 toasts secuenciales)
-- **Rescate del manatí como sidequest**: la primera conversación con la Dra. Sofía (bióloga marina) descubre e inicia la misión `rescateManati`. Al completar ambas acciones ecológicas (manatí + arrecife), la misión se completa automáticamente con +10 reputación por cada acción
-
-### Compañeros (`js/personajes/companeros/`)
-- Patrón: propiedad `tipo` (string), flag `activo`, métodos `activar()`/`desactivar()`
-- Siguen al jugador con lerp
-- Se dibujan con `ctx.save(); ctx.translate(offsetX, offsetY); companero.dibujar(ctx); ctx.restore();`
-- Persisten entre escenas vía `juego.companeros[]`
-
-### Input
-- `Entrada.estaPresionada(accion)` — SIEMPRE usar este método, no acceder propiedades directas
-- Patrón de bloqueo: `bloqueoEntrada = true` cuando se actúa, `= false` cuando se suelta la tecla
-- `bloqueoEntrada` debe empezar en `true` al entrar a escenas donde la tecla de activación podría estar presionada
-- `Entrada` escucha `window.blur` y limpia teclas presionadas al perder foco (evita teclas "pegadas" al cambiar de pestaña)
-
-### Combate (`js/mecanicas/combate.js`)
-- Estilo Undertale con ruta pacifista (convencimiento 100 = victoria pacífica)
-- Se inicia desde escenas vía `juego.combate.iniciar({...})`
-- Resultado se verifica FUERA del bloque `if (enCombate)` porque al terminar `enCombate` ya es false
-- **Opciones personalizadas por enemigo**: `enemigo.opcionesPersonalizadas` — array de acciones con `{id, nombre, paciencia: [min, max], hostilidad: [min, max], mensaje, respuestaEnemigo}`
-- Cuando hay opciones personalizadas, `_ejecutarPersonalizada()` reemplaza el switch genérico
-- El turno enemigo usa `_ultimaAccion.respuestaEnemigo` para contra-respuestas específicas
-- `pistaPersonalizada` en el enemigo cambia el texto de ayuda inferior
-- `etiquetaConvencimiento` en el enemigo personaliza el nombre del medidor verde (ej: "Controlado:" para pez león)
-- `tipoSprite` en el enemigo selecciona el sprite de combate: `'soldado'`, `'constructor'`, `'pezLeon'`, `'traficante'`
-- Sprites de enemigos: `_dibujarSoldado()`, `_dibujarConstructor()`, `_dibujarPezLeon()`, `_dibujarTraficante()` — cada uno con diseño único
-- **Selección de compañero**: al atacar con compañeros activos, sub-menú `_seleccionandoCompanero` muestra Solo/Magnoboot(+3)/Viralata(+2)/Cemí(+4). Q cancela. `_ejecutarAtaque(jugador, companeroTipo)` aplica bonus
-- **Panel de ayuda (H)**: `_infoVisible` toggle, overlay con instrucciones de combate, rutas pacifista/agresiva, medidores. Tecla `ayuda` en `configuracion.js`
-- **Indicador de estado**: muestra dinámicamente quién va ganando (casi convencido, muy hostil, progresando, tenso)
-- **Barra HP enemigo oculta** para combates con `opcionesPersonalizadas` (pez león, traficante) — se ganan por convicción
-- **[E] Continuar**: ambas fases (acción jugador + contraataque enemigo) muestran mensaje y "[E] Continuar" de inmediato (sin pausa obligatoria), el jugador avanza a su ritmo. `_esperandoContinuar` / `_esperandoContinuarEnemigo`
-
-### Guardado (`js/motor/guardado.js`, `juego.js`)
-- `juego.guardarPartida()` — guarda en localStorage, muestra toast
-- `juego.cargarPartida()` — restaura estado completo, va al mapa
-- Auto-guardado al volver al mapa del mundo (`cambiarEscena('mapaPrincipal')`)
-- `crearDatosGuardado(juego)` serializa: escena, género, vida, progreso, inventario (objetos), compañeros (tipo+activo), idioma
-- Compañeros se restauran como instancias reales vía `_crearCompaneroBasico(tipo, activo)` usando imports de Magnoboot/Viralata/CemiMurcielago
-
-### Menú principal (`js/escenas/menu-principal.js`)
-- 7 opciones: nuevoJuego, continuarJuego, idioma, mapaReal, documentacion, opciones, creditos
-- `documentacion` abre `docs/index.html`, `docs/en.html` o `docs/fr.html` según `codigosIdioma[idiomaIndice]`
-- Idioma se cambia con flechas horizontales cuando la opción está seleccionada
-- **Hero images**: 3 imágenes hero por idioma en `resources/artes/` precargadas en `_precargarImagenesHero()`, dibujadas como fondo completo (cover) del canvas con gradiente oscuro en la mitad inferior para legibilidad del menú. El menú se centra verticalmente sobre la imagen
-- **Logo en menú**: `resources/arclycee-logo.png` precargado junto con las hero images, mostrado en créditos (140px) y en la cinemática final (120px)
-- **Créditos**: logo + 10 nombres en 3 columnas + "les fous du robot" + "Liceo Francés de Santo Domingo — 2026"
-
-### Idiomas (`js/idiomas/`)
-- 3 idiomas: `es.js`, `fr.js`, `en.js`
-- Acceso: `juego.idiomas.traducciones[juego.idiomas.idiomaActual]`
-- Toda string visible al jugador debe estar en los 3 archivos de idioma
-- **Sección `ui`**: ~130 claves para strings de interfaz compartidas entre múltiples archivos (controles, etiquetas de acción, combate, cinemáticas, mini-juegos, créditos, nombres de personajes, toasts de inventario)
-- **Patrón de acceso en mundos/escenas**: `const textos = this._obtenerTextos();` → `textos?.ui?.clave || 'fallback en español'`
-- **Patrón de acceso en mecánicas**: reciben `textos` como parámetro de `dibujar()` → `textos?.ui?.clave || 'fallback'`
-- **Nombres de personajes en diálogos**: usar `textos?.ui?.espirituTaina` / `textos?.ui?.petroglifo` para nombres genéricos traducibles. Los nombres propios históricos (Cacique Guacanagaríx, Fray Ramón Pané, Roberto Cassá, etc.) NO se traducen
-- **Sección `lugares`**: nombres de estructuras (bohíos, edificios, salas de museo), cultivos taínos y etiquetas de lugar. Cada estructura tiene propiedad `clave` que se busca en `textos?.lugares?.[clave] || nombre`
-- **Diálogos del LFSD**: la sección `lfsd` está al nivel raíz de traducciones (no dentro de `dialogos`). Acceso: `textos?.lfsd?.key`, NO `textos?.dialogos?.lfsd?.key`
-
-### Toasts (`juego.js`)
-- `juego.mostrarToast(texto, duracion)` — mensaje flotante no intrusivo
-- Usar al recoger objetos, completar misiones, etc.
-
-## Patrones importantes
-
-- `alTerminar` callback en diálogos para encadenar eventos (ej: diálogo → combate)
-- `escenasJugables` array en juego.js determina cuándo crear el jugador
-- Inventario dual: `jugador.inventario` (array simple) + `juego.inventario` (UI con Inventario class). `inventario.usar(id, jugador)` maneja ítems usables (`tipo: 'curacion'` llama `jugador.curar(valor)`). Callback `inventario.alUsar` notifica a juego.js para toasts
-- **Ítems curativos**: objetos con `{tipo: 'curacion', esUsable: true, valor: N}` se usan con E en inventario. Guanábana (+30), vasija curativa (+35)
-- **NPC curandero**: flag `esCurandero: true` en NPC — siempre muestra `[E]`, no muestra checkmark, permite re-interacción. Behique Yuisa cura a 100 HP, Anacaona y Guarionex dan ítems curativos (re-obtibles si se usan)
-- **HUD layout**: Vida bar `(10, 10, 120, 14)` + Reputación bar `(140, 10, 100, 14)` en la misma fila. En Santuario del Manatí: Vida bar + O₂ bar `(140, 10, 100, 14)` (azul, parpadea rojo al <25%). Los mundos dibujan sus indicadores (NPCs, objetos, habilidades) a partir de y=42. No agregar más barras encima de y=42. **Reputación solo visible en mundos jugables** (`escenasJugables`, no en `mapaPrincipal`) y sin overlays activos (combate, batú, areíto, boss, duelo, rappel, inventario, registro). No se muestra en menú principal ni cinemáticas
-- Física: `factorTiempo = dt * 60` para movimiento independiente de framerate. **Cualquier aceleración por frame** (ej: `GRAVEDAD` en Cuevas del Pomier) debe multiplicarse también por `factorTiempo`; si no, el salto/caída se rompe en monitores de 120/144/165 Hz aunque el desplazamiento siga escalado
-- Progreso: `juego.progreso.nodosCompletados` y `nodosDesbloqueados`
-- **Diálogo rotativo**: contador `_cassaConversacion` que incrementa tras cada diálogo, `indice = contador % array.length` para ciclar
-- **NPC mentor**: `esMentor: true` excluye del conteo de misión, siempre muestra [E] Hablar, nunca muestra checkmark
-- **Animación de marcha**: `cuadroAnimacion` + `esAnimando` flag, piernas con `Math.sin(cuadro * 5) * 3`
-- **Guardias invisibles**: `if (!guardia.activo && !this._cambioEnCurso) return` al inicio de `_dibujarGuardia()`
-- **Medusas pasivas**: movimiento sinusoidal entre waypoints, contacto = daño + `efectoLentitud` (segundos) + sacudida 0.4s, cooldown con `invulnerabilidad`
-- **Sacudida del avatar** (`_sacudida`): timer que decrementa con dt, mientras > 0 el sprite oscila lateralmente con `Math.sin(tiempoTotal * 50) * amplitud * intensidad`. Usado en lanchas (0.6s), tiburones (0.5s) y medusas (0.4s)
-- **Depth sorting**: entidades se ordenan por Y antes de dibujar para efecto de profundidad (usado en Mundo Acuático)
-- **Corales realistas**: coral cerebro con gradiente 3D + surcos meándricos multi-Bezier clipeados; coral abanico (gorgonia) con tallo leñoso, gradiente radial, venas ramificadas con sub-venas y malla de arcos concéntricos
-- **Sprites en selección de personaje**: `_dibujarPersonaje()` usa el sprite detallado del juego escalado ×2.5 (no placeholders simples)
-- **Combate pez león**: 4 opciones ecológicas (atrapar, pescar, proteger coral, alertar buzos) con contra-respuestas realistas
-- **Palenque de Lemba** (`js/mundos/montana/mundo-montana.js`): montaña interior, comunidad cimarrona de Sebastián Lemba (~1540s). 5 NPCs (Lemba mentor rotativo, Kofi herrero da Machete Cimarrón +2 daño, Amara tamborera da Tambor de Guerra +2 daño, Yemayá curandera, Marcos vigía con combate). Chozas africanas circulares, atalaya, hoguera, pinos. Nodo 9 entre Taíno I y II. `progreso.artefactosAfricanos` para bonus de ataque
-- **Combate Cazador de Cimarrones**: Marcos (vigía) detecta un cazador de esclavos colonial y dispara combate. Enemigo: 45 HP, fuerza 3, velocidad 2, hostilidad 75, `tipoSprite: 'soldado'` (uniforme rojo oscuro, casco de conquistador), `conPerro: true` (sabueso rastreador dibujado junto al sprite, 35% de ataque especial de mordida con menos daño pero sube hostilidad +3). Usa opciones de combate estándar (no personalizadas). Victoria pacífica: `vigilaPaz` + `combatesPacificados++` + 15 rep. Victoria por fuerza: `vigiaVictoria` + `combatesViolentos++` + 5 rep. i18n: `montana.enemigoCazador`, `montana.ataquePerro`
-- **Lago Enriquillo** (`js/mundos/enriquillo/lago-enriquillo.js`): lago hipersalino 40m bajo el nivel del mar con Isla Cabritos (Guarizacca). Ecosistema: 5 Cocodrilos Americanos (Crocodylus acutus, death roll + sonido), 7 iguanas (Cyclura cornuta con cuernos + Cyclura ricordii con ojos rojos), 9 flamencos rosados (una pata), 3 cucús/burrowing owls (madrigueras), 3 culebras corredoras (Haitiophis anomalus, 2m), Las Caritas (7 petroglifos). Enriquillo (6 diálogos: rebelión 1519-1533, amor con Mencía), Mencía, Tamayo. Natación con rotación diagonal. Toast educativo por especie. Nodo 10. HUD con contadores `👥 NPCs 0/3` y `🗿 Caritas 0/1`. Helper `_salirAlMapa()` unifica las dos rutas de salida (M y borde inferior) y muestra una pista one-time sobre la Espada perdida desenterrada por una tormenta, gated por `progreso.enriquilloVisitado` y `progreso.espadaEnriquillo`
-- **Anacaona (primera visita)**: tras el primer diálogo completo con Anacaona en Yucayeque de Marién, toast retardado 1.8s pista que volver a hablar con ella desbloquea una misión y un lugar secretos. Solo si `idoloEnriquillo` aún no está descubierta. Clave i18n: `aldea.anacaonaPista`
-- **Mundo Jurídico** (`js/mundos/juridico/`): Aeropuerto de Punta Cana interior, velocidad normal, combate legal con opciones de Ley 318/Evidencia/INTERPOL/UNESCO, mentora con diálogo rotativo (5 temas legales)
-- **Combate traficante**: 4 opciones legales (Ley 318, evidencia forense, INTERPOL, UNESCO 1970), etiqueta "Evidencia:" en vez de "Convencido:"
-- **Arresto cinematográfico**: tras derrotar a Torres, Miguel Sánchez y Agente Montero caminan hacia él, lo arrestan con diálogo, y lo escoltan fuera. State machine: `esperando→caminando→dialogo→escoltando→completado`. Torres se oculta tras `_torresSacado = true`
-- **Manantial de la Aleta** (`js/mundos/aleta/`): cenote sagrado taíno en Parque Nacional Cotubanamá. 3 fases: rapel por pozo vertical (overlay `rappel.js`), cueva oscura con linterna (`cueva-oscura.js`, máscara radial `destination-in`), buceo en cenote (`cenote-buceo.js`, O₂ 120s, corrientes, 3 artefactos). Hub `manantial-aleta.js` gestiona fases y prerequisito (`equipoBuceoObtenido`). Nodo 12. Fase guardada en `progreso.mundos.manantialAleta`
-- **Museo del Hombre Dominicano** (`js/mundos/museo/museo-hombre.js`): interior de museo con vitrinas, suelo de mármol. Dr. Veloz (curador, recibe artefactos, completa sidequest `ofrendasAleta` +20 rep), Dra. Conrad (Indiana University, contexto científico), 2 visitantes educativos. Nodo 13, desbloqueado al recoger 3 artefactos del cenote
-- **Mundo Laboratorio** (`js/mundos/laboratorio/`): museo interior, velocidad normal, sin combate — educación por cadenas de diálogo, 5 NPCs (3 cuentan para misión + 1 mentor + 1 sospechoso), 2 coleccionables con requisitos. NPCs deben estar FUERA de las estructuras con colisión (no adentro, o el jugador no puede alcanzarlos)
-- **Mapa con tiles** (`js/mundos/mapa-tiles.js`): la costa de Hispaniola se define con `ISLA_BITMAP`, un array de 68 strings de 128 chars ('1'=tierra, '0'=agua) escalado 2× desde el bitmap original trazado de `resources/hispaniola-map-pixelated-tiled.png`. `_esTierra()` hace lookup directo en el bitmap. Montañas vía `_distanciaACordilleras()` (8 cadenas en `CORDILLERAS`), lagos con `_esLago()` (`LAGOS` array, 2 lagos), ríos con Bresenham (5 ríos), bosques con hash pseudo-aleatorio. 128×68 tiles. `generarMapaIsla()` devuelve array 2D, `dibujarTilesVisibles()` con culling, `esCaminable()` para colisión. Nodos en `obtenerNodosIsla()` con `tileX/tileY`. **Importante**: al posicionar nodos, verificar que tanto el tile del nodo como el tile +1 fila abajo (spawn point) sean caminables. Posiciones trazadas desde `resources/hispaniola-plain-topographic-map-nasa.jpg` y `resources/hispaniola-map-pixelated-tiled.png`
-- **Touch/drag en mapa** (`js/mundos/mapa-principal.js`): touch drag (1 dedo), pinch zoom (2 dedos), mouse drag (desktop). Variables `_arrastrando`/`_ratonArrastrando` desactivan el camera lerp durante el arrastre
-- **Sistema de clima** (`js/clima/`): `SistemaClima` en `clima.js` + `SistemaHuracan` en `huracan.js`, instanciado en `juego.js`, activado solo en escenas exteriores vía mapa `climaPorEscena` en `cambiarEscena()`. `dibujar()` recibe `ctx` raw (no Renderizador). Sonido ambiental: `_actualizarSonido()` inicia/detiene lluvia procedural (`sfx.lluviaAmbiente()`) y dispara truenos (`sfx.trueno()`) según el clima. `detenerSonidos()` se llama al desactivar clima en `cambiarEscena()`
-- **Álbum de fotos** (`js/mecanicas/album-fotos.js`): fotos cuadradas (160×160) y selfies verticales (160×200) con fondo oscuro neutro. `_renderizarEntidadCentrada()` despacha según `tipoEntidad`: `'tortuga'` → `_renderizarTortuga()` (sprite dedicado por especie), `'coral'` → `_renderizarCoral()` (sprite dedicado por tipo: cerebro/cuerno/abanico/mesa), `'npc'` → `_renderizarNPCCentrado()` (canvas aux 200×200 con bounding box scan), `'petroglifo'` → piedra con símbolo, `'objeto'` → caja dorada. NPCs con id `tortuga*` se detectan como `tipoEntidad: 'tortuga'` automáticamente. Escenas exponen `fotografiables[]` para elementos extra (corales, arrecifes). Se activa con T (foto) y G (selfie), álbum con P
-- **Misiones secundarias** (`js/mecanicas/misiones-secundarias.js`): 8 quests (batú, rescateManati, buenasVibraciones, metalCompleto, cienciaLoca, museoCatedral, idoloEnriquillo, ofrendasAleta) con estados `no_descubierta`→`descubierta`→`en_progreso`→`completada`. Se descubren hablando con NPCs en mundos existentes. `ofrendasAleta` se descubre al recoger 3 artefactos del cenote
-- **LFSD** (`js/mundos/lfsd/mundo-lfsd.js`): nivel interior de la clase de robótica, Prof. Nicolas Droulers (pelo y barba blanca, mentor con diálogo rotativo) y 10 NPCs estudiantes (3 quest-givers con camisetas de color), 3 mesas con pantallas Scratch (IDE con paleta de categorías y bloques de código), mesa FIRST LEGO League (tapete con caminos negros/blancos, zonas de misión, robot LEGO animado con orugas que recorre los paths con zumbido de motor continuo `robotFLLIniciar()`/`robotFLLDetener()`), impresora 3D con etiqueta traducida, pizarra. Se desbloquea al descubrir cualquier sidequest que lo mencione (buenasVibraciones, metalCompleto, cienciaLoca) — no requiere completar Mundo Laboratorio. Avatares personalizados: Diana (rubia, piel clara, delgada), Carlos Guillermo (pelo largo castaño, gafas azul oscuro, camiseta azul, pantalones naranjas), Rafael (piel clara, pelo castaño claro, delgado). `salir()` detiene sonidos continuos del robot
-- **Contador de regalos**: `🎁 recibidos/total` en HUD (y=74) en 5 mundos. Muestra ítems y compañeros recibidos de NPCs. Se vuelve verde al completar
-- **Múltiples finales** (`js/escenas/final-cinematica.js`): 5 finales (completo, pacifista, museo, ecológico, oscuro) determinados por `progreso.combatesPacificados`, `combatesViolentos`, `accionesEcologicas`, `nodosCompletados.length` y `misiones.contarCompletadas()`. Completo requiere 8+ nodos + 5 sidequests + todos pacificados. Pacifista requiere 8+ nodos + todos pacificados
-- **Tracking de combate**: cada mundo con combate incrementa `combatesPacificados` o `combatesViolentos` al terminar, Acuático también incrementa `accionesEcologicas`
-- **Reputación en combate**: victoria pacífica = +15 reputación, victoria por fuerza = +5. Aplicado en los 4 mundos con combate (La Isabela, Zona Colonial, Mundo Acuático, Aeropuerto)
-- **Controles táctiles duales**: `entrada.modoControlTactil` = `'joystick'` o `'dpad'`, cambiable desde Opciones con `cambiarModoTactil(modo)`, preferencia en localStorage `arclycee_control_tactil`
-- **Boss fight: Espíritu del Cemí** (`js/mecanicas/boss-cemi.js`): bullet hell secreto en Isla Cabritos. 4 patrones (espiral, anillo, onda, dirigido), 5 corazones, 3 ciclos (1.0×→1.3×→1.6×, doble patrón en ciclo 3). Espada de Enriquillo. Victoria: Bendición Divina (+30 vida, +5 fuerza, +20% velocidad). Derrota: despertar como sueño. Pedestal oculto detrás de arbusto, visible tras entregar ídolo. **Esc/Q sale del combate** en las fases `intro`/`combate`/`aturdido`/`golpe`/`transicion` llamando `alTerminar('huida')` — la escena ignora este valor, así el pedestal y la espada siguen disponibles
-- **Mapa de referencia Leaflet** (`js/mapas/`): `mapa-leaflet.js` orquesta módulos en `referencia/` (capas, marcadores, transiciones). Se abre con R desde cualquier escena jugable. Stadia Maps API key en `capas.js` línea 18 (dominio registrado: `arc.cemi.ai`). 6 capas de datos toggleables: 🗿 Taínos (16 sitios), 🏰 Coloniales (8 sitios), ⚓ Naufragios (12 pecios), 🏛 Museos (30 museos RD+Haití), 🔍 Inexplorados (8, tras robot), 🔬 Potencial Arqueológico (15 sitios investigados). Marcadores con DivIcon coloreados por estado. `window._viajarANodo(id)` para click-to-travel. Totalmente trilingüe
-- **Duelo de espadas** (`js/mecanicas/duelo-espada.js`): mini-juego de esgrima lateral contra Soldado Diego en La Isabela. Overlay como batú/combate. Dos modos: 'agresivo' (derrotar bajando HP) y 'pacifista' (diálogos amistosos suben convicción a 100). Posturas realistas: en garde (idle), estocada/lunge (E, cuerpo avanza con `lungeOffset`), bloqueo (Q, espada vertical), esquive (↓, arquear espalda hacia atrás). Parry si se bloquea en los primeros 0.2s del golpe enemigo → Diego aturdido 1s. Diego IA: acercarse, atacar alto (60%) o bajo (40%), retroceder. Toast "¡En garde!" al inicio, "¡Parry!" al conseguirlo. Opciones de diálogo horizontal (←→) antes del duelo: Atacar/Hablar/Negociar/Huir. Huir = pacifista sin pelea. Música propia: grupo 'duelo' (Blades of La Isabela, 2 MP3s). `juego.dueloEspada.iniciar({modo, juego, alTerminar})`. Resultado se procesa en `la-isabela.js._procesarResultadoDuelo()`
-- **Batú mini-juego** (`js/mecanicas/batu.js`): juego de pelota taíno como overlay. Física 2D con gravedad, rebotes y tipos de golpe según altura (cadera/hombro/cabeza/rodilla). IA con 72% velocidad, 15% errores intencionales. Se inicia desde `asentamiento-taino-1.js` al aceptar el desafío del Cacique Guacanagaríx. Al ganar, el cacique entrega su corona (accesorio permanente, `progreso.coronaCacique`). `juego.batu.iniciar({historia, alTerminar})`. Primero en 5 puntos gana. **Esc/Q abandona el partido** sin penalización — callback `alTerminar(gano, abandonado)` con segundo parámetro `abandonado=true` para que la escena omita la toast de derrota y el bono de reputación. El diálogo de oferta del cacique acepta ←/→ además de ↑/↓ (layout horizontal de botones)
-- **Areíto DDR** (`js/mecanicas/areito.js`): danza ceremonial taína estilo Dance Dance Revolution / Friday Night Funkin. 4 carriles de flechas (← ↓ ↑ →), notas suben hacia zona de acierto. 3 fases de dificultad (lenta → media → intensa, 60s). Puntuación: Perfecto/Bien/Fallo con combo multiplicador ×4. Ranking S/A/B/C/D. Se inicia con Higüemota en `asentamiento-taino-2.js`. Visual: batey nocturno con antorchas animadas y danzarines silueta. `juego.areito.iniciar({alTerminar, juego})`
-- **Rapel** (`js/mecanicas/rappel.js`): mini-juego de descenso por pozo vertical del cenote. Flechas de dirección suben por pantalla, jugador presiona la correcta en la zona dulce. Medidor de agarre (100 puntos, -12/-25 por fallo). 35 prompts con dificultad progresiva (1.0 → 0.45s intervalo). Visual: pozo oscuro con cuerda, personaje con casco. `juego.rappel.iniciar({alTerminar, juego})`
-- **Opciones de diálogo**: las líneas de diálogo pueden tener `opciones: [{texto, valor}]`. `avanzar()` bloquea en opciones. `seleccionarOpcion(±1)` para navegar, `confirmarOpcion()` para elegir. Layout horizontal (←→) o vertical (↑↓) según el mundo. Usado en oferta de batú, duelo de espadas, etc.
-- **Registro de juego** (`js/mecanicas/registro-juego.js`): Game Log con tecla L. Pestaña "Historia Principal" muestra los 9 nodos del mundo con estado (✅/🔓/🔒) desde `juego.progreso`. Pestaña "Secundaria" muestra sidequests. Constructor recibe `juego` para acceder al progreso
-- **Créditos cinematográficos**: fase `_enCreditos` en `final-cinematica.js`, scroll vertical automático (`_creditosY -= velocidad * dt`), flechas arriba/abajo para scroll manual sin interrumpir el auto-scroll, E para acelerar/saltar, "les fous du robot" bajo "Creado por", lista de 10 creadores + Lycée Français + año 2026. `bloqueoEntrada = true` en `menuPrincipal.iniciar()` evita que E residual active Nuevo Juego. `_yaTermino` flag previene llamadas múltiples a `_irAlMenu()`
-- **Documentación técnica** (`docs/technical.html`, `technical-en.html`, `technical-fr.html`): 22 secciones cubriendo toda la arquitectura del código (game loop, input, renderizado, 57 sonidos, combate, diálogos, compañeros, inventario, álbum, mapa tiles, mapa mundo, acuático, clima, mini-juegos, reputación, guardado, Leaflet, finales, i18n, jugador, config). Cada referencia a un archivo .js es clicable gracias a `source-viewer.js`
-- **Visor de código fuente** (`docs/source-viewer.js`): auto-convierte `<code>js/...</code>` en enlaces clicables que abren un modal con syntax highlighting (regex-based: keywords, strings, comments, numbers, functions). GitHub Dark theme. Inyecta sus propios estilos CSS
-- **Diagramas técnicos** (`docs/tech-diagrams.js`): 10 SVGs generados programáticamente con i18n (ES/EN/FR). Detecta idioma vía `<html lang>`. Insertados automáticamente tras headings en las secciones correspondientes de la documentación técnica
-- **Previews de mundos** (`docs/world-previews.js`): Canvas 2D renders animados de los 9 mundos del juego. IIFE con 10 funciones renderer, matching multilingüe por título de sección, IntersectionObserver para eficiencia. Se incluye en `worlds*.html`
-- **Logo y branding**: `resources/arclycee-logo.png` (fondo transparente) usado en menú principal, créditos, cinemática final, navegación docs y footer docs. `navigation.js` inyecta logo en nav bar (28px) y footer (48px) dinámicamente vía DOM
-- **Footer compartido**: `navigation.js` genera el footer dinámicamente en todas las páginas de docs. Las páginas usan `<div id="doc-footer"></div>` como placeholder (o se crea automáticamente). El footer incluye logo, versión (`VERSION`), tagline traducido, enlace al juego y enlace al formulario de feedback. Cambiar la versión solo requiere editar `VERSION` en `navigation.js`
-- **Menú Técnico (docs)**: 5 ítems — Mecánicas, Programación, Cambios, Clónanos, Participa. **Menú Aprender (antes Pedagogía)**: 5 ítems — Educación, Uso de IA, Guía de Aprendizaje, Arquepedia, Evaluación. **Menú Acerca de**: 4 ítems con anchor links (`#introduccion`, `#nota-profesor`, `#equipo`, `#contacto`). Los ítems hijos de grupos pueden tener propiedad `hash` para enlazar a secciones dentro de la misma página
-- **Página Participa** (`docs/contribute.html`, `-en.html`, `-fr.html`): invita a estudiantes, profesores, arqueólogos y programadores a contribuir. Explica que el proyecto está en desarrollo continuo. Secciones por audiencia con formas concretas de ayudar
-- **Landing pages con links**: las 5 tarjetas `.landing-feature` (13 Mundos, Ruta Pacifista, Educativo, Creado por Estudiantes, Código Abierto) son enlaces clicables a las páginas correspondientes en docs/. La tarjeta "3 Idiomas" queda como div sin link. Se añadió `color: inherit; text-decoration: none; display: block;` al CSS para mantener la apariencia de tarjeta
-- **Hero image con marco**: las 3 landing pages (root) y las 3 dashboards (docs) muestran la hero image envuelta en `.landing-frame` con borde 4px dorado-apagado. Click en la imagen hace scroll suave al selector de idioma debajo. SVG de marco irregular con doble borde está presente pero oculto (`display: none`) — se puede restaurar cambiando la clase
-- **Formulario de feedback**: formulario externo en `https://arclycee-aux.web.app/form.html` (repo `arclycee-aux/`). Integrado en `juego.html` (botón flotante dorado, solo visible online), en las 3 landing pages (`index.html`, `index-en.html`, `index-fr.html`), en `docs/about*.html` (sección "Contáctanos" con modal) y **en todas las páginas de docs** vía `navigation.js` (botón flotante inyectado automáticamente, bottom-right desktop, top-right mobile). Usa `if (!document.getElementById('arc-feedback-btn'))` para evitar duplicados con about.html. Pasa `?lang=` para i18n automático. Firebase Firestore backend (proyecto `cemiai`, base de datos `arclycee`). **Importante**: el iframe NO debe tener `background: #fff` — sin fondo evita el flash blanco antes de que cargue el formulario
-- **Hero banners en docs**: cada página principal (`index.html`, `en.html`, `fr.html`) muestra la hero image del idioma correspondiente con clase `.hero-banner` (full-width, border-radius inferior)
-
-## Qué NO hacer
-
-- No usar frameworks ni librerías (excepto LeafletJS para mapas)
-- No escribir código sin comentarios en español
-- No usar Q/Esc para salir de mundos (solo M o borde inferior)
-- No crear archivos de documentación sin que se pida
-- No usar `entrada.izquierda` — siempre `entrada.estaPresionada('izquierda')`
-- No llamar "cemí dorado" al artefacto taíno — históricamente los cemíes tenían detalles de guanín (aleación oro/plata/cobre), no eran de oro puro
-
-<!-- BEGIN cemi-contact-emails v3 (managed — source: cemi-system/sync/contact-emails.md) -->
-## 📧 Contact emails (all CEMI repos)
-
-Valid, working contact addresses for CEMI — real and monitored. Safe to use in site copy, footers, contact forms, persona contact routing, press kits, proposals, and any outward-facing material.
-
-**Addresses (all `@cemi.ai`):** `ai-staff@` · `business@` · `contact@` (general inbox) · `info@` · `invest@` · `legal@` · `partners@` · `privacy@` · `security@` · `support@`
-
-**The same set is aliased at these initiative domains:** `@ailearning.global`, `@airtistic.ai`, `@ibizai.io`, `@lawra.io`, `@skaills.ai` — so e.g. `contact@ailearning.global`, `legal@lawra.io`, `support@ibizai.io` all resolve.
-
-Default to `contact@cemi.ai`; route by purpose where a specific address fits (legal → `legal@`, security → `security@`, investment → `invest@`, partnerships/alliances → `partners@`, sales/commercial → `business@`, privacy/GDPR → `privacy@`). Do **not** invent addresses outside this list. Consultable at `/admin/emails`.
-<!-- END cemi-contact-emails v3 -->
-
-<!-- BEGIN cemi-html-sanitization v2 (managed — source: sitecraft-system/sync/html-sanitization.md) -->
-## 🛡️ HTML sanitization — never inject untrusted HTML unsanitized (all CEMI repos)
-
-Any content rendered into the DOM as raw HTML — `{@html}` (Svelte), `set:html` / `<Fragment set:html>` (Astro), `dangerouslySetInnerHTML` (React), `.innerHTML`, `v-html` — **MUST be sanitized before injection UNLESS its source is fully trusted.**
-
-- **Trusted (no sanitizer required):** build-time content authored in-repo and git-reviewed — committed markdown/HTML, hardcoded icon-SVG constants, seed-script template literals. The git diff is the review gate.
-- **Untrusted (sanitize ALWAYS):** anything user-contributed, form-submitted, externally fetched, runtime-AI-generated, or otherwise not git-reviewed — community resources, comments/discussions, user notes, uploaded/imported docs, runtime-rendered markdown. These are live XSS surfaces.
-
-**How:** sanitize with a vetted library — **DOMPurify** (runtime) or **rehype-sanitize** (at markdown render). Both are MIT + local — no paid/external API (satisfies the cost-policy hard rule).
-
-**The allowlist MUST preserve the mandatory CEMI visual HTML** — inline `<svg>` diagrams, `<pre><code>` blocks, `<table>`, and `<aside class="inset inset--*">` author insets. Getting the allowlist wrong silently strips compliance-required visuals — test it against a known-good content unit before shipping. Strip `<script>`, event handlers (`on*`), `javascript:` URLs, and `<iframe>`/`<object>`/`<embed>` unless explicitly required and origin-restricted.
-
-**One sanitizer, one allowlist, reused everywhere** — a per-sink ad-hoc filter drifts; centralize it.
-
-Origin: a 2026-07-22 audit of `experience` found its content `{@html}` sinks (content bodies, program/experience overviews, user-contributed community resources) injected UNSANITIZED with no sanitizer in the repo — the live XSS gap that prompted this rule. `experience` has since **addressed it on its own** — a single centralized DOMPurify sanitizer (`src/lib/utils/sanitize-html.ts`) with a shared allowlist, applied at its content sinks — and is the **reference implementation** for this rule. This block is documentation: syncing it into a repo records the rule and does **NOT** modify that repo's existing sanitization code — never overwrite or override a repo's own working handling to match the prose here; if a repo already satisfies the rule, the block just documents it. When adopting the sitecraft §6.4 markdown pipeline, sanitize as part of the render step, not after.
-<!-- END cemi-html-sanitization v2 -->
-
 <!-- BEGIN cemi-impact-arc v2 (managed — source: cemi-system/sync/impact-arc.md) -->
 ## 🌱 The Impact Arc — how CEMI intervenes (all CEMI repos)
 
@@ -313,6 +149,22 @@ Stage names per locale:
 
 Use the motto when quoting Carlos, the framework name when referring to the organizational canon. The stages are **fixed and ordered** — do not add, rename, drop, or reorder them, and do not coin new translations: the ES and FR forms above are canon (note FR *Rendre possible* for Enable and *Autonomiser* for Empower — neither is a literal cognate, and both are deliberate).
 <!-- END cemi-impact-arc v2 -->
+
+<!-- BEGIN journalaism-article-canon v1 (managed — source: journalaism-system/sync/journalaism-article-canon.md) -->
+## Article writing and research canon (all CEMI repositories that publish text)
+
+The canon for writing articles and researching topics lives in `../journalaism-system/canon/` and is binding here. One copy, there; this block points.
+
+- **Factual-article protocol** (`01`): the working shape of an article (Step 0 file, claim ledger, prompts, returns, source ledgers, Gate 2 record, bibliography), the eight steps and two human gates, the claim classes and verdicts, kill criteria.
+- **Research protocol** (`02`): how a deep-research round is written, run by the human operator in several systems, saved verbatim and verified source by source; the source ledger with its four verdicts (VERIFIED, PARTIAL, UNVERIFIED, CONTRADICTED); the fetch ladder; what counts as a source; corrections to our own documents.
+- **Bibliography and citation** (`03`): the rule of admission, the entry, ids never renumbered, two-way id reconciliation (`tools/check-ids.mjs`), a verbatim quote always carries its page.
+- **Voice, style and disclosure** (`04`): the voice brief (style and perspective, from the personAI roster or supplied in the request), what reads as generated and the fix, no exact small counts in public copy, typography per language, disclosure of method without naming tools where the reader's confidence is the point.
+- **Anti-hallucination for text** (`05`): the hierarchy (verified cited fact, documented canon, silence; never fabrication), the tiers `[SOURCE]` / `[INFERENCE]` / `[REQUIRES VERIFICATION]`, the prohibited fabrications, the three-pass check, the authenticity test, corrections published visibly. **Nothing carrying `[REQUIRES VERIFICATION]` ships.**
+- **Quality audit** (`06`): `node ../journalaism-system/tools/audit-opinion-content.mjs <path>` before every publish; category 7 (unresolved markers) is a hard gate; every match is triaged by a human.
+- **Article types and structures** (`07`): opinion, take, dialogue, factual, explainer, consultation to an authority, foundations document, gaps register, incident log, handoff; the structure catalogue and the structure register, so no two consecutive pieces share a shape.
+
+Templates: `../journalaism-system/templates/`. Worked examples: `../journalaism-system/examples/`.
+<!-- END journalaism-article-canon v1 -->
 
 <!-- BEGIN cemi-png-logos v2 (managed — source: mediamax-system/sync/png-logos.md) -->
 ## 🖼️ HARD RULE — logos are PNG, never SVG (all CEMI media/video repos)
@@ -525,22 +377,6 @@ Brevity and honesty beat fluency. A short paragraph of true things is worth more
 
 *(Pointer since 2026-09-11. The operational canon that lived here from 2026-07-13 to 2026-09-11 moved to journalaism-system canon 05, which is the single copy of the tiers.)*
 <!-- END cemi-persona-authoring v1 -->
-
-<!-- BEGIN journalaism-article-canon v1 (managed — source: journalaism-system/sync/journalaism-article-canon.md) -->
-## Article writing and research canon (all CEMI repositories that publish text)
-
-The canon for writing articles and researching topics lives in `../journalaism-system/canon/` and is binding here. One copy, there; this block points.
-
-- **Factual-article protocol** (`01`): the working shape of an article (Step 0 file, claim ledger, prompts, returns, source ledgers, Gate 2 record, bibliography), the eight steps and two human gates, the claim classes and verdicts, kill criteria.
-- **Research protocol** (`02`): how a deep-research round is written, run by the human operator in several systems, saved verbatim and verified source by source; the source ledger with its four verdicts (VERIFIED, PARTIAL, UNVERIFIED, CONTRADICTED); the fetch ladder; what counts as a source; corrections to our own documents.
-- **Bibliography and citation** (`03`): the rule of admission, the entry, ids never renumbered, two-way id reconciliation (`tools/check-ids.mjs`), a verbatim quote always carries its page.
-- **Voice, style and disclosure** (`04`): the voice brief (style and perspective, from the personAI roster or supplied in the request), what reads as generated and the fix, no exact small counts in public copy, typography per language, disclosure of method without naming tools where the reader's confidence is the point.
-- **Anti-hallucination for text** (`05`): the hierarchy (verified cited fact, documented canon, silence; never fabrication), the tiers `[SOURCE]` / `[INFERENCE]` / `[REQUIRES VERIFICATION]`, the prohibited fabrications, the three-pass check, the authenticity test, corrections published visibly. **Nothing carrying `[REQUIRES VERIFICATION]` ships.**
-- **Quality audit** (`06`): `node ../journalaism-system/tools/audit-opinion-content.mjs <path>` before every publish; category 7 (unresolved markers) is a hard gate; every match is triaged by a human.
-- **Article types and structures** (`07`): opinion, take, dialogue, factual, explainer, consultation to an authority, foundations document, gaps register, incident log, handoff; the structure catalogue and the structure register, so no two consecutive pieces share a shape.
-
-Templates: `../journalaism-system/templates/`. Worked examples: `../journalaism-system/examples/`.
-<!-- END journalaism-article-canon v1 -->
 
 <!-- BEGIN cemi-gemini-models v1 (managed — source: cemi-system/sync/gemini-models.md) -->
 ## 🤖 Gemini model ids — never hard-code a dated id in application code (all CEMI repos)
